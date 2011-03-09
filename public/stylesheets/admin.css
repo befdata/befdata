@@ -1,0 +1,24 @@
+/* Admin interface styles */
+
+.admin_body {
+  margin: 0;
+  background: 0 none;
+}
+
+#menu_line {
+  color: #ddd;
+  background: #555;
+  padding: 7px 10px;
+  border-bottom: dotted #ffffff 1px;
+}
+
+#menu_line a {
+  text-decoration: none;
+  color: #ddd;
+  padding: 0 10px;
+}
+
+#menu_line a:hover {
+  text-decoration: underline;
+  color: #fff;
+}
