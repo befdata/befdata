@@ -1,0 +1,267 @@
+--- 
+institutions_019: 
+  city: 06120 Halle
+  comment: 
+  name: Department Community Ecology
+  created_at: 2009-04-09 00:00:00
+  country: Germany
+  updated_at: 
+  url: 
+  street: Theodor-Lieser-Str. 4
+  id: "7"
+  fax: 
+  phone: 
+  affiliation: Helmholtz-Centre for Environmental Research-UFZ
+  email: 
+institutions_008: 
+  city: Leipzig
+  comment: 
+  name: Special Botany and Functional Biodiversity
+  created_at: 2010-04-30 19:50:56.6506
+  country: Germany
+  updated_at: 2010-04-30 19:50:56.6506
+  url: http://alfresco.uni-leipzig.de/spezbot/
+  street: 
+  id: "19"
+  fax: (0049) 341 97 385 49
+  phone: (0049) 341 97 385 90
+  affiliation: University of Leipzig
+  email: kummer@uni-leipzig.de
+institutions_009: 
+  city: "D-21332 L\xC3\xBCneburg"
+  comment: ""
+  name: Institute of Ecology
+  created_at: 2009-05-12 13:06:19.61
+  country: Germany
+  updated_at: 2009-05-12 13:06:19.61
+  url: ""
+  street: Scharnhorststr. 1
+  id: "16"
+  fax: ""
+  phone: ""
+  affiliation: "University of L\xC3\xBCneburg"
+  email: ""
+institutions_010: 
+  city: Jena
+  comment: 
+  name: Organismic Biogeochemistry
+  created_at: 2009-04-09 00:00:00
+  country: Germany
+  updated_at: 
+  url: 
+  street: "Hans-Kn\xC3\xB6ll str. 10"
+  id: "9"
+  fax: 
+  phone: 
+  affiliation: Max Planck Institute for Biogeochemistry
+  email: 
+institutions_011: 
+  city: "72070 T\xC3\xBCbingen"
+  comment: 
+  name: Institute of Geography / Laboratory for Soil Science and Geoecology
+  created_at: 2009-04-09 00:00:00
+  country: "Germany "
+  updated_at: 
+  url: 
+  street: "R\xC3\xBCmelinstr. 19-23"
+  id: "5"
+  fax: 
+  phone: 
+  affiliation: "Eberhard Karls University T\xC3\xBCbingen"
+  email: 
+institutions_012: 
+  city: Beijing 100093
+  comment: 
+  name: Laboratory of Quantitative Vegetation Ecology, Institute of Botany
+  created_at: 2009-04-09 00:00:00
+  country: China
+  updated_at: 
+  url: 
+  street: 20 Nanxincun, Xiangshan, Haidian District
+  id: "10"
+  fax: 
+  phone: 
+  affiliation: Chinese Academy of Sciences
+  email: 
+institutions_001: 
+  city: "21332 L\xC3\xBCneburg"
+  comment: 
+  name: Institute of Ecology and Environmental Chemistry
+  created_at: 2009-04-09 00:00:00
+  country: Germany
+  updated_at: 
+  url: 
+  street: Scharnhorststr. 1
+  id: "2"
+  fax: 
+  phone: 
+  affiliation: "University of L\xC3\xBCneburg"
+  email: 
+institutions_013: 
+  city: ""
+  comment: ""
+  name: Gutianshan Nature Reserve
+  created_at: 2009-04-29 09:09:27.056
+  country: ""
+  updated_at: 2009-05-14 11:50:41.188
+  url: ""
+  street: ""
+  id: "12"
+  fax: ""
+  phone: ""
+  affiliation: State of Zhejiang
+  email: ""
+institutions_002: 
+  city: ""
+  comment: ""
+  name: National Science Foundation of China
+  created_at: 2009-10-01 12:32:16.5
+  country: ""
+  updated_at: 2009-10-01 12:32:16.5
+  url: ""
+  street: ""
+  id: "18"
+  fax: ""
+  phone: ""
+  affiliation: ""
+  email: ""
+institutions_014: 
+  city: "Shanghai 200062 "
+  comment: 
+  name: "Department of Environmental Sciences "
+  created_at: 2009-04-09 00:00:00
+  country: China
+  updated_at: 
+  url: 
+  street: "Zhongshan Road (N.) 3663, "
+  id: "11"
+  fax: 
+  phone: 
+  affiliation: "East China Normal University "
+  email: 
+institutions_003: 
+  city: D-79104 Freiburg
+  comment: ""
+  name: Faculty of Biology - Geobotany / Experimental Vegetation Science
+  created_at: 2009-05-12 12:41:19.875
+  country: Germany
+  updated_at: 2009-05-12 12:41:19.875
+  url: ""
+  street: Schaenzlestr. 1
+  id: "14"
+  fax: ""
+  phone: ""
+  affiliation: University of Freiburg
+  email: ""
+institutions_015: 
+  city: D-06120 Halle
+  comment: 
+  name: Department of Soil Ecology
+  created_at: 2009-04-09 00:00:00
+  country: Germany
+  updated_at: 
+  url: 
+  street: "Theodor-Lieser-Stra\xC3\x9Fe 4"
+  id: "6"
+  fax: 
+  phone: 
+  affiliation: Helmholtz Centre for Environmental Research UFZ Leipzig-Halle
+  email: 
+institutions_004: 
+  city: "CH-8057 Z\xC3\xBCrich"
+  comment: 
+  name: Institute of Enviromental Science
+  created_at: 2009-04-09 00:00:00
+  country: "Switzerland "
+  updated_at: 
+  url: 
+  street: Winterthurerstrasse 190
+  id: "3"
+  fax: 
+  phone: 
+  affiliation: University of Zurich
+  email: 
+institutions_016: 
+  city: 06108 Halle
+  comment: 
+  name: Institute of Biology / Geobotany and Botanical Garden
+  created_at: 
+  country: Germany
+  updated_at: 
+  url: 
+  street: Am Kirchtor 1
+  id: "1"
+  fax: 
+  phone: 
+  affiliation: Martin Luther University Halle-Wittenberg
+  email: 
+institutions_005: 
+  city: 100871 Beijing
+  comment: ""
+  name: Department of Ecology, College of Environmental Sciences
+  created_at: 2009-05-12 12:57:58.997
+  country: China
+  updated_at: 2009-05-12 12:57:58.997
+  url: ""
+  street: ""
+  id: "15"
+  fax: ""
+  phone: ""
+  affiliation: Peking University
+  email: ""
+institutions_017: 
+  city: ""
+  comment: ""
+  name: German Science foundation
+  created_at: 2009-10-01 12:31:12.718
+  country: ""
+  updated_at: 2009-10-01 12:31:12.718
+  url: ""
+  street: ""
+  id: "17"
+  fax: ""
+  phone: ""
+  affiliation: ""
+  email: ""
+institutions_006: 
+  city: Beijing 100093
+  comment: 
+  name: Key Laboratory of Quantative Vegetation Ecology, Institute of Botany
+  created_at: 2009-04-09 00:00:00
+  country: China
+  updated_at: 
+  url: 
+  street: 20 Nanxincun, Xiangshan, Haidian District
+  id: "8"
+  fax: 
+  phone: 
+  affiliation: Chinese Academy of Sciences
+  email: 
+institutions_018: 
+  city: CH-3013 Bern
+  comment: ""
+  name: Plant Sciences
+  created_at: 2009-05-12 12:34:52.11
+  country: Switzerland
+  updated_at: 2009-05-12 12:34:52.11
+  url: http://www.botany.unibe.ch/planteco/index.php
+  street: Altenbergrain 21
+  id: "13"
+  fax: ""
+  phone: ""
+  affiliation: University of Bern
+  email: ""
+institutions_007: 
+  city: 79106 Freiburg
+  comment: 
+  name: Institute of Silviculture
+  created_at: 2009-04-09 00:00:00
+  country: Germany
+  updated_at: 
+  url: 
+  street: Tennenbacherstr. 4
+  id: "4"
+  fax: 
+  phone: 
+  affiliation: University of Freiburg
+  email: 

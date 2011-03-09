@@ -1,0 +1,217 @@
+--- 
+locations_027: 
+  comment: 
+  name: Comparative study plot 15
+  shortname: CSP15
+  created_at: 2009-04-23 00:00:00
+  updated_at: 
+  id: "15"
+  description: 
+locations_016: 
+  comment: 
+  name: Comparative study plot 05
+  shortname: CSP05
+  created_at: 2009-04-23 00:00:00
+  updated_at: 
+  id: "5"
+  description: 
+locations_005: 
+  comment: 
+  name: Comparative study plot 12
+  shortname: CSP12
+  created_at: 2009-04-23 00:00:00
+  updated_at: 
+  id: "12"
+  description: 
+locations_017: 
+  comment: 
+  name: Comparative study plot 10
+  shortname: CSP10
+  created_at: 2009-04-23 00:00:00
+  updated_at: 
+  id: "10"
+  description: 
+locations_006: 
+  comment: 
+  name: Comparative study plot 18
+  shortname: CSP18
+  created_at: 2009-04-23 00:00:00
+  updated_at: 
+  id: "18"
+  description: 
+locations_018: 
+  comment: 
+  name: Comparative study plot 14
+  shortname: CSP14
+  created_at: 2009-04-23 00:00:00
+  updated_at: 
+  id: "14"
+  description: 
+locations_007: 
+  comment: 
+  name: Comparative study plot 23
+  shortname: CSP23
+  created_at: 2009-04-23 00:00:00
+  updated_at: 
+  id: "23"
+  description: 
+locations_019: 
+  comment: 
+  name: Comparative study plot 16
+  shortname: CSP16
+  created_at: 2009-04-23 00:00:00
+  updated_at: 
+  id: "16"
+  description: 
+locations_008: 
+  comment: 
+  name: Comparative study plot 08
+  shortname: CSP08
+  created_at: 2009-04-23 00:00:00
+  updated_at: 
+  id: "8"
+  description: 
+locations_020: 
+  comment: 
+  name: Comparative study plot 21
+  shortname: CSP21
+  created_at: 2009-04-23 00:00:00
+  updated_at: 
+  id: "21"
+  description: 
+locations_009: 
+  comment: 
+  name: Comparative study plot 02
+  shortname: CSP02
+  created_at: 2009-04-23 00:00:00
+  updated_at: 
+  id: "2"
+  description: 
+locations_021: 
+  comment: 
+  name: Comparative study plot 25
+  shortname: CSP25
+  created_at: 2009-04-23 00:00:00
+  updated_at: 
+  id: "25"
+  description: 
+locations_010: 
+  comment: 
+  name: Comparative study plot 19
+  shortname: CSP19
+  created_at: 2009-04-23 00:00:00
+  updated_at: 
+  id: "19"
+  description: 
+locations_022: 
+  comment: 
+  name: Comparative study plot 27
+  shortname: CSP27
+  created_at: 2009-04-23 00:00:00
+  updated_at: 
+  id: "27"
+  description: 
+locations_011: 
+  comment: 
+  name: Comparative study plot 13
+  shortname: CSP13
+  created_at: 2009-04-23 00:00:00
+  updated_at: 
+  id: "13"
+  description: 
+locations_023: 
+  comment: 
+  name: Comparative study plot 11
+  shortname: CSP11
+  created_at: 2009-04-23 00:00:00
+  updated_at: 
+  id: "11"
+  description: 
+locations_012: 
+  comment: 
+  name: Comparative study plot 09
+  shortname: CSP09
+  created_at: 2009-04-23 00:00:00
+  updated_at: 
+  id: "9"
+  description: 
+locations_001: 
+  comment: 
+  name: Comparative study plot 17
+  shortname: CSP17
+  created_at: 2009-04-23 00:00:00
+  updated_at: 
+  id: "17"
+  description: 
+locations_024: 
+  comment: 
+  name: Comparative study plot 04
+  shortname: CSP04
+  created_at: 2009-04-23 00:00:00
+  updated_at: 
+  id: "4"
+  description: 
+locations_013: 
+  comment: 
+  name: Comparative study plot 24
+  shortname: CSP24
+  created_at: 2009-04-23 00:00:00
+  updated_at: 
+  id: "24"
+  description: 
+locations_002: 
+  comment: 
+  name: Comparative study plot 01
+  shortname: CSP01
+  created_at: 2009-04-23 00:00:00
+  updated_at: 
+  id: "1"
+  description: 
+locations_025: 
+  comment: 
+  name: Comparative study plot 06
+  shortname: CSP06
+  created_at: 2009-04-23 00:00:00
+  updated_at: 
+  id: "6"
+  description: 
+locations_014: 
+  comment: 
+  name: Comparative study plot 20
+  shortname: CSP20
+  created_at: 2009-04-23 00:00:00
+  updated_at: 
+  id: "20"
+  description: 
+locations_003: 
+  comment: 
+  name: Comparative study plot 26
+  shortname: CSP26
+  created_at: 2009-04-23 00:00:00
+  updated_at: 
+  id: "26"
+  description: 
+locations_026: 
+  comment: 
+  name: Comparative study plot 22
+  shortname: CSP22
+  created_at: 2009-04-23 00:00:00
+  updated_at: 
+  id: "22"
+  description: 
+locations_015: 
+  comment: 
+  name: Comparative study plot 03
+  shortname: CSP03
+  created_at: 2009-04-23 00:00:00
+  updated_at: 
+  id: "3"
+  description: 
+locations_004: 
+  comment: 
+  name: Comparative study plot 07
+  shortname: CSP07
+  created_at: 2009-04-23 00:00:00
+  updated_at: 
+  id: "7"
+  description: 

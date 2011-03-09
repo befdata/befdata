@@ -1,0 +1,37 @@
+--- 
+tags_008: 
+  kind: language
+  name: english
+  id: "4"
+tags_009: 
+  kind: tag
+  name: datetime
+  id: "5"
+tags_001: 
+  kind: tag
+  name: year
+  id: "6"
+tags_002: 
+  kind: tag
+  name: elevation
+  id: "7"
+tags_003: 
+  kind: tag
+  name: topography
+  id: "8"
+tags_004: 
+  kind: tag
+  name: relief
+  id: "9"
+tags_005: 
+  kind: tag
+  name: paper proposal
+  id: "1"
+tags_006: 
+  kind: tag
+  name: proposal
+  id: "2"
+tags_007: 
+  kind: tag
+  name: herbivory
+  id: "3"

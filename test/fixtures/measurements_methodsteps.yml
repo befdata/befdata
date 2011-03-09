@@ -1,0 +1,71 @@
+--- 
+measurements_methodsteps_005: 
+  comment: No comments for Elevation.
+  context_id: "65"
+  import_data_type: number
+  created_at: 2010-12-03 18:34:56.609125
+  updated_at: 2010-12-08 11:00:56.352
+  methodstep_id: "1"
+  id: "380"
+  unit: m asl
+  columnnr: "3"
+  columnheader: Elevation
+  definition: Elevation of the sampled plot
+  category_longshort: 
+  missingcode: ""
+measurements_methodsteps_001: 
+  comment: No comments for plot.
+  context_id: "65"
+  import_data_type: category
+  created_at: 2010-12-02 19:01:10.3558
+  updated_at: 2010-12-02 19:16:38.9244
+  methodstep_id: "9"
+  id: "376"
+  unit: id
+  columnnr: "2"
+  columnheader: plot
+  definition: "name of the Comparative Study Plot (CSP) "
+  category_longshort: ""
+  missingcode: ""
+measurements_methodsteps_002: 
+  comment: 
+  context_id: "32"
+  import_data_type: 
+  created_at: 2010-11-04 15:56:05.107
+  updated_at: 2010-11-04 15:56:05.107
+  methodstep_id: "105"
+  id: "266"
+  unit: file
+  columnnr: "1"
+  columnheader: filename
+  definition: filename
+  category_longshort: 
+  missingcode: 
+measurements_methodsteps_003: 
+  comment: No comments for date.
+  context_id: "65"
+  import_data_type: year
+  created_at: 2010-12-03 18:31:29.020125
+  updated_at: 2010-12-03 18:35:21.703125
+  methodstep_id: "8"
+  id: "379"
+  unit: year
+  columnnr: "1"
+  columnheader: date
+  definition: year of sampling
+  category_longshort: 
+  missingcode: ""
+measurements_methodsteps_004: 
+  comment: No comments for plot2.
+  context_id: "65"
+  import_data_type: category
+  created_at: 2010-12-03 18:35:01.033125
+  updated_at: 2010-12-03 18:59:10.966125
+  methodstep_id: "9"
+  id: "381"
+  unit: id
+  columnnr: "4"
+  columnheader: plot2
+  definition: "name of the Comparative Study Plot (CSP) "
+  category_longshort: 
+  missingcode: ""

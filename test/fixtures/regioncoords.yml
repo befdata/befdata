@@ -1,0 +1,406 @@
+--- 
+regioncoords_017: 
+  comment: "Anja Fankh\xC3\xA4nel, Winter 2008/9: coordinates helpful, correct\r\n"
+  reference: t
+  created_at: 2009-04-28 00:00:00
+  latitude: "29.23957"
+  updated_at: 2009-04-28 10:09:28.369
+  ydim: "30"
+  xdim: "30"
+  rank: 
+  id: "1"
+  area: 
+  yangle: "90"
+  xangle: "0"
+  location_id: "1"
+  longitude: "118.11587"
+regioncoords_006: 
+  comment: "Anja Fankh\xC3\xA4nel, Winter 2008/9: coordinates helpful, correct"
+  reference: t
+  created_at: 2009-04-28 00:00:00
+  latitude: "29.24687"
+  updated_at: 2009-04-28 10:10:26.161
+  ydim: "30"
+  xdim: "30"
+  rank: 
+  id: "5"
+  area: 
+  yangle: "90"
+  xangle: "0"
+  location_id: "5"
+  longitude: "118.1122"
+regioncoords_018: 
+  comment: "Anja Fankh\xC3\xA4nel, Winter 2008/9: not visited"
+  reference: t
+  created_at: 2009-04-28 00:00:00
+  latitude: "29.24709"
+  updated_at: 2009-04-28 10:20:32.941
+  ydim: "30"
+  xdim: "30"
+  rank: 
+  id: "27"
+  area: 
+  yangle: "90"
+  xangle: "0"
+  location_id: "27"
+  longitude: "118.13605"
+regioncoords_007: 
+  comment: "Anja Fankh\xC3\xA4nel, Winter 2008/9: coordinates helpful, correct"
+  reference: t
+  created_at: 2009-04-28 00:00:00
+  latitude: "29.25188"
+  updated_at: 2009-04-28 10:14:18.318
+  ydim: "30"
+  xdim: "30"
+  rank: 
+  id: "10"
+  area: 
+  yangle: "90"
+  xangle: "0"
+  location_id: "10"
+  longitude: "118.15791"
+regioncoords_019: 
+  comment: "Anja Fankh\xC3\xA4nel, Winter 2008/9: coordinates helpful, correct"
+  reference: t
+  created_at: 2009-04-28 00:00:00
+  latitude: "29.25184"
+  updated_at: 2009-04-28 10:13:13.947
+  ydim: "30"
+  xdim: "30"
+  rank: 
+  id: "7"
+  area: 
+  yangle: "90"
+  xangle: "0"
+  location_id: "7"
+  longitude: "118.14373"
+regioncoords_008: 
+  comment: "Anja Fankh\xC3\xA4nel, Winter 2008/9: coordinates helpful, correct"
+  reference: t
+  created_at: 2009-04-28 00:00:00
+  latitude: "29.24944"
+  updated_at: 2009-04-28 10:16:41.467
+  ydim: "30"
+  xdim: "30"
+  rank: 
+  id: "14"
+  area: 
+  yangle: "90"
+  xangle: "0"
+  location_id: "14"
+  longitude: "118.13518"
+regioncoords_020: 
+  comment: "! Anja Fankh\xC3\xA4nel, Winter 2008/9: coordinates not helpful, misleading"
+  reference: t
+  created_at: 2009-04-28 00:00:00
+  latitude: "29.24963"
+  updated_at: 2009-04-28 10:15:47.798
+  ydim: "30"
+  xdim: "30"
+  rank: 
+  id: "4"
+  area: 
+  yangle: "90"
+  xangle: "0"
+  location_id: "4"
+  longitude: "118.12015"
+regioncoords_009: 
+  comment: "Anja Fankh\xC3\xA4nel, Winter 2008/9: coordinates helpful, correct"
+  reference: t
+  created_at: 2009-04-28 00:00:00
+  latitude: "29.27059"
+  updated_at: 2009-04-28 10:18:47.071
+  ydim: "30"
+  xdim: "30"
+  rank: 
+  id: "21"
+  area: 
+  yangle: "90"
+  xangle: "0"
+  location_id: "21"
+  longitude: "118.08084"
+regioncoords_021: 
+  comment: "Anja Fankh\xC3\xA4nel, Winter 2008/9: coordinates helpful, correct"
+  reference: t
+  created_at: 2009-04-28 00:00:00
+  latitude: "29.21713"
+  updated_at: 2009-04-28 10:19:53.412
+  ydim: "30"
+  xdim: "30"
+  rank: 
+  id: "25"
+  area: 
+  yangle: "90"
+  xangle: "0"
+  location_id: "25"
+  longitude: "118.13155"
+regioncoords_010: 
+  comment: "Anja Fankh\xC3\xA4nel, Winter 2008/9: coordinates helpful, correct"
+  reference: t
+  created_at: 2009-04-28 00:00:00
+  latitude: "29.21489"
+  updated_at: 2009-04-28 10:20:04.755
+  ydim: "30"
+  xdim: "30"
+  rank: 
+  id: "26"
+  area: 
+  yangle: "90"
+  xangle: "0"
+  location_id: "26"
+  longitude: "118.12155"
+regioncoords_022: 
+  comment: "Anja Fankh\xC3\xA4nel, Winter 2008/9: coordinates helpful, correct"
+  reference: t
+  created_at: 2009-04-28 00:00:00
+  latitude: "29.24516"
+  updated_at: 2009-04-28 10:17:39.918
+  ydim: "30"
+  xdim: "30"
+  rank: 
+  id: "18"
+  area: 
+  yangle: "90"
+  xangle: "0"
+  location_id: "18"
+  longitude: "118.12461"
+regioncoords_011: 
+  comment: "Anja Fankh\xC3\xA4nel, Winter 2008/9: coordinates helpful, correct"
+  reference: t
+  created_at: 2009-04-28 00:00:00
+  latitude: "29.27383"
+  updated_at: 2009-04-28 10:14:41.395
+  ydim: "30"
+  xdim: "30"
+  rank: 
+  id: "11"
+  area: 
+  yangle: "90"
+  xangle: "0"
+  location_id: "11"
+  longitude: "118.13647"
+regioncoords_023: 
+  comment: "Anja Fankh\xC3\xA4nel, Winter 2008/9: coordinates helpful, correct"
+  reference: t
+  created_at: 2009-04-28 00:00:00
+  latitude: "29.2145"
+  updated_at: 2009-04-28 10:19:18.616
+  ydim: "30"
+  xdim: "30"
+  rank: 
+  id: "23"
+  area: 
+  yangle: "90"
+  xangle: "0"
+  location_id: "23"
+  longitude: "118.13723"
+regioncoords_012: 
+  comment: "Anja Fankh\xC3\xA4nel, Winter 2008/9: not visited"
+  reference: t
+  created_at: 2009-04-28 00:00:00
+  latitude: "29.23885"
+  updated_at: 2009-04-28 10:11:26.39
+  ydim: "30"
+  xdim: "30"
+  rank: 
+  id: "3"
+  area: 
+  yangle: "90"
+  xangle: "0"
+  location_id: "3"
+  longitude: "118.12402"
+regioncoords_001: 
+  comment: "Anja Fankh\xC3\xA4nel, Winter 2008/9: not visited"
+  reference: t
+  created_at: 2009-04-28 00:00:00
+  latitude: "29.28045"
+  updated_at: 2009-04-28 10:18:08.916
+  ydim: "30"
+  xdim: "30"
+  rank: 
+  id: "19"
+  area: 
+  yangle: "90"
+  xangle: "0"
+  location_id: "19"
+  longitude: "118.08389"
+regioncoords_024: 
+  comment: "Anja Fankh\xC3\xA4nel, Winter 2008/9: coordinates helpful, correct"
+  reference: t
+  created_at: 2009-04-28 00:00:00
+  latitude: "29.24253"
+  updated_at: 2009-04-28 10:17:11.153
+  ydim: "30"
+  xdim: "30"
+  rank: 
+  id: "16"
+  area: 
+  yangle: "90"
+  xangle: "0"
+  location_id: "16"
+  longitude: "118.09966"
+regioncoords_013: 
+  comment: "Anja Fankh\xC3\xA4nel, Winter 2008/9: coordinates helpful, correct\r\n"
+  reference: t
+  created_at: 2009-04-28 00:00:00
+  latitude: "29.25497"
+  updated_at: 2009-04-28 10:12:54.463
+  ydim: "30"
+  xdim: "30"
+  rank: 
+  id: "6"
+  area: 
+  yangle: "90"
+  xangle: "0"
+  location_id: "6"
+  longitude: "118.14747"
+regioncoords_002: 
+  comment: "Anja Fankh\xC3\xA4nel, Winter 2008/9: coordinates helpful, correct"
+  reference: t
+  created_at: 2009-04-28 00:00:00
+  latitude: "29.2463"
+  updated_at: 2009-04-28 10:16:27.062
+  ydim: "30"
+  xdim: "30"
+  rank: 
+  id: "13"
+  area: 
+  yangle: "90"
+  xangle: "0"
+  location_id: "13"
+  longitude: "118.11621"
+regioncoords_025: 
+  comment: "Anja Fankh\xC3\xA4nel, Winter 2008/9: coordinates helpful, correct"
+  reference: t
+  created_at: 2009-04-28 00:00:00
+  latitude: "29.24106"
+  updated_at: 2009-04-28 10:13:28.04
+  ydim: "30"
+  xdim: "30"
+  rank: 
+  id: "8"
+  area: 
+  yangle: "90"
+  xangle: "0"
+  location_id: "8"
+  longitude: "118.11019"
+regioncoords_014: 
+  comment: "Anja Fankh\xC3\xA4nel, Winter 2008/9: coordinates helpful, correct"
+  reference: t
+  created_at: 2009-04-28 00:00:00
+  latitude: "29.27698"
+  updated_at: 2009-04-28 10:19:05.633
+  ydim: "30"
+  xdim: "30"
+  rank: 
+  id: "22"
+  area: 
+  yangle: "90"
+  xangle: "0"
+  location_id: "22"
+  longitude: "118.09066"
+regioncoords_003: 
+  comment: "Anja Fankh\xC3\xA4nel, Winter 2008/9: coordinates helpful, correct"
+  reference: t
+  created_at: 2009-04-28 00:00:00
+  latitude: "29.24275"
+  updated_at: 2009-04-28 10:13:59.85
+  ydim: "30"
+  xdim: "30"
+  rank: 
+  id: "9"
+  area: 
+  yangle: "90"
+  xangle: "0"
+  location_id: "9"
+  longitude: "118.11337"
+regioncoords_026: 
+  comment: "Anja Fankh\xC3\xA4nel, Winter 2008/9: coordinates helpful, correct"
+  reference: t
+  created_at: 2009-04-28 00:00:00
+  latitude: "29.24926"
+  updated_at: 2009-04-28 10:09:46.664
+  ydim: "30"
+  xdim: "30"
+  rank: 
+  id: "2"
+  area: 
+  yangle: "90"
+  xangle: "0"
+  location_id: "2"
+  longitude: "118.13484"
+regioncoords_015: 
+  comment: "Anja Fankh\xC3\xA4nel, Winter 2008/9: coordinates helpful, correct"
+  reference: t
+  created_at: 2009-04-28 00:00:00
+  latitude: "29.24917"
+  updated_at: 2009-04-28 10:16:58.857
+  ydim: "30"
+  xdim: "30"
+  rank: 
+  id: "15"
+  area: 
+  yangle: "90"
+  xangle: "0"
+  location_id: "15"
+  longitude: "118.13106"
+regioncoords_004: 
+  comment: "Anja Fankh\xC3\xA4nel, Winter 2008/9: coordinates helpful, correct"
+  reference: t
+  created_at: 2009-04-28 00:00:00
+  latitude: "29.21483"
+  updated_at: 2009-04-28 10:19:35.522
+  ydim: "30"
+  xdim: "30"
+  rank: 
+  id: "24"
+  area: 
+  yangle: "90"
+  xangle: "0"
+  location_id: "24"
+  longitude: "118.13469"
+regioncoords_027: 
+  comment: "! Anja Fankh\xC3\xA4nel, Winter 2008/9: coordinates not helpful, misleading"
+  reference: t
+  created_at: 2009-04-28 00:00:00
+  latitude: "29.24939"
+  updated_at: 2009-04-28 10:21:17.689
+  ydim: "30"
+  xdim: "30"
+  rank: 
+  id: "12"
+  area: 
+  yangle: "90"
+  xangle: "0"
+  location_id: "12"
+  longitude: "118.1219"
+regioncoords_016: 
+  comment: "Anja Fankh\xC3\xA4nel, Winter 2008/9: coordinates helpful, correct"
+  reference: t
+  created_at: 2009-04-28 00:00:00
+  latitude: "29.24342"
+  updated_at: 2009-04-28 10:17:29.106
+  ydim: "30"
+  xdim: "30"
+  rank: 
+  id: "17"
+  area: 
+  yangle: "90"
+  xangle: "0"
+  location_id: "17"
+  longitude: "118.10828"
+regioncoords_005: 
+  comment: "Anja Fankh\xC3\xA4nel, Winter 2008/9: coordinates helpful, correct"
+  reference: t
+  created_at: 2009-04-28 00:00:00
+  latitude: "29.28139"
+  updated_at: 2009-04-28 10:18:35.353
+  ydim: "30"
+  xdim: "30"
+  rank: 
+  id: "20"
+  area: 
+  yangle: "90"
+  xangle: "0"
+  location_id: "20"
+  longitude: "118.08803"

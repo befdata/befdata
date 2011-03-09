@@ -1,0 +1,353 @@
+--- 
+categoricvalue_trigrams_081: 
+  token: " cs"
+  id: "60"
+  categoricvalue_id: "614"
+categoricvalue_trigrams_079: 
+  token: p06
+  id: "103"
+  categoricvalue_id: "626"
+categoricvalue_trigrams_016: 
+  token: csp
+  id: "143"
+  categoricvalue_id: "628"
+categoricvalue_trigrams_037: 
+  token: csp
+  id: "67"
+  categoricvalue_id: "615"
+categoricvalue_trigrams_060: 
+  token: tes
+  id: "38"
+  categoricvalue_id: "622"
+categoricvalue_trigrams_058: 
+  token: " cs"
+  id: "142"
+  categoricvalue_id: "628"
+categoricvalue_trigrams_082: 
+  token: p03
+  id: "121"
+  categoricvalue_id: "629"
+categoricvalue_trigrams_038: 
+  token: sp0
+  id: "138"
+  categoricvalue_id: "627"
+categoricvalue_trigrams_059: 
+  token: " 4 "
+  id: "59"
+  categoricvalue_id: "614"
+categoricvalue_trigrams_017: 
+  token: "03 "
+  id: "82"
+  categoricvalue_id: "620"
+categoricvalue_trigrams_018: 
+  token: sp0
+  id: "132"
+  categoricvalue_id: "625"
+categoricvalue_trigrams_040: 
+  token: "31 "
+  id: "58"
+  categoricvalue_id: "618"
+categoricvalue_trigrams_039: 
+  token: " 2 "
+  id: "141"
+  categoricvalue_id: "628"
+categoricvalue_trigrams_061: 
+  token: tes
+  id: "84"
+  categoricvalue_id: "621"
+categoricvalue_trigrams_083: 
+  token: "05 "
+  id: "70"
+  categoricvalue_id: "615"
+categoricvalue_trigrams_020: 
+  token: " cs"
+  id: "78"
+  categoricvalue_id: "620"
+categoricvalue_trigrams_019: 
+  token: csp
+  id: "137"
+  categoricvalue_id: "627"
+categoricvalue_trigrams_041: 
+  token: " cs"
+  id: "130"
+  categoricvalue_id: "625"
+categoricvalue_trigrams_062: 
+  token: sp0
+  id: "102"
+  categoricvalue_id: "626"
+categoricvalue_trigrams_084: 
+  token: "st "
+  id: "86"
+  categoricvalue_id: "621"
+categoricvalue_trigrams_021: 
+  token: p04
+  id: "127"
+  categoricvalue_id: "624"
+categoricvalue_trigrams_042: 
+  token: p05
+  id: "133"
+  categoricvalue_id: "625"
+categoricvalue_trigrams_063: 
+  token: " 5 "
+  id: "129"
+  categoricvalue_id: "625"
+categoricvalue_trigrams_085: 
+  token: p03
+  id: "81"
+  categoricvalue_id: "620"
+categoricvalue_trigrams_001: 
+  token: " 1 "
+  id: "55"
+  categoricvalue_id: "616"
+categoricvalue_trigrams_022: 
+  token: " cs"
+  id: "100"
+  categoricvalue_id: "626"
+categoricvalue_trigrams_043: 
+  token: "01 "
+  id: "140"
+  categoricvalue_id: "627"
+categoricvalue_trigrams_064: 
+  token: ong
+  id: "53"
+  categoricvalue_id: "623"
+categoricvalue_trigrams_086: 
+  token: " 2 "
+  id: "56"
+  categoricvalue_id: "617"
+categoricvalue_trigrams_002: 
+  token: sp0
+  id: "126"
+  categoricvalue_id: "624"
+categoricvalue_trigrams_023: 
+  token: " 3 "
+  id: "117"
+  categoricvalue_id: "629"
+categoricvalue_trigrams_044: 
+  token: " cs"
+  id: "118"
+  categoricvalue_id: "629"
+categoricvalue_trigrams_065: 
+  token: csp
+  id: "119"
+  categoricvalue_id: "629"
+categoricvalue_trigrams_087: 
+  token: "st "
+  id: "49"
+  categoricvalue_id: "623"
+categoricvalue_trigrams_003: 
+  token: " 5 "
+  id: "65"
+  categoricvalue_id: "615"
+categoricvalue_trigrams_024: 
+  token: lon
+  id: "52"
+  categoricvalue_id: "623"
+categoricvalue_trigrams_045: 
+  token: csp
+  id: "79"
+  categoricvalue_id: "620"
+categoricvalue_trigrams_066: 
+  token: sp0
+  id: "80"
+  categoricvalue_id: "620"
+categoricvalue_trigrams_088: 
+  token: "06 "
+  id: "104"
+  categoricvalue_id: "626"
+categoricvalue_trigrams_067: 
+  token: p05
+  id: "69"
+  categoricvalue_id: "615"
+categoricvalue_trigrams_004: 
+  token: " 6 "
+  id: "71"
+  categoricvalue_id: "619"
+categoricvalue_trigrams_025: 
+  token: " 4 "
+  id: "123"
+  categoricvalue_id: "624"
+categoricvalue_trigrams_046: 
+  token: tes
+  id: "47"
+  categoricvalue_id: "623"
+categoricvalue_trigrams_070: 
+  token: "ng "
+  id: "54"
+  categoricvalue_id: "623"
+categoricvalue_trigrams_068: 
+  token: tlo
+  id: "42"
+  categoricvalue_id: "622"
+categoricvalue_trigrams_005: 
+  token: ong
+  id: "44"
+  categoricvalue_id: "622"
+categoricvalue_trigrams_026: 
+  token: "31 "
+  id: "148"
+  categoricvalue_id: "630"
+categoricvalue_trigrams_047: 
+  token: " te"
+  id: "83"
+  categoricvalue_id: "621"
+categoricvalue_trigrams_071: 
+  token: est
+  id: "48"
+  categoricvalue_id: "623"
+categoricvalue_trigrams_069: 
+  token: csp
+  id: "125"
+  categoricvalue_id: "624"
+categoricvalue_trigrams_027: 
+  token: " te"
+  id: "46"
+  categoricvalue_id: "623"
+categoricvalue_trigrams_048: 
+  token: csp
+  id: "101"
+  categoricvalue_id: "626"
+categoricvalue_trigrams_006: 
+  token: " cs"
+  id: "136"
+  categoricvalue_id: "627"
+categoricvalue_trigrams_049: 
+  token: " cs"
+  id: "124"
+  categoricvalue_id: "624"
+categoricvalue_trigrams_007: 
+  token: " 31"
+  id: "147"
+  categoricvalue_id: "630"
+categoricvalue_trigrams_028: 
+  token: " cs"
+  id: "72"
+  categoricvalue_id: "619"
+categoricvalue_trigrams_050: 
+  token: "05 "
+  id: "134"
+  categoricvalue_id: "625"
+categoricvalue_trigrams_072: 
+  token: est
+  id: "85"
+  categoricvalue_id: "621"
+categoricvalue_trigrams_008: 
+  token: stl
+  id: "50"
+  categoricvalue_id: "623"
+categoricvalue_trigrams_030: 
+  token: sp0
+  id: "144"
+  categoricvalue_id: "628"
+categoricvalue_trigrams_029: 
+  token: csp
+  id: "73"
+  categoricvalue_id: "619"
+categoricvalue_trigrams_051: 
+  token: "04 "
+  id: "128"
+  categoricvalue_id: "624"
+categoricvalue_trigrams_073: 
+  token: "02 "
+  id: "146"
+  categoricvalue_id: "628"
+categoricvalue_trigrams_010: 
+  token: " 3 "
+  id: "77"
+  categoricvalue_id: "620"
+categoricvalue_trigrams_009: 
+  token: " cs"
+  id: "66"
+  categoricvalue_id: "615"
+categoricvalue_trigrams_031: 
+  token: stl
+  id: "41"
+  categoricvalue_id: "622"
+categoricvalue_trigrams_052: 
+  token: sp0
+  id: "68"
+  categoricvalue_id: "615"
+categoricvalue_trigrams_074: 
+  token: "06 "
+  id: "76"
+  categoricvalue_id: "619"
+categoricvalue_trigrams_011: 
+  token: "03 "
+  id: "122"
+  categoricvalue_id: "629"
+categoricvalue_trigrams_032: 
+  token: "ng "
+  id: "45"
+  categoricvalue_id: "622"
+categoricvalue_trigrams_053: 
+  token: p01
+  id: "139"
+  categoricvalue_id: "627"
+categoricvalue_trigrams_075: 
+  token: " 1 "
+  id: "135"
+  categoricvalue_id: "627"
+categoricvalue_trigrams_012: 
+  token: csp
+  id: "61"
+  categoricvalue_id: "614"
+categoricvalue_trigrams_033: 
+  token: tlo
+  id: "51"
+  categoricvalue_id: "623"
+categoricvalue_trigrams_054: 
+  token: p04
+  id: "63"
+  categoricvalue_id: "614"
+categoricvalue_trigrams_076: 
+  token: lon
+  id: "43"
+  categoricvalue_id: "622"
+categoricvalue_trigrams_013: 
+  token: "st "
+  id: "40"
+  categoricvalue_id: "622"
+categoricvalue_trigrams_034: 
+  token: sp0
+  id: "120"
+  categoricvalue_id: "629"
+categoricvalue_trigrams_055: 
+  token: sp0
+  id: "74"
+  categoricvalue_id: "619"
+categoricvalue_trigrams_077: 
+  token: est
+  id: "39"
+  categoricvalue_id: "622"
+categoricvalue_trigrams_014: 
+  token: " 6 "
+  id: "99"
+  categoricvalue_id: "626"
+categoricvalue_trigrams_035: 
+  token: " te"
+  id: "37"
+  categoricvalue_id: "622"
+categoricvalue_trigrams_056: 
+  token: p02
+  id: "145"
+  categoricvalue_id: "628"
+categoricvalue_trigrams_080: 
+  token: "04 "
+  id: "64"
+  categoricvalue_id: "614"
+categoricvalue_trigrams_078: 
+  token: p06
+  id: "75"
+  categoricvalue_id: "619"
+categoricvalue_trigrams_015: 
+  token: " 31"
+  id: "57"
+  categoricvalue_id: "618"
+categoricvalue_trigrams_036: 
+  token: sp0
+  id: "62"
+  categoricvalue_id: "614"
+categoricvalue_trigrams_057: 
+  token: csp
+  id: "131"
+  categoricvalue_id: "625"

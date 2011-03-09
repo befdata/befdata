@@ -1,0 +1,19 @@
+--- 
+filevalues_001: 
+  created_at: 2010-11-04 11:14:04.4574
+  data_request_id: 
+  updated_at: 2010-11-04 11:14:04.4574
+  file_file_size: "33280"
+  file_content_type: application/msword
+  file_updated_at: 2010-11-04 11:14:04.4174
+  file_file_name: BEF_China_Paper_Proposal_10_SP8_kn.doc
+  id: "2"
+filevalues_002: 
+  created_at: 2010-11-04 11:49:02.0598
+  data_request_id: 
+  updated_at: 2010-11-04 11:49:02.0598
+  file_file_size: "58368"
+  file_content_type: application/msword
+  file_updated_at: 2010-11-04 11:49:02.0258
+  file_file_name: BEF_China_Paper_Proposal_8_sp2_kn.doc
+  id: "3"

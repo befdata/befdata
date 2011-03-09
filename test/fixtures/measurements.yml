@@ -1,0 +1,265 @@
+--- 
+measurements_023: 
+  comment: 
+  value_id: "628"
+  import_value: "2"
+  created_at: 2010-12-03 18:34:52.610125
+  observation_id: "9898"
+  updated_at: 2010-12-03 18:34:52.610125
+  id: "24418"
+  measurements_methodstep_id: "376"
+  rownr: "3"
+  value_type: Categoricvalue
+measurements_012: 
+  comment: 
+  value_id: "3997"
+  import_value: "542"
+  created_at: 2010-12-08 11:01:14.118
+  observation_id: "9894"
+  updated_at: 2010-12-08 11:01:14.118
+  id: "24431"
+  measurements_methodstep_id: "380"
+  rownr: "5"
+  value_type: Numericvalue
+measurements_001: 
+  comment: 
+  value_id: "624"
+  import_value: "4"
+  created_at: 2010-12-03 18:34:52.422125
+  observation_id: "9894"
+  updated_at: 2010-12-03 18:34:52.422125
+  id: "24414"
+  measurements_methodstep_id: "376"
+  rownr: "5"
+  value_type: Categoricvalue
+measurements_024: 
+  comment: 
+  value_id: "4000"
+  import_value: "522"
+  created_at: 2010-12-08 11:01:14.38
+  observation_id: "9897"
+  updated_at: 2010-12-08 11:01:14.38
+  id: "24434"
+  measurements_methodstep_id: "380"
+  rownr: "2"
+  value_type: Numericvalue
+measurements_013: 
+  comment: 
+  value_id: "2"
+  import_value: 
+  created_at: 2010-11-04 16:02:54.778
+  observation_id: "9824"
+  updated_at: 2010-11-04 16:03:22.8826
+  id: "24093"
+  measurements_methodstep_id: "266"
+  rownr: "2"
+  value_type: Filevalue
+measurements_002: 
+  comment: 
+  value_id: "628"
+  import_value: "2"
+  created_at: 2010-12-03 18:59:30.815125
+  observation_id: "9898"
+  updated_at: 2010-12-03 18:59:30.815125
+  id: "24429"
+  measurements_methodstep_id: "381"
+  rownr: "3"
+  value_type: Categoricvalue
+measurements_014: 
+  comment: 
+  value_id: "70"
+  import_value: "2008"
+  created_at: 2010-12-03 18:35:33.893125
+  observation_id: "9895"
+  updated_at: 2010-12-03 18:35:33.893125
+  id: "24421"
+  measurements_methodstep_id: "379"
+  rownr: "6"
+  value_type: Datetimevalue
+measurements_003: 
+  comment: 
+  value_id: "73"
+  import_value: "2008"
+  created_at: 2010-12-03 18:35:34.155125
+  observation_id: "9898"
+  updated_at: 2010-12-03 18:35:34.155125
+  id: "24424"
+  measurements_methodstep_id: "379"
+  rownr: "3"
+  value_type: Datetimevalue
+measurements_015: 
+  comment: 
+  value_id: "626"
+  import_value: "6"
+  created_at: 2010-12-03 18:34:52.552125
+  observation_id: "9896"
+  updated_at: 2010-12-03 18:34:52.552125
+  id: "24416"
+  measurements_methodstep_id: "376"
+  rownr: "7"
+  value_type: Categoricvalue
+measurements_004: 
+  comment: 
+  value_id: "74"
+  import_value: "2008"
+  created_at: 2010-12-03 18:35:34.258125
+  observation_id: "9899"
+  updated_at: 2010-12-03 18:35:34.258125
+  id: "24425"
+  measurements_methodstep_id: "379"
+  rownr: "4"
+  value_type: Datetimevalue
+measurements_016: 
+  comment: 
+  value_id: "3998"
+  import_value: "507"
+  created_at: 2010-12-08 11:01:14.289
+  observation_id: "9895"
+  updated_at: 2010-12-08 11:01:14.289
+  id: "24432"
+  measurements_methodstep_id: "380"
+  rownr: "6"
+  value_type: Numericvalue
+measurements_005: 
+  comment: 
+  value_id: "629"
+  import_value: "3"
+  created_at: 2010-12-03 18:34:52.639125
+  observation_id: "9899"
+  updated_at: 2010-12-03 18:34:52.639125
+  id: "24419"
+  measurements_methodstep_id: "376"
+  rownr: "4"
+  value_type: Categoricvalue
+measurements_017: 
+  comment: 
+  value_id: "625"
+  import_value: "5"
+  created_at: 2010-12-03 18:59:30.734125
+  observation_id: "9895"
+  updated_at: 2010-12-03 18:59:30.734125
+  id: "24427"
+  measurements_methodstep_id: "381"
+  rownr: "6"
+  value_type: Categoricvalue
+measurements_006: 
+  comment: 
+  value_id: "4001"
+  import_value: "590"
+  created_at: 2010-12-08 11:01:14.43
+  observation_id: "9898"
+  updated_at: 2010-12-08 11:01:14.43
+  id: "24435"
+  measurements_methodstep_id: "380"
+  rownr: "3"
+  value_type: Numericvalue
+measurements_018: 
+  comment: 
+  value_id: "71"
+  import_value: "2008"
+  created_at: 2010-12-03 18:35:33.972125
+  observation_id: "9896"
+  updated_at: 2010-12-03 18:35:33.972125
+  id: "24422"
+  measurements_methodstep_id: "379"
+  rownr: "7"
+  value_type: Datetimevalue
+measurements_007: 
+  comment: 
+  value_id: "4002"
+  import_value: "720"
+  created_at: 2010-12-08 11:01:14.48
+  observation_id: "9899"
+  updated_at: 2010-12-08 11:01:14.48
+  id: "24436"
+  measurements_methodstep_id: "380"
+  rownr: "4"
+  value_type: Numericvalue
+measurements_019: 
+  comment: 
+  value_id: "627"
+  import_value: "1"
+  created_at: 2010-12-03 18:34:52.582125
+  observation_id: "9897"
+  updated_at: 2010-12-03 18:34:52.582125
+  id: "24417"
+  measurements_methodstep_id: "376"
+  rownr: "2"
+  value_type: Categoricvalue
+measurements_008: 
+  comment: 
+  value_id: "629"
+  import_value: "31"
+  created_at: 2010-12-03 18:59:30.855125
+  observation_id: "9899"
+  updated_at: 2010-12-03 19:17:36.665125
+  id: "24430"
+  measurements_methodstep_id: "381"
+  rownr: "4"
+  value_type: Categoricvalue
+measurements_020: 
+  comment: 
+  value_id: "3999"
+  import_value: "880"
+  created_at: 2010-12-08 11:01:14.335
+  observation_id: "9896"
+  updated_at: 2010-12-08 11:01:14.335
+  id: "24433"
+  measurements_methodstep_id: "380"
+  rownr: "7"
+  value_type: Numericvalue
+measurements_009: 
+  comment: 
+  value_id: "625"
+  import_value: "5"
+  created_at: 2010-12-03 18:34:52.505125
+  observation_id: "9895"
+  updated_at: 2010-12-03 18:34:52.505125
+  id: "24415"
+  measurements_methodstep_id: "376"
+  rownr: "6"
+  value_type: Categoricvalue
+measurements_021: 
+  comment: 
+  value_id: "627"
+  import_value: "1"
+  created_at: 2010-12-03 18:59:30.775125
+  observation_id: "9897"
+  updated_at: 2010-12-03 18:59:30.775125
+  id: "24428"
+  measurements_methodstep_id: "381"
+  rownr: "2"
+  value_type: Categoricvalue
+measurements_010: 
+  comment: 
+  value_id: "69"
+  import_value: "2008"
+  created_at: 2010-12-03 18:35:33.782125
+  observation_id: "9894"
+  updated_at: 2010-12-03 18:35:33.782125
+  id: "24420"
+  measurements_methodstep_id: "379"
+  rownr: "5"
+  value_type: Datetimevalue
+measurements_022: 
+  comment: 
+  value_id: "72"
+  import_value: "2008"
+  created_at: 2010-12-03 18:35:34.074125
+  observation_id: "9897"
+  updated_at: 2010-12-03 18:35:34.074125
+  id: "24423"
+  measurements_methodstep_id: "379"
+  rownr: "2"
+  value_type: Datetimevalue
+measurements_011: 
+  comment: 
+  value_id: "624"
+  import_value: "4"
+  created_at: 2010-12-03 18:59:30.681125
+  observation_id: "9894"
+  updated_at: 2010-12-03 18:59:30.681125
+  id: "24426"
+  measurements_methodstep_id: "381"
+  rownr: "5"
+  value_type: Categoricvalue

@@ -1,0 +1,67 @@
+--- 
+numericvalues_002: 
+  comment: 
+  number: "522"
+  created_at: 2010-12-08 11:01:14.367
+  updated_at: 2010-12-08 11:01:14.367
+  id: "4000"
+numericvalues_003: 
+  comment: 
+  number: "590"
+  created_at: 2010-12-08 11:01:14.413
+  updated_at: 2010-12-08 11:01:14.413
+  id: "4001"
+numericvalues_004: 
+  comment: 
+  number: "720"
+  created_at: 2010-12-08 11:01:14.465
+  updated_at: 2010-12-08 11:01:14.465
+  id: "4002"
+numericvalues_005: 
+  comment: 
+  number: "542"
+  created_at: 2010-12-02 18:39:51.5098
+  updated_at: 2010-12-02 18:39:51.5098
+  id: "3991"
+numericvalues_006: 
+  comment: 
+  number: "507"
+  created_at: 2010-12-02 18:39:51.7068
+  updated_at: 2010-12-02 18:39:51.7068
+  id: "3992"
+numericvalues_007: 
+  comment: 
+  number: "522"
+  created_at: 2010-12-02 18:39:51.8228
+  updated_at: 2010-12-02 18:39:51.8228
+  id: "3994"
+numericvalues_008: 
+  comment: 
+  number: "590"
+  created_at: 2010-12-02 18:39:51.8698
+  updated_at: 2010-12-02 18:39:51.8698
+  id: "3995"
+numericvalues_010: 
+  comment: 
+  number: "542"
+  created_at: 2010-12-08 11:01:13.398
+  updated_at: 2010-12-08 11:01:13.398
+  id: "3997"
+numericvalues_009: 
+  comment: 
+  number: "720"
+  created_at: 2010-12-02 18:39:51.9298
+  updated_at: 2010-12-02 18:39:51.9298
+  id: "3996"
+numericvalues_011: 
+  comment: 
+  number: "507"
+  created_at: 2010-12-08 11:01:14.276
+  updated_at: 2010-12-08 11:01:14.276
+  id: "3998"
+numericvalues_001: 
+  comment: 
+  number: "880"
+  created_at: 2010-12-08 11:01:14.322
+  updated_at: 2010-12-08 11:01:14.322
+  id: "3999"
