@@ -1,0 +1,4 @@
+development:
+    root_url: 
+production:
+    root_url: /beta
