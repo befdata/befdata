@@ -1,0 +1,6 @@
+# pack-refs with: peeled 
+10f9e7fe89d591879b1107f603cda955393a8d62 refs/remotes/origin/rails-1.2
+7de04a5595ddf0cac5e556ecc83dbe2afd1130e9 refs/remotes/origin/modular
+ddaa6bb1ef9f3b9649a37aa3af48b6eedf007c17 refs/remotes/origin/merbful_authentication
+7235d9150e8beb80a819923a4c871ef4069c6759 refs/remotes/origin/master
+fe9a0c9905518a7b9e028a1c9ff374d6efafe44a refs/remotes/origin/classic
