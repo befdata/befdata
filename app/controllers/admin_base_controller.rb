@@ -1,5 +1,3 @@
-
-
 class AdminBaseController < ApplicationController
   # Comment the following line to get unauthorized access to the
   # administration backend.
