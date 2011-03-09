@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>update_import_category_change_category (ImportController)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File controllers/import_controller.rb, line 582</span>
+  <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">update_import_category_change_category</span> 
+    <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">logged_in?</span>
+      <span class="ruby-identifier">icat</span> = <span class="ruby-constant">ImportCategory</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">params</span>[<span class="ruby-identifier">:import_category</span>][<span class="ruby-identifier">:id</span>])
+      <span class="ruby-identifier">exchange_cat</span> = <span class="ruby-constant">Categoricvalue</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">params</span>[<span class="ruby-identifier">:import_category</span>][<span class="ruby-identifier">:categoricvalue_id</span>])
+      <span class="ruby-identifier">oldcat</span> = <span class="ruby-identifier">icat</span>.<span class="ruby-identifier">categoricvalue</span>
+      <span class="ruby-identifier">icat</span>.<span class="ruby-identifier">approved</span> = <span class="ruby-keyword kw">true</span>
+      <span class="ruby-identifier">dh</span> = <span class="ruby-identifier">icat</span>.<span class="ruby-identifier">measurements_methodstep</span>
+      <span class="ruby-identifier">val</span> = <span class="ruby-identifier">icat</span>.<span class="ruby-identifier">raw_data_value</span>
+      <span class="ruby-comment cmt"># data cells with this raw data value have to get the new</span>
+      <span class="ruby-comment cmt"># category</span>
+      <span class="ruby-identifier">dcs</span> = <span class="ruby-identifier">dh</span>.<span class="ruby-identifier">measurements</span>.<span class="ruby-identifier">select</span>{<span class="ruby-operator">|</span><span class="ruby-identifier">dc</span><span class="ruby-operator">|</span> <span class="ruby-identifier">dc</span>.<span class="ruby-identifier">import_value</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">val</span>}
+
+
+      <span class="ruby-identifier">logger</span>.<span class="ruby-identifier">debug</span> <span class="ruby-value str">&quot;---  changing the category of an existing icat -----&quot;</span>
+      <span class="ruby-identifier">logger</span>.<span class="ruby-identifier">debug</span> <span class="ruby-identifier">icat</span>
+      <span class="ruby-identifier">logger</span>.<span class="ruby-identifier">debug</span> <span class="ruby-identifier">params</span>.<span class="ruby-identifier">inspect</span>
+
+      <span class="ruby-keyword kw">begin</span> 
+        <span class="ruby-constant">ImportCategory</span>.<span class="ruby-identifier">transaction</span> <span class="ruby-keyword kw">do</span>
+          <span class="ruby-identifier">icat</span>.<span class="ruby-identifier">categoricvalue</span> = <span class="ruby-identifier">exchange_cat</span>
+          <span class="ruby-identifier">icat</span>.<span class="ruby-identifier">save</span>
+          <span class="ruby-comment cmt"># add the new value to the cell values</span>
+          <span class="ruby-identifier">dcs</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">dc</span><span class="ruby-operator">|</span>
+            <span class="ruby-identifier">dc</span>.<span class="ruby-identifier">value</span> = <span class="ruby-identifier">exchange_cat</span>
+            <span class="ruby-identifier">dc</span>.<span class="ruby-identifier">save</span>
+          <span class="ruby-keyword kw">end</span>
+          <span class="ruby-comment cmt"># get rid of unassociated categories</span>
+          <span class="ruby-identifier">oldcat</span>.<span class="ruby-identifier">destroy</span>
+          <span class="ruby-identifier">redirect_to</span> <span class="ruby-identifier">:back</span>
+        <span class="ruby-keyword kw">end</span>
+      <span class="ruby-keyword kw">rescue</span> <span class="ruby-constant">ActiveRecord</span><span class="ruby-operator">::</span><span class="ruby-constant">RecordInvalid</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">invalid</span>
+        <span class="ruby-identifier">redirect_to</span> <span class="ruby-identifier">:root</span>
+      <span class="ruby-keyword kw">end</span>
+    <span class="ruby-keyword kw">else</span>
+      <span class="ruby-comment cmt"># Not logged in, redirect to login form</span>
+      <span class="ruby-identifier">session</span>[<span class="ruby-identifier">:return_to</span>] = <span class="ruby-identifier">request</span>.<span class="ruby-identifier">request_uri</span>
+      <span class="ruby-identifier">redirect_to</span> <span class="ruby-identifier">login_path</span> <span class="ruby-keyword kw">and</span> <span class="ruby-keyword kw">return</span>
+    <span class="ruby-keyword kw">end</span>
+  <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

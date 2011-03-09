@@ -1,0 +1,8 @@
+<span style="font-size: large;">BEF Staff</span>
+
+<div class="comment">
+	<% for person in @people %>
+		<div style="width: 240px; padding: 3px 20px; float: left;"><%= link_to person, staff_path(person.path_name) %></div>
+	<% end %>
+</div>
+

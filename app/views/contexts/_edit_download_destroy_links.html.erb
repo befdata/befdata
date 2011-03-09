@@ -1,0 +1,25 @@
+<% actions = [] %>
+<% if current_user.has_role? :owner, @context %>
+  <% actions << "#{link_to 'Download', {:controller => 'contexts', 
+                    :action => 'download', :id => @context.id, 
+                    :t => 'vip'}}" %>
+<% end %>
+<% if current_user.has_role? :owner, @context %>
+  <% actions << "#{link_to 'Edit', 
+                  {:controller => 'contexts', 
+                   :action => 'edit', :id => @context.id}}" %>
+<% end %>
+
+<% if current_user.has_role? :admin %>
+  <% actions << "#{link_to 'Upload edit or delete', 
+                   {:controller => :import, 
+                    :action => :raw_data_overview, 
+                    :context_id => @context.id}}" %>
+<% end %>
+<% if current_user.has_role? :admin %>
+  <% actions << "#{link_to 'Download', {:controller => 'contexts', 
+                    :action => 'download', :id => @context.id, 
+                    :t => 'vip'}}" %>
+<% end %>
+
+<p><%= actions.join("&nbsp;&nbsp;&bull;&nbsp;&nbsp;") %></p>

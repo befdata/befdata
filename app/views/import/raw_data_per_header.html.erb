@@ -1,0 +1,41 @@
+<%= render 'context_export_destroy' %>
+<%= render 'context_step_five' %>
+<%= render 'data_header_link_list' %>
+
+<h1><%= @data_column.columnheader %></h1>
+
+<p><%= @context.title %></p>
+
+<div>
+  <h3>General information for data column  "<%= @data_column.columnheader %>" </h3>   
+  <%= render 'dataheader_meta' %>
+</div>
+
+<br><br>
+
+<div>
+  <h3>Data group information for data column  "<%= @data_column.columnheader %>" </h3>    
+  <%= render 'datagroups_for_dataheader' %>
+</div>
+
+<br>
+<br>
+
+<div>
+  <h3>People responsible for data column  "<%= @data_column.columnheader %>" </h3>    
+  <%= render 'people_for_dataheader' %>
+</div>
+
+<br>
+<br>
+
+<div>
+  <h3>
+    Data values found in data column 
+    "<%= @data_column.columnheader %>" 
+  </h3>
+  <%= render 'datavalues_for_dataheader' %>
+</div>
+
+<%= render :partial => 'data_header_link_list' %>
+<%= render 'context_export_destroy' %>

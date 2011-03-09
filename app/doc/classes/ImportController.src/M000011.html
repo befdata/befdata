@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>dh_person_add_role (ImportController)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File controllers/import_controller.rb, line 418</span>
+  <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">dh_person_add_role</span>
+    <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">logged_in?</span>
+      <span class="ruby-identifier">data_header</span> = <span class="ruby-constant">MeasurementsMethodstep</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">params</span>[<span class="ruby-identifier">:measurements_methodstep</span>][<span class="ruby-identifier">:id</span>])
+      <span class="ruby-identifier">person_role</span> = <span class="ruby-constant">PersonRole</span>.<span class="ruby-identifier">create</span>(<span class="ruby-identifier">params</span>[<span class="ruby-identifier">:person_role</span>])
+      <span class="ruby-identifier">data_header</span>.<span class="ruby-identifier">person_roles</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">person_role</span>
+      <span class="ruby-identifier">prs</span> = <span class="ruby-identifier">data_header</span>.<span class="ruby-identifier">person_roles</span>.<span class="ruby-identifier">collect</span>{<span class="ruby-operator">|</span><span class="ruby-identifier">pr</span><span class="ruby-operator">|</span> <span class="ruby-identifier">pr</span>.<span class="ruby-identifier">id</span>}
+<span class="ruby-comment cmt">#      session[:prs_ids][data_header.columnheader] = prs</span>
+
+
+      <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">data_header</span>.<span class="ruby-identifier">save</span>
+        <span class="ruby-identifier">redirect_to</span> <span class="ruby-identifier">:back</span>
+      <span class="ruby-keyword kw">else</span>
+        <span class="ruby-identifier">redirect_to</span> <span class="ruby-identifier">:back</span>
+      <span class="ruby-keyword kw">end</span>
+
+    <span class="ruby-keyword kw">else</span>
+      <span class="ruby-comment cmt"># Not logged in, redirect to login form</span>
+      <span class="ruby-identifier">session</span>[<span class="ruby-identifier">:return_to</span>] = <span class="ruby-identifier">request</span>.<span class="ruby-identifier">request_uri</span>
+      <span class="ruby-identifier">redirect_to</span> <span class="ruby-identifier">login_path</span> <span class="ruby-keyword kw">and</span> <span class="ruby-keyword kw">return</span>
+    <span class="ruby-keyword kw">end</span>
+  <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>upload (ContextsController)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File controllers/contexts_controller.rb, line 18</span>
+  <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">upload</span>
+<span class="ruby-comment cmt">#    if logged_in?</span>
+
+    <span class="ruby-identifier">require</span> <span class="ruby-value str">'spreadsheet'</span>
+
+    <span class="ruby-keyword kw">if</span> <span class="ruby-operator">!</span><span class="ruby-identifier">params</span>[<span class="ruby-identifier">:filevalue_id</span>].<span class="ruby-identifier">blank?</span>
+      <span class="ruby-comment cmt"># When coming from the upload page, a file parameter must be</span>
+      <span class="ruby-comment cmt"># set.  This means, that there has not been any context yet</span>
+      <span class="ruby-comment cmt"># made with this file.</span>
+      
+      <span class="ruby-identifier">filevalue</span> = <span class="ruby-constant">Filevalue</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">params</span>[<span class="ruby-identifier">:filevalue_id</span>])
+      <span class="ruby-keyword kw">begin</span>
+          
+        <span class="ruby-identifier">filepath</span> = <span class="ruby-identifier">filevalue</span>.<span class="ruby-identifier">file</span>.<span class="ruby-identifier">path</span>
+        <span class="ruby-identifier">book</span> = <span class="ruby-constant">Spreadsheet</span>.<span class="ruby-identifier">open</span> <span class="ruby-identifier">filepath</span>
+        <span class="ruby-comment cmt"># after closing, the file can be destroyed if necessary, the</span>
+        <span class="ruby-comment cmt"># information stays in the book object</span>
+        <span class="ruby-identifier">book</span>.<span class="ruby-identifier">io</span>.<span class="ruby-identifier">close</span>
+
+        <span class="ruby-comment cmt"># Start with the first sheet; if the page is reloaded, there</span>
+        <span class="ruby-comment cmt"># may already be a context to this filevalue</span>
+        <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">filevalue</span>.<span class="ruby-identifier">context</span>.<span class="ruby-identifier">blank?</span>
+          <span class="ruby-ivar">@context</span> = <span class="ruby-constant">Context</span>.<span class="ruby-identifier">new</span>
+          <span class="ruby-ivar">@context</span>.<span class="ruby-identifier">upload_spreadsheet</span> = <span class="ruby-identifier">filevalue</span>
+          
+          <span class="ruby-comment cmt"># gather all the cell values that can just be copied into</span>
+          <span class="ruby-comment cmt"># the new context</span>
+          <span class="ruby-identifier">filename</span> = <span class="ruby-identifier">filevalue</span>.<span class="ruby-identifier">file_file_name</span>
+          <span class="ruby-identifier">simple_hash</span> = <span class="ruby-identifier">gather_simple_general_metadata</span>(<span class="ruby-identifier">filename</span>, <span class="ruby-identifier">book</span>)
+          <span class="ruby-ivar">@context</span>.<span class="ruby-identifier">update_attributes</span>(<span class="ruby-identifier">simple_hash</span>)
+          
+   
+          <span class="ruby-keyword kw">begin</span>
+            <span class="ruby-ivar">@context</span>.<span class="ruby-identifier">datemin</span> = <span class="ruby-constant">DateTime</span>.<span class="ruby-identifier">parse</span>(<span class="ruby-constant">Array</span>(<span class="ruby-identifier">book</span>.<span class="ruby-identifier">worksheet</span>(<span class="ruby-value">0</span>).<span class="ruby-identifier">column</span>(<span class="ruby-value">0</span>))[<span class="ruby-value">32</span>].<span class="ruby-identifier">to_s</span>)
+          <span class="ruby-keyword kw">rescue</span> <span class="ruby-constant">ArgumentError</span>
+            <span class="ruby-ivar">@context</span>.<span class="ruby-identifier">datemin</span> = <span class="ruby-constant">DateTime</span>.<span class="ruby-identifier">parse</span>(<span class="ruby-constant">Date</span>.<span class="ruby-identifier">today</span>.<span class="ruby-identifier">to_s</span>)
+          <span class="ruby-keyword kw">end</span>
+   
+          <span class="ruby-keyword kw">begin</span>
+            <span class="ruby-ivar">@context</span>.<span class="ruby-identifier">datemax</span> = <span class="ruby-constant">DateTime</span>.<span class="ruby-identifier">parse</span>(<span class="ruby-constant">Array</span>(<span class="ruby-identifier">book</span>.<span class="ruby-identifier">worksheet</span>(<span class="ruby-value">0</span>).<span class="ruby-identifier">column</span>(<span class="ruby-value">0</span>))[<span class="ruby-value">34</span>].<span class="ruby-identifier">to_s</span>)
+          <span class="ruby-keyword kw">rescue</span> <span class="ruby-constant">ArgumentError</span>
+            <span class="ruby-ivar">@context</span>.<span class="ruby-identifier">datemax</span> = <span class="ruby-constant">DateTime</span>.<span class="ruby-identifier">parse</span>(<span class="ruby-constant">Date</span>.<span class="ruby-identifier">today</span>.<span class="ruby-identifier">to_s</span>)
+          <span class="ruby-keyword kw">end</span>
+   
+   
+          <span class="ruby-ivar">@context</span>.<span class="ruby-identifier">save</span>
+          <span class="ruby-identifier">logger</span>.<span class="ruby-identifier">debug</span> <span class="ruby-value str">&quot;---------- after saving the new context -------&quot;</span>
+          <span class="ruby-identifier">logger</span>.<span class="ruby-identifier">debug</span> <span class="ruby-ivar">@context</span>.<span class="ruby-identifier">valid?</span>
+          <span class="ruby-identifier">logger</span>.<span class="ruby-identifier">debug</span> <span class="ruby-ivar">@context</span>.<span class="ruby-identifier">errors</span>.<span class="ruby-identifier">inspect</span>
+   
+   
+          <span class="ruby-comment cmt"># Gather the people</span>
+          <span class="ruby-comment cmt"># Determine number of people</span>
+          <span class="ruby-identifier">cols</span> = <span class="ruby-constant">Array</span>(<span class="ruby-identifier">book</span>.<span class="ruby-identifier">worksheet</span>(<span class="ruby-value">0</span>).<span class="ruby-identifier">row</span>(<span class="ruby-value">12</span>)).<span class="ruby-identifier">length</span>
+          <span class="ruby-identifier">ppl</span> = <span class="ruby-identifier">cols</span> <span class="ruby-operator">-</span> <span class="ruby-value">1</span> <span class="ruby-comment cmt"># The first column contains only meta data</span>
+   
+          <span class="ruby-comment cmt"># The current user is automatically added to the user array</span>
+          <span class="ruby-identifier">people</span> = [<span class="ruby-ivar">@current_user</span>]
+          
+          <span class="ruby-identifier">ppl</span>.<span class="ruby-identifier">times</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">i</span><span class="ruby-operator">|</span>
+            <span class="ruby-identifier">person</span> = <span class="ruby-constant">Array</span>(<span class="ruby-identifier">book</span>.<span class="ruby-identifier">worksheet</span>(<span class="ruby-value">0</span>).<span class="ruby-identifier">column</span>(<span class="ruby-identifier">i</span>))[<span class="ruby-value">12</span><span class="ruby-operator">..</span><span class="ruby-value">18</span>]
+            <span class="ruby-comment cmt"># Look for the givenName in both name fields</span>
+            <span class="ruby-identifier">people</span> <span class="ruby-operator">+=</span> <span class="ruby-constant">Person</span>.<span class="ruby-identifier">find_all_by_firstname</span>(<span class="ruby-identifier">person</span>[<span class="ruby-value">0</span>])
+            <span class="ruby-comment cmt"># people += Person.find_all_by_lastname(person[0])</span>
+            
+            <span class="ruby-comment cmt"># Look for the surName in both name fields</span>
+            <span class="ruby-comment cmt"># people += Person.find_all_by_firstname(person[1])</span>
+            <span class="ruby-identifier">people</span> <span class="ruby-operator">+=</span> <span class="ruby-constant">Person</span>.<span class="ruby-identifier">find_all_by_lastname</span>(<span class="ruby-identifier">person</span>[<span class="ruby-value">1</span>])
+            
+            <span class="ruby-comment cmt"># Additionally, do a fuzzy search on both name values</span>
+            <span class="ruby-comment cmt"># people += Person.fuzzy_find(person[0]) # givenName</span>
+            <span class="ruby-identifier">people</span> <span class="ruby-operator">+=</span> <span class="ruby-constant">Person</span>.<span class="ruby-identifier">fuzzy_find</span>(<span class="ruby-identifier">person</span>[<span class="ruby-value">1</span>]) <span class="ruby-comment cmt"># surName</span>
+            
+            <span class="ruby-identifier">people</span> = <span class="ruby-identifier">people</span>.<span class="ruby-identifier">uniq</span> <span class="ruby-comment cmt"># Eliminate the doubled entries</span>
+          <span class="ruby-keyword kw">end</span>
+            
+   
+          <span class="ruby-comment cmt"># Add all found roles to the context. Evaluation of</span>
+          <span class="ruby-comment cmt"># correctness will be step 2</span>
+          <span class="ruby-identifier">people</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">pr</span><span class="ruby-operator">|</span>
+            <span class="ruby-identifier">pr</span>.<span class="ruby-identifier">has_role!</span> <span class="ruby-identifier">:owner</span>, <span class="ruby-ivar">@context</span>
+          <span class="ruby-keyword kw">end</span>
+
+        <span class="ruby-keyword kw">else</span> <span class="ruby-comment cmt"># there already is context information for this file</span>
+          <span class="ruby-ivar">@context</span> = <span class="ruby-identifier">filevalue</span>.<span class="ruby-identifier">context</span>
+        <span class="ruby-keyword kw">end</span>
+        
+        <span class="ruby-comment cmt"># Render the page that presents the general metadata for a</span>
+        <span class="ruby-comment cmt"># data set, for user interaction</span>
+        <span class="ruby-comment cmt"># (view/contexts/upload.html.erb)</span>
+        <span class="ruby-ivar">@step</span> = <span class="ruby-value">1</span>
+
+          
+      <span class="ruby-keyword kw">rescue</span> <span class="ruby-constant">Ole</span><span class="ruby-operator">::</span><span class="ruby-constant">Storage</span><span class="ruby-operator">::</span><span class="ruby-constant">FormatError</span>
+        <span class="ruby-comment cmt"># Uploaded file was no valid Excel file</span>
+        <span class="ruby-identifier">redirect_to</span> <span class="ruby-identifier">data_path</span> <span class="ruby-keyword kw">and</span> <span class="ruby-keyword kw">return</span>
+      <span class="ruby-keyword kw">end</span>
+
+
+    <span class="ruby-keyword kw">elsif</span> <span class="ruby-identifier">params</span>[<span class="ruby-identifier">:step</span>] <span class="ruby-operator">==</span> <span class="ruby-value str">'1'</span> 
+      <span class="ruby-comment cmt"># At this point, the parameter &quot;filename&quot; is given; there has</span>
+      <span class="ruby-comment cmt"># already an upload been done, the context for which &quot;upload&quot;</span>
+      <span class="ruby-comment cmt"># is called is already existing.  Because of this, the upload</span>
+      <span class="ruby-comment cmt"># of a file is leaped over.  We are at step 1.</span>
+      <span class="ruby-ivar">@context</span> = <span class="ruby-constant">Context</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">params</span>[<span class="ruby-identifier">:id</span>])
+      <span class="ruby-keyword kw">unless</span> <span class="ruby-ivar">@context</span>.<span class="ruby-identifier">blank?</span>
+
+        <span class="ruby-ivar">@context</span>.<span class="ruby-identifier">title</span> = <span class="ruby-identifier">params</span>[<span class="ruby-identifier">:title</span>]
+        <span class="ruby-ivar">@context</span>.<span class="ruby-identifier">abstract</span> = <span class="ruby-identifier">params</span>[<span class="ruby-identifier">:abstract</span>]
+        <span class="ruby-ivar">@context</span>.<span class="ruby-identifier">comment</span> = <span class="ruby-identifier">params</span>[<span class="ruby-identifier">:comment</span>]
+
+        <span class="ruby-ivar">@context</span>.<span class="ruby-identifier">usagerights</span> = <span class="ruby-identifier">params</span>[<span class="ruby-identifier">:usagerights</span>]
+
+        <span class="ruby-ivar">@context</span>.<span class="ruby-identifier">published</span> = <span class="ruby-identifier">params</span>[<span class="ruby-identifier">:published</span>]
+        <span class="ruby-ivar">@context</span>.<span class="ruby-identifier">spatialextent</span> = <span class="ruby-identifier">params</span>[<span class="ruby-identifier">:spatialextent</span>]
+      
+        <span class="ruby-ivar">@context</span>.<span class="ruby-identifier">datemin</span> = <span class="ruby-constant">DateTime</span>.<span class="ruby-identifier">civil</span>(<span class="ruby-identifier">params</span>[<span class="ruby-identifier">:date</span>][<span class="ruby-value str">&quot;min(1i)&quot;</span><span class="ruby-value str">&quot;min(1i)&quot;</span>].<span class="ruby-identifier">to_i</span>, <span class="ruby-identifier">params</span>[<span class="ruby-identifier">:date</span>][<span class="ruby-value str">&quot;min(2i)&quot;</span><span class="ruby-value str">&quot;min(2i)&quot;</span>].<span class="ruby-identifier">to_i</span>, <span class="ruby-identifier">params</span>[<span class="ruby-identifier">:date</span>][<span class="ruby-value str">&quot;min(3i)&quot;</span><span class="ruby-value str">&quot;min(3i)&quot;</span>].<span class="ruby-identifier">to_i</span>, <span class="ruby-identifier">params</span>[<span class="ruby-identifier">:date</span>][<span class="ruby-value str">&quot;min(4i)&quot;</span><span class="ruby-value str">&quot;min(4i)&quot;</span>].<span class="ruby-identifier">to_i</span>, <span class="ruby-identifier">params</span>[<span class="ruby-identifier">:date</span>][<span class="ruby-value str">&quot;min(5i)&quot;</span><span class="ruby-value str">&quot;min(5i)&quot;</span>].<span class="ruby-identifier">to_i</span>)
+        <span class="ruby-ivar">@context</span>.<span class="ruby-identifier">datemax</span> = <span class="ruby-constant">DateTime</span>.<span class="ruby-identifier">civil</span>(<span class="ruby-identifier">params</span>[<span class="ruby-identifier">:date</span>][<span class="ruby-value str">&quot;max(1i)&quot;</span><span class="ruby-value str">&quot;max(1i)&quot;</span>].<span class="ruby-identifier">to_i</span>, <span class="ruby-identifier">params</span>[<span class="ruby-identifier">:date</span>][<span class="ruby-value str">&quot;max(2i)&quot;</span><span class="ruby-value str">&quot;max(2i)&quot;</span>].<span class="ruby-identifier">to_i</span>, <span class="ruby-identifier">params</span>[<span class="ruby-identifier">:date</span>][<span class="ruby-value str">&quot;max(3i)&quot;</span><span class="ruby-value str">&quot;max(3i)&quot;</span>].<span class="ruby-identifier">to_i</span>, <span class="ruby-identifier">params</span>[<span class="ruby-identifier">:date</span>][<span class="ruby-value str">&quot;max(4i)&quot;</span><span class="ruby-value str">&quot;max(4i)&quot;</span>].<span class="ruby-identifier">to_i</span>, <span class="ruby-identifier">params</span>[<span class="ruby-identifier">:date</span>][<span class="ruby-value str">&quot;max(5i)&quot;</span><span class="ruby-value str">&quot;max(5i)&quot;</span>].<span class="ruby-identifier">to_i</span>)
+
+        <span class="ruby-ivar">@context</span>.<span class="ruby-identifier">temporalextent</span> = <span class="ruby-identifier">params</span>[<span class="ruby-identifier">:temporalextent</span>]
+        <span class="ruby-ivar">@context</span>.<span class="ruby-identifier">taxonomicextent</span> = <span class="ruby-identifier">params</span>[<span class="ruby-identifier">:taxonomicextent</span>]
+        <span class="ruby-ivar">@context</span>.<span class="ruby-identifier">design</span> = <span class="ruby-identifier">params</span>[<span class="ruby-identifier">:design</span>]
+        <span class="ruby-ivar">@context</span>.<span class="ruby-identifier">dataanalysis</span> = <span class="ruby-identifier">params</span>[<span class="ruby-identifier">:dataanalysis</span>]
+        <span class="ruby-ivar">@context</span>.<span class="ruby-identifier">circumstances</span> = <span class="ruby-identifier">params</span>[<span class="ruby-identifier">:circumstances</span>]
+
+        <span class="ruby-ivar">@context</span>.<span class="ruby-identifier">save</span>
+
+        <span class="ruby-comment cmt"># Finally, set the new step, so that the evaluation process</span>
+        <span class="ruby-comment cmt"># moves forward</span>
+        <span class="ruby-identifier">redirect_to</span> <span class="ruby-identifier">url_for</span>(<span class="ruby-identifier">:controller</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">:import</span>, 
+                            <span class="ruby-identifier">:action</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">:raw_data_overview</span>, 
+                            <span class="ruby-identifier">:context_id</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-ivar">@context</span>.<span class="ruby-identifier">id</span>) <span class="ruby-keyword kw">and</span> <span class="ruby-keyword kw">return</span>
+        
+      <span class="ruby-keyword kw">else</span>
+        <span class="ruby-comment cmt"># No context found</span>
+        <span class="ruby-identifier">redirect_to</span> <span class="ruby-identifier">data_path</span> <span class="ruby-keyword kw">and</span> <span class="ruby-keyword kw">return</span>
+      <span class="ruby-keyword kw">end</span>
+    <span class="ruby-keyword kw">elsif</span> <span class="ruby-identifier">params</span>[<span class="ruby-identifier">:step</span>] <span class="ruby-operator">==</span> <span class="ruby-value str">'5'</span>
+      <span class="ruby-ivar">@step</span> = <span class="ruby-value">5</span>
+      <span class="ruby-identifier">logger</span>.<span class="ruby-identifier">debug</span> <span class="ruby-value str">&quot; entering step 5 &quot;</span>
+
+      <span class="ruby-ivar">@context</span> = <span class="ruby-constant">Context</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">params</span>[<span class="ruby-identifier">:context_id</span>])
+      <span class="ruby-identifier">logger</span>.<span class="ruby-identifier">debug</span> <span class="ruby-value str">&quot; loading context &quot;</span>
+      <span class="ruby-identifier">logger</span>.<span class="ruby-identifier">debug</span> <span class="ruby-ivar">@context</span>.<span class="ruby-identifier">inspect</span>
+
+      <span class="ruby-keyword kw">unless</span> <span class="ruby-ivar">@context</span>.<span class="ruby-identifier">blank?</span>
+        <span class="ruby-comment cmt"># Upoading and evaluation finished</span>
+        <span class="ruby-identifier">logger</span>.<span class="ruby-identifier">debug</span> <span class="ruby-value str">&quot;Upoading and evaluation finished, showing params[:finished]&quot;</span>
+        <span class="ruby-identifier">logger</span>.<span class="ruby-identifier">info</span> <span class="ruby-identifier">params</span>[<span class="ruby-identifier">:finished</span>]
+        <span class="ruby-ivar">@context</span>.<span class="ruby-identifier">finished</span> = <span class="ruby-identifier">params</span>[<span class="ruby-identifier">:finished</span>]
+        <span class="ruby-ivar">@context</span>.<span class="ruby-identifier">save</span>
+
+
+        <span class="ruby-comment cmt"># If the context is finished, show it</span>
+        <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@context</span>.<span class="ruby-identifier">finished</span> <span class="ruby-operator">==</span> <span class="ruby-keyword kw">true</span>
+          <span class="ruby-identifier">logger</span>.<span class="ruby-identifier">debug</span> <span class="ruby-value str">&quot;After all, rebuild the search index&quot;</span>
+          <span class="ruby-comment cmt"># After all, rebuild the search index</span>
+          <span class="ruby-keyword kw">begin</span>
+            <span class="ruby-constant">Context</span>.<span class="ruby-identifier">rebuild_index</span>
+            <span class="ruby-identifier">logger</span>.<span class="ruby-identifier">debug</span> <span class="ruby-value str">&quot;rebuilding done&quot;</span>
+          <span class="ruby-keyword kw">rescue</span>
+            <span class="ruby-identifier">logger</span>.<span class="ruby-identifier">debug</span> <span class="ruby-value str">&quot;rebuilding did not work&quot;</span>
+          <span class="ruby-keyword kw">end</span>
+
+          <span class="ruby-identifier">redirect_to</span> <span class="ruby-identifier">url_for</span> <span class="ruby-operator">:</span><span class="ruby-identifier">controller</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">:contexts</span>, 
+                              <span class="ruby-identifier">:action</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">:show</span>, 
+                              <span class="ruby-identifier">:id</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-ivar">@context</span>.<span class="ruby-identifier">id</span> <span class="ruby-keyword kw">and</span> <span class="ruby-keyword kw">return</span>
+        <span class="ruby-keyword kw">else</span>
+          <span class="ruby-identifier">logger</span>.<span class="ruby-identifier">debug</span> <span class="ruby-value str">&quot;context not finished&quot;</span>
+          <span class="ruby-identifier">logger</span>.<span class="ruby-identifier">debug</span> [<span class="ruby-ivar">@context</span>.<span class="ruby-identifier">id</span>, <span class="ruby-ivar">@context</span>.<span class="ruby-identifier">title</span>].<span class="ruby-identifier">to_s</span>
+        <span class="ruby-keyword kw">end</span>
+      <span class="ruby-keyword kw">else</span>
+        <span class="ruby-comment cmt"># No context found</span>
+        <span class="ruby-identifier">redirect_to</span> <span class="ruby-identifier">data_path</span> <span class="ruby-keyword kw">and</span> <span class="ruby-keyword kw">return</span>
+      <span class="ruby-keyword kw">end</span>
+    <span class="ruby-keyword kw">else</span>
+      <span class="ruby-comment cmt"># Neither file parameter nor step parameter. Redirect to the</span>
+      <span class="ruby-comment cmt"># upload page.</span>
+      <span class="ruby-identifier">redirect_to</span> <span class="ruby-identifier">data_path</span> <span class="ruby-keyword kw">and</span> <span class="ruby-keyword kw">return</span>
+    <span class="ruby-keyword kw">end</span>
+<span class="ruby-comment cmt">#    else</span>
+<span class="ruby-comment cmt">#      # Not logged in, redirect to login form</span>
+<span class="ruby-comment cmt">#      session[:return_to] = request.request_uri</span>
+<span class="ruby-comment cmt">#      redirect_to login_path and return</span>
+<span class="ruby-comment cmt">#    end</span>
+  <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

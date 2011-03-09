@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>raw_data_per_header (ImportController)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File controllers/import_controller.rb, line 275</span>
+  <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">raw_data_per_header</span>
+    <span class="ruby-identifier">benchmark_time</span> = <span class="ruby-constant">Time</span>.<span class="ruby-identifier">new</span>
+    <span class="ruby-identifier">logger</span>.<span class="ruby-identifier">debug</span> <span class="ruby-value str">&quot;---------- in raw_data_per_header ---------------&quot;</span>
+    <span class="ruby-ivar">@context</span> <span class="ruby-operator">||=</span> <span class="ruby-constant">Context</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">params</span>[<span class="ruby-identifier">:context_id</span>], 
+                              <span class="ruby-identifier">:include</span> =<span class="ruby-operator">&gt;</span> [<span class="ruby-identifier">:measurements_methodsteps</span>,
+                                           <span class="ruby-identifier">:upload_spreadsheet</span>])
+    <span class="ruby-ivar">@data_column</span> <span class="ruby-operator">||=</span> <span class="ruby-ivar">@context</span>.<span class="ruby-identifier">measurements_methodsteps</span>.
+      <span class="ruby-identifier">select</span>{<span class="ruby-operator">|</span><span class="ruby-identifier">dc</span><span class="ruby-operator">|</span> <span class="ruby-identifier">dc</span>.<span class="ruby-identifier">columnheader</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">params</span>[<span class="ruby-identifier">:data_header</span>]}.<span class="ruby-identifier">first</span>
+
+    <span class="ruby-comment cmt"># open the spreadsheet</span>
+    <span class="ruby-identifier">filepath</span> = <span class="ruby-ivar">@context</span>.<span class="ruby-identifier">upload_spreadsheet</span>.<span class="ruby-identifier">file</span>.<span class="ruby-identifier">path</span>
+    <span class="ruby-identifier">provide_metasheets</span>(<span class="ruby-identifier">filepath</span>)
+
+    <span class="ruby-comment cmt"># data column specific information: start with the column header</span>
+    <span class="ruby-identifier">ch</span> = <span class="ruby-ivar">@data_column</span>.<span class="ruby-identifier">columnheader</span>
+
+
+    <span class="ruby-identifier">method_index</span> = <span class="ruby-constant">Array</span>(<span class="ruby-ivar">@methodsheet</span>.<span class="ruby-identifier">column</span>(<span class="ruby-value">0</span>)).<span class="ruby-identifier">index</span>(<span class="ruby-identifier">ch</span>)
+    <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">method_index</span>.<span class="ruby-identifier">blank?</span>
+      <span class="ruby-identifier">data_group_Title</span> = <span class="ruby-constant">Array</span>(<span class="ruby-ivar">@methodsheet</span>.<span class="ruby-identifier">column</span>(<span class="ruby-value">5</span>))[<span class="ruby-identifier">method_index</span>]
+    <span class="ruby-keyword kw">else</span>
+      <span class="ruby-identifier">data_group_Title</span> = <span class="ruby-identifier">ch</span>
+    <span class="ruby-keyword kw">end</span>
+    <span class="ruby-identifier">logger</span>.<span class="ruby-identifier">debug</span> <span class="ruby-value str">&quot;------ before looking for similar methods --- &quot;</span>
+    <span class="ruby-identifier">logger</span>.<span class="ruby-identifier">debug</span> <span class="ruby-node">&quot;----- #{Time.new - benchmark_time} ms&quot;</span>
+    <span class="ruby-identifier">methAvailable</span> = <span class="ruby-identifier">find_similar_data_groups</span>(<span class="ruby-identifier">data_group_Title</span>)
+    <span class="ruby-identifier">logger</span>.<span class="ruby-identifier">debug</span> <span class="ruby-node">&quot;----- #{Time.new - benchmark_time} ms&quot;</span>
+    <span class="ruby-identifier">logger</span>.<span class="ruby-identifier">debug</span> <span class="ruby-value str">&quot;------ after looking for similar methods --- &quot;</span>
+    <span class="ruby-ivar">@data_groups_available</span> = <span class="ruby-identifier">methAvailable</span>
+    <span class="ruby-identifier">logger</span>.<span class="ruby-identifier">debug</span> <span class="ruby-value str">&quot;@data_groups_available&quot;</span>
+    <span class="ruby-identifier">logger</span>.<span class="ruby-identifier">debug</span> <span class="ruby-ivar">@data_groups_available</span>.<span class="ruby-identifier">inspect</span>
+
+    <span class="ruby-comment cmt"># collect all methods for the select button</span>
+    <span class="ruby-identifier">all_methods</span> = <span class="ruby-constant">Methodstep</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">:all</span>, <span class="ruby-identifier">:order</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value str">&quot;title&quot;</span>)
+    <span class="ruby-ivar">@methods_short_list</span> = <span class="ruby-identifier">all_methods</span>.<span class="ruby-identifier">collect</span>{<span class="ruby-operator">|</span><span class="ruby-identifier">m</span><span class="ruby-operator">|</span> [<span class="ruby-identifier">m</span>.<span class="ruby-identifier">title</span>, <span class="ruby-identifier">m</span>.<span class="ruby-identifier">id</span>]}
+
+    <span class="ruby-comment cmt"># prepare a new data group instance to save it if needed</span>
+    <span class="ruby-identifier">data_group_ch</span> = <span class="ruby-identifier">methodsheet_datagroup</span>(<span class="ruby-identifier">ch</span>, <span class="ruby-ivar">@methodsheet</span>)
+    <span class="ruby-ivar">@data_group_new</span> = <span class="ruby-constant">Methodstep</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">data_group_ch</span>)
+    <span class="ruby-identifier">logger</span>.<span class="ruby-identifier">debug</span> <span class="ruby-value str">&quot;@data_group_new&quot;</span>
+    <span class="ruby-identifier">logger</span>.<span class="ruby-identifier">debug</span> <span class="ruby-ivar">@data_group_new</span>.<span class="ruby-identifier">inspect</span>
+
+    <span class="ruby-comment cmt"># list of all Person Roles, sorted</span>
+    <span class="ruby-identifier">logger</span>.<span class="ruby-identifier">debug</span> <span class="ruby-value str">&quot;------------------- Person Roles -----------------&quot;</span>
+    <span class="ruby-ivar">@people_list</span> = <span class="ruby-constant">Person</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">:all</span>, <span class="ruby-identifier">:order</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">:lastname</span>)
+
+    <span class="ruby-comment cmt"># Are there already people associated?  </span>
+    <span class="ruby-ivar">@ppl</span> = <span class="ruby-ivar">@data_column</span>.<span class="ruby-identifier">people</span>
+
+    <span class="ruby-comment cmt"># Only look into the spreadsheet, if there are no people linked.</span>
+    <span class="ruby-identifier">logger</span>.<span class="ruby-identifier">debug</span> <span class="ruby-node">&quot;----- #{Time.new - benchmark_time} ms&quot;</span>
+    <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@ppl</span>.<span class="ruby-identifier">blank?</span>
+      <span class="ruby-identifier">ppl</span> = <span class="ruby-identifier">lookup_data_header_people</span>(<span class="ruby-identifier">ch</span>)
+      <span class="ruby-identifier">ppl</span> = <span class="ruby-identifier">ppl</span>.<span class="ruby-identifier">flatten</span>.<span class="ruby-identifier">uniq</span>
+      <span class="ruby-identifier">ppl</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">person</span><span class="ruby-operator">|</span>
+        <span class="ruby-identifier">person</span>.<span class="ruby-identifier">has_role!</span> <span class="ruby-identifier">:responsible</span>, <span class="ruby-ivar">@data_column</span>
+      <span class="ruby-keyword kw">end</span>
+      <span class="ruby-ivar">@ppl</span> = <span class="ruby-ivar">@data_column</span>.<span class="ruby-identifier">people</span>
+    <span class="ruby-keyword kw">end</span>
+    <span class="ruby-identifier">logger</span>.<span class="ruby-identifier">debug</span> <span class="ruby-value str">&quot;--- after filling @prs mit 'lookup_data_header_people(ch)' ---&quot;</span>
+    <span class="ruby-identifier">logger</span>.<span class="ruby-identifier">debug</span> <span class="ruby-ivar">@ppl</span>.<span class="ruby-identifier">inspect</span>
+
+
+    <span class="ruby-comment cmt"># raw data</span>
+
+    <span class="ruby-comment cmt"># returns a data hash with rownr =&gt; data entry from the</span>
+    <span class="ruby-comment cmt"># spreadsheet !Zeitschlucker?!</span>
+    <span class="ruby-ivar">@cell_values_all</span> = <span class="ruby-ivar">@data_column</span>.<span class="ruby-identifier">rownr_entry_hash</span>
+    <span class="ruby-identifier">logger</span>.<span class="ruby-identifier">debug</span> <span class="ruby-value str">&quot;---------- @cell_values_all ---------------&quot;</span>
+    <span class="ruby-identifier">logger</span>.<span class="ruby-identifier">debug</span> <span class="ruby-ivar">@cell_values_all</span>.<span class="ruby-identifier">inspect</span>
+    <span class="ruby-identifier">logger</span>.<span class="ruby-identifier">debug</span> <span class="ruby-node">&quot;----------------------- #{Time.new - benchmark_time} ms&quot;</span>
+
+    <span class="ruby-comment cmt"># collect all categories for this data column; Array of Categories</span>
+    <span class="ruby-ivar">@portal_cats</span> = <span class="ruby-ivar">@data_column</span>.<span class="ruby-identifier">methodstep</span>.<span class="ruby-identifier">datacell_categories</span>
+
+    <span class="ruby-comment cmt"># collect all categories provided in the category sheet and</span>
+    <span class="ruby-comment cmt"># present them, no matter if they are double or not.  Do this only</span>
+    <span class="ruby-comment cmt"># if no import categories are provided yet</span>
+    <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@data_column</span>.<span class="ruby-identifier">import_categories</span>.<span class="ruby-identifier">blank?</span>
+      <span class="ruby-identifier">sheet_cats_hash_array</span> =  <span class="ruby-identifier">look_for_provided_cats</span>(<span class="ruby-identifier">ch</span>, 
+                                                      <span class="ruby-ivar">@categorySheet</span>)
+   
+      <span class="ruby-identifier">sheet_new_cats</span> = <span class="ruby-identifier">sheet_cats_hash_array</span>.
+        <span class="ruby-identifier">map</span>{<span class="ruby-operator">|</span><span class="ruby-identifier">cat_info</span><span class="ruby-operator">|</span> <span class="ruby-constant">Categoricvalue</span>.<span class="ruby-identifier">create</span>(<span class="ruby-identifier">cat_info</span>)}
+   
+      <span class="ruby-identifier">sheet_new_imp_cats</span> = <span class="ruby-identifier">sheet_new_cats</span>.
+        <span class="ruby-identifier">map</span>{<span class="ruby-operator">|</span><span class="ruby-identifier">cat</span><span class="ruby-operator">|</span> <span class="ruby-constant">ImportCategory</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">:categoricvalue</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">cat</span>)}
+   
+      <span class="ruby-ivar">@data_column</span>.<span class="ruby-identifier">import_categories</span> = <span class="ruby-identifier">sheet_new_imp_cats</span>
+    <span class="ruby-keyword kw">end</span> 
+
+    <span class="ruby-ivar">@sheet_cats</span> = <span class="ruby-ivar">@data_column</span>.<span class="ruby-identifier">import_categories</span>.
+      <span class="ruby-identifier">map</span>{<span class="ruby-operator">|</span><span class="ruby-identifier">imp_c</span><span class="ruby-operator">|</span> [<span class="ruby-identifier">imp_c</span>.<span class="ruby-identifier">categoricvalue</span>.<span class="ruby-identifier">id</span>, 
+                   <span class="ruby-identifier">imp_c</span>.<span class="ruby-identifier">categoricvalue</span>.<span class="ruby-identifier">short</span>,
+                   <span class="ruby-identifier">imp_c</span>.<span class="ruby-identifier">categoricvalue</span>.<span class="ruby-identifier">long</span>]}
+    
+
+
+    <span class="ruby-identifier">logger</span>.<span class="ruby-identifier">debug</span> <span class="ruby-value str">&quot;---------- leaving raw_data_per_header ---------------&quot;</span>
+    <span class="ruby-identifier">logger</span>.<span class="ruby-identifier">debug</span> <span class="ruby-node">&quot;----------------------- #{Time.new - benchmark_time} ms&quot;</span>
+  <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

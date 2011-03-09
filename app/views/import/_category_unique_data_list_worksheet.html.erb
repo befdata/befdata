@@ -1,0 +1,14 @@
+
+<% icat_object = @subm_list[ch].import_categories.select{|icat|
+     icat.raw_data_value == icat_entry}[0]
+   cat = @worksheet_cat[ch][icat_entry]
+   form_for cat, :url => {:action => :update_import_category_new_category,
+     :controller => :import} do |form| %>
+     <%= form.text_field :short %>
+     <%= form.text_field :long %>
+     <%= form.text_field :description %>
+      <% fields_for icat_object do |imp_cat|%>
+        <%= imp_cat.hidden_field :id %>
+      <% end %>
+     <%= form.submit %>
+<% end %>

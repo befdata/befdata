@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>freeformat_file_upload (ImportController)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File controllers/import_controller.rb, line 78</span>
+  <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">freeformat_file_upload</span>
+    <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">logged_in?</span>
+      <span class="ruby-identifier">filevalue</span> = <span class="ruby-constant">Filevalue</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">params</span>[<span class="ruby-identifier">:filevalue</span>])
+
+      <span class="ruby-keyword kw">begin</span> 
+        <span class="ruby-constant">Filevalue</span>.<span class="ruby-identifier">transaction</span> <span class="ruby-keyword kw">do</span>
+          <span class="ruby-identifier">logger</span>.<span class="ruby-identifier">debug</span> <span class="ruby-value str">&quot;---- In freeformat_file_upload&quot;</span>
+          <span class="ruby-identifier">filevalue</span>.<span class="ruby-identifier">save</span>
+
+          <span class="ruby-comment cmt"># Creating the context</span>
+          <span class="ruby-identifier">filename</span> = <span class="ruby-identifier">filevalue</span>.<span class="ruby-identifier">file_file_name</span>
+          <span class="ruby-identifier">title</span> = <span class="ruby-value str">&quot;Free format file &quot;</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">filevalue</span>.<span class="ruby-identifier">file_file_name</span>
+          <span class="ruby-identifier">abstract</span> = <span class="ruby-value str">&quot;Dummy text for importing a free format file, please replace&quot;</span>
+          <span class="ruby-identifier">filename_noending</span> = <span class="ruby-identifier">filename</span>.<span class="ruby-identifier">split</span>(<span class="ruby-value str">'.'</span>)[<span class="ruby-value">0</span>]
+          <span class="ruby-identifier">export_filename</span> = <span class="ruby-identifier">filename_noending</span> <span class="ruby-operator">+</span> <span class="ruby-value str">&quot;.xls&quot;</span> <span class="ruby-comment cmt"># this is the ouput filename</span>
+          <span class="ruby-ivar">@context</span> = <span class="ruby-constant">Context</span>.<span class="ruby-identifier">create</span>(<span class="ruby-identifier">:title</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">title</span>,
+                                    <span class="ruby-identifier">:abstract</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">abstract</span>,
+                                    <span class="ruby-identifier">:filename</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">export_filename</span>)
+
+          <span class="ruby-comment cmt"># Creating the owner</span>
+          <span class="ruby-identifier">pers_role</span> = <span class="ruby-ivar">@current_user</span>.<span class="ruby-identifier">person_roles</span>[<span class="ruby-value">0</span>]
+          <span class="ruby-identifier">logger</span>.<span class="ruby-identifier">debug</span> <span class="ruby-value str">&quot;pers_role.inspect&quot;</span>
+          <span class="ruby-identifier">logger</span>.<span class="ruby-identifier">debug</span> <span class="ruby-identifier">pers_role</span>.<span class="ruby-identifier">inspect</span>
+          <span class="ruby-ivar">@context</span>.<span class="ruby-identifier">person_roles</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">pers_role</span>
+          <span class="ruby-identifier">logger</span>.<span class="ruby-identifier">debug</span> <span class="ruby-value str">&quot;@context.person_roles&quot;</span>
+          <span class="ruby-identifier">logger</span>.<span class="ruby-identifier">debug</span> <span class="ruby-ivar">@context</span>.<span class="ruby-identifier">person_roles</span>.<span class="ruby-identifier">inspect</span>
+
+          <span class="ruby-comment cmt"># Creating the data column</span>
+          <span class="ruby-identifier">dc</span> = <span class="ruby-constant">MeasurementsMethodstep</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">:columnheader</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value str">&quot;file&quot;</span>,
+                                          <span class="ruby-identifier">:definition</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value str">&quot;free format file&quot;</span>,
+                                          <span class="ruby-identifier">:columnnr</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value">1</span>)
+          <span class="ruby-identifier">logger</span>.<span class="ruby-identifier">debug</span> <span class="ruby-value str">&quot;dc.inspect&quot;</span>
+          <span class="ruby-identifier">logger</span>.<span class="ruby-identifier">debug</span> <span class="ruby-identifier">dc</span>.<span class="ruby-identifier">inspect</span>
+          <span class="ruby-comment cmt"># Creating a new Data group by default</span>
+          <span class="ruby-identifier">dg</span> = <span class="ruby-constant">Methodstep</span>.<span class="ruby-identifier">create</span>(<span class="ruby-identifier">:title</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">title</span>, <span class="ruby-identifier">:description</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">title</span>)
+          <span class="ruby-identifier">logger</span>.<span class="ruby-identifier">debug</span> <span class="ruby-value str">&quot;dg.inspect&quot;</span>
+          <span class="ruby-identifier">logger</span>.<span class="ruby-identifier">debug</span> <span class="ruby-identifier">dg</span>.<span class="ruby-identifier">inspect</span>
+          <span class="ruby-identifier">dc</span>.<span class="ruby-identifier">methodstep</span> = <span class="ruby-identifier">dg</span>
+          <span class="ruby-identifier">dc</span>.<span class="ruby-identifier">context</span> = <span class="ruby-ivar">@context</span>
+          <span class="ruby-identifier">dc</span>.<span class="ruby-identifier">save</span>
+          <span class="ruby-identifier">logger</span>.<span class="ruby-identifier">debug</span> <span class="ruby-value str">&quot;dc.inspect&quot;</span>
+          <span class="ruby-identifier">logger</span>.<span class="ruby-identifier">debug</span> <span class="ruby-identifier">dc</span>.<span class="ruby-identifier">inspect</span>
+
+          <span class="ruby-comment cmt"># Adding file to sheet cell</span>
+          <span class="ruby-identifier">obs</span> = <span class="ruby-constant">Observation</span>.<span class="ruby-identifier">create</span>(<span class="ruby-identifier">:rownr</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value">2</span>)
+          <span class="ruby-identifier">cl</span> = <span class="ruby-constant">Measurement</span>.<span class="ruby-identifier">create</span>(<span class="ruby-identifier">:observation</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">obs</span>,
+                                  <span class="ruby-identifier">:value</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">filevalue</span>,
+                                  <span class="ruby-identifier">:measurements_methodstep</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">dc</span>)
+
+          <span class="ruby-identifier">redirect_to</span>(<span class="ruby-identifier">:controller</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">:import</span>, <span class="ruby-identifier">:action</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">:freeformat_context_edit</span>, 
+                      <span class="ruby-identifier">:context_id</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-ivar">@context</span>.<span class="ruby-identifier">id</span>)
+        <span class="ruby-keyword kw">end</span>
+      <span class="ruby-keyword kw">rescue</span> <span class="ruby-constant">ActiveRecord</span><span class="ruby-operator">::</span><span class="ruby-constant">RecordInvalid</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">invalid</span>
+        <span class="ruby-identifier">redirect_to</span> <span class="ruby-identifier">:root</span>
+      <span class="ruby-keyword kw">end</span>
+    <span class="ruby-keyword kw">end</span>
+  <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

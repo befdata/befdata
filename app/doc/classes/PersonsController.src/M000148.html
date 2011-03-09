@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>project (PersonsController)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File controllers/persons_controller.rb, line 53</span>
+  <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">project</span>
+    <span class="ruby-identifier">project</span> = <span class="ruby-constant">Project</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">params</span>[<span class="ruby-identifier">:id</span>])
+    <span class="ruby-ivar">@spe</span> = <span class="ruby-identifier">project</span>
+
+    <span class="ruby-ivar">@namee</span> = <span class="ruby-ivar">@spe</span>.<span class="ruby-identifier">name</span> <span class="ruby-keyword kw">unless</span> <span class="ruby-ivar">@spe</span>.<span class="ruby-identifier">blank?</span>
+
+    <span class="ruby-ivar">@staffe</span> = <span class="ruby-identifier">project</span>.<span class="ruby-identifier">person_roles</span>.<span class="ruby-identifier">uniq</span>
+    <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@staffe</span> <span class="ruby-operator">!=</span> <span class="ruby-keyword kw">nil</span>
+      <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@staffe</span>.<span class="ruby-identifier">length</span> <span class="ruby-operator">&gt;</span> <span class="ruby-value">0</span>
+        <span class="ruby-ivar">@pise</span> = <span class="ruby-ivar">@staffe</span>.<span class="ruby-identifier">select</span>{<span class="ruby-operator">|</span><span class="ruby-identifier">s</span><span class="ruby-operator">|</span> <span class="ruby-identifier">s</span>.<span class="ruby-identifier">role</span>.<span class="ruby-identifier">name</span> <span class="ruby-operator">==</span> <span class="ruby-value str">'pi'</span>}
+        <span class="ruby-ivar">@copise</span> = <span class="ruby-ivar">@staffe</span>.<span class="ruby-identifier">select</span>{<span class="ruby-operator">|</span><span class="ruby-identifier">s</span><span class="ruby-operator">|</span> <span class="ruby-identifier">s</span>.<span class="ruby-identifier">role</span>.<span class="ruby-identifier">name</span> <span class="ruby-operator">==</span> <span class="ruby-value str">'co-pi'</span>}
+        <span class="ruby-ivar">@postdocse</span> = <span class="ruby-ivar">@staffe</span>.<span class="ruby-identifier">select</span>{<span class="ruby-operator">|</span><span class="ruby-identifier">s</span><span class="ruby-operator">|</span> <span class="ruby-identifier">s</span>.<span class="ruby-identifier">role</span>.<span class="ruby-identifier">name</span> <span class="ruby-operator">==</span> <span class="ruby-value str">'postdoc'</span>}
+        <span class="ruby-ivar">@phdse</span> = <span class="ruby-ivar">@staffe</span>.<span class="ruby-identifier">select</span>{<span class="ruby-operator">|</span><span class="ruby-identifier">s</span><span class="ruby-operator">|</span> <span class="ruby-identifier">s</span>.<span class="ruby-identifier">role</span>.<span class="ruby-identifier">name</span> <span class="ruby-operator">==</span> <span class="ruby-value str">'phd'</span>}
+        <span class="ruby-ivar">@technicianse</span> = <span class="ruby-ivar">@staffe</span>.<span class="ruby-identifier">select</span>{<span class="ruby-operator">|</span><span class="ruby-identifier">s</span><span class="ruby-operator">|</span> <span class="ruby-identifier">s</span>.<span class="ruby-identifier">role</span>.<span class="ruby-identifier">name</span> <span class="ruby-operator">==</span> <span class="ruby-value str">'technician'</span>}
+        <span class="ruby-ivar">@studentse</span> = <span class="ruby-ivar">@staffe</span>.<span class="ruby-identifier">select</span>{<span class="ruby-operator">|</span><span class="ruby-identifier">s</span><span class="ruby-operator">|</span> <span class="ruby-identifier">s</span>.<span class="ruby-identifier">role</span>.<span class="ruby-identifier">name</span> <span class="ruby-operator">==</span> <span class="ruby-value str">'student'</span>}
+        <span class="ruby-identifier">listed_prs</span> = <span class="ruby-ivar">@pise</span> <span class="ruby-operator">+</span> <span class="ruby-ivar">@copise</span> <span class="ruby-operator">+</span> <span class="ruby-ivar">@postdocse</span> <span class="ruby-operator">+</span> <span class="ruby-ivar">@phdse</span> <span class="ruby-operator">+</span>
+          <span class="ruby-ivar">@technicianse</span> <span class="ruby-operator">+</span> <span class="ruby-ivar">@studentse</span>
+        <span class="ruby-ivar">@others</span> = <span class="ruby-ivar">@staffe</span> <span class="ruby-operator">-</span> <span class="ruby-identifier">listed_prs</span>
+      <span class="ruby-keyword kw">end</span>
+    <span class="ruby-keyword kw">else</span>
+      <span class="ruby-identifier">redirect_to</span> <span class="ruby-identifier">:back</span>
+    <span class="ruby-keyword kw">end</span>
+  <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

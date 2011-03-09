@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>lookup_data_header_people (ImportController)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File controllers/import_controller.rb, line 390</span>
+  <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">lookup_data_header_people</span>(<span class="ruby-identifier">ch</span>)
+    <span class="ruby-comment cmt"># there are often several people for one column in raw data;</span>
+    <span class="ruby-comment cmt"># people can also be added automatically to the submethod</span>
+    <span class="ruby-identifier">people_rows</span> = <span class="ruby-ivar">@ch_people_hash</span>.<span class="ruby-identifier">select</span>{<span class="ruby-operator">|</span><span class="ruby-identifier">k</span>,<span class="ruby-identifier">v</span><span class="ruby-operator">|</span> <span class="ruby-identifier">v</span><span class="ruby-operator">==</span><span class="ruby-identifier">ch</span>} <span class="ruby-comment cmt"># [[1, &quot;rarefy_100&quot;]]</span>
+    <span class="ruby-identifier">people_rows</span> = <span class="ruby-identifier">people_rows</span>.<span class="ruby-identifier">collect</span>{<span class="ruby-operator">|</span><span class="ruby-identifier">r_ch</span><span class="ruby-operator">|</span> <span class="ruby-identifier">r_ch</span>[<span class="ruby-value">0</span>]} <span class="ruby-comment cmt"># only the row index</span>
+    <span class="ruby-identifier">people_given</span> = []
+    <span class="ruby-identifier">people_sur</span>   = []
+    <span class="ruby-identifier">people_proj</span>  = []
+    <span class="ruby-identifier">people_role</span>  = []
+    <span class="ruby-identifier">people</span> = []
+    <span class="ruby-identifier">people_rows</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">r</span><span class="ruby-operator">|</span>
+      <span class="ruby-identifier">people_given</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-ivar">@respPeopleSheet</span>.<span class="ruby-identifier">row</span>(<span class="ruby-identifier">r</span>)[<span class="ruby-value">1</span>]
+      <span class="ruby-identifier">people_sur</span>   <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-ivar">@respPeopleSheet</span>.<span class="ruby-identifier">row</span>(<span class="ruby-identifier">r</span>)[<span class="ruby-value">2</span>]
+      <span class="ruby-identifier">people_proj</span>   <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-ivar">@respPeopleSheet</span>.<span class="ruby-identifier">row</span>(<span class="ruby-identifier">r</span>)[<span class="ruby-value">3</span>]
+      <span class="ruby-identifier">people_role</span>   <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-ivar">@respPeopleSheet</span>.<span class="ruby-identifier">row</span>(<span class="ruby-identifier">r</span>)[<span class="ruby-value">4</span>]
+      <span class="ruby-identifier">people</span> <span class="ruby-operator">+=</span> <span class="ruby-constant">Person</span>.<span class="ruby-identifier">find_all_by_lastname</span>(<span class="ruby-identifier">people_sur</span>)
+      <span class="ruby-identifier">people</span> <span class="ruby-operator">+=</span> <span class="ruby-constant">Person</span>.<span class="ruby-identifier">fuzzy_find</span>(<span class="ruby-identifier">people_sur</span>)
+    <span class="ruby-keyword kw">end</span>
+    <span class="ruby-identifier">people</span> = <span class="ruby-identifier">people</span>.<span class="ruby-identifier">uniq</span>
+<span class="ruby-comment cmt">#    prs = people.collect{|p| p.person_roles}.flatten</span>
+<span class="ruby-comment cmt">#    prs = prs.flatten.uniq</span>
+<span class="ruby-comment cmt">#    prs = prs.sort_by{|pr| pr.person.lastname}</span>
+    <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">people</span>
+  <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

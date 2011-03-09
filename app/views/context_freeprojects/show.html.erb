@@ -1,0 +1,18 @@
+<p>
+  <b>Project:</b>
+  <%=h @context_freeproject.project_id %>
+</p>
+
+<p>
+  <b>Context:</b>
+  <%=h @context_freeproject.context_id %>
+</p>
+
+<p>
+  <b>Comment:</b>
+  <%=h @context_freeproject.comment %>
+</p>
+
+
+<%= link_to 'Edit', edit_context_freeproject_path(@context_freeproject) %> |
+<%= link_to 'Back', context_freeprojects_path %>

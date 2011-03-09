@@ -1,0 +1,10 @@
+<% cell = Measurement.find(cell_id) %> 
+<%#= cell.categoricvalue.verbose %>
+<% form_for cell , :url  =>  {:controller  =>  :import,
+     :action  =>  :cell_category_update} do |f| %>
+  <%= f.error_messages %>
+  <%= f.hidden_field :id %>
+  <!-- The cell already has "Categoricvalue" as valuetype -->
+  <%= f.collection_select :value_id, @cats_to_choose, :id, :verbose %>
+  <p>To choose from available categories, press: <%= f.submit "choose" %></p>
+<% end %>

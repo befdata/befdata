@@ -1,0 +1,22 @@
+%div.box
+  %h3
+    = @data_request.title
+    - unless @data_request.lock
+      = link_to image_tag("pencil.png"), edit_data_request_path(@data_request)
+      = image_tag("lock_open.png")
+    - else
+      = image_tag("lock.png")
+  %h4 Rational
+  %p= @data_request.rationale
+
+  = render :partial => "state_of_vote"
+
+  - if @data_request.board_state == "final"
+    %p Its allowed to download files, present now list of download actions
+    %ul
+      - @data_request.contexts.each do |context|
+        %li= link_to context.title,
+                  {:controller => 'contexts',
+                   :action => 'download',
+                   :id => context.id}
+

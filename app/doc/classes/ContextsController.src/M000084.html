@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>create_categorysheet (ContextsController)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File controllers/contexts_controller.rb, line 580</span>
+  <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">create_categorysheet</span>(<span class="ruby-identifier">book</span>, <span class="ruby-identifier">context</span>, <span class="ruby-identifier">formats</span>, <span class="ruby-identifier">methods</span> = <span class="ruby-keyword kw">nil</span>)
+    <span class="ruby-comment cmt"># This action canot be called externally.</span>
+
+    <span class="ruby-identifier">sheet</span> = <span class="ruby-identifier">book</span>.<span class="ruby-identifier">create_worksheet</span> <span class="ruby-identifier">:name</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value str">'column categories'</span>    
+
+    <span class="ruby-identifier">sheet</span>.<span class="ruby-identifier">row</span>(<span class="ruby-value">0</span>).<span class="ruby-identifier">default_format</span> = <span class="ruby-identifier">formats</span>[<span class="ruby-identifier">:metaformat</span>]
+    <span class="ruby-identifier">sheet</span>.<span class="ruby-identifier">row</span>(<span class="ruby-value">0</span>).<span class="ruby-identifier">height</span> = <span class="ruby-value">120</span>
+    <span class="ruby-identifier">sheet</span>[<span class="ruby-value">0</span>,<span class="ruby-value">0</span>] = <span class="ruby-value str">&quot;Column header&quot;</span>
+    <span class="ruby-identifier">sheet</span>[<span class="ruby-value">0</span>,<span class="ruby-value">1</span>] = <span class="ruby-value str">&quot;Category short&quot;</span>
+    <span class="ruby-identifier">sheet</span>[<span class="ruby-value">0</span>,<span class="ruby-value">2</span>] = <span class="ruby-value str">&quot;Category long&quot;</span>
+    <span class="ruby-identifier">sheet</span>[<span class="ruby-value">0</span>,<span class="ruby-value">3</span>] = <span class="ruby-value str">&quot;Category description&quot;</span>
+
+    <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">methods</span>
+      <span class="ruby-comment cmt"># If methods are given, use the given methods.</span>
+      <span class="ruby-identifier">mms</span> = <span class="ruby-identifier">methods</span>
+    <span class="ruby-keyword kw">else</span>
+      <span class="ruby-comment cmt"># If no methods are given, use all methods of the context.</span>
+      <span class="ruby-identifier">mms</span> = <span class="ruby-constant">MeasurementsMethodstep</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">:all</span>, <span class="ruby-identifier">:conditions</span> =<span class="ruby-operator">&gt;</span> [<span class="ruby-value str">&quot;context_id = ?&quot;</span>, <span class="ruby-identifier">context</span>.<span class="ruby-identifier">id</span>], <span class="ruby-identifier">:order</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value str">&quot;columnnr ASC&quot;</span>)      
+    <span class="ruby-keyword kw">end</span>
+
+    <span class="ruby-identifier">mms_cat</span> = []
+    <span class="ruby-identifier">mms</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">mm</span><span class="ruby-operator">|</span>
+      <span class="ruby-comment cmt"># Each MeasurementsMethodstep is tested if it contains categories.</span>
+      <span class="ruby-comment cmt"># If it's categoric, we want to have this MeasurementsMethodstep.</span>
+      <span class="ruby-identifier">firstMeas</span> = <span class="ruby-identifier">mm</span>.<span class="ruby-identifier">measurements</span>.<span class="ruby-identifier">first</span>
+      <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">firstMeas</span>.<span class="ruby-identifier">nil?</span>
+        <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">firstMeas</span>.<span class="ruby-identifier">value_type</span> <span class="ruby-operator">==</span> <span class="ruby-value str">&quot;Categoricvalue&quot;</span>
+          <span class="ruby-identifier">mms_cat</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">mm</span>
+        <span class="ruby-keyword kw">end</span>
+      <span class="ruby-keyword kw">end</span>
+    <span class="ruby-keyword kw">end</span>
+    <span class="ruby-identifier">mms_cat</span> = <span class="ruby-identifier">mms_cat</span>.<span class="ruby-identifier">uniq</span>
+
+    <span class="ruby-identifier">row</span> = <span class="ruby-value">1</span>
+    <span class="ruby-identifier">m_old</span> = []
+    <span class="ruby-identifier">mms_cat</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">step</span><span class="ruby-operator">|</span>
+      <span class="ruby-identifier">step</span>.<span class="ruby-identifier">measurements</span>.<span class="ruby-identifier">sort</span>{<span class="ruby-operator">|</span><span class="ruby-identifier">a</span>,<span class="ruby-identifier">b</span><span class="ruby-operator">|</span> <span class="ruby-identifier">a</span>.<span class="ruby-identifier">value</span>.<span class="ruby-identifier">short</span> <span class="ruby-operator">&lt;=&gt;</span> <span class="ruby-identifier">b</span>.<span class="ruby-identifier">value</span>.<span class="ruby-identifier">short</span>}.<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">m</span><span class="ruby-operator">|</span>
+        <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">m_old</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">m</span>.<span class="ruby-identifier">value</span>.<span class="ruby-identifier">long</span>) <span class="ruby-operator">||</span> <span class="ruby-identifier">m</span>.<span class="ruby-identifier">value</span>.<span class="ruby-identifier">long</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">m</span>.<span class="ruby-identifier">value</span>.<span class="ruby-identifier">description</span>
+          <span class="ruby-identifier">sheet</span>.<span class="ruby-identifier">row</span>(<span class="ruby-identifier">row</span>).<span class="ruby-identifier">default_format</span> = <span class="ruby-identifier">formats</span>[<span class="ruby-identifier">:dataformat</span>]
+          <span class="ruby-identifier">sheet</span>[<span class="ruby-identifier">row</span>,<span class="ruby-value">0</span>] = <span class="ruby-identifier">step</span>.<span class="ruby-identifier">columnheader</span>
+          <span class="ruby-identifier">sheet</span>[<span class="ruby-identifier">row</span>,<span class="ruby-value">1</span>] = <span class="ruby-identifier">m</span>.<span class="ruby-identifier">value</span>.<span class="ruby-identifier">short</span>
+          <span class="ruby-identifier">sheet</span>[<span class="ruby-identifier">row</span>,<span class="ruby-value">2</span>] = <span class="ruby-identifier">m</span>.<span class="ruby-identifier">value</span>.<span class="ruby-identifier">long</span>
+          <span class="ruby-identifier">sheet</span>[<span class="ruby-identifier">row</span>,<span class="ruby-value">3</span>] = <span class="ruby-identifier">m</span>.<span class="ruby-identifier">value</span>.<span class="ruby-identifier">description</span>
+
+          <span class="ruby-identifier">m_old</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">m</span>.<span class="ruby-identifier">value</span>.<span class="ruby-identifier">long</span>
+          <span class="ruby-identifier">row</span> <span class="ruby-operator">+=</span> <span class="ruby-value">1</span>
+        <span class="ruby-keyword kw">end</span>
+      <span class="ruby-keyword kw">end</span>
+    <span class="ruby-keyword kw">end</span>
+  <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

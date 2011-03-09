@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>display_name (AdminBaseHelper)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File helpers/admin_base_helper.rb, line 2</span>
+  <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">display_name</span>(<span class="ruby-identifier">item</span>)
+    <span class="ruby-identifier">de</span> = {}
+    <span class="ruby-identifier">de</span>[<span class="ruby-value str">&quot;projects&quot;</span>] = <span class="ruby-value str">&quot;Projects&quot;</span>
+    <span class="ruby-identifier">de</span>[<span class="ruby-value str">&quot;pages&quot;</span>] = <span class="ruby-value str">&quot;Pages&quot;</span>
+    <span class="ruby-identifier">de</span>[<span class="ruby-value str">&quot;people&quot;</span>] = <span class="ruby-value str">&quot;People&quot;</span>
+    <span class="ruby-identifier">de</span>[<span class="ruby-value str">&quot;roles&quot;</span>] = <span class="ruby-value str">&quot;Roledefinitions&quot;</span>
+    <span class="ruby-identifier">de</span>[<span class="ruby-value str">&quot;person_roles&quot;</span>] = <span class="ruby-value str">&quot;People's Roles&quot;</span>
+    <span class="ruby-identifier">de</span>[<span class="ruby-value str">&quot;institutions&quot;</span>] = <span class="ruby-value str">&quot;Institutions&quot;</span>
+    <span class="ruby-identifier">de</span>[<span class="ruby-value str">&quot;person_addresses&quot;</span>] = <span class="ruby-value str">&quot;People's Addresses&quot;</span>
+    <span class="ruby-identifier">de</span>[<span class="ruby-value str">&quot;observations_measurements&quot;</span>] = <span class="ruby-value str">&quot;observations_measurements&quot;</span>
+    <span class="ruby-identifier">de</span>[<span class="ruby-value str">&quot;categoricvalues&quot;</span>] = <span class="ruby-value str">&quot;categoricvalues&quot;</span>
+    <span class="ruby-identifier">de</span>[<span class="ruby-value str">&quot;datetimevalues&quot;</span>] = <span class="ruby-value str">&quot;datetimevalues&quot;</span>
+    <span class="ruby-identifier">de</span>[<span class="ruby-value str">&quot;textvalues&quot;</span>] = <span class="ruby-value str">&quot;textvalues&quot;</span>
+    <span class="ruby-identifier">de</span>[<span class="ruby-value str">&quot;numericvalues&quot;</span>] = <span class="ruby-value str">&quot;numericvalues&quot;</span>
+    <span class="ruby-identifier">de</span>[<span class="ruby-value str">&quot;measurements&quot;</span>] = <span class="ruby-value str">&quot;measurements&quot;</span>
+    <span class="ruby-identifier">de</span>[<span class="ruby-value str">&quot;measmeths_personroles&quot;</span>] = <span class="ruby-value str">&quot;measmeths_personroles&quot;</span>
+    <span class="ruby-identifier">de</span>[<span class="ruby-value str">&quot;measurements_methodsteps&quot;</span>] = <span class="ruby-value str">&quot;Submethods&quot;</span>
+    <span class="ruby-identifier">de</span>[<span class="ruby-value str">&quot;methodsteps&quot;</span>] = <span class="ruby-value str">&quot;methodsteps&quot;</span>
+    <span class="ruby-identifier">de</span>[<span class="ruby-value str">&quot;methods&quot;</span>] = <span class="ruby-value str">&quot;Methods&quot;</span>
+    <span class="ruby-identifier">de</span>[<span class="ruby-value str">&quot;regioncoords&quot;</span>] = <span class="ruby-value str">&quot;regioncoords&quot;</span>
+    <span class="ruby-identifier">de</span>[<span class="ruby-value str">&quot;locations&quot;</span>] = <span class="ruby-value str">&quot;locations&quot;</span>
+    <span class="ruby-identifier">de</span>[<span class="ruby-value str">&quot;observations&quot;</span>] = <span class="ruby-value str">&quot;observations&quot;</span>
+    <span class="ruby-identifier">de</span>[<span class="ruby-value str">&quot;context_person_roles&quot;</span>] = <span class="ruby-value str">&quot;context_person_roles&quot;</span>
+    <span class="ruby-identifier">de</span>[<span class="ruby-value str">&quot;contexts&quot;</span>] = <span class="ruby-value str">&quot;Contexts&quot;</span>
+    <span class="ruby-identifier">de</span>[<span class="ruby-identifier">item</span>] <span class="ruby-operator">||</span> <span class="ruby-identifier">item</span>
+  <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

@@ -1,0 +1,18 @@
+<p><span style="font-size: large">Search Results</span></p>
+<% unless @results.blank? %>
+  <form action="<%= import_path %>/raw_data_overview"
+    <%= pluralize(@results.length, 'context')%> found for <b>'<%= params[:q]%>'</b>.
+    <ul>
+	<% @results.each do |context| %>
+	  <li style="list-style-type:none">
+            <input type="radio" name="context_id" value="<%= context.id %>"/>
+	    <b><%= link_to context.title, {:controller => 'contexts', :action => 'show', :id => context.id} %></b>
+	    <p><%= context.abstract[0..300] + "..." unless context.abstract.blank? %> </p>
+	  </li>
+	<% end %>
+    </ul>
+    <input type="submit" value="Provide context information" />
+  </form>
+<% else %>
+	<p>We are terriby sorry, but there are no matches for <b>'<%= params[:q]%>'</b>. Please try again.</p>
+<% end %>

@@ -1,0 +1,11 @@
+<b>Meta data spreadsheet upload.</b>
+<% filev = Filevalue.new %>
+<% form_for filev, :url => {:controller => :import, 
+                            :action => :create_dataset_filevalue},
+                   :html => {:multipart => true} do |f| %>
+   <%= f.error_messages %>
+   <%= f.file_field :file %>
+   <%= f.submit 'Data set upload' %>
+
+<% end %>
+

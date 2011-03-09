@@ -1,0 +1,14 @@
+<p>
+<% if @context.cells_linked_to_values?%>
+  <%= link_to 'Finish up Dataset upload', {:controller => :contexts, 
+	:action => :upload, 
+	:context_id => @context.id, 
+	:step => '5'} %>
+<% else %>
+  Please go through each of the data columns and check data types as
+  well as data upload.
+<% end %>
+</p>
+
+
+

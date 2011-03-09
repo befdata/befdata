@@ -1,0 +1,18 @@
+
+<%= select "person", "person_id", @people_list.map{|p| [p.to_label,
+      p.id]}, {}, {:onchange => 'selectPeople(this)'} %>
+
+
+
+<% form_for @data_column, :url => {:controller=> :import, :action =>
+     :update_people_for_data_header} do |form| %>
+     <%= form.hidden_field :id %>
+  <ul>
+      <% @ppl.each do |person| %>
+        <li onclick="this.parentNode.removeChild(this);">
+     	  <input type="hidden" name="people[]" value="<%= person.id %>" /> 
+	  <%= person.to_label %>
+        </li>
+      <% end %>
+  </ul>
+  <%= form.submit :submit %> <% end %>

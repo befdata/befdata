@@ -1,0 +1,19 @@
+<h1>Listing filevalues</h1>
+
+<table>
+  <tr>
+  </tr>
+
+<% @filevalues.each do |filevalue| %>
+  <tr>
+    <td><%= link_to filevalue.file_file_name, filevalue.file.url %></td>
+    <td><%= link_to 'Show', filevalue %></td>
+    <td><%= link_to 'Edit', edit_filevalue_path(filevalue) %></td>
+    <td><%= link_to 'Destroy', filevalue, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New filevalue', new_filevalue_path %>

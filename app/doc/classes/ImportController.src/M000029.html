@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>category_data_column_import (ImportController)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File controllers/import_controller.rb, line 1003</span>
+  <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">category_data_column_import</span>(<span class="ruby-identifier">data_column_id</span>, <span class="ruby-identifier">portal_cats</span>, <span class="ruby-identifier">sheet_cats</span>)
+    <span class="ruby-identifier">data_column</span> = <span class="ruby-constant">MeasurementsMethodstep</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">data_column_id</span>, 
+                                              <span class="ruby-identifier">:include</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">:measurements</span>)
+
+    <span class="ruby-comment cmt"># the entries themselves</span>
+    <span class="ruby-identifier">cells</span> = <span class="ruby-identifier">data_column</span>.<span class="ruby-identifier">measurements</span>
+
+    <span class="ruby-comment cmt"># Check each entry loop</span>
+    <span class="ruby-identifier">cells</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">cell</span><span class="ruby-operator">|</span> 
+      <span class="ruby-identifier">entry</span> = <span class="ruby-identifier">cell</span>.<span class="ruby-identifier">import_value</span>
+      <span class="ruby-identifier">obs</span> = <span class="ruby-identifier">cell</span>.<span class="ruby-identifier">observation</span>
+      
+      <span class="ruby-identifier">comment_cat_hash</span> = 
+        <span class="ruby-identifier">suggest_category_for_entry</span>(<span class="ruby-identifier">portal_cats</span>, <span class="ruby-identifier">sheet_cats</span>,
+                                   <span class="ruby-identifier">entry</span>)
+      <span class="ruby-identifier">cat</span> = <span class="ruby-identifier">comment_cat_hash</span>[<span class="ruby-identifier">:cat</span>]
+      <span class="ruby-identifier">cell_comment</span> = <span class="ruby-identifier">comment_cat_hash</span>[<span class="ruby-identifier">:cell_comment</span>]
+
+      <span class="ruby-identifier">cell</span>.<span class="ruby-identifier">comment</span> = <span class="ruby-identifier">cell_comment</span>
+
+      <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">cell_comment</span> <span class="ruby-operator">==</span> <span class="ruby-value str">&quot;invalid&quot;</span>
+        <span class="ruby-identifier">cat</span> = <span class="ruby-constant">Categoricvalue</span>.
+          <span class="ruby-identifier">create</span>(<span class="ruby-identifier">:short</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">entry</span>, <span class="ruby-identifier">:long</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">entry</span>, <span class="ruby-identifier">:description</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">entry</span>,
+                 <span class="ruby-identifier">:comment</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value str">&quot;automatically generated&quot;</span>)
+      <span class="ruby-keyword kw">end</span>
+
+      <span class="ruby-identifier">cell</span>.<span class="ruby-identifier">value</span> = <span class="ruby-identifier">cat</span>
+      <span class="ruby-identifier">cell</span>.<span class="ruby-identifier">save</span>
+      <span class="ruby-identifier">logger</span>.<span class="ruby-identifier">debug</span> <span class="ruby-value str">&quot;- cell.save  -&quot;</span> 
+      <span class="ruby-identifier">logger</span>.<span class="ruby-identifier">debug</span> <span class="ruby-identifier">cell</span>.<span class="ruby-identifier">to_yaml</span>
+    <span class="ruby-keyword kw">end</span> <span class="ruby-comment cmt"># Entry loop</span>
+
+  <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

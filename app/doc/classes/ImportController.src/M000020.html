@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>methodsheet_datagroup (ImportController)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File controllers/import_controller.rb, line 731</span>
+  <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">methodsheet_datagroup</span>(<span class="ruby-identifier">columnheader</span>, <span class="ruby-identifier">methodsheet</span>)
+    <span class="ruby-identifier">logger</span>.<span class="ruby-identifier">debug</span> <span class="ruby-value str">&quot; in methodsheet_datagroup(columnheader) ---------- &quot;</span>
+    <span class="ruby-identifier">ch</span> = <span class="ruby-identifier">columnheader</span>
+    <span class="ruby-identifier">method_index</span> = <span class="ruby-identifier">methodsheet</span>.<span class="ruby-identifier">column</span>(<span class="ruby-value">0</span>).<span class="ruby-identifier">to_a</span>.<span class="ruby-identifier">index</span>(<span class="ruby-identifier">ch</span>)
+    <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">method_index</span>.<span class="ruby-identifier">nil?</span>
+      <span class="ruby-identifier">row</span> = <span class="ruby-identifier">methodsheet</span>.<span class="ruby-identifier">row</span>(<span class="ruby-identifier">method_index</span>)
+      <span class="ruby-identifier">data_group_Title</span> = <span class="ruby-identifier">row</span>[<span class="ruby-value">5</span>] 
+      <span class="ruby-comment cmt"># if not data group Title is given, date the definition of the</span>
+      <span class="ruby-comment cmt"># data column header</span>
+      <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">data_group_Title</span>.<span class="ruby-identifier">nil?</span>
+        <span class="ruby-identifier">data_group_Title</span> = <span class="ruby-identifier">row</span>[<span class="ruby-value">1</span>] <span class="ruby-comment cmt"># data column definition</span>
+        <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">data_group_Title</span>.<span class="ruby-identifier">nil?</span>
+          <span class="ruby-identifier">data_group_Title</span> = <span class="ruby-identifier">ch</span>
+        <span class="ruby-keyword kw">end</span>
+      <span class="ruby-keyword kw">end</span>
+      <span class="ruby-identifier">data_group_Descr</span> = <span class="ruby-identifier">row</span>[<span class="ruby-value">6</span>] 
+      <span class="ruby-identifier">data_group_Descr</span> = (<span class="ruby-identifier">data_group_Descr</span>.<span class="ruby-identifier">nil?</span> <span class="ruby-value">? </span><span class="ruby-identifier">data_group_Title</span> <span class="ruby-operator">:</span> <span class="ruby-identifier">data_group_Descr</span>)
+      <span class="ruby-identifier">data_group_Instr</span> = <span class="ruby-identifier">row</span>[<span class="ruby-value">7</span>] 
+      <span class="ruby-identifier">data_group_Sourc</span> = <span class="ruby-identifier">row</span>[<span class="ruby-value">8</span>] 
+      <span class="ruby-identifier">data_group_NType</span> = <span class="ruby-identifier">row</span>[<span class="ruby-value">9</span>]
+      <span class="ruby-identifier">data_group_TScal</span> = <span class="ruby-identifier">row</span>[<span class="ruby-value">10</span>]
+      <span class="ruby-identifier">data_group_TScUn</span> = <span class="ruby-identifier">row</span>[<span class="ruby-value">11</span>]
+    <span class="ruby-keyword kw">else</span> <span class="ruby-comment cmt"># no discription for this ch in the method sheet</span>
+      <span class="ruby-identifier">data_group_Title</span> = <span class="ruby-identifier">ch</span>
+      <span class="ruby-identifier">data_group_Descr</span> = <span class="ruby-identifier">ch</span>
+      <span class="ruby-identifier">data_group_Instr</span> = <span class="ruby-keyword kw">nil</span>
+      <span class="ruby-identifier">data_group_Sourc</span> = <span class="ruby-keyword kw">nil</span>
+      <span class="ruby-identifier">data_group_NType</span> = <span class="ruby-keyword kw">nil</span>
+      <span class="ruby-identifier">data_group_TScal</span> = <span class="ruby-keyword kw">nil</span>
+      <span class="ruby-identifier">data_group_TScUn</span> = <span class="ruby-keyword kw">nil</span>
+    <span class="ruby-keyword kw">end</span>
+
+    <span class="ruby-comment cmt"># summary</span>
+    <span class="ruby-identifier">data_group</span> = {<span class="ruby-identifier">:title</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">data_group_Title</span>,
+      <span class="ruby-identifier">:description</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">data_group_Descr</span>,
+      <span class="ruby-identifier">:methodvaluetype</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">data_group_NType</span>,
+      <span class="ruby-identifier">:instrumentation</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">data_group_Instr</span>,
+      <span class="ruby-identifier">:informationsource</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">data_group_Sourc</span>,
+      <span class="ruby-identifier">:timelatency</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">data_group_TScal</span>,
+      <span class="ruby-identifier">:timelatencyunit</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">data_group_TScUn</span>}
+    <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">data_group</span>
+  <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

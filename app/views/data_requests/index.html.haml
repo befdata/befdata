@@ -1,0 +1,20 @@
+%h2= "Data Requests #{link_to(image_tag("add.gif"), :new_data_request)}"
+
+- @data_requests.each do |data_request|
+  %div.box
+    %h3
+      = data_request.title
+      = link_to image_tag("page_go.png"), data_request_path(data_request)
+      - if data_request.lock
+        = image_tag("lock.png")
+      -else
+        = link_to image_tag("pencil.png"), edit_data_request_path(data_request)
+        = image_tag("lock_open.png")
+      = link_to image_tag("cross.png"), data_request,
+                                      :confirm => "Are you sure you want delete this data proposal?",
+                                      :method => :delete
+
+    %h4= "#{data_request.author} created at: #{data_request.created_at}"
+    Rationale:
+    %p
+      = data_request.rationale

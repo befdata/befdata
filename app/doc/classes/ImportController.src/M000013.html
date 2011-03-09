@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>context_export_destroy (ImportController)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File controllers/import_controller.rb, line 461</span>
+  <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">context_export_destroy</span>
+    <span class="ruby-comment cmt"># export context is missing, should use the export from the</span>
+    <span class="ruby-comment cmt"># context controller</span>
+    
+    <span class="ruby-comment cmt"># destroy context</span>
+    <span class="ruby-identifier">context</span> = <span class="ruby-constant">Context</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">params</span>[<span class="ruby-identifier">:context_id</span>])
+    <span class="ruby-identifier">context</span>.<span class="ruby-identifier">destroy</span>
+
+    <span class="ruby-comment cmt"># reset_session; this logs you out</span>
+    <span class="ruby-identifier">redirect_to</span>(<span class="ruby-identifier">:controller</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">:data</span>)
+  <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

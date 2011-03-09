@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>suggest_category_for_entry (ImportController)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File controllers/import_controller.rb, line 1402</span>
+  <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">suggest_category_for_entry</span>(<span class="ruby-identifier">portal_cats</span>, <span class="ruby-identifier">sheet_cats</span>, <span class="ruby-identifier">entry</span>)
+    <span class="ruby-identifier">cat_found</span> = <span class="ruby-keyword kw">nil</span>
+
+    <span class="ruby-comment cmt"># checking categories for exact matches, first on the portal,</span>
+    <span class="ruby-comment cmt"># then in the spreadsheet</span>
+    <span class="ruby-identifier">cat</span> = <span class="ruby-identifier">find_entry_in_cat_array</span>(<span class="ruby-identifier">portal_cats</span>, <span class="ruby-identifier">entry</span>)
+    <span class="ruby-identifier">logger</span>.<span class="ruby-identifier">debug</span> <span class="ruby-value str">&quot;------------ cat after portal match  ----------&quot;</span> 
+    <span class="ruby-identifier">logger</span>.<span class="ruby-identifier">debug</span> <span class="ruby-identifier">cat</span>.<span class="ruby-identifier">inspect</span>
+    <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">cat</span>.<span class="ruby-identifier">blank?</span>
+      <span class="ruby-identifier">cell_comment</span> = <span class="ruby-value str">&quot;portal match&quot;</span>
+    <span class="ruby-keyword kw">else</span>       <span class="ruby-comment cmt"># Is there a match from the sheet? Note in</span>
+      <span class="ruby-comment cmt"># Measurements: sheet match</span>
+      <span class="ruby-identifier">cat</span> = <span class="ruby-identifier">find_entry_in_cat_array</span>(<span class="ruby-identifier">sheet_cats</span>, <span class="ruby-identifier">entry</span>) 
+      <span class="ruby-identifier">logger</span>.<span class="ruby-identifier">debug</span> <span class="ruby-value str">&quot;------------ cat after sheet match  ----------&quot;</span> 
+      <span class="ruby-identifier">logger</span>.<span class="ruby-identifier">debug</span> <span class="ruby-identifier">cat</span>.<span class="ruby-identifier">inspect</span>
+      <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">cat</span>.<span class="ruby-identifier">blank?</span>
+        <span class="ruby-comment cmt"># if entry is contained in the sheet, the sheet_cat becomes</span>
+        <span class="ruby-comment cmt"># a portal category for the next data column.  It still has</span>
+        <span class="ruby-comment cmt"># the information in the comment, that it was added from the</span>
+        <span class="ruby-comment cmt"># category sheet (see look_for_provided_cats)</span>
+        <span class="ruby-identifier">cell_comment</span> = <span class="ruby-value str">&quot;sheet match&quot;</span>
+      <span class="ruby-keyword kw">else</span> <span class="ruby-comment cmt"># in come the &quot;find similar&quot; routines</span>
+      <span class="ruby-keyword kw">end</span>
+    <span class="ruby-keyword kw">end</span> 
+    
+    <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">cat</span>.<span class="ruby-identifier">nil?</span>
+      <span class="ruby-identifier">cell_comment</span> = <span class="ruby-value str">&quot;created during upload&quot;</span>
+      <span class="ruby-identifier">cat</span> = <span class="ruby-constant">Categoricvalue</span>.
+        <span class="ruby-identifier">create</span>(<span class="ruby-identifier">:short</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">entry</span>, <span class="ruby-identifier">:long</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">entry</span>, <span class="ruby-identifier">:description</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">entry</span>,
+               <span class="ruby-identifier">:comment</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value str">&quot;created during upload&quot;</span>)
+    <span class="ruby-keyword kw">end</span>
+    
+    <span class="ruby-keyword kw">return</span> {<span class="ruby-identifier">:cell_comment</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">cell_comment</span>,
+      <span class="ruby-identifier">:cat</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">cat</span>}
+  <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

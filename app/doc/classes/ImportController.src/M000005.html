@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>create_dataset_filevalue (ImportController)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File controllers/import_controller.rb, line 56</span>
+  <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">create_dataset_filevalue</span>
+      <span class="ruby-identifier">filevalue</span> = <span class="ruby-constant">Filevalue</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">params</span>[<span class="ruby-identifier">:filevalue</span>])
+
+      <span class="ruby-keyword kw">begin</span> 
+        <span class="ruby-constant">Filevalue</span>.<span class="ruby-identifier">transaction</span> <span class="ruby-keyword kw">do</span>
+          <span class="ruby-identifier">filevalue</span>.<span class="ruby-identifier">save</span>
+          <span class="ruby-comment cmt">#! should go the context upload action</span>
+          <span class="ruby-identifier">redirect_to</span>(<span class="ruby-identifier">:controller</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">:contexts</span>, <span class="ruby-identifier">:action</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">:upload</span>, 
+                      <span class="ruby-identifier">:filevalue_id</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">filevalue</span>.<span class="ruby-identifier">id</span>)
+        <span class="ruby-keyword kw">end</span>
+      <span class="ruby-keyword kw">rescue</span> <span class="ruby-constant">ActiveRecord</span><span class="ruby-operator">::</span><span class="ruby-constant">RecordInvalid</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">invalid</span>
+        <span class="ruby-identifier">redirect_to</span> <span class="ruby-identifier">:back</span>
+        <span class="ruby-comment cmt">#! showing the message that file upload did not work</span>
+      <span class="ruby-keyword kw">end</span>
+  <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

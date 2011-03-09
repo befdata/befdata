@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>author_list (DataRequest)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File models/data_request.rb, line 46</span>
+  <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">author_list</span>
+    <span class="ruby-identifier">author_list</span> = []
+    <span class="ruby-identifier">author_list</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">author</span>
+
+
+    <span class="ruby-identifier">middle_block</span> = <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">author_data_requests</span>.<span class="ruby-identifier">reject</span>{<span class="ruby-operator">|</span><span class="ruby-identifier">e</span><span class="ruby-operator">|</span> <span class="ruby-identifier">e</span>.<span class="ruby-identifier">kind</span> <span class="ruby-operator">==</span> <span class="ruby-value str">&quot;side&quot;</span>}.<span class="ruby-identifier">map</span>{<span class="ruby-operator">|</span><span class="ruby-identifier">e</span><span class="ruby-operator">|</span> <span class="ruby-identifier">e</span>.<span class="ruby-identifier">person</span>}.<span class="ruby-identifier">uniq</span>
+    <span class="ruby-identifier">ack</span> = <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">author_data_requests</span>.<span class="ruby-identifier">select</span>{<span class="ruby-operator">|</span><span class="ruby-identifier">e</span><span class="ruby-operator">|</span> <span class="ruby-identifier">e</span>.<span class="ruby-identifier">kind</span> <span class="ruby-operator">==</span> <span class="ruby-value str">&quot;side&quot;</span>}.<span class="ruby-identifier">map</span>{<span class="ruby-operator">|</span><span class="ruby-identifier">e</span><span class="ruby-operator">|</span> <span class="ruby-identifier">e</span>.<span class="ruby-identifier">person</span>}.<span class="ruby-identifier">uniq</span>
+
+    <span class="ruby-identifier">middle_block</span> = <span class="ruby-identifier">middle_block</span>.<span class="ruby-identifier">sort</span>{<span class="ruby-operator">|</span><span class="ruby-identifier">a</span>,<span class="ruby-identifier">b</span><span class="ruby-operator">|</span> <span class="ruby-identifier">a</span>.<span class="ruby-identifier">lastname</span> <span class="ruby-operator">&lt;=&gt;</span> <span class="ruby-identifier">b</span>.<span class="ruby-identifier">lastname</span>}
+    <span class="ruby-identifier">middle_block</span>.<span class="ruby-identifier">reject!</span>{<span class="ruby-operator">|</span><span class="ruby-identifier">e</span><span class="ruby-operator">|</span> <span class="ruby-identifier">e</span> <span class="ruby-operator">==</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">senior_author</span>}
+    <span class="ruby-identifier">middle_block</span>.<span class="ruby-identifier">reject!</span>{<span class="ruby-operator">|</span><span class="ruby-identifier">e</span><span class="ruby-operator">|</span> <span class="ruby-identifier">e</span> <span class="ruby-operator">==</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">author</span>}
+    <span class="ruby-identifier">middle_block</span>.<span class="ruby-identifier">each</span>{<span class="ruby-operator">|</span><span class="ruby-identifier">e</span><span class="ruby-operator">|</span> <span class="ruby-identifier">author_list</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">e</span>}
+
+    <span class="ruby-identifier">author_list</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">senior_author</span>
+
+    <span class="ruby-identifier">ack</span>.<span class="ruby-identifier">reject!</span>{<span class="ruby-operator">|</span><span class="ruby-identifier">e</span><span class="ruby-operator">|</span> <span class="ruby-identifier">middle_block</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">e</span>) <span class="ruby-operator">||</span>
+                    <span class="ruby-identifier">e</span> <span class="ruby-operator">==</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">senior_author</span> <span class="ruby-operator">||</span>
+                    <span class="ruby-identifier">e</span> <span class="ruby-operator">==</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">author</span>}
+
+    <span class="ruby-identifier">ack</span> = <span class="ruby-identifier">ack</span>.<span class="ruby-identifier">sort</span>{<span class="ruby-operator">|</span><span class="ruby-identifier">a</span>,<span class="ruby-identifier">b</span><span class="ruby-operator">|</span> <span class="ruby-identifier">a</span>.<span class="ruby-identifier">lastname</span> <span class="ruby-operator">&lt;=&gt;</span> <span class="ruby-identifier">b</span>.<span class="ruby-identifier">lastname</span>}
+
+    <span class="ruby-identifier">hash</span> = {<span class="ruby-identifier">:author_list</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">author_list</span>, <span class="ruby-identifier">:corresponding</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">corresponding</span>, <span class="ruby-identifier">:ack</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">ack</span>}
+    <span class="ruby-identifier">logger</span>.<span class="ruby-identifier">inspect</span>
+    <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">hash</span>
+  <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

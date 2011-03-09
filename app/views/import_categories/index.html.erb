@@ -1,0 +1,26 @@
+<h1>Listing import_categories</h1>
+
+<table>
+  <tr>
+    <th>Measurements methodstep</th>
+    <th>Raw data value</th>
+    <th>Categoricvalue</th>
+    <th>Approved</th>
+  </tr>
+
+<% @import_categories.each do |import_category| %>
+  <tr>
+    <td><%=h import_category.measurements_methodstep_id %></td>
+    <td><%=h import_category.raw_data_value %></td>
+    <td><%=h import_category.categoricvalue_id %></td>
+    <td><%=h import_category.approved %></td>
+    <td><%= link_to 'Show', import_category %></td>
+    <td><%= link_to 'Edit', edit_import_category_path(import_category) %></td>
+    <td><%= link_to 'Destroy', import_category, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New import_category', new_import_category_path %>

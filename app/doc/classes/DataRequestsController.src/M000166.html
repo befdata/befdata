@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>edit (DataRequestsController)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File controllers/data_requests_controller.rb, line 46</span>
+  <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">edit</span>
+    <span class="ruby-ivar">@data_request</span> = <span class="ruby-constant">DataRequest</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">params</span>[<span class="ruby-identifier">:id</span>])
+    <span class="ruby-ivar">@all_persons</span> = <span class="ruby-constant">Person</span>.<span class="ruby-identifier">all</span>
+    <span class="ruby-ivar">@used_persons</span> = <span class="ruby-ivar">@data_request</span>.<span class="ruby-identifier">authors</span>
+    <span class="ruby-ivar">@data_columns</span> = <span class="ruby-constant">MeasurementsMethodstep</span>.<span class="ruby-identifier">all</span>.<span class="ruby-identifier">sort_by</span>{<span class="ruby-operator">|</span><span class="ruby-identifier">a</span><span class="ruby-operator">|</span> <span class="ruby-identifier">a</span>.<span class="ruby-identifier">columnheader</span>}
+    <span class="ruby-ivar">@current_cart</span> = <span class="ruby-identifier">current_cart</span>
+    <span class="ruby-value">1</span>.<span class="ruby-identifier">times</span> {<span class="ruby-ivar">@data_request</span>.<span class="ruby-identifier">filevalues</span>.<span class="ruby-identifier">build</span>}
+  <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

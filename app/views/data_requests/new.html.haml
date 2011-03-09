@@ -1,0 +1,17 @@
+- form_for @data_request, :html => {:multipart => true} do |f|
+  %fieldset
+    %legend Create new paper proposal
+    %div#left_box
+      = render :partial => "data_request_attributes", :locals => {:f => f}
+    %div#right_box
+      Main Proponent List
+      %p
+        (You can select yourself your main proponent, with your selected data columns additional main proponent join the list)
+      = select "not_needed", "param", @all_persons.map{|person| [person.to_label, person.id]}, {}, {:onchange => 'selectPeople(this)'}
+      %ul
+        - f.fields_for :authors, @data_request.authors do |field|
+          %li{:onclick => "this.parentNode.removeChild(this);"}
+            %input{:name => "people[]", :type => "hidden", :value => field.object.id}
+            = field.object.try(:to_label)
+    %p.clear
+      = f.submit "next step"

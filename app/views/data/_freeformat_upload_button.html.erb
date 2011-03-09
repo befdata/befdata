@@ -1,0 +1,11 @@
+<b>Free format file upload.</b>
+
+<% filev = Filevalue.new %>
+<% form_for filev, :url => {:controller => :import, 
+                            :action => :freeformat_file_upload},
+                   :html => {:multipart => true} do |f| %>
+   <%= f.error_messages %>
+
+   <%= f.file_field :file %>
+   <%= f.submit 'Free format upload' %>
+<% end %>

@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>add_data_values (ImportController)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File controllers/import_controller.rb, line 483</span>
+  <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">add_data_values</span>
+    <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">logged_in?</span>
+      <span class="ruby-identifier">data_column</span> =
+        <span class="ruby-constant">MeasurementsMethodstep</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">params</span>[<span class="ruby-identifier">:measurements_methodstep</span>][<span class="ruby-identifier">:id</span>])
+      <span class="ruby-identifier">data_column</span>.<span class="ruby-identifier">update_attributes</span>(<span class="ruby-identifier">params</span>[<span class="ruby-identifier">:measurements_methodstep</span>])
+      
+      <span class="ruby-comment cmt"># Text values do not have associated categoric values (naming</span>
+      <span class="ruby-comment cmt"># conventions), all the others have.  This is because the</span>
+      <span class="ruby-comment cmt"># scientists wanted to have different options in describing</span>
+      <span class="ruby-comment cmt"># types of missing values.  </span>
+      <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">data_column</span>.<span class="ruby-identifier">import_data_type</span> <span class="ruby-operator">==</span> <span class="ruby-value str">&quot;text&quot;</span>
+        <span class="ruby-identifier">text_data_column_import</span>(<span class="ruby-identifier">data_column</span>.<span class="ruby-identifier">id</span>)
+      <span class="ruby-keyword kw">else</span>
+        <span class="ruby-identifier">logger</span>.<span class="ruby-identifier">debug</span> <span class="ruby-value str">&quot;------------ looking for naming conventions  ---------&quot;</span> 
+        <span class="ruby-identifier">portal_cats</span> = <span class="ruby-identifier">data_column</span>.<span class="ruby-identifier">methodstep</span>.<span class="ruby-identifier">datacell_categories</span>
+        <span class="ruby-identifier">sheet_cats</span> = <span class="ruby-identifier">data_column</span>.<span class="ruby-identifier">import_categories</span>.
+          <span class="ruby-identifier">map</span>{<span class="ruby-operator">|</span><span class="ruby-identifier">icat</span><span class="ruby-operator">|</span> <span class="ruby-identifier">icat</span>.<span class="ruby-identifier">categoricvalue</span>}
+        <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">data_column</span>.<span class="ruby-identifier">import_data_type</span> <span class="ruby-operator">==</span> <span class="ruby-value str">&quot;category&quot;</span>
+          <span class="ruby-identifier">category_data_column_import</span>(<span class="ruby-identifier">data_column</span>.<span class="ruby-identifier">id</span>, <span class="ruby-identifier">portal_cats</span>, 
+                                      <span class="ruby-identifier">sheet_cats</span>)
+        <span class="ruby-keyword kw">elsif</span> <span class="ruby-identifier">data_column</span>.<span class="ruby-identifier">import_data_type</span> <span class="ruby-operator">==</span> <span class="ruby-value str">&quot;number&quot;</span>
+          <span class="ruby-identifier">numeric_data_column_import</span>(<span class="ruby-identifier">data_column</span>.<span class="ruby-identifier">id</span>, <span class="ruby-identifier">portal_cats</span>,
+                                     <span class="ruby-identifier">sheet_cats</span>)
+        <span class="ruby-keyword kw">elsif</span> <span class="ruby-identifier">data_column</span>.<span class="ruby-identifier">import_data_type</span> <span class="ruby-operator">==</span> <span class="ruby-value str">&quot;date(time)&quot;</span>
+          <span class="ruby-identifier">datetime_data_column_import</span>(<span class="ruby-identifier">data_column</span>.<span class="ruby-identifier">id</span>, <span class="ruby-identifier">portal_cats</span>,
+                                      <span class="ruby-identifier">sheet_cats</span>)
+        <span class="ruby-keyword kw">elsif</span> <span class="ruby-identifier">data_column</span>.<span class="ruby-identifier">import_data_type</span> <span class="ruby-operator">==</span> <span class="ruby-value str">&quot;year&quot;</span>
+          <span class="ruby-identifier">year_data_column_import</span>(<span class="ruby-identifier">data_column</span>.<span class="ruby-identifier">id</span>, <span class="ruby-identifier">portal_cats</span>, 
+                                  <span class="ruby-identifier">sheet_cats</span>)
+        <span class="ruby-keyword kw">end</span>
+      <span class="ruby-keyword kw">end</span>
+      
+      <span class="ruby-comment cmt"># by now values have been added</span>
+      <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">data_column</span>.<span class="ruby-identifier">categories</span>.<span class="ruby-identifier">blank?</span>
+        <span class="ruby-identifier">redirect_to</span>(<span class="ruby-identifier">:controller</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">:import</span>, 
+                    <span class="ruby-identifier">:action</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">:data_column_categories</span>, 
+                    <span class="ruby-identifier">:data_column_id</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">data_column</span>.<span class="ruby-identifier">id</span>)
+      <span class="ruby-keyword kw">else</span>
+        <span class="ruby-identifier">redirect_to</span> <span class="ruby-identifier">:back</span>
+      <span class="ruby-keyword kw">end</span>
+
+    <span class="ruby-keyword kw">else</span>
+      <span class="ruby-comment cmt"># Not logged in, redirect to login form</span>
+      <span class="ruby-identifier">session</span>[<span class="ruby-identifier">:return_to</span>] = <span class="ruby-identifier">request</span>.<span class="ruby-identifier">request_uri</span>
+      <span class="ruby-identifier">redirect_to</span> <span class="ruby-identifier">login_path</span> <span class="ruby-keyword kw">and</span> <span class="ruby-keyword kw">return</span>
+    <span class="ruby-keyword kw">end</span>
+  <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

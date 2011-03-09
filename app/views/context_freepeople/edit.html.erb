@@ -1,0 +1,24 @@
+<h1>Editing context_freeperson</h1>
+
+<% form_for(@context_freeperson) do |f| %>
+  <%= f.error_messages %>
+
+  <p>
+    <%= f.label :person_id %><br />
+    <%= f.text_field :person_id %>
+  </p>
+  <p>
+    <%= f.label :context_id %><br />
+    <%= f.text_field :context_id %>
+  </p>
+  <p>
+    <%= f.label :comment %><br />
+    <%= f.text_area :comment %>
+  </p>
+  <p>
+    <%= f.submit 'Update' %>
+  </p>
+<% end %>
+
+<%= link_to 'Show', @context_freeperson %> |
+<%= link_to 'Back', context_freepeople_path %>

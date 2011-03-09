@@ -1,0 +1,24 @@
+<h1>Listing context_freepeople</h1>
+
+<table>
+  <tr>
+    <th>Person</th>
+    <th>Context</th>
+    <th>Comment</th>
+  </tr>
+
+<% @context_freepeople.each do |context_freeperson| %>
+  <tr>
+    <td><%=h context_freeperson.person_id %></td>
+    <td><%=h context_freeperson.context_id %></td>
+    <td><%=h context_freeperson.comment %></td>
+    <td><%= link_to 'Show', context_freeperson %></td>
+    <td><%= link_to 'Edit', edit_context_freeperson_path(context_freeperson) %></td>
+    <td><%= link_to 'Destroy', context_freeperson, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New context_freeperson', new_context_freeperson_path %>

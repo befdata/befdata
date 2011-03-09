@@ -1,0 +1,160 @@
+<span style="font-size: large;">Context: <%= @context.title %></span>
+
+<div>
+  <%= link_to 'Upload edit or delete', 
+                   {:controller => :import, 
+                    :action => :raw_data_overview, 
+                    :context_id => @context.id} %>
+</div>
+
+<div class="comment"><%= t("context.step#{@step}") %></div>
+
+<div class="active-scaffold">
+
+
+
+<% if @step == 1 %>
+
+
+
+  <% if @context.valid? %>
+
+
+    <%= select "person", "person_id", @people_list.map{|p| [p.to_label,
+      p.id]}, {}, {:onchange => 'selectPeople(this)'} %>
+
+
+    <% form_tag url_for(:controller => 'contexts', :action => 'upload') do -%>
+
+      <%= error_messages_for :context, :object_name => @context.class.human_name.downcase %>
+
+      <%= hidden_field_tag 'step', '1' %>
+      <%= hidden_field_tag 'id', @context.id %>
+
+
+      <ul>
+	<% @context.people.each do |person| %>
+          <li onclick="this.parentNode.removeChild(this);">
+     	    <input type="hidden" name="people[]" value="<%= person.id%>" /> 
+	    <%= person.to_label %>
+          </li>
+	<% end %>
+      </ul>
+
+
+      <p> You can note external scientists in the comments of a dataset.
+      Please notify the project board if an external scientist has
+      signed our data sharing agreement and should be able to log into
+      our data portal.</p>
+      <dl>
+        <dt><%= label_tag 'comment' %></dt>
+        <dd><%= text_area_tag 'comment', @context.comment, :size => '40x7', :class => 'text-input' %></dd>
+      </dl>
+       
+      <dl>
+        <dt><%= label_tag 'title', nil %></dt>
+        <dd><%= text_field_tag 'title', @context.title, :class => 'text-input' %></dd>
+      </dl>
+
+      <dl>
+        <dt><%= label_tag 'projecttag_list', nil %></dt>
+        <dd><%= text_field_tag 'projecttag_list', @context.projecttag_list, :class => 'text-input' %></dd>
+      </dl>
+       
+      <dl>
+        <dt><%= label_tag 'abstract' %></dt>
+        <dd><%= text_area_tag 'abstract', @context.abstract, :size => '40x7', :class => 'text-input' %></dd>
+      </dl>
+       
+      <dl>
+        <dt><%= label_tag 'usagerights' %></dt>
+        <dd><%= text_area_tag 'usagerights', @context.usagerights, :size => '40x7', :class => 'text-input' %></dd>
+      </dl>
+       
+      <dl>
+        <dt><%= label_tag 'published' %></dt>
+        <dd><%= text_area_tag 'published', @context.published, :size => '40x7', :class => 'text-input' %></dd>
+      </dl>
+       
+      <dl>
+        <dt><%= label_tag 'spatialextent' %></dt>
+        <dd><%= text_area_tag 'spatialextent', @context.spatialextent, :size => '40x7', :class => 'text-input' %></dd>
+      </dl>
+       
+      <dl>
+        <dt><%= label_tag 'datemin' %></dt>
+        <dd><%= datetime_select 'date', 'min', :default => @context.datemin %></dd>
+      </dl>
+       
+      <dl>
+        <dt><%= label_tag 'datemax' %></dt>
+        <dd><%= datetime_select 'date', 'max', :default => @context.datemax %></dd>
+      </dl>
+       
+      <dl>
+        <dt><%= label_tag 'temporalextent' %></dt>
+        <dd><%= text_area_tag 'temporalextent', @context.temporalextent, :size => '40x7', :class => 'text-input' %></dd>
+      </dl>
+       
+      <dl>
+        <dt><%= label_tag 'taxonomicextent' %></dt>
+        <dd><%= text_area_tag 'taxonomicextent', @context.taxonomicextent, :size => '40x7', :class => 'text-input' %></dd>
+      </dl>
+       
+      <dl>
+        <dt><%= label_tag 'design' %></dt>
+        <dd><%= text_area_tag 'design', @context.design, :size => '40x7', :class => 'text-input' %></dd>
+      </dl>
+       
+      <dl>
+        <dt><%= label_tag 'dataanalysis' %></dt>
+        <dd><%= text_area_tag 'dataanalysis', @context.dataanalysis, :size => '40x7', :class => 'text-input' %></dd>
+      </dl>
+       
+      <dl>
+        <dt><%= label_tag 'circumstances' %></dt>
+        <dd><%= text_area_tag 'circumstances', @context.circumstances, :size => '40x7', :class => 'text-input' %></dd>
+      </dl>
+       
+      <dl>
+        <dt></dt>
+        <dd><%= submit_tag 'Finish step 1' %></dd>
+      </dl>
+    <% end %>
+    <!-- ending the form  -->
+  <% else %>
+    <!-- context not valid -->
+    <p> 
+      There were problems with saving the meta data file for this
+      data set.
+    </p>
+  <% end %>
+  <!-- ending question valid context -->
+
+
+
+<!-- ---------------------------------------------- -->
+<!-- STEP 5: Final page -->
+<!-- ---------------------------------------------- --> 
+
+<% elsif @step == 5 %>
+  <% form_tag url_for(:controller => 'contexts', :action => 'upload') do -%>
+
+    <%= hidden_field_tag 'step', '5' %>
+    <%= hidden_field_tag 'context_id', @context.id %>
+
+    <dl>
+      <dt><%= label_tag 'finished', nil %></dt>
+      <dd><%= select_tag 'finished', 
+	      '<option value = "false">False</option>
+               <option value = "true" selected = "selected">True</option>', :class => 'text-input' %>
+    </dl>
+
+    <dl>
+      <dt></dt>
+      <dd><%= submit_tag %></dd>
+    </dl>
+
+  <% end -%>
+<% end %>
+</div>

@@ -1,0 +1,27 @@
+
+<%= render 'context_export_destroy' %>
+
+
+<%= render 'data_header_link_list' %>
+
+
+<h1> Unique categories for: <%= @data_column.columnheader %></h1>
+
+<div>
+  <ul>
+    <% @cell_uniq_arr.each do |cell| %>
+      <li> Category for:  <b><%= cell.import_value %></b>, 
+	cell comment: <%= cell.comment %>, 
+	category comment: <%= cell.categoricvalue.comment %>.
+	<ul>
+	  <li> <%= render 'category_approve', :cell_id => cell.id %> 
+	  <li> <%= render 'category_choose', :cell_id => cell.id %> 
+	  <li> <%= render 'category_create',  :cell_id  =>  cell.id %>  
+	</ul>
+    <% end %> 
+  </ul>
+</div>
+
+
+<%= render :partial => 'data_header_link_list' %>
+<%= render 'context_export_destroy' %>

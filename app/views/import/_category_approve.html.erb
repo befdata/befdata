@@ -1,0 +1,9 @@
+
+<% cell = Measurement.find(cell_id) %> 
+<%#= cell.categoricvalue.verbose %>
+<% form_for cell , :url  =>  {:controller  =>  :import,
+     :action  =>  :cell_category_update} do |f| %>
+  <%= f.error_messages %>
+  <%= f.hidden_field :id %>
+  <p>To approve the chosen category, press: <%= f.submit "approve" %></p>
+<% end %>

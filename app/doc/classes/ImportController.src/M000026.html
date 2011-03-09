@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>generate_data_hash (ImportController)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File controllers/import_controller.rb, line 921</span>
+  <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">generate_data_hash</span>(<span class="ruby-identifier">data_array</span>)
+    <span class="ruby-identifier">data_hash</span> = {}
+    <span class="ruby-identifier">data_array</span>.<span class="ruby-identifier">each_index</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">x</span><span class="ruby-operator">|</span>
+      <span class="ruby-identifier">d</span> = <span class="ruby-identifier">data_array</span>[<span class="ruby-identifier">x</span>]
+      <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">d</span>.<span class="ruby-identifier">class</span> <span class="ruby-operator">==</span> <span class="ruby-constant">Spreadsheet</span><span class="ruby-operator">::</span><span class="ruby-constant">Formula</span>
+        <span class="ruby-identifier">d</span> = <span class="ruby-identifier">d</span>.<span class="ruby-identifier">value</span>
+      <span class="ruby-keyword kw">elsif</span> <span class="ruby-identifier">d</span>.<span class="ruby-identifier">class</span> <span class="ruby-operator">==</span> <span class="ruby-constant">Spreadsheet</span><span class="ruby-operator">::</span><span class="ruby-constant">Excel</span><span class="ruby-operator">::</span><span class="ruby-constant">Error</span>
+        <span class="ruby-identifier">d</span> = <span class="ruby-keyword kw">nil</span>
+      <span class="ruby-keyword kw">end</span>
+      <span class="ruby-identifier">row</span> = <span class="ruby-identifier">x</span> <span class="ruby-operator">+</span> <span class="ruby-value">1</span>
+      <span class="ruby-identifier">data_hash</span>[<span class="ruby-identifier">row</span>] = <span class="ruby-identifier">d</span> <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">d</span>.<span class="ruby-identifier">nil?</span>
+    <span class="ruby-keyword kw">end</span>
+    <span class="ruby-comment cmt"># deleting the first row which contains the column header and not</span>
+    <span class="ruby-comment cmt"># a value</span>
+    <span class="ruby-identifier">data_hash</span>.<span class="ruby-identifier">delete_if</span>{<span class="ruby-operator">|</span><span class="ruby-identifier">k</span>,<span class="ruby-identifier">v</span><span class="ruby-operator">|</span> <span class="ruby-identifier">k</span><span class="ruby-operator">==</span><span class="ruby-value">1</span>}
+    <span class="ruby-keyword kw">return</span>(<span class="ruby-identifier">data_hash</span>)
+  <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

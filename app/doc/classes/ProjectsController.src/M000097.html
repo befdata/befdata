@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>show (ProjectsController)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File controllers/projects_controller.rb, line 18</span>
+  <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">show</span>
+    <span class="ruby-ivar">@project</span> = <span class="ruby-constant">Project</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">params</span>[<span class="ruby-identifier">:id</span>])
+
+<span class="ruby-comment cmt">#    logger.debug &quot;@project in projects show&quot;</span>
+<span class="ruby-comment cmt">#    logger.debug @project.inspect</span>
+<span class="ruby-comment cmt">#    @prs = @project.person_roles.uniq</span>
+<span class="ruby-comment cmt">#    dcs = @prs.collect{|pr| pr.measmeths_personroles}.flatten.uniq</span>
+<span class="ruby-comment cmt">#    dss = dcs.collect{|dc| dc.context}.flatten.uniq</span>
+<span class="ruby-comment cmt">#    dss &lt;&lt; @prs.collect{|pr| pr.contexts}.flatten.uniq</span>
+<span class="ruby-comment cmt">#    @dss = dss.flatten.uniq</span>
+<span class="ruby-comment cmt">#</span>
+<span class="ruby-comment cmt">#    # members</span>
+<span class="ruby-comment cmt">#    @spe = @project</span>
+<span class="ruby-comment cmt">#    @namee = @spe.name unless @spe.blank?</span>
+<span class="ruby-comment cmt">#</span>
+<span class="ruby-comment cmt">#    @staffe = @spe.person_roles.uniq</span>
+<span class="ruby-comment cmt">#    if @staffe != nil</span>
+<span class="ruby-comment cmt">#      if @staffe.length &gt; 0</span>
+<span class="ruby-comment cmt">#        @pise = @staffe.select{|s| s.role.name == 'pi'}</span>
+<span class="ruby-comment cmt">#        @copise = @staffe.select{|s| s.role.name == 'co-pi'}</span>
+<span class="ruby-comment cmt">#        @postdocse = @staffe.select{|s| s.role.name == 'postdoc'}</span>
+<span class="ruby-comment cmt">#        @phdse = @staffe.select{|s| s.role.name == 'phd'}</span>
+<span class="ruby-comment cmt">#        @technicianse = @staffe.select{|s| s.role.name == 'technician'}</span>
+<span class="ruby-comment cmt">#        @studentse = @staffe.select{|s| s.role.name == 'student'}</span>
+<span class="ruby-comment cmt">#        listed_prs = @pise + @copise + @postdocse + @phdse +</span>
+<span class="ruby-comment cmt">#          @technicianse + @studentse</span>
+<span class="ruby-comment cmt">#        @others = @staffe - listed_prs</span>
+<span class="ruby-comment cmt">#      end</span>
+<span class="ruby-comment cmt">#    end</span>
+  <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>
