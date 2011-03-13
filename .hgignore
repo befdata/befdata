@@ -1,0 +1,3 @@
+glob:log/*
+glob:config/database.yml
+glob:.idea/*
