@@ -1,9 +1,0 @@
-%span{:style => "font-size: large;"}
-  Context: #{@context.title}
-- if @context.visible_for_public
-  = render :partial => "show_context"
-- else
-  - if logged_in?
-    = render :partial => "show_context"
-  - else
-    %p Please log in.

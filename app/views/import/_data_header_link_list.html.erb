@@ -1,8 +1,0 @@
-<% @context.headers.each do |dh| %>
-
-<%= link_to dh, {:controller => :import, 
-      :action => :raw_data_per_header, 
-      :context_id => @context.id, 
-      :data_header => dh} %>
-
-<% end %>
