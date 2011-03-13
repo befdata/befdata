@@ -2,6 +2,7 @@ GEM
   remote: http://rubygems.org/
   specs:
     abstract (1.0.0)
+    acl9 (0.12.0)
     actionmailer (3.0.5)
       actionpack (= 3.0.5)
       mail (~> 2.2.15)
@@ -72,6 +73,7 @@ PLATFORMS
   x86-mingw32
 
 DEPENDENCIES
+  acl9
   authlogic
   haml
   pg (= 0.9.0)
