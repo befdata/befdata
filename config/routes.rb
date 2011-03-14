@@ -17,6 +17,8 @@ Befchina::Application.routes.draw do
 
   match 'import/create_dataset_filevalue' => 'imports#create_dataset_filevalue'
 
+  match '/datasets/upload' => 'datasets#upload', :as => :upload
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

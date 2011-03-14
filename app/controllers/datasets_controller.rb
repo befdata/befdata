@@ -1,4 +1,4 @@
-class DataSetController < ApplicationController
+class DatasetsController < ApplicationController
 
 
 
