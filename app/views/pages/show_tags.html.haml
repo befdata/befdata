@@ -1,0 +1,9 @@
+%h3 Tags
+%ul
+  - @tags.each do |tag|
+    %li
+      = tag.name
+      %ul
+        - tag.taggings.each do |tagging|
+          %li
+            = tagging.taggable.long_label

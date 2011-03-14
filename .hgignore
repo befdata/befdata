@@ -3,3 +3,4 @@ glob:config/database.yml
 glob:.idea/*
 glob:tmp/*
 glob:index/*
+glob:files/*

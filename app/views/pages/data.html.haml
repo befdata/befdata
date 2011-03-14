@@ -1,0 +1,23 @@
+%div
+- if current_user
+  %div
+    = render 'dataset_upload'
+  %div
+    -#= render 'freeformat_upload_button'
+
+%h3
+  = link_to "Tags", data_show_tags_path
+
+%div
+  = @tags.collect{|t| t.name}.join(" -- ")
+%br
+%br
+%h3 Data sets
+%ul
+  - @datasets.each do |ds|
+    %li
+      = link_to ds.title, {:controller => 'contexts', |
+        :action => 'show', :id => ds.id}              |
+      - if current_user
+        -#TODO
+        -#= link_to image_tag("/images/cart_put.png"), create_cart_context_path(:context_id => ds.id), :method => :post
