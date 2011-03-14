@@ -8,7 +8,9 @@ gem 'pg', '0.9.0'
 gem 'haml'
 gem 'authlogic'
 gem 'acl9'
-
+gem 'dynamic_form'
+gem 'paperclip'
+gem 'is_taggable'
 
 # Use unicorn as the web server
 # gem 'unicorn'
