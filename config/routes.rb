@@ -5,8 +5,17 @@ Befchina::Application.routes.draw do
   resource :user_session
 
   root :to => "pages#home"
-  match 'pages/impressum' => 'pages#impressum', :as => :impressum
-  match 'pages/help' => 'pages#help', :as => :help
+  match 'impressum' => 'pages#impressum', :as => :impressum
+  match 'help' => 'pages#help', :as => :help
+  match 'data' => 'pages#data', :as => :data
+  match 'data/show_tags' => 'pages#show_tags'
+
+
+#  namespace :import do
+#    match 'create_dataset_filevalue' => 'imports#create_dataset_filevalue'
+#  end
+
+  match 'import/create_dataset_filevalue' => 'imports#create_dataset_filevalue'
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
