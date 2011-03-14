@@ -10,7 +10,119 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110313182107) do
+ActiveRecord::Schema.define(:version => 20110314092324) do
+
+  create_table "categoricvalues", :force => true do |t|
+    t.string   "short"
+    t.string   "long"
+    t.text     "description"
+    t.text     "comment"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "data_groups", :force => true do |t|
+    t.string   "informationsource"
+    t.string   "methodvaluetype"
+    t.string   "title"
+    t.text     "description"
+    t.string   "instrumentation"
+    t.float    "timelatency"
+    t.string   "timelatencyunit"
+    t.text     "comment"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "data_sets", :force => true do |t|
+    t.string   "title"
+    t.text     "abstract"
+    t.text     "usagerights"
+    t.text     "spatialextent"
+    t.text     "temporalextent"
+    t.text     "taxonomicextent"
+    t.text     "design"
+    t.text     "circumstances"
+    t.datetime "submission_at"
+    t.string   "filename"
+    t.text     "comment"
+    t.text     "dataanalysis"
+    t.boolean  "finished"
+    t.integer  "downloads",             :default => 0
+    t.datetime "datemin"
+    t.datetime "datemax"
+    t.text     "published"
+    t.boolean  "visible_for_public",    :default => true
+    t.integer  "upload_spreadsheet_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "datacolumns", :force => true do |t|
+    t.integer  "datagroup_id"
+    t.integer  "dataset_id"
+    t.string   "columnheader"
+    t.integer  "columnnr"
+    t.text     "definition"
+    t.string   "unit"
+    t.string   "missingcode"
+    t.text     "comment"
+    t.string   "import_data_type"
+    t.string   "category_longshort"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "datetimevalues", :force => true do |t|
+    t.datetime "date"
+    t.integer  "year"
+    t.integer  "month"
+    t.integer  "day"
+    t.text     "comment"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "filevalues", :force => true do |t|
+    t.string   "file_file_name"
+    t.string   "file_content_type"
+    t.integer  "file_file_size"
+    t.datetime "file_updated_at"
+    t.integer  "data_proposal_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "numericvalues", :force => true do |t|
+    t.float    "number"
+    t.text     "comment"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "observations", :force => true do |t|
+    t.text     "comment"
+    t.integer  "rownr"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "observations_sheetcells", :force => true do |t|
+    t.integer  "observation_id"
+    t.integer  "sheetcell_id"
+    t.text     "comment"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "projects", :force => true do |t|
+    t.string   "shortname"
+    t.string   "name"
+    t.text     "description"
+    t.text     "comment"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "roles", :force => true do |t|
     t.string   "name",              :limit => 40
@@ -23,6 +135,36 @@ ActiveRecord::Schema.define(:version => 20110313182107) do
   create_table "roles_users", :id => false, :force => true do |t|
     t.integer  "user_id"
     t.integer  "role_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "sheetcells", :force => true do |t|
+    t.integer  "data_column_id"
+    t.integer  "value_id"
+    t.string   "value_type"
+    t.integer  "rownr"
+    t.text     "comment"
+    t.integer  "observation_id"
+    t.string   "import_value"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "taggings", :force => true do |t|
+    t.integer "tag_id"
+    t.string  "taggable_type", :default => ""
+    t.integer "taggable_id"
+  end
+
+  create_table "tags", :force => true do |t|
+    t.string "name", :default => ""
+    t.string "kind", :default => ""
+  end
+
+  create_table "textvalues", :force => true do |t|
+    t.string   "text"
+    t.text     "comment"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
