@@ -151,7 +151,9 @@ class DatasetsController < ApplicationController
 
         # Project Tag list
         proj_tag_list = Array(book.worksheet(0).column(1))[11]
-        @dataset.projecttag_list = proj_tag_list
+        if proj_tag_list
+          @dataset.projecttag_list = proj_tag_list
+        end
         @dataset.save
 
         # Render the page that presents the general metadata for a
@@ -293,6 +295,43 @@ class DatasetsController < ApplicationController
     simple_metadata[:circumstances] = general_sheet[48]
     return simple_metadata
   end
+
+
+  def numeric?(object)
+    result = false
+    if object.class == String
+      if object.at(0) == "0"
+        if object.at(1) == "."
+          result = true if Float(object) rescue false
+        else
+          result = false
+        end
+      else
+        result = true if Float(object) rescue false
+      end
+    else
+      result = true if Float(object) rescue false
+    end
+    result
+  end
+
+
+
+  # Asks if object is a valid integer.
+  def integer?(object)
+    if numeric?(object)
+      object = object.to_f
+      mod = object.modulo(1)
+      if mod == 0
+        true
+      else
+        false
+      end
+    else
+      false
+    end
+  end
+
 
 
 end

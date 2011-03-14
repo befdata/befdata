@@ -4,4 +4,13 @@ class User < ActiveRecord::Base
 
   validates_presence_of :lastname, :firstname
   validates_uniqueness_of   :login
+
+
+  def to_label
+    if salutation
+      "#{firstname} #{lastname}, #{salutation}"
+    else
+      "#{firstname} #{lastname}"
+    end
+  end
 end

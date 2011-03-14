@@ -10,13 +10,13 @@ Befchina::Application.routes.draw do
   match 'data' => 'pages#data', :as => :data
   match 'data/show_tags' => 'pages#show_tags'
 
+  resources :dataset
+  match '/datasets/upload' => 'datasets#upload', :as => :upload
 
-#  namespace :import do
-#    match 'create_dataset_filevalue' => 'imports#create_dataset_filevalue'
-#  end
+
 
   match 'import/create_dataset_filevalue' => 'imports#create_dataset_filevalue'
-  match '/datasets/upload' => 'datasets#upload', :as => :upload
+  match 'import/raw_data_overview' => 'import#raw_data_overview'
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
