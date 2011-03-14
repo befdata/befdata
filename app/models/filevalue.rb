@@ -1,6 +1,7 @@
 class Filevalue < ActiveRecord::Base
 
-
+  has_many :sheetcells, :as => :value
+  has_one :dataset, :foreign_key => :upload_spreadsheet_id
 
   validates_uniqueness_of :file_file_name
 

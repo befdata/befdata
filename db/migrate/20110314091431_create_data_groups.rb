@@ -1,6 +1,6 @@
 class CreateDataGroups < ActiveRecord::Migration
   def self.up
-    create_table :data_groups do |t|
+    create_table :datagroups do |t|
       t.string   "informationsource"
       t.string   "methodvaluetype"
       t.string   "title"

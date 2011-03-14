@@ -11,6 +11,7 @@ gem 'acl9'
 gem 'dynamic_form'
 gem 'paperclip'
 gem 'is_taggable'
+gem 'spreadsheet'
 
 # Use unicorn as the web server
 # gem 'unicorn'

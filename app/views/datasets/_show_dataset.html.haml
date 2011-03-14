@@ -1,0 +1,40 @@
+- unless @contacts.blank?
+  %p
+    For more information, please contact
+    - @contacts.each do |c|
+      #{link_to c, staff_path(c.path_name)}
+    The following projects were involved:
+    - @projects.each do |p|
+      #{link_to p, project_path(p.id)}
+
+= render :partial => 'edit_download_destroy_links'
+- unless @dataset.usagerights.blank?
+  %p= @dataset.usagerights
+- unless @dataset.abstract.blank?
+  %p= @dataset.abstract
+- unless @dataset.design.blank?
+  %p= @dataset.design
+- unless @dataset.spatialextent.blank?
+  %p= @dataset.spatialextent
+- unless @dataset.published.blank?
+  %p= @dataset.published
+- unless @dataset.temporalextent.blank?
+  %p= @dataset.temporalextent
+- unless @dataset.taxonomicextent.blank?
+  %p= @dataset.taxonomicextent
+- unless @dataset.circumstances.blank?
+  %p= @dataset.circumstances
+- unless @dataset.comment.blank?
+  %p= @dataset.comment
+- unless @measmeths.blank?
+  The following data columns are available in the raw data part of this data set:
+  %ul
+    - @header.each do |key|
+      %li
+        %b= @measmeths[key].columnheader
+        (#{@measmeths[key].definition}.
+        Data group: "#{@methodtitles[key].humanize}").
+        #{@measmeths[key].first_five}.
+        (#{@measmeths[key].people.map{|person| link_to person, staff_path(person.path_name)}.to_sentence})
+
+        = render :partial => "show_files_submethod", :locals => {:key => key}

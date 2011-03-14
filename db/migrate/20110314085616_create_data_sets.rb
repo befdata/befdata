@@ -1,6 +1,6 @@
 class CreateDataSets < ActiveRecord::Migration
   def self.up
-    create_table :data_sets do |t|
+    create_table :datasets do |t|
       t.string   "title"
       t.text     "abstract"
       t.text     "usagerights"

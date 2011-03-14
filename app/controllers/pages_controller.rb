@@ -15,7 +15,7 @@ class PagesController < ApplicationController
     @file = Filevalue.new
 
     @tags = Tag.find(:all, :order => :name)
-    @datasets = DataSet.find(:all, :order => :title)
+    @datasets = Dataset.find(:all, :order => :title)
     
   end
 

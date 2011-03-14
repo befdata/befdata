@@ -18,7 +18,7 @@ class ImportsController < ApplicationController
         Filevalue.transaction do
           filevalue.save
           #TODO should go the context upload action
-          redirect_to(:controller => :dataset, :action => :upload,
+          redirect_to(:controller => :datasets, :action => :upload,
                       :filevalue_id => filevalue.id)
         end
       rescue ActiveRecord::RecordInvalid => invalid
