@@ -1,7 +1,7 @@
 class CreateSheetcells < ActiveRecord::Migration
   def self.up
     create_table :sheetcells do |t|
-      t.integer  "data_column_id"
+      t.integer  "datacolumn_id"
       t.integer  "value_id"
       t.string   "value_type"
       t.integer  "rownr"

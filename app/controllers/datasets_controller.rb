@@ -3,14 +3,14 @@ class DatasetsController < ApplicationController
 
   def show
     begin
-      @context = Context.find(params[:id])
+      @dataset = Dataset.find(params[:id])
     rescue ActiveRecord::RecordNotFound
       # No context with this id exists
       redirect_to data_path and return
     end
 
     # Assemble context owners
-    @contacts = @context.people.select{|p| p.has_role?(:owner, @context)}
+    @contacts = @dataset.users.select{|p| p.has_role?(:owner, @dataset)}
 
     @projects = []
     @contacts.each do |p|
@@ -20,7 +20,7 @@ class DatasetsController < ApplicationController
     end
     @projects = @projects.flatten.compact.uniq
 
-    tmp = MeasurementsMethodstep.find(:all,
+    tmp = Datacolumns.find(:all,
                                       :conditions => [ "context_id = ?", params[:id] ],
                                       :order => 'columnnr ASC')
     @header = tmp.map{|d| d.columnheader }.uniq
@@ -32,8 +32,8 @@ class DatasetsController < ApplicationController
     @header.each do |h|
       mm = tmp.select{|mm| mm.columnheader == h}.first
       @measmeths[h] = mm
-      @measurements[h] = Measurement.find(:all,
-                                          :conditions => [ "measurements_methodstep_id = ?", mm.id ])
+      @measurements[h] = Datagroup.find(:all,
+                                          :conditions => [ "datacolumn_id = ?", mm.id ])
       @methodtitles[h] = tmp.select{|mm| mm.columnheader == h}.first.methodstep.title
     end
 

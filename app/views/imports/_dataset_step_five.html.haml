@@ -1,0 +1,6 @@
+%p
+  - if @dataset.cells_linked_to_values?
+    = link_to 'Finish up Dataset upload', {:controller => :datasets, :action => :upload, :context_id => @dataset.id, :step => '5'}
+  - else
+    Please go through each of the data columns and check data types as
+    well as data upload.

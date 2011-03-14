@@ -4,7 +4,7 @@
 # model remove the '{}' from the fixture names and add the columns immediately
 # below each fixture, per the syntax in the comments below
 #
-one:
+admin:
   id: 1
   login: test_admin
   email: admin@example.com
@@ -15,3 +15,17 @@ one:
   persistence_token: d2bc7ec528928fd8fe592d675b8078816e123f6c89cce596789e752cd06c35937f76901da08a93210369fe62af90c106ba2ff1a514b77a6e03486d1515a1d385
   single_access_token: 97KePcVQ5S1qkVAieIbf
   perishable_token: SIAHnv8mr1Kn78gh4W7
+
+normale_fred_user:
+  id: 2
+  login: test_fred
+  email: fred@example.com
+  firstname: test
+  lastname: fred
+  crypted_password: f83ff6856ebc1cd3d8c5d83f111d57cf3f4804f418a74479bc963d43fe1d5dcc1398308f01fe9379f8c0ad55d88ce2358210a4fc581ccc4912565b4e6edc224c
+  password_salt: NyhFtoWutn8SmpxLZuO
+  persistence_token: 95284900bbeab8e2297707a83bf683f4a1c05fcf503ab45eee893d031ecca30d9235a9427e5f65cca122209e1b15dfa99dbebedcb3faa286de7c681f95ccddba
+  single_access_token: XTUVSBstL7wmoPzvDkQ
+  perishable_token: FxGiazDkdiCeSLBAPAcr
+
+
