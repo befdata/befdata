@@ -1,5 +1,36 @@
 class DatasetsController < ApplicationController
 
+  before_filter :load_dataset, :only => [:download, :show, :edit]
+
+  access_control do
+    allow all, :to => [:show, :index, :load_context]
+
+    action :download, :edit do
+      allow :admin
+      allow :owner, :of => :dataset
+      allow :proposer, :of => :dataset
+    end
+
+    action :upload do
+      allow logged_in
+    end
+  end
+
+  # This action provides edit forms for the given context
+  def edit
+    # Main auth determination happens in AdminBaseController
+
+
+    @contacts = @dataset.users.select{|p| p.has_role?(:owner, @context)}
+    @contact = @contacts.first
+    @projects = []
+    @contacts.each do |p|
+      projects = p.projects
+      projects = projects.uniq
+      @projects << projects
+    end
+    @project = @projects.first
+  end
 
   def show
     begin
@@ -329,6 +360,11 @@ class DatasetsController < ApplicationController
     else
       false
     end
+  end
+
+
+  def load_dataset
+    @dataset = Dataset.find(params[:id])
   end
 
 
