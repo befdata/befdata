@@ -2,7 +2,7 @@ Befchina::Application.routes.draw do
 
   match 'login' => 'user_sessions#new', :as => :login
   match 'logout' => 'user_sessions#destroy', :as => :logout
-  resource :user_sessions
+  resource :user_session
 
   root :to => "pages#home"
   match 'impressum' => 'pages#impressum', :as => :impressum
@@ -11,12 +11,17 @@ Befchina::Application.routes.draw do
   match 'data/show_tags' => 'pages#show_tags'
 
   resources :datasets
-  match '/datasets/upload' => 'datasets#upload', :as => :upload
+  match 'upload' => 'datasets#upload', :as => :upload
 
 
 
   match 'imports/create_dataset_filevalue' => 'imports#create_dataset_filevalue'
   match 'imports/raw_data_overview' => 'imports#raw_data_overview'
+  match 'imports/raw_data_per_header' => 'imports#raw_data_per_header'
+  match 'imports/update_data_header' => 'imports#update_data_header'
+  match 'imports/update_data_group' => 'imports#update_data_group'
+  match 'imports/update_people_for_data_header' => 'imports#update_people_for_data_header'
+  match 'imports/add_data_values' => 'imports#add_data_values'
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

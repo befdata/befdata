@@ -16,8 +16,8 @@
 %ul
   - @datasets.each do |ds|
     %li
-      = link_to ds.title, {:controller => 'contexts', |
-        :action => 'show', :id => ds.id}              |
+      = link_to ds.title, {:controller => :datasets, |
+        :action => :show, :id => ds.id}              |
       - if current_user
         -#TODO
         -#= link_to image_tag("/images/cart_put.png"), create_cart_context_path(:context_id => ds.id), :method => :post

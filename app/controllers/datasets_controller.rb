@@ -198,20 +198,20 @@ class DatasetsController < ApplicationController
 
         # Finally, set the new step, so that the evaluation process
         # moves forward
-        redirect_to url_for(:controller => :import,
+        redirect_to url_for(:controller => :imports,
                             :action => :raw_data_overview,
-                            :context_id => @dataset.id) and return
+                            :dataset_id => @dataset.id) and return
 
       else
-        # No context found
+        # No dataset found
         redirect_to data_path and return
       end
     elsif params[:step] == '5'
       @step = 5
       logger.debug " entering step 5 "
 
-      @dataset = Dataset.find(params[:context_id])
-      logger.debug " loading context "
+      @dataset = Dataset.find(params[:dataset_id])
+      logger.debug " loading dataset "
       logger.debug @dataset.inspect
 
       unless @dataset.blank?
@@ -222,7 +222,7 @@ class DatasetsController < ApplicationController
         @dataset.save
 
 
-        # If the context is finished, show it
+        # If the dataset is finished, show it
         if @dataset.finished == true
           logger.debug "After all, rebuild the search index"
           # After all, rebuild the search index

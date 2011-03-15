@@ -28,5 +28,12 @@ class Dataset < ActiveRecord::Base
     end
     test
   end
+
+  # During the import routine, we step through each of the data
+  # columns using their header.
+  def headers
+    # should be sorted by columnnr
+    self.datacolumns.collect{|dc| dc.columnheader}
+  end
   
 end

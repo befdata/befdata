@@ -1,0 +1,11 @@
+- form_for @data_group_new, :url => {:action => :update_data_group, :controller => :imports} do |form|
+  = form.text_field :title
+  = form.text_field :description
+  = form.text_field :instrumentation
+  = form.text_field :informationsource
+  = form.text_field :methodvaluetype
+  = form.text_field :timelatency
+  = form.text_field :timelatencyunit
+  - fields_for @data_column do |data_head|
+    = data_head.hidden_field :id
+  = form.submit

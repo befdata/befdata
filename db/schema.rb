@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110314092324) do
+ActiveRecord::Schema.define(:version => 20110315095614) do
 
   create_table "categoricvalues", :force => true do |t|
     t.string   "short"
@@ -93,6 +93,15 @@ ActiveRecord::Schema.define(:version => 20110314092324) do
     t.datetime "updated_at"
   end
 
+  create_table "import_categoricvalues", :force => true do |t|
+    t.integer  "datacolumn_id"
+    t.string   "raw_data_value"
+    t.integer  "categoricvalue_id"
+    t.boolean  "approved"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "numericvalues", :force => true do |t|
     t.float    "number"
     t.text     "comment"
@@ -140,7 +149,7 @@ ActiveRecord::Schema.define(:version => 20110314092324) do
   end
 
   create_table "sheetcells", :force => true do |t|
-    t.integer  "data_column_id"
+    t.integer  "datacolumn_id"
     t.integer  "value_id"
     t.string   "value_type"
     t.integer  "rownr"

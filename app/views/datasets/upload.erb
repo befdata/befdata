@@ -1,13 +1,13 @@
-<span style="font-size: large;">Context: <%= @dataset.title %></span>
+<span style="font-size: large;">Dataset: <%= @dataset.title %></span>
 
 <div>
   <%= link_to 'Upload edit or delete',
-                   {:controller => :import,
+                   {:controller => :imports,
                     :action => :raw_data_overview,
-                    :context_id => @dataset.id} %>
+                    :dataset_id => @dataset.id} %>
 </div>
 
-<div class="comment"><%= t("context.step#{@step}") %></div>
+<div class="comment"><%= t("dataset.step#{@step}") %></div>
 
 <div class="active-scaffold">
 
@@ -141,7 +141,7 @@
   <% form_tag url_for(:controller => :datasets, :action => :upload) do -%>
 
     <%= hidden_field_tag 'step', '5' %>
-    <%= hidden_field_tag 'context_id', @dataset.id %>
+    <%= hidden_field_tag 'dataset_id', @dataset.id %>
 
     <dl>
       <dt><%= label_tag 'finished', nil %></dt>
