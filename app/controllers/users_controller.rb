@@ -3,6 +3,12 @@
 class UsersController < ApplicationController
   before_filter :require_user, :only => [:edit]
 
+
+  # The index method simply lists all staff members, ordered by their last name.
+  def index
+    @users = User.find(:all, :order => "lastname")
+  end
+
   # Whenever a logged in user wants to change its profile information, this action is responsible.
   def edit
     @user = current_user
@@ -17,5 +23,15 @@ class UsersController < ApplicationController
 #      @data_requests = DataRequest.find_all_by_board_state("submit")
     end
   end
+
+  # The show method provides all informations about one specific person.
+  def show
+
+    redirect_to(:action => "index") and return if params[:id].blank?
+    first, last = params[:id].split(/_/)
+    @user = User.find(:first, :conditions => ["firstname = ? and lastname = ?", first, last])
+    return redirect_to(:action => "index", :status => :not_found) unless @user
+  end
+
 
 end

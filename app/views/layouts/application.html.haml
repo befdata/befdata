@@ -15,9 +15,8 @@
         #menu
           %ul#sf-menu.sf-menu.superfish
             %li.first= link_to 'Home', root_path
-            / TODO
-            / <li></haml:block><haml:silent>## link_to 'Projects', :controller =&gt; 'projects' </haml:silent><haml:block></li>
-            / <li></haml:block><haml:silent>## link_to 'Staff', :controller =&gt; 'persons' </haml:silent><haml:block></li>
+            %li= link_to 'Projects', projects_path
+            %li= link_to 'Staff', users_path
             %li
               = link_to 'Data', data_path
               - if current_user

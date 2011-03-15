@@ -1,0 +1,29 @@
+%h2
+  = @project.name
+  (#{@project.shortname})
+= h @project.description
+
+%ul
+  - @project.users.each do |person|
+    %li
+      = person
+      = "(#{person.roles_for(@project).map{|e| e.name}})"
+
+-#ToDo Remove IT
+-#= render :partial => 'project_roles'
+%br/
+%br/
+%br/
+- unless @dss.blank?
+  %div{:style => "font-size: large; clear: both;"}
+    Data sets
+  %ul
+    - @dss.each do |ds|
+      %li
+        %b
+          = ds.title
+          \:
+        (#{link_to 'View dataset',{:controller => 'contexts',  :action => 'show', :id => ds.id}})
+- else
+  %div{:style => "font-size: large; clear: both;"}
+    No Data sets provided yet.

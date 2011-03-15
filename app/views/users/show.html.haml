@@ -1,0 +1,60 @@
+%span{:style => "font-size: large;"}= @user.full_name
+.comment
+  -#- unless @user.addresses[:phones].blank?
+  -#  = "#{t("address.phone")}:"
+  -#  = @user.addresses[:phones].join(' | ')
+  -#  %br/
+  -#- unless @user.addresses[:mails].blank?
+  -#  = "#{t("address.email")}:"
+  -#  = @user.addresses[:mails].map{|m| antispam_email_link(m)}.join(' | ')
+  -#  %br/
+  -#- unless @user.addresses[:urls].blank?
+  -#  = "#{t("address.url")}:"
+  -#  = @user.addresses[:urls].map{|u| link_to(u, u)}.join(' | ')
+  -#  %br/
+  -#- unless @user.addresses[:comments].blank?
+  -#  = @user.addresses[:comments].join('<br/>')
+  -#  %br/
+- unless @user.comment.blank?
+  .comment= @user.comment
+- unless @user.role_objects.blank?
+  - for role in @user.role_objects.reject{|r| r.name == "admin"}
+    - if role.authorizable.class.to_s == "Project"
+      .comment
+        %b= link_to role.authorizable, project_path(role.authorizable.id)
+        %br/
+        = "#{t("role."+role.name)}"
+
+-#- unless @user.users_roles.blank?
+-#  - for role in @user.person_roles.reject{|r| r.role == "admin"}
+-#    .comment
+-#      %b= link_to role.project, project_path(role.project)
+-#      %br/
+-#      = "#{t("role."+role.role.name)}" unless role.role.blank?
+-#      %br/
+-#      - unless role.institution.blank?
+-#        %br/
+-#        = role.institution.name unless role.institution.name.blank?
+-#        ,
+-#        \#{role.institution.affiliation unless role.institution.affiliation.blank?},
+-#        \#{role.institution.street unless role.institution.street.blank?},
+-#        \#{role.institution.city unless role.institution.city.blank?},
+-#        \#{role.institution.country unless role.institution.country.blank?}
+-#        %br/
+-#        = "#{t("address.phone")}:" + role.institution.phone + "<br/>" unless role.institution.phone.blank?
+-#        = "#{t("address.email")}:" + antispam_email_link(role.institution.email) + "<br/>" unless role.institution.email.blank?
+-#        = "#{t("address.url")}:" + link_to(role.institution.url, role.institution.url) + "<br/>" unless role.institution.url.blank?
+-#        = role.institution.comment unless role.institution.comment.blank?
+-#        %br/
+-#      - unless role.measmeths_personroles.blank?
+-#        Following methods were used:
+-#        %ul
+-#          - role.measmeths_personroles.each do |mmpr|
+-#            - unless mmpr.measurements_methodstep.blank?
+-#              %li
+-#                %b
+-#                  = mmpr.measurements_methodstep.columnheader.humanize
+-#                  \:
+-#                = mmpr.measurements_methodstep.definition
+-#                (#{link_to 'View context', {:controller => 'contexts', :action => 'show', :id => mmpr.measurements_methodstep.context.id}})
+-#      = role.comment unless role.comment.blank?
