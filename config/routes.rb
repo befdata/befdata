@@ -15,6 +15,7 @@ Befchina::Application.routes.draw do
   match 'upload' => 'datasets#upload', :as => :upload
   match 'download' => 'datasets#download', :as => :download
 
+  resources :projects
 
   match 'imports/create_dataset_filevalue' => 'imports#create_dataset_filevalue'
   match 'imports/raw_data_overview' => 'imports#raw_data_overview'
