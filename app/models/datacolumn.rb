@@ -43,6 +43,13 @@ class Datacolumn < ActiveRecord::Base
     ms
   end
 
+    def categories
+    # !! Zeitfresser ??
+    ms = self.sheetcells
+    meas_with_cats = ms.
+      collect{|m| m.value_type == "Categoricvalue"}.flatten.uniq.compact
+  end
+
 
   # Are there values (Datetimevalue, Numericvalue, Categoricvalue,
   # Textvalue) associated to the measurements of this data column
@@ -51,6 +58,27 @@ class Datacolumn < ActiveRecord::Base
     ms = self.sheetcells
     vls = ms.collect{|m| m.value}.compact
     return !vls.empty?
+  end
+
+   def first_five
+    ms = self.sheetcells
+    # Measurements are automatically added at import, but they may not
+    # be linked to values yet.
+    vls = ms.collect{|m| m.value}.compact
+    n = vls.length
+    if n > 0
+      text1 = "First five of entries: "
+      f_five = vls[0..4]
+      begin
+        f_five = f_five.collect{|vl| vl.show_value}
+        text2 = "(#{f_five.to_sentence})"
+        text3 = text1 + text2
+      rescue
+        text3 = "No entries for values found"
+      end
+    else
+      "No values yet imported for this data column"
+    end
   end
 
 

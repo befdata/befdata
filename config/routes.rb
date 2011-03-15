@@ -3,7 +3,8 @@ Befchina::Application.routes.draw do
   match 'login' => 'user_sessions#new', :as => :login
   match 'logout' => 'user_sessions#destroy', :as => :logout
   resource :user_session
-
+  resources :users
+  
   root :to => "pages#home"
   match 'impressum' => 'pages#impressum', :as => :impressum
   match 'help' => 'pages#help', :as => :help
@@ -12,7 +13,7 @@ Befchina::Application.routes.draw do
 
   resources :datasets
   match 'upload' => 'datasets#upload', :as => :upload
-
+  match 'download' => 'datasets#download', :as => :download
 
 
   match 'imports/create_dataset_filevalue' => 'imports#create_dataset_filevalue'

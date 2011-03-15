@@ -13,4 +13,21 @@ class User < ActiveRecord::Base
       "#{firstname} #{lastname}"
     end
   end
+
+  def to_s # :nodoc:
+    to_label
+  end
+
+  def projects
+  # die conditions greifen nicht in dieser Abfrage ...
+  #    roles = self.role_objects :conditions => [:authorizable_type => 'Project']
+    roles = self.role_objects.select{|rob| rob.authorizable_type=="Project"}
+    roles.map{|role| role.authorizable}
+  end
+
+  # This method provides a nice look of Person on some pages
+  def path_name
+    "#{firstname}_#{lastname}"
+  end
+
 end

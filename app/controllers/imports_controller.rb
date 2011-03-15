@@ -283,6 +283,9 @@ class ImportsController < ApplicationController
             data_header.datagroup = data_group
             data_header.save
             redirect_to :back
+          else
+            flash[:notice] = data_group.errors
+            redirect_to :back
           end
         end
       rescue ActiveRecord::RecordInvalid => invalid
@@ -297,9 +300,9 @@ class ImportsController < ApplicationController
 
 # Assingning provenance informaiton: linking people to a data column
   def update_people_for_data_header
-    if logged_in?
-      data_column = MeasurementsMethodstep.find(params[:measurements_methodstep][:id])
-      people = Person.find(params[:people])
+    if current_user
+      data_column = Datacolumn.find(params[:datacolumn][:id])
+      people = User.find(params[:people])
 
       # assigning provenance information: linking people to a data
       # column
@@ -359,7 +362,7 @@ class ImportsController < ApplicationController
 
       # by now values have been added
       unless data_column.categories.blank?
-        redirect_to(:controller => :import,
+        redirect_to(:controller => :imports,
                     :action => :data_column_categories,
                     :data_column_id => data_column.id)
       else

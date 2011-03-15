@@ -20,8 +20,7 @@ class DatasetsController < ApplicationController
     end
     @projects = @projects.flatten.compact.uniq
 
-    tmp = Datacolumns.find(:all,
-                                      :conditions => [ "context_id = ?", params[:id] ],
+    tmp = Datacolumn.find(:all, :conditions => [ "dataset_id = ?", params[:id] ],
                                       :order => 'columnnr ASC')
     @header = tmp.map{|d| d.columnheader }.uniq
 
@@ -32,9 +31,9 @@ class DatasetsController < ApplicationController
     @header.each do |h|
       mm = tmp.select{|mm| mm.columnheader == h}.first
       @measmeths[h] = mm
-      @measurements[h] = Datagroup.find(:all,
+      @measurements[h] = Sheetcell.find(:all,
                                           :conditions => [ "datacolumn_id = ?", mm.id ])
-      @methodtitles[h] = tmp.select{|mm| mm.columnheader == h}.first.methodstep.title
+      @methodtitles[h] = tmp.select{|mm| mm.columnheader == h}.first.datagroup.title
     end
 
 
