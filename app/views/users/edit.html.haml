@@ -1,0 +1,48 @@
+%span{:style => "font-size: large;"}
+  Profile of #{@user.full_name}
+.comment
+  %span{:style => "font-size: medium;"} Edit your profile
+  = render :active_scaffold => "admin/users", :constraints => {:id => @user.id}
+
+-#= "Project Board Votes" unless @project_board_votes.empty?
+-#- @project_board_votes.each do |vote|
+-#  %div.box
+-#    %h3= "Data Request: #{link_to vote.data_request.title, vote.data_request}"
+-#    %p
+-#      Rational:
+-#      = vote.data_request.rationale
+-#    %p
+-#      Author List:
+-#      = author_list_formatter(vote.data_request.author_list)
+-#    - form_for vote, :url => update_vote_path(vote) do |form|
+-#      - if vote.vote == "none"
+-#        Accept or reject?
+-#        = form.select :vote, ["accept", "reject"]
+-#      - else
+-#        Your vote was:
+-#        = vote.vote
+-#      %br
+-#      = form.label :comment
+-#      = form.text_field :comment
+-#      = form.submit "Send your vote"
+-#- @to_vote.each do |vote|
+-#  Vote to submit
+-#  %div.box
+-#    %h3= "Data Request: #{link_to vote.data_request.title, vote.data_request}"
+-#    %p
+-#      Rational:
+-#      = vote.data_request.rationale
+-#    %p
+-#      Author List:
+-#      = author_list_formatter(vote.data_request.author_list)
+-#    - form_for vote, :url => update_vote_path(vote) do |form|
+-#      - if vote.vote == "none"
+-#        Accept or reject?
+-#        = form.select :vote, ["accept", "reject"]
+-#      - else
+-#        Your vote was:
+-#        = vote.vote
+-#      %br
+-#      = form.label :comment
+-#      = form.text_field :comment
+-#      = form.submit "Send your vote"

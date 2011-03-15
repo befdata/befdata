@@ -30,4 +30,9 @@ class User < ActiveRecord::Base
     "#{firstname}_#{lastname}"
   end
 
+  # This method provides a nice look of Person on some pages
+  def full_name
+    "#{lastname}, #{firstname} - #{salutation}"
+  end
+
 end

@@ -1,10 +1,12 @@
 Befchina::Application.routes.draw do
 
+  resource :user_session
   match 'login' => 'user_sessions#new', :as => :login
   match 'logout' => 'user_sessions#destroy', :as => :logout
-  resource :user_session
+
   resources :users
-  
+  match 'profile' => 'users#edit', :as => :profile
+
   root :to => "pages#home"
   match 'impressum' => 'pages#impressum', :as => :impressum
   match 'help' => 'pages#help', :as => :help
