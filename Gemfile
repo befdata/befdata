@@ -13,6 +13,8 @@ gem 'paperclip'
 gem 'is_taggable'
 gem 'spreadsheet'
 
+gem 'active_scaffold'
+
 # Use unicorn as the web server
 # gem 'unicorn'
 

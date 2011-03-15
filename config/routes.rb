@@ -25,6 +25,12 @@ Befchina::Application.routes.draw do
   match 'imports/update_people_for_data_header' => 'imports#update_people_for_data_header'
   match 'imports/add_data_values' => 'imports#add_data_values'
 
+  namespace :admin do |admin|
+    resources :datasets, :users do
+      as_routes
+    end
+  end
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

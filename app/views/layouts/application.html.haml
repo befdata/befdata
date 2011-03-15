@@ -29,9 +29,8 @@
               - ##= link_to image_tag("/images/user_edit.png", :title => 'Profile'), :controller => 'profile'
               %li Cart
               - ## link_to image_tag("/images/cart.png", :title => 'Cart'), current_cart_url
-              - if current_user.has_role?('admin')
-                %li Admin
-                - ## link_to image_tag("/images/admin.png", :title => "Admin"), :controller => 'admin'
+              - if current_user.has_role?(:admin)
+                %li= link_to image_tag("/images/admin.png", :title => "Admin"), admin_datasets_path
               %li= link_to image_tag("/images/logout.png", :title => "Logout"), logout_path
             - else
               %li= link_to 'Login', login_path
