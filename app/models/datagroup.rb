@@ -51,5 +51,16 @@ class Datagroup < ActiveRecord::Base
     end
   end
 
+  def helper_method
+    helper = Datagroup.find_all_by_title("Helper")
+
+    unless helper
+      helper = Datagroup.create(:title => "Helper",
+                                :description => "Helper Method for something")
+    end
+
+    return helper
+  end
+
 
 end

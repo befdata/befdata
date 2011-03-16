@@ -575,15 +575,12 @@ private
     #methAvailable = Datagroup.find_with_ferret(data_group_Title)
     methAvailable = Datagroup.find_by_title(data_group_Title)
     # now making sure that at least one known method is fund
-    if methAvailable
+    unless methAvailable
       #TODO THIS DOESNT WORK !!!!!!!!!
       #! We should add numeric helper and text helper, use text
       #! helper if there is text in the column, and
       #methAvailable << Datagroup.find(74)
-      kram = Datagroup.new(:title => "helper", :methodvaluetype => "integer", :description => "beschreibung")
-      kram.save
-      methAvailable = []
-      methAvailable << kram
+      methAvailable = [Datagroup.helper_method]
     end
     logger.debug "methAvailable"
     logger.debug methAvailable.inspect
