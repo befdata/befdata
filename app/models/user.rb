@@ -35,4 +35,12 @@ class User < ActiveRecord::Base
     "#{lastname}, #{firstname} - #{salutation}"
   end
 
+  def add_role=(role)
+    self.has_role! role.to_sym
+  end
+
+  def add_role
+    nil
+  end
+
 end
