@@ -1,3 +1,42 @@
+# This file contains the Context model, which maps the data base table
+# contexts for the application.  Contexts contain the general meta
+# data of a data set and link to data values as well as to provenance
+# tables.
+
+
+# Information in Context specify the general metadata for a data set
+# available on the data portal.  This includes meta data such as title
+# and abstract.  Additionally, instances of Context are linked to the
+# originators of the data set (see ContextPersonRole, PersonRole,
+# Person).
+#
+# Primary research data as well as custom format files are linked to
+# contexts.  Primary research data is given in a flat file format,
+# consisting of rows and columns.  Columns store similar data, for
+# example tree height or detailed information on location (see
+# MeasurementsMethodstep, Admin::MeasurementsMethodstepsController).
+#
+# Members of the research unit can request data from contexts by
+# submitting a DataRequest (see also DataRequestsController).  After
+# having successfully submitted a data request, people are listed in
+# ContextFreeperson (see also ContextFreepeopleController).
+#
+# !! not yet implemented: Downloads of contexts are stored in a
+# !! separate table (ContextDownload, see also
+# !! ContextDownloadsController).
+#
+# Contexs, as well as the models Methodstep, MeasurementsMethodstep,
+# and Categoricvalue are taggable, that is, they can be linked to an
+# entry in the tags table.  This uses the is_taggable rails gem.
+#
+# To use full text search on contexts, we currently use the
+# acts_as_ferret rails gem.
+#
+# Contexts, as ActiveRecord Objects, map the data base table
+# "contexts" so that it can be used in the web application.  With it,
+# all fieldnames of the data base table become accessible as
+# attributes of a context.
+
 class Dataset < ActiveRecord::Base
 
   acts_as_authorization_object :subject_class_name => 'User'

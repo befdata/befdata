@@ -38,6 +38,8 @@ Befchina::Application.routes.draw do
   end
 
   resources :paperproposals
+  match 'paperproposals/update_vote/:id' => 'paperproposals#update_vote', :as => :paperproposal_update_state
+
   resources :carts
 
   match 'create_cart_context/:dataset_id' => 'carts#create_cart_context', :as => :create_cart_context

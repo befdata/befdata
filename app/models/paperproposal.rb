@@ -35,7 +35,7 @@ class Paperproposal < ActiveRecord::Base
 #    end
 
     def calc_board_state
-      return "In Preparation, no data selected yet." if self.board_state == "prep" && self.contexts.length == 0
+      return "In Preparation, no data selected yet." if self.board_state == "prep" && self.datasets.length == 0
       return "still no aspects set" if self.board_state == "prep" && !check_aspects_for_contexts
       return "complete" if self.board_state == "prep" && check_aspects_for_contexts
       return "Submitted to board, waiting for acceptance." if self.board_state == "submit"
@@ -73,8 +73,8 @@ class Paperproposal < ActiveRecord::Base
     private
 
     def check_aspects_for_contexts
-      if self.contexts.length >= 0
-        self.data_request_contexts.each do |dgdr|
+      if self.datasets.length >= 0
+        self.dataset_paperproposals.each do |dgdr|
           if dgdr.aspect.nil? || dgdr.aspect.empty?
             return false
           end

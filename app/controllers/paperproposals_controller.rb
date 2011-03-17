@@ -64,17 +64,17 @@ class PaperproposalsController < ApplicationController
 
   #update attributes and joins for one data request
   def update
-    @paperproposal.update_attributes(params[:data_request])
+    @paperproposal.update_attributes(params[:paperproposal])
     @paperproposal.save
 
-    @paperproposal.data_request_contexts.clear if ( params[:contexts].nil? && params[:data_request].nil? )
-    if params[:contexts]
-      @contexts = Context.find(params[:contexts])
-      @paperproposal.contexts = @contexts
+    @paperproposal.dataset_paperproposals.clear if ( params[:datasets].nil? && params[:paperproposal].nil? )
+    if params[:datasets]
+      @contexts = Dataset.find(params[:datasets])
+      @paperproposal.datasets= @contexts
     end
     update_aspects if params[:aspect]
     update_author_list(@paperproposal)
-    redirect_to edit_data_request_path(@paperproposal)
+    redirect_to edit_paperproposal_path(@paperproposal)
   end
 
   # submit to board - switch from prep state to submit state
@@ -102,9 +102,9 @@ class PaperproposalsController < ApplicationController
 
   # after one person vote, here the attributes for this data request is changed
   def update_vote
-    @to_vote = DataRequestVote.find(params[:id])
-    @to_vote.update_attributes(params[:data_request_vote])
-    @paperproposal = @to_vote.data_request
+    @to_vote = PaperproposalVote.find(params[:id])
+    @to_vote.update_attributes(params[:paperproposal_vote])
+    @paperproposal = @to_vote.paperproposal
 
     unless @to_vote.save
       flash[:error] = @to_vote.errors
@@ -128,7 +128,7 @@ class PaperproposalsController < ApplicationController
           @paperproposal.board_state = "final"
           @paperproposal.lock = false
           @paperproposal.save
-          @paperproposal.contexts.each do |context|
+          @paperproposal.datasets.each do |context|
             context.accepts_role! :proposer, @paperproposal.author
           end
         else
@@ -167,25 +167,25 @@ private
   end
 
   def update_author_list(data_request)
-    auto_generated_adrs = data_request.author_data_requests.select{|join| join.kind == "context" ||
+    auto_generated_adrs = data_request.author_paperproposals.select{|join| join.kind == "context" ||
                                                                           join.kind == "main" ||
                                                                           join.kind == "side"}
     auto_generated_adrs.each{|element| element.destroy}
 
 
-    data_request.data_request_contexts.each do |element|
-      owner_of_context = element.context.people.select{|e| e.has_role? :owner, element.context}
+    data_request.dataset_paperproposals.each do |element|
+      owner_of_context = element.dataset.users.select{|e| e.has_role? :owner, element.dataset}
       author_array = owner_of_context.
-          map{|e| AuthorDataRequest.new(:person => e,
-                                        :data_request => data_request,
+          map{|e| AuthorPaperproposal.new(:user=> e,
+                                        :paperproposal => data_request,
                                         :kind => "main")}
-      data_request.author_data_requests << author_array
-      element.context.measurements_methodsteps.each do |e|
-        author_array = e.people.
-          map{|e| AuthorDataRequest.new(:person => e,
-                                          :data_request => data_request,
+      data_request.author_paperproposals << author_array
+      element.dataset.datacolumns.each do |e|
+        author_array = e.users.
+          map{|e| AuthorPaperproposal.new(:user => e,
+                                          :paperproposal => data_request,
                                           :kind => "ack")}
-        data_request.author_data_requests << author_array
+        data_request.author_paperproposals << author_array
       end
     end
 

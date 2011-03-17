@@ -17,7 +17,7 @@
           - if is_in && dgdr.nil?
             - is_warning = true
           = label_tag dataset.title
-          = check_box_tag "contexts[]", dataset.id, ( is_in || !dgdr.nil?)
+          = check_box_tag "datasets[]", dataset.id, ( is_in || !dgdr.nil?)
           = select "aspect", dataset.id, ["main", "side"], { :include_blank => true,
               :selected => dgdr.nil? ? false : dgdr.aspect }
           %br
