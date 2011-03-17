@@ -1,20 +1,18 @@
 %span{:style => "font-size: large;"}= @user.full_name
+- @user = User.new
 .comment
-  -#- unless @user.addresses[:phones].blank?
-  -#  = "#{t("address.phone")}:"
-  -#  = @user.addresses[:phones].join(' | ')
-  -#  %br/
-  -#- unless @user.addresses[:mails].blank?
-  -#  = "#{t("address.email")}:"
-  -#  = @user.addresses[:mails].map{|m| antispam_email_link(m)}.join(' | ')
-  -#  %br/
-  -#- unless @user.addresses[:urls].blank?
-  -#  = "#{t("address.url")}:"
-  -#  = @user.addresses[:urls].map{|u| link_to(u, u)}.join(' | ')
-  -#  %br/
-  -#- unless @user.addresses[:comments].blank?
-  -#  = @user.addresses[:comments].join('<br/>')
-  -#  %br/
+  - unless @user.institution_phone.blank?
+    = "#{t("address.phone")}: #{@user.institution_phone}"
+    %br/
+  - unless @user.email.blank?
+    = "#{t("address.email")}: #{@user.email}"
+    %br/
+  - unless @user.url.blank?
+    = "#{t("address.url")}: #{@user.url}"
+    %br/
+  - unless @user.comment.blank?
+    = @user.comments
+    %br/
 - unless @user.comment.blank?
   .comment= @user.comment
 - unless @user.role_objects.blank?
