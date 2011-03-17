@@ -32,7 +32,7 @@ Befchina::Application.routes.draw do
   match 'imports/cell_category_create' => 'imports#cell_category_create'
 
   namespace :admin do |admin|
-    resources :datasets, :users do
+    resources :datasets, :projects, :users, :datagroups, :tags, :datacolumns, :categoricvalues do
       as_routes
     end
   end
