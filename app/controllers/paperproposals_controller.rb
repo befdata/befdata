@@ -10,7 +10,7 @@ class PaperproposalsController < ApplicationController
 
   #show list of data requests
   def index
-    @data_requests = DataRequest.all
+    @paperproposals = Paperproposal.all
   end
 
   #prepare for new data request
