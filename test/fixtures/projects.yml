@@ -4,12 +4,15 @@
 # model remove the '{}' from the fixture names and add the columns immediately
 # below each fixture, per the syntax in the comments below
 #
-one:
+bef:
   id: 1
-  shortname: Test Project
-  name: really short Test Project
-  description: This is only a dummy Test Project
-# column: value
-#
-#two: {}
-#  column: value
+  shortname: befch direct
+  name: Research unit BEF-China
+  description: This is the overarching project of BEF-China.  It should be used for members of BEF-China, that are not associated to any other research project
+
+
+sp5e:
+  id: 2
+  shortname: sp5 e
+  name: sp5 europe: Nutrient cycling
+  description: Nutrient cycling, European project

@@ -14,6 +14,7 @@ class Datagroup < ActiveRecord::Base
 
   has_many :datacolumns
 
+
   #TODO FERRET
   #acts_as_ferret :fields => [:title, :description, :comment]
 

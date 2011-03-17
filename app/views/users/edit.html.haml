@@ -1,5 +1,6 @@
 %span{:style => "font-size: large;"}
   Profile of #{@user.full_name}
+  = @user.to_yaml
 .comment
   %span{:style => "font-size: medium;"} Edit your profile
   = render :active_scaffold => "admin/users", :constraints => {:id => @user.id}

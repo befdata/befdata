@@ -12,6 +12,7 @@ gem 'dynamic_form'
 gem 'paperclip'
 gem 'is_taggable'
 gem 'spreadsheet'
+gem 'yaml_db'
 
 gem 'active_scaffold'
 

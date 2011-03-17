@@ -4,28 +4,38 @@
 # model remove the '{}' from the fixture names and add the columns immediately
 # below each fixture, per the syntax in the comments below
 #
-admin:
+nadr_admin:
   id: 1
-  login: test_admin
-  email: admin@example.com
-  firstname: test
-  lastname: admin
-  crypted_password: 0ad221f88060b82b551ae2f3688e7593b5a8951ca8918a0a46c15995859ff42a4dffbe3b9925a09ad072ecb5ab58f9475a13f9ecca9da0491f2c4b13815d852d
-  password_salt: luaUjYALJWFBwYQHn7t
+  login: nadrowski
+  email: nadrowski@uni-leipzig.de
+  firstname: Karin
+  lastname: Nadrowski
+  crypted_password: 451a7ceac534239855b09f08ced22231a3029c9f3071fbda65194ed1bd6c8cf04f72e970a99642908b162aae89655a850364a3a7b9eb184b9f328ed790192b4b
+  password_salt: YwroEH9pTtsoKhfD9Wl
   persistence_token: d2bc7ec528928fd8fe592d675b8078816e123f6c89cce596789e752cd06c35937f76901da08a93210369fe62af90c106ba2ff1a514b77a6e03486d1515a1d385
-  single_access_token: 97KePcVQ5S1qkVAieIbf
-  perishable_token: SIAHnv8mr1Kn78gh4W7
+  single_access_token: jzvE7oUsKnW49bATgv77
+  perishable_token: 3kFY9kTgXluTT6VyE17v
 
-normale_fred_user:
+stud_trogisch:
   id: 2
-  login: test_fred
-  email: fred@example.com
-  firstname: test
-  lastname: fred
-  crypted_password: f83ff6856ebc1cd3d8c5d83f111d57cf3f4804f418a74479bc963d43fe1d5dcc1398308f01fe9379f8c0ad55d88ce2358210a4fc581ccc4912565b4e6edc224c
-  password_salt: NyhFtoWutn8SmpxLZuO
-  persistence_token: 95284900bbeab8e2297707a83bf683f4a1c05fcf503ab45eee893d031ecca30d9235a9427e5f65cca122209e1b15dfa99dbebedcb3faa286de7c681f95ccddba
-  single_access_token: XTUVSBstL7wmoPzvDkQ
-  perishable_token: FxGiazDkdiCeSLBAPAcr
+  login: stefantrogisch
+  email: StefanTrogisch@gmx.de
+  firstname: Stefan
+  lastname: Trogisch
+  crypted_password: 66c35c64cbeec85b71fc23af0aaaa4d422c835caaaa50c21560716603fdbc6e51b9314985416085a81c2ea711bdb46325f6a299a071d11137d7a6c737a987ec0
+  password_salt: EW5hHmIHfi6r8Zczhaa
+  persistence_token: e29cc6ac40504518a11d95bd129da1484ae124cf2c065973948f1e438bf583cd34eab569885b734de4848d030c7628c1c698d37c24bae6a10359dc4ec6bfb044
+  single_access_token: 3MKRR18aIE1LWwe0qae4
+  perishable_token: TlMDVXo8XBJUI942OEP
 
-
+prof_scherer:
+  id: 3
+  login: schererlorenzen
+  email: michael.scherer@biologie.uni-freiburg.de
+  firstname: Michael
+  lastname: Scherer-Lorenczen
+  crypted_password: 0b3b6cfa35f6dc1b13ac01e5588b03385fb87a42cbc1bef632c33438c4b6f626dccd2925dcf94f733c9c711fa0f59cc03b895c4cdeaa8080a211b7e5bfdd4472
+  password_salt: gTtSTlpe8o83Tp3N9q8E
+  persistence_token: 46adb30e8a521bcb26f1d2da5ec02dcf31560cf825b32a74aed28a8e582a98bbd035c682c0b86636970701d9124c9847a46efdec15a9a0040f92df03e4c6a78c
+  single_access_token: x6COE95Cd9jwZICJ0i5q
+  perishable_token: 7O1MkhZp5NeC22v4NkS
