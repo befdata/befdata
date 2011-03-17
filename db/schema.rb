@@ -116,7 +116,7 @@ ActiveRecord::Schema.define(:version => 20110317133340) do
     t.string   "file_content_type"
     t.integer  "file_file_size"
     t.datetime "file_updated_at"
-    t.integer  "data_proposal_id"
+    t.integer  "paperproposal_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
