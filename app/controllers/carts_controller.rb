@@ -6,7 +6,7 @@ class CartsController < ApplicationController
 
   def create_cart_context
     @dataset = Dataset.find(params[:dataset_id])
-    @cart_dataset = CartDataset.create!(:cart => current_cart, :context => @dataset)
+    @cart_dataset = CartDataset.create!(:cart => current_cart, :dataset => @dataset)
     flash[:notice] = "Added #{@dataset.title} to cart."
     redirect_to :back
   end

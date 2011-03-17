@@ -5,7 +5,7 @@
   - else
     - @cart.cart_datasets.each do |cart_object|
       %p.cart
-        %span.left= cart_object.context.title
+        %span.left= cart_object.dataset.title
         %span.right= link_to image_tag("/images/cart_remove.png", :title => "Remove from your cart."),
           delete_cart_context_path(cart_object), :method => :delete, :confirm => "Are you sure you want delete this dataset from cart?"
     %p{:style => "margin-bottom: 4px;"}

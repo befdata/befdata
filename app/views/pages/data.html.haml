@@ -19,5 +19,4 @@
       = link_to ds.title, {:controller => :datasets, |
         :action => :show, :id => ds.id}              |
       - if current_user
-        -#TODO
-        -#= link_to image_tag("/images/cart_put.png"), create_cart_context_path(:context_id => ds.id), :method => :post
+        = link_to image_tag("/images/cart_put.png"), create_cart_context_path(:dataset_id => ds.id), :method => :post
