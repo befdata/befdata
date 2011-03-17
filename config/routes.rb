@@ -28,6 +28,8 @@ Befchina::Application.routes.draw do
   match 'imports/add_data_values' => 'imports#add_data_values'
   match 'imports/data_column_categories' => 'imports#data_column_categories'
   match 'imports/context_export_destroy' => 'imports#context_export_destroy'
+  match 'imports/cell_category_update' => 'imports#cell_category_update'
+  match 'imports/cell_category_create' => 'imports#cell_category_create'
 
   namespace :admin do |admin|
     resources :datasets, :users do
