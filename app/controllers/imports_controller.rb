@@ -115,7 +115,7 @@ class ImportsController < ApplicationController
 
               # create measurement (with value as import_value)
               entry = entry.to_i.to_s if integer?(entry)
-              Measurement.create(:measurements_methodstep => data_column_new,
+              Sheetcell.create(:datacolumn => data_column_new,
                                  :observation_id => obs_id,
                                  :import_value => entry)
             end # is there data provided?
