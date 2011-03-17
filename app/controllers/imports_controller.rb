@@ -573,7 +573,7 @@ private
     logger.debug data_group_Title.inspect
     # find suitable methods already available
     #methAvailable = Datagroup.find_with_ferret(data_group_Title)
-    methAvailable = Datagroup.find_by_title(data_group_Title)
+    methAvailable = Datagroup.find_all_by_title(data_group_Title)
     # now making sure that at least one known method is fund
     unless methAvailable
       #TODO THIS DOESNT WORK !!!!!!!!!
