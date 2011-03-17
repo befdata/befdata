@@ -329,7 +329,7 @@ class ImportsController < ApplicationController
     if current_user
       data_column =
         Datacolumn.find(params[:datacolumn][:id])
-      data_column.update_attributes(params[:data_column])
+      data_column.update_attributes(params[:datacolumn])
 
       # Text values do not have associated categoric values (naming
       # conventions), all the others have.  This is because the
