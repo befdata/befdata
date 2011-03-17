@@ -375,6 +375,27 @@ class ImportsController < ApplicationController
       redirect_to login_path and return
     end
   end
+
+  def data_column_categories
+    @data_column = Datacolumn.find(params[:data_column_id])
+    @dataset = @data_column.dataset
+    portal_cats = @data_column.datagroup.datacell_categories
+    sheet_cats = @data_column.import_categoricvalues.map{|icat| icat.categoricvalue}
+    @cats_to_choose = [portal_cats + sheet_cats].flatten.uniq
+    @cats_to_choose.sort!{|x,y| x.verbose <=> y.verbose}
+    cells_with_cats = @data_column.sheetcells.
+      select{|cell| cell.value_type == "Categoricvalue"}
+    # Cells (Measurements) can be set to valid; categoric values can
+    # be set to "manually approved".
+    cells = cells_with_cats.
+      select{|cell|  cell.comment == "invalid"}
+    cell_unique_entries = cells.collect{|cell|  cell.import_value}.uniq.sort
+    @cell_uniq_arr = []
+    cell_unique_entries.each do |entry|
+      @cell_uniq_arr << cells.select{|cell| cell.import_value == entry }[0]
+    end
+  end
+
   
 
 
