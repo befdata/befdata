@@ -13,7 +13,7 @@
 ActiveRecord::Schema.define(:version => 20110317133340) do
 
   create_table "author_paperproposals", :force => true do |t|
-    t.integer  "dataproposal_id"
+    t.integer  "paperproposal_id"
     t.integer  "user_id"
     t.string   "kind"
     t.datetime "created_at"

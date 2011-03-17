@@ -37,9 +37,9 @@ class PaperproposalsController < ApplicationController
 
   #prepare for edit data request
   def edit
-    @all_persons = Person.all
+    @all_persons = User.all
     @used_persons = @paperproposal.authors
-    @contexts = Context.find(:all, :order => 'title')
+    @datasets = Dataset.find(:all, :order => 'title')
     @current_cart = current_cart
   end
 
@@ -192,14 +192,14 @@ private
   end
 
   def update_aspects
-    @paperproposal.data_request_contexts.each do |data_request_context|
-      data_request_context.aspect = params[:aspect].fetch("#{data_request_context.context_id}")
-      data_request_context.save
+    @paperproposal.dataset_paperproposals.each do |paperproposal_dataset|
+      paperproposal_dataset.aspect = params[:aspect].fetch("#{paperproposal_dataset.dataset_id}")
+      paperproposal_dataset.save
     end
   end
 
   def load_request
-    @paperproposal = DataRequest.find(params[:id])
+    @paperproposal = Paperproposal.find(params[:id])
   end
 
 

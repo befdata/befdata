@@ -48,8 +48,8 @@ class Paperproposal < ActiveRecord::Base
       author_list = []
       author_list << self.author
 
-      middle_block = self.author_data_requests.reject{|e| e.kind == "ack"}.map{|e| e.person}.uniq
-      ack = self.author_data_requests.select{|e| e.kind == "ack"}.map{|e| e.person}.uniq
+      middle_block = self.author_paperproposals.reject{|e| e.kind == "ack"}.map{|e| e.user}.uniq
+      ack = self.author_paperproposals.select{|e| e.kind == "ack"}.map{|e| e.user}.uniq
       middle_block << self.corresponding
 
       middle_block = middle_block.sort{|a,b| a.lastname <=> b.lastname}
