@@ -371,7 +371,7 @@ class ImportsController < ApplicationController
 
     else
       # Not logged in, redirect to login form
-      session[:return_to] = request.request_uri
+      session[:return_to] = request.request_uriportal_cats
       redirect_to login_path and return
     end
   end
@@ -395,6 +395,21 @@ class ImportsController < ApplicationController
       @cell_uniq_arr << cells.select{|cell| cell.import_value == entry }[0]
     end
   end
+
+  # Exports a Context for merging and correcting as .xls file.  Then
+  # destroys this context and all its values.
+  def context_export_destroy
+    # export context is missing, should use the export from the
+    # context controller
+
+    # destroy context
+    dataset = Dataset.find(params[:dataset_id])
+    dataset.destroy
+
+    # reset_session; this logs you out
+    redirect_to root_path
+  end
+
 
   
 
