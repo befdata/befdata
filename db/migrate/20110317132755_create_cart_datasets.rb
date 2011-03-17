@@ -1,6 +1,6 @@
-class CreateCartsDatasets < ActiveRecord::Migration
+class CreateCartDatasets < ActiveRecord::Migration
   def self.up
-    create_table :carts_datasets do |t|
+    create_table :cart_datasets do |t|
       t.integer  "id",         :null => false
       t.integer  "cart_id"
       t.integer  "dataset_id"
@@ -9,6 +9,6 @@ class CreateCartsDatasets < ActiveRecord::Migration
   end
 
   def self.down
-    drop_table :carts_datasets
+    drop_table :cart_datasets
   end
 end

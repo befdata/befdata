@@ -10,7 +10,27 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110315095614) do
+ActiveRecord::Schema.define(:version => 20110317133340) do
+
+  create_table "author_paperproposals", :force => true do |t|
+    t.integer  "dataproposal_id"
+    t.integer  "user_id"
+    t.string   "kind"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "cart_datasets", :force => true do |t|
+    t.integer  "cart_id"
+    t.integer  "dataset_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "carts", :force => true do |t|
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "categoricvalues", :force => true do |t|
     t.string   "short"
@@ -45,6 +65,14 @@ ActiveRecord::Schema.define(:version => 20110315095614) do
     t.float    "timelatency"
     t.string   "timelatencyunit"
     t.text     "comment"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "dataset_paperproposals", :force => true do |t|
+    t.string   "aspect"
+    t.integer  "paperproposal_id"
+    t.integer  "dataset_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -120,6 +148,33 @@ ActiveRecord::Schema.define(:version => 20110315095614) do
     t.integer  "observation_id"
     t.integer  "sheetcell_id"
     t.text     "comment"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "paperproposal_votes", :force => true do |t|
+    t.integer  "paperproposal_id"
+    t.integer  "user_id"
+    t.string   "comment"
+    t.string   "vote",               :default => "none"
+    t.boolean  "project_board_vote"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "paperproposals", :force => true do |t|
+    t.integer  "author_id"
+    t.string   "envisaged_journal"
+    t.string   "title"
+    t.string   "rationale"
+    t.integer  "corresponding_id"
+    t.date     "envisaged_date"
+    t.string   "state"
+    t.date     "expiry_date"
+    t.string   "board_state",       :default => "prep"
+    t.integer  "senior_author_id"
+    t.string   "external_data"
+    t.boolean  "lock",              :default => false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
