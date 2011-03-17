@@ -26,6 +26,8 @@ Befchina::Application.routes.draw do
   match 'imports/update_data_group' => 'imports#update_data_group'
   match 'imports/update_people_for_data_header' => 'imports#update_people_for_data_header'
   match 'imports/add_data_values' => 'imports#add_data_values'
+  match 'imports/data_column_categories' => 'imports#data_column_categories'
+  match 'imports/context_export_destroy' => 'imports#context_export_destroy'
 
   namespace :admin do |admin|
     resources :datasets, :users do

@@ -115,7 +115,7 @@ class ImportsController < ApplicationController
 
               # create measurement (with value as import_value)
               entry = entry.to_i.to_s if integer?(entry)
-              Sheetcell.create(:measurements_methodstep => data_column_new,
+              Sheetcell.create(:datacolumn => data_column_new,
                                  :observation_id => obs_id,
                                  :import_value => entry)
             end # is there data provided?
@@ -329,7 +329,7 @@ class ImportsController < ApplicationController
     if current_user
       data_column =
         Datacolumn.find(params[:datacolumn][:id])
-      data_column.update_attributes(params[:data_column])
+      data_column.update_attributes(params[:datacolumn])
 
       # Text values do not have associated categoric values (naming
       # conventions), all the others have.  This is because the
@@ -371,10 +371,46 @@ class ImportsController < ApplicationController
 
     else
       # Not logged in, redirect to login form
-      session[:return_to] = request.request_uri
+      session[:return_to] = request.request_uriportal_cats
       redirect_to login_path and return
     end
   end
+
+  def data_column_categories
+    @data_column = Datacolumn.find(params[:data_column_id])
+    @dataset = @data_column.dataset
+    portal_cats = @data_column.datagroup.datacell_categories
+    sheet_cats = @data_column.import_categoricvalues.map{|icat| icat.categoricvalue}
+    @cats_to_choose = [portal_cats + sheet_cats].flatten.uniq
+    @cats_to_choose.sort!{|x,y| x.verbose <=> y.verbose}
+    cells_with_cats = @data_column.sheetcells.
+      select{|cell| cell.value_type == "Categoricvalue"}
+    # Cells (Measurements) can be set to valid; categoric values can
+    # be set to "manually approved".
+    cells = cells_with_cats.
+      select{|cell|  cell.comment == "invalid"}
+    cell_unique_entries = cells.collect{|cell|  cell.import_value}.uniq.sort
+    @cell_uniq_arr = []
+    cell_unique_entries.each do |entry|
+      @cell_uniq_arr << cells.select{|cell| cell.import_value == entry }[0]
+    end
+  end
+
+  # Exports a Context for merging and correcting as .xls file.  Then
+  # destroys this context and all its values.
+  def context_export_destroy
+    # export context is missing, should use the export from the
+    # context controller
+
+    # destroy context
+    dataset = Dataset.find(params[:dataset_id])
+    dataset.destroy
+
+    # reset_session; this logs you out
+    redirect_to root_path
+  end
+
+
   
 
 
