@@ -1,0 +1,13 @@
+%h1 Shopping system for the BEF-China Project
+%div.box
+  - if @cart.cart_datasets.blank?
+    Cart still empty
+  - else
+    - @cart.cart_datasets.each do |cart_object|
+      %p.cart
+        %span.left= cart_object.context.title
+        %span.right= link_to image_tag("/images/cart_remove.png", :title => "Remove from your cart."),
+          delete_cart_context_path(cart_object), :method => :delete, :confirm => "Are you sure you want delete this dataset from cart?"
+    %p{:style => "margin-bottom: 4px;"}
+      Do you want to create a new data request from your cart?
+      = link_to image_tag("/images/page_add.png", :title => "Create new paper proposal"), :new_paperproposal
