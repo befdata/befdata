@@ -898,7 +898,7 @@ private
       cell.comment = cell_comment
       cell.save
       logger.debug "------------ after saving cell.save  ---------"
-      logger.debug cell.to_yaml
+      logger.debug cell.inspect
     end # Data column entries loop
   end
 

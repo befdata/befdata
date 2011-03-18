@@ -44,7 +44,9 @@ class Dataset < ActiveRecord::Base
   is_taggable :tags, :languages
 
   belongs_to :upload_spreadsheet, :class_name => "Filevalue",
-                                  :foreign_key => "upload_spreadsheet_id"
+                                  :foreign_key => "upload_spreadsheet_id",
+                                  :dependent => :destroy
+
   has_many :datacolumns, :dependent => :destroy, :order => "columnnr"
   has_many :sheetcells, :through => :datacolumns
 
