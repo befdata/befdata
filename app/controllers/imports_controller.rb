@@ -461,7 +461,7 @@ class ImportsController < ApplicationController
 
       same_entry_cells.each do |cell|
         logger.debug "- old and new cell  -"
-        logger.debug cell.to_yaml
+        logger.debug cell.inspect
         old_cat = cell.categoricvalue
         cell.update_attributes(:value => cat,
                                :comment => "valid")
@@ -832,7 +832,7 @@ private
       cell.save
       old_val.destroy if old_val
       logger.debug "- cell.save  -"
-      logger.debug cell.to_yaml
+      logger.debug cell.inspect
     end # Entry loop
 
   end
