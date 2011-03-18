@@ -24,6 +24,14 @@ class Project < ActiveRecord::Base
   end
   
 
+  def query_by_role(role_name)
+  #corresponding_role_ids = self.accepted_roles.all(:conditions => { :name => role_name }).map(&:id)
+
+  # this will now return all users that have +role_name+ on +object+
+  #Person.all(:conditions => ['roles.id IN (?)', corresponding_role_ids])
+  self.users.select{|person| person.has_role? role_name, self}
+  end
+
   def to_label
     "#{name}"
   end

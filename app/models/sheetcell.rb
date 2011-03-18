@@ -27,4 +27,14 @@ class Sheetcell < ActiveRecord::Base
   belongs_to :filevalue, :class_name => "Filevalue", :foreign_key => "value_id"
 
 
+
+  def same_entry_cells
+    entry = self.import_value
+    data_column = self.datacolumn
+    all_cells = data_column.sheetcells
+    same_entry_cells = all_cells.
+      select{|cell|  cell.import_value == entry}.flatten
+    return same_entry_cells
+  end 
+
 end

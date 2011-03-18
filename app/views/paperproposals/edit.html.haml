@@ -1,0 +1,4 @@
+- if @paperproposal.board_state != "final"
+  = render :partial => 'full_edit'
+- else
+  = render :partial => 'final_edit'

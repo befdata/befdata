@@ -28,12 +28,24 @@ Befchina::Application.routes.draw do
   match 'imports/add_data_values' => 'imports#add_data_values'
   match 'imports/data_column_categories' => 'imports#data_column_categories'
   match 'imports/context_export_destroy' => 'imports#context_export_destroy'
+  match 'imports/cell_category_update' => 'imports#cell_category_update'
+  match 'imports/cell_category_create' => 'imports#cell_category_create'
 
   namespace :admin do |admin|
-    resources :datasets, :users do
+    resources :datasets, :projects, :users, :datagroups, :tags, :datacolumns, :categoricvalues do
       as_routes
     end
   end
+
+  resources :paperproposals
+  match 'paperproposals/update_vote/:id' => 'paperproposals#update_vote', :as => :paperproposal_update_state
+
+  resources :carts
+
+  match 'create_cart_context/:dataset_id' => 'carts#create_cart_context', :as => :create_cart_context
+  match 'delete_cart_context/:dataset_id' => 'carts#delete_cart_context', :as => :delete_cart_context
+  match 'cart' => 'carts#show', :as => 'current_cart'
+
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

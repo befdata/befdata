@@ -13,6 +13,11 @@
       = link_to 'Frontend', root_path
       = link_to 'Datasets', admin_datasets_path
       = link_to 'Users', admin_users_path
+      = link_to 'Projects', admin_projects_path
+      = link_to 'Datagroups', admin_datagroups_path
+      = link_to 'Datacolumns', admin_datacolumns_path
+      = link_to 'Tags', admin_tags_path
+      = link_to 'Categoricvalues', admin_categoricvalues_path
       -#= %w[pages people institutions                                                                                                                          |
       -#  projects roles contexts methods measurements_methodsteps tags categoricvalues].map {|item| link_to display_name(item), :controller => item}.join(" ") |
     %p{:style => "color: green"}= flash[:notice]

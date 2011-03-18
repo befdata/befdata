@@ -1,0 +1,36 @@
+%div{:style => "border: 1px solid black"}
+  Actually Board State is: #{@paperproposal.calc_board_state}
+
+  - if @paperproposal.calc_board_state == "complete"
+    - form_for @paperproposal, :url => paperproposal_update_state_path(@paperproposal) do |form|
+      = form.label @paperproposal.calc_board_state
+      = form.submit "Send to board"
+      = form.hidden_field :board_state, :value => "submit"
+  - if @paperproposal.board_state == "re_prep"
+    - form_for @paperproposal, :url => paperproposal_update_state_path(@paperproposal) do |form|
+      = "When you are ready, we are!"
+      = form.submit "Send to board again", :confirm => "Do you make your changes?"
+      = form.hidden_field :board_state, :value => "submit"
+
+  - state = @paperproposal.board_state
+  - if  state == "submit" || state ==  "re_prep"
+    %h5 Project Board Vote
+    %div.around_box
+      %span.left_vote
+        - @paperproposal.project_board_votes.each do |join|
+          %div.arrow_box
+            %span.label= join.person.to_label
+            = image_tag("/images/arrow_right_#{join.vote}.png", :title => join.comment)
+      %span.right_vote
+        = image_tag("/images/arrow_join_#{state}.png")
+        = @paperproposal.calc_board_state
+    %span.clear
+
+  - if @paperproposal.board_state == "accept"
+    %p Now Main Proponent Vote
+    %ul
+      - @paperproposal.for_data_request_votes.each do |join|
+        %li
+          = join.person.to_label
+          = join.comment
+          = join.vote

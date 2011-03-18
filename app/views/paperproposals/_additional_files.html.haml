@@ -1,0 +1,11 @@
+%div.box
+  %h3 additional files
+  - form_for @paperproposal, :html => {:multipart => true} do |form|
+    - form.fields_for :filevalues do |filevalue|
+      -if filevalue.object.new_record?
+        = filevalue.file_field :file
+        = image_tag 'add.gif', :onclick => 'clone_element_before(this)', :title => "new import field"
+      -else
+        = filevalue.object.basename
+        %br
+    = form.submit

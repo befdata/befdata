@@ -410,6 +410,74 @@ class ImportsController < ApplicationController
     redirect_to root_path
   end
 
+    def cell_category_create
+    if current_user
+      first_cell = Sheetcell.find(params[:sheetcell][:id])
+      entry = first_cell.import_value
+      same_entry_cells = first_cell.same_entry_cells
+
+      # the new category; needs error handling
+      cat = Categoricvalue.new(params[:categoricvalue])
+      cat.comment = "manually approved"
+      cat.long = entry if cat.long.blank?
+      cat.description = cat.long if cat.description.blank?
+      logger.debug "------------ after crating new category  ---------"
+      logger.debug cat.inspect
+
+      if cat.save
+        same_entry_cells.each do |cell|
+          old_cat = cell.categoricvalue
+          cell.update_attributes(:value => cat,
+                                 :comment => "valid")
+          old_cat.destroy # validates that it is not destroyed if
+                          # linked to measurement or import category
+        end
+        redirect_to :back
+      else
+        redirect_to data_path
+      end
+
+    else
+      # Not logged in, redirect to login form
+      session[:return_to] = request.request_uri
+      redirect_to login_path and return
+    end
+  end
+
+
+  def cell_category_update
+    if current_user
+      first_cell = Sheetcell.find(params[:sheetcell][:id])
+      logger.debug "- params[:measurement]  -"
+      logger.debug params[:sheetecell].inspect
+      first_cell.update_attributes(params[:sheetcell])
+      same_entry_cells = first_cell.same_entry_cells
+      logger.debug "- same_entry_cells  -"
+      logger.debug same_entry_cells.to_yaml
+
+      # category
+      cat = first_cell.categoricvalue
+      cat.update_attributes(:comment => "manually approved")
+
+      same_entry_cells.each do |cell|
+        logger.debug "- old and new cell  -"
+        logger.debug cell.to_yaml
+        old_cat = cell.categoricvalue
+        cell.update_attributes(:value => cat,
+                               :comment => "valid")
+        old_cat.destroy
+      end
+
+      # !! validations !!
+      redirect_to :back
+
+    else
+      # Not logged in, redirect to login form
+      session[:return_to] = request.request_uri
+      redirect_to login_path and return
+    end
+  end 
+
 
   
 
@@ -723,6 +791,262 @@ private
       end
     end
     return provided_hash_array
+  end
+
+  # Category specific routine to import values (Categoricvalue).
+  # Takes the id of the Data Column (MeasuremntsMethodstep),
+  # categories available for the Data Group (Methodstep), and the
+  # categories provided in the Data Sheet (provide_metasheets).
+  # Creates a Categoricvalue for each Entry in the Data Sheet
+  # (Measurement).  No output generated.  Is called by
+  # add_data_values.
+  def category_data_column_import(data_column_id, portal_cats, sheet_cats)
+    data_column = Datacolumn.find(data_column_id,
+                                              :include => :sheetcells)
+
+    # the entries themselves
+    cells = data_column.sheetcells
+
+    # Check each entry loop; recheckes if values have already been
+    # given
+    cells.each do |cell|
+      entry = cell.import_value
+      obs = cell.observation
+
+      comment_cat_hash =
+        suggest_category_for_entry(portal_cats, sheet_cats,
+                                   entry)
+      cat = comment_cat_hash[:cat]
+      cell_comment = comment_cat_hash[:cell_comment]
+
+      cell.comment = cell_comment
+
+      if cell_comment == "invalid"
+        cat = Categoricvalue.
+          create(:short => entry, :long => entry, :description => entry,
+                 :comment => "automatically generated")
+      end
+
+      old_val = cell.value
+      cell.value = cat
+      cell.save
+      old_val.destroy if old_val
+      logger.debug "- cell.save  -"
+      logger.debug cell.to_yaml
+    end # Entry loop
+
+  end
+
+
+  def numeric_data_column_import(data_column_id, portal_cats,
+                                 sheet_cats)
+    data_column = Datacolumn.find(data_column_id,
+                                              :include => :sheetcells)
+
+    cells = data_column.sheetcells
+
+    # Check each entry loop
+    cells.each do |cell|
+      entry = cell.import_value
+      obs = cell.observation
+
+      comment_cat_hash =
+        suggest_category_for_entry(portal_cats, sheet_cats,
+                                   entry)
+
+      # invalid if not categoricvalue is found
+      cell_comment = comment_cat_hash[:cell_comment]
+
+      if cell_comment != "invalid"
+        value = comment_cat_hash[:cat]
+      elsif numeric?(entry)
+        value = Numericvalue.create(:number => entry)
+        cell_comment = "valid"
+      else
+        value = Categoricvalue.
+          create(:short => entry, :long => entry, :description => entry,
+                 :comment => "automatically generated")
+      end
+
+      cell.value = value
+      cell.comment = cell_comment
+      cell.save
+    end # Entry loop
+  end
+
+  def text_data_column_import(data_column_id)
+    data_column = Datacolumn.find(data_column_id,
+                                              :include => :sheetcells)
+
+    # the entries themselves
+    cells = data_column.sheetcells
+
+    # Check each entry loop
+    cells.each do |cell|
+      entry = cell.import_value
+      obs = cell.observation
+
+      # here could one place custom validation
+      if true
+        value = Textvalue.create(:text => entry)
+        cell_comment = "valid"
+      else
+        # validation error
+      end
+
+      cell.value = value
+      cell.comment = cell_comment
+      cell.save
+      logger.debug "------------ after saving cell.save  ---------"
+      logger.debug cell.to_yaml
+    end # Data column entries loop
+  end
+
+
+  def datetime_data_column_import(data_column_id, portal_cats, sheet_cats)
+    data_column = Datacolumn.find(data_column_id,
+                                              :include => :sheetcells)
+    date_format = case data_column.import_data_type
+                  when "date(14.07.2009)" then '%d.%m.%Y'
+                  when "date(2009-07-14)" then '%Y-%m-%d'
+                  end
+
+
+    cells = data_column.sheetcells
+
+    # Check each entry loop
+    cells.each do |cell|
+      entry = cell.import_value
+      obs = cell.observation
+
+      comment_cat_hash =
+        suggest_category_for_entry(portal_cats, sheet_cats,
+                                   entry)
+
+      # invalid if not categoricvalue is found
+      cell_comment = comment_cat_hash[:cell_comment]
+
+      if cell_comment != "invalid"
+        value = comment_cat_hash[:cat]
+      else
+        begin
+          entry = Date.strptime(entry, date_format)
+        rescue
+          # just go on
+        end
+        entry = entry.to_s
+        value = Datetimevalue.new(:date => entry)
+        if !value.date.nil?
+          value.save
+          cell_comment = "valid"
+        else
+          value = Categoricvalue.
+            create(:short => entry, :long => entry, :description => entry,
+                   :comment => "automatically generated")
+        end
+      end
+
+      cell.value = value
+      cell.comment = cell_comment
+      cell.save
+    end # Entry loop
+  end
+
+  def year_data_column_import(data_column_id, portal_cats, sheet_cats)
+    data_column = Datacolumn.find(data_column_id,
+                                              :include => [:sheetcells])
+
+    cells = data_column.sheetcells
+
+    # Check each entry loop
+    cells.each do |cell|
+      entry = cell.import_value
+      obs = cell.observation
+
+      comment_cat_hash =
+        suggest_category_for_entry(portal_cats, sheet_cats,
+                                   entry)
+      cell_comment = comment_cat_hash[:cell_comment]
+
+      if cell_comment != "invalid"
+        value = comment_cat_hash[:cat]
+      elsif integer?(entry)
+        entry = entry.to_i.to_s
+        value = Datetimevalue.create(:year => entry)
+        cell_comment = "valid"
+      else
+        value = Categoricvalue.
+          create(:short => entry, :long => entry, :description => entry,
+                 :comment => "automatically generated")
+      end
+
+      cell.value = value
+      cell.comment = cell_comment
+      cell.save
+    end # Entry loop
+  end
+
+  # Checking categories for exact matches, first on the portal, then
+  # in the spreadsheet.  Returns a hash with the cell_comment,
+  # stating: "portal match", "sheet match", "invalid".  The hash also
+  # contains the Categoricvalue if found.
+  def suggest_category_for_entry(portal_cats, sheet_cats, entry)
+    cat_found = nil
+    entry = entry.to_i.to_s if integer?(entry)
+
+    cat = find_entry_in_cat_array(portal_cats, entry)
+    logger.debug "------------ cat after portal match  ----------"
+    logger.debug cat.inspect
+    unless cat.blank?
+      cell_comment = "portal match"
+    else
+      cat = find_entry_in_cat_array(sheet_cats, entry)
+      logger.debug "------------ cat after sheet match  ----------"
+      logger.debug cat.inspect
+      unless cat.blank?
+        cell_comment = "sheet match"
+      else
+        # in come the "find similar" routines; these can give numbers
+        # of increasing dissimilarity, so that the lowest number is
+        # identical, for example
+      end
+    end
+
+    if cat.nil?
+      cell_comment = "invalid"
+    end
+
+    return {:cell_comment => cell_comment,
+      :cat => cat}
+  end
+
+  def find_entry_in_cat_array(cat_array, entry)
+    # Is there a match?  Short or long.  Note in Measurement
+    # .upload_info: portal match
+    logger.debug "------------ entering find_entry_in_cat_array  -----------"
+    logger.debug "------------ entry  --------------------"
+    logger.debug entry
+    logger.debug "------------ cat_array  --------------------"
+    logger.debug cat_array.inspect
+    matches = cat_array.select{|c| c.short == entry}
+    logger.debug "------------ matches short  --------------------"
+    logger.debug matches.inspect
+    if matches.blank?
+      matches = cat_array.select{|c| c.long == entry}
+      logger.debug "------------ matches long  --------------------"
+      logger.debug matches.inspect
+      if matches.blank?
+        cat = nil
+      else # matching categoricvalue.long
+        cat = matches[0]
+      end
+    else # matching categoricvalue.short
+      cat = matches[0]
+    end
+    logger.debug "------------ cat  --------------------"
+    logger.debug cat.inspect
+    logger.debug "------------ leaving find_entry_in_cat_array  --------------------"
+    return cat
   end
   
 

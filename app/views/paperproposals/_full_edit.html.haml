@@ -1,0 +1,62 @@
+%div
+  %div.box
+    %h3 Global Mini Proposal Information
+    - form_for @paperproposal do |f|
+      = render :partial => "paperproposal_attributes", :locals => {:f => f}
+      = f.submit
+
+
+  %div.box
+    %h3 Collect and show Context
+    - form_for @paperproposal do |f|
+      - is_warning = false
+      %div.scroll_checkboxes
+        - for dataset in @datasets
+          - dgdr = @paperproposal.dataset_paperproposals.find_by_dataset_id(dataset.id)
+          - is_in = @current_cart.datasets.include?(dataset) ? true : false
+          - if is_in && dgdr.nil?
+            - is_warning = true
+          = label_tag dataset.title
+          = check_box_tag "datasets[]", dataset.id, ( is_in || !dgdr.nil?)
+          = select "aspect", dataset.id, ["main", "side"], { :include_blank => true,
+              :selected => dgdr.nil? ? false : dgdr.aspect }
+          %br
+      = f.submit :add
+      - if is_warning
+        = image_tag("/images/error.png", :title => "Warning")
+        Warning! There are data columns from cart not added to this data proposal
+
+  %div.box
+    %h3 complete Author list
+
+    %ul
+      %li First Author
+      %ul
+        %li= @paperproposal.author.to_label
+      %li Corresponding Author
+      %ul
+        %li= @paperproposal.corresponding.to_label
+      %li Senior Author
+      %ul
+        %li= @paperproposal.senior_author.to_label
+      %li Main Proponent (self selected)
+      %ul
+        - @paperproposal.author_paperproposals.select{|join| join.kind == "user"}.each do |author_data_request|
+          = author_data_request.user.to_label
+      %li Potential Contributor (auto-generated)
+      %ul
+        - @paperproposal.author_paperproposals.select{|join| join.kind == "main"}.each do |author_data_request|
+          %li= author_data_request.user.to_label
+      %li Acknowledgment
+      %ul
+        - @paperproposal.author_paperproposals.select{|join| join.kind == "ack"}.each do |author_data_request|
+          %li= author_data_request.user.to_label
+      %li Complete author list
+      = author_list_formatter(@paperproposal.author_list)
+
+  = render :partial => 'additional_files'
+
+  %div.box
+    %h3 State of Data Request
+    %p
+      = render :partial => 'state_of_vote'

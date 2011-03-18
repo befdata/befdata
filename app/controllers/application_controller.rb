@@ -41,4 +41,15 @@ private
     session[:return_to] = nil
   end
 
+  def current_cart
+    cookies[:cart_id] ||= Cart.create!.id
+    begin
+      @current_cart ||= Cart.find(cookies[:cart_id])
+    rescue
+      cookies[:cart_id] = Cart.create!.id
+      @current_cart ||= Cart.find(cookies[:cart_id])
+    end
+
+  end
+
 end
