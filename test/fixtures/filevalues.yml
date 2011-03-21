@@ -1,11 +1,19 @@
-# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
-
-# This model initially had no columns defined.  If you add columns to the
-# model remove the '{}' from the fixture names and add the columns immediately
-# below each fixture, per the syntax in the comments below
-#
-one: {}
-# column: value
-#
-two: {}
-#  column: value
+--- 
+filevalues_001: 
+  created_at: 2011-03-18 18:05:24.016000 Z
+  updated_at: 2011-03-18 18:05:24.016000 Z
+  file_file_size: 32768
+  file_content_type: application/vnd.ms-excel
+  file_updated_at: 2011-03-18 18:05:23.963000 Z
+  file_file_name: SP5_TargetSpecies_CN_final_8_target_carbon-_short .xls
+  id: 980190967
+  paperproposal_id:
+filevalues_002: 
+  created_at: 2011-03-18 17:47:27.882000 Z
+  updated_at: 2011-03-18 17:47:27.882000 Z
+  file_file_size: 32256
+  file_content_type: application/vnd.ms-excel
+  file_updated_at: 2011-03-18 17:47:27.830000 Z
+  file_file_name: SP5_TargetSpecies_CN_final_8_target_spec_kn_-_short.xls
+  id: 980190966
+  paperproposal_id:

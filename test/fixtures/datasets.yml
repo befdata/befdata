@@ -1,60 +1,47 @@
-# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
-
-# This model initially had no columns defined.  If you add columns to the
-# model remove the '{}' from the fixture names and add the columns immediately
-# below each fixture, per the syntax in the comments below
-#
-#one: {}
-## column: value
-##
-#two: {}
-##  column: value
-
-
-first_dataset:
-  id: "4"
-  title: "Short version of: Carbon (C) and Nitrogen (N) Concentration (Root, Stem, Twig, Leaf) of 8 target species in the CSPs"
-  abstract: "Leaf, twig, stem and root samples were taken from eight \xE2\x80\x9Ctarget\xE2\x80\x9D species (four trees, two deciduous: Castanea henryi, Quercus serrata and two evergreen: Castanopsis eyrei, Schima superba; four shrubs, one deciduous: Rhododendron simsii and three evergreen: Loropetalum chinense, Camellia fraterna, Eurya muricata) in autumn 2008. Furthermore, leaf samples from the target species were collected in spring 2009, summer 2009 and winter 2010 to detect seasonal variation in N concentration. Species were sampled in all CSPs where they were present. For the seasonal patterns, always the same tree individuals were sampled. Total C+N pools in tree and shrub biomass will further be calculated based on the C+N concentration measurements."
-  usagerights:  Data is restricted in use to the Subprojects, in which the Phd students are, who did the work. Contact the principle investigator for usage permission.
-  spatialextent: Study extent (study site, locations, range of times and range of organisms or individuals)
-  temporalextent: Autumn 2008 to Winter 2010
-  taxonomicextent: ""
-  design: "Leaf samples were taken with telescope pruning shears (lenght: up to 6.5m)  from the lower outer and preferentially sun exposed canopy when possible. Leaves of shrub species were sampled in upper canopy.  One year old twigs, and roots which a diameter between 1 and 3mm were taken for C and N analysis. All samples were dried at 70\xC2\xB0C, ground and analyzed for C and N using an elemantal analyzer available at Peking University (Prof. Jin-Sheng He). "
-  circumstances: ""
-  submission_at:
-  filename: SP5_TargetSpecies_CN_final_8_target_spec_kn_-_short.xls
+--- 
+datasets_001: 
   comment: ""
-  dataanalysis: ""
-  finished: false
-  downloads: "0"
-  datemin: 2008-01-01 00:00:00
-  datemax: 2010-12-31 00:00:00
-  published: ""
   visible_for_public: true
-  upload_spreadsheet_id: "980190966"
-  created_at: 2011-03-18 17:47:30.58
-  updated_at: 2011-03-18 17:47:45.814
-
-second_dataset:
-  id: "5"
+  upload_spreadsheet_id: 980190967
+  created_at: 2011-03-18 18:05:26.453000 Z
   title: "another short version of: Carbon (C) Concentration (Root, Stem, Twig, Leaf) of 8 target species in the CSPs"
-  abstract: "Leaf, twig, stem and root samples were taken from eight \xE2\x80\x9Ctarget\xE2\x80\x9D species (four trees, two deciduous: Castanea henryi, Quercus serrata and two evergreen: Castanopsis eyrei, Schima superba; four shrubs, one deciduous: Rhododendron simsii and three evergreen: Loropetalum chinense, Camellia fraterna, Eurya muricata) in autumn 2008. Furthermore, leaf samples from the target species were collected in spring 2009, summer 2009 and winter 2010 to detect seasonal variation in N concentration. Species were sampled in all CSPs where they were present. For the seasonal patterns, always the same tree individuals were sampled. Total C+N pools in tree and shrub biomass will further be calculated based on the C+N concentration measurements."
+  downloads: 0
+  datemax: 2010-12-31 00:00:00 Z
+  circumstances: ""
+  updated_at: 2011-03-18 18:05:44.632000 Z
+  published: ""
   usagerights: Data is restricted in use to the Subprojects, in which the Phd students are, who did the work. Contact the principle investigator for usage permission.
-  spatialextent: Study extent (study site, locations, range of times and range of organisms or individuals)
+  abstract: "Leaf, twig, stem and root samples were taken from eight \xE2\x80\x9Ctarget\xE2\x80\x9D species (four trees, two deciduous: Castanea henryi, Quercus serrata and two evergreen: Castanopsis eyrei, Schima superba; four shrubs, one deciduous: Rhododendron simsii and three evergreen: Loropetalum chinense, Camellia fraterna, Eurya muricata) in autumn 2008. Furthermore, leaf samples from the target species were collected in spring 2009, summer 2009 and winter 2010 to detect seasonal variation in N concentration. Species were sampled in all CSPs where they were present. For the seasonal patterns, always the same tree individuals were sampled. Total C+N pools in tree and shrub biomass will further be calculated based on the C+N concentration measurements."
   temporalextent: Autumn 2008 to Winter 2010
   taxonomicextent: ""
-  design: "Leaf samples were taken with telescope pruning shears (lenght: up to 6.5m)  from the lower outer and preferentially sun exposed canopy when possible. Leaves of shrub species were sampled in upper canopy.  One year old twigs, and roots which a diameter between 1 and 3mm were taken for C and N analysis. All samples were dried at 70\xC2\xB0C, ground and analyzed for C and N using an elemantal analyzer available at Peking University (Prof. Jin-Sheng He). "
-  circumstances:""
-  submission_at:
+  spatialextent: Study extent (study site, locations, range of times and range of organisms or individuals)
+  id: 5
+  datemin: 2008-01-01 00:00:00 Z
   filename: SP5_TargetSpecies_CN_final_8_target_carbon-_short .xls
-  comment: ""
+  submission_at: 
   dataanalysis: ""
   finished: false
-  downloads: "0"
-  datemin: 2008-01-01 00:00:00
-  datemax: 2010-12-31 00:00:00
-  published: ""
+  design: "Leaf samples were taken with telescope pruning shears (lenght: up to 6.5m)  from the lower outer and preferentially sun exposed canopy when possible. Leaves of shrub species were sampled in upper canopy.  One year old twigs, and roots which a diameter between 1 and 3mm were taken for C and N analysis. All samples were dried at 70\xC2\xB0C, ground and analyzed for C and N using an elemantal analyzer available at Peking University (Prof. Jin-Sheng He). "
+datasets_002: 
+  comment: ""
   visible_for_public: true
-  upload_spreadsheet_id: "980190967"
-  created_at: 2011-03-18 18:05:26.453
-  updated_at: 2011-03-18 18:05:44.632
+  upload_spreadsheet_id: 980190966
+  created_at: 2011-03-18 17:47:30.580000 Z
+  title: "Short version of: Carbon (C) and Nitrogen (N) Concentration (Root, Stem, Twig, Leaf) of 8 target species in the CSPs"
+  downloads: 0
+  datemax: 2010-12-31 00:00:00 Z
+  circumstances: ""
+  updated_at: 2011-03-18 17:47:45.814000 Z
+  published: ""
+  usagerights: Data is restricted in use to the Subprojects, in which the Phd students are, who did the work. Contact the principle investigator for usage permission.
+  abstract: "Leaf, twig, stem and root samples were taken from eight \xE2\x80\x9Ctarget\xE2\x80\x9D species (four trees, two deciduous: Castanea henryi, Quercus serrata and two evergreen: Castanopsis eyrei, Schima superba; four shrubs, one deciduous: Rhododendron simsii and three evergreen: Loropetalum chinense, Camellia fraterna, Eurya muricata) in autumn 2008. Furthermore, leaf samples from the target species were collected in spring 2009, summer 2009 and winter 2010 to detect seasonal variation in N concentration. Species were sampled in all CSPs where they were present. For the seasonal patterns, always the same tree individuals were sampled. Total C+N pools in tree and shrub biomass will further be calculated based on the C+N concentration measurements."
+  temporalextent: Autumn 2008 to Winter 2010
+  taxonomicextent: ""
+  spatialextent: Study extent (study site, locations, range of times and range of organisms or individuals)
+  id: 4
+  datemin: 2008-01-01 00:00:00 Z
+  filename: SP5_TargetSpecies_CN_final_8_target_spec_kn_-_short.xls
+  submission_at: 
+  dataanalysis: ""
+  finished: false
+  design: "Leaf samples were taken with telescope pruning shears (lenght: up to 6.5m)  from the lower outer and preferentially sun exposed canopy when possible. Leaves of shrub species were sampled in upper canopy.  One year old twigs, and roots which a diameter between 1 and 3mm were taken for C and N analysis. All samples were dried at 70\xC2\xB0C, ground and analyzed for C and N using an elemantal analyzer available at Peking University (Prof. Jin-Sheng He). "

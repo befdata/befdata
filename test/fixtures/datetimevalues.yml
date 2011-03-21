@@ -1,11 +1,154 @@
-# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
-
-# This model initially had no columns defined.  If you add columns to the
-# model remove the '{}' from the fixture names and add the columns immediately
-# below each fixture, per the syntax in the comments below
-#
-one: {}
-# column: value
-#
-two: {}
-#  column: value
+--- 
+datetimevalues_015: 
+  comment: 
+  created_at: 2011-03-18 17:49:29.471000 Z
+  month: 
+  updated_at: 2011-03-18 17:49:29.471000 Z
+  id: 980190963
+  date: 2008-11-09 00:00:00 Z
+  day: 
+  year: 
+datetimevalues_004: 
+  comment: 
+  created_at: 2011-03-18 18:07:35.488000 Z
+  month: 
+  updated_at: 2011-03-18 18:07:35.488000 Z
+  id: 980190974
+  date: 2008-11-09 00:00:00 Z
+  day: 
+  year: 
+datetimevalues_016: 
+  comment: 
+  created_at: 2011-03-16 10:06:33 Z
+  month: 
+  updated_at: 2011-03-16 10:06:33 Z
+  id: 980190962
+  date: 
+  day: 
+  year: 
+datetimevalues_005: 
+  comment: 
+  created_at: 2011-03-18 18:07:35.469000 Z
+  month: 
+  updated_at: 2011-03-18 18:07:35.469000 Z
+  id: 980190973
+  date: 2008-11-09 00:00:00 Z
+  day: 
+  year: 
+datetimevalues_017: 
+  comment: 
+  created_at: 2011-03-16 10:06:33 Z
+  month: 
+  updated_at: 2011-03-16 10:06:33 Z
+  id: 298486374
+  date: 
+  day: 
+  year: 
+datetimevalues_006: 
+  comment: 
+  created_at: 2011-03-18 18:07:35.449000 Z
+  month: 
+  updated_at: 2011-03-18 18:07:35.449000 Z
+  id: 980190972
+  date: 2008-11-09 00:00:00 Z
+  day: 
+  year: 
+datetimevalues_007: 
+  comment: 
+  created_at: 2011-03-18 18:07:35.428000 Z
+  month: 
+  updated_at: 2011-03-18 18:07:35.428000 Z
+  id: 980190971
+  date: 2008-11-09 00:00:00 Z
+  day: 
+  year: 
+datetimevalues_008: 
+  comment: 
+  created_at: 2011-03-18 18:07:35.261000 Z
+  month: 
+  updated_at: 2011-03-18 18:07:35.261000 Z
+  id: 980190970
+  date: 2008-11-09 00:00:00 Z
+  day: 
+  year: 
+datetimevalues_009: 
+  comment: 
+  created_at: 2011-03-18 17:49:29.856000 Z
+  month: 
+  updated_at: 2011-03-18 17:49:29.856000 Z
+  id: 980190969
+  date: 2008-11-08 00:00:00 Z
+  day: 
+  year: 
+datetimevalues_010: 
+  comment: 
+  created_at: 2011-03-18 17:49:29.832000 Z
+  month: 
+  updated_at: 2011-03-18 17:49:29.832000 Z
+  id: 980190968
+  date: 2008-11-08 00:00:00 Z
+  day: 
+  year: 
+datetimevalues_011: 
+  comment: 
+  created_at: 2011-03-18 17:49:29.810000 Z
+  month: 
+  updated_at: 2011-03-18 17:49:29.810000 Z
+  id: 980190967
+  date: 2008-11-08 00:00:00 Z
+  day: 
+  year: 
+datetimevalues_012: 
+  comment: 
+  created_at: 2011-03-18 17:49:29.787000 Z
+  month: 
+  updated_at: 2011-03-18 17:49:29.787000 Z
+  id: 980190966
+  date: 2008-10-25 00:00:00 Z
+  day: 
+  year: 
+datetimevalues_001: 
+  comment: 
+  created_at: 2011-03-18 18:07:35.549000 Z
+  month: 
+  updated_at: 2011-03-18 18:07:35.549000 Z
+  id: 980190977
+  date: 2008-11-09 00:00:00 Z
+  day: 
+  year: 
+datetimevalues_013: 
+  comment: 
+  created_at: 2011-03-18 17:49:29.766000 Z
+  month: 
+  updated_at: 2011-03-18 17:49:29.766000 Z
+  id: 980190965
+  date: 2008-11-09 00:00:00 Z
+  day: 
+  year: 
+datetimevalues_002: 
+  comment: 
+  created_at: 2011-03-18 18:07:35.529000 Z
+  month: 
+  updated_at: 2011-03-18 18:07:35.529000 Z
+  id: 980190976
+  date: 2008-11-09 00:00:00 Z
+  day: 
+  year: 
+datetimevalues_014: 
+  comment: 
+  created_at: 2011-03-18 17:49:29.729000 Z
+  month: 
+  updated_at: 2011-03-18 17:49:29.729000 Z
+  id: 980190964
+  date: 2008-11-09 00:00:00 Z
+  day: 
+  year: 
+datetimevalues_003: 
+  comment: 
+  created_at: 2011-03-18 18:07:35.508000 Z
+  month: 
+  updated_at: 2011-03-18 18:07:35.508000 Z
+  id: 980190975
+  date: 2008-11-09 00:00:00 Z
+  day: 
+  year: 

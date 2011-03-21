@@ -1,11 +1,65 @@
-# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
-
-# This model initially had no columns defined.  If you add columns to the
-# model remove the '{}' from the fixture names and add the columns immediately
-# below each fixture, per the syntax in the comments below
-##
-#one: {}
-## column: value
-##
-#two: {}
-##  column: value
+--- 
+import_categoricvalues_004: 
+  created_at: 2011-03-18 18:07:53.467000 Z
+  updated_at: 2011-03-18 18:07:53.467000 Z
+  id: 5
+  approved: 
+  datacolumn_id: 26
+  raw_data_value: 
+  categoricvalue_id: 980190989
+import_categoricvalues_005: 
+  created_at: 2011-03-18 17:49:42.915000 Z
+  updated_at: 2011-03-18 17:49:42.915000 Z
+  id: 4
+  approved: 
+  datacolumn_id: 19
+  raw_data_value: 
+  categoricvalue_id: 980190974
+import_categoricvalues_006: 
+  created_at: 2011-03-18 17:49:42.907000 Z
+  updated_at: 2011-03-18 17:49:42.907000 Z
+  id: 3
+  approved: 
+  datacolumn_id: 19
+  raw_data_value: 
+  categoricvalue_id: 980190973
+import_categoricvalues_007: 
+  created_at: 2011-03-18 17:49:42.898000 Z
+  updated_at: 2011-03-18 17:49:42.898000 Z
+  id: 2
+  approved: 
+  datacolumn_id: 19
+  raw_data_value: 
+  categoricvalue_id: 980190972
+import_categoricvalues_008: 
+  created_at: 2011-03-18 17:49:42.693000 Z
+  updated_at: 2011-03-18 17:49:42.693000 Z
+  id: 1
+  approved: 
+  datacolumn_id: 19
+  raw_data_value: 
+  categoricvalue_id: 980190971
+import_categoricvalues_001: 
+  created_at: 2011-03-18 18:07:53.539000 Z
+  updated_at: 2011-03-18 18:07:53.539000 Z
+  id: 8
+  approved: 
+  datacolumn_id: 26
+  raw_data_value: 
+  categoricvalue_id: 980190992
+import_categoricvalues_002: 
+  created_at: 2011-03-18 18:07:53.532000 Z
+  updated_at: 2011-03-18 18:07:53.532000 Z
+  id: 7
+  approved: 
+  datacolumn_id: 26
+  raw_data_value: 
+  categoricvalue_id: 980190991
+import_categoricvalues_003: 
+  created_at: 2011-03-18 18:07:53.525000 Z
+  updated_at: 2011-03-18 18:07:53.525000 Z
+  id: 6
+  approved: 
+  datacolumn_id: 26
+  raw_data_value: 
+  categoricvalue_id: 980190990

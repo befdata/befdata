@@ -1,11 +1,131 @@
-# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
-
-# This model initially had no columns defined.  If you add columns to the
-# model remove the '{}' from the fixture names and add the columns immediately
-# below each fixture, per the syntax in the comments below
-#
-one: {}
-# column: value
-#
-two: {}
-#  column: value
+--- 
+taggings_025: 
+  tag_id: 
+  id: 980190962
+  taggable_id: 
+  taggable_type: ""
+taggings_014: 
+  tag_id: 980190971
+  id: 980190996
+  taggable_id: 23
+  taggable_type: Datacolumn
+taggings_003: 
+  tag_id: 980190968
+  id: 980191007
+  taggable_id: 30
+  taggable_type: Datacolumn
+taggings_026: 
+  tag_id: 
+  id: 298486374
+  taggable_id: 
+  taggable_type: ""
+taggings_015: 
+  tag_id: 980190969
+  id: 980190995
+  taggable_id: 22
+  taggable_type: Datacolumn
+taggings_004: 
+  tag_id: 980190964
+  id: 980191006
+  taggable_id: 28
+  taggable_type: Datacolumn
+taggings_016: 
+  tag_id: 980190970
+  id: 980190994
+  taggable_id: 22
+  taggable_type: Datacolumn
+taggings_005: 
+  tag_id: 980190967
+  id: 980191005
+  taggable_id: 28
+  taggable_type: Datacolumn
+taggings_017: 
+  tag_id: 980190964
+  id: 980190993
+  taggable_id: 21
+  taggable_type: Datacolumn
+taggings_006: 
+  tag_id: 980190964
+  id: 980191004
+  taggable_id: 27
+  taggable_type: Datacolumn
+taggings_018: 
+  tag_id: 980190967
+  id: 980190992
+  taggable_id: 21
+  taggable_type: Datacolumn
+taggings_007: 
+  tag_id: 980190966
+  id: 980191003
+  taggable_id: 26
+  taggable_type: Datacolumn
+taggings_019: 
+  tag_id: 980190964
+  id: 980190991
+  taggable_id: 20
+  taggable_type: Datacolumn
+taggings_008: 
+  tag_id: 980190964
+  id: 980191002
+  taggable_id: 26
+  taggable_type: Datacolumn
+taggings_020: 
+  tag_id: 980190966
+  id: 980190990
+  taggable_id: 19
+  taggable_type: Datacolumn
+taggings_009: 
+  tag_id: 980190965
+  id: 980191001
+  taggable_id: 25
+  taggable_type: Datacolumn
+taggings_021: 
+  tag_id: 980190964
+  id: 980190989
+  taggable_id: 19
+  taggable_type: Datacolumn
+taggings_010: 
+  tag_id: 980190964
+  id: 980191000
+  taggable_id: 24
+  taggable_type: Datacolumn
+taggings_022: 
+  tag_id: 980190965
+  id: 980190988
+  taggable_id: 18
+  taggable_type: Datacolumn
+taggings_011: 
+  tag_id: 980190963
+  id: 980190999
+  taggable_id: 24
+  taggable_type: Datacolumn
+taggings_023: 
+  tag_id: 980190964
+  id: 980190987
+  taggable_id: 17
+  taggable_type: Datacolumn
+taggings_012: 
+  tag_id: 980190972
+  id: 980190998
+  taggable_id: 23
+  taggable_type: Datacolumn
+taggings_001: 
+  tag_id: 980190965
+  id: 980191009
+  taggable_id: 29
+  taggable_type: Datacolumn
+taggings_024: 
+  tag_id: 980190963
+  id: 980190986
+  taggable_id: 17
+  taggable_type: Datacolumn
+taggings_013: 
+  tag_id: 980190969
+  id: 980190997
+  taggable_id: 23
+  taggable_type: Datacolumn
+taggings_002: 
+  tag_id: 980190969
+  id: 980191008
+  taggable_id: 30
+  taggable_type: Datacolumn

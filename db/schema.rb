@@ -137,17 +137,17 @@ ActiveRecord::Schema.define(:version => 20110317133340) do
     t.datetime "updated_at"
   end
 
-  create_table "observations", :force => true do |t|
+  create_table "observation_sheetcells", :force => true do |t|
+    t.integer  "observation_id"
+    t.integer  "sheetcell_id"
     t.text     "comment"
-    t.integer  "rownr"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  create_table "observations_sheetcells", :force => true do |t|
-    t.integer  "observation_id"
-    t.integer  "sheetcell_id"
+  create_table "observations", :force => true do |t|
     t.text     "comment"
+    t.integer  "rownr"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

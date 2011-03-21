@@ -1,15 +1,36 @@
-# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
-
-# This model initially had no columns defined.  If you add columns to the
-# model remove the '{}' from the fixture names and add the columns immediately
-# below each fixture, per the syntax in the comments below
-#
-admin_role:
-  id: 1
+--- 
+roles_006: 
   name: admin
-  
-
-## column: value
-##
-#two: {}
-##  column: value
+  created_at: 2011-03-16 10:06:35 Z
+  updated_at: 2011-03-16 10:06:35 Z
+  authorizable_type: 
+  id: 1
+  authorizable_id: 
+roles_001: 
+  name: responsible
+  created_at: 2011-03-18 18:10:57.299000 Z
+  updated_at: 2011-03-18 18:10:57.299000 Z
+  authorizable_type: Datacolumn
+  id: 9
+  authorizable_id: 28
+roles_002: 
+  name: owner
+  created_at: 2011-03-18 18:05:26.808000 Z
+  updated_at: 2011-03-18 18:05:26.808000 Z
+  authorizable_type: Dataset
+  id: 8
+  authorizable_id: 5
+roles_003: 
+  name: responsible
+  created_at: 2011-03-18 17:53:50.884000 Z
+  updated_at: 2011-03-18 17:53:50.884000 Z
+  authorizable_type: Datacolumn
+  id: 7
+  authorizable_id: 21
+roles_004: 
+  name: owner
+  created_at: 2011-03-18 17:47:30.774000 Z
+  updated_at: 2011-03-18 17:47:30.774000 Z
+  authorizable_type: Dataset
+  id: 6
+  authorizable_id: 4

@@ -1,11 +1,1156 @@
-# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
-
-# This model initially had no columns defined.  If you add columns to the
-# model remove the '{}' from the fixture names and add the columns immediately
-# below each fixture, per the syntax in the comments below
-##
-#one: {}
-## column: value
-##
-#two: {}
-#  column: value
+--- 
+sheetcells_103: 
+  value_id: 980190964
+  comment: valid
+  import_value: Eurya muricata
+  created_at: 2011-03-18 17:47:49.397000 Z
+  updated_at: 2011-03-18 17:48:41.187000 Z
+  observation_id: 980191086
+  id: 123
+  datacolumn_id: 17
+  value_type: Categoricvalue
+  rownr: 
+sheetcells_090: 
+  value_id: 980190973
+  comment: sheet match
+  import_value: S
+  created_at: 2011-03-18 17:47:49.822000 Z
+  updated_at: 2011-03-18 17:50:00.230000 Z
+  observation_id: 980191099
+  id: 136
+  datacolumn_id: 19
+  value_type: Categoricvalue
+  rownr: 
+sheetcells_088: 
+  value_id: 980190971
+  comment: sheet match
+  import_value: L
+  created_at: 2011-03-18 17:47:49.864000 Z
+  updated_at: 2011-03-18 17:50:00.315000 Z
+  observation_id: 980191101
+  id: 138
+  datacolumn_id: 19
+  value_type: Categoricvalue
+  rownr: 
+sheetcells_067: 
+  value_id: 980190966
+  comment: valid
+  import_value: "1.82"
+  created_at: 2011-03-18 17:47:50.598000 Z
+  updated_at: 2011-03-18 18:01:44.088000 Z
+  observation_id: 980191122
+  id: 159
+  datacolumn_id: 22
+  value_type: Numericvalue
+  rownr: 
+sheetcells_004: 
+  value_id: 980190981
+  comment: valid
+  import_value: "46.96"
+  created_at: 2011-03-18 18:05:50.741000 Z
+  updated_at: 2011-03-18 18:14:16.501000 Z
+  observation_id: 980191185
+  id: 222
+  datacolumn_id: 30
+  value_type: Numericvalue
+  rownr: 
+sheetcells_025: 
+  value_id: 980190993
+  comment: valid
+  import_value: 0911081
+  created_at: 2011-03-18 18:05:49.407000 Z
+  updated_at: 2011-03-18 18:10:44.769000 Z
+  observation_id: 980191164
+  id: 201
+  datacolumn_id: 27
+  value_type: Categoricvalue
+  rownr: 
+sheetcells_046: 
+  value_id: 980190972
+  comment: valid
+  import_value: "2008-11-09"
+  created_at: 2011-03-18 18:05:48.817000 Z
+  updated_at: 2011-03-18 18:07:35.455000 Z
+  observation_id: 980191143
+  id: 180
+  datacolumn_id: 25
+  value_type: Datetimevalue
+  rownr: 
+sheetcells_104: 
+  value_id: 980190964
+  comment: valid
+  import_value: Eurya muricata
+  created_at: 2011-03-18 17:47:49.375000 Z
+  updated_at: 2011-03-18 17:48:41.031000 Z
+  observation_id: 980191085
+  id: 122
+  datacolumn_id: 17
+  value_type: Categoricvalue
+  rownr: 
+sheetcells_091: 
+  value_id: 980190974
+  comment: sheet match
+  import_value: R
+  created_at: 2011-03-18 17:47:49.800000 Z
+  updated_at: 2011-03-18 17:50:00.150000 Z
+  observation_id: 980191098
+  id: 135
+  datacolumn_id: 19
+  value_type: Categoricvalue
+  rownr: 
+sheetcells_089: 
+  value_id: 980190972
+  comment: sheet match
+  import_value: T
+  created_at: 2011-03-18 17:47:49.842000 Z
+  updated_at: 2011-03-18 17:50:00.299000 Z
+  observation_id: 980191100
+  id: 137
+  datacolumn_id: 19
+  value_type: Categoricvalue
+  rownr: 
+sheetcells_070: 
+  value_id: 980190963
+  comment: valid
+  import_value: "0.43"
+  created_at: 2011-03-18 17:47:50.531000 Z
+  updated_at: 2011-03-18 18:01:43.964000 Z
+  observation_id: 980191119
+  id: 156
+  datacolumn_id: 22
+  value_type: Numericvalue
+  rownr: 
+sheetcells_068: 
+  value_id: 980190965
+  comment: valid
+  import_value: "0.65"
+  created_at: 2011-03-18 17:47:50.576000 Z
+  updated_at: 2011-03-18 18:01:44.068000 Z
+  observation_id: 980191121
+  id: 158
+  datacolumn_id: 22
+  value_type: Numericvalue
+  rownr: 
+sheetcells_005: 
+  value_id: 980190980
+  comment: valid
+  import_value: "48.8"
+  created_at: 2011-03-18 18:05:50.720000 Z
+  updated_at: 2011-03-18 18:14:16.483000 Z
+  observation_id: 980191184
+  id: 221
+  datacolumn_id: 30
+  value_type: Numericvalue
+  rownr: 
+sheetcells_026: 
+  value_id: 980190993
+  comment: valid
+  import_value: 0911081
+  created_at: 2011-03-18 18:05:49.385000 Z
+  updated_at: 2011-03-18 18:10:44.679000 Z
+  observation_id: 980191163
+  id: 200
+  datacolumn_id: 27
+  value_type: Categoricvalue
+  rownr: 
+sheetcells_047: 
+  value_id: 980190971
+  comment: valid
+  import_value: "2008-11-09"
+  created_at: 2011-03-18 18:05:48.795000 Z
+  updated_at: 2011-03-18 18:07:35.434000 Z
+  observation_id: 980191142
+  id: 179
+  datacolumn_id: 25
+  value_type: Datetimevalue
+  rownr: 
+sheetcells_105: 
+  value_id: 980190964
+  comment: valid
+  import_value: Eurya muricata
+  created_at: 2011-03-18 17:47:49.283000 Z
+  updated_at: 2011-03-18 17:48:40.988000 Z
+  observation_id: 980191084
+  id: 121
+  datacolumn_id: 17
+  value_type: Categoricvalue
+  rownr: 
+sheetcells_092: 
+  value_id: 980190969
+  comment: valid
+  import_value: "2008-11-08"
+  created_at: 2011-03-18 17:47:49.709000 Z
+  updated_at: 2011-03-18 17:49:29.863000 Z
+  observation_id: 980191097
+  id: 134
+  datacolumn_id: 18
+  value_type: Datetimevalue
+  rownr: 
+sheetcells_071: 
+  value_id: 980190985
+  comment: valid
+  import_value: "3"
+  created_at: 2011-03-18 17:47:50.334000 Z
+  updated_at: 2011-03-18 17:57:10.221000 Z
+  observation_id: 980191118
+  id: 155
+  datacolumn_id: 21
+  value_type: Categoricvalue
+  rownr: 
+sheetcells_069: 
+  value_id: 980190964
+  comment: valid
+  import_value: "0.44"
+  created_at: 2011-03-18 17:47:50.553000 Z
+  updated_at: 2011-03-18 18:01:44.050000 Z
+  observation_id: 980191120
+  id: 157
+  datacolumn_id: 22
+  value_type: Numericvalue
+  rownr: 
+sheetcells_006: 
+  value_id: 980190979
+  comment: valid
+  import_value: "48.56"
+  created_at: 2011-03-18 18:05:50.697000 Z
+  updated_at: 2011-03-18 18:14:16.465000 Z
+  observation_id: 980191183
+  id: 220
+  datacolumn_id: 30
+  value_type: Numericvalue
+  rownr: 
+sheetcells_027: 
+  value_id: 980190993
+  comment: valid
+  import_value: 0911081
+  created_at: 2011-03-18 18:05:49.363000 Z
+  updated_at: 2011-03-18 18:10:44.795000 Z
+  observation_id: 980191162
+  id: 199
+  datacolumn_id: 27
+  value_type: Categoricvalue
+  rownr: 
+sheetcells_050: 
+  value_id: 980190968
+  comment: portal match
+  import_value: Loropetalum chinense
+  created_at: 2011-03-18 18:05:48.651000 Z
+  updated_at: 2011-03-18 18:06:38.544000 Z
+  observation_id: 980191139
+  id: 176
+  datacolumn_id: 24
+  value_type: Categoricvalue
+  rownr: 
+sheetcells_048: 
+  value_id: 980190970
+  comment: valid
+  import_value: "2008-11-09"
+  created_at: 2011-03-18 18:05:48.777000 Z
+  updated_at: 2011-03-18 18:07:35.356000 Z
+  observation_id: 980191141
+  id: 178
+  datacolumn_id: 25
+  value_type: Datetimevalue
+  rownr: 
+sheetcells_093: 
+  value_id: 980190968
+  comment: valid
+  import_value: "2008-11-08"
+  created_at: 2011-03-18 17:47:49.686000 Z
+  updated_at: 2011-03-18 17:49:29.839000 Z
+  observation_id: 980191096
+  id: 133
+  datacolumn_id: 18
+  value_type: Datetimevalue
+  rownr: 
+sheetcells_072: 
+  value_id: 980190985
+  comment: valid
+  import_value: "3"
+  created_at: 2011-03-18 17:47:50.321000 Z
+  updated_at: 2011-03-18 17:57:10.195000 Z
+  observation_id: 980191117
+  id: 154
+  datacolumn_id: 21
+  value_type: Categoricvalue
+  rownr: 
+sheetcells_007: 
+  value_id: 980190978
+  comment: valid
+  import_value: "48.65"
+  created_at: 2011-03-18 18:05:50.675000 Z
+  updated_at: 2011-03-18 18:14:16.446000 Z
+  observation_id: 980191182
+  id: 219
+  datacolumn_id: 30
+  value_type: Numericvalue
+  rownr: 
+sheetcells_028: 
+  value_id: 980190993
+  comment: valid
+  import_value: 0911081
+  created_at: 2011-03-18 18:05:49.340000 Z
+  updated_at: 2011-03-18 18:10:44.637000 Z
+  observation_id: 980191161
+  id: 198
+  datacolumn_id: 27
+  value_type: Categoricvalue
+  rownr: 
+sheetcells_051: 
+  value_id: 980190968
+  comment: portal match
+  import_value: Loropetalum chinense
+  created_at: 2011-03-18 18:05:48.632000 Z
+  updated_at: 2011-03-18 18:06:38.530000 Z
+  observation_id: 980191138
+  id: 175
+  datacolumn_id: 24
+  value_type: Categoricvalue
+  rownr: 
+sheetcells_049: 
+  value_id: 980190968
+  comment: portal match
+  import_value: Loropetalum chinense
+  created_at: 2011-03-18 18:05:48.673000 Z
+  updated_at: 2011-03-18 18:06:38.558000 Z
+  observation_id: 980191140
+  id: 177
+  datacolumn_id: 24
+  value_type: Categoricvalue
+  rownr: 
+sheetcells_094: 
+  value_id: 980190967
+  comment: valid
+  import_value: "2008-11-08"
+  created_at: 2011-03-18 17:47:49.664000 Z
+  updated_at: 2011-03-18 17:49:29.816000 Z
+  observation_id: 980191095
+  id: 132
+  datacolumn_id: 18
+  value_type: Datetimevalue
+  rownr: 
+sheetcells_073: 
+  value_id: 980190985
+  comment: valid
+  import_value: "3"
+  created_at: 2011-03-18 17:47:50.298000 Z
+  updated_at: 2011-03-18 17:57:10.108000 Z
+  observation_id: 980191116
+  id: 153
+  datacolumn_id: 21
+  value_type: Categoricvalue
+  rownr: 
+sheetcells_029: 
+  value_id: 980190975
+  comment: portal match
+  import_value: "363847"
+  created_at: 2011-03-18 18:05:49.317000 Z
+  updated_at: 2011-03-18 18:10:33.774000 Z
+  observation_id: 980191160
+  id: 197
+  datacolumn_id: 27
+  value_type: Categoricvalue
+  rownr: 
+sheetcells_008: 
+  value_id: 980190977
+  comment: valid
+  import_value: "48.09"
+  created_at: 2011-03-18 18:05:50.638000 Z
+  updated_at: 2011-03-18 18:14:16.366000 Z
+  observation_id: 980191181
+  id: 218
+  datacolumn_id: 30
+  value_type: Numericvalue
+  rownr: 
+sheetcells_030: 
+  value_id: 980190975
+  comment: portal match
+  import_value: "363847"
+  created_at: 2011-03-18 18:05:49.295000 Z
+  updated_at: 2011-03-18 18:10:33.706000 Z
+  observation_id: 980191159
+  id: 196
+  datacolumn_id: 27
+  value_type: Categoricvalue
+  rownr: 
+sheetcells_095: 
+  value_id: 980190966
+  comment: valid
+  import_value: "2008-10-25"
+  created_at: 2011-03-18 17:47:49.642000 Z
+  updated_at: 2011-03-18 17:49:29.794000 Z
+  observation_id: 980191094
+  id: 131
+  datacolumn_id: 18
+  value_type: Datetimevalue
+  rownr: 
+sheetcells_010: 
+  value_id: 980190970
+  comment: valid
+  import_value: Aut08
+  created_at: 2011-03-18 18:05:50.505000 Z
+  updated_at: 2011-03-18 18:13:33.613000 Z
+  observation_id: 980191179
+  id: 216
+  datacolumn_id: 29
+  value_type: Textvalue
+  rownr: 
+sheetcells_009: 
+  value_id: 980190971
+  comment: valid
+  import_value: Aut08
+  created_at: 2011-03-18 18:05:50.520000 Z
+  updated_at: 2011-03-18 18:13:33.628000 Z
+  observation_id: 980191180
+  id: 217
+  datacolumn_id: 29
+  value_type: Textvalue
+  rownr: 
+sheetcells_031: 
+  value_id: 980190975
+  comment: portal match
+  import_value: "363847"
+  created_at: 2011-03-18 18:05:49.273000 Z
+  updated_at: 2011-03-18 18:10:33.692000 Z
+  observation_id: 980191158
+  id: 195
+  datacolumn_id: 27
+  value_type: Categoricvalue
+  rownr: 
+sheetcells_052: 
+  value_id: 980190968
+  comment: portal match
+  import_value: Loropetalum chinense
+  created_at: 2011-03-18 18:05:48.607000 Z
+  updated_at: 2011-03-18 18:06:38.514000 Z
+  observation_id: 980191137
+  id: 174
+  datacolumn_id: 24
+  value_type: Categoricvalue
+  rownr: 
+sheetcells_074: 
+  value_id: 980190985
+  comment: valid
+  import_value: "3"
+  created_at: 2011-03-18 17:47:50.275000 Z
+  updated_at: 2011-03-18 17:57:10.065000 Z
+  observation_id: 980191115
+  id: 152
+  datacolumn_id: 21
+  value_type: Categoricvalue
+  rownr: 
+sheetcells_011: 
+  value_id: 980190969
+  comment: valid
+  import_value: Aut08
+  created_at: 2011-03-18 18:05:50.475000 Z
+  updated_at: 2011-03-18 18:13:33.598000 Z
+  observation_id: 980191178
+  id: 215
+  datacolumn_id: 29
+  value_type: Textvalue
+  rownr: 
+sheetcells_032: 
+  value_id: 980190975
+  comment: portal match
+  import_value: "363847"
+  created_at: 2011-03-18 18:05:49.260000 Z
+  updated_at: 2011-03-18 18:10:33.604000 Z
+  observation_id: 980191157
+  id: 194
+  datacolumn_id: 27
+  value_type: Categoricvalue
+  rownr: 
+sheetcells_053: 
+  value_id: 980190964
+  comment: portal match
+  import_value: Eurya muricata
+  created_at: 2011-03-18 18:05:48.557000 Z
+  updated_at: 2011-03-18 18:06:38.497000 Z
+  observation_id: 980191136
+  id: 173
+  datacolumn_id: 24
+  value_type: Categoricvalue
+  rownr: 
+sheetcells_096: 
+  value_id: 980190965
+  comment: valid
+  import_value: "2008-11-09"
+  created_at: 2011-03-18 17:47:49.620000 Z
+  updated_at: 2011-03-18 17:49:29.772000 Z
+  observation_id: 980191093
+  id: 130
+  datacolumn_id: 18
+  value_type: Datetimevalue
+  rownr: 
+sheetcells_075: 
+  value_id: 980190982
+  comment: valid
+  import_value: "1"
+  created_at: 2011-03-18 17:47:50.253000 Z
+  updated_at: 2011-03-18 17:56:58.823000 Z
+  observation_id: 980191114
+  id: 151
+  datacolumn_id: 21
+  value_type: Categoricvalue
+  rownr: 
+sheetcells_012: 
+  value_id: 980190968
+  comment: valid
+  import_value: Aut08
+  created_at: 2011-03-18 18:05:50.463000 Z
+  updated_at: 2011-03-18 18:13:33.584000 Z
+  observation_id: 980191177
+  id: 214
+  datacolumn_id: 29
+  value_type: Textvalue
+  rownr: 
+sheetcells_033: 
+  value_id: 980190971
+  comment: portal match
+  import_value: L
+  created_at: 2011-03-18 18:05:49.161000 Z
+  updated_at: 2011-03-18 18:08:40.824000 Z
+  observation_id: 980191156
+  id: 193
+  datacolumn_id: 26
+  value_type: Categoricvalue
+  rownr: 
+sheetcells_054: 
+  value_id: 980190964
+  comment: portal match
+  import_value: Eurya muricata
+  created_at: 2011-03-18 18:05:48.541000 Z
+  updated_at: 2011-03-18 18:06:38.483000 Z
+  observation_id: 980191135
+  id: 172
+  datacolumn_id: 24
+  value_type: Categoricvalue
+  rownr: 
+sheetcells_097: 
+  value_id: 980190964
+  comment: valid
+  import_value: "2008-11-09"
+  created_at: 2011-03-18 17:47:49.597000 Z
+  updated_at: 2011-03-18 17:49:29.748000 Z
+  observation_id: 980191092
+  id: 129
+  datacolumn_id: 18
+  value_type: Datetimevalue
+  rownr: 
+sheetcells_076: 
+  value_id: 980190982
+  comment: valid
+  import_value: "1"
+  created_at: 2011-03-18 17:47:50.231000 Z
+  updated_at: 2011-03-18 17:56:58.733000 Z
+  observation_id: 980191113
+  id: 150
+  datacolumn_id: 21
+  value_type: Categoricvalue
+  rownr: 
+sheetcells_013: 
+  value_id: 980190967
+  comment: valid
+  import_value: Aut08
+  created_at: 2011-03-18 18:05:50.445000 Z
+  updated_at: 2011-03-18 18:13:33.569000 Z
+  observation_id: 980191176
+  id: 213
+  datacolumn_id: 29
+  value_type: Textvalue
+  rownr: 
+sheetcells_034: 
+  value_id: 980190972
+  comment: portal match
+  import_value: T
+  created_at: 2011-03-18 18:05:49.148000 Z
+  updated_at: 2011-03-18 18:08:40.810000 Z
+  observation_id: 980191155
+  id: 192
+  datacolumn_id: 26
+  value_type: Categoricvalue
+  rownr: 
+sheetcells_055: 
+  value_id: 980190964
+  comment: portal match
+  import_value: Eurya muricata
+  created_at: 2011-03-18 18:05:48.494000 Z
+  updated_at: 2011-03-18 18:06:38.469000 Z
+  observation_id: 980191134
+  id: 171
+  datacolumn_id: 24
+  value_type: Categoricvalue
+  rownr: 
+sheetcells_098: 
+  value_id: 980190963
+  comment: valid
+  import_value: "2008-11-09"
+  created_at: 2011-03-18 17:47:49.580000 Z
+  updated_at: 2011-03-18 17:49:29.657000 Z
+  observation_id: 980191091
+  id: 128
+  datacolumn_id: 18
+  value_type: Datetimevalue
+  rownr: 
+sheetcells_077: 
+  value_id: 980190982
+  comment: valid
+  import_value: "1"
+  created_at: 2011-03-18 17:47:50.211000 Z
+  updated_at: 2011-03-18 17:56:58.693000 Z
+  observation_id: 980191112
+  id: 149
+  datacolumn_id: 21
+  value_type: Categoricvalue
+  rownr: 
+sheetcells_014: 
+  value_id: 980190966
+  comment: valid
+  import_value: Aut08
+  created_at: 2011-03-18 18:05:50.431000 Z
+  updated_at: 2011-03-18 18:13:33.553000 Z
+  observation_id: 980191175
+  id: 212
+  datacolumn_id: 29
+  value_type: Textvalue
+  rownr: 
+sheetcells_035: 
+  value_id: 980190973
+  comment: portal match
+  import_value: S
+  created_at: 2011-03-18 18:05:49.136000 Z
+  updated_at: 2011-03-18 18:08:40.795000 Z
+  observation_id: 980191154
+  id: 191
+  datacolumn_id: 26
+  value_type: Categoricvalue
+  rownr: 
+sheetcells_056: 
+  value_id: 980190964
+  comment: portal match
+  import_value: Eurya muricata
+  created_at: 2011-03-18 18:05:48.340000 Z
+  updated_at: 2011-03-18 18:06:38.396000 Z
+  observation_id: 980191133
+  id: 170
+  datacolumn_id: 24
+  value_type: Categoricvalue
+  rownr: 
+sheetcells_099: 
+  value_id: 980190968
+  comment: valid
+  import_value: Loropetalum chinense
+  created_at: 2011-03-18 17:47:49.486000 Z
+  updated_at: 2011-03-18 17:48:51.936000 Z
+  observation_id: 980191090
+  id: 127
+  datacolumn_id: 17
+  value_type: Categoricvalue
+  rownr: 
+sheetcells_080: 
+  value_id: 980190979
+  comment: valid
+  import_value: "811081"
+  created_at: 2011-03-18 17:47:50.075000 Z
+  updated_at: 2011-03-18 17:53:39.962000 Z
+  observation_id: 980191109
+  id: 146
+  datacolumn_id: 20
+  value_type: Categoricvalue
+  rownr: 
+sheetcells_078: 
+  value_id: 980190979
+  comment: valid
+  import_value: "811081"
+  created_at: 2011-03-18 17:47:50.119000 Z
+  updated_at: 2011-03-18 17:53:40.525000 Z
+  observation_id: 980191111
+  id: 148
+  datacolumn_id: 20
+  value_type: Categoricvalue
+  rownr: 
+sheetcells_015: 
+  value_id: 980190965
+  comment: valid
+  import_value: Aut08
+  created_at: 2011-03-18 18:05:50.417000 Z
+  updated_at: 2011-03-18 18:13:33.533000 Z
+  observation_id: 980191174
+  id: 211
+  datacolumn_id: 29
+  value_type: Textvalue
+  rownr: 
+sheetcells_036: 
+  value_id: 980190974
+  comment: portal match
+  import_value: R
+  created_at: 2011-03-18 18:05:49.106000 Z
+  updated_at: 2011-03-18 18:08:40.780000 Z
+  observation_id: 980191153
+  id: 190
+  datacolumn_id: 26
+  value_type: Categoricvalue
+  rownr: 
+sheetcells_057: 
+  value_id: 980190976
+  comment: valid
+  import_value: "100.125"
+  created_at: 2011-03-18 17:47:50.857000 Z
+  updated_at: 2011-03-18 18:03:55.193000 Z
+  observation_id: 980191132
+  id: 169
+  datacolumn_id: 23
+  value_type: Numericvalue
+  rownr: 
+sheetcells_081: 
+  value_id: 980190978
+  comment: valid
+  import_value: "379139"
+  created_at: 2011-03-18 17:47:50.050000 Z
+  updated_at: 2011-03-18 17:53:12.601000 Z
+  observation_id: 980191108
+  id: 145
+  datacolumn_id: 20
+  value_type: Categoricvalue
+  rownr: 
+sheetcells_079: 
+  value_id: 980190979
+  comment: valid
+  import_value: "811081"
+  created_at: 2011-03-18 17:47:50.097000 Z
+  updated_at: 2011-03-18 17:53:40.430000 Z
+  observation_id: 980191110
+  id: 147
+  datacolumn_id: 20
+  value_type: Categoricvalue
+  rownr: 
+sheetcells_016: 
+  value_id: 980190964
+  comment: valid
+  import_value: Aut08
+  created_at: 2011-03-18 18:05:50.404000 Z
+  updated_at: 2011-03-18 18:13:33.444000 Z
+  observation_id: 980191173
+  id: 210
+  datacolumn_id: 29
+  value_type: Textvalue
+  rownr: 
+sheetcells_037: 
+  value_id: 980190971
+  comment: portal match
+  import_value: L
+  created_at: 2011-03-18 18:05:49.086000 Z
+  updated_at: 2011-03-18 18:08:40.765000 Z
+  observation_id: 980191152
+  id: 189
+  datacolumn_id: 26
+  value_type: Categoricvalue
+  rownr: 
+sheetcells_060: 
+  value_id: 980190973
+  comment: valid
+  import_value: "26.873626373626372"
+  created_at: 2011-03-18 17:47:50.821000 Z
+  updated_at: 2011-03-18 18:03:55.113000 Z
+  observation_id: 980191129
+  id: 166
+  datacolumn_id: 23
+  value_type: Numericvalue
+  rownr: 
+sheetcells_058: 
+  value_id: 980190975
+  comment: valid
+  import_value: "204.95652173913044"
+  created_at: 2011-03-18 17:47:50.845000 Z
+  updated_at: 2011-03-18 18:03:55.171000 Z
+  observation_id: 980191131
+  id: 168
+  datacolumn_id: 23
+  value_type: Numericvalue
+  rownr: 
+sheetcells_082: 
+  value_id: 980190975
+  comment: valid
+  import_value: "363847"
+  created_at: 2011-03-18 17:47:50.039000 Z
+  updated_at: 2011-03-18 17:51:03.659000 Z
+  observation_id: 980191107
+  id: 144
+  datacolumn_id: 20
+  value_type: Categoricvalue
+  rownr: 
+sheetcells_017: 
+  value_id: 980190982
+  comment: portal match
+  import_value: "1"
+  created_at: 2011-03-18 18:05:49.674000 Z
+  updated_at: 2011-03-18 18:11:12.987000 Z
+  observation_id: 980191172
+  id: 209
+  datacolumn_id: 28
+  value_type: Categoricvalue
+  rownr: 
+sheetcells_040: 
+  value_id: 980190974
+  comment: portal match
+  import_value: R
+  created_at: 2011-03-18 18:05:49.021000 Z
+  updated_at: 2011-03-18 18:08:40.614000 Z
+  observation_id: 980191149
+  id: 186
+  datacolumn_id: 26
+  value_type: Categoricvalue
+  rownr: 
+sheetcells_038: 
+  value_id: 980190972
+  comment: portal match
+  import_value: T
+  created_at: 2011-03-18 18:05:49.065000 Z
+  updated_at: 2011-03-18 18:08:40.750000 Z
+  observation_id: 980191151
+  id: 188
+  datacolumn_id: 26
+  value_type: Categoricvalue
+  rownr: 
+sheetcells_061: 
+  value_id: 980190972
+  comment: valid
+  import_value: "74.70769230769231"
+  created_at: 2011-03-18 17:47:50.809000 Z
+  updated_at: 2011-03-18 18:03:55.095000 Z
+  observation_id: 980191128
+  id: 165
+  datacolumn_id: 23
+  value_type: Numericvalue
+  rownr: 
+sheetcells_059: 
+  value_id: 980190974
+  comment: valid
+  import_value: "117.07692307692307"
+  created_at: 2011-03-18 17:47:50.833000 Z
+  updated_at: 2011-03-18 18:03:55.148000 Z
+  observation_id: 980191130
+  id: 167
+  datacolumn_id: 23
+  value_type: Numericvalue
+  rownr: 
+sheetcells_083: 
+  value_id: 980190975
+  comment: valid
+  import_value: "363847"
+  created_at: 2011-03-18 17:47:50.027000 Z
+  updated_at: 2011-03-18 17:51:03.570000 Z
+  observation_id: 980191106
+  id: 143
+  datacolumn_id: 20
+  value_type: Categoricvalue
+  rownr: 
+sheetcells_018: 
+  value_id: 980190982
+  comment: portal match
+  import_value: "1"
+  created_at: 2011-03-18 18:05:49.651000 Z
+  updated_at: 2011-03-18 18:11:12.974000 Z
+  observation_id: 980191171
+  id: 208
+  datacolumn_id: 28
+  value_type: Categoricvalue
+  rownr: 
+sheetcells_039: 
+  value_id: 980190973
+  comment: portal match
+  import_value: S
+  created_at: 2011-03-18 18:05:49.040000 Z
+  updated_at: 2011-03-18 18:08:40.735000 Z
+  observation_id: 980191150
+  id: 187
+  datacolumn_id: 26
+  value_type: Categoricvalue
+  rownr: 
+sheetcells_062: 
+  value_id: 980190971
+  comment: valid
+  import_value: "110.56818181818181"
+  created_at: 2011-03-18 17:47:50.797000 Z
+  updated_at: 2011-03-18 18:03:55.059000 Z
+  observation_id: 980191127
+  id: 164
+  datacolumn_id: 23
+  value_type: Numericvalue
+  rownr: 
+sheetcells_084: 
+  value_id: 980190975
+  comment: valid
+  import_value: "363847"
+  created_at: 2011-03-18 17:47:50.015000 Z
+  updated_at: 2011-03-18 17:51:03.530000 Z
+  observation_id: 980191105
+  id: 142
+  datacolumn_id: 20
+  value_type: Categoricvalue
+  rownr: 
+sheetcells_020: 
+  value_id: 980190982
+  comment: portal match
+  import_value: "1"
+  created_at: 2011-03-18 18:05:49.613000 Z
+  updated_at: 2011-03-18 18:11:12.947000 Z
+  observation_id: 980191169
+  id: 206
+  datacolumn_id: 28
+  value_type: Categoricvalue
+  rownr: 
+sheetcells_019: 
+  value_id: 980190982
+  comment: portal match
+  import_value: "1"
+  created_at: 2011-03-18 18:05:49.625000 Z
+  updated_at: 2011-03-18 18:11:12.960000 Z
+  observation_id: 980191170
+  id: 207
+  datacolumn_id: 28
+  value_type: Categoricvalue
+  rownr: 
+sheetcells_041: 
+  value_id: 980190977
+  comment: valid
+  import_value: "2008-11-09"
+  created_at: 2011-03-18 18:05:48.924000 Z
+  updated_at: 2011-03-18 18:07:35.555000 Z
+  observation_id: 980191148
+  id: 185
+  datacolumn_id: 25
+  value_type: Datetimevalue
+  rownr: 
+sheetcells_021: 
+  value_id: 980190982
+  comment: portal match
+  import_value: "1"
+  created_at: 2011-03-18 18:05:49.591000 Z
+  updated_at: 2011-03-18 18:11:12.933000 Z
+  observation_id: 980191168
+  id: 205
+  datacolumn_id: 28
+  value_type: Categoricvalue
+  rownr: 
+sheetcells_042: 
+  value_id: 980190976
+  comment: valid
+  import_value: "2008-11-09"
+  created_at: 2011-03-18 18:05:48.906000 Z
+  updated_at: 2011-03-18 18:07:35.535000 Z
+  observation_id: 980191147
+  id: 184
+  datacolumn_id: 25
+  value_type: Datetimevalue
+  rownr: 
+sheetcells_063: 
+  value_id: 980190970
+  comment: valid
+  import_value: "111.83720930232559"
+  created_at: 2011-03-18 17:47:50.785000 Z
+  updated_at: 2011-03-18 18:03:54.973000 Z
+  observation_id: 980191126
+  id: 163
+  datacolumn_id: 23
+  value_type: Numericvalue
+  rownr: 
+sheetcells_100: 
+  value_id: 980190968
+  comment: valid
+  import_value: Loropetalum chinense
+  created_at: 2011-03-18 17:47:49.464000 Z
+  updated_at: 2011-03-18 17:48:51.845000 Z
+  observation_id: 980191089
+  id: 126
+  datacolumn_id: 17
+  value_type: Categoricvalue
+  rownr: 
+sheetcells_085: 
+  value_id: 980190972
+  comment: sheet match
+  import_value: T
+  created_at: 2011-03-18 17:47:49.931000 Z
+  updated_at: 2011-03-18 17:50:00.364000 Z
+  observation_id: 980191104
+  id: 141
+  datacolumn_id: 19
+  value_type: Categoricvalue
+  rownr: 
+sheetcells_001: 
+  value_id: 980190984
+  comment: valid
+  import_value: "48.2"
+  created_at: 2011-03-18 18:05:50.807000 Z
+  updated_at: 2011-03-18 18:14:16.557000 Z
+  observation_id: 980191188
+  id: 225
+  datacolumn_id: 30
+  value_type: Numericvalue
+  rownr: 
+sheetcells_022: 
+  value_id: 980190982
+  comment: portal match
+  import_value: "1"
+  created_at: 2011-03-18 18:05:49.574000 Z
+  updated_at: 2011-03-18 18:11:12.920000 Z
+  observation_id: 980191167
+  id: 204
+  datacolumn_id: 28
+  value_type: Categoricvalue
+  rownr: 
+sheetcells_043: 
+  value_id: 980190975
+  comment: valid
+  import_value: "2008-11-09"
+  created_at: 2011-03-18 18:05:48.884000 Z
+  updated_at: 2011-03-18 18:07:35.515000 Z
+  observation_id: 980191146
+  id: 183
+  datacolumn_id: 25
+  value_type: Datetimevalue
+  rownr: 
+sheetcells_064: 
+  value_id: 980190969
+  comment: valid
+  import_value: "0.48"
+  created_at: 2011-03-18 17:47:50.665000 Z
+  updated_at: 2011-03-18 18:01:44.166000 Z
+  observation_id: 980191125
+  id: 162
+  datacolumn_id: 22
+  value_type: Numericvalue
+  rownr: 
+sheetcells_101: 
+  value_id: 980190968
+  comment: valid
+  import_value: Loropetalum chinense
+  created_at: 2011-03-18 17:47:49.442000 Z
+  updated_at: 2011-03-18 17:48:51.799000 Z
+  observation_id: 980191088
+  id: 125
+  datacolumn_id: 17
+  value_type: Categoricvalue
+  rownr: 
+sheetcells_086: 
+  value_id: 980190973
+  comment: sheet match
+  import_value: S
+  created_at: 2011-03-18 17:47:49.909000 Z
+  updated_at: 2011-03-18 17:50:00.348000 Z
+  observation_id: 980191103
+  id: 140
+  datacolumn_id: 19
+  value_type: Categoricvalue
+  rownr: 
+sheetcells_002: 
+  value_id: 980190983
+  comment: valid
+  import_value: "47.32"
+  created_at: 2011-03-18 18:05:50.785000 Z
+  updated_at: 2011-03-18 18:14:16.538000 Z
+  observation_id: 980191187
+  id: 224
+  datacolumn_id: 30
+  value_type: Numericvalue
+  rownr: 
+sheetcells_023: 
+  value_id: 980190982
+  comment: portal match
+  import_value: "1"
+  created_at: 2011-03-18 18:05:49.542000 Z
+  updated_at: 2011-03-18 18:11:12.907000 Z
+  observation_id: 980191166
+  id: 203
+  datacolumn_id: 28
+  value_type: Categoricvalue
+  rownr: 
+sheetcells_044: 
+  value_id: 980190974
+  comment: valid
+  import_value: "2008-11-09"
+  created_at: 2011-03-18 18:05:48.862000 Z
+  updated_at: 2011-03-18 18:07:35.494000 Z
+  observation_id: 980191145
+  id: 182
+  datacolumn_id: 25
+  value_type: Datetimevalue
+  rownr: 
+sheetcells_065: 
+  value_id: 980190968
+  comment: valid
+  import_value: "0.23"
+  created_at: 2011-03-18 17:47:50.642000 Z
+  updated_at: 2011-03-18 18:01:44.148000 Z
+  observation_id: 980191124
+  id: 161
+  datacolumn_id: 22
+  value_type: Numericvalue
+  rownr: 
+sheetcells_102: 
+  value_id: 980190967
+  comment: valid
+  import_value: Castanea henryi
+  created_at: 2011-03-18 17:47:49.420000 Z
+  updated_at: 2011-03-18 17:48:29.829000 Z
+  observation_id: 980191087
+  id: 124
+  datacolumn_id: 17
+  value_type: Categoricvalue
+  rownr: 
+sheetcells_087: 
+  value_id: 980190974
+  comment: sheet match
+  import_value: R
+  created_at: 2011-03-18 17:47:49.886000 Z
+  updated_at: 2011-03-18 17:50:00.332000 Z
+  observation_id: 980191102
+  id: 139
+  datacolumn_id: 19
+  value_type: Categoricvalue
+  rownr: 
+sheetcells_003: 
+  value_id: 980190982
+  comment: valid
+  import_value: "47.14"
+  created_at: 2011-03-18 18:05:50.763000 Z
+  updated_at: 2011-03-18 18:14:16.520000 Z
+  observation_id: 980191186
+  id: 223
+  datacolumn_id: 30
+  value_type: Numericvalue
+  rownr: 
+sheetcells_024: 
+  value_id: 980190982
+  comment: portal match
+  import_value: "1"
+  created_at: 2011-03-18 18:05:49.506000 Z
+  updated_at: 2011-03-18 18:11:12.356000 Z
+  observation_id: 980191165
+  id: 202
+  datacolumn_id: 28
+  value_type: Categoricvalue
+  rownr: 
+sheetcells_045: 
+  value_id: 980190973
+  comment: valid
+  import_value: "2008-11-09"
+  created_at: 2011-03-18 18:05:48.840000 Z
+  updated_at: 2011-03-18 18:07:35.475000 Z
+  observation_id: 980191144
+  id: 181
+  datacolumn_id: 25
+  value_type: Datetimevalue
+  rownr: 
+sheetcells_066: 
+  value_id: 980190967
+  comment: valid
+  import_value: "0.39"
+  created_at: 2011-03-18 17:47:50.620000 Z
+  updated_at: 2011-03-18 18:01:44.129000 Z
+  observation_id: 980191123
+  id: 160
+  datacolumn_id: 22
+  value_type: Numericvalue
+  rownr: 

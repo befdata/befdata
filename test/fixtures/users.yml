@@ -1,54 +1,129 @@
-# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
-
-# This model initially had no columns defined.  If you add columns to the
-# model remove the '{}' from the fixture names and add the columns immediately
-# below each fixture, per the syntax in the comments below
-#
-nadr_admin:
-  id: 1
-  login: nadrowski
-  email: nadrowski@uni-leipzig.de
-  firstname: Karin
-  lastname: Nadrowski
-  crypted_password: db3063a6de5db4c3eb7dd0ffd7b94e28f485524232b7ccba8c92d496fdab8bb5f0eec1918dc099966c63352ea4441e64710082cdac10c7e18e3589bc4dd609f7
-  password_salt: nmjnRWuBnroqCUA6GhU
-  persistence_token: af95662f18c71ac15efed694bd628ff9bfc21d59092ea446ab073e46824a867c15e445a540d60fe9b82f38b9969bd53bfd55d8b03d35872183a909eadc286b50
+--- 
+nadrowski_admin:
+  institution_phone: 
+  institution_fax: 
+  comment: 
+  city: 
   single_access_token: jzvE7oUsKnW49bATgv77
-  perishable_token: mshjEjrwHhfuDrz67H5
-
-stud_trogisch:
-  id: 2
-  login: stefantrogisch
-  email: StefanTrogisch@gmx.de
-  firstname: Stefan
-  lastname: Trogisch
-  crypted_password: 81c4827ac2c0749371cc624fb8a72dc31e237fc90687ecf6054fd608e1705791147f24f4a2bb5602096e3a48fdd3a78e8f012637eaefb3227e3330efe90eeedb
-  password_salt: UlruqM5C05NNmteqVNlS
-  persistence_token: bade6ec63f5025f16869cc40bbb217874d1e4f7d8f2ba5d62103317515dc4bf2c8bd4775ee77fc6bbc44323fccdcdb458d69d4d23eb9ac672c8e9aa4b8f6c088
-  single_access_token: 3MKRR18aIE1LWwe0qae4
-  perishable_token: od2yRVlyS8O4A5R0sr
-
-
-prof_scherer:
+  last_request_at: 2011-03-21 09:24:38.457039 Z
+  created_at: 2011-03-16 16:26:28.419000 Z
+  crypted_password: db3063a6de5db4c3eb7dd0ffd7b94e28f485524232b7ccba8c92d496fdab8bb5f0eec1918dc099966c63352ea4441e64710082cdac10c7e18e3589bc4dd609f7
+  country: 
+  updated_at: 2011-03-21 09:24:38.458214 Z
+  perishable_token: eCOqQKF9XSJ13WH1HcNg
+  url: 
+  salutation: 
+  street: 
+  lastname: Nadrowski
   id: 3
-  login: schererlorenzen
-  email: michael.scherer@biologie.uni-freiburg.de
-  firstname: Michael
-  lastname: Scherer-Lorenczen
-  crypted_password: cacf0fb50cfd523dcaa75a448d740c1aecf62572f1c9c4d0017c815b2e2602b34faa2e20208ebac7d393e7c3ffbc91595c655ecfac4ef1a54bb39a95001620d5
-  password_salt: pMWbh2WqHxjtAKZDBuHs
-  persistence_token: 9a56ddda13d6d6c859d4734606963715acc6285791e201a8c82674099884050ae1088c31b6686616a6bd2e30f68aa1dd2fe3a78eda3bd453de85937d9c77e187
-  single_access_token: x6COE95Cd9jwZICJ0i5q
-  perishable_token: h52A0oXaLJQLfIWqBi
-
-stud_baruffol:
-  id: 4
-  login: martin_baruffol
-  email: martin.baruffol@uwinst.uzh.ch
-  firstname: Martin
-  lastname: Baruffol
-  crypted_password: 660ac3872716cd8efce0e5c09ff5ff3c547906dab7e2cc321d07af93ca7b16a8aeef0c55afac71c8f8ba2ac754331fb46f5b130607cd195b930347e4440acee4
-  password_salt: wC5hUQroSFvlcBw0hY
-  persistence_token: 9d0235a1bbabfc4779ed2e264dbaee757138530ea5afd8099cb4b4bfa293be6602a163b8319e600d898badfbeab1b07a4bb6124829bec5d75f9fc012fc7350aa
+  failed_login_count: 0
+  current_login_ip: 127.0.0.1
+  password_salt: nmjnRWuBnroqCUA6GhU
+  current_login_at: 2011-03-21 09:23:57.605711 Z
+  persistence_token: af95662f18c71ac15efed694bd628ff9bfc21d59092ea446ab073e46824a867c15e445a540d60fe9b82f38b9969bd53bfd55d8b03d35872183a909eadc286b50
+  login_count: 6
+  institution_name: 
+  firstname: Karin
+  last_login_ip: 127.0.0.1
+  institution_url: 
+  login: nadrowski
+  last_login_at: 2011-03-18 16:30:42.337000 Z
+  affiliation: 
+  middlenames: 
+  email: nadrowski@uni-leipzig.de
+users_001: 
+  institution_phone: 
+  institution_fax: 
+  comment: 
+  city: 
   single_access_token: RFEFd1NwD17wjSyFOY7
+  last_request_at: 
+  created_at: 2011-03-18 16:30:18.675000 Z
+  crypted_password: 660ac3872716cd8efce0e5c09ff5ff3c547906dab7e2cc321d07af93ca7b16a8aeef0c55afac71c8f8ba2ac754331fb46f5b130607cd195b930347e4440acee4
+  country: 
+  updated_at: 2011-03-18 16:30:18.675000 Z
   perishable_token: bT2dZZNzKk9orMuxK
+  url: 
+  salutation: 
+  street: 
+  lastname: Baruffol
+  id: 6
+  failed_login_count: 0
+  current_login_ip: 
+  password_salt: wC5hUQroSFvlcBw0hY
+  current_login_at: 
+  persistence_token: 9d0235a1bbabfc4779ed2e264dbaee757138530ea5afd8099cb4b4bfa293be6602a163b8319e600d898badfbeab1b07a4bb6124829bec5d75f9fc012fc7350aa
+  login_count: 0
+  institution_name: 
+  firstname: Martin
+  last_login_ip: 
+  institution_url: 
+  login: martin_baruffol
+  last_login_at: 
+  affiliation: 
+  middlenames: 
+  email: martin.baruffol@uwinst.uzh.ch
+users_002: 
+  institution_phone: 
+  institution_fax: 
+  comment: 
+  city: 
+  single_access_token: x6COE95Cd9jwZICJ0i5q
+  last_request_at: 
+  created_at: 2011-03-17 09:41:19.871000 Z
+  crypted_password: cacf0fb50cfd523dcaa75a448d740c1aecf62572f1c9c4d0017c815b2e2602b34faa2e20208ebac7d393e7c3ffbc91595c655ecfac4ef1a54bb39a95001620d5
+  country: 
+  updated_at: 2011-03-18 16:30:54.526000 Z
+  perishable_token: h52A0oXaLJQLfIWqBi
+  url: 
+  salutation: Prof.
+  street: 
+  lastname: Scherer-Lorenzen
+  id: 5
+  failed_login_count: 0
+  current_login_ip: 
+  password_salt: pMWbh2WqHxjtAKZDBuHs
+  current_login_at: 
+  persistence_token: 9a56ddda13d6d6c859d4734606963715acc6285791e201a8c82674099884050ae1088c31b6686616a6bd2e30f68aa1dd2fe3a78eda3bd453de85937d9c77e187
+  login_count: 0
+  institution_name: 
+  firstname: Michael
+  last_login_ip: 
+  institution_url: 
+  login: schererlorenzen
+  last_login_at: 
+  affiliation: 
+  middlenames: 
+  email: michael.scherer@biologie.uni-freiburg.de
+users_003: 
+  institution_phone: 
+  institution_fax: 
+  comment: 
+  city: 
+  single_access_token: 3MKRR18aIE1LWwe0qae4
+  last_request_at: 
+  created_at: 2011-03-17 09:36:31.915000 Z
+  crypted_password: 81c4827ac2c0749371cc624fb8a72dc31e237fc90687ecf6054fd608e1705791147f24f4a2bb5602096e3a48fdd3a78e8f012637eaefb3227e3330efe90eeedb
+  country: 
+  updated_at: 2011-03-18 16:31:05.322000 Z
+  perishable_token: od2yRVlyS8O4A5R0sr
+  url: 
+  salutation: 
+  street: 
+  lastname: Trogisch
+  id: 4
+  failed_login_count: 0
+  current_login_ip: 
+  password_salt: UlruqM5C05NNmteqVNlS
+  current_login_at: 
+  persistence_token: bade6ec63f5025f16869cc40bbb217874d1e4f7d8f2ba5d62103317515dc4bf2c8bd4775ee77fc6bbc44323fccdcdb458d69d4d23eb9ac672c8e9aa4b8f6c088
+  login_count: 0
+  institution_name: 
+  firstname: Stefan
+  last_login_ip: 
+  institution_url: 
+  login: stefantrogisch
+  last_login_at: 
+  affiliation: 
+  middlenames: 
+  email: StefanTrogisch@gmx.de

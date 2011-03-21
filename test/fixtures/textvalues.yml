@@ -1,11 +1,61 @@
-# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
-
-# This model initially had no columns defined.  If you add columns to the
-# model remove the '{}' from the fixture names and add the columns immediately
-# below each fixture, per the syntax in the comments below
-#
-one: {}
-# column: value
-#
-two: {}
-#  column: value
+--- 
+textvalues_001: 
+  comment: 
+  created_at: 2011-03-18 18:13:33.622000 Z
+  updated_at: 2011-03-18 18:13:33.622000 Z
+  text: Aut08
+  id: 980190971
+textvalues_002: 
+  comment: 
+  created_at: 2011-03-18 18:13:33.607000 Z
+  updated_at: 2011-03-18 18:13:33.607000 Z
+  text: Aut08
+  id: 980190970
+textvalues_003: 
+  comment: 
+  created_at: 2011-03-18 18:13:33.592000 Z
+  updated_at: 2011-03-18 18:13:33.592000 Z
+  text: Aut08
+  id: 980190969
+textvalues_004: 
+  comment: 
+  created_at: 2011-03-18 18:13:33.578000 Z
+  updated_at: 2011-03-18 18:13:33.578000 Z
+  text: Aut08
+  id: 980190968
+textvalues_005: 
+  comment: 
+  created_at: 2011-03-18 18:13:33.563000 Z
+  updated_at: 2011-03-18 18:13:33.563000 Z
+  text: Aut08
+  id: 980190967
+textvalues_006: 
+  comment: 
+  created_at: 2011-03-18 18:13:33.547000 Z
+  updated_at: 2011-03-18 18:13:33.547000 Z
+  text: Aut08
+  id: 980190966
+textvalues_007: 
+  comment: 
+  created_at: 2011-03-18 18:13:33.522000 Z
+  updated_at: 2011-03-18 18:13:33.522000 Z
+  text: Aut08
+  id: 980190965
+textvalues_008: 
+  comment: 
+  created_at: 2011-03-18 18:13:33.333000 Z
+  updated_at: 2011-03-18 18:13:33.333000 Z
+  text: Aut08
+  id: 980190964
+textvalues_010: 
+  comment: 
+  created_at: 2011-03-16 10:06:35 Z
+  updated_at: 2011-03-16 10:06:35 Z
+  text: 
+  id: 298486374
+textvalues_009: 
+  comment: 
+  created_at: 2011-03-16 10:06:35 Z
+  updated_at: 2011-03-16 10:06:35 Z
+  text: 
+  id: 980190962

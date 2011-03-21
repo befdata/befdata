@@ -1,18 +1,17 @@
-# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
-
-# This model initially had no columns defined.  If you add columns to the
-# model remove the '{}' from the fixture names and add the columns immediately
-# below each fixture, per the syntax in the comments below
-#
-bef:
-  id: 1
-  shortname: befch direct
-  name: Research unit BEF-China
-  description: This is the overarching project of BEF-China.  It should be used for members of BEF-China, that are not associated to any other research project
-
-
-sp5e:
-  id: 2
+--- 
+projects_001: 
   shortname: sp5 e
   name: "sp5 europe: Nutrient cycling"
-  description: Nutrient cycling, European project
+  comment: 
+  created_at: 2011-03-16 00:00:00 Z
+  updated_at: 2011-03-16 00:00:00 Z
+  id: 2
+  description: Nutrient cycling, Europaean project
+projects_002: 
+  shortname: befch direct
+  name: Research unit BEF-China
+  comment: 
+  created_at: 2011-03-16 10:06:35 Z
+  updated_at: 2011-03-17 09:46:46.796000 Z
+  id: 1
+  description: This is the overarching project of BEF-China.  It should be used for members of BEF-China, that are not associated to any other research project

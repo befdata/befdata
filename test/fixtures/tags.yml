@@ -1,11 +1,41 @@
-# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
-
-# This model initially had no columns defined.  If you add columns to the
-# model remove the '{}' from the fixture names and add the columns immediately
-# below each fixture, per the syntax in the comments below
-#
-one: {}
-# column: value
-#
-two: {}
-#  column: value
+--- 
+tags_008: 
+  name: date
+  kind: tag
+  id: 980190965
+tags_009: 
+  name: object identifier
+  kind: tag
+  id: 980190964
+tags_010: 
+  name: species
+  kind: tag
+  id: 980190963
+tags_001: 
+  name: plant trait
+  kind: tag
+  id: 980190972
+tags_002: 
+  name: CN ratio
+  kind: tag
+  id: 980190971
+tags_003: 
+  name: N
+  kind: tag
+  id: 980190970
+tags_004: 
+  name: variable
+  kind: tag
+  id: 980190969
+tags_005: 
+  name: C
+  kind: tag
+  id: 980190968
+tags_006: 
+  name: location
+  kind: tag
+  id: 980190967
+tags_007: 
+  name: plant organ
+  kind: tag
+  id: 980190966

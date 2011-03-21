@@ -1,11 +1,137 @@
-# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
-
-# This model initially had no columns defined.  If you add columns to the
-# model remove the '{}' from the fixture names and add the columns immediately
-# below each fixture, per the syntax in the comments below
-#
-one: {}
-# column: value
-#
-two: {}
-#  column: value
+--- 
+categoricvalues_014: 
+  comment: added from category sheet
+  created_at: 2011-03-18 17:49:41.392000 Z
+  updated_at: 2011-03-18 17:49:41.392000 Z
+  id: 980190971
+  short: L
+  description: Leaf
+  long: Leaf
+categoricvalues_003: 
+  comment: added from category sheet
+  created_at: 2011-03-18 18:07:53.250000 Z
+  updated_at: 2011-03-18 18:07:53.250000 Z
+  id: 980190991
+  short: S
+  description: Stem
+  long: Stem
+categoricvalues_015: 
+  comment: manually approved
+  created_at: 2011-03-18 17:48:15.808000 Z
+  updated_at: 2011-03-18 17:48:51.732000 Z
+  id: 980190968
+  short: Loropetalum chinense
+  description: Loropetalum chinense
+  long: Loropetalum chinense
+categoricvalues_004: 
+  comment: added from category sheet
+  created_at: 2011-03-18 18:07:53.236000 Z
+  updated_at: 2011-03-18 18:07:53.236000 Z
+  id: 980190990
+  short: T
+  description: Twig
+  long: Twig
+categoricvalues_016: 
+  comment: manually approved
+  created_at: 2011-03-18 17:48:15.781000 Z
+  updated_at: 2011-03-18 17:48:29.762000 Z
+  id: 980190967
+  short: Castanea henryi
+  description: Castanea henryi
+  long: Castanea henryi
+categoricvalues_005: 
+  comment: added from category sheet
+  created_at: 2011-03-18 18:07:53.154000 Z
+  updated_at: 2011-03-18 18:07:53.154000 Z
+  id: 980190989
+  short: L
+  description: Leaf
+  long: Leaf
+categoricvalues_017: 
+  comment: manually approved
+  created_at: 2011-03-18 17:48:14.939000 Z
+  updated_at: 2011-03-18 17:48:40.921000 Z
+  id: 980190964
+  short: Eurya muricata
+  description: Eurya muricata
+  long: Eurya muricata
+categoricvalues_006: 
+  comment: manually approved
+  created_at: 2011-03-18 17:55:05.327000 Z
+  updated_at: 2011-03-18 17:57:09.998000 Z
+  id: 980190985
+  short: "3"
+  description: CSP03
+  long: CSP03
+categoricvalues_007: 
+  comment: manually approved
+  created_at: 2011-03-18 17:55:04.995000 Z
+  updated_at: 2011-03-18 17:56:58.625000 Z
+  id: 980190982
+  short: "1"
+  description: CSP01
+  long: CSP01
+categoricvalues_008: 
+  comment: manually approved
+  created_at: 2011-03-18 17:50:51.493000 Z
+  updated_at: 2011-03-18 17:53:39.893000 Z
+  id: 980190979
+  short: "811081"
+  description: "811081"
+  long: "811081"
+categoricvalues_009: 
+  comment: manually approved
+  created_at: 2011-03-18 17:50:51.449000 Z
+  updated_at: 2011-03-18 17:53:12.459000 Z
+  id: 980190978
+  short: "379139"
+  description: "379139"
+  long: "379139"
+categoricvalues_010: 
+  comment: manually approved
+  created_at: 2011-03-18 17:50:51.133000 Z
+  updated_at: 2011-03-18 17:51:03.461000 Z
+  id: 980190975
+  short: "363847"
+  description: "363847"
+  long: "363847"
+categoricvalues_011: 
+  comment: added from category sheet
+  created_at: 2011-03-18 17:49:41.625000 Z
+  updated_at: 2011-03-18 17:49:41.625000 Z
+  id: 980190974
+  short: R
+  description: Root
+  long: Root
+categoricvalues_012: 
+  comment: added from category sheet
+  created_at: 2011-03-18 17:49:41.611000 Z
+  updated_at: 2011-03-18 17:49:41.611000 Z
+  id: 980190973
+  short: S
+  description: Stem
+  long: Stem
+categoricvalues_001: 
+  comment: manually approved
+  created_at: 2011-03-18 18:10:33.791000 Z
+  updated_at: 2011-03-18 18:10:44.570000 Z
+  id: 980190993
+  short: 0911081
+  description: 0911081
+  long: 0911081
+categoricvalues_013: 
+  comment: added from category sheet
+  created_at: 2011-03-18 17:49:41.592000 Z
+  updated_at: 2011-03-18 17:49:41.592000 Z
+  id: 980190972
+  short: T
+  description: Twig
+  long: Twig
+categoricvalues_002: 
+  comment: added from category sheet
+  created_at: 2011-03-18 18:07:53.264000 Z
+  updated_at: 2011-03-18 18:07:53.264000 Z
+  id: 980190992
+  short: R
+  description: Root
+  long: Root

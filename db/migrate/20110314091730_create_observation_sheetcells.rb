@@ -1,6 +1,6 @@
 class CreateObservationSheetcells < ActiveRecord::Migration
   def self.up
-    create_table :observations_sheetcells do |t|
+    create_table :observation_sheetcells do |t|
       t.integer  "observation_id"
       t.integer  "sheetcell_id"
       t.text     "comment"
@@ -9,6 +9,6 @@ class CreateObservationSheetcells < ActiveRecord::Migration
   end
 
   def self.down
-    drop_table :observations_sheetcells
+    drop_table :observation_sheetcells
   end
 end

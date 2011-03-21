@@ -1,11 +1,145 @@
-# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
-
-# This model initially had no columns defined.  If you add columns to the
-# model remove the '{}' from the fixture names and add the columns immediately
-# below each fixture, per the syntax in the comments below
-#
-one: {}
-# column: value
-#
-two: {}
-#  column: value
+--- 
+numericvalues_024: 
+  number: 
+  comment: 
+  created_at: 2011-03-16 10:06:33 Z
+  updated_at: 2011-03-16 10:06:33 Z
+  id: 298486374
+numericvalues_013: 
+  number: 74.7076923076923
+  comment: 
+  created_at: 2011-03-18 18:03:55.089000 Z
+  updated_at: 2011-03-18 18:03:55.089000 Z
+  id: 980190972
+numericvalues_002: 
+  number: 47.32
+  comment: 
+  created_at: 2011-03-18 18:14:16.532000 Z
+  updated_at: 2011-03-18 18:14:16.532000 Z
+  id: 980190983
+numericvalues_014: 
+  number: 110.568181818182
+  comment: 
+  created_at: 2011-03-18 18:03:55.045000 Z
+  updated_at: 2011-03-18 18:03:55.045000 Z
+  id: 980190971
+numericvalues_003: 
+  number: 47.14
+  comment: 
+  created_at: 2011-03-18 18:14:16.514000 Z
+  updated_at: 2011-03-18 18:14:16.514000 Z
+  id: 980190982
+numericvalues_015: 
+  number: 111.837209302326
+  comment: 
+  created_at: 2011-03-18 18:03:54.898000 Z
+  updated_at: 2011-03-18 18:03:54.898000 Z
+  id: 980190970
+numericvalues_004: 
+  number: 46.96
+  comment: 
+  created_at: 2011-03-18 18:14:16.495000 Z
+  updated_at: 2011-03-18 18:14:16.495000 Z
+  id: 980190981
+numericvalues_016: 
+  number: 0.48
+  comment: 
+  created_at: 2011-03-18 18:01:44.160000 Z
+  updated_at: 2011-03-18 18:01:44.160000 Z
+  id: 980190969
+numericvalues_005: 
+  number: 48.8
+  comment: 
+  created_at: 2011-03-18 18:14:16.477000 Z
+  updated_at: 2011-03-18 18:14:16.477000 Z
+  id: 980190980
+numericvalues_017: 
+  number: 0.23
+  comment: 
+  created_at: 2011-03-18 18:01:44.142000 Z
+  updated_at: 2011-03-18 18:01:44.142000 Z
+  id: 980190968
+numericvalues_006: 
+  number: 48.56
+  comment: 
+  created_at: 2011-03-18 18:14:16.459000 Z
+  updated_at: 2011-03-18 18:14:16.459000 Z
+  id: 980190979
+numericvalues_018: 
+  number: 0.39
+  comment: 
+  created_at: 2011-03-18 18:01:44.122000 Z
+  updated_at: 2011-03-18 18:01:44.122000 Z
+  id: 980190967
+numericvalues_007: 
+  number: 48.65
+  comment: 
+  created_at: 2011-03-18 18:14:16.440000 Z
+  updated_at: 2011-03-18 18:14:16.440000 Z
+  id: 980190978
+numericvalues_020: 
+  number: 0.65
+  comment: 
+  created_at: 2011-03-18 18:01:44.063000 Z
+  updated_at: 2011-03-18 18:01:44.063000 Z
+  id: 980190965
+numericvalues_019: 
+  number: 1.82
+  comment: 
+  created_at: 2011-03-18 18:01:44.082000 Z
+  updated_at: 2011-03-18 18:01:44.082000 Z
+  id: 980190966
+numericvalues_008: 
+  number: 48.09
+  comment: 
+  created_at: 2011-03-18 18:14:16.289000 Z
+  updated_at: 2011-03-18 18:14:16.289000 Z
+  id: 980190977
+numericvalues_021: 
+  number: 0.44
+  comment: 
+  created_at: 2011-03-18 18:01:44.044000 Z
+  updated_at: 2011-03-18 18:01:44.044000 Z
+  id: 980190964
+numericvalues_010: 
+  number: 204.95652173913
+  comment: 
+  created_at: 2011-03-18 18:03:55.165000 Z
+  updated_at: 2011-03-18 18:03:55.165000 Z
+  id: 980190975
+numericvalues_009: 
+  number: 100.125
+  comment: 
+  created_at: 2011-03-18 18:03:55.187000 Z
+  updated_at: 2011-03-18 18:03:55.187000 Z
+  id: 980190976
+numericvalues_022: 
+  number: 0.43
+  comment: 
+  created_at: 2011-03-18 18:01:43.819000 Z
+  updated_at: 2011-03-18 18:01:43.819000 Z
+  id: 980190963
+numericvalues_011: 
+  number: 117.076923076923
+  comment: 
+  created_at: 2011-03-18 18:03:55.125000 Z
+  updated_at: 2011-03-18 18:03:55.125000 Z
+  id: 980190974
+numericvalues_023: 
+  number: 
+  comment: 
+  created_at: 2011-03-16 10:06:33 Z
+  updated_at: 2011-03-16 10:06:33 Z
+  id: 980190962
+numericvalues_012: 
+  number: 26.8736263736264
+  comment: 
+  created_at: 2011-03-18 18:03:55.107000 Z
+  updated_at: 2011-03-18 18:03:55.107000 Z
+  id: 980190973
+numericvalues_001: 
+  number: 48.2
+  comment: 
+  created_at: 2011-03-18 18:14:16.550000 Z
+  updated_at: 2011-03-18 18:14:16.550000 Z
+  id: 980190984
