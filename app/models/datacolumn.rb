@@ -60,7 +60,7 @@ class Datacolumn < ActiveRecord::Base
     return !vls.empty?
   end
 
-   def first_five
+  def first_five
     ms = self.sheetcells
     # Measurements are automatically added at import, but they may not
     # be linked to values yet.
@@ -80,6 +80,12 @@ class Datacolumn < ActiveRecord::Base
       "No values yet imported for this data column"
     end
   end
+
+  # This method provides a nice look of MeasurementsMethodstep in admin views
+  def long_label
+    "(#{columnheader}, id: #{id}) #{definition}"
+  end
+  
 
 
 end
