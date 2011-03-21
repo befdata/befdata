@@ -1,11 +1,132 @@
-# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
-
-# This model initially had no columns defined.  If you add columns to the
-# model remove the '{}' from the fixture names and add the columns immediately
-# below each fixture, per the syntax in the comments below
-#
-#one: {}
-## column: value
-##
-#two: {}
-#  column: value
+datagroup1:
+  id                                                : "1"
+  informationsource                                                : Flora of China, Helge Bruelheide
+  methodvaluetype                                                : nominal
+  title                                                : Scientific plant species name
+  description                                                : The scientific species fullnames are based on the "Flora of China" identified by Teng Fang and verified by Helge Bruelheide (trees) and Alexandra Efmeier (herbs). Scientific species names consist of epithet and genus. For identification, the Author name and the year of the publications of the description are required.
+  instrumentation                                                :
+  timelatency                                                : "10"
+  timelatencyunit                                                : years
+  comment                                                :
+  created_at                                                : 2011-03-17 10:45:24.904
+  updated_at                                                : 2011-03-17 10:45:24.904
+datagroup2:
+  id                 : "2"
+  informationsource  :
+  methodvaluetype    :
+  title              : Number_ST
+  description        : Number_ST
+  instrumentation    :
+  timelatency        :
+  timelatencyunit    :
+  comment            :
+  created_at         : 2011-03-18 16:59:07.732
+  updated_at         : 2011-03-18 16:59:07.732
+datagroup3:
+  id               : "3"
+  informationsource:
+  methodvaluetype  : integer
+  title            : Date time information
+  description      : Date time information, given as year or as date or as date time.
+  instrumentation  :
+  timelatency      : "1000"
+  timelatencyunit  : years
+  comment          :
+  created_at       : 2011-03-18 16:59:09.269
+  updated_at       : 2011-03-18 16:59:09.269
+datagroup4:
+  id               : "4"
+  informationsource:
+  methodvaluetype  : category
+  title            : Plant organ sampled
+  description      : "Leaf samples were taken with telescope pruning shears (lenght: up to 6.5m)  from the lower outer and preferentially sun exposed canopy when possible. Leaves of shrub species were sampled in upper canopy.  One year old twigs, and roots which a diameter between 1 and 3mm were taken."
+  instrumentation  :
+  timelatency      : "1000"
+  timelatencyunit  : year
+  comment          :
+  created_at       : 2011-03-18 16:59:09.658
+  updated_at       : 2011-03-18 16:59:09.658
+datagroup5:
+  id               : "5"
+  informationsource:
+  methodvaluetype  : nominal
+  title            : Metal Tag Numbers in the CSPs
+  description      : "The stems were marked with a metal tag with a code compound of a number of six positions. The tag was attached to each individual by attaching it with a wire sorrounding one stem, taking care to leave it long enough to allow the grow of the stem. Normally the wire was attached between 1 and 1.8m over the ground. If the individual had many stems, such as often seen in shrubs, only one of the stems was tagged. "
+  instrumentation  : letters are attached if the same number was used for different tree individuals. This occurred a few times. Numbers are unique only within CSPs
+  timelatency      : "30"
+  timelatencyunit  : year
+  comment          :
+  created_at       : 2011-03-18 16:59:09.968
+  updated_at       : 2011-03-18 16:59:09.968
+  datagroup6:
+  id               : "6"
+  informationsource:
+  methodvaluetype  : nominal
+  title            : BEF research plot name
+  description      : "Reasearch plots of the Biodiversity - Ecosystem functioning experiment (BEF-China). There are three main sites for research plots in the BEF Experiment: Comparative Study Plots (CSP) in the  Gutianshan Nature Reserve, having a size of 30x30m^2, measured on the ground. Main Experiment plots have a size of 1 mu, which is about 25x25m^2 in horizontal projection. Pilot Study Plots have a size of 1x1 m^2."
+  instrumentation  :
+  timelatency      : "500"
+  timelatencyunit  : year
+  comment          :
+  created_at       : 2011-03-18 16:59:10.591
+  updated_at       : 2011-03-18 16:59:10.591
+  datagroup7:
+  id               : "7"
+  informationsource:
+  methodvaluetype  :
+  title            : Season
+  description      : Season
+  instrumentation  :
+  timelatency      :
+  timelatencyunit  :
+  comment          :
+  created_at       : 2011-03-18 16:59:10.833
+  updated_at       : 2011-03-18 16:59:10.833
+datagroup8:
+  id               : "8"
+  informationsource:
+  methodvaluetype  : number
+  title            : Carbon
+  description      : Carbon
+  instrumentation  :
+  timelatency      :
+  timelatencyunit  :
+  comment          :
+  created_at       : 2011-03-18 16:59:11.08
+  updated_at       : 2011-03-18 16:59:11.08
+datagroup9:
+  id               : "9"
+  informationsource: ""
+  methodvaluetype  : ""
+  title            : Helper
+  description      : Helper column to understand other columns in this data set
+  instrumentation  : ""
+  timelatency      :
+  timelatencyunit  : ""
+  comment          :
+  created_at       : 2011-03-18 17:02:47.962
+  updated_at       : 2011-03-18 17:02:47.962
+datagroup10:
+  id               : "10"
+  informationsource:
+  methodvaluetype  : positive real
+  title            : Nitrogen
+  description      : Nitrogen concentration
+  instrumentation  : Elemental Analyzer
+  timelatency      : "1"
+  timelatencyunit  : day
+  comment          :
+  created_at       : 2011-03-18 17:47:50.363
+  updated_at       : 2011-03-18 17:47:50.363
+datagroup11:
+  id                                           : "11"
+  informationsource                            :
+  methodvaluetype                              : positive real
+  title                                        : C/N ratio
+  description                                  : + C/N ratio = Carbon concentration divided by nitrogen concentration
+  instrumentation                              :
+  timelatency                                  : "1"
+  timelatencyunit                              : day
+  comment                                      :
+  created_at                                   : 2011-03-18 17:47:50.699
+  updated_at                                   : 2011-03-18 17:47:50.699
