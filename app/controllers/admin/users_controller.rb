@@ -17,10 +17,10 @@ class Admin::UsersController < Admin::AdminController
     config.columns[:add_role].label = "Add Role"
     
     # show config
-    config.show.columns = [:firstname, :middlenames, :lastname, :salutation, :comment, :role_objects, :email]
+    config.show.columns = [:firstname, :middlenames, :lastname, :salutation, :comment, :roles_without_objects, :roles_with_objects, :email]
 
     # list config
-    config.columns = [:firstname, :lastname, :role_objects]
+    config.columns = [:firstname, :lastname, :roles_without_objects, :roles_with_objects]
     config.list.sorting = { :lastname => :asc }
 
     [config.update, config.create].each do |c|

@@ -36,7 +36,9 @@ class User < ActiveRecord::Base
   end
 
   def add_role=(role)
-    self.has_role! role.to_sym
+    unless role.nil? || role.empty?
+      self.has_role! role.to_sym
+    end
   end
 
   def add_role
