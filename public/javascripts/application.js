@@ -17,3 +17,31 @@ function selectPeople(select) {
     li.setAttribute('onclick', 'this.parentNode.removeChild(this);');
     ul.appendChild(li);
 }
+
+
+function clone_element_before(element) {
+    var input = element.previousSibling.previousSibling;
+    alert(input);
+    var name = input.name;
+    var id= input.id;
+    name = name.replace(/\[([0-9])\]*/, function(variable, p1) {
+        var zahl = parseInt(p1)
+        zahl = zahl +1
+      return "[" + zahl + "]";
+        });
+    id = id.replace(/_([0-9])*_/, function(variable, p1) {
+        var zahl = parseInt(p1)
+        zahl = zahl +1
+      return "_" + zahl + "_";
+        });
+    var new_input = document.createElement('input')
+    new_input.name = name;
+    new_input.type = input.type
+    new_input.id = id;
+    new_input.size = 30;
+    element.append(new_input);
+}
+
+function clone_me() {
+    this.clone().appendTo(this.parent);
+}

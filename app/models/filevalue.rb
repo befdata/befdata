@@ -21,4 +21,8 @@ class Filevalue < ActiveRecord::Base
 
   # after_destroy :destroy_taggings
 
+
+  def basename
+    return File.basename(self.file.original_filename, File.extname(self.file.original_filename))
+  end
 end

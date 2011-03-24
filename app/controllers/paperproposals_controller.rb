@@ -1,8 +1,8 @@
 class PaperproposalsController < ApplicationController
 
 
-   before_filter :require_user, :only => [:index, :new, :create, :destroy, :update, :show]
-  before_filter :load_request, :only => [:show, :edit, :update, :destroy]
+  before_filter :require_user, :only => [:index, :new, :create, :destroy, :update, :show]
+  before_filter :load_proposal, :only => [:show, :edit, :update, :destroy]
 
   #####################################
   # Show Part, Prepare for some views
@@ -20,14 +20,13 @@ class PaperproposalsController < ApplicationController
     @paperproposal.corresponding = current_user
     @all_persons = User.all.sort{|a,b| a.to_label <=> b.to_label}
 
-    #TODO PROJECTS
-     #project = current_user.projects.first
-     #senior = project.query_by_role(:pi).first
+    project = current_user.roles_for(Project).first.authorizable
+    senior = project.accepted_roles.find_by_name("pi").users.first
 
-    #TODO SENIOR AUTHOR
-    #@paperproposal.senior_author = senior
-    
-    1.times {@paperproposal.filevalues.build}
+    TODO SENIOR AUTHOR
+    @paperproposal.senior_author = senior
+
+
   end
 
   # prepare for show
@@ -41,6 +40,9 @@ class PaperproposalsController < ApplicationController
     @used_persons = @paperproposal.authors
     @datasets = Dataset.find(:all, :order => 'title')
     @current_cart = current_cart
+
+    1.times {@paperproposal.filevalues.build}
+    
   end
 
   #######################################
@@ -198,7 +200,7 @@ private
     end
   end
 
-  def load_request
+  def load_proposal
     @paperproposal = Paperproposal.find(params[:id])
   end
 
