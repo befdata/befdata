@@ -22,7 +22,7 @@ class Admin::UsersController < Admin::AdminController
 
     [config.update, config.create].each do |c|
       c.columns = [:firstname, :middlenames, :lastname, :salutation,
-        :login, :password, :password_confirmation, :comment, :email, :admin]
+        :login, :password, :password_confirmation, :comment, :email, :admin, :project_board]
     end
 
     config.subform.layout = :vertical

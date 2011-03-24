@@ -48,5 +48,17 @@ class User < ActiveRecord::Base
     end
   end
 
+  def project_board
+    self.has_role? :project_board
+  end
+
+def project_board=(string_boolean)
+    if string_boolean == "1"
+      self.has_role! :project_board
+    else
+      self.has_no_role! :project_board
+    end
+  end
+
 
 end
