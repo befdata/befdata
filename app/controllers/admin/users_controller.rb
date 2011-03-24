@@ -13,9 +13,6 @@ class Admin::UsersController < Admin::AdminController
     config.columns[:password_confirmation].label = "New Password Confirmation"
     config.columns[:password_confirmation].form_ui = :password
 
-    config.columns << :add_role
-    config.columns[:add_role].label = "Add Role"
-    
     # show config
     config.show.columns = [:firstname, :middlenames, :lastname, :salutation, :comment, :roles_without_objects, :roles_with_objects, :email]
 
@@ -25,11 +22,12 @@ class Admin::UsersController < Admin::AdminController
 
     [config.update, config.create].each do |c|
       c.columns = [:firstname, :middlenames, :lastname, :salutation,
-        :login, :password, :password_confirmation, :comment, :email, :add_role]
+        :login, :password, :password_confirmation, :comment, :email, :admin]
     end
 
     config.subform.layout = :vertical
   end
+
 end
 
 

@@ -1,3 +1,4 @@
+
 class User < ActiveRecord::Base
   acts_as_authentic
   acts_as_authorization_subject
@@ -35,14 +36,17 @@ class User < ActiveRecord::Base
     "#{lastname}, #{firstname} - #{salutation}"
   end
 
-  def add_role=(role)
-    unless role.nil? || role.empty?
-      self.has_role! role.to_sym
+  def admin
+    self.has_role? :admin
+  end
+
+  def admin=(string_boolean)
+    if string_boolean == "1"
+      self.has_role! :admin
+    else
+      self.has_no_role! :admin
     end
   end
 
-  def add_role
-    nil
-  end
 
 end
