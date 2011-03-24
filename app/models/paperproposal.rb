@@ -66,7 +66,6 @@ class Paperproposal < ActiveRecord::Base
       ack = ack.sort{|a,b| a.lastname <=> b.lastname}
 
       hash = {:author_list => author_list, :corresponding => self.corresponding, :ack => ack}
-      logger.inspect
       return hash
     end
 

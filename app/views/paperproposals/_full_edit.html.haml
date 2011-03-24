@@ -52,7 +52,7 @@
         - @paperproposal.author_paperproposals.select{|join| join.kind == "ack"}.each do |author_data_request|
           %li= author_data_request.user.to_label
       %li Complete author list
-      = author_list_formatter(@paperproposal.author_list)
+      != author_list_formatter(@paperproposal.author_list)
 
   = render :partial => 'additional_files'
 
