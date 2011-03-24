@@ -6,6 +6,7 @@
       = form.label @paperproposal.calc_board_state
       = form.submit "Send to board"
       = form.hidden_field :board_state, :value => "submit"
+      
   - if @paperproposal.board_state == "re_prep"
     - form_for @paperproposal, :url => paperproposal_update_state_path(@paperproposal) do |form|
       = "When you are ready, we are!"
@@ -17,10 +18,10 @@
     %h5 Project Board Vote
     %div.around_box
       %span.left_vote
-        - @paperproposal.project_board_votes.each do |join|
+        - @paperproposal.project_board_votes.each do |vote|
           %div.arrow_box
-            %span.label= join.person.to_label
-            = image_tag("/images/arrow_right_#{join.vote}.png", :title => join.comment)
+            %span.label= vote.user.to_label
+            = image_tag("/images/arrow_right_#{vote.vote}.png", :title => vote.comment)
       %span.right_vote
         = image_tag("/images/arrow_join_#{state}.png")
         = @paperproposal.calc_board_state

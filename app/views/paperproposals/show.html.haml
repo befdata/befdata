@@ -1,0 +1,22 @@
+%div.box
+  %h3
+    = @paperproposal.title
+    - unless @paperproposal.lock
+      = link_to image_tag("pencil.png"), edit_paperproposal_path(@paperproposal)
+      = image_tag("lock_open.png")
+    - else
+      = image_tag("lock.png")
+  %h4 Rational
+  %p= @paperproposal.rationale
+
+  = render :partial => "state_of_vote"
+
+  - if @paperproposal.board_state == "final"
+    %p Its allowed to download files, present now list of download actions
+    %ul
+      - @paperproposal.datasets.each do |dataset|
+        %li= link_to dataset.title,
+                  {:controller => 'datasets',
+                   :action => 'download',
+                   :id => dataset.id}
+

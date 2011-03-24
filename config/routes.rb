@@ -38,7 +38,10 @@ Befchina::Application.routes.draw do
   end
 
   resources :paperproposals
-  match 'paperproposals/update_vote/:id' => 'paperproposals#update_vote', :as => :paperproposal_update_state
+  match 'paperproposals/update_vote/:id' => 'paperproposals#update_vote', :as => :update_vote
+  match 'paperproposals/update_state/:id' => 'paperproposals#update_state', :as => :paperproposal_update_state
+
+
 
   resources :carts
 

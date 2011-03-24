@@ -7,6 +7,13 @@ class User < ActiveRecord::Base
   validates_uniqueness_of   :login
 
 
+  #Todo really dependent destroy?
+  has_many :paperproposal_votes, :dependent => :destroy
+  has_many :project_board_votes, :class_name => "PaperproposalVote",
+           :source => :paperproposal_votes, :conditions => {:project_board_vote => true }
+  has_many :for_paperproposal_votes, :class_name => "PaperproposalVote",
+           :source => :paperproposal_votes, :conditions => {:project_board_vote => false }
+
   def to_label
     if salutation
       "#{firstname} #{lastname}, #{salutation}"

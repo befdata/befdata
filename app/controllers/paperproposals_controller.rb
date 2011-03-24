@@ -23,7 +23,6 @@ class PaperproposalsController < ApplicationController
     project = current_user.roles_for(Project).first.authorizable
     senior = project.accepted_roles.find_by_name("pi").users.first
 
-    TODO SENIOR AUTHOR
     @paperproposal.senior_author = senior
 
 
@@ -71,8 +70,8 @@ class PaperproposalsController < ApplicationController
 
     @paperproposal.dataset_paperproposals.clear if ( params[:datasets].nil? && params[:paperproposal].nil? )
     if params[:datasets]
-      @contexts = Dataset.find(params[:datasets])
-      @paperproposal.datasets= @contexts
+      @datasets = Dataset.find(params[:datasets])
+      @paperproposal.datasets= @datasets
     end
     update_aspects if params[:aspect]
     update_author_list(@paperproposal)
@@ -81,30 +80,27 @@ class PaperproposalsController < ApplicationController
 
   # submit to board - switch from prep state to submit state
   def update_state
-    @paperproposal = DataRequest.find(params[:data_request_id])
+    @paperproposal = Paperproposal.find(params[:id])
     pre_state = @paperproposal.board_state
-    @paperproposal.update_attributes(params[:data_request])
+    @paperproposal.update_attributes(params[:paperproposal])
     @paperproposal.lock = true
     @paperproposal.save
 
     #submit again
     if pre_state == "re_prep" && @paperproposal.board_state == "submit"
-      @paperproposal.data_request_votes.each{|element| element.update_attribute(:vote, "none")}
+      @paperproposal.paperproposal_votes.each{|element| element.update_attribute(:vote, "none")}
     end
 
-    project_board_role = Role.find_by_name("project board")
-    persons = Person.find(:all)
-    persons.each do |person|
-      if person.has_role? :project_board
-        @paperproposal.data_request_votes << DataRequestVote.new(:person => person, :project_board_vote => true)
-      end
-    end
+    project_board_role = Role.find_by_name("project_board")
+    users =  project_board_role.users
+    users.each{|user| @paperproposal.paperproposal_votes << PaperproposalVote.new(:user => user, :project_board_vote => true)}
+
     redirect_to @paperproposal
   end
 
   # after one person vote, here the attributes for this data request is changed
   def update_vote
-    @to_vote = PaperproposalVote.find(params[:id])
+    @to_vote = Paperproposal.find(params[:id])
     @to_vote.update_attributes(params[:paperproposal_vote])
     @paperproposal = @to_vote.paperproposal
 
