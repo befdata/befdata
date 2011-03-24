@@ -40,4 +40,14 @@ class Project < ActiveRecord::Base
     to_label
   end
 
+
+  def user_for_role; end
+  def user_for_role=; end
+
+  def add_role_for_user
+
+  end
+  
+  
+
 end
