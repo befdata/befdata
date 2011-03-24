@@ -100,7 +100,7 @@ class PaperproposalsController < ApplicationController
 
   # after one person vote, here the attributes for this data request is changed
   def update_vote
-    @to_vote = Paperproposal.find(params[:id])
+    @to_vote = PaperproposalVote.find(params[:id])
     @to_vote.update_attributes(params[:paperproposal_vote])
     @paperproposal = @to_vote.paperproposal
 
@@ -115,8 +115,8 @@ class PaperproposalsController < ApplicationController
       @paperproposal.save
     end
 
-    all_none_votes = @paperproposal.data_request_votes.select{|vote| vote.vote == "none"}
-    all_reject_votes = @paperproposal.data_request_votes.select{|vote| vote.vote == "reject"}
+    all_none_votes = @paperproposal.paperproposal_votes.select{|vote| vote.vote == "none"}
+    all_reject_votes = @paperproposal.paperproposal_votes.select{|vote| vote.vote == "reject"}
 
     if all_none_votes.empty? & all_reject_votes.empty?
       case @paperproposal.board_state
@@ -152,12 +152,12 @@ private
   # After accept from project board, all authors from current data request will be add
   # that they accept this data request
   def prepare_data_request_for_accept_state
-    authors_of_data_columns_request = @paperproposal.author_data_requests
+    authors_of_data_columns_request = @paperproposal.author_paperproposals
       # Todo erstmal alle
       #.select{|element| element.kind == "main"}
     data_request_votes = authors_of_data_columns_request.
-          map{|adr| DataRequestVote.new(:person => adr.person, :project_board_vote => false)}
-    @paperproposal.data_request_votes << data_request_votes
+          map{|adr| PaperproposalVote.new(:user => adr.user, :project_board_vote => false)}
+    @paperproposal.paperproposal_votes << data_request_votes
     @paperproposal.board_state = "accept"
     unless @paperproposal.save
       flash[:errors] = @paperproposal.errors.full_messages

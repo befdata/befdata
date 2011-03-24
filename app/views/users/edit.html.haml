@@ -5,7 +5,7 @@
   %span{:style => "font-size: medium;"} Edit your profile
   = render :active_scaffold => "admin/users", :constraints => {:id => @user.id}
 
-= "Project Board Votes" unless @project_board_votes.empty?
+%b= "Project Board Votes" unless @project_board_votes.empty?
 - @project_board_votes.each do |vote|
   %div.box
     %h3= "Paper Proposal: #{link_to vote.paperproposal.title, vote.paperproposal}"
@@ -27,9 +27,9 @@
       = form.text_field :comment
       = form.submit "Send your vote"
 - @to_vote.each do |vote|
-  Vote to submit
+  %b Vote to submit
   %div.box
-    %h3= "Data Request: #{link_to vote.paperproposal.title, vote.paperproposal}"
+    %h3= "Paper Proposal: #{link_to vote.paperproposal.title, vote.paperproposal}"
     %p
       Rational:
       = vote.paperproposal.rationale

@@ -32,6 +32,6 @@
     %ul
       - @paperproposal.for_data_request_votes.each do |join|
         %li
-          = join.person.to_label
+          = join.user.to_label
           = join.comment
           = join.vote
