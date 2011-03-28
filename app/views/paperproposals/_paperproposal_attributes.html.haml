@@ -1,6 +1,9 @@
 = f.label :title
 = f.text_field :title
 %br
+= f.label :initial_title
+= f.text_field :initial_title
+%br
 = f.label :envisaged_journal
 = f.text_field :envisaged_journal
 %br
@@ -24,3 +27,6 @@
 %br
 = f.label :state
 = f.select :state, ["in prep", "manuscript avaible", "in review", "accepted"]
+%br
+= f.label :comment
+= f.text_area :comment
