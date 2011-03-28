@@ -147,7 +147,7 @@ class PaperproposalsController < ApplicationController
   # ToDo Perhapse dont destroy a data request when he is final?!
   def destroy
     @paperproposal.destroy
-    redirect_to :data_requests
+    redirect_to :paperproposals
   end
 
 private
