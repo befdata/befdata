@@ -1,5 +1,5 @@
 %div{:style => "border: 1px solid black"}
-  Actually Board State is: #{@paperproposal.calc_board_state}
+  Current Board State is: #{@paperproposal.calc_board_state}
 
   - if @paperproposal.calc_board_state == "complete"
     - form_for @paperproposal, :url => paperproposal_update_state_path(@paperproposal) do |form|
