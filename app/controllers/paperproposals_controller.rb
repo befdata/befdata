@@ -20,10 +20,13 @@ class PaperproposalsController < ApplicationController
     @paperproposal.corresponding = current_user
     @all_persons = User.all.sort{|a,b| a.to_label <=> b.to_label}
 
-    project = current_user.roles_for(Project).first.authorizable
-    senior = project.accepted_roles.find_by_name("pi").users.first
+    project = current_user.roles_for(Project).first.try(:authorizable)
+    if project
+      senior = project.accepted_roles.find_by_name("pi").users.first
+      @paperproposal.senior_author = senior
+    end
 
-    @paperproposal.senior_author = senior
+
 
 
   end
