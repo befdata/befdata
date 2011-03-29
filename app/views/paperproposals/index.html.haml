@@ -1,20 +1,27 @@
 %h2!= "Data Requests #{link_to(image_tag("add.gif"), :new_paperproposal)}"
 
-- @paperproposals.each do |data_request|
+- @paperproposals.each do |p_proposal|
   %div.box
     %h3
-      = data_request.title
-      = link_to image_tag("page_go.png"), paperproposal_path(data_request)
-      - if data_request.lock
+      = p_proposal.title
+      = link_to image_tag("page_go.png"), paperproposal_path(p_proposal)
+      - if p_proposal.lock
         = image_tag("lock.png")
       -else
-        = link_to image_tag("pencil.png"), edit_paperproposal_path(data_request)
+        = link_to image_tag("pencil.png"), edit_paperproposal_path(p_proposal)
         = image_tag("lock_open.png")
-      = link_to image_tag("cross.png"), data_request,
+      = link_to image_tag("cross.png"), p_proposal,
                                       :confirm => "Are you sure you want delete this data proposal?",
                                       :method => :delete
 
-    %h4= "#{data_request.author} created at: #{data_request.created_at}"
+    %h4= "#{p_proposal.author} created at: #{p_proposal.created_at.strftime("%Y-%m-%d")}"
+    %ul
+      - p_proposal.author_list[:author_list].each do |a|
+        %li= a.to_s
     Rationale:
     %p
-      = data_request.rationale
+      = p_proposal.rationale
+    %ul
+      - p_proposal.filevalues.each do |fv|
+        %li= link_to fv.file_file_name, fv.file.url
+
