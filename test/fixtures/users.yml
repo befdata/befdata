@@ -1,129 +1,193 @@
---- 
-nadrowski_admin:
-  institution_phone: 
-  institution_fax: 
-  comment: 
-  city: 
-  single_access_token: jzvE7oUsKnW49bATgv77
-  last_request_at: 2011-03-21 09:24:38.457039 Z
-  created_at: 2011-03-16 16:26:28.419000 Z
-  crypted_password: db3063a6de5db4c3eb7dd0ffd7b94e28f485524232b7ccba8c92d496fdab8bb5f0eec1918dc099966c63352ea4441e64710082cdac10c7e18e3589bc4dd609f7
-  country: 
-  updated_at: 2011-03-21 09:24:38.458214 Z
-  perishable_token: eCOqQKF9XSJ13WH1HcNg
-  url: 
-  salutation: 
-  street: 
-  lastname: Nadrowski
-  id: 3
+---
+users_001:
+  affiliation: !!null 
+  city: !!null 
+  comment: !!null 
+  country: !!null 
+  created_at: 2011-03-28 11:24:10.315000000Z
+  crypted_password: e60c076613d2691ec45cc9789ccb73b0ba58d389a4c2da21c19fc6a70237b3201e1f3f4b1b7ba92d1e936b7c069843c171e448cfea7378f67c595c7fbfcd783b
+  current_login_at: !!null 
+  current_login_ip: !!null 
+  email: Phdstudentproductivity@test.de
   failed_login_count: 0
-  current_login_ip: 127.0.0.1
-  password_salt: nmjnRWuBnroqCUA6GhU
-  current_login_at: 2011-03-21 09:23:57.605711 Z
-  persistence_token: af95662f18c71ac15efed694bd628ff9bfc21d59092ea446ab073e46824a867c15e445a540d60fe9b82f38b9969bd53bfd55d8b03d35872183a909eadc286b50
-  login_count: 6
-  institution_name: 
-  firstname: Karin
-  last_login_ip: 127.0.0.1
-  institution_url: 
-  login: nadrowski
-  last_login_at: 2011-03-18 16:30:42.337000 Z
-  affiliation: 
-  middlenames: 
-  email: nadrowski@uni-leipzig.de
-users_001: 
-  institution_phone: 
-  institution_fax: 
-  comment: 
-  city: 
-  single_access_token: RFEFd1NwD17wjSyFOY7
-  last_request_at: 
-  created_at: 2011-03-18 16:30:18.675000 Z
-  crypted_password: 660ac3872716cd8efce0e5c09ff5ff3c547906dab7e2cc321d07af93ca7b16a8aeef0c55afac71c8f8ba2ac754331fb46f5b130607cd195b930347e4440acee4
-  country: 
-  updated_at: 2011-03-18 16:30:18.675000 Z
-  perishable_token: bT2dZZNzKk9orMuxK
-  url: 
-  salutation: 
-  street: 
-  lastname: Baruffol
-  id: 6
-  failed_login_count: 0
-  current_login_ip: 
-  password_salt: wC5hUQroSFvlcBw0hY
-  current_login_at: 
-  persistence_token: 9d0235a1bbabfc4779ed2e264dbaee757138530ea5afd8099cb4b4bfa293be6602a163b8319e600d898badfbeab1b07a4bb6124829bec5d75f9fc012fc7350aa
-  login_count: 0
-  institution_name: 
   firstname: Martin
-  last_login_ip: 
-  institution_url: 
-  login: martin_baruffol
-  last_login_at: 
-  affiliation: 
-  middlenames: 
-  email: martin.baruffol@uwinst.uzh.ch
-users_002: 
-  institution_phone: 
-  institution_fax: 
-  comment: 
-  city: 
-  single_access_token: x6COE95Cd9jwZICJ0i5q
-  last_request_at: 
-  created_at: 2011-03-17 09:41:19.871000 Z
-  crypted_password: cacf0fb50cfd523dcaa75a448d740c1aecf62572f1c9c4d0017c815b2e2602b34faa2e20208ebac7d393e7c3ffbc91595c655ecfac4ef1a54bb39a95001620d5
-  country: 
-  updated_at: 2011-03-18 16:30:54.526000 Z
-  perishable_token: h52A0oXaLJQLfIWqBi
-  url: 
-  salutation: Prof.
-  street: 
-  lastname: Scherer-Lorenzen
-  id: 5
-  failed_login_count: 0
-  current_login_ip: 
-  password_salt: pMWbh2WqHxjtAKZDBuHs
-  current_login_at: 
-  persistence_token: 9a56ddda13d6d6c859d4734606963715acc6285791e201a8c82674099884050ae1088c31b6686616a6bd2e30f68aa1dd2fe3a78eda3bd453de85937d9c77e187
+  id: 6
+  institution_fax: !!null 
+  institution_name: !!null 
+  institution_phone: !!null 
+  institution_url: !!null 
+  last_login_at: !!null 
+  last_login_ip: !!null 
+  last_request_at: !!null 
+  lastname: Phdstudentproductivity
+  login: Phdstudentproductivity
   login_count: 0
-  institution_name: 
-  firstname: Michael
-  last_login_ip: 
-  institution_url: 
-  login: schererlorenzen
-  last_login_at: 
-  affiliation: 
-  middlenames: 
-  email: michael.scherer@biologie.uni-freiburg.de
-users_003: 
-  institution_phone: 
-  institution_fax: 
-  comment: 
-  city: 
-  single_access_token: 3MKRR18aIE1LWwe0qae4
-  last_request_at: 
-  created_at: 2011-03-17 09:36:31.915000 Z
-  crypted_password: 81c4827ac2c0749371cc624fb8a72dc31e237fc90687ecf6054fd608e1705791147f24f4a2bb5602096e3a48fdd3a78e8f012637eaefb3227e3330efe90eeedb
-  country: 
-  updated_at: 2011-03-18 16:31:05.322000 Z
-  perishable_token: od2yRVlyS8O4A5R0sr
-  url: 
-  salutation: 
-  street: 
-  lastname: Trogisch
-  id: 4
+  middlenames: !!null 
+  password_salt: cyBr6c8BW4xRbG474xsG
+  perishable_token: AFSkuz2cu6EF2roJzSt7
+  persistence_token: b08f3f7db59baa8b7ae7c621a758dcc246e2de5510dac1e2a03bddec4fc82da61eb10f3804507299f14001f742007f392247f713e42f595543a6f92c6044f36e
+  salutation: !!null 
+  single_access_token: zwZOcS16s1lVlOaxYYcI
+  street: !!null 
+  updated_at: 2011-03-28 11:24:10.315000000Z
+  url: !!null 
+users_002:
+  affiliation: !!null 
+  city: !!null 
+  comment: !!null 
+  country: !!null 
+  created_at: 2011-03-28 11:23:42.108000000Z
+  crypted_password: a1227f05e2da3562289e2b2437bbba47f750b4b0b94679842015ef83e9b01b36077110397a14305a30af00f48cb47275c5b5415ca6696fad0a4ea5f5a742c672
+  current_login_at: !!null 
+  current_login_ip: !!null 
+  email: Phdstudentnutrientcycling@test.de
   failed_login_count: 0
-  current_login_ip: 
-  password_salt: UlruqM5C05NNmteqVNlS
-  current_login_at: 
-  persistence_token: bade6ec63f5025f16869cc40bbb217874d1e4f7d8f2ba5d62103317515dc4bf2c8bd4775ee77fc6bbc44323fccdcdb458d69d4d23eb9ac672c8e9aa4b8f6c088
-  login_count: 0
-  institution_name: 
   firstname: Stefan
-  last_login_ip: 
-  institution_url: 
-  login: stefantrogisch
-  last_login_at: 
-  affiliation: 
-  middlenames: 
-  email: StefanTrogisch@gmx.de
+  id: 5
+  institution_fax: !!null 
+  institution_name: !!null 
+  institution_phone: !!null 
+  institution_url: !!null 
+  last_login_at: !!null 
+  last_login_ip: !!null 
+  last_request_at: !!null 
+  lastname: Phdstudentnutrientcycling
+  login: Phdstudentnutrientcycling
+  login_count: 0
+  middlenames: !!null 
+  password_salt: 2f6BCh1Tn36kFbBDb8U
+  perishable_token: NDBLcdKJ26W9fWwiFyxc
+  persistence_token: b577108be9737aa1f0aaa973ad0c3b3da89be1b38a5003a8e4033098588b78c8c0348f1b5ae76eea144157cd93be53089bd393a17a1bf0abf1053d2fe97593f7
+  salutation: !!null 
+  single_access_token: MEwJ1XyaP0qX4B0ezkGv
+  street: !!null 
+  updated_at: 2011-03-28 11:23:42.108000000Z
+  url: !!null 
+users_003:
+  affiliation: !!null 
+  city: !!null 
+  comment: !!null 
+  country: !!null 
+  created_at: 2011-03-28 11:22:52.921000000Z
+  crypted_password: 5f35db90f0f9ffa29c1f72fe3eb5b84c79fc0e46b66a7149e971dc7fbb5327d48c833cb430e6891e6e03312e4c85239d3f72447594a90c5dd95a2c25cb25f7e3
+  current_login_at: !!null 
+  current_login_ip: !!null 
+  email: piproductivity@test.botanik.de
+  failed_login_count: 0
+  firstname: Bernhard
+  id: 4
+  institution_fax: !!null 
+  institution_name: !!null 
+  institution_phone: !!null 
+  institution_url: !!null 
+  last_login_at: !!null 
+  last_login_ip: !!null 
+  last_request_at: !!null 
+  lastname: Piproductivity
+  login: Piproductivity
+  login_count: 0
+  middlenames: !!null 
+  password_salt: vhx3l2A8VfofRPbfSrp8
+  perishable_token: iGJ1Kzoigg9ovdJtzem
+  persistence_token: 00a99647e45fa0dc5b4f43557244d04c50d4e4b93adbcdec9cb045f500088c88225e4f5bc6ac590b41a0ceae1a96820733be42949ffc5f8158b46a42b9890fea
+  salutation: Prof.
+  single_access_token: 3DjX2wBbArZnCGLx3ScD
+  street: !!null 
+  updated_at: 2011-03-28 11:22:52.921000000Z
+  url: !!null 
+users_004:
+  affiliation: !!null 
+  city: !!null 
+  comment: !!null 
+  country: !!null 
+  created_at: 2011-03-28 11:22:11.119000000Z
+  crypted_password: 8ec713be2338030c3a71f930f0a4e736783ac9bd20795b9c95a8b1b5e545c5736bf4a89bcad2d32cd6675c83268227a4dfb9787be47fae081c71b676d31a54e2
+  current_login_at: !!null 
+  current_login_ip: !!null 
+  email: pinutrientcycling@botanik.uni-test.de
+  failed_login_count: 0
+  firstname: Michael
+  id: 3
+  institution_fax: !!null 
+  institution_name: !!null 
+  institution_phone: !!null 
+  institution_url: !!null 
+  last_login_at: !!null 
+  last_login_ip: !!null 
+  last_request_at: !!null 
+  lastname: Pinutrientcycling
+  login: pinutrientcycling
+  login_count: 0
+  middlenames: !!null 
+  password_salt: EicylHragnQQMMRBb1i
+  perishable_token: lNz8Cq9y0v24XGmqXCrY
+  persistence_token: b112208a66ec5c617aeae4d944b8d2b34829401674f2fd4f1a714055b096888d0ea4092e47a586107db656ea616645b641e2e8182af8df3ed2621aca98251b4c
+  salutation: Prof.
+  single_access_token: aRAYvHZzBc2qFZzPb8Ky
+  street: !!null 
+  updated_at: 2011-03-28 11:22:11.119000000Z
+  url: !!null 
+users_005:
+  affiliation: !!null 
+  city: !!null 
+  comment: !!null 
+  country: !!null 
+  created_at: 2011-03-28 10:02:37.606000000Z
+  crypted_password: 5d9fe1fd018c2a2a643d2ad4e9f751d62158af3f2318da7688d30f8fc43329a5813c7a2a29cd4961ff293915c592d73e266c15cab23e0d238f8a0a27b277856b
+  current_login_at: !!null 
+  current_login_ip: !!null 
+  email: pidata@test.uni-town.de
+  failed_login_count: 0
+  firstname: Christian
+  id: 2
+  institution_fax: !!null 
+  institution_name: !!null 
+  institution_phone: !!null 
+  institution_url: !!null 
+  last_login_at: !!null 
+  last_login_ip: !!null 
+  last_request_at: !!null 
+  lastname: Pidata
+  login: Pidata
+  login_count: 0
+  middlenames: !!null 
+  password_salt: WKwBiVBrml7lLeqGULet
+  perishable_token: vpAe4EB7s9xTncpaYM67
+  persistence_token: 0e54849e87c10dcd7010519a00f51d0c6fc22b1a8c5734a27259267e83dbaa300a2b48ac32093d727d1b8e9d6bf98e56205acf83476b2e051ab2d69f6e20d5d9
+  salutation: !!null 
+  single_access_token: ejHGU2BO5sCYBm3yIEBZ
+  street: !!null 
+  updated_at: 2011-03-28 10:02:37.606000000Z
+  url: !!null 
+users_006:
+  affiliation: !!null 
+  city: !!null 
+  comment: !!null 
+  country: !!null 
+  created_at: 2011-03-28 09:52:22.797000000Z
+  crypted_password: 96fa4441629f3342910245c21157355a3220ab3ff091d86a5c1e1ef450dc0341762b9eb93b9b38cd3a23e0cd7d73785a1bede09800dcf03fa778e5e6959b36a5
+  current_login_at: 2011-03-29 12:28:15.692157000Z
+  current_login_ip: 127.0.0.1
+  email: nadrowski@uni-leipzig.de
+  failed_login_count: 0
+  firstname: Karin
+  id: 1
+  institution_fax: !!null 
+  institution_name: !!null 
+  institution_phone: !!null 
+  institution_url: !!null 
+  last_login_at: 2011-03-28 09:52:47.668000000Z
+  last_login_ip: 127.0.0.1
+  last_request_at: 2011-03-29 12:28:45.840882000Z
+  lastname: Nadrowski
+  login: nadrowski
+  login_count: 2
+  middlenames: !!null 
+  password_salt: ECABMJzgdGkmhrd2rkWV
+  perishable_token: EdGQavY1ngM5rqP66k5
+  persistence_token: 1a079b5a7955b18f32cba1d2d5a41f060e7974993f445fb0ee9e926bde6514c7ca5492e4e67786b40bb4bff80d97e7771d1b6a74da2e8969f90a5661659f1d1e
+  salutation: !!null 
+  single_access_token: Yy2APsD87JiDbF9YBnU
+  street: !!null 
+  updated_at: 2011-03-29 12:28:45.842882000Z
+  url: !!null 

@@ -1,41 +1,33 @@
---- 
-tags_008: 
-  name: date
+---
+tags_001:
+  id: 8
   kind: tag
-  id: 980190965
-tags_009: 
-  name: object identifier
+  name: carbon
+tags_002:
+  id: 7
   kind: tag
-  id: 980190964
-tags_010: 
-  name: species
-  kind: tag
-  id: 980190963
-tags_001: 
-  name: plant trait
-  kind: tag
-  id: 980190972
-tags_002: 
-  name: CN ratio
-  kind: tag
-  id: 980190971
-tags_003: 
-  name: N
-  kind: tag
-  id: 980190970
-tags_004: 
   name: variable
+tags_003:
+  id: 6
   kind: tag
-  id: 980190969
-tags_005: 
   name: C
+tags_004:
+  id: 5
   kind: tag
-  id: 980190968
-tags_006: 
   name: location
+tags_005:
+  id: 4
   kind: tag
-  id: 980190967
-tags_007: 
   name: plant organ
+tags_006:
+  id: 3
   kind: tag
-  id: 980190966
+  name: date
+tags_007:
+  id: 2
+  kind: tag
+  name: object identifier
+tags_008:
+  id: 1
+  kind: tag
+  name: species

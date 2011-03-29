@@ -1,135 +1,103 @@
---- 
-datagroups_005: 
-  comment: 
-  timelatencyunit: 
-  created_at: 2011-03-18 16:59:10.833000 Z
-  title: Season
-  updated_at: 2011-03-18 16:59:10.833000 Z
-  instrumentation: 
-  id: 7
-  timelatency: 
-  description: Season
-  informationsource: 
-  methodvaluetype: 
-datagroups_006: 
-  comment: 
-  timelatencyunit: year
-  created_at: 2011-03-18 16:59:10.591000 Z
-  title: BEF research plot name
-  updated_at: 2011-03-18 16:59:10.591000 Z
-  instrumentation: 
-  id: 6
-  timelatency: 500.0
-  description: "Reasearch plots of the Biodiversity - Ecosystem functioning experiment (BEF-China). There are three main sites for research plots in the BEF Experiment: Comparative Study Plots (CSP) in the  Gutianshan Nature Reserve, having a size of 30x30m^2, measured on the ground. Main Experiment plots have a size of 1 mu, which is about 25x25m^2 in horizontal projection. Pilot Study Plots have a size of 1x1 m^2."
-  informationsource: 
-  methodvaluetype: nominal
-datagroups_007: 
-  comment: 
-  timelatencyunit: year
-  created_at: 2011-03-18 16:59:09.968000 Z
-  title: Metal Tag Numbers in the CSPs
-  updated_at: 2011-03-18 16:59:09.968000 Z
-  instrumentation: letters are attached if the same number was used for different tree individuals. This occurred a few times. Numbers are unique only within CSPs
-  id: 5
-  timelatency: 30.0
-  description: "The stems were marked with a metal tag with a code compound of a number of six positions. The tag was attached to each individual by attaching it with a wire sorrounding one stem, taking care to leave it long enough to allow the grow of the stem. Normally the wire was attached between 1 and 1.8m over the ground. If the individual had many stems, such as often seen in shrubs, only one of the stems was tagged. "
-  informationsource: 
-  methodvaluetype: nominal
-datagroups_008: 
-  comment: 
-  timelatencyunit: year
-  created_at: 2011-03-18 16:59:09.658000 Z
-  title: Plant organ sampled
-  updated_at: 2011-03-18 16:59:09.658000 Z
-  instrumentation: 
-  id: 4
-  timelatency: 1000.0
-  description: "Leaf samples were taken with telescope pruning shears (lenght: up to 6.5m)  from the lower outer and preferentially sun exposed canopy when possible. Leaves of shrub species were sampled in upper canopy.  One year old twigs, and roots which a diameter between 1 and 3mm were taken."
-  informationsource: 
-  methodvaluetype: category
-datagroups_009: 
-  comment: 
-  timelatencyunit: years
-  created_at: 2011-03-18 16:59:09.269000 Z
-  title: Date time information
-  updated_at: 2011-03-18 16:59:09.269000 Z
-  instrumentation: 
-  id: 3
-  timelatency: 1000.0
-  description: Date time information, given as year or as date or as date time.
-  informationsource: 
-  methodvaluetype: integer
-datagroups_010: 
-  comment: 
-  timelatencyunit: 
-  created_at: 2011-03-18 16:59:07.732000 Z
-  title: Number_ST
-  updated_at: 2011-03-18 16:59:07.732000 Z
-  instrumentation: 
-  id: 2
-  timelatency: 
-  description: Number_ST
-  informationsource: 
-  methodvaluetype: 
-datagroups_011: 
-  comment: 
-  timelatencyunit: years
-  created_at: 2011-03-17 10:45:24.904000 Z
-  title: Scientific plant species name
-  updated_at: 2011-03-17 10:45:24.904000 Z
-  instrumentation: 
-  id: 1
-  timelatency: 10.0
-  description: The scientific species fullnames are based on the "Flora of China" identified by Teng Fang and verified by Helge Bruelheide (trees) and Alexandra Efmeier (herbs). Scientific species names consist of epithet and genus. For identification, the Author name and the year of the publications of the description are required.
-  informationsource: Flora of China, Helge Bruelheide
-  methodvaluetype: nominal
-datagroups_001: 
-  comment: 
-  timelatencyunit: day
-  created_at: 2011-03-18 17:47:50.699000 Z
-  title: C/N ratio
-  updated_at: 2011-03-18 17:47:50.699000 Z
-  instrumentation: 
-  id: 11
-  timelatency: 1.0
-  description: |+
-    C/N ratio = Carbon concentration divided by nitrogen concentration
-    
-  informationsource: 
-  methodvaluetype: positive real
-datagroups_002: 
-  comment: 
-  timelatencyunit: day
-  created_at: 2011-03-18 17:47:50.363000 Z
-  title: Nitrogen
-  updated_at: 2011-03-18 17:47:50.363000 Z
-  instrumentation: Elemental Analyzer
-  id: 10
-  timelatency: 1.0
-  description: Nitrogen concentration
-  informationsource: 
-  methodvaluetype: positive real
-datagroups_003: 
-  comment: 
-  timelatencyunit: ""
-  created_at: 2011-03-18 17:02:47.962000 Z
-  title: Helper
-  updated_at: 2011-03-18 17:02:47.962000 Z
-  instrumentation: ""
-  id: 9
-  timelatency: 
-  description: Helper column to understand other columns in this data set
-  informationsource: ""
-  methodvaluetype: ""
-datagroups_004: 
-  comment: 
-  timelatencyunit: 
-  created_at: 2011-03-18 16:59:11.080000 Z
-  title: Carbon
-  updated_at: 2011-03-18 16:59:11.080000 Z
-  instrumentation: 
-  id: 8
-  timelatency: 
+---
+datagroups_001:
+  comment: !!null 
+  created_at: 2011-03-28 13:59:35.838400000Z
   description: Carbon
-  informationsource: 
+  id: 7
+  informationsource: !!null 
+  instrumentation: !!null 
   methodvaluetype: number
+  timelatency: !!null 
+  timelatencyunit: !!null 
+  title: Carbon
+  updated_at: 2011-03-28 13:59:35.838400000Z
+datagroups_002:
+  comment: !!null 
+  created_at: 2011-03-28 13:59:35.725400000Z
+  description: Helper column give further information on other columns or summarize
+    several columns
+  id: 6
+  informationsource: !!null 
+  instrumentation: !!null 
+  methodvaluetype: text
+  timelatency: !!null 
+  timelatencyunit: !!null 
+  title: Helper
+  updated_at: 2011-03-28 13:59:35.725400000Z
+datagroups_003:
+  comment: !!null 
+  created_at: 2011-03-28 13:59:35.557400000Z
+  description: ! 'Reasearch plots of the Biodiversity - Ecosystem functioning experiment
+    (BEF-China). There are three main sites for research plots in the BEF Experiment:
+    Comparative Study Plots (CSP) in the  Gutianshan Nature Reserve, having a size
+    of 30x30m^2, measured on the ground. Main Experiment plots have a size of 1 mu,
+    which is about 25x25m^2 in horizontal projection. Pilot Study Plots have a size
+    of 1x1 m^2.'
+  id: 5
+  informationsource: !!null 
+  instrumentation: !!null 
+  methodvaluetype: nominal
+  timelatency: 500.0
+  timelatencyunit: year
+  title: BEF research plot name
+  updated_at: 2011-03-28 13:59:35.557400000Z
+datagroups_004:
+  comment: !!null 
+  created_at: 2011-03-28 13:59:35.414400000Z
+  description: ! 'The stems were marked with a metal tag with a code compound of a
+    number of six positions. The tag was attached to each individual by attaching
+    it with a wire sorrounding one stem, taking care to leave it long enough to allow
+    the grow of the stem. Normally the wire was attached between 1 and 1.8m over the
+    ground. If the individual had many stems, such as often seen in shrubs, only one
+    of the stems was tagged. '
+  id: 4
+  informationsource: !!null 
+  instrumentation: letters are attached if the same number was used for different
+    tree individuals. This occurred a few times. Numbers are unique only within CSPs
+  methodvaluetype: nominal
+  timelatency: 30.0
+  timelatencyunit: year
+  title: Metal Tag Numbers in the CSPs
+  updated_at: 2011-03-28 13:59:35.414400000Z
+datagroups_005:
+  comment: !!null 
+  created_at: 2011-03-28 13:59:35.256400000Z
+  description: ! 'Leaf samples were taken with telescope pruning shears (lenght: up
+    to 6.5m)  from the lower outer and preferentially sun exposed canopy when possible.
+    Leaves of shrub species were sampled in upper canopy.  One year old twigs, and
+    roots which a diameter between 1 and 3mm were taken.'
+  id: 3
+  informationsource: !!null 
+  instrumentation: !!null 
+  methodvaluetype: category
+  timelatency: 1000.0
+  timelatencyunit: year
+  title: Plant organ sampled
+  updated_at: 2011-03-28 13:59:35.256400000Z
+datagroups_006:
+  comment: !!null 
+  created_at: 2011-03-28 13:59:35.096400000Z
+  description: Date time information, given as year or as date or as date time.
+  id: 2
+  informationsource: !!null 
+  instrumentation: !!null 
+  methodvaluetype: integer
+  timelatency: 1000.0
+  timelatencyunit: years
+  title: Date time information
+  updated_at: 2011-03-28 13:59:35.096400000Z
+datagroups_007:
+  comment: !!null 
+  created_at: 2011-03-28 13:59:34.144400000Z
+  description: The scientific species fullnames are based on the "Flora of China"
+    identified by Teng Fang and verified by Helge Bruelheide (trees) and Alexandra
+    Efmeier (herbs). Scientific species names consist of epithet and genus. For identification,
+    the Author name and the year of the publications of the description are required.
+  id: 1
+  informationsource: Flora of China, Helge Bruelheide
+  instrumentation: !!null 
+  methodvaluetype: nominal
+  timelatency: 10.0
+  timelatencyunit: years
+  title: Scientific plant species name
+  updated_at: 2011-03-28 13:59:34.144400000Z

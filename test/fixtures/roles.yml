@@ -1,36 +1,36 @@
---- 
-roles_006: 
-  name: admin
-  created_at: 2011-03-16 10:06:35 Z
-  updated_at: 2011-03-16 10:06:35 Z
-  authorizable_type: 
-  id: 1
-  authorizable_id: 
-roles_001: 
-  name: responsible
-  created_at: 2011-03-18 18:10:57.299000 Z
-  updated_at: 2011-03-18 18:10:57.299000 Z
-  authorizable_type: Datacolumn
-  id: 9
-  authorizable_id: 28
-roles_002: 
-  name: owner
-  created_at: 2011-03-18 18:05:26.808000 Z
-  updated_at: 2011-03-18 18:05:26.808000 Z
-  authorizable_type: Dataset
-  id: 8
+---
+roles_001:
   authorizable_id: 5
-roles_003: 
-  name: responsible
-  created_at: 2011-03-18 17:53:50.884000 Z
-  updated_at: 2011-03-18 17:53:50.884000 Z
   authorizable_type: Datacolumn
-  id: 7
-  authorizable_id: 21
-roles_004: 
-  name: owner
-  created_at: 2011-03-18 17:47:30.774000 Z
-  updated_at: 2011-03-18 17:47:30.774000 Z
+  created_at: 2011-03-28 14:06:12.432400000Z
+  id: 5
+  name: responsible
+  updated_at: 2011-03-28 14:06:12.432400000Z
+roles_002:
+  authorizable_id: 1
   authorizable_type: Dataset
-  id: 6
-  authorizable_id: 4
+  created_at: 2011-03-28 13:58:08.611400000Z
+  id: 4
+  name: owner
+  updated_at: 2011-03-28 13:58:08.611400000Z
+roles_003:
+  authorizable_id: 1
+  authorizable_type: Project
+  created_at: 2011-03-28 10:03:41.604000000Z
+  id: 3
+  name: pi
+  updated_at: 2011-03-28 10:03:41.604000000Z
+roles_004:
+  authorizable_id: 1
+  authorizable_type: Project
+  created_at: 2011-03-28 10:00:37.310000000Z
+  id: 2
+  name: postdoc
+  updated_at: 2011-03-28 10:00:37.310000000Z
+roles_005:
+  authorizable_id: !!null 
+  authorizable_type: !!null 
+  created_at: 2011-03-28 09:55:20.466000000Z
+  id: 1
+  name: admin
+  updated_at: 2011-03-28 09:55:20.466000000Z

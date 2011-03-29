@@ -1,223 +1,111 @@
---- 
-datacolumns_005: 
-  comment: object identifier, plant organ
-  import_data_type: category
-  created_at: 2011-03-18 18:05:48.965000 Z
-  updated_at: 2011-03-18 18:05:48.965000 Z
-  dataset_id: 5
-  id: 26
-  unit: 
-  columnnr: 3
-  datagroup_id: 4
-  columnheader: Organ
-  definition: |
-    Sampled plant part
-
-  category_longshort: 
-  missingcode: 
-datacolumns_006: 
-  comment: date
-  import_data_type: date(2009-07-14)
-  created_at: 2011-03-18 18:05:48.724000 Z
-  updated_at: 2011-03-18 18:07:34.318000 Z
-  dataset_id: 5
-  id: 25
-  unit: 
-  columnnr: 2
-  datagroup_id: 3
-  columnheader: Date
-  definition: |
-    Date
-
-  category_longshort: 
-  missingcode: 
-datacolumns_007: 
-  comment: species, object identifier
-  import_data_type: category
-  created_at: 2011-03-18 18:05:47.850000 Z
-  updated_at: 2011-03-18 18:06:37.300000 Z
-  dataset_id: 5
-  id: 24
-  unit: 
-  columnnr: 1
-  datagroup_id: 1
-  columnheader: Species
-  definition: |
-    Species name
-
-  category_longshort: 
-  missingcode: 
-datacolumns_008: 
-  comment: CN ratio, variable
-  import_data_type: number
-  created_at: 2011-03-18 17:47:50.719000 Z
-  updated_at: 2011-03-18 18:03:53.885000 Z
-  dataset_id: 4
-  id: 23
-  unit: ratio
-  columnnr: 7
-  datagroup_id: 11
-  columnheader: CN_ratio
-  definition: |
-    CN-Ratio
-
-  category_longshort: 
-  missingcode: ""
-datacolumns_009: 
-  comment: N, variable
-  import_data_type: number
-  created_at: 2011-03-18 17:47:50.438000 Z
-  updated_at: 2011-03-18 18:01:42.785000 Z
-  dataset_id: 4
-  id: 22
-  unit: percent
-  columnnr: 6
-  datagroup_id: 10
-  columnheader: Nitrogen
-  definition: |
-    Nitrogen concentration
-
-  category_longshort: 
-  missingcode: 
-datacolumns_010: 
-  comment: location, object identifier
-  import_data_type: category
-  created_at: 2011-03-18 17:47:50.157000 Z
-  updated_at: 2011-03-18 17:55:04.024000 Z
-  dataset_id: 4
-  id: 21
-  unit: 
-  columnnr: 5
-  datagroup_id: 6
-  columnheader: CSP
-  definition: |
-    CSP ID number
-
-  category_longshort: 
-  missingcode: 
-datacolumns_011: 
-  comment: object identifier
-  import_data_type: category
-  created_at: 2011-03-18 17:47:49.967000 Z
-  updated_at: 2011-03-18 17:50:49.968000 Z
-  dataset_id: 4
-  id: 20
-  unit: 
-  columnnr: 4
-  datagroup_id: 5
-  columnheader: ID
-  definition: |
-    Identification number of the individual
-
-  category_longshort: 
-  missingcode: 
-datacolumns_012: 
-  comment: object identifier, plant organ
-  import_data_type: category
-  created_at: 2011-03-18 17:47:49.745000 Z
-  updated_at: 2011-03-18 17:47:49.745000 Z
-  dataset_id: 4
-  id: 19
-  unit: 
-  columnnr: 3
-  datagroup_id: 4
-  columnheader: Organ
-  definition: |
-    Sampled plant part
-
-  category_longshort: 
-  missingcode: 
-datacolumns_001: 
-  comment: C, variable
-  import_data_type: number
-  created_at: 2011-03-18 18:05:50.563000 Z
-  updated_at: 2011-03-18 18:05:50.563000 Z
-  dataset_id: 5
-  id: 30
-  unit: percent
-  columnnr: 7
-  datagroup_id: 8
+---
+datacolumns_001:
+  category_longshort: !!null 
   columnheader: Carbon
-  definition: |
-    Carbon concentration
+  columnnr: 7
+  comment: C, variable
+  created_at: 2011-03-28 13:59:35.847400000Z
+  datagroup_id: 7
+  dataset_id: 1
+  definition: ! 'Carbon concentration
 
-  category_longshort: 
-  missingcode: 
-datacolumns_013: 
-  comment: date
-  import_data_type: date(2009-07-14)
-  created_at: 2011-03-18 17:47:49.527000 Z
-  updated_at: 2011-03-18 17:49:27.944000 Z
-  dataset_id: 4
-  id: 18
-  unit: 
-  columnnr: 2
-  datagroup_id: 3
-  columnheader: Date
-  definition: |
-    Date
-
-  category_longshort: 
-  missingcode: 
-datacolumns_002: 
-  comment: ""
-  import_data_type: text
-  created_at: 2011-03-18 18:05:49.716000 Z
-  updated_at: 2011-03-18 18:13:32.192000 Z
-  dataset_id: 5
-  id: 29
-  unit: ""
-  columnnr: 6
-  datagroup_id: 9
+'
+  id: 7
+  import_data_type: number
+  missingcode: !!null 
+  unit: percent
+  updated_at: 2011-03-28 13:59:35.847400000Z
+datacolumns_002:
+  category_longshort: !!null 
   columnheader: Season
-  definition: Season
-  category_longshort: 
-  missingcode: ""
-datacolumns_014: 
-  comment: species, object identifier
-  import_data_type: category
-  created_at: 2011-03-18 17:47:48.874000 Z
-  updated_at: 2011-03-18 17:48:14.146000 Z
-  dataset_id: 4
-  id: 17
-  unit: 
-  columnnr: 1
-  datagroup_id: 1
-  columnheader: Species
-  definition: |
-    Species name
-
-  category_longshort: 
-  missingcode: 
-datacolumns_003: 
-  comment: location, object identifier
-  import_data_type: category
-  created_at: 2011-03-18 18:05:49.453000 Z
-  updated_at: 2011-03-18 18:11:11.352000 Z
-  dataset_id: 5
-  id: 28
-  unit: 
-  columnnr: 5
+  columnnr: 6
+  comment: ''
+  created_at: 2011-03-28 13:59:35.733400000Z
   datagroup_id: 6
+  dataset_id: 1
+  definition: Season
+  id: 6
+  import_data_type: text
+  missingcode: ''
+  unit: ''
+  updated_at: 2011-03-28 14:31:15.879400000Z
+datacolumns_003:
+  category_longshort: !!null 
   columnheader: CSP
-  definition: |
-    CSP ID number
-
-  category_longshort: 
-  missingcode: 
-datacolumns_004: 
-  comment: object identifier
-  import_data_type: category
-  created_at: 2011-03-18 18:05:49.201000 Z
-  updated_at: 2011-03-18 18:10:32.400000 Z
-  dataset_id: 5
-  id: 27
-  unit: 
-  columnnr: 4
+  columnnr: 5
+  comment: location, object identifier
+  created_at: 2011-03-28 13:59:35.566400000Z
   datagroup_id: 5
-  columnheader: ID
-  definition: |
-    Identification number of the individual
+  dataset_id: 1
+  definition: ! 'CSP ID number
 
-  category_longshort: 
-  missingcode: 
+'
+  id: 5
+  import_data_type: category
+  missingcode: !!null 
+  unit: !!null 
+  updated_at: 2011-03-28 14:24:09.335400000Z
+datacolumns_004:
+  category_longshort: !!null 
+  columnheader: ID
+  columnnr: 4
+  comment: object identifier
+  created_at: 2011-03-28 13:59:35.425400000Z
+  datagroup_id: 4
+  dataset_id: 1
+  definition: ! 'Identification number of the individual
+
+'
+  id: 4
+  import_data_type: category
+  missingcode: !!null 
+  unit: !!null 
+  updated_at: 2011-03-28 14:05:42.323400000Z
+datacolumns_005:
+  category_longshort: !!null 
+  columnheader: Organ
+  columnnr: 3
+  comment: object identifier, plant organ
+  created_at: 2011-03-28 13:59:35.265400000Z
+  datagroup_id: 3
+  dataset_id: 1
+  definition: ! 'Sampled plant part
+
+'
+  id: 3
+  import_data_type: category
+  missingcode: !!null 
+  unit: !!null 
+  updated_at: 2011-03-28 13:59:35.265400000Z
+datacolumns_006:
+  category_longshort: !!null 
+  columnheader: Date
+  columnnr: 2
+  comment: date
+  created_at: 2011-03-28 13:59:35.108400000Z
+  datagroup_id: 2
+  dataset_id: 1
+  definition: ! 'Date
+
+'
+  id: 2
+  import_data_type: date(2009-07-14)
+  missingcode: !!null 
+  unit: !!null 
+  updated_at: 2011-03-28 14:01:37.981400000Z
+datacolumns_007:
+  category_longshort: !!null 
+  columnheader: Species
+  columnnr: 1
+  comment: species, object identifier
+  created_at: 2011-03-28 13:59:34.335400000Z
+  datagroup_id: 1
+  dataset_id: 1
+  definition: ! 'Species name
+
+'
+  id: 1
+  import_data_type: category
+  missingcode: !!null 
+  unit: !!null 
+  updated_at: 2011-03-28 14:00:18.898400000Z
