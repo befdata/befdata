@@ -14,6 +14,10 @@ class User < ActiveRecord::Base
   has_many :for_paperproposal_votes, :class_name => "PaperproposalVote",
            :source => :paperproposal_votes, :conditions => {:project_board_vote => false }
 
+  belongs_to :project do
+    
+  end
+
   def to_label
     if salutation
       "#{firstname} #{lastname}, #{salutation}"
@@ -54,6 +58,7 @@ class User < ActiveRecord::Base
       self.has_no_role! :admin
     end
   end
+
 
   def project_board
     self.has_role? :project_board
