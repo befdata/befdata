@@ -12,6 +12,8 @@ class Admin::CategoricvaluesController < Admin::AdminController
 
       config.list.per_page = 1000
 
+      config.create.columns = [:description, :long,
+                             :short, :comment, :tags]
 
       config.update.columns = [:description, :long,
                              :short, :comment, :tags]
