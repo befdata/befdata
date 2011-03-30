@@ -37,6 +37,11 @@ link:files/vendor/rails/actionpack/README.html.
 
 * Ubuntu Server
 
+add users on the server:
+-m creates a default home directory
+-N prevents creating separate groups for the user
+useradd -p password -m -N login
+
 * Apache
 
 * Mercurial
@@ -49,8 +54,13 @@ directory: "hg.passwd".  You can generate a password for a user like this:
 
 * Data base: PostgreSQL
 
-*
+ Which postgres Versions are we working with? How to see which version we are running?
 
+*  install Ruby from the rails website
+
+ Ruby version
+ ruby gems
+ Rails 3
 
 
  == Getting Started with Rails
