@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110328125827) do
+ActiveRecord::Schema.define(:version => 20110331143932) do
 
   create_table "author_paperproposals", :force => true do |t|
     t.integer  "paperproposal_id"
@@ -166,7 +166,7 @@ ActiveRecord::Schema.define(:version => 20110328125827) do
     t.integer  "author_id"
     t.string   "envisaged_journal"
     t.string   "title"
-    t.string   "rationale"
+    t.text     "rationale"
     t.integer  "corresponding_id"
     t.date     "envisaged_date"
     t.string   "state"
