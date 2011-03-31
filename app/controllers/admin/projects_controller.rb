@@ -11,9 +11,10 @@ class Admin::ProjectsController < Admin::AdminController
     config.list.sorting = { :shortname => :asc }
 
     [config.update, config.create].each do |c|
-      # c.columns = [:shortname, :name, :description, :comment, :accepted_roles]
       c.columns = [:shortname, :name, :description,
-                   :comment]
+                   :comment, :accepted_roles]
+      #c.columns = [:shortname, :name, :description,
+      #             :comment]
     end
   end
 end
