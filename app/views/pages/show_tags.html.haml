@@ -6,4 +6,5 @@
       %ul
         - tag.taggings.each do |tagging|
           %li
-            = tagging.taggable.long_label
+            = link_to tagging.taggable.long_label, {:controller => :datasets, |
+              :action => :show, :id => tagging.taggable.dataset_id }
