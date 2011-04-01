@@ -113,13 +113,15 @@ class DatasetsController < ApplicationController
     formats[:metaformat] = Spreadsheet::Format.new :size => 11, :horizontal_align => :left, :color => 'brown'
     # Write the metadata sheet
     create_metasheet(book, @dataset, formats)
+    logger.debug "metasheet created"
 
-    # This loop checks the Vip/Vop-status for every PersonRole, the current user plays.
-    # If any status is found, the appropriate download is allowed.
 
     create_methodsheet(book, @dataset, formats)
+    logger.debug "methodsheet created"
     create_peoplesheet(book, @dataset, formats)
+    logger.debug "peoplesheet created"
     create_categorysheet(book, @dataset, formats)
+    logger.debug "categorysheet created"
     # if data sheet is too large, it has to be saved
     # as .csv file
     create_datasheet(book, @dataset, formats)
@@ -725,10 +727,6 @@ private
                   end
         end
 
-
-        #! here m.rownr will have to be replaced with
-        #! m.observation.rownr, as soon as observations are directly
-        #! linked to measurements
         sheet[m.observation.rownr-1,column-1] = value if value
       end
     end
