@@ -90,12 +90,14 @@ class ImportsController < ApplicationController
           end
 
           data_hash = data_for_columnheader(ch)[:data]
+          logger.debug data_hash.inspect
           unless data_hash.blank?
             logger.debug "- create all measurements  -"
-            logger.debug "- Zeitchlucker?:  before @Dataset.rownr_observation_id_hash -"
+            logger.debug "- Zeitschlucker?:  before @Dataset.rownr_observation_id_hash -"
+            @dataset.reload
             rownr_obs_hash = @dataset.rownr_observation_id_hash
-            logger.debug "------------ after @Dataset.rownr_observation_id_hash ---------"
-            logger.debug @dataset.rownr_observation_id_hash.inspect
+            logger.debug "-- after reloading Dataset Nr. #{@dataset.id}   ----"
+            logger.debug "the hash with row numbers and observations: #{@dataset.rownr_observation_id_hash.inspect}"
 
             # Go through each entry in the spreadsheet
             data_hash.each do |rownr, entry|
@@ -106,18 +108,23 @@ class ImportsController < ApplicationController
               # observation Id.
               obs_id = rownr_obs_hash.
                 select{|rnr, obs_id| rnr == rownr}.flatten[1]
+              logger.debug "- obs_id: #{obs_id.inspect}  -"
 
               # If not, create a new Observation
               if obs_id.nil?
                 obs = Observation.create(:rownr => rownr)
                 obs_id = obs.id
               end
+              logger.debug "- obs_id after checking if it exists: #{obs_id.inspect}  -"
 
               # create measurement (with value as import_value)
+              logger.debug "entry before converting to integer: #{entry}"
               entry = entry.to_i.to_s if integer?(entry)
-              Sheetcell.create(:datacolumn => data_column_new,
-                                 :observation_id => obs_id,
-                                 :import_value => entry)
+              logger.debug "entry after: #{entry}"
+              sc = Sheetcell.create(:datacolumn => data_column_new,
+                                    :observation_id => obs_id,
+                                    :import_value => entry)
+              logger.debug "and this is the sheetcell: #{sc.inspect}"
             end # is there data provided?
           end
         end
