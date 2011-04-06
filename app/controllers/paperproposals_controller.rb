@@ -18,6 +18,7 @@ class PaperproposalsController < ApplicationController
     @paperproposal = Paperproposal.new
     @paperproposal.author = current_user
     @paperproposal.corresponding = current_user
+    # !! Zeitschlucker
     @all_persons = User.all.sort{|a,b| a.to_label <=> b.to_label}
 
     project = current_user.roles_for(Project).first.try(:authorizable)
@@ -54,9 +55,9 @@ class PaperproposalsController < ApplicationController
   #create new data request
   def create
     @paperproposal = Paperproposal.new(params[:paperproposal])
-    author_data_requests = User.find_all_by_id(params[:people]).
+    proponents = User.find_all_by_id(params[:people]).
         map{|person| AuthorPaperproposal.new(:user => person, :kind => "user")}
-    @paperproposal.author_paperproposals = author_data_requests
+    @paperproposal.author_paperproposals = proponents
     @all_persons = User.all
     unless @paperproposal.save
       flash[:error] = @paperproposal.errors.full_messages

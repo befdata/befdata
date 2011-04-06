@@ -11,15 +11,6 @@ class Filevalue < ActiveRecord::Base
   :path => ":rails_root/files/:filename",
   :url => "files/:id/download"
 
-  # tagging
-  # is_taggable :tags, :languages
-
-#  before_destroy :check_for_measurements
-#
-# measurements will not be linked to filevalues, there will be a
-# separate table for uploading free format files
-
-  # after_destroy :destroy_taggings
 
 
   def basename
