@@ -582,7 +582,7 @@ private
   def create_peoplesheet(book, dataset, formats, methods = nil)
     # This action canot be called externally.
 
-    sheet = book.create_worksheet :name => 'Members responsible for data columns'
+    sheet = book.create_worksheet :name => 'Members involved'
 
     sheet.row(0).default_format = formats[:metaformat]
     sheet.row(0).height = 120
