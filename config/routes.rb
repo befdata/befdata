@@ -15,11 +15,13 @@ Befchina::Application.routes.draw do
 
   resources :datasets
   match 'upload' => 'datasets#upload', :as => :upload
+  match 'upload_freeformat' => 'datasets#upload_freeformat', :as => :upload_freeformat
   match 'download' => 'datasets#download', :as => :download
 
   resources :projects
 
   match 'imports/create_dataset_filevalue' => 'imports#create_dataset_filevalue'
+  match 'imports/create_freeformat_filevalue' => 'imports#create_freeformat_filevalue'
   match 'imports/raw_data_overview' => 'imports#raw_data_overview'
   match 'imports/raw_data_per_header' => 'imports#raw_data_per_header'
   match 'imports/update_data_header' => 'imports#update_data_header'

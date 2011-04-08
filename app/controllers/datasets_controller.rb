@@ -137,6 +137,15 @@ class DatasetsController < ApplicationController
     @dataset.save
   end
 
+  def upload_freeformat
+    filevalue_id = params[:filevalue_id]
+    if !filevalue_id.blank?
+      filevalue = Filevalue.find(params[:filevalue_id])
+      @filename = filevalue.file_file_name
+    else
+      redirect_to data_path and return
+    end
+  end
   
 
   def upload

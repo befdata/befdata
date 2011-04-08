@@ -22,6 +22,19 @@ class ImportsController < ApplicationController
     end
   end
 
+  def create_freeformat_filevalue
+    filevalue = Filevalue.new(params[:filevalue])
+
+    if filevalue.save
+        redirect_to :controller => :datasets, :action => :upload_freeformat, :filevalue_id => filevalue.id
+    else
+      flash[:errors] = filevalue.errors
+      redirect_to :back
+    end
+  end
+
+
+
   def raw_data_overview
     logger.debug "------------ just entered raw_data_overview  ---------"
     store_location
