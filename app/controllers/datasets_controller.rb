@@ -530,7 +530,7 @@ private
     sheet[0,1] = "Definition"
     sheet[0,2] = "Unit of measurement"
     sheet[0,3] = "Missing value code"
-    sheet[0,4] = "Comments related to this data column"
+    sheet[0,4] = "Coma separated keywords"
     sheet[0,5] = "Method step title"
     sheet[0,6] = "Method step description"
     sheet[0,7] = "Method instrumentation"
@@ -582,7 +582,7 @@ private
   def create_peoplesheet(book, dataset, formats, methods = nil)
     # This action canot be called externally.
 
-    sheet = book.create_worksheet :name => 'Column responsible persons'
+    sheet = book.create_worksheet :name => 'Members responsible for data columns'
 
     sheet.row(0).default_format = formats[:metaformat]
     sheet.row(0).height = 120
