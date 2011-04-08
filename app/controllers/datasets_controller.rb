@@ -436,17 +436,13 @@ private
     sheet.row(9).set_format(0, formats[:dataformat])
 
     (11..18).each{|n| sheet.row(n).set_format(0, formats[:metaformat])}
-    sheet[11,0] = "Projects (e.g.: sp1e, sp11c):"
+    sheet[11,0] = t('metadata.project')
     sheet[11,1] = context.projecttag_list
 
     sheet[13,0] = t('metadata.people')
     sheet[14,0] = t('metadata.givenname')
     sheet[15,0] = t('metadata.surname')
-#    sheet[14,0] = t('metadata.project')
-#    sheet[15,0] = t('metadata.organization')
-#    sheet[16,0] = t('metadata.city')
     sheet[16,0] = t('metadata.email')
-#    sheet[18,0] = t('metadata.role')
 
     c_owners = context.users.select{|p| p.has_role?(:owner, context)}
     unless c_owners.blank?

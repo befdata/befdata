@@ -228,10 +228,17 @@ class ImportsController < ApplicationController
     # if no import categories are provided yet
     if @data_column.import_categoricvalues.blank?
       sheet_cats_hash_array =  look_for_provided_cats(ch,
-                                                      @categorySheet)
+                                                      @categorySheet,
+                                                      @dataset.title)
+      logger.debug "sheet_cats_hash_array.inspect"
+      logger.debug sheet_cats_hash_array.inspect
 
+      # !! the problem here is that cat_info has to have entries in all short, long,
+      # and description to be properly saved
       sheet_new_cats = sheet_cats_hash_array.
         map{|cat_info| Categoricvalue.create(cat_info)}
+      logger.debug "sheet_new_cats"
+      logger.debug sheet_new_cats
 
       sheet_new_imp_cats = sheet_new_cats.
         map{|cat| ImportCategoricvalue.new(:categoricvalue => cat)}
@@ -775,8 +782,9 @@ private
 
 
 # Look for information from the category sheet.
-  def look_for_provided_cats(columnheader, categorysheet)
-    ## acronymy and descriptions provided
+  def look_for_provided_cats(columnheader, categorysheet, dataset_title)
+    logger.debug "## acronym and descriptions provided"
+    logger.debug columnheader.inspect
     prov_header = Array(categorysheet.column(0))
     prov_short = Array(categorysheet.column(1))
     prov_long = Array(categorysheet.column(2))
@@ -789,10 +797,13 @@ private
         if prov_header[i0] == columnheader
           short = prov_short[i0]
           short = short.to_i.to_s if integer?(short)
+          comment = 'added from category sheet in dataset: ' + dataset_title
           provided_hash = {:short => short,
             :long => prov_long[i0],
             :description => prov_description[i0],
-            :comment => 'added from category sheet'}
+            :comment => comment}
+          logger.debug "provided_hash.inspect"
+          logger.debug provided_hash.inspect
           provided_hash_array << provided_hash
         end
       end

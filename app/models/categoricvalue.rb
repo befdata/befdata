@@ -19,7 +19,9 @@ class Categoricvalue < ActiveRecord::Base
 
   before_destroy :check_for_measurements, :check_for_import_categories
   after_destroy :destroy_taggings
-  
+
+  ## !! before save we should check if all is given: short, long, description
+
   def verbose
     "#{short} -- #{long} -- #{description}"
   end

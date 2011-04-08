@@ -3,3 +3,55 @@
 
 en:
   hello: "Hello world"
+
+  role:
+    role: "Role"
+    pi: "Principle investigator"
+    co-pi: "2nd Principle investigator"
+    phd: "PhD student"
+    speaker: "Speaker"
+    technician: "Technician"
+    student: "Student"
+    postdoc: "PostDoc"
+    funding source: "Funding Source"
+    admin: "Administrator"
+    no_role: "Currently no role associated"
+
+  address:
+    phone: "Phone"
+    email: "Email"
+    url: "Url"
+
+  metadata:
+    head: "General Metadata"
+    title: "Title"
+    abstract: "Abstract: Abstract for this piece of raw data. Short introduction of the scientific background and the
+scientific question, short site, date, organism, and methods information. Working circumstances during data
+acquisition."
+    comments: "Additional comments on this data set"
+    people: "Members responsible for this data sheet."
+    givenname: "Given Name"
+    surname: "Surname"
+    project: "Project"
+    email: "e-mail"
+    usagerights: "Usage Rights (intellectual rights)"
+    methods: "Methods: Summary of sampling design, technologies applied, site, date, and organisms"
+    spatialextent: "Study site, locations"
+    temporalextent: "Range of times"
+    taxonomicextent: "Range of organisms or individuals"
+    design: "Sampling design and methods applied"
+    dataanalysis: "Data analysis (What are the parameters of interest and how will they be calculated? What are the
+expected conclusions and how will effect sizes or significances be quantified?)"
+    circumstances: "Working circumstances (weather, stress factors, other comments)"
+    published: "This data is published here"
+    datemin: "Minimum date"
+    datemax: "Maximum date"
+    datedescription: "Range of times: verbal description"
+
+  context:
+    upload: "Upload new context"
+    step1: "You may now check the correctness of the data you uploaded."
+    step2: ""
+    step3: ""
+    step4: ""
+    step5: "The validation process is finished. If everything's allright, set the finished flag to true. The context will then be searchable and available to other people."
