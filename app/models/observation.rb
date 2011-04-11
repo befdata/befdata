@@ -1,3 +1,3 @@
 class Observation < ActiveRecord::Base
-  has_one :sheetcell
+  has_many :sheetcells
 end
