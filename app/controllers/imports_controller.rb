@@ -781,6 +781,8 @@ private
       if object.at(0) == "0"
         if object.at(1) == "."
           result = true if Float(object) rescue false
+        elsif object.length == 1# if it is only 0, then it should be a number also
+          result = true if Float(object) rescue false
         else
           result = false
         end
