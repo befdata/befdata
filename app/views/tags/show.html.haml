@@ -4,6 +4,7 @@
 %ul
 - @tag.taggings.each do |tagging|
   %li
+    my wonderfull tags
     = link_to tagging.taggable.dataset.title, {:controller => :datasets,
                                                :action => :show,
                                                :id => tagging.taggable.dataset_id }
