@@ -13,15 +13,15 @@ class Project < ActiveRecord::Base
   # This method provides a short but descriptive string for the
   # project instance.
 
-  # tagging
-  is_taggable :tags, :languages
-
-  after_destroy :destroy_taggings
-
-  def destroy_taggings
-    logger.debug "in destroy taggings"
-    self.taggings.destroy_all
-  end
+#  # tagging
+#  is_taggable :tags, :languages
+#
+#  after_destroy :destroy_taggings
+#
+#  def destroy_taggings
+#    logger.debug "in destroy taggings"
+#    self.taggings.destroy_all
+#  end
   
 
   def query_by_role(role_name)
