@@ -11,12 +11,15 @@ Befchina::Application.routes.draw do
   match 'impressum' => 'pages#impressum', :as => :impressum
   match 'help' => 'pages#help', :as => :help
   match 'data' => 'pages#data', :as => :data
-  match 'data/show_tags' => 'pages#show_tags'
+  match 'data/show_tags' => 'tags#index'
 
   resources :datasets
   match 'upload' => 'datasets#upload', :as => :upload
   match 'upload_freeformat' => 'datasets#upload_freeformat', :as => :upload_freeformat
   match 'download' => 'datasets#download', :as => :download
+
+  resources :tags
+  #match 'tags/index' => 'tags#index'
 
   resources :projects
 
@@ -50,7 +53,6 @@ Befchina::Application.routes.draw do
   match 'create_cart_context/:dataset_id' => 'carts#create_cart_context', :as => :create_cart_context
   match 'delete_cart_context/:dataset_id' => 'carts#delete_cart_context', :as => :delete_cart_context
   match 'cart' => 'carts#show', :as => 'current_cart'
-
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
