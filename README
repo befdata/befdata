@@ -44,6 +44,8 @@ useradd -p password -m -N login
 
 * Apache
 
+ our configuration file here
+
 * Mercurial
 
 You will have to inform the apache server, which people can push to your
@@ -55,6 +57,18 @@ directory: "hg.passwd".  You can generate a password for a user like this:
 * Data base: PostgreSQL
 
  Which postgres Versions are we working with? How to see which version we are running?
+
+ Dump the data base for backup:
+
+ pg_dump -W -f befchina_storetmp.pg -Fc befchina
+
+ -W forcing password prompt
+ -Fc output format: custom
+ -Fp output format: plain text
+
+ Restore a database:
+ pg_restore -c -d restore_befchina  -W befchina_storetmp.pg
+
 
 *  install Ruby from the rails website
 

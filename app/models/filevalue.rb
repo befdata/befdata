@@ -1,8 +1,9 @@
 class Filevalue < ActiveRecord::Base
 
-  has_many :sheetcells, :as => :value
+  has_many :sheetcells, :as => :value        # which is not true: one categoricvalue can have many sheetcells
+                                             # but a filevalue, a numericvalue, etc has only one sheetcell
   has_one :dataset, :foreign_key => :upload_spreadsheet_id
-  has_one :paperproposal
+  belongs_to :paperproposal
   
   validates_uniqueness_of :file_file_name
 
