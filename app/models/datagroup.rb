@@ -43,6 +43,20 @@ class Datagroup < ActiveRecord::Base
     cats
   end
 
+  def datacell_categories_sql
+    Categoricvalue.all(:conditions => ["id in (select cv.Id
+                                                from public.datacolumns dc
+	                                              inner join public.sheetcells sc
+                                                on dc.Id = sc.datacolumn_id
+                                                inner join public.categoricvalues cv
+                                                on sc.value_id = cv.Id
+                                                where dc.datagroup_id=" + self.id.to_s +
+                                                " and sc.value_type = 'Categoricvalue'
+                                                order by cv.short)"
+                                        ]
+                      )
+  end
+
   def abbr_method
     text = "#{self.title}: #{self.description}"
     if text.length > 200

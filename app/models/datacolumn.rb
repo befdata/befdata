@@ -85,7 +85,5 @@ class Datacolumn < ActiveRecord::Base
   def long_label
     "(#{columnheader}, id: #{id}) #{definition}"
   end
-  
-
 
 end
