@@ -11,7 +11,7 @@ class PaperproposalsController < ApplicationController
   #show list of data requests
   def index
     @paperproposals = Paperproposal.all
-    # sort by created at, so that the most current is at the top
+    # .sort_by(&created_at)
   end
 
   #prepare for new data request
