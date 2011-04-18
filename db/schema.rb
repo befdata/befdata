@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110418090808) do
+ActiveRecord::Schema.define(:version => 20110418100144) do
 
   create_table "author_paperproposals", :force => true do |t|
     t.integer  "paperproposal_id"
@@ -20,12 +20,17 @@ ActiveRecord::Schema.define(:version => 20110418090808) do
     t.datetime "updated_at"
   end
 
+  add_index "author_paperproposals", ["user_id", "paperproposal_id"], :name => "index_author_paperproposals_on_user_id_and_paperproposal_id"
+
   create_table "cart_datasets", :force => true do |t|
     t.integer  "cart_id"
     t.integer  "dataset_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  add_index "cart_datasets", ["cart_id"], :name => "index_cart_datasets_on_cart_id"
+  add_index "cart_datasets", ["dataset_id"], :name => "index_cart_datasets_on_dataset_id"
 
   create_table "carts", :force => true do |t|
     t.datetime "created_at"
@@ -41,6 +46,8 @@ ActiveRecord::Schema.define(:version => 20110418090808) do
     t.datetime "updated_at"
   end
 
+  add_index "categoricvalues", ["short"], :name => "index_categoricvalues_on_short"
+
   create_table "datacolumns", :force => true do |t|
     t.integer  "datagroup_id"
     t.integer  "dataset_id"
@@ -55,6 +62,9 @@ ActiveRecord::Schema.define(:version => 20110418090808) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  add_index "datacolumns", ["datagroup_id", "dataset_id"], :name => "index_datacolumns_on_datagroup_id_and_dataset_id"
+  add_index "datacolumns", ["datagroup_id"], :name => "index_datacolumns_on_datagroup_id"
 
   create_table "datagroups", :force => true do |t|
     t.string   "informationsource"
@@ -76,6 +86,8 @@ ActiveRecord::Schema.define(:version => 20110418090808) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  add_index "dataset_paperproposals", ["dataset_id", "paperproposal_id"], :name => "index_dataset_paperproposals_on_dataset_id_and_paperproposal_id"
 
   create_table "datasets", :force => true do |t|
     t.string   "title"
@@ -121,6 +133,8 @@ ActiveRecord::Schema.define(:version => 20110418090808) do
     t.datetime "updated_at"
   end
 
+  add_index "filevalues", ["paperproposal_id"], :name => "index_filevalues_on_paperproposal_id"
+
   create_table "import_categoricvalues", :force => true do |t|
     t.integer  "datacolumn_id"
     t.string   "raw_data_value"
@@ -145,6 +159,8 @@ ActiveRecord::Schema.define(:version => 20110418090808) do
     t.datetime "updated_at"
   end
 
+  add_index "observation_sheetcells", ["observation_id", "sheetcell_id"], :name => "index_observation_sheetcells_on_observation_id_and_sheetcell_id"
+
   create_table "observations", :force => true do |t|
     t.text     "comment"
     t.integer  "rownr"
@@ -161,6 +177,9 @@ ActiveRecord::Schema.define(:version => 20110418090808) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  add_index "paperproposal_votes", ["paperproposal_id"], :name => "index_paperproposal_votes_on_paperproposal_id"
+  add_index "paperproposal_votes", ["user_id"], :name => "index_paperproposal_votes_on_user_id"
 
   create_table "paperproposals", :force => true do |t|
     t.integer  "author_id"
@@ -180,6 +199,9 @@ ActiveRecord::Schema.define(:version => 20110418090808) do
     t.string   "initial_title"
     t.text     "comment"
   end
+
+  add_index "paperproposals", ["author_id"], :name => "index_paperproposals_on_author_id"
+  add_index "paperproposals", ["corresponding_id"], :name => "index_paperproposals_on_corresponding_id"
 
   create_table "projects", :force => true do |t|
     t.string   "shortname"
@@ -205,6 +227,8 @@ ActiveRecord::Schema.define(:version => 20110418090808) do
     t.datetime "updated_at"
   end
 
+  add_index "roles", ["authorizable_type", "authorizable_id"], :name => "index_roles_on_authorizable_type_and_authorizable_id"
+
   create_table "roles_users", :id => false, :force => true do |t|
     t.integer "user_id"
     t.integer "role_id"
@@ -222,11 +246,18 @@ ActiveRecord::Schema.define(:version => 20110418090808) do
     t.datetime "updated_at"
   end
 
+  add_index "sheetcells", ["datacolumn_id"], :name => "index_sheetcells_on_datacolumn_id"
+  add_index "sheetcells", ["observation_id"], :name => "index_sheetcells_on_observation_id"
+  add_index "sheetcells", ["value_id", "value_type"], :name => "index_sheetcells_on_value_id_and_value_type"
+
   create_table "taggings", :force => true do |t|
     t.integer "tag_id"
     t.string  "taggable_type", :default => ""
     t.integer "taggable_id"
   end
+
+  add_index "taggings", ["tag_id"], :name => "index_taggings_on_tag_id"
+  add_index "taggings", ["taggable_id", "taggable_type"], :name => "index_taggings_on_taggable_id_and_taggable_type"
 
   create_table "tags", :force => true do |t|
     t.string "name", :default => ""
