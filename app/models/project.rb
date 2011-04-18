@@ -3,6 +3,8 @@
 class Project < ActiveRecord::Base
   acts_as_authorization_object :subject_class_name => 'User'
 
+  acts_as_authorization_subject
+
   validates_presence_of :shortname, :name
   validates_uniqueness_of :shortname, :name
 
