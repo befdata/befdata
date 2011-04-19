@@ -40,6 +40,8 @@
 class Dataset < ActiveRecord::Base
 
   acts_as_authorization_object :subject_class_name => 'User'
+  acts_as_authorization_object :subject_class_name => 'Project'
+
   is_taggable :projecttags
   is_taggable :tags, :languages
 
