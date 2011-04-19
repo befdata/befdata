@@ -24,7 +24,7 @@ Rails::Initializer.run do |config|
   # installed with "rake gems:install" on new installations.  You have
   # to specify the :lib option for libraries, where the Gem name
   # (sqlite3-ruby) differs from the file itself (sqlite3)
-  config.gem 'acts_as_ferret'
+  config.gem 'acts_as_ferret', :version => '0.4.4'
   config.gem 'paperclip', :version => '2.3.0'
   config.gem 'is_taggable'
   config.gem 'haml', :version => '3.0.24'

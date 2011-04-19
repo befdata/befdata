@@ -10,3 +10,4 @@ public/downloads/*
 log/*
 xls/*
 consoleScratch.rb
+glob:.idea/*
