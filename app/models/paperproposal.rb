@@ -69,6 +69,20 @@ class Paperproposal < ActiveRecord::Base
       return hash
     end
 
+  def calc_authorship(user)
+     if(self.author_id==user.id)
+       "Author"
+     else
+       if(self.corresponding_id==user.id)
+         "Corresponding author"
+       else
+         if(self.senior_author_id===user.id)
+           "Senior author"
+         end
+       end
+     end
+   end
+
     private
 
     def check_aspects_for_contexts
