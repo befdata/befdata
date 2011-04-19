@@ -49,7 +49,13 @@ class Project < ActiveRecord::Base
   def add_role_for_user
 
   end
-  
-  
+
+  def datasets_owned
+    Dataset.all.select { |ds| ds.accepts_role?(:owner, self)}
+  end
+
+  def paperproposals_owned
+    Paperproposal.all.select { |pp| pp.accepts_role?(:owner, self)}
+  end
 
 end
