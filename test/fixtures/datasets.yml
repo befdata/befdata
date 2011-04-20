@@ -29,7 +29,7 @@ datasets_001:
   published: ''
   spatialextent: Study extent (study site, locations, range of times and range of
     organisms or individuals)
-  submission_at: !!null 
+  submission_at:
   taxonomicextent: ''
   temporalextent: Autumn 2008 to Winter 2010
   title: ! 'another short version of: Carbon (C) Concentration (Root, Stem, Twig,

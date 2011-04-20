@@ -1,48 +1,48 @@
 ---
 numericvalues_001:
-  comment: !!null 
+  comment:
   created_at: 2011-03-28 14:33:00.915400000Z
   id: 8
   number: 48.2
   updated_at: 2011-03-28 14:33:00.915400000Z
 numericvalues_002:
-  comment: !!null 
+  comment:
   created_at: 2011-03-28 14:33:00.904400000Z
   id: 7
   number: 47.32
   updated_at: 2011-03-28 14:33:00.904400000Z
 numericvalues_003:
-  comment: !!null 
+  comment:
   created_at: 2011-03-28 14:33:00.893400000Z
   id: 6
   number: 47.14
   updated_at: 2011-03-28 14:33:00.893400000Z
 numericvalues_004:
-  comment: !!null 
+  comment:
   created_at: 2011-03-28 14:33:00.882400000Z
   id: 5
   number: 46.96
   updated_at: 2011-03-28 14:33:00.882400000Z
 numericvalues_005:
-  comment: !!null 
+  comment:
   created_at: 2011-03-28 14:33:00.870400000Z
   id: 4
   number: 48.8
   updated_at: 2011-03-28 14:33:00.870400000Z
 numericvalues_006:
-  comment: !!null 
+  comment:
   created_at: 2011-03-28 14:33:00.860400000Z
   id: 3
   number: 48.56
   updated_at: 2011-03-28 14:33:00.860400000Z
 numericvalues_007:
-  comment: !!null 
+  comment:
   created_at: 2011-03-28 14:33:00.841400000Z
   id: 2
   number: 48.65
   updated_at: 2011-03-28 14:33:00.841400000Z
 numericvalues_008:
-  comment: !!null 
+  comment:
   created_at: 2011-03-28 14:33:00.638400000Z
   id: 1
   number: 48.09
