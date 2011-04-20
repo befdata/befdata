@@ -1,5 +1,6 @@
 class Admin::UsersController < Admin::AdminController
 
+
   active_scaffold :user do |config|
     config.label = "Associated people"
     #config.show.link = false
