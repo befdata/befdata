@@ -13,9 +13,13 @@ gem 'paperclip'
 gem 'is_taggable'
 gem 'spreadsheet'
 gem 'yaml_db'
-gem 'rspec'
-
 gem 'active_scaffold'
+
+group :test, :development do
+  gem "rspec-rails", "~> 2.4"
+end
+
+
 
 # Use unicorn as the web server
 # gem 'unicorn'

@@ -27,10 +27,6 @@ class PaperproposalsController < ApplicationController
       senior = project.accepted_roles.find_by_name("pi").users.first
       @paperproposal.senior_author = senior
     end
-
-
-
-
   end
 
   # prepare for show
