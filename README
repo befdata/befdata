@@ -44,12 +44,24 @@ useradd -p password -m -N login
 
 * Apache
 
- our configuration file here
+ To construct a new instance of the application, the path to the code must be specified
+ in the Apache configuration file.
+ /etc/apache2/sites-enabled
+
+ There is a link to the sites-available
+
+ Show this part of the file
+
+ Then clone the code to the specified location
+
+ hg clone http://code.fundivers.biow.uni-leipzig.de/befchina .
+
+
 
 * Mercurial
 
 You will have to inform the apache server, which people can push to your
-mercurial repository.  For this, there is a password file in the /etc/apache
+mercurial repository.  For this, there is a password file in the /etc/apache2
 directory: "hg.passwd".  You can generate a password for a user like this:
 
  htpasswd hg.passwd username
@@ -57,6 +69,8 @@ directory: "hg.passwd".  You can generate a password for a user like this:
 * Data base: PostgreSQL
 
  Which postgres Versions are we working with? How to see which version we are running?
+
+ Create databases for your project
 
  Dump the data base for backup:
 
@@ -75,6 +89,13 @@ directory: "hg.passwd".  You can generate a password for a user like this:
  Ruby version
  ruby gems
  Rails 3
+
+*  set up a running system
+
+  clone the code
+  set up your data bases
+  set the database.yml to your databases
+  rake db:schema:load
 
 
  == Getting Started with Rails

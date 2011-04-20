@@ -1,5 +1,7 @@
 class Paperproposal < ActiveRecord::Base
 
+    acts_as_authorization_object :subject_class_name => 'Project'
+
     belongs_to :author, :class_name => "User", :foreign_key => "author_id"
     belongs_to :corresponding, :class_name => "User", :foreign_key => "corresponding_id"
     belongs_to :senior_author, :class_name => "User", :foreign_key => "senior_author_id"
@@ -68,6 +70,20 @@ class Paperproposal < ActiveRecord::Base
       hash = {:author_list => author_list, :corresponding => self.corresponding, :ack => ack}
       return hash
     end
+
+  def calc_authorship(user)
+     if(self.author_id==user.id)
+       "Author"
+     else
+       if(self.corresponding_id==user.id)
+         "Corresponding author"
+       else
+         if(self.senior_author_id===user.id)
+           "Senior author"
+         end
+       end
+     end
+   end
 
     private
 

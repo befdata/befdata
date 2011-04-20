@@ -11,7 +11,7 @@ class PaperproposalsController < ApplicationController
   #show list of data requests
   def index
     @paperproposals = Paperproposal.all
-    # sort by created at, so that the most current is at the top
+    # .sort_by(&created_at)
   end
 
   #prepare for new data request
@@ -27,10 +27,6 @@ class PaperproposalsController < ApplicationController
       senior = project.accepted_roles.find_by_name("pi").users.first
       @paperproposal.senior_author = senior
     end
-
-
-
-
   end
 
   # prepare for show

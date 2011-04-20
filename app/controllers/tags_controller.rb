@@ -6,7 +6,7 @@ class TagsController < ApplicationController
 
   def show
     redirect_to(:action => "index") and return if params[:id].blank?
-    @tag = Tag.find(:first, :conditions => ["name = ?", params[:id]], :include => :taggings)
+    @tag = Tag.find(:first, :conditions => ["id = ?", params[:id]], :include => :taggings)
     return redirect_to(:action => "index", :status => :not_found) unless @tag
 
   end

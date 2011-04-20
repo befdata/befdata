@@ -72,5 +72,62 @@ def project_board=(string_boolean)
     end
   end
 
+def datasets_owned
+  Dataset.all.select { |ds| ds.accepts_role?(:owner, self)}
+end
+
+def datasets_with_responsible_datacolumns_not_owned
+  @columns = Datacolumn.all.select { |ds| ds.accepts_role?(:responsible, self)}
+  if(@columns.count>0)
+    @columnids = @columns.map{|col| col.dataset_id}
+
+    if (@columns.count==1)
+      #Dataset.find(:all, :conditions => ["id = ?", @columnids])
+      @predicate = "id=#{@columnids[0]}"
+    else
+      @predicate = "id in (#{@columnids.join(",")})"
+      #Dataset.find(:all, :conditions => ["id in (?)", @columnids])
+    end
+
+    @owned = self.datasets_owned
+    if(@owned.count >0)
+      @ownedids = @owned.map{|ds| ds.id}
+      if(@owned.count==1)
+        @predicate = @predicate + " and id !=#{@ownedids[0]}"
+      else
+        @predicate = @predicate + " and id not in (#{@ownedids.join(",")})"
+      end
+    end
+
+    # there must be a better way of doing this but it works for now
+    Dataset.find(:all, :conditions => [@predicate])
+  else
+    # return an empty array
+    Array.new
+  end
+end
+
+def paperproposal_author
+  Paperproposal.find(:all,
+                     :conditions => ["author_id=? or corresponding_id=? or senior_author_id=?",
+                                     self.id, self.id, self.id])
+end
+
+def projectroles
+  @projectsarray = []
+  @index =0
+  for role in self.role_objects.reject{|r| r.name == "admin"}
+    if(role.authorizable.class.to_s == "Project")
+      @projectsarray[@index]= role
+      @index = @index +1
+    end
+  end
+  @projectsarray
+end
+
+
 
 end
+
+
+

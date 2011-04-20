@@ -3,6 +3,8 @@
 class Project < ActiveRecord::Base
   acts_as_authorization_object :subject_class_name => 'User'
 
+  acts_as_authorization_subject
+
   validates_presence_of :shortname, :name
   validates_uniqueness_of :shortname, :name
 
@@ -47,7 +49,13 @@ class Project < ActiveRecord::Base
   def add_role_for_user
 
   end
-  
-  
+
+  def datasets_owned
+    Dataset.all.select { |ds| ds.accepts_role?(:owner, self)}
+  end
+
+  def paperproposals_owned
+    Paperproposal.all.select { |pp| pp.accepts_role?(:owner, self)}
+  end
 
 end

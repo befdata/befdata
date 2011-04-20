@@ -1,6 +1,6 @@
 jQuery(function($){
   if (typeof($.datepicker) === 'object') {
-    $.datepicker.regional['en'] = {"nextText":"Next","showMonthAfterYear":false,"prevText":"Previous","closeText":"Close","monthNamesShort":["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"],"changeMonth":true,"firstDay":0,"weekHeader":"Wk","isRTL":false,"changeYear":true,"dateFormat":"yy-mm-dd","dayNames":["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"],"dayNamesMin":["Sun","Mon","Tue","Wed","Thu","Fri","Sat"],"dayNamesShort":["Sun","Mon","Tue","Wed","Thu","Fri","Sat"],"currentText":"Today","monthNames":["January","February","March","April","May","June","July","August","September","October","November","December"]};
+    $.datepicker.regional['en'] = {"changeMonth":true,"showMonthAfterYear":false,"nextText":"Next","closeText":"Close","prevText":"Previous","monthNamesShort":["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"],"firstDay":0,"weekHeader":"Wk","changeYear":true,"isRTL":false,"dateFormat":"yy-mm-dd","dayNames":["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"],"dayNamesMin":["Sun","Mon","Tue","Wed","Thu","Fri","Sat"],"dayNamesShort":["Sun","Mon","Tue","Wed","Thu","Fri","Sat"],"currentText":"Today","monthNames":["January","February","March","April","May","June","July","August","September","October","November","December"]};
     $.datepicker.setDefaults($.datepicker.regional['en']);
   }
   if (typeof($.timepicker) === 'object') {

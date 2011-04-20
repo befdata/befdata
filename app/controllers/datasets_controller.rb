@@ -11,7 +11,7 @@ class DatasetsController < ApplicationController
       allow :proposer, :of => :dataset
     end
 
-    action :upload do
+    action :upload, :upload_freeformat do
       allow logged_in
     end
   end
