@@ -195,7 +195,11 @@ private
   end
 
   def update_aspects
+    logger.debug 'in update aspects'
+    logger.debug 'paperproposal: ' + @paperproposal.inspect
     @paperproposal.dataset_paperproposals.each do |paperproposal_dataset|
+      logger.debug 'params[:aspect]: ' + params[:aspect].inspect
+      logger.debug 'paperproposal_dataset: ' + paperproposal_dataset.inspect
       paperproposal_dataset.aspect = params[:aspect].fetch("#{paperproposal_dataset.dataset_id}")
       paperproposal_dataset.save
     end
