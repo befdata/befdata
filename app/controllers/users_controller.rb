@@ -3,6 +3,12 @@
 class UsersController < ApplicationController
   before_filter :require_user, :only => [:edit]
 
+#  access_control do
+#     action :edit do
+#       allow logged_in
+#     end
+#   end
+
 
   # The index method simply lists all staff members, ordered by their last name.
   def index
