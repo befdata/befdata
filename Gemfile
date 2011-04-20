@@ -13,6 +13,7 @@ gem 'paperclip'
 gem 'is_taggable'
 gem 'spreadsheet'
 gem 'yaml_db'
+gem 'rspec'
 
 gem 'active_scaffold'
 
