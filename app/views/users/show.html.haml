@@ -1,5 +1,5 @@
 %span{:style => "font-size: large;"}= @user.full_name
-- @user = User.new
+
 .comment
   - unless @user.institution_phone.blank?
     = "#{t("address.phone")}: #{@user.institution_phone}"
@@ -11,17 +11,51 @@
     = "#{t("address.url")}: #{@user.url}"
     %br/
   - unless @user.comment.blank?
-    = @user.comments
-    %br/
-- unless @user.comment.blank?
-  .comment= @user.comment
-- unless @user.role_objects.blank?
-  - for role in @user.role_objects.reject{|r| r.name == "admin"}
-    - if role.authorizable.class.to_s == "Project"
-      .comment
-        %b= link_to role.authorizable, project_path(role.authorizable.id)
-        %br/
-        = "#{t("role."+role.name)}"
+    = @user.comment
+
+
+- unless @user.projects.count==0
+  %b Projects
+  %ul
+    - @user.projectroles.each do |role|
+      %li
+        = link_to role.authorizable, project_path(role.authorizable.id)
+        ="(#{t("role."+role.name)})"
+
+
+- unless @user.datasets_owned.count==0
+  %b Datasets
+  %ul
+    - @user.datasets_owned.each do |ds|
+      %li
+        = link_to ds.title, {:controller => :datasets,
+                                         :action => :show,
+                                         :id => ds.id }
+        - if current_user
+          = link_to image_tag("/images/cart_put.png"), create_cart_context_path(:dataset_id => ds.id), :method => :post
+
+
+- unless @user.datasets_with_responsible_datacolumns_not_owned.count==0
+  %b Responsible for data columns within the following datasets
+  %ul
+    - @user.datasets_with_responsible_datacolumns_not_owned.each do |ds|
+      %li
+        = link_to ds.title, {:controller => :datasets,
+                                        :action => :show,
+                                        :id => ds.id }
+        - if current_user
+          = link_to image_tag("/images/cart_put.png"), create_cart_context_path(:dataset_id => ds.id), :method => :post
+
+
+- unless @user.paperproposal_author.count==0
+  %b Paper proposal submissions
+  %ul
+    - @user.paperproposal_author.each do |pp|
+      %li
+        = link_to pp.title, {:controller => :paperproposals,
+                                         :action => :show,
+                                         :id => pp.id }
+        = "(#{pp.calc_authorship(@user)})"
 
 -#- unless @user.users_roles.blank?
 -#  - for role in @user.person_roles.reject{|r| r.role == "admin"}
