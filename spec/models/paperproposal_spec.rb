@@ -1,6 +1,6 @@
 require "rspec"
 
-describe "Paperproposal Model" do
+describe "Paperproposal" do
 
   before(:all) do
     @paperproposal = Paperproposal.find(2)
@@ -15,6 +15,6 @@ describe "Paperproposal Model" do
     @paperproposal.calc_authorship(@senior).should == "Senior author"
     @paperproposal.calc_authorship(@corresponding).should == "Corresponding author"
     @paperproposal.calc_authorship(@paperproposal_stranger).should == nil
-    
+
   end
 end
