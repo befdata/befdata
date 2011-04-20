@@ -2,7 +2,7 @@
   Profile of #{@user.full_name}
 .comment
   %span{:style => "font-size: medium;"} Edit your profile
-  = render :active_scaffold => "admin/users", :constraints => {:id => @user.id}
+  -#= render :active_scaffold => "admin/users", :constraints => {:id => @user.id}
 
 %b= "Project Board Votes" unless @project_board_votes.empty?
 - @project_board_votes.each do |vote|

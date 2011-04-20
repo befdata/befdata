@@ -18,16 +18,15 @@ class UsersController < ApplicationController
   # Whenever a logged in user wants to change its profile information, this action is responsible.
   def edit
     @user = current_user
-    if @user.has_role?("admin")
-      @project_board_votes = @user.project_board_votes
-      #ToDo make it better, better scope, soon with rails 3
-      @project_board_votes.reject!{|element| element.paperproposal.board_state == "accept" ||
-                                             element.paperproposal.board_state == "final"}
-      @to_vote = @user.for_paperproposal_votes
-      #ToDo make it better, better scope, soon with rails 3
-      @to_vote.reject!{|element| element.paperproposal.board_state == "final"}
-      @data_requests = Paperproposal.find_all_by_board_state("submit")
-    end
+    @project_board_votes = @user.project_board_votes
+    #ToDo make it better, better scope, soon with rails 3
+    @project_board_votes.reject!{|element| element.paperproposal.board_state == "accept" ||
+                                           element.paperproposal.board_state == "final"}
+    @to_vote = @user.for_paperproposal_votes
+    #ToDo make it better, better scope, soon with rails 3
+    @to_vote.reject!{|element| element.paperproposal.board_state == "final"}
+    @data_requests = Paperproposal.find_all_by_board_state("submit")
+
   end
 
   # The show method provides all informations about one specific person.
