@@ -3,6 +3,22 @@ class ApplicationController < ActionController::Base
 
   helper_method :current_user_session, :current_user
 
+  layout :layout_from_config
+
+protected
+  def layout_from_config
+    database_config = File.read(RAILS_ROOT + "/config/database.yml")
+    config_file = YAML.load(database_config)[RAILS_ENV]
+
+    case config_file["layout"]
+      when "fundiv" then
+        "fundiv"
+      else
+        "application"
+    end
+
+  end
+
 private
   def current_user_session
     return @current_user_session if defined?(@current_user_session)
