@@ -7,7 +7,7 @@ paperproposals_001:
   created_at: 2011-03-29 08:02:32.867200000Z
   envisaged_date: 2011-03-29
   envisaged_journal: Plant Growth
-  expiry_date: !!null 
+  expiry_date:
   external_data: ''
   id: 2
   initial_title: Production paper proposal 1
@@ -20,12 +20,12 @@ paperproposals_001:
 paperproposals_002:
   author_id: 5
   board_state: prep
-  comment: !!null 
+  comment:
   corresponding_id: 5
   created_at: 2011-03-28 11:25:52.856000000Z
   envisaged_date: 2011-03-28
   envisaged_journal: Gaya save the world
-  expiry_date: !!null 
+  expiry_date:
   external_data: ''
   id: 1
   initial_title: Nutrient cycling paper proposal

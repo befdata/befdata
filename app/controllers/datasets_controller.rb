@@ -142,6 +142,9 @@ class DatasetsController < ApplicationController
     if !filevalue_id.blank?
       filevalue = Filevalue.find(params[:filevalue_id])
       @filename = filevalue.file_file_name
+      @dataset = Dataset.new
+      @dataset.title = @filename
+      @dataset.abstract = @filename
     else
       redirect_to data_path and return
     end

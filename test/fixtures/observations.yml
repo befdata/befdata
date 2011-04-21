@@ -1,336 +1,336 @@
 ---
 observations_001:
-  comment: !!null 
+  comment:
   created_at: 2011-03-28 13:59:35.960400000Z
   id: 56
   rownr: 9
   updated_at: 2011-03-28 13:59:35.960400000Z
 observations_002:
-  comment: !!null 
+  comment:
   created_at: 2011-03-28 13:59:35.949400000Z
   id: 55
   rownr: 8
   updated_at: 2011-03-28 13:59:35.949400000Z
 observations_003:
-  comment: !!null 
+  comment:
   created_at: 2011-03-28 13:59:35.937400000Z
   id: 54
   rownr: 7
   updated_at: 2011-03-28 13:59:35.937400000Z
 observations_004:
-  comment: !!null 
+  comment:
   created_at: 2011-03-28 13:59:35.926400000Z
   id: 53
   rownr: 6
   updated_at: 2011-03-28 13:59:35.926400000Z
 observations_005:
-  comment: !!null 
+  comment:
   created_at: 2011-03-28 13:59:35.911400000Z
   id: 52
   rownr: 5
   updated_at: 2011-03-28 13:59:35.911400000Z
 observations_006:
-  comment: !!null 
+  comment:
   created_at: 2011-03-28 13:59:35.905400000Z
   id: 51
   rownr: 4
   updated_at: 2011-03-28 13:59:35.905400000Z
 observations_007:
-  comment: !!null 
+  comment:
   created_at: 2011-03-28 13:59:35.900400000Z
   id: 50
   rownr: 3
   updated_at: 2011-03-28 13:59:35.900400000Z
 observations_008:
-  comment: !!null 
+  comment:
   created_at: 2011-03-28 13:59:35.870400000Z
   id: 49
   rownr: 2
   updated_at: 2011-03-28 13:59:35.870400000Z
 observations_009:
-  comment: !!null 
+  comment:
   created_at: 2011-03-28 13:59:35.815400000Z
   id: 48
   rownr: 9
   updated_at: 2011-03-28 13:59:35.815400000Z
 observations_010:
-  comment: !!null 
+  comment:
   created_at: 2011-03-28 13:59:35.803400000Z
   id: 47
   rownr: 8
   updated_at: 2011-03-28 13:59:35.803400000Z
 observations_011:
-  comment: !!null 
+  comment:
   created_at: 2011-03-28 13:59:35.792400000Z
   id: 46
   rownr: 7
   updated_at: 2011-03-28 13:59:35.792400000Z
 observations_012:
-  comment: !!null 
+  comment:
   created_at: 2011-03-28 13:59:35.781400000Z
   id: 45
   rownr: 6
   updated_at: 2011-03-28 13:59:35.781400000Z
 observations_013:
-  comment: !!null 
+  comment:
   created_at: 2011-03-28 13:59:35.770400000Z
   id: 44
   rownr: 5
   updated_at: 2011-03-28 13:59:35.770400000Z
 observations_014:
-  comment: !!null 
+  comment:
   created_at: 2011-03-28 13:59:35.759400000Z
   id: 43
   rownr: 4
   updated_at: 2011-03-28 13:59:35.759400000Z
 observations_015:
-  comment: !!null 
+  comment:
   created_at: 2011-03-28 13:59:35.748400000Z
   id: 42
   rownr: 3
   updated_at: 2011-03-28 13:59:35.748400000Z
 observations_016:
-  comment: !!null 
+  comment:
   created_at: 2011-03-28 13:59:35.743400000Z
   id: 41
   rownr: 2
   updated_at: 2011-03-28 13:59:35.743400000Z
 observations_017:
-  comment: !!null 
+  comment:
   created_at: 2011-03-28 13:59:35.703400000Z
   id: 40
   rownr: 9
   updated_at: 2011-03-28 13:59:35.703400000Z
 observations_018:
-  comment: !!null 
+  comment:
   created_at: 2011-03-28 13:59:35.692400000Z
   id: 39
   rownr: 8
   updated_at: 2011-03-28 13:59:35.692400000Z
 observations_019:
-  comment: !!null 
+  comment:
   created_at: 2011-03-28 13:59:35.681400000Z
   id: 38
   rownr: 7
   updated_at: 2011-03-28 13:59:35.681400000Z
 observations_020:
-  comment: !!null 
+  comment:
   created_at: 2011-03-28 13:59:35.670400000Z
   id: 37
   rownr: 6
   updated_at: 2011-03-28 13:59:35.670400000Z
 observations_021:
-  comment: !!null 
+  comment:
   created_at: 2011-03-28 13:59:35.659400000Z
   id: 36
   rownr: 5
   updated_at: 2011-03-28 13:59:35.659400000Z
 observations_022:
-  comment: !!null 
+  comment:
   created_at: 2011-03-28 13:59:35.648400000Z
   id: 35
   rownr: 4
   updated_at: 2011-03-28 13:59:35.648400000Z
 observations_023:
-  comment: !!null 
+  comment:
   created_at: 2011-03-28 13:59:35.637400000Z
   id: 34
   rownr: 3
   updated_at: 2011-03-28 13:59:35.637400000Z
 observations_024:
-  comment: !!null 
+  comment:
   created_at: 2011-03-28 13:59:35.628400000Z
   id: 33
   rownr: 2
   updated_at: 2011-03-28 13:59:35.628400000Z
 observations_025:
-  comment: !!null 
+  comment:
   created_at: 2011-03-28 13:59:35.494400000Z
   id: 32
   rownr: 9
   updated_at: 2011-03-28 13:59:35.494400000Z
 observations_026:
-  comment: !!null 
+  comment:
   created_at: 2011-03-28 13:59:35.489400000Z
   id: 31
   rownr: 8
   updated_at: 2011-03-28 13:59:35.489400000Z
 observations_027:
-  comment: !!null 
+  comment:
   created_at: 2011-03-28 13:59:35.483400000Z
   id: 30
   rownr: 7
   updated_at: 2011-03-28 13:59:35.483400000Z
 observations_028:
-  comment: !!null 
+  comment:
   created_at: 2011-03-28 13:59:35.478400000Z
   id: 29
   rownr: 6
   updated_at: 2011-03-28 13:59:35.478400000Z
 observations_029:
-  comment: !!null 
+  comment:
   created_at: 2011-03-28 13:59:35.473400000Z
   id: 28
   rownr: 5
   updated_at: 2011-03-28 13:59:35.473400000Z
 observations_030:
-  comment: !!null 
+  comment:
   created_at: 2011-03-28 13:59:35.468400000Z
   id: 27
   rownr: 4
   updated_at: 2011-03-28 13:59:35.468400000Z
 observations_031:
-  comment: !!null 
+  comment:
   created_at: 2011-03-28 13:59:35.451400000Z
   id: 26
   rownr: 3
   updated_at: 2011-03-28 13:59:35.451400000Z
 observations_032:
-  comment: !!null 
+  comment:
   created_at: 2011-03-28 13:59:35.446400000Z
   id: 25
   rownr: 2
   updated_at: 2011-03-28 13:59:35.446400000Z
 observations_033:
-  comment: !!null 
+  comment:
   created_at: 2011-03-28 13:59:35.397400000Z
   id: 24
   rownr: 9
   updated_at: 2011-03-28 13:59:35.397400000Z
 observations_034:
-  comment: !!null 
+  comment:
   created_at: 2011-03-28 13:59:35.391400000Z
   id: 23
   rownr: 8
   updated_at: 2011-03-28 13:59:35.391400000Z
 observations_035:
-  comment: !!null 
+  comment:
   created_at: 2011-03-28 13:59:35.343400000Z
   id: 22
   rownr: 7
   updated_at: 2011-03-28 13:59:35.343400000Z
 observations_036:
-  comment: !!null 
+  comment:
   created_at: 2011-03-28 13:59:35.337400000Z
   id: 21
   rownr: 6
   updated_at: 2011-03-28 13:59:35.337400000Z
 observations_037:
-  comment: !!null 
+  comment:
   created_at: 2011-03-28 13:59:35.326400000Z
   id: 20
   rownr: 5
   updated_at: 2011-03-28 13:59:35.326400000Z
 observations_038:
-  comment: !!null 
+  comment:
   created_at: 2011-03-28 13:59:35.300400000Z
   id: 19
   rownr: 4
   updated_at: 2011-03-28 13:59:35.300400000Z
 observations_039:
-  comment: !!null 
+  comment:
   created_at: 2011-03-28 13:59:35.293400000Z
   id: 18
   rownr: 3
   updated_at: 2011-03-28 13:59:35.293400000Z
 observations_040:
-  comment: !!null 
+  comment:
   created_at: 2011-03-28 13:59:35.288400000Z
   id: 17
   rownr: 2
   updated_at: 2011-03-28 13:59:35.288400000Z
 observations_041:
-  comment: !!null 
+  comment:
   created_at: 2011-03-28 13:59:35.234400000Z
   id: 16
   rownr: 9
   updated_at: 2011-03-28 13:59:35.234400000Z
 observations_042:
-  comment: !!null 
+  comment:
   created_at: 2011-03-28 13:59:35.215400000Z
   id: 15
   rownr: 8
   updated_at: 2011-03-28 13:59:35.215400000Z
 observations_043:
-  comment: !!null 
+  comment:
   created_at: 2011-03-28 13:59:35.209400000Z
   id: 14
   rownr: 7
   updated_at: 2011-03-28 13:59:35.209400000Z
 observations_044:
-  comment: !!null 
+  comment:
   created_at: 2011-03-28 13:59:35.202400000Z
   id: 13
   rownr: 6
   updated_at: 2011-03-28 13:59:35.202400000Z
 observations_045:
-  comment: !!null 
+  comment:
   created_at: 2011-03-28 13:59:35.181400000Z
   id: 12
   rownr: 5
   updated_at: 2011-03-28 13:59:35.181400000Z
 observations_046:
-  comment: !!null 
+  comment:
   created_at: 2011-03-28 13:59:35.160400000Z
   id: 11
   rownr: 4
   updated_at: 2011-03-28 13:59:35.160400000Z
 observations_047:
-  comment: !!null 
+  comment:
   created_at: 2011-03-28 13:59:35.154400000Z
   id: 10
   rownr: 3
   updated_at: 2011-03-28 13:59:35.154400000Z
 observations_048:
-  comment: !!null 
+  comment:
   created_at: 2011-03-28 13:59:35.130399000Z
   id: 9
   rownr: 2
   updated_at: 2011-03-28 13:59:35.130399000Z
 observations_049:
-  comment: !!null 
+  comment:
   created_at: 2011-03-28 13:59:35.069400000Z
   id: 8
   rownr: 9
   updated_at: 2011-03-28 13:59:35.069400000Z
 observations_050:
-  comment: !!null 
+  comment:
   created_at: 2011-03-28 13:59:35.058400000Z
   id: 7
   rownr: 8
   updated_at: 2011-03-28 13:59:35.058400000Z
 observations_051:
-  comment: !!null 
+  comment:
   created_at: 2011-03-28 13:59:35.047400000Z
   id: 6
   rownr: 7
   updated_at: 2011-03-28 13:59:35.047400000Z
 observations_052:
-  comment: !!null 
+  comment:
   created_at: 2011-03-28 13:59:35.036400000Z
   id: 5
   rownr: 6
   updated_at: 2011-03-28 13:59:35.036400000Z
 observations_053:
-  comment: !!null 
+  comment:
   created_at: 2011-03-28 13:59:35.025400000Z
   id: 4
   rownr: 5
   updated_at: 2011-03-28 13:59:35.025400000Z
 observations_054:
-  comment: !!null 
+  comment:
   created_at: 2011-03-28 13:59:35.014400000Z
   id: 3
   rownr: 4
   updated_at: 2011-03-28 13:59:35.014400000Z
 observations_055:
-  comment: !!null 
+  comment:
   created_at: 2011-03-28 13:59:34.998400000Z
   id: 2
   rownr: 3
   updated_at: 2011-03-28 13:59:34.998400000Z
 observations_056:
-  comment: !!null 
+  comment:
   created_at: 2011-03-28 13:59:34.749400000Z
   id: 1
   rownr: 2
