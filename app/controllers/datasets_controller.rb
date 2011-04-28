@@ -5,13 +5,13 @@ class DatasetsController < ApplicationController
   access_control do
     allow all, :to => [:show, :index, :load_context]
 
-    action :download, :edit do
+    action :download, :edit, :update_freeformat_associations, :save_freeformat_associations do
       allow :admin
       allow :owner, :of => :dataset
       allow :proposer, :of => :dataset
     end
 
-    action :upload, :upload_freeformat do
+    action :upload, :upload_freeformat, :create_freeformat do
       allow logged_in
     end
   end
@@ -145,11 +145,58 @@ class DatasetsController < ApplicationController
       @dataset = Dataset.new
       @dataset.title = @filename
       @dataset.abstract = @filename
+      @dataset.filename=@filename
     else
       redirect_to data_path and return
     end
   end
-  
+
+  def create_freeformat
+    @dataset = Dataset.new(params[:dataset])
+
+    unless @dataset.save
+      flash[:error] = @dataset.errors.full_messages
+      redirect_to data_path and return
+    else
+      redirect_to url_for(:controller => :datasets,
+                          :action => :update_freeformat_associations,
+                          :dataset_id => @dataset.id) and return
+    end
+
+  end
+
+  def update_freeformat_associations
+
+    begin
+      @dataset = Dataset.find(params[:dataset_id])
+      @people_list = User.find(:all, :order => :lastname)
+      @project_list = Project.find(:all)
+
+    rescue ActiveRecord::RecordNotFound
+      # No context with this id exists
+      redirect_to data_path and return
+    end
+
+  end
+
+  def save_freeformat_associations
+    begin
+      @dataset = Dataset.find(params[:dataset][:id])
+      @owner = User.find(params[:owner][:owner_id])
+      @project = Project.find(params[:project][:project_id])
+
+      @owner.has_role! :owner, @dataset
+      @project.has_role! :owner, @dataset
+
+      redirect_to url_for(:controller => :imports,
+                          :action => :freeformat_overview,
+                          :dataset_id => @dataset.id) and return
+
+    rescue ActiveRecord::RecordNotFound
+      # No context with this id exists
+      redirect_to data_path and return
+    end
+  end
 
   def upload
     if !params[:filevalue_id].blank?
@@ -423,7 +470,7 @@ class DatasetsController < ApplicationController
     @dataset = Dataset.find(params[:id])
   end
 
-private
+ private
 
   # Creates the first sheet of a context file, the one with the
   # metadata.
@@ -739,6 +786,5 @@ private
       end
     end
   end
-
 
 end
