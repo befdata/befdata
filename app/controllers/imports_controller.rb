@@ -505,9 +505,29 @@ class ImportsController < ApplicationController
     end
   end 
 
+  def freeformat_overview
 
-  
+    dataset = Dataset.find(params[:dataset_id])
 
+    if(dataset.create_freeformat_sheetcell)
+      # add the tags to the datacolumn
+      @datacolumn = dataset.datacolumns[0]
+    else
+      # really should tell them about the error
+      redirect_to data_path and return
+    end
+
+  end
+
+  def save_freeformat_tags
+
+    @datacolumn = Datacolumn.find(params[:datacolumn][:id])
+    @datacolumn.update_attributes(params[:datacolumn])
+
+    redirect_to url_for(:controller => :datasets,
+                          :action => :show,
+                          :id => @datacolumn.dataset_id) and return
+  end
 
 private
   def provide_metasheets(filename)
@@ -1081,7 +1101,5 @@ private
     logger.debug "------------ leaving find_entry_in_cat_array  --------------------"
     return cat
   end
-  
-
 
 end

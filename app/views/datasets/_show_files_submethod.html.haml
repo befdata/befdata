@@ -4,4 +4,4 @@
       %tr
       - @measurements[key].each do |mm|
         %tr
-          %td= link_to mm.filevalue.file_file_name, mm.filevalue.file.url
+          %td= link_to mm.filevalue.file_file_name, "../#{mm.filevalue.file.url}"
