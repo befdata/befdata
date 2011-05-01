@@ -1,41 +1,70 @@
----
-datasets_001:
-  abstract: ! 'Leaf, twig, stem and root samples were taken from eight “target” species
-    (four trees, two deciduous: Castanea henryi, Quercus serrata and two evergreen:
-    Castanopsis eyrei, Schima superba; four shrubs, one deciduous: Rhododendron simsii
-    and three evergreen: Loropetalum chinense, Camellia fraterna, Eurya muricata)
-    in autumn 2008. Furthermore, leaf samples from the target species were collected
-    in spring 2009, summer 2009 and winter 2010 to detect seasonal variation in N
-    concentration. Species were sampled in all CSPs where they were present. For the
-    seasonal patterns, always the same tree individuals were sampled. Total C+N pools
-    in tree and shrub biomass will further be calculated based on the C+N concentration
-    measurements.'
-  circumstances: ''
-  comment: ''
-  created_at: 2011-03-28 13:58:07.952400000Z
-  dataanalysis: ''
-  datemax: 2010-12-31 00:00:00.000000000Z
-  datemin: 2008-01-01 00:00:00.000000000Z
-  design: ! 'Leaf samples were taken with telescope pruning shears (lenght: up to
-    6.5m)  from the lower outer and preferentially sun exposed canopy when possible.
-    Leaves of shrub species were sampled in upper canopy.  One year old twigs, and
-    roots which a diameter between 1 and 3mm were taken for C and N analysis. All
-    samples were dried at 70°C, ground and analyzed for C and N using an elemantal
-    analyzer available at Peking University (Prof. Jin-Sheng He). '
-  downloads: 0
-  filename: SP5_TargetSpecies_CN_final_8_target_carbon-_short .xls
-  finished: false
-  id: 1
-  published: ''
-  spatialextent: Study extent (study site, locations, range of times and range of
-    organisms or individuals)
-  submission_at:
-  taxonomicextent: ''
-  temporalextent: Autumn 2008 to Winter 2010
-  title: ! 'another short version of: Carbon (C) Concentration (Root, Stem, Twig,
-    Leaf) of 8 target species in the CSPs'
-  updated_at: 2011-03-28 13:59:32.832400000Z
-  upload_spreadsheet_id: 2
-  usagerights: Data is restricted in use to the Subprojects, in which the Phd students
-    are, who did the work. Contact the principle investigator for usage permission.
+--- 
+datasets_001: 
+  comment: ""
   visible_for_public: true
+  upload_spreadsheet_id: 
+  created_at: 2011-05-01 12:51:09.968341 Z
+  title: "BEF members: group pictures with names 2010"
+  downloads: 0
+  datemax: 
+  circumstances: 
+  updated_at: 2011-05-01 12:51:09.968341 Z
+  published: 
+  usagerights: 
+  abstract: Slide showing mostly European members of the BEF China project including names and projects.
+  temporalextent: 
+  taxonomicextent: 
+  spatialextent: 
+  id: 4
+  datemin: 
+  filename: People.ppt
+  submission_at: 
+  dataanalysis: 
+  finished: 
+  design: 
+datasets_002: 
+  comment: The data relies on the GIS make by Gunnar Seidler in Halle. KN used site A treatment file version 12 to link the shrub treatments.
+  visible_for_public: true
+  upload_spreadsheet_id: 5
+  created_at: 2011-05-01 11:47:08.105716 Z
+  title: Coordinates, treatment information, and environmental variables for the Experimental Plots in Xingangshan, Site B for testing
+  downloads: 1
+  datemax: 2009-12-31 00:00:00 Z
+  circumstances: ""
+  updated_at: 2011-05-01 11:49:25.833712 Z
+  published: ""
+  usagerights: ""
+  abstract: "Explanation of the extinction series applied: A: random extinction on 4 Mu plots with crossed shrub extinction, B,C: random extinction on 1 Mu plots, E: economic tree species, G: genetic extinction series, R: extinction along rarity, S: extinction along SLA.  Further information of environmental factors from the GIS intrapolation: elevation, aspect, slope, solar radiation.  Species richness of shrubs and trees."
+  temporalextent: ""
+  taxonomicextent: Tree and shrub species.
+  spatialextent: The Experimental Study Plots are located in Xingangshan, China. Each plot has a size of 1x1 mu, which is about 25mx25m.
+  id: 3
+  datemin: 2009-01-01 00:00:00 Z
+  filename: z2_SiteB_PLOTS 1mGIS meta_kn_for  testing.xls
+  submission_at: 
+  dataanalysis: This data cannot be analysed by itself but provides information on important covariates as well as experimental treatment information for the plots.
+  finished: false
+  design: Broken stick random extinction scenarios as well as genetic extinction and extinction based on SLA and rarity.
+datasets_003: 
+  comment: ""
+  visible_for_public: true
+  upload_spreadsheet_id: 2
+  created_at: 2011-03-28 13:58:07.952400 Z
+  title: "another short version of: Carbon (C) Concentration (Root, Stem, Twig, Leaf) of 8 target species in the CSPs"
+  downloads: 2
+  datemax: 2010-12-31 00:00:00 Z
+  circumstances: ""
+  updated_at: 2011-05-01 11:34:44.577753 Z
+  published: ""
+  usagerights: Data is restricted in use to the Subprojects, in which the Phd students are, who did the work. Contact the principle investigator for usage permission.
+  abstract: "Leaf, twig, stem and root samples were taken from eight \xE2\x80\x9Ctarget\xE2\x80\x9D species (four trees, two deciduous: Castanea henryi, Quercus serrata and two evergreen: Castanopsis eyrei, Schima superba; four shrubs, one deciduous: Rhododendron simsii and three evergreen: Loropetalum chinense, Camellia fraterna, Eurya muricata) in autumn 2008. Furthermore, leaf samples from the target species were collected in spring 2009, summer 2009 and winter 2010 to detect seasonal variation in N concentration. Species were sampled in all CSPs where they were present. For the seasonal patterns, always the same tree individuals were sampled. Total C+N pools in tree and shrub biomass will further be calculated based on the C+N concentration measurements."
+  temporalextent: Autumn 2008 to Winter 2010
+  taxonomicextent: ""
+  spatialextent: Study extent (study site, locations, range of times and range of organisms or individuals)
+  id: 1
+  datemin: 2008-01-01 00:00:00 Z
+  filename: SP5_TargetSpecies_CN_final_8_target_carbon-_short .xls
+  submission_at: 
+  dataanalysis: ""
+  finished: false
+  design: "Leaf samples were taken with telescope pruning shears (lenght: up to 6.5m)  from the lower outer and preferentially sun exposed canopy when possible. Leaves of shrub species were sampled in upper canopy.  One year old twigs, and roots which a diameter between 1 and 3mm were taken for C and N analysis. All samples were dried at 70\xC2\xB0C, ground and analyzed for C and N using an elemantal analyzer available at Peking University (Prof. Jin-Sheng He). "

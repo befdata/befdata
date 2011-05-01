@@ -1,33 +1,273 @@
----
-import_categoricvalues_001:
-  approved:
-  categoricvalue_id: 12
-  created_at: 2011-03-28 14:01:52.287400000Z
-  datacolumn_id: 3
+--- 
+import_categoricvalues_026: 
+  created_at: 2011-05-01 11:47:33.386095 Z
+  updated_at: 2011-05-01 11:47:33.386095 Z
+  id: 9
+  approved: 
+  datacolumn_id: 20
+  raw_data_value: 
+  categoricvalue_id: 33
+import_categoricvalues_015: 
+  created_at: 2011-05-01 11:47:51.501664 Z
+  updated_at: 2011-05-01 11:47:51.501664 Z
+  id: 20
+  approved: 
+  datacolumn_id: 21
+  raw_data_value: 
+  categoricvalue_id: 44
+import_categoricvalues_004: 
+  created_at: 2011-05-01 12:40:59.112030 Z
+  updated_at: 2011-05-01 12:40:59.112030 Z
+  id: 31
+  approved: 
+  datacolumn_id: 29
+  raw_data_value: 
+  categoricvalue_id: 55
+import_categoricvalues_027: 
+  created_at: 2011-05-01 11:47:33.380293 Z
+  updated_at: 2011-05-01 11:47:33.380293 Z
+  id: 8
+  approved: 
+  datacolumn_id: 20
+  raw_data_value: 
+  categoricvalue_id: 32
+import_categoricvalues_016: 
+  created_at: 2011-05-01 11:47:51.495737 Z
+  updated_at: 2011-05-01 11:47:51.495737 Z
+  id: 19
+  approved: 
+  datacolumn_id: 21
+  raw_data_value: 
+  categoricvalue_id: 43
+import_categoricvalues_005: 
+  created_at: 2011-05-01 11:48:47.023291 Z
+  updated_at: 2011-05-01 11:48:47.023291 Z
+  id: 30
+  approved: 
+  datacolumn_id: 23
+  raw_data_value: 
+  categoricvalue_id: 54
+import_categoricvalues_028: 
+  created_at: 2011-05-01 11:47:33.374513 Z
+  updated_at: 2011-05-01 11:47:33.374513 Z
+  id: 7
+  approved: 
+  datacolumn_id: 20
+  raw_data_value: 
+  categoricvalue_id: 31
+import_categoricvalues_017: 
+  created_at: 2011-05-01 11:47:51.489986 Z
+  updated_at: 2011-05-01 11:47:51.489986 Z
+  id: 18
+  approved: 
+  datacolumn_id: 21
+  raw_data_value: 
+  categoricvalue_id: 42
+import_categoricvalues_006: 
+  created_at: 2011-05-01 11:48:47.017664 Z
+  updated_at: 2011-05-01 11:48:47.017664 Z
+  id: 29
+  approved: 
+  datacolumn_id: 23
+  raw_data_value: 
+  categoricvalue_id: 53
+import_categoricvalues_029: 
+  created_at: 2011-05-01 11:47:33.368327 Z
+  updated_at: 2011-05-01 11:47:33.368327 Z
+  id: 6
+  approved: 
+  datacolumn_id: 20
+  raw_data_value: 
+  categoricvalue_id: 30
+import_categoricvalues_018: 
+  created_at: 2011-05-01 11:47:51.484124 Z
+  updated_at: 2011-05-01 11:47:51.484124 Z
+  id: 17
+  approved: 
+  datacolumn_id: 21
+  raw_data_value: 
+  categoricvalue_id: 41
+import_categoricvalues_007: 
+  created_at: 2011-05-01 11:48:47.011791 Z
+  updated_at: 2011-05-01 11:48:47.011791 Z
+  id: 28
+  approved: 
+  datacolumn_id: 23
+  raw_data_value: 
+  categoricvalue_id: 52
+import_categoricvalues_030: 
+  created_at: 2011-05-01 11:47:33.352842 Z
+  updated_at: 2011-05-01 11:47:33.352842 Z
+  id: 5
+  approved: 
+  datacolumn_id: 20
+  raw_data_value: 
+  categoricvalue_id: 29
+import_categoricvalues_019: 
+  created_at: 2011-05-01 11:47:51.478315 Z
+  updated_at: 2011-05-01 11:47:51.478315 Z
+  id: 16
+  approved: 
+  datacolumn_id: 21
+  raw_data_value: 
+  categoricvalue_id: 40
+import_categoricvalues_008: 
+  created_at: 2011-05-01 11:48:47.005995 Z
+  updated_at: 2011-05-01 11:48:47.005995 Z
+  id: 27
+  approved: 
+  datacolumn_id: 23
+  raw_data_value: 
+  categoricvalue_id: 51
+import_categoricvalues_031: 
+  created_at: 2011-03-28 14:01:52.287400 Z
+  updated_at: 2011-03-28 14:01:52.287400 Z
   id: 4
-  raw_data_value:
-  updated_at: 2011-03-28 14:01:52.287400000Z
-import_categoricvalues_002:
-  approved:
-  categoricvalue_id: 11
-  created_at: 2011-03-28 14:01:52.284400000Z
+  approved: 
   datacolumn_id: 3
+  raw_data_value: 
+  categoricvalue_id: 12
+import_categoricvalues_020: 
+  created_at: 2011-05-01 11:47:51.466166 Z
+  updated_at: 2011-05-01 11:47:51.466166 Z
+  id: 15
+  approved: 
+  datacolumn_id: 21
+  raw_data_value: 
+  categoricvalue_id: 39
+import_categoricvalues_009: 
+  created_at: 2011-05-01 11:48:47.000238 Z
+  updated_at: 2011-05-01 11:48:47.000238 Z
+  id: 26
+  approved: 
+  datacolumn_id: 23
+  raw_data_value: 
+  categoricvalue_id: 50
+import_categoricvalues_032: 
+  created_at: 2011-03-28 14:01:52.284400 Z
+  updated_at: 2011-03-28 14:01:52.284400 Z
   id: 3
-  raw_data_value:
-  updated_at: 2011-03-28 14:01:52.284400000Z
-import_categoricvalues_003:
-  approved:
-  categoricvalue_id: 10
-  created_at: 2011-03-28 14:01:52.281400000Z
+  approved: 
   datacolumn_id: 3
+  raw_data_value: 
+  categoricvalue_id: 11
+import_categoricvalues_021: 
+  created_at: 2011-05-01 11:47:33.415618 Z
+  updated_at: 2011-05-01 11:47:33.415618 Z
+  id: 14
+  approved: 
+  datacolumn_id: 20
+  raw_data_value: 
+  categoricvalue_id: 38
+import_categoricvalues_010: 
+  created_at: 2011-05-01 11:48:46.994409 Z
+  updated_at: 2011-05-01 11:48:46.994409 Z
+  id: 25
+  approved: 
+  datacolumn_id: 23
+  raw_data_value: 
+  categoricvalue_id: 49
+import_categoricvalues_033: 
+  created_at: 2011-03-28 14:01:52.281400 Z
+  updated_at: 2011-03-28 14:01:52.281400 Z
   id: 2
-  raw_data_value:
-  updated_at: 2011-03-28 14:01:52.281400000Z
-import_categoricvalues_004:
-  approved:
-  categoricvalue_id: 9
-  created_at: 2011-03-28 14:01:52.252400000Z
+  approved: 
   datacolumn_id: 3
+  raw_data_value: 
+  categoricvalue_id: 10
+import_categoricvalues_022: 
+  created_at: 2011-05-01 11:47:33.409565 Z
+  updated_at: 2011-05-01 11:47:33.409565 Z
+  id: 13
+  approved: 
+  datacolumn_id: 20
+  raw_data_value: 
+  categoricvalue_id: 37
+import_categoricvalues_011: 
+  created_at: 2011-05-01 11:48:46.988521 Z
+  updated_at: 2011-05-01 11:48:46.988521 Z
+  id: 24
+  approved: 
+  datacolumn_id: 23
+  raw_data_value: 
+  categoricvalue_id: 48
+import_categoricvalues_034: 
+  created_at: 2011-03-28 14:01:52.252400 Z
+  updated_at: 2011-03-28 14:01:52.252400 Z
   id: 1
-  raw_data_value:
-  updated_at: 2011-03-28 14:01:52.252400000Z
+  approved: 
+  datacolumn_id: 3
+  raw_data_value: 
+  categoricvalue_id: 9
+import_categoricvalues_023: 
+  created_at: 2011-05-01 11:47:33.403747 Z
+  updated_at: 2011-05-01 11:47:33.403747 Z
+  id: 12
+  approved: 
+  datacolumn_id: 20
+  raw_data_value: 
+  categoricvalue_id: 36
+import_categoricvalues_012: 
+  created_at: 2011-05-01 11:48:46.976277 Z
+  updated_at: 2011-05-01 11:48:46.976277 Z
+  id: 23
+  approved: 
+  datacolumn_id: 23
+  raw_data_value: 
+  categoricvalue_id: 47
+import_categoricvalues_001: 
+  created_at: 2011-05-01 12:40:59.135722 Z
+  updated_at: 2011-05-01 12:40:59.135722 Z
+  id: 34
+  approved: 
+  datacolumn_id: 29
+  raw_data_value: 
+  categoricvalue_id: 58
+import_categoricvalues_024: 
+  created_at: 2011-05-01 11:47:33.397968 Z
+  updated_at: 2011-05-01 11:47:33.397968 Z
+  id: 11
+  approved: 
+  datacolumn_id: 20
+  raw_data_value: 
+  categoricvalue_id: 35
+import_categoricvalues_013: 
+  created_at: 2011-05-01 11:47:51.513256 Z
+  updated_at: 2011-05-01 11:47:51.513256 Z
+  id: 22
+  approved: 
+  datacolumn_id: 21
+  raw_data_value: 
+  categoricvalue_id: 46
+import_categoricvalues_002: 
+  created_at: 2011-05-01 12:40:59.130167 Z
+  updated_at: 2011-05-01 12:40:59.130167 Z
+  id: 33
+  approved: 
+  datacolumn_id: 29
+  raw_data_value: 
+  categoricvalue_id: 57
+import_categoricvalues_025: 
+  created_at: 2011-05-01 11:47:33.392116 Z
+  updated_at: 2011-05-01 11:47:33.392116 Z
+  id: 10
+  approved: 
+  datacolumn_id: 20
+  raw_data_value: 
+  categoricvalue_id: 34
+import_categoricvalues_014: 
+  created_at: 2011-05-01 11:47:51.507472 Z
+  updated_at: 2011-05-01 11:47:51.507472 Z
+  id: 21
+  approved: 
+  datacolumn_id: 21
+  raw_data_value: 
+  categoricvalue_id: 45
+import_categoricvalues_003: 
+  created_at: 2011-05-01 12:40:59.124350 Z
+  updated_at: 2011-05-01 12:40:59.124350 Z
+  id: 32
+  approved: 
+  datacolumn_id: 29
+  raw_data_value: 
+  categoricvalue_id: 56

@@ -1,71 +1,71 @@
----
-author_paperproposals_001:
-  created_at: 2011-03-29 08:03:19.695200000Z
-  id: 10
-  kind: ack
-  paperproposal_id: 2
-  updated_at: 2011-03-29 08:03:19.695200000Z
-  user_id: 1
-author_paperproposals_002:
-  created_at: 2011-03-29 08:03:19.331200000Z
-  id: 9
+--- 
+author_paperproposals_006: 
   kind: main
-  paperproposal_id: 2
-  updated_at: 2011-03-29 08:03:19.331200000Z
-  user_id: 6
-author_paperproposals_003:
-  created_at: 2011-03-29 08:03:19.328200000Z
-  id: 8
-  kind: main
-  paperproposal_id: 2
-  updated_at: 2011-03-29 08:03:19.328200000Z
-  user_id: 5
-author_paperproposals_004:
-  created_at: 2011-03-29 08:03:19.305200000Z
-  id: 7
-  kind: main
-  paperproposal_id: 2
-  updated_at: 2011-03-29 08:03:19.305200000Z
-  user_id: 3
-author_paperproposals_005:
-  created_at: 2011-03-28 14:38:59.843400000Z
-  id: 6
-  kind: ack
-  paperproposal_id: 1
-  updated_at: 2011-03-28 14:38:59.843400000Z
-  user_id: 1
-author_paperproposals_006:
-  created_at: 2011-03-28 14:38:59.676400000Z
+  created_at: 2011-03-28 14:38:59.676400 Z
+  updated_at: 2011-03-28 14:38:59.676400 Z
   id: 5
-  kind: main
-  paperproposal_id: 1
-  updated_at: 2011-03-28 14:38:59.676400000Z
   user_id: 6
-author_paperproposals_007:
-  created_at: 2011-03-28 14:38:59.674400000Z
+  paperproposal_id: 1
+author_paperproposals_007: 
+  kind: main
+  created_at: 2011-03-28 14:38:59.674400 Z
+  updated_at: 2011-03-28 14:38:59.674400 Z
   id: 4
-  kind: main
-  paperproposal_id: 1
-  updated_at: 2011-03-28 14:38:59.674400000Z
   user_id: 5
-author_paperproposals_008:
-  created_at: 2011-03-28 14:38:59.663400000Z
-  id: 3
+  paperproposal_id: 1
+author_paperproposals_008: 
   kind: main
-  paperproposal_id: 1
-  updated_at: 2011-03-28 14:38:59.663400000Z
+  created_at: 2011-03-28 14:38:59.663400 Z
+  updated_at: 2011-03-28 14:38:59.663400 Z
+  id: 3
   user_id: 3
-author_paperproposals_009:
-  created_at: 2011-03-28 11:25:52.974000000Z
-  id: 2
-  kind: user
   paperproposal_id: 1
-  updated_at: 2011-03-28 11:25:52.974000000Z
-  user_id: 6
-author_paperproposals_010:
-  created_at: 2011-03-28 11:25:52.965000000Z
+author_paperproposals_010: 
+  kind: user
+  created_at: 2011-03-28 11:25:52.965000 Z
+  updated_at: 2011-03-28 11:25:52.965000 Z
   id: 1
-  kind: user
-  paperproposal_id: 1
-  updated_at: 2011-03-28 11:25:52.965000000Z
   user_id: 4
+  paperproposal_id: 1
+author_paperproposals_009: 
+  kind: user
+  created_at: 2011-03-28 11:25:52.974000 Z
+  updated_at: 2011-03-28 11:25:52.974000 Z
+  id: 2
+  user_id: 6
+  paperproposal_id: 1
+author_paperproposals_001: 
+  kind: ack
+  created_at: 2011-03-29 08:03:19.695200 Z
+  updated_at: 2011-03-29 08:03:19.695200 Z
+  id: 10
+  user_id: 1
+  paperproposal_id: 2
+author_paperproposals_002: 
+  kind: main
+  created_at: 2011-03-29 08:03:19.331200 Z
+  updated_at: 2011-03-29 08:03:19.331200 Z
+  id: 9
+  user_id: 6
+  paperproposal_id: 2
+author_paperproposals_003: 
+  kind: main
+  created_at: 2011-03-29 08:03:19.328200 Z
+  updated_at: 2011-03-29 08:03:19.328200 Z
+  id: 8
+  user_id: 5
+  paperproposal_id: 2
+author_paperproposals_004: 
+  kind: main
+  created_at: 2011-03-29 08:03:19.305200 Z
+  updated_at: 2011-03-29 08:03:19.305200 Z
+  id: 7
+  user_id: 3
+  paperproposal_id: 2
+author_paperproposals_005: 
+  kind: ack
+  created_at: 2011-03-28 14:38:59.843400 Z
+  updated_at: 2011-03-28 14:38:59.843400 Z
+  id: 6
+  user_id: 1
+  paperproposal_id: 1
