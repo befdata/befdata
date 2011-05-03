@@ -7,10 +7,8 @@ class ApplicationController < ActionController::Base
 
 protected
   def layout_from_config
-    database_config = File.read(RAILS_ROOT + "/config/database.yml")
-    config_file = YAML.load(database_config)[RAILS_ENV]
-
-    case config_file["layout"]
+    layout = ActiveRecord::Base.configurations[RAILS_ENV]["layout"]
+    case layout
       when "fundiv" then
         "fundiv"
       else
