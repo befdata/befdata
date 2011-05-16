@@ -15,3 +15,4 @@ index/*
 files/*
 public/javascripts/active_scaffold/default/date_picker_bridge.js
 
+glob:*DO_NOT_EDIT
