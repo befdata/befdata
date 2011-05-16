@@ -1,0 +1,103 @@
+---
+datagroups_001:
+  comment:
+  created_at: 2011-03-28 13:59:35.838400000Z
+  description: Carbon
+  id: 7
+  informationsource:
+  instrumentation:
+  methodvaluetype: number
+  timelatency:
+  timelatencyunit:
+  title: Carbon
+  updated_at: 2011-03-28 13:59:35.838400000Z
+datagroups_002:
+  comment:
+  created_at: 2011-03-28 13:59:35.725400000Z
+  description: Helper column give further information on other columns or summarize
+    several columns
+  id: 6
+  informationsource:
+  instrumentation:
+  methodvaluetype: text
+  timelatency:
+  timelatencyunit:
+  title: Helper
+  updated_at: 2011-03-28 13:59:35.725400000Z
+datagroups_003:
+  comment:
+  created_at: 2011-03-28 13:59:35.557400000Z
+  description: ! 'Reasearch plots of the Biodiversity - Ecosystem functioning experiment
+    (BEF-China). There are three main sites for research plots in the BEF Experiment:
+    Comparative Study Plots (CSP) in the  Gutianshan Nature Reserve, having a size
+    of 30x30m^2, measured on the ground. Main Experiment plots have a size of 1 mu,
+    which is about 25x25m^2 in horizontal projection. Pilot Study Plots have a size
+    of 1x1 m^2.'
+  id: 5
+  informationsource:
+  instrumentation:
+  methodvaluetype: nominal
+  timelatency: 500.0
+  timelatencyunit: year
+  title: BEF research plot name
+  updated_at: 2011-03-28 13:59:35.557400000Z
+datagroups_004:
+  comment:
+  created_at: 2011-03-28 13:59:35.414400000Z
+  description: ! 'The stems were marked with a metal tag with a code compound of a
+    number of six positions. The tag was attached to each individual by attaching
+    it with a wire sorrounding one stem, taking care to leave it long enough to allow
+    the grow of the stem. Normally the wire was attached between 1 and 1.8m over the
+    ground. If the individual had many stems, such as often seen in shrubs, only one
+    of the stems was tagged. '
+  id: 4
+  informationsource:
+  instrumentation: letters are attached if the same number was used for different
+    tree individuals. This occurred a few times. Numbers are unique only within CSPs
+  methodvaluetype: nominal
+  timelatency: 30.0
+  timelatencyunit: year
+  title: Metal Tag Numbers in the CSPs
+  updated_at: 2011-03-28 13:59:35.414400000Z
+datagroups_005:
+  comment:
+  created_at: 2011-03-28 13:59:35.256400000Z
+  description: ! 'Leaf samples were taken with telescope pruning shears (lenght: up
+    to 6.5m)  from the lower outer and preferentially sun exposed canopy when possible.
+    Leaves of shrub species were sampled in upper canopy.  One year old twigs, and
+    roots which a diameter between 1 and 3mm were taken.'
+  id: 3
+  informationsource:
+  instrumentation:
+  methodvaluetype: category
+  timelatency: 1000.0
+  timelatencyunit: year
+  title: Plant organ sampled
+  updated_at: 2011-03-28 13:59:35.256400000Z
+datagroups_006:
+  comment:
+  created_at: 2011-03-28 13:59:35.096400000Z
+  description: Date time information, given as year or as date or as date time.
+  id: 2
+  informationsource:
+  instrumentation:
+  methodvaluetype: integer
+  timelatency: 1000.0
+  timelatencyunit: years
+  title: Date time information
+  updated_at: 2011-03-28 13:59:35.096400000Z
+datagroups_007:
+  comment:
+  created_at: 2011-03-28 13:59:34.144400000Z
+  description: The scientific species fullnames are based on the "Flora of China"
+    identified by Teng Fang and verified by Helge Bruelheide (trees) and Alexandra
+    Efmeier (herbs). Scientific species names consist of epithet and genus. For identification,
+    the Author name and the year of the publications of the description are required.
+  id: 1
+  informationsource: Flora of China, Helge Bruelheide
+  instrumentation:
+  methodvaluetype: nominal
+  timelatency: 10.0
+  timelatencyunit: years
+  title: Scientific plant species name
+  updated_at: 2011-03-28 13:59:34.144400000Z

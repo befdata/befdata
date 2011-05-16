@@ -1,0 +1,8 @@
+%h1 Listing Projects
+%table
+  %tr
+  - @projects.each do |project|
+    %tr
+      %td= link_to project.name, {:controller => :projects, |
+          :action => :show, :id => project.id}             |
+%br/

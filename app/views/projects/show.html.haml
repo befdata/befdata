@@ -1,0 +1,33 @@
+%h2
+  = @project.name
+  (#{@project.shortname})
+= h @project.description
+
+%ul
+  - @project.users.each do |person|
+    %li
+      = link_to person, user_path(person.path_name)
+      = "(#{person.roles_for(@project).map{|e| t("role."+e.name)}.join(",")})"
+
+
+- unless @project.datasets_owned.count==0
+  %b Datasets
+  %ul
+    - @project.datasets_owned.each do |ds|
+      %li
+        = link_to ds.title, {:controller => :datasets,
+                                         :action => :show,
+                                         :id => ds.id }
+        - if current_user
+          = link_to image_tag("/images/cart_put.png"), create_cart_context_path(:dataset_id => ds.id), :method => :post
+
+
+- unless @project.paperproposals_owned.count==0
+  %b Paper proposal submissions
+  %ul
+    - @project.paperproposals_owned.each do |pp|
+      %li
+        = link_to pp.title, {:controller => :paperproposals,
+                                         :action => :show,
+                                         :id => pp.id }
+

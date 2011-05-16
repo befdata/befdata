@@ -1,0 +1,6 @@
+%span{:style => "font-size: large;"}
+  Context: #{@dataset.title}
+- if current_user || @dataset.visible_for_public
+  = render :partial => "show_dataset"
+- else
+  %p Please log in.

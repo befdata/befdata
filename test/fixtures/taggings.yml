@@ -1,0 +1,56 @@
+---
+taggings_001:
+  id: 13
+  tag_id: 3
+  taggable_id: 6
+  taggable_type: Datacolumn
+taggings_002:
+  id: 10
+  tag_id: 7
+  taggable_id: 7
+  taggable_type: Datacolumn
+taggings_003:
+  id: 9
+  tag_id: 6
+  taggable_id: 7
+  taggable_type: Datacolumn
+taggings_004:
+  id: 8
+  tag_id: 2
+  taggable_id: 5
+  taggable_type: Datacolumn
+taggings_005:
+  id: 7
+  tag_id: 5
+  taggable_id: 5
+  taggable_type: Datacolumn
+taggings_006:
+  id: 6
+  tag_id: 2
+  taggable_id: 4
+  taggable_type: Datacolumn
+taggings_007:
+  id: 5
+  tag_id: 4
+  taggable_id: 3
+  taggable_type: Datacolumn
+taggings_008:
+  id: 4
+  tag_id: 2
+  taggable_id: 3
+  taggable_type: Datacolumn
+taggings_009:
+  id: 3
+  tag_id: 3
+  taggable_id: 2
+  taggable_type: Datacolumn
+taggings_010:
+  id: 2
+  tag_id: 2
+  taggable_id: 1
+  taggable_type: Datacolumn
+taggings_011:
+  id: 1
+  tag_id: 1
+  taggable_id: 1
+  taggable_type: Datacolumn

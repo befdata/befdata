@@ -1,0 +1,4 @@
+%span{:style => "font-size: large;"} BEF Staff
+.comment
+  - for person in @users
+    %div{:style => "width: 240px; padding: 3px 20px; float: left;"}= link_to person, user_path(person.path_name)

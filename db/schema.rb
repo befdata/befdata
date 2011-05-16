@@ -1,0 +1,307 @@
+# This file is auto-generated from the current state of the database. Instead
+# of editing this file, please use the migrations feature of Active Record to
+# incrementally modify your database, and then regenerate this schema definition.
+#
+# Note that this schema.rb definition is the authoritative source for your
+# database schema. If you need to create the application database on another
+# system, you should be using db:schema:load, not running all the migrations
+# from scratch. The latter is a flawed and unsustainable approach (the more migrations
+# you'll amass, the slower it'll run and the greater likelihood for issues).
+#
+# It's strongly recommended to check this file into your version control system.
+
+ActiveRecord::Schema.define(:version => 20110418100144) do
+
+  create_table "author_paperproposals", :force => true do |t|
+    t.integer  "paperproposal_id"
+    t.integer  "user_id"
+    t.string   "kind"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "author_paperproposals", ["user_id", "paperproposal_id"], :name => "index_author_paperproposals_on_user_id_and_paperproposal_id"
+
+  create_table "cart_datasets", :force => true do |t|
+    t.integer  "cart_id"
+    t.integer  "dataset_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "cart_datasets", ["cart_id"], :name => "index_cart_datasets_on_cart_id"
+  add_index "cart_datasets", ["dataset_id"], :name => "index_cart_datasets_on_dataset_id"
+
+  create_table "carts", :force => true do |t|
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "categoricvalues", :force => true do |t|
+    t.string   "short"
+    t.string   "long"
+    t.text     "description"
+    t.text     "comment"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "categoricvalues", ["short"], :name => "index_categoricvalues_on_short"
+
+  create_table "datacolumns", :force => true do |t|
+    t.integer  "datagroup_id"
+    t.integer  "dataset_id"
+    t.string   "columnheader"
+    t.integer  "columnnr"
+    t.text     "definition"
+    t.string   "unit"
+    t.string   "missingcode"
+    t.text     "comment"
+    t.string   "import_data_type"
+    t.string   "category_longshort"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "datacolumns", ["datagroup_id", "dataset_id"], :name => "index_datacolumns_on_datagroup_id_and_dataset_id"
+  add_index "datacolumns", ["datagroup_id"], :name => "index_datacolumns_on_datagroup_id"
+
+  create_table "datagroups", :force => true do |t|
+    t.string   "informationsource"
+    t.string   "methodvaluetype"
+    t.string   "title"
+    t.text     "description"
+    t.string   "instrumentation"
+    t.float    "timelatency"
+    t.string   "timelatencyunit"
+    t.text     "comment"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "dataset_paperproposals", :force => true do |t|
+    t.string   "aspect"
+    t.integer  "paperproposal_id"
+    t.integer  "dataset_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "dataset_paperproposals", ["dataset_id", "paperproposal_id"], :name => "index_dataset_paperproposals_on_dataset_id_and_paperproposal_id"
+
+  create_table "datasets", :force => true do |t|
+    t.string   "title"
+    t.text     "abstract"
+    t.text     "usagerights"
+    t.text     "spatialextent"
+    t.text     "temporalextent"
+    t.text     "taxonomicextent"
+    t.text     "design"
+    t.text     "circumstances"
+    t.datetime "submission_at"
+    t.string   "filename"
+    t.text     "comment"
+    t.text     "dataanalysis"
+    t.boolean  "finished"
+    t.integer  "downloads",             :default => 0
+    t.datetime "datemin"
+    t.datetime "datemax"
+    t.text     "published"
+    t.boolean  "visible_for_public",    :default => true
+    t.integer  "upload_spreadsheet_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "datetimevalues", :force => true do |t|
+    t.datetime "date"
+    t.integer  "year"
+    t.integer  "month"
+    t.integer  "day"
+    t.text     "comment"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "filevalues", :force => true do |t|
+    t.string   "file_file_name"
+    t.string   "file_content_type"
+    t.integer  "file_file_size"
+    t.datetime "file_updated_at"
+    t.integer  "paperproposal_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "filevalues", ["paperproposal_id"], :name => "index_filevalues_on_paperproposal_id"
+
+  create_table "import_categoricvalues", :force => true do |t|
+    t.integer  "datacolumn_id"
+    t.string   "raw_data_value"
+    t.integer  "categoricvalue_id"
+    t.boolean  "approved"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "numericvalues", :force => true do |t|
+    t.float    "number"
+    t.text     "comment"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "observation_sheetcells", :force => true do |t|
+    t.integer  "observation_id"
+    t.integer  "sheetcell_id"
+    t.text     "comment"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "observation_sheetcells", ["observation_id", "sheetcell_id"], :name => "index_observation_sheetcells_on_observation_id_and_sheetcell_id"
+
+  create_table "observations", :force => true do |t|
+    t.text     "comment"
+    t.integer  "rownr"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "paperproposal_votes", :force => true do |t|
+    t.integer  "paperproposal_id"
+    t.integer  "user_id"
+    t.string   "comment"
+    t.string   "vote",               :default => "none"
+    t.boolean  "project_board_vote"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "paperproposal_votes", ["paperproposal_id"], :name => "index_paperproposal_votes_on_paperproposal_id"
+  add_index "paperproposal_votes", ["user_id"], :name => "index_paperproposal_votes_on_user_id"
+
+  create_table "paperproposals", :force => true do |t|
+    t.integer  "author_id"
+    t.string   "envisaged_journal"
+    t.string   "title"
+    t.text     "rationale"
+    t.integer  "corresponding_id"
+    t.date     "envisaged_date"
+    t.string   "state"
+    t.date     "expiry_date"
+    t.string   "board_state",       :default => "prep"
+    t.integer  "senior_author_id"
+    t.string   "external_data"
+    t.boolean  "lock",              :default => false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "initial_title"
+    t.text     "comment"
+  end
+
+  add_index "paperproposals", ["author_id"], :name => "index_paperproposals_on_author_id"
+  add_index "paperproposals", ["corresponding_id"], :name => "index_paperproposals_on_corresponding_id"
+
+  create_table "projects", :force => true do |t|
+    t.string   "shortname"
+    t.string   "name"
+    t.text     "description"
+    t.text     "comment"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "projects_roles", :id => false, :force => true do |t|
+    t.integer  "project_id"
+    t.integer  "role_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "roles", :force => true do |t|
+    t.string   "name",              :limit => 40
+    t.string   "authorizable_type", :limit => 40
+    t.integer  "authorizable_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "roles", ["authorizable_type", "authorizable_id"], :name => "index_roles_on_authorizable_type_and_authorizable_id"
+
+  create_table "roles_users", :id => false, :force => true do |t|
+    t.integer "user_id"
+    t.integer "role_id"
+  end
+
+  create_table "sheetcells", :force => true do |t|
+    t.integer  "datacolumn_id"
+    t.integer  "value_id"
+    t.string   "value_type"
+    t.integer  "rownr"
+    t.text     "comment"
+    t.integer  "observation_id"
+    t.string   "import_value"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "sheetcells", ["datacolumn_id"], :name => "index_sheetcells_on_datacolumn_id"
+  add_index "sheetcells", ["observation_id"], :name => "index_sheetcells_on_observation_id"
+  add_index "sheetcells", ["value_id", "value_type"], :name => "index_sheetcells_on_value_id_and_value_type"
+
+  create_table "taggings", :force => true do |t|
+    t.integer "tag_id"
+    t.string  "taggable_type", :default => ""
+    t.integer "taggable_id"
+  end
+
+  add_index "taggings", ["tag_id"], :name => "index_taggings_on_tag_id"
+  add_index "taggings", ["taggable_id", "taggable_type"], :name => "index_taggings_on_taggable_id_and_taggable_type"
+
+  create_table "tags", :force => true do |t|
+    t.string "name", :default => ""
+    t.string "kind", :default => ""
+  end
+
+  create_table "textvalues", :force => true do |t|
+    t.string   "text"
+    t.text     "comment"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "users", :force => true do |t|
+    t.string   "login",                              :null => false
+    t.string   "email",                              :null => false
+    t.string   "crypted_password",                   :null => false
+    t.string   "password_salt",                      :null => false
+    t.string   "persistence_token",                  :null => false
+    t.string   "single_access_token",                :null => false
+    t.string   "perishable_token",                   :null => false
+    t.integer  "login_count",         :default => 0, :null => false
+    t.integer  "failed_login_count",  :default => 0, :null => false
+    t.datetime "last_request_at"
+    t.datetime "current_login_at"
+    t.datetime "last_login_at"
+    t.string   "current_login_ip"
+    t.string   "last_login_ip"
+    t.string   "firstname"
+    t.string   "middlenames"
+    t.string   "lastname"
+    t.string   "salutation"
+    t.text     "comment"
+    t.string   "url"
+    t.string   "institution_name"
+    t.text     "affiliation"
+    t.string   "institution_url"
+    t.string   "institution_phone"
+    t.string   "institution_fax"
+    t.string   "street"
+    t.string   "city"
+    t.string   "country"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+end

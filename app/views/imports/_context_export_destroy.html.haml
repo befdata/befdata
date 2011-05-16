@@ -1,0 +1,4 @@
+%span{:style => "width: 50%; height: 50px; float: left;"}
+  = button_to "delete" , {:controller => :imports, :action => :context_export_destroy, :dataset_id => @dataset.id, :confirm => 'Make sure to download present stage before deleting', :method => :delete}
+%span{:style => "width: 50%; height: 50px; float: right;"}
+  = link_to 'Download edit', {:controller => :datasets, :action => :show, :id => @dataset.id}

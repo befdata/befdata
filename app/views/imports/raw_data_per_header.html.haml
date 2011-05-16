@@ -1,0 +1,30 @@
+= render 'context_export_destroy'
+= render 'dataset_step_five'
+= render 'data_header_link_list'
+%h1= @data_column.columnheader
+%p= @dataset.title
+%div
+  %h3
+    General information for data column  "#{@data_column.columnheader}"
+  = render 'dataheader_meta'
+%br
+  %br
+    %div
+      %h3
+        Data group information for data column  "#{@data_column.columnheader}"
+      = render 'datagroups_for_dataheader'
+    %br
+      %br
+        %div
+          %h3
+            People responsible for data column  "#{@data_column.columnheader}"
+          = render 'people_for_dataheader'
+        %br
+          %br
+            %div
+              %h3
+                Data values found in data column
+                "#{@data_column.columnheader}"
+              = render 'datavalues_for_dataheader'
+            = render :partial => 'data_header_link_list'
+            = render 'context_export_destroy'

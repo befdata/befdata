@@ -1,0 +1,10 @@
+%div
+  %p
+    Add people external to BEF-China in the comments of the data
+    column.  Please include contact data.  If applicable, encourage
+    these scientists to become a member of BEF-China by signing our data
+    sharing agreement.
+  - form_for @data_column, :url => {:action => :update_data_header, :controller => :imports} do |form|
+    = form.hidden_field :id
+    Comment: #{form.text_field :comment}
+    \#{form.submit "Update"}

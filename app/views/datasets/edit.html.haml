@@ -1,0 +1,20 @@
+%span{:style => "font-size: large;"}
+  Context: #{@dataset.title}
+- unless @dataset.blank?
+  %p
+    For more information, please contact #{link_to @contact, user_path(@contact.path_name)}
+    of project #{link_to @project, project_path(1)}
+.comment
+  %span{:style => "font-size: medium;"} Edit meta data of this context
+  -#= render :active_scaffold => "admin/contexts", :constraints => {:id => @dataset.id}
+.comment
+  %span{:style => "font-size: medium;"}
+    Edit method descriptions of this
+    context
+  %p
+    At the time of writing, it is only possible to add, but not to
+    delete methods or personroles to a given columnheader (=
+    measurements_methodstep)
+  -#= render :active_scaffold => "admin/measurements_methodsteps", :constraints => {:context_id => @dataset.id}
+%div
+  -#= render  :active_scaffold => "admin/methods"

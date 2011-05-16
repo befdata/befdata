@@ -1,0 +1,32 @@
+= f.label :title
+= f.text_field :title
+%br
+= f.label :initial_title
+= f.text_field :initial_title
+%br
+= f.label :envisaged_journal
+= f.text_field :envisaged_journal
+%br
+= f.label :envisaged_date
+= f.date_select :envisaged_date
+%br
+= f.label :author
+= f.select :author_id, @all_persons.map{|person| [person.to_label, person.id]}
+%br
+= f.label :corresponding
+= f.select :corresponding_id, @all_persons.map{|person| [person.to_label, person.id]}, { :include_blank => true }
+%br
+= f.label :senior_author
+= f.select :senior_author_id, @all_persons.map{|person| [person.to_label, person.id]}, { :include_blank => true }
+%br
+= f.label :rationale
+= f.text_area :rationale
+%br
+= f.label :external_data
+= f.text_field :external_data
+%br
+= f.label :state
+= f.select :state, ["in prep", "manuscript avaible", "in review", "accepted"]
+%br
+= f.label :comment
+= f.text_area :comment

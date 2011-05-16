@@ -1,0 +1,7 @@
+- cell = Sheetcell.find(cell_id)
+- form_for cell , :url  =>  {:controller  =>  :imports, :action  =>  :cell_category_update} do |f|
+  = f.error_messages
+  = f.hidden_field :id
+  %p
+    To approve the chosen category, press:
+    = f.submit :approve

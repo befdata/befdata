@@ -1,7 +1,6 @@
 syntax: glob
 *~
 index/*
-config/database.yml
 config/config.yml
 *.svn*
 *tuneup*
@@ -9,5 +8,10 @@ public/files/*
 public/downloads/*
 log/*
 xls/*
-consoleScratch.rb
-glob:.idea/*
+config/database.yml
+.idea/*
+tmp/*
+index/*
+files/*
+public/javascripts/active_scaffold/default/date_picker_bridge.js
+

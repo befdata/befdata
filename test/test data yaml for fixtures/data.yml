@@ -1,0 +1,3926 @@
+
+---
+users:
+  columns:
+  - id
+  - login
+  - email
+  - crypted_password
+  - password_salt
+  - persistence_token
+  - single_access_token
+  - perishable_token
+  - login_count
+  - failed_login_count
+  - last_request_at
+  - current_login_at
+  - last_login_at
+  - current_login_ip
+  - last_login_ip
+  - firstname
+  - middlenames
+  - lastname
+  - salutation
+  - comment
+  - url
+  - institution_name
+  - affiliation
+  - institution_url
+  - institution_phone
+  - institution_fax
+  - street
+  - city
+  - country
+  - created_at
+  - updated_at
+  records: 
+---
+  - - '1'
+    - nadrowski
+    - nadrowski@uni-leipzig.de
+    - 96fa4441629f3342910245c21157355a3220ab3ff091d86a5c1e1ef450dc0341762b9eb93b9b38cd3a23e0cd7d73785a1bede09800dcf03fa778e5e6959b36a5
+    - ECABMJzgdGkmhrd2rkWV
+    - 1a079b5a7955b18f32cba1d2d5a41f060e7974993f445fb0ee9e926bde6514c7ca5492e4e67786b40bb4bff80d97e7771d1b6a74da2e8969f90a5661659f1d1e
+    - Yy2APsD87JiDbF9YBnU
+    - 4NOpkMBVwGqN4ZJYg8g7
+    - '17'
+    - '0'
+    - '2011-04-20 11:52:23.447'
+    - '2011-04-20 11:51:24.311'
+    - '2011-04-20 11:46:29.323'
+    - 127.0.0.1
+    - 127.0.0.1
+    - Karin
+    - !!null 
+    - Nadrowski
+    - !!null 
+    - !!null 
+    - !!null 
+    - !!null 
+    - !!null 
+    - !!null 
+    - !!null 
+    - !!null 
+    - !!null 
+    - !!null 
+    - !!null 
+    - '2011-03-28 09:52:22.797'
+    - '2011-04-20 11:52:23.449'
+  - - '2'
+    - Pidata
+    - pidata@test.uni-town.de
+    - 5d9fe1fd018c2a2a643d2ad4e9f751d62158af3f2318da7688d30f8fc43329a5813c7a2a29cd4961ff293915c592d73e266c15cab23e0d238f8a0a27b277856b
+    - WKwBiVBrml7lLeqGULet
+    - 0e54849e87c10dcd7010519a00f51d0c6fc22b1a8c5734a27259267e83dbaa300a2b48ac32093d727d1b8e9d6bf98e56205acf83476b2e051ab2d69f6e20d5d9
+    - ejHGU2BO5sCYBm3yIEBZ
+    - AWP9P9to9zvBMQtE
+    - '1'
+    - '0'
+    - '2011-04-20 11:36:57.513'
+    - '2011-04-20 11:27:13.882'
+    - !!null 
+    - 127.0.0.1
+    - !!null 
+    - Christian
+    - !!null 
+    - Pidata
+    - !!null 
+    - !!null 
+    - !!null 
+    - !!null 
+    - !!null 
+    - !!null 
+    - !!null 
+    - !!null 
+    - !!null 
+    - !!null 
+    - !!null 
+    - '2011-03-28 10:02:37.606'
+    - '2011-04-20 11:36:57.514'
+  - - '3'
+    - pinutrientcycling
+    - pinutrientcycling@botanik.uni-test.de
+    - 8ec713be2338030c3a71f930f0a4e736783ac9bd20795b9c95a8b1b5e545c5736bf4a89bcad2d32cd6675c83268227a4dfb9787be47fae081c71b676d31a54e2
+    - EicylHragnQQMMRBb1i
+    - b112208a66ec5c617aeae4d944b8d2b34829401674f2fd4f1a714055b096888d0ea4092e47a586107db656ea616645b641e2e8182af8df3ed2621aca98251b4c
+    - aRAYvHZzBc2qFZzPb8Ky
+    - DfCzZcZsuUe1dmcXy9vM
+    - '2'
+    - '0'
+    - '2011-04-20 11:55:04.255'
+    - '2011-04-20 11:54:24.564'
+    - '2011-04-20 10:00:51.355'
+    - 127.0.0.1
+    - 127.0.0.1
+    - Michael
+    - !!null 
+    - Pinutrientcycling
+    - Prof.
+    - !!null 
+    - !!null 
+    - !!null 
+    - !!null 
+    - !!null 
+    - !!null 
+    - !!null 
+    - !!null 
+    - !!null 
+    - !!null 
+    - '2011-03-28 11:22:11.119'
+    - '2011-04-20 11:55:04.257'
+  - - '4'
+    - Piproductivity
+    - piproductivity@test.botanik.de
+    - 5f35db90f0f9ffa29c1f72fe3eb5b84c79fc0e46b66a7149e971dc7fbb5327d48c833cb430e6891e6e03312e4c85239d3f72447594a90c5dd95a2c25cb25f7e3
+    - vhx3l2A8VfofRPbfSrp8
+    - 00a99647e45fa0dc5b4f43557244d04c50d4e4b93adbcdec9cb045f500088c88225e4f5bc6ac590b41a0ceae1a96820733be42949ffc5f8158b46a42b9890fea
+    - 3DjX2wBbArZnCGLx3ScD
+    - we0bMODofF0NhGO6J9cY
+    - '3'
+    - '0'
+    - '2011-04-20 09:35:19.307'
+    - '2011-04-20 09:34:25.091'
+    - '2011-04-20 09:16:23.304'
+    - 127.0.0.1
+    - 127.0.0.1
+    - Bernhard
+    - !!null 
+    - Piproductivity
+    - Prof.
+    - !!null 
+    - !!null 
+    - !!null 
+    - !!null 
+    - !!null 
+    - !!null 
+    - !!null 
+    - !!null 
+    - !!null 
+    - !!null 
+    - '2011-03-28 11:22:52.921'
+    - '2011-04-20 09:35:19.308'
+  - - '5'
+    - Phdstudentnutrientcycling
+    - Phdstudentnutrientcycling@test.de
+    - a1227f05e2da3562289e2b2437bbba47f750b4b0b94679842015ef83e9b01b36077110397a14305a30af00f48cb47275c5b5415ca6696fad0a4ea5f5a742c672
+    - 2f6BCh1Tn36kFbBDb8U
+    - b577108be9737aa1f0aaa973ad0c3b3da89be1b38a5003a8e4033098588b78c8c0348f1b5ae76eea144157cd93be53089bd393a17a1bf0abf1053d2fe97593f7
+    - MEwJ1XyaP0qX4B0ezkGv
+    - lolIZwJIEJQXA2mdzKFa
+    - '4'
+    - '0'
+    - '2011-04-20 11:54:13.653'
+    - '2011-04-20 11:53:54.491'
+    - '2011-04-20 11:52:33.085'
+    - 127.0.0.1
+    - 127.0.0.1
+    - Stefan
+    - !!null 
+    - Phdstudentnutrientcycling
+    - !!null 
+    - !!null 
+    - !!null 
+    - !!null 
+    - !!null 
+    - !!null 
+    - !!null 
+    - !!null 
+    - !!null 
+    - !!null 
+    - !!null 
+    - '2011-03-28 11:23:42.108'
+    - '2011-04-20 11:54:13.654'
+  - - '6'
+    - Phdstudentproductivity
+    - Phdstudentproductivity@test.de
+    - e60c076613d2691ec45cc9789ccb73b0ba58d389a4c2da21c19fc6a70237b3201e1f3f4b1b7ba92d1e936b7c069843c171e448cfea7378f67c595c7fbfcd783b
+    - cyBr6c8BW4xRbG474xsG
+    - b08f3f7db59baa8b7ae7c621a758dcc246e2de5510dac1e2a03bddec4fc82da61eb10f3804507299f14001f742007f392247f713e42f595543a6f92c6044f36e
+    - zwZOcS16s1lVlOaxYYcI
+    - ISm31VWKEriopUZ6aFx
+    - '4'
+    - '0'
+    - '2011-04-21 09:46:32.361'
+    - '2011-04-20 11:55:14.57'
+    - '2011-04-20 11:52:51.555'
+    - 127.0.0.1
+    - 127.0.0.1
+    - Martin
+    - !!null 
+    - Phdstudentproductivity
+    - !!null 
+    - !!null 
+    - !!null 
+    - !!null 
+    - !!null 
+    - !!null 
+    - !!null 
+    - !!null 
+    - !!null 
+    - !!null 
+    - !!null 
+    - '2011-03-28 11:24:10.315'
+    - '2011-04-21 09:46:32.363'
+
+---
+roles:
+  columns:
+  - id
+  - name
+  - authorizable_type
+  - authorizable_id
+  - created_at
+  - updated_at
+  records: 
+---
+  - - '1'
+    - admin
+    - !!null 
+    - !!null 
+    - '2011-03-28 09:55:20.466'
+    - '2011-03-28 09:55:20.466'
+  - - '2'
+    - postdoc
+    - Project
+    - '1'
+    - '2011-03-28 10:00:37.31'
+    - '2011-03-28 10:00:37.31'
+  - - '3'
+    - pi
+    - Project
+    - '1'
+    - '2011-03-28 10:03:41.604'
+    - '2011-03-28 10:03:41.604'
+  - - '6'
+    - project_board
+    - !!null 
+    - !!null 
+    - '2011-03-31 12:41:43.498'
+    - '2011-03-31 12:41:43.498'
+  - - '21'
+    - owner
+    - Dataset
+    - '13'
+    - '2011-04-07 15:05:19.376'
+    - '2011-04-07 15:05:19.376'
+  - - '22'
+    - responsible
+    - Datacolumn
+    - '60'
+    - '2011-04-07 15:07:21.717'
+    - '2011-04-07 15:07:21.717'
+  - - '23'
+    - owner
+    - Dataset
+    - '14'
+    - '2011-04-14 10:44:34.527'
+    - '2011-04-14 10:44:34.527'
+  - - '25'
+    - proposer
+    - Dataset
+    - '13'
+    - '2011-04-20 11:54:59.251'
+    - '2011-04-20 11:54:59.251'
+  - - '26'
+    - owner
+    - Paperproposal
+    - '1'
+    - '2011-04-21 08:39:45.653'
+    - '2011-04-21 08:39:45.653'
+  - - '27'
+    - owner
+    - Paperproposal
+    - '3'
+    - '2011-04-21 09:33:10.8'
+    - '2011-04-21 09:33:10.8'
+
+---
+roles_users:
+  columns:
+  - user_id
+  - role_id
+  records: 
+---
+  - - '1'
+    - '1'
+  - - '1'
+    - '2'
+  - - '1'
+    - '22'
+  - - '1'
+    - '23'
+  - - '1'
+    - '6'
+  - - '2'
+    - '3'
+  - - '3'
+    - '21'
+  - - '4'
+    - '23'
+  - - '5'
+    - '21'
+  - - '6'
+    - '23'
+  - - '6'
+    - '25'
+
+---
+datasets:
+  columns:
+  - id
+  - title
+  - abstract
+  - usagerights
+  - spatialextent
+  - temporalextent
+  - taxonomicextent
+  - design
+  - circumstances
+  - submission_at
+  - filename
+  - comment
+  - dataanalysis
+  - finished
+  - downloads
+  - datemin
+  - datemax
+  - published
+  - visible_for_public
+  - upload_spreadsheet_id
+  - created_at
+  - updated_at
+  records: 
+---
+  - - '13'
+    - ! 'Short version of: four column version: Nitrogen (N) Concentration (Root,
+      Stem, Twig, Leaf) of 8 target species in the CSPs'
+    - ! 'Leaf, twig, stem and root samples were taken from eight “target” species
+      (four trees, two deciduous: Castanea henryi, Quercus serrata and two evergreen:
+      Castanopsis eyrei, Schima superba; four shrubs, one deciduous: Rhododendron
+      simsii and three evergreen: Loropetalum chinense, Camellia fraterna, Eurya muricata)
+      in autumn 2008. Furthermore, leaf samples from the target species were collected
+      in spring 2009, summer 2009 and winter 2010 to detect seasonal variation in
+      N concentration. Species were sampled in all CSPs where they were present. For
+      the seasonal patterns, always the same tree individuals were sampled. Total
+      C+N pools in tree and shrub biomass will further be calculated based on the
+      C+N concentration measurements.'
+    - Data is restricted in use to the Subprojects, in which the Phd students are,
+      who did the work. Contact the principle investigator for usage permission.
+    - Study extent (study site, locations, range of times and range of organisms or
+      individuals)
+    - Autumn 2008 to Winter 2010
+    - !!null 
+    - ! 'Leaf samples were taken with telescope pruning shears (lenght: up to 6.5m)  from
+      the lower outer and preferentially sun exposed canopy when possible. Leaves
+      of shrub species were sampled in upper canopy.  One year old twigs, and roots
+      which a diameter between 1 and 3mm were taken for C and N analysis. All samples
+      were dried at 70°C, ground and analyzed for C and N using an elemantal analyzer
+      available at Peking University (Prof. Jin-Sheng He). '
+    - !!null 
+    - !!null 
+    - SP5_very short TargetSpecies_CN_final_8_target_spec_kn_-_short - Kopie.xls
+    - !!null 
+    - !!null 
+    - false
+    - '0'
+    - '2008-01-01 00:00:00'
+    - '2010-12-31 00:00:00'
+    - !!null 
+    - true
+    - '15'
+    - '2011-04-07 15:05:19.252'
+    - '2011-04-07 15:05:19.343'
+  - - '14'
+    - Coordinates, treatment information, and environmental variables for the Experimental
+      Plots in Xingangshan, Site B for testing
+    - ! 'Explanation of the extinction series applied: A: random extinction on 4 Mu
+      plots with crossed shrub extinction, B,C: random extinction on 1 Mu plots, E:
+      economic tree species, G: genetic extinction series, R: extinction along rarity,
+      S: extinction along SLA.  Further information of environmental factors from
+      the GIS intrapolation: elevation, aspect, slope, solar radiation.  Species richness
+      of shrubs and trees.'
+    - ''
+    - The Experimental Study Plots are located in Xingangshan, China. Each plot has
+      a size of 1x1 mu, which is about 25mx25m.
+    - ''
+    - Tree and shrub species.
+    - Broken stick random extinction scenarios as well as genetic extinction and extinction
+      based on SLA and rarity.
+    - ''
+    - !!null 
+    - z2_SiteB_PLOTS 1mGIS meta_kn_for  testing.xls
+    - The data relies on the GIS make by Gunnar Seidler in Halle. KN used site A treatment
+      file version 12 to link the shrub treatments.
+    - This data cannot be analysed by itself but provides information on important
+      covariates as well as experimental treatment information for the plots.
+    - false
+    - '0'
+    - '2009-01-01 00:00:00'
+    - '2011-04-14 00:00:00'
+    - ''
+    - true
+    - '20'
+    - '2011-04-14 10:44:34.154'
+    - '2011-04-14 10:45:49.769'
+
+---
+categoricvalues:
+  columns:
+  - id
+  - short
+  - long
+  - description
+  - comment
+  - created_at
+  - updated_at
+  records: 
+---
+  - - '66'
+    - Eurya muricata
+    - Eurya muricata
+    - Eurya muricata
+    - ! 'added from category sheet in dataset Short version of: four column version:
+      Nitrogen (N) Concentration (Root, Stem, Twig, Leaf) of 8 target species in the
+      CSPs'
+    - '2011-04-07 15:05:35.158'
+    - '2011-04-07 15:05:35.158'
+  - - '67'
+    - Castanea henryi
+    - Castanea henryi
+    - Castanea henryi
+    - ! 'added from category sheet in dataset Short version of: four column version:
+      Nitrogen (N) Concentration (Root, Stem, Twig, Leaf) of 8 target species in the
+      CSPs'
+    - '2011-04-07 15:05:35.21'
+    - '2011-04-07 15:05:35.21'
+  - - '68'
+    - Loropetalum chinense
+    - Loropetalum chinense
+    - Loropetalum chinense
+    - ! 'added from category sheet in dataset Short version of: four column version:
+      Nitrogen (N) Concentration (Root, Stem, Twig, Leaf) of 8 target species in the
+      CSPs'
+    - '2011-04-07 15:05:35.216'
+    - '2011-04-07 15:05:35.216'
+  - - '69'
+    - '1'
+    - CSP01
+    - CSP01
+    - ! 'added from category sheet in dataset: Short version of: four column version:
+      Nitrogen (N) Concentration (Root, Stem, Twig, Leaf) of 8 target species in the
+      CSPs'
+    - '2011-04-07 15:07:22.043'
+    - '2011-04-07 15:07:22.043'
+  - - '70'
+    - '3'
+    - CSP03
+    - CSP03
+    - ! 'added from category sheet in dataset: Short version of: four column version:
+      Nitrogen (N) Concentration (Root, Stem, Twig, Leaf) of 8 target species in the
+      CSPs'
+    - '2011-04-07 15:07:22.091'
+    - '2011-04-07 15:07:22.091'
+  - - '71'
+    - p220100
+    - p220100
+    - p220100
+    - ! 'added from category sheet in dataset: Coordinates, treatment information,
+      and environmental variables for the Experimental Plots in Xingangshan, Site
+      B for testing'
+    - '2011-04-14 10:46:12.677'
+    - '2011-04-14 10:46:12.677'
+  - - '72'
+    - p220090
+    - p220090
+    - p220090
+    - ! 'added from category sheet in dataset: Coordinates, treatment information,
+      and environmental variables for the Experimental Plots in Xingangshan, Site
+      B for testing'
+    - '2011-04-14 10:46:12.823'
+    - '2011-04-14 10:46:12.823'
+  - - '73'
+    - p209220
+    - p209220
+    - p209220
+    - ! 'added from category sheet in dataset: Coordinates, treatment information,
+      and environmental variables for the Experimental Plots in Xingangshan, Site
+      B for testing'
+    - '2011-04-14 10:46:12.829'
+    - '2011-04-14 10:46:12.829'
+  - - '74'
+    - p222190
+    - p222190
+    - p222190
+    - ! 'added from category sheet in dataset: Coordinates, treatment information,
+      and environmental variables for the Experimental Plots in Xingangshan, Site
+      B for testing'
+    - '2011-04-14 10:46:12.835'
+    - '2011-04-14 10:46:12.835'
+  - - '75'
+    - p210270
+    - p210270
+    - p210270
+    - ! 'added from category sheet in dataset: Coordinates, treatment information,
+      and environmental variables for the Experimental Plots in Xingangshan, Site
+      B for testing'
+    - '2011-04-14 10:46:12.842'
+    - '2011-04-14 10:46:12.842'
+  - - '76'
+    - p217160
+    - p217160
+    - p217160
+    - ! 'added from category sheet in dataset: Coordinates, treatment information,
+      and environmental variables for the Experimental Plots in Xingangshan, Site
+      B for testing'
+    - '2011-04-14 10:46:12.85'
+    - '2011-04-14 10:46:12.85'
+  - - '77'
+    - p214200
+    - p214200
+    - p214200
+    - ! 'added from category sheet in dataset: Coordinates, treatment information,
+      and environmental variables for the Experimental Plots in Xingangshan, Site
+      B for testing'
+    - '2011-04-14 10:46:12.859'
+    - '2011-04-14 10:46:12.859'
+  - - '78'
+    - p218250
+    - p218250
+    - p218250
+    - ! 'added from category sheet in dataset: Coordinates, treatment information,
+      and environmental variables for the Experimental Plots in Xingangshan, Site
+      B for testing'
+    - '2011-04-14 10:46:12.865'
+    - '2011-04-14 10:46:12.865'
+  - - '79'
+    - p205260
+    - p205260
+    - p205260
+    - ! 'added from category sheet in dataset: Coordinates, treatment information,
+      and environmental variables for the Experimental Plots in Xingangshan, Site
+      B for testing'
+    - '2011-04-14 10:46:12.873'
+    - '2011-04-14 10:46:12.873'
+  - - '80'
+    - p205270
+    - p205270
+    - p205270
+    - ! 'added from category sheet in dataset: Coordinates, treatment information,
+      and environmental variables for the Experimental Plots in Xingangshan, Site
+      B for testing'
+    - '2011-04-14 10:46:12.879'
+    - '2011-04-14 10:46:12.879'
+  - - '81'
+    - T10
+    - T10
+    - T10
+    - ! 'added from category sheet in dataset: Coordinates, treatment information,
+      and environmental variables for the Experimental Plots in Xingangshan, Site
+      B for testing'
+    - '2011-04-14 10:46:36.746'
+    - '2011-04-14 10:46:36.746'
+  - - '82'
+    - T9
+    - T9
+    - T9
+    - ! 'added from category sheet in dataset: Coordinates, treatment information,
+      and environmental variables for the Experimental Plots in Xingangshan, Site
+      B for testing'
+    - '2011-04-14 10:46:36.794'
+    - '2011-04-14 10:46:36.794'
+  - - '83'
+    - I22
+    - I22
+    - I22
+    - ! 'added from category sheet in dataset: Coordinates, treatment information,
+      and environmental variables for the Experimental Plots in Xingangshan, Site
+      B for testing'
+    - '2011-04-14 10:46:36.815'
+    - '2011-04-14 10:46:36.815'
+  - - '84'
+    - V19
+    - V19
+    - V19
+    - ! 'added from category sheet in dataset: Coordinates, treatment information,
+      and environmental variables for the Experimental Plots in Xingangshan, Site
+      B for testing'
+    - '2011-04-14 10:46:36.826'
+    - '2011-04-14 10:46:36.826'
+  - - '85'
+    - J27
+    - J27
+    - J27
+    - ! 'added from category sheet in dataset: Coordinates, treatment information,
+      and environmental variables for the Experimental Plots in Xingangshan, Site
+      B for testing'
+    - '2011-04-14 10:46:36.838'
+    - '2011-04-14 10:46:36.838'
+  - - '86'
+    - Q16
+    - Q16
+    - Q16
+    - ! 'added from category sheet in dataset: Coordinates, treatment information,
+      and environmental variables for the Experimental Plots in Xingangshan, Site
+      B for testing'
+    - '2011-04-14 10:46:36.844'
+    - '2011-04-14 10:46:36.844'
+  - - '87'
+    - N20
+    - N20
+    - N20
+    - ! 'added from category sheet in dataset: Coordinates, treatment information,
+      and environmental variables for the Experimental Plots in Xingangshan, Site
+      B for testing'
+    - '2011-04-14 10:46:36.849'
+    - '2011-04-14 10:46:36.849'
+  - - '88'
+    - R25
+    - R25
+    - R25
+    - ! 'added from category sheet in dataset: Coordinates, treatment information,
+      and environmental variables for the Experimental Plots in Xingangshan, Site
+      B for testing'
+    - '2011-04-14 10:46:36.86'
+    - '2011-04-14 10:46:36.86'
+  - - '89'
+    - A
+    - A random
+    - A random
+    - ! 'added from category sheet in dataset: Coordinates, treatment information,
+      and environmental variables for the Experimental Plots in Xingangshan, Site
+      B for testing'
+    - '2011-04-14 10:48:15.266'
+    - '2011-04-14 10:48:15.266'
+  - - '90'
+    - B
+    - B random
+    - B random
+    - ! 'added from category sheet in dataset: Coordinates, treatment information,
+      and environmental variables for the Experimental Plots in Xingangshan, Site
+      B for testing'
+    - '2011-04-14 10:48:15.367'
+    - '2011-04-14 10:48:15.367'
+  - - '91'
+    - C
+    - C random
+    - C random
+    - ! 'added from category sheet in dataset: Coordinates, treatment information,
+      and environmental variables for the Experimental Plots in Xingangshan, Site
+      B for testing'
+    - '2011-04-14 10:48:15.376'
+    - '2011-04-14 10:48:15.376'
+  - - '92'
+    - E
+    - Economic
+    - Economic
+    - ! 'added from category sheet in dataset: Coordinates, treatment information,
+      and environmental variables for the Experimental Plots in Xingangshan, Site
+      B for testing'
+    - '2011-04-14 10:48:15.382'
+    - '2011-04-14 10:48:15.382'
+  - - '93'
+    - F
+    - Free succession
+    - Free succession
+    - ! 'added from category sheet in dataset: Coordinates, treatment information,
+      and environmental variables for the Experimental Plots in Xingangshan, Site
+      B for testing'
+    - '2011-04-14 10:48:15.389'
+    - '2011-04-14 10:48:15.389'
+  - - '94'
+    - G
+    - Genetic
+    - Genetic
+    - ! 'added from category sheet in dataset: Coordinates, treatment information,
+      and environmental variables for the Experimental Plots in Xingangshan, Site
+      B for testing'
+    - '2011-04-14 10:48:15.409'
+    - '2011-04-14 10:48:15.409'
+  - - '95'
+    - R
+    - Rarity
+    - Rarity
+    - ! 'added from category sheet in dataset: Coordinates, treatment information,
+      and environmental variables for the Experimental Plots in Xingangshan, Site
+      B for testing'
+    - '2011-04-14 10:48:15.422'
+    - '2011-04-14 10:48:15.422'
+  - - '96'
+    - S
+    - SLA
+    - SLA
+    - ! 'added from category sheet in dataset: Coordinates, treatment information,
+      and environmental variables for the Experimental Plots in Xingangshan, Site
+      B for testing'
+    - '2011-04-14 10:48:15.431'
+    - '2011-04-14 10:48:15.431'
+  - - '97'
+    - E
+    - East
+    - East
+    - ! 'added from category sheet in dataset: Coordinates, treatment information,
+      and environmental variables for the Experimental Plots in Xingangshan, Site
+      B for testing'
+    - '2011-04-14 10:51:33.023'
+    - '2011-04-14 10:51:33.023'
+  - - '98'
+    - N
+    - North
+    - North
+    - ! 'added from category sheet in dataset: Coordinates, treatment information,
+      and environmental variables for the Experimental Plots in Xingangshan, Site
+      B for testing'
+    - '2011-04-14 10:51:33.177'
+    - '2011-04-14 10:51:33.177'
+  - - '99'
+    - S
+    - South
+    - South
+    - ! 'added from category sheet in dataset: Coordinates, treatment information,
+      and environmental variables for the Experimental Plots in Xingangshan, Site
+      B for testing'
+    - '2011-04-14 10:51:33.191'
+    - '2011-04-14 10:51:33.191'
+  - - '100'
+    - W
+    - West
+    - West
+    - ! 'added from category sheet in dataset: Coordinates, treatment information,
+      and environmental variables for the Experimental Plots in Xingangshan, Site
+      B for testing'
+    - '2011-04-14 10:51:33.233'
+    - '2011-04-14 10:51:33.233'
+
+---
+datetimevalues:
+  columns:
+  - id
+  - date
+  - year
+  - month
+  - day
+  - comment
+  - created_at
+  - updated_at
+  records: 
+---
+  - - '37'
+    - '2008-11-09 00:00:00'
+    - !!null 
+    - !!null 
+    - !!null 
+    - !!null 
+    - '2011-04-07 15:07:17.365'
+    - '2011-04-07 15:07:17.365'
+  - - '38'
+    - '2008-11-09 00:00:00'
+    - !!null 
+    - !!null 
+    - !!null 
+    - !!null 
+    - '2011-04-07 15:07:17.435'
+    - '2011-04-07 15:07:17.435'
+  - - '39'
+    - '2008-11-09 00:00:00'
+    - !!null 
+    - !!null 
+    - !!null 
+    - !!null 
+    - '2011-04-07 15:07:17.443'
+    - '2011-04-07 15:07:17.443'
+  - - '40'
+    - '2008-10-25 00:00:00'
+    - !!null 
+    - !!null 
+    - !!null 
+    - !!null 
+    - '2011-04-07 15:07:17.452'
+    - '2011-04-07 15:07:17.452'
+  - - '41'
+    - '2008-11-08 00:00:00'
+    - !!null 
+    - !!null 
+    - !!null 
+    - !!null 
+    - '2011-04-07 15:07:17.46'
+    - '2011-04-07 15:07:17.46'
+  - - '42'
+    - '2008-11-08 00:00:00'
+    - !!null 
+    - !!null 
+    - !!null 
+    - !!null 
+    - '2011-04-07 15:07:17.468'
+    - '2011-04-07 15:07:17.468'
+  - - '43'
+    - '2008-11-08 00:00:00'
+    - !!null 
+    - !!null 
+    - !!null 
+    - !!null 
+    - '2011-04-07 15:07:17.476'
+    - '2011-04-07 15:07:17.476'
+
+---
+filevalues:
+  columns:
+  - id
+  - file_file_name
+  - file_content_type
+  - file_file_size
+  - file_updated_at
+  - paperproposal_id
+  - created_at
+  - updated_at
+  records: 
+---
+  - - '1'
+    - ppNutrientCyclingtest.doc
+    - application/msword
+    - '57856'
+    - '2011-03-28 12:35:15.764'
+    - '1'
+    - '2011-03-28 12:35:15.824'
+    - '2011-03-28 12:35:15.824'
+  - - '15'
+    - SP5_very short TargetSpecies_CN_final_8_target_spec_kn_-_short - Kopie.xls
+    - application/vnd.ms-excel
+    - '38912'
+    - '2011-04-07 15:05:18.339'
+    - !!null 
+    - '2011-04-07 15:05:18.362'
+    - '2011-04-07 15:05:18.362'
+  - - '20'
+    - z2_SiteB_PLOTS 1mGIS meta_kn_for  testing.xls
+    - application/vnd.ms-excel
+    - '82432'
+    - '2011-04-14 10:44:31.197'
+    - !!null 
+    - '2011-04-14 10:44:31.316'
+    - '2011-04-14 10:44:31.316'
+
+---
+sheetcells:
+  columns:
+  - id
+  - datacolumn_id
+  - value_id
+  - value_type
+  - rownr
+  - comment
+  - observation_id
+  - import_value
+  - created_at
+  - updated_at
+  records: 
+---
+  - - '407'
+    - '58'
+    - '66'
+    - Categoricvalue
+    - !!null 
+    - sheet match
+    - '197'
+    - Eurya muricata
+    - '2011-04-07 15:05:29.549'
+    - '2011-04-07 15:05:41.675'
+  - - '408'
+    - '58'
+    - '66'
+    - Categoricvalue
+    - !!null 
+    - sheet match
+    - '198'
+    - Eurya muricata
+    - '2011-04-07 15:05:29.581'
+    - '2011-04-07 15:05:41.708'
+  - - '409'
+    - '58'
+    - '66'
+    - Categoricvalue
+    - !!null 
+    - sheet match
+    - '199'
+    - Eurya muricata
+    - '2011-04-07 15:05:29.605'
+    - '2011-04-07 15:05:41.714'
+  - - '410'
+    - '58'
+    - '67'
+    - Categoricvalue
+    - !!null 
+    - sheet match
+    - '200'
+    - Castanea henryi
+    - '2011-04-07 15:05:29.616'
+    - '2011-04-07 15:05:41.721'
+  - - '411'
+    - '58'
+    - '68'
+    - Categoricvalue
+    - !!null 
+    - sheet match
+    - '201'
+    - Loropetalum chinense
+    - '2011-04-07 15:05:29.628'
+    - '2011-04-07 15:05:41.728'
+  - - '412'
+    - '58'
+    - '68'
+    - Categoricvalue
+    - !!null 
+    - sheet match
+    - '202'
+    - Loropetalum chinense
+    - '2011-04-07 15:05:29.64'
+    - '2011-04-07 15:05:41.735'
+  - - '413'
+    - '58'
+    - '68'
+    - Categoricvalue
+    - !!null 
+    - sheet match
+    - '203'
+    - Loropetalum chinense
+    - '2011-04-07 15:05:29.65'
+    - '2011-04-07 15:05:41.741'
+  - - '414'
+    - '59'
+    - '37'
+    - Datetimevalue
+    - !!null 
+    - valid
+    - '197'
+    - '2008-11-09'
+    - '2011-04-07 15:05:29.75'
+    - '2011-04-07 15:07:17.405'
+  - - '415'
+    - '59'
+    - '38'
+    - Datetimevalue
+    - !!null 
+    - valid
+    - '198'
+    - '2008-11-09'
+    - '2011-04-07 15:05:29.754'
+    - '2011-04-07 15:07:17.438'
+  - - '416'
+    - '59'
+    - '39'
+    - Datetimevalue
+    - !!null 
+    - valid
+    - '199'
+    - '2008-11-09'
+    - '2011-04-07 15:05:29.757'
+    - '2011-04-07 15:07:17.446'
+  - - '417'
+    - '59'
+    - '40'
+    - Datetimevalue
+    - !!null 
+    - valid
+    - '200'
+    - '2008-10-25'
+    - '2011-04-07 15:05:29.769'
+    - '2011-04-07 15:07:17.455'
+  - - '418'
+    - '59'
+    - '41'
+    - Datetimevalue
+    - !!null 
+    - valid
+    - '201'
+    - '2008-11-08'
+    - '2011-04-07 15:05:29.773'
+    - '2011-04-07 15:07:17.463'
+  - - '419'
+    - '59'
+    - '42'
+    - Datetimevalue
+    - !!null 
+    - valid
+    - '202'
+    - '2008-11-08'
+    - '2011-04-07 15:05:29.78'
+    - '2011-04-07 15:07:17.471'
+  - - '420'
+    - '59'
+    - '43'
+    - Datetimevalue
+    - !!null 
+    - valid
+    - '203'
+    - '2008-11-08'
+    - '2011-04-07 15:05:29.783'
+    - '2011-04-07 15:07:17.479'
+  - - '421'
+    - '60'
+    - '69'
+    - Categoricvalue
+    - !!null 
+    - sheet match
+    - '197'
+    - '1'
+    - '2011-04-07 15:05:29.849'
+    - '2011-04-07 15:07:29.165'
+  - - '422'
+    - '60'
+    - '69'
+    - Categoricvalue
+    - !!null 
+    - sheet match
+    - '198'
+    - '1'
+    - '2011-04-07 15:05:29.853'
+    - '2011-04-07 15:07:29.246'
+  - - '423'
+    - '60'
+    - '69'
+    - Categoricvalue
+    - !!null 
+    - sheet match
+    - '199'
+    - '1'
+    - '2011-04-07 15:05:29.859'
+    - '2011-04-07 15:07:29.252'
+  - - '424'
+    - '60'
+    - '70'
+    - Categoricvalue
+    - !!null 
+    - sheet match
+    - '200'
+    - '3'
+    - '2011-04-07 15:05:29.869'
+    - '2011-04-07 15:07:29.258'
+  - - '425'
+    - '60'
+    - '70'
+    - Categoricvalue
+    - !!null 
+    - sheet match
+    - '201'
+    - '3'
+    - '2011-04-07 15:05:29.872'
+    - '2011-04-07 15:07:29.264'
+  - - '426'
+    - '60'
+    - '70'
+    - Categoricvalue
+    - !!null 
+    - sheet match
+    - '202'
+    - '3'
+    - '2011-04-07 15:05:29.881'
+    - '2011-04-07 15:07:29.27'
+  - - '427'
+    - '60'
+    - '70'
+    - Categoricvalue
+    - !!null 
+    - sheet match
+    - '203'
+    - '3'
+    - '2011-04-07 15:05:29.884'
+    - '2011-04-07 15:07:29.277'
+  - - '428'
+    - '61'
+    - '79'
+    - Numericvalue
+    - !!null 
+    - valid
+    - '197'
+    - '0.43'
+    - '2011-04-07 15:05:29.946'
+    - '2011-04-14 12:41:31.292'
+  - - '429'
+    - '61'
+    - '80'
+    - Numericvalue
+    - !!null 
+    - valid
+    - '198'
+    - '0.44'
+    - '2011-04-07 15:05:29.95'
+    - '2011-04-14 12:41:31.363'
+  - - '430'
+    - '61'
+    - '81'
+    - Numericvalue
+    - !!null 
+    - valid
+    - '199'
+    - '0.65'
+    - '2011-04-07 15:05:29.953'
+    - '2011-04-14 12:41:31.37'
+  - - '431'
+    - '61'
+    - '82'
+    - Numericvalue
+    - !!null 
+    - valid
+    - '200'
+    - '1.82'
+    - '2011-04-07 15:05:29.956'
+    - '2011-04-14 12:41:31.377'
+  - - '432'
+    - '61'
+    - '83'
+    - Numericvalue
+    - !!null 
+    - valid
+    - '201'
+    - '0.39'
+    - '2011-04-07 15:05:29.959'
+    - '2011-04-14 12:41:31.385'
+  - - '433'
+    - '61'
+    - '84'
+    - Numericvalue
+    - !!null 
+    - valid
+    - '202'
+    - '0.23'
+    - '2011-04-07 15:05:29.962'
+    - '2011-04-14 12:41:31.392'
+  - - '434'
+    - '61'
+    - '85'
+    - Numericvalue
+    - !!null 
+    - valid
+    - '203'
+    - '0.48'
+    - '2011-04-07 15:05:29.966'
+    - '2011-04-14 12:41:31.399'
+  - - '435'
+    - '62'
+    - '71'
+    - Categoricvalue
+    - !!null 
+    - sheet match
+    - '204'
+    - p220100
+    - '2011-04-14 10:45:53.271'
+    - '2011-04-14 10:46:26.975'
+  - - '436'
+    - '62'
+    - '72'
+    - Categoricvalue
+    - !!null 
+    - sheet match
+    - '205'
+    - p220090
+    - '2011-04-14 10:45:53.371'
+    - '2011-04-14 10:46:27.116'
+  - - '437'
+    - '62'
+    - '73'
+    - Categoricvalue
+    - !!null 
+    - sheet match
+    - '206'
+    - p209220
+    - '2011-04-14 10:45:53.381'
+    - '2011-04-14 10:46:27.124'
+  - - '438'
+    - '62'
+    - '74'
+    - Categoricvalue
+    - !!null 
+    - sheet match
+    - '207'
+    - p222190
+    - '2011-04-14 10:45:53.387'
+    - '2011-04-14 10:46:27.133'
+  - - '439'
+    - '62'
+    - '75'
+    - Categoricvalue
+    - !!null 
+    - sheet match
+    - '208'
+    - p210270
+    - '2011-04-14 10:45:53.393'
+    - '2011-04-14 10:46:27.143'
+  - - '440'
+    - '62'
+    - '76'
+    - Categoricvalue
+    - !!null 
+    - sheet match
+    - '209'
+    - p217160
+    - '2011-04-14 10:45:53.414'
+    - '2011-04-14 10:46:27.152'
+  - - '441'
+    - '62'
+    - '77'
+    - Categoricvalue
+    - !!null 
+    - sheet match
+    - '210'
+    - p214200
+    - '2011-04-14 10:45:53.423'
+    - '2011-04-14 10:46:27.161'
+  - - '442'
+    - '62'
+    - '78'
+    - Categoricvalue
+    - !!null 
+    - sheet match
+    - '211'
+    - p218250
+    - '2011-04-14 10:45:53.429'
+    - '2011-04-14 10:46:27.171'
+  - - '443'
+    - '63'
+    - '81'
+    - Categoricvalue
+    - !!null 
+    - sheet match
+    - '204'
+    - T10
+    - '2011-04-14 10:45:54.132'
+    - '2011-04-14 10:46:51.605'
+  - - '444'
+    - '63'
+    - '82'
+    - Categoricvalue
+    - !!null 
+    - sheet match
+    - '205'
+    - T9
+    - '2011-04-14 10:45:54.136'
+    - '2011-04-14 10:46:51.815'
+  - - '445'
+    - '63'
+    - '83'
+    - Categoricvalue
+    - !!null 
+    - sheet match
+    - '206'
+    - I22
+    - '2011-04-14 10:45:54.145'
+    - '2011-04-14 10:46:51.823'
+  - - '446'
+    - '63'
+    - '84'
+    - Categoricvalue
+    - !!null 
+    - sheet match
+    - '207'
+    - V19
+    - '2011-04-14 10:45:54.149'
+    - '2011-04-14 10:46:51.886'
+  - - '447'
+    - '63'
+    - '85'
+    - Categoricvalue
+    - !!null 
+    - sheet match
+    - '208'
+    - J27
+    - '2011-04-14 10:45:54.156'
+    - '2011-04-14 10:46:51.898'
+  - - '448'
+    - '63'
+    - '86'
+    - Categoricvalue
+    - !!null 
+    - sheet match
+    - '209'
+    - Q16
+    - '2011-04-14 10:45:54.159'
+    - '2011-04-14 10:46:51.906'
+  - - '449'
+    - '63'
+    - '87'
+    - Categoricvalue
+    - !!null 
+    - sheet match
+    - '210'
+    - N20
+    - '2011-04-14 10:45:54.167'
+    - '2011-04-14 10:46:51.914'
+  - - '450'
+    - '63'
+    - '88'
+    - Categoricvalue
+    - !!null 
+    - sheet match
+    - '211'
+    - R25
+    - '2011-04-14 10:45:54.171'
+    - '2011-04-14 10:46:51.923'
+  - - '451'
+    - '64'
+    - '23'
+    - Numericvalue
+    - !!null 
+    - valid
+    - '204'
+    - '0'
+    - '2011-04-14 10:45:54.779'
+    - '2011-04-14 10:48:05.416'
+  - - '452'
+    - '64'
+    - '24'
+    - Numericvalue
+    - !!null 
+    - valid
+    - '205'
+    - '0'
+    - '2011-04-14 10:45:54.79'
+    - '2011-04-14 10:48:05.492'
+  - - '453'
+    - '64'
+    - '25'
+    - Numericvalue
+    - !!null 
+    - valid
+    - '206'
+    - '16'
+    - '2011-04-14 10:45:54.794'
+    - '2011-04-14 10:48:05.514'
+  - - '454'
+    - '64'
+    - '26'
+    - Numericvalue
+    - !!null 
+    - valid
+    - '207'
+    - '2'
+    - '2011-04-14 10:45:54.797'
+    - '2011-04-14 10:48:05.525'
+  - - '455'
+    - '64'
+    - '27'
+    - Numericvalue
+    - !!null 
+    - valid
+    - '208'
+    - '4'
+    - '2011-04-14 10:45:54.8'
+    - '2011-04-14 10:48:05.536'
+  - - '456'
+    - '64'
+    - '28'
+    - Numericvalue
+    - !!null 
+    - valid
+    - '209'
+    - '4'
+    - '2011-04-14 10:45:54.803'
+    - '2011-04-14 10:48:05.543'
+  - - '457'
+    - '64'
+    - '29'
+    - Numericvalue
+    - !!null 
+    - valid
+    - '210'
+    - '8'
+    - '2011-04-14 10:45:54.806'
+    - '2011-04-14 10:48:05.551'
+  - - '458'
+    - '64'
+    - '30'
+    - Numericvalue
+    - !!null 
+    - valid
+    - '211'
+    - '8'
+    - '2011-04-14 10:45:54.81'
+    - '2011-04-14 10:48:05.558'
+  - - '459'
+    - '65'
+    - '89'
+    - Categoricvalue
+    - !!null 
+    - sheet match
+    - '204'
+    - A
+    - '2011-04-14 10:45:55.391'
+    - '2011-04-14 10:48:36.378'
+  - - '460'
+    - '65'
+    - '89'
+    - Categoricvalue
+    - !!null 
+    - sheet match
+    - '205'
+    - A
+    - '2011-04-14 10:45:55.395'
+    - '2011-04-14 10:48:36.613'
+  - - '461'
+    - '65'
+    - '89'
+    - Categoricvalue
+    - !!null 
+    - sheet match
+    - '206'
+    - A
+    - '2011-04-14 10:45:55.399'
+    - '2011-04-14 10:48:36.621'
+  - - '462'
+    - '65'
+    - '89'
+    - Categoricvalue
+    - !!null 
+    - sheet match
+    - '207'
+    - A
+    - '2011-04-14 10:45:55.405'
+    - '2011-04-14 10:48:36.638'
+  - - '463'
+    - '65'
+    - '90'
+    - Categoricvalue
+    - !!null 
+    - sheet match
+    - '208'
+    - B
+    - '2011-04-14 10:45:55.408'
+    - '2011-04-14 10:48:36.649'
+  - - '464'
+    - '65'
+    - '90'
+    - Categoricvalue
+    - !!null 
+    - sheet match
+    - '209'
+    - B
+    - '2011-04-14 10:45:55.411'
+    - '2011-04-14 10:48:36.66'
+  - - '465'
+    - '65'
+    - '96'
+    - Categoricvalue
+    - !!null 
+    - sheet match
+    - '210'
+    - S
+    - '2011-04-14 10:45:55.415'
+    - '2011-04-14 10:48:36.667'
+  - - '466'
+    - '65'
+    - '96'
+    - Categoricvalue
+    - !!null 
+    - sheet match
+    - '211'
+    - S
+    - '2011-04-14 10:45:55.418'
+    - '2011-04-14 10:48:36.675'
+  - - '467'
+    - '66'
+    - '9'
+    - Textvalue
+    - !!null 
+    - valid
+    - '204'
+    - No trees
+    - '2011-04-14 10:45:56.005'
+    - '2011-04-14 10:49:33.067'
+  - - '468'
+    - '66'
+    - '10'
+    - Textvalue
+    - !!null 
+    - valid
+    - '205'
+    - No trees
+    - '2011-04-14 10:45:56.009'
+    - '2011-04-14 10:49:33.146'
+  - - '469'
+    - '66'
+    - '11'
+    - Textvalue
+    - !!null 
+    - valid
+    - '206'
+    - A. altissima_A. fortunei_B. luminifera_C. fargesii_C. biondii_E. chinensis _E.
+      glabripetalus_E. japonicus_I. polycarpa_M. flexuosa_M. grijsii_M. thunbergii_M.ÿleptophyllaÿÿ_M.
+      yuyuanensis_P. bournei_Q. phillyreoides
+    - '2011-04-14 10:45:56.012'
+    - '2011-04-14 10:49:33.156'
+  - - '470'
+    - '66'
+    - '12'
+    - Textvalue
+    - !!null 
+    - valid
+    - '207'
+    - E. chinensis _M. thunbergii
+    - '2011-04-14 10:45:56.069'
+    - '2011-04-14 10:49:33.167'
+  - - '471'
+    - '66'
+    - '13'
+    - Textvalue
+    - !!null 
+    - valid
+    - '208'
+    - C. camphora_C. glauca_D. oldhamii_S. superba
+    - '2011-04-14 10:45:56.072'
+    - '2011-04-14 10:49:33.178'
+  - - '472'
+    - '66'
+    - '14'
+    - Textvalue
+    - !!null 
+    - valid
+    - '209'
+    - A. altissima_A. fortunei_C. fargesii_C. sclerophylla
+    - '2011-04-14 10:45:56.08'
+    - '2011-04-14 10:49:33.19'
+  - - '473'
+    - '66'
+    - '15'
+    - Textvalue
+    - !!null 
+    - valid
+    - '210'
+    - C. fargesii_C. sclerophylla_C. biondii_C. glauca_E. chinensis_E. japonicus_L.
+      glaber_Q. phillyreoides
+    - '2011-04-14 10:45:56.084'
+    - '2011-04-14 10:49:33.201'
+  - - '474'
+    - '66'
+    - '16'
+    - Textvalue
+    - !!null 
+    - valid
+    - '211'
+    - C. fargesii_C. sclerophylla_C. biondii_C. glauca_E. chinensis_E. japonicus_L.
+      glaber_Q. phillyreoides
+    - '2011-04-14 10:45:56.087'
+    - '2011-04-14 10:49:33.212'
+  - - '475'
+    - '67'
+    - '31'
+    - Numericvalue
+    - !!null 
+    - valid
+    - '204'
+    - '117.929622095754'
+    - '2011-04-14 10:45:56.63'
+    - '2011-04-14 10:49:55.547'
+  - - '476'
+    - '67'
+    - '32'
+    - Numericvalue
+    - !!null 
+    - valid
+    - '205'
+    - '117.929599229216'
+    - '2011-04-14 10:45:56.727'
+    - '2011-04-14 10:49:55.58'
+  - - '477'
+    - '67'
+    - '33'
+    - Numericvalue
+    - !!null 
+    - valid
+    - '206'
+    - '117.926984229626'
+    - '2011-04-14 10:45:56.776'
+    - '2011-04-14 10:49:55.592'
+  - - '478'
+    - '67'
+    - '34'
+    - Numericvalue
+    - !!null 
+    - valid
+    - '207'
+    - '117.930357725678'
+    - '2011-04-14 10:45:56.779'
+    - '2011-04-14 10:49:55.603'
+  - - '479'
+    - '67'
+    - '35'
+    - Numericvalue
+    - !!null 
+    - valid
+    - '208'
+    - '117.927363477857'
+    - '2011-04-14 10:45:56.782'
+    - '2011-04-14 10:49:55.614'
+  - - '480'
+    - '67'
+    - '36'
+    - Numericvalue
+    - !!null 
+    - valid
+    - '209'
+    - '117.928964548369'
+    - '2011-04-14 10:45:56.785'
+    - '2011-04-14 10:49:55.625'
+  - - '481'
+    - '67'
+    - '37'
+    - Numericvalue
+    - !!null 
+    - valid
+    - '210'
+    - '117.928261267907'
+    - '2011-04-14 10:45:56.788'
+    - '2011-04-14 10:49:55.636'
+  - - '482'
+    - '67'
+    - '38'
+    - Numericvalue
+    - !!null 
+    - valid
+    - '211'
+    - '117.929435092108'
+    - '2011-04-14 10:45:56.791'
+    - '2011-04-14 10:49:55.647'
+  - - '483'
+    - '68'
+    - '39'
+    - Numericvalue
+    - !!null 
+    - valid
+    - '204'
+    - '29.0886613970756'
+    - '2011-04-14 10:45:57.427'
+    - '2011-04-14 10:50:11.892'
+  - - '484'
+    - '68'
+    - '40'
+    - Numericvalue
+    - !!null 
+    - valid
+    - '205'
+    - '29.0888934116598'
+    - '2011-04-14 10:45:57.432'
+    - '2011-04-14 10:50:11.975'
+  - - '485'
+    - '68'
+    - '41'
+    - Numericvalue
+    - !!null 
+    - valid
+    - '206'
+    - '29.0856577350129'
+    - '2011-04-14 10:45:57.435'
+    - '2011-04-14 10:50:11.984'
+  - - '486'
+    - '68'
+    - '42'
+    - Numericvalue
+    - !!null 
+    - valid
+    - '207'
+    - '29.0866135146697'
+    - '2011-04-14 10:45:57.438'
+    - '2011-04-14 10:50:12.002'
+  - - '487'
+    - '68'
+    - '43'
+    - Numericvalue
+    - !!null 
+    - valid
+    - '208'
+    - '29.0845177865179'
+    - '2011-04-14 10:45:57.441'
+    - '2011-04-14 10:50:12.025'
+  - - '488'
+    - '68'
+    - '44'
+    - Numericvalue
+    - !!null 
+    - valid
+    - '209'
+    - '29.0872089362921'
+    - '2011-04-14 10:45:57.444'
+    - '2011-04-14 10:50:12.033'
+  - - '489'
+    - '68'
+    - '45'
+    - Numericvalue
+    - !!null 
+    - valid
+    - '210'
+    - '29.0862222361293'
+    - '2011-04-14 10:45:57.447'
+    - '2011-04-14 10:50:12.058'
+  - - '490'
+    - '68'
+    - '46'
+    - Numericvalue
+    - !!null 
+    - valid
+    - '211'
+    - '29.0851426609124'
+    - '2011-04-14 10:45:57.47'
+    - '2011-04-14 10:50:12.068'
+  - - '491'
+    - '69'
+    - '47'
+    - Numericvalue
+    - !!null 
+    - valid
+    - '204'
+    - '116.25'
+    - '2011-04-14 10:45:58.107'
+    - '2011-04-14 10:50:55.796'
+  - - '492'
+    - '69'
+    - '48'
+    - Numericvalue
+    - !!null 
+    - valid
+    - '205'
+    - '125.16'
+    - '2011-04-14 10:45:58.11'
+    - '2011-04-14 10:50:55.827'
+  - - '493'
+    - '69'
+    - '49'
+    - Numericvalue
+    - !!null 
+    - valid
+    - '206'
+    - '124.75'
+    - '2011-04-14 10:45:58.114'
+    - '2011-04-14 10:50:55.834'
+  - - '494'
+    - '69'
+    - '50'
+    - Numericvalue
+    - !!null 
+    - valid
+    - '207'
+    - '140.37'
+    - '2011-04-14 10:45:58.117'
+    - '2011-04-14 10:50:55.842'
+  - - '495'
+    - '69'
+    - '51'
+    - Numericvalue
+    - !!null 
+    - valid
+    - '208'
+    - '166.19'
+    - '2011-04-14 10:45:58.12'
+    - '2011-04-14 10:50:55.849'
+  - - '496'
+    - '69'
+    - '52'
+    - Numericvalue
+    - !!null 
+    - valid
+    - '209'
+    - '118.97'
+    - '2011-04-14 10:45:58.123'
+    - '2011-04-14 10:50:55.856'
+  - - '497'
+    - '69'
+    - '53'
+    - Numericvalue
+    - !!null 
+    - valid
+    - '210'
+    - '111.97'
+    - '2011-04-14 10:45:58.126'
+    - '2011-04-14 10:50:55.863'
+  - - '498'
+    - '69'
+    - '54'
+    - Numericvalue
+    - !!null 
+    - valid
+    - '211'
+    - '151.39'
+    - '2011-04-14 10:45:58.129'
+    - '2011-04-14 10:50:55.957'
+  - - '499'
+    - '70'
+    - '55'
+    - Numericvalue
+    - !!null 
+    - valid
+    - '204'
+    - '223.25'
+    - '2011-04-14 10:45:58.916'
+    - '2011-04-14 10:51:23.507'
+  - - '500'
+    - '70'
+    - '56'
+    - Numericvalue
+    - !!null 
+    - valid
+    - '205'
+    - '241.26'
+    - '2011-04-14 10:45:58.92'
+    - '2011-04-14 10:51:23.541'
+  - - '501'
+    - '70'
+    - '57'
+    - Numericvalue
+    - !!null 
+    - valid
+    - '206'
+    - '333.64'
+    - '2011-04-14 10:45:58.923'
+    - '2011-04-14 10:51:23.551'
+  - - '502'
+    - '70'
+    - '58'
+    - Numericvalue
+    - !!null 
+    - valid
+    - '207'
+    - '70.99'
+    - '2011-04-14 10:45:58.948'
+    - '2011-04-14 10:51:23.558'
+  - - '503'
+    - '70'
+    - '59'
+    - Numericvalue
+    - !!null 
+    - valid
+    - '208'
+    - '36.32'
+    - '2011-04-14 10:45:58.951'
+    - '2011-04-14 10:51:23.566'
+  - - '504'
+    - '70'
+    - '60'
+    - Numericvalue
+    - !!null 
+    - valid
+    - '209'
+    - '15.56'
+    - '2011-04-14 10:45:58.959'
+    - '2011-04-14 10:51:23.574'
+  - - '505'
+    - '70'
+    - '61'
+    - Numericvalue
+    - !!null 
+    - valid
+    - '210'
+    - '325.15'
+    - '2011-04-14 10:45:58.962'
+    - '2011-04-14 10:51:23.582'
+  - - '506'
+    - '70'
+    - '62'
+    - Numericvalue
+    - !!null 
+    - valid
+    - '211'
+    - '17.07'
+    - '2011-04-14 10:45:58.97'
+    - '2011-04-14 10:51:23.59'
+  - - '507'
+    - '71'
+    - '99'
+    - Categoricvalue
+    - !!null 
+    - sheet match
+    - '204'
+    - S
+    - '2011-04-14 10:45:59.619'
+    - '2011-04-14 10:52:04.07'
+  - - '508'
+    - '71'
+    - '100'
+    - Categoricvalue
+    - !!null 
+    - sheet match
+    - '205'
+    - W
+    - '2011-04-14 10:45:59.622'
+    - '2011-04-14 10:52:04.103'
+  - - '509'
+    - '71'
+    - '98'
+    - Categoricvalue
+    - !!null 
+    - sheet match
+    - '206'
+    - N
+    - '2011-04-14 10:45:59.625'
+    - '2011-04-14 10:52:04.11'
+  - - '510'
+    - '71'
+    - '97'
+    - Categoricvalue
+    - !!null 
+    - sheet match
+    - '207'
+    - E
+    - '2011-04-14 10:45:59.629'
+    - '2011-04-14 10:52:04.116'
+  - - '511'
+    - '71'
+    - '98'
+    - Categoricvalue
+    - !!null 
+    - sheet match
+    - '208'
+    - N
+    - '2011-04-14 10:45:59.632'
+    - '2011-04-14 10:52:04.128'
+  - - '512'
+    - '71'
+    - '98'
+    - Categoricvalue
+    - !!null 
+    - sheet match
+    - '209'
+    - N
+    - '2011-04-14 10:45:59.635'
+    - '2011-04-14 10:52:04.136'
+  - - '513'
+    - '71'
+    - '100'
+    - Categoricvalue
+    - !!null 
+    - sheet match
+    - '210'
+    - W
+    - '2011-04-14 10:45:59.638'
+    - '2011-04-14 10:52:04.144'
+  - - '514'
+    - '71'
+    - '98'
+    - Categoricvalue
+    - !!null 
+    - sheet match
+    - '211'
+    - N
+    - '2011-04-14 10:45:59.641'
+    - '2011-04-14 10:52:04.186'
+  - - '515'
+    - '72'
+    - '63'
+    - Numericvalue
+    - !!null 
+    - valid
+    - '204'
+    - '30.56'
+    - '2011-04-14 10:46:00.293'
+    - '2011-04-14 10:57:12.272'
+  - - '516'
+    - '72'
+    - '64'
+    - Numericvalue
+    - !!null 
+    - valid
+    - '205'
+    - '36.14'
+    - '2011-04-14 10:46:00.297'
+    - '2011-04-14 10:57:12.339'
+  - - '517'
+    - '72'
+    - '65'
+    - Numericvalue
+    - !!null 
+    - valid
+    - '206'
+    - '34.15'
+    - '2011-04-14 10:46:00.304'
+    - '2011-04-14 10:57:12.347'
+  - - '518'
+    - '72'
+    - '66'
+    - Numericvalue
+    - !!null 
+    - valid
+    - '207'
+    - '38.64'
+    - '2011-04-14 10:46:00.307'
+    - '2011-04-14 10:57:12.354'
+  - - '519'
+    - '72'
+    - '67'
+    - Numericvalue
+    - !!null 
+    - valid
+    - '208'
+    - '32.07'
+    - '2011-04-14 10:46:00.315'
+    - '2011-04-14 10:57:12.362'
+  - - '520'
+    - '72'
+    - '68'
+    - Numericvalue
+    - !!null 
+    - valid
+    - '209'
+    - '28.94'
+    - '2011-04-14 10:46:00.318'
+    - '2011-04-14 10:57:12.369'
+  - - '521'
+    - '72'
+    - '69'
+    - Numericvalue
+    - !!null 
+    - valid
+    - '210'
+    - '32.39'
+    - '2011-04-14 10:46:00.326'
+    - '2011-04-14 10:57:12.376'
+  - - '522'
+    - '72'
+    - '70'
+    - Numericvalue
+    - !!null 
+    - valid
+    - '211'
+    - '28.01'
+    - '2011-04-14 10:46:00.329'
+    - '2011-04-14 10:57:12.384'
+  - - '523'
+    - '73'
+    - '71'
+    - Numericvalue
+    - !!null 
+    - valid
+    - '204'
+    - '1401225.71'
+    - '2011-04-14 10:46:00.98'
+    - '2011-04-14 12:30:10.937'
+  - - '524'
+    - '73'
+    - '72'
+    - Numericvalue
+    - !!null 
+    - valid
+    - '205'
+    - '1326636.77'
+    - '2011-04-14 10:46:00.983'
+    - '2011-04-14 12:30:10.988'
+  - - '525'
+    - '73'
+    - '73'
+    - Numericvalue
+    - !!null 
+    - valid
+    - '206'
+    - '1042410.79'
+    - '2011-04-14 10:46:00.987'
+    - '2011-04-14 12:30:11.013'
+  - - '526'
+    - '73'
+    - '74'
+    - Numericvalue
+    - !!null 
+    - valid
+    - '207'
+    - '1144215.57'
+    - '2011-04-14 10:46:01.005'
+    - '2011-04-14 12:30:11.023'
+  - - '527'
+    - '73'
+    - '75'
+    - Numericvalue
+    - !!null 
+    - valid
+    - '208'
+    - '1112952.1'
+    - '2011-04-14 10:46:01.008'
+    - '2011-04-14 12:30:11.034'
+  - - '528'
+    - '73'
+    - '76'
+    - Numericvalue
+    - !!null 
+    - valid
+    - '209'
+    - '1080304.48'
+    - '2011-04-14 10:46:01.016'
+    - '2011-04-14 12:30:11.048'
+  - - '529'
+    - '73'
+    - '77'
+    - Numericvalue
+    - !!null 
+    - valid
+    - '210'
+    - '1059078.43'
+    - '2011-04-14 10:46:01.019'
+    - '2011-04-14 12:30:11.068'
+  - - '530'
+    - '73'
+    - '78'
+    - Numericvalue
+    - !!null 
+    - valid
+    - '211'
+    - '1110884.9'
+    - '2011-04-14 10:46:01.027'
+    - '2011-04-14 12:30:11.08'
+
+---
+datacolumns:
+  columns:
+  - id
+  - datagroup_id
+  - dataset_id
+  - columnheader
+  - columnnr
+  - definition
+  - unit
+  - missingcode
+  - comment
+  - import_data_type
+  - category_longshort
+  - created_at
+  - updated_at
+  records: 
+---
+  - - '58'
+    - '1'
+    - '13'
+    - Species
+    - '1'
+    - ! 'Species name
+
+'
+    - !!null 
+    - !!null 
+    - species, object identifier
+    - category
+    - !!null 
+    - '2011-04-07 15:05:29.278'
+    - '2011-04-07 15:05:41.215'
+  - - '59'
+    - '2'
+    - '13'
+    - Date
+    - '2'
+    - ! 'Date
+
+'
+    - !!null 
+    - !!null 
+    - date
+    - date(2009-07-14)
+    - !!null 
+    - '2011-04-07 15:05:29.669'
+    - '2011-04-07 15:07:17.018'
+  - - '60'
+    - '5'
+    - '13'
+    - CSP
+    - '3'
+    - ! 'CSP ID number
+
+'
+    - !!null 
+    - !!null 
+    - location, object identifier
+    - category
+    - !!null 
+    - '2011-04-07 15:05:29.803'
+    - '2011-04-07 15:07:28.754'
+  - - '61'
+    - '8'
+    - '13'
+    - Nitrogen
+    - '4'
+    - ! 'Nitrogen concentration
+
+'
+    - percent
+    - !!null 
+    - N, variable
+    - number
+    - !!null 
+    - '2011-04-07 15:05:29.904'
+    - '2011-04-14 12:41:30.848'
+  - - '62'
+    - '5'
+    - '14'
+    - PTAG
+    - '1'
+    - Plot ID across CSP, MainA, MainB
+    - !!null 
+    - !!null 
+    - location, dwc/terms/locationID
+    - category
+    - !!null 
+    - '2011-04-14 10:45:52.606'
+    - '2011-04-14 10:45:52.606'
+  - - '63'
+    - '10'
+    - '14'
+    - PLOT_NO
+    - '2'
+    - Name of each plot, coded with letters and numbers in Site A.
+    - !!null 
+    - !!null 
+    - location, dwc/terms/locationID
+    - category
+    - !!null 
+    - '2011-04-14 10:45:54.065'
+    - '2011-04-14 10:45:54.065'
+  - - '64'
+    - '11'
+    - '14'
+    - TREE_R
+    - '3'
+    - ! 'Planted tree species richness '
+    - count
+    - !!null 
+    - experimental treatment, variable, species richness, explanatory variable, gemet:biodiversity,
+      bcomplex:Plant diversity
+    - number
+    - !!null 
+    - '2011-04-14 10:45:54.666'
+    - '2011-04-14 10:45:54.666'
+  - - '65'
+    - '12'
+    - '14'
+    - Extinction
+    - '4'
+    - Extinction series type within the main experiment
+    - !!null 
+    - !!null 
+    - experimental treatment, extinction series, bcomplex:Species extinction, gemet:extinction
+      (ecological)
+    - category
+    - !!null 
+    - '2011-04-14 10:45:55.288'
+    - '2011-04-14 10:45:55.288'
+  - - '66'
+    - '13'
+    - '14'
+    - TREE_CMP
+    - '5'
+    - Tree species composition according to design.
+    - !!null 
+    - !!null 
+    - experimental treatment
+    - text
+    - !!null 
+    - '2011-04-14 10:45:55.891'
+    - '2011-04-14 10:45:55.891'
+  - - '67'
+    - '14'
+    - '14'
+    - X_DD
+    - '6'
+    - longitude of plot south west corner ( West - East), rounded, based on the 1m
+      interpolation
+    - decdegree
+    - !!null 
+    - location, longitude,  dwc/terms/decimalLongitude
+    - number
+    - !!null 
+    - '2011-04-14 10:45:56.557'
+    - '2011-04-14 10:45:56.557'
+  - - '68'
+    - '15'
+    - '14'
+    - Y_DD
+    - '7'
+    - latitude of plot south west corner (South - North), rounded, based on the 1m
+      interpolation
+    - decdegree
+    - !!null 
+    - location, latitude, dwc/terms/decimalLatitude
+    - number
+    - !!null 
+    - '2011-04-14 10:45:57.311'
+    - '2011-04-14 10:45:57.311'
+  - - '69'
+    - '16'
+    - '14'
+    - ALTITUDE
+    - '8'
+    - mean elevation (from interpolated raster)
+    - m
+    - !!null 
+    - variable, co variable, elevation, environmental variable, bcomplex:Altitude,
+      gemet:altitude, dwc/terms/maximumElevationInMeters, dwc/terms/minimumDepthInMeters
+    - number
+    - !!null 
+    - '2011-04-14 10:45:57.954'
+    - '2011-04-14 10:45:57.954'
+  - - '70'
+    - '17'
+    - '14'
+    - ASPECT
+    - '9'
+    - mean aspect (from interpolated raster)
+    - m
+    - !!null 
+    - variable, co variable, aspect, environmental variable, exposition
+    - number
+    - !!null 
+    - '2011-04-14 10:45:58.676'
+    - '2011-04-14 10:45:58.676'
+  - - '71'
+    - '17'
+    - '14'
+    - ASP_COM
+    - '10'
+    - common aspect (from interpolated raster)
+    - !!null 
+    - !!null 
+    - variable, co variable, aspect, environmental variable, exposition
+    - category
+    - !!null 
+    - '2011-04-14 10:45:59.429'
+    - '2011-04-14 10:45:59.429'
+  - - '72'
+    - '18'
+    - '14'
+    - SLOPE
+    - '11'
+    - slope in degree?
+    - degree
+    - !!null 
+    - variable, co variable, slope, environmental variable
+    - number
+    - !!null 
+    - '2011-04-14 10:46:00.114'
+    - '2011-04-14 10:46:00.114'
+  - - '73'
+    - '19'
+    - '14'
+    - SOLAR
+    - '12'
+    - solar radiation
+    - !!null 
+    - !!null 
+    - variable, co variable, solar radiation, environmental variable, bcomplex:Solar
+      radiation, gemet:solar radiation
+    - number
+    - !!null 
+    - '2011-04-14 10:46:00.774'
+    - '2011-04-14 10:46:00.774'
+
+---
+datagroups:
+  columns:
+  - id
+  - informationsource
+  - methodvaluetype
+  - title
+  - description
+  - instrumentation
+  - timelatency
+  - timelatencyunit
+  - comment
+  - created_at
+  - updated_at
+  records: 
+---
+  - - '1'
+    - Flora of China, Helge Bruelheide
+    - nominal
+    - Scientific plant species name
+    - The scientific species fullnames are based on the "Flora of China" identified
+      by Teng Fang and verified by Helge Bruelheide (trees) and Alexandra Efmeier
+      (herbs). Scientific species names consist of epithet and genus. For identification,
+      the Author name and the year of the publications of the description are required.
+    - !!null 
+    - '10'
+    - years
+    - !!null 
+    - '2011-03-28 13:59:34.1444'
+    - '2011-03-28 13:59:34.1444'
+  - - '2'
+    - !!null 
+    - integer
+    - Date time information
+    - Date time information, given as year or as date or as date time.
+    - !!null 
+    - '1000'
+    - years
+    - !!null 
+    - '2011-03-28 13:59:35.0964'
+    - '2011-03-28 13:59:35.0964'
+  - - '3'
+    - !!null 
+    - category
+    - Plant organ sampled
+    - ! 'Leaf samples were taken with telescope pruning shears (lenght: up to 6.5m)  from
+      the lower outer and preferentially sun exposed canopy when possible. Leaves
+      of shrub species were sampled in upper canopy.  One year old twigs, and roots
+      which a diameter between 1 and 3mm were taken.'
+    - !!null 
+    - '1000'
+    - year
+    - !!null 
+    - '2011-03-28 13:59:35.2564'
+    - '2011-03-28 13:59:35.2564'
+  - - '4'
+    - !!null 
+    - nominal
+    - Metal Tag Numbers in the CSPs
+    - ! 'The stems were marked with a metal tag with a code compound of a number of
+      six positions. The tag was attached to each individual by attaching it with
+      a wire sorrounding one stem, taking care to leave it long enough to allow the
+      grow of the stem. Normally the wire was attached between 1 and 1.8m over the
+      ground. If the individual had many stems, such as often seen in shrubs, only
+      one of the stems was tagged. '
+    - letters are attached if the same number was used for different tree individuals.
+      This occurred a few times. Numbers are unique only within CSPs
+    - '30'
+    - year
+    - !!null 
+    - '2011-03-28 13:59:35.4144'
+    - '2011-03-28 13:59:35.4144'
+  - - '5'
+    - !!null 
+    - nominal
+    - BEF research plot name
+    - ! 'Reasearch plots of the Biodiversity - Ecosystem functioning experiment (BEF-China).
+      There are three main sites for research plots in the BEF Experiment: Comparative
+      Study Plots (CSP) in the  Gutianshan Nature Reserve, having a size of 30x30m^2,
+      measured on the ground. Main Experiment plots have a size of 1 mu, which is
+      about 25x25m^2 in horizontal projection. Pilot Study Plots have a size of 1x1
+      m^2.'
+    - !!null 
+    - '500'
+    - year
+    - !!null 
+    - '2011-03-28 13:59:35.5574'
+    - '2011-03-28 13:59:35.5574'
+  - - '6'
+    - !!null 
+    - text
+    - Helper
+    - Helper column give further information on other columns or summarize several
+      columns
+    - !!null 
+    - !!null 
+    - !!null 
+    - !!null 
+    - '2011-03-28 13:59:35.7254'
+    - '2011-03-28 13:59:35.7254'
+  - - '7'
+    - !!null 
+    - number
+    - Carbon
+    - Carbon
+    - !!null 
+    - !!null 
+    - !!null 
+    - !!null 
+    - '2011-03-28 13:59:35.8384'
+    - '2011-03-28 13:59:35.8384'
+  - - '8'
+    - !!null 
+    - positive real
+    - Nitrogen
+    - Nitrogen concentration
+    - Elemental Analyzer
+    - '1'
+    - day
+    - !!null 
+    - '2011-03-31 15:20:40.522'
+    - '2011-03-31 15:20:40.522'
+  - - '9'
+    - !!null 
+    - positive real
+    - C/N ratio
+    - ! 'C/N ratio = Carbon concentration divided by nitrogen concentration
+
+
+'
+    - !!null 
+    - '1'
+    - day
+    - !!null 
+    - '2011-03-31 15:20:40.697'
+    - '2011-03-31 15:20:40.697'
+  - - '10'
+    - !!null 
+    - category
+    - Site B plot acronym according to design spreadsheet.
+    - Site B plot number according to design spreadsheet. Plots are named according
+      to their location on the original spreadsheet used for treatment design. This
+      has letters from West to East and numbers from North to south. Some plots were
+      moved half a gridcell (1 mu) so be suitable for planting (grid cell loctype)
+    - !!null 
+    - !!null 
+    - !!null 
+    - !!null 
+    - '2011-04-14 10:45:54.006'
+    - '2011-04-14 10:45:54.006'
+  - - '11'
+    - !!null 
+    - number
+    - Diversity based on taxon
+    - Taxon diversity can be given as species richness, or other diversity indices.  We
+      also use rarefied species richness, shannon diversity index, and phylogenetic
+      diversity indices.
+    - !!null 
+    - !!null 
+    - !!null 
+    - !!null 
+    - '2011-04-14 10:45:54.657'
+    - '2011-04-14 10:45:54.657'
+  - - '12'
+    - !!null 
+    - category
+    - Extinction series type within main experiment.
+    - The acronym corresponds to the species pool of the random scenario (A, B, C),
+      the directed extinction scenarios (R for rarity, S for SLA), the economic species
+      (E), and  free succession plots (F).  In site B there is another treatment for
+      genetic variation (G).
+    - !!null 
+    - !!null 
+    - !!null 
+    - !!null 
+    - '2011-04-14 10:45:55.28'
+    - '2011-04-14 10:45:55.28'
+  - - '13'
+    - !!null 
+    - text
+    - helper
+    - helper
+    - !!null 
+    - !!null 
+    - !!null 
+    - !!null 
+    - '2011-04-14 10:45:55.882'
+    - '2011-04-14 10:45:55.882'
+  - - '14'
+    - !!null 
+    - number
+    - longitude
+    - longitude
+    - !!null 
+    - !!null 
+    - !!null 
+    - !!null 
+    - '2011-04-14 10:45:56.548'
+    - '2011-04-14 10:45:56.548'
+  - - '15'
+    - !!null 
+    - number
+    - latitude
+    - latitude
+    - !!null 
+    - !!null 
+    - !!null 
+    - !!null 
+    - '2011-04-14 10:45:57.301'
+    - '2011-04-14 10:45:57.301'
+  - - '16'
+    - !!null 
+    - number
+    - elevation
+    - elevation
+    - !!null 
+    - !!null 
+    - !!null 
+    - !!null 
+    - '2011-04-14 10:45:57.945'
+    - '2011-04-14 10:45:57.945'
+  - - '17'
+    - !!null 
+    - number
+    - aspect
+    - aspect
+    - !!null 
+    - !!null 
+    - !!null 
+    - !!null 
+    - '2011-04-14 10:45:58.667'
+    - '2011-04-14 10:45:58.667'
+  - - '18'
+    - !!null 
+    - number
+    - slope
+    - slope
+    - !!null 
+    - !!null 
+    - !!null 
+    - !!null 
+    - '2011-04-14 10:46:00.105'
+    - '2011-04-14 10:46:00.105'
+  - - '19'
+    - !!null 
+    - number
+    - solar radiation
+    - solar radiation
+    - !!null 
+    - !!null 
+    - !!null 
+    - !!null 
+    - '2011-04-14 10:46:00.765'
+    - '2011-04-14 10:46:00.765'
+
+---
+numericvalues:
+  columns:
+  - id
+  - number
+  - comment
+  - created_at
+  - updated_at
+  records: 
+---
+  - - '23'
+    - '0'
+    - !!null 
+    - '2011-04-14 10:48:05.258'
+    - '2011-04-14 10:48:05.258'
+  - - '24'
+    - '0'
+    - !!null 
+    - '2011-04-14 10:48:05.489'
+    - '2011-04-14 10:48:05.489'
+  - - '25'
+    - '16'
+    - !!null 
+    - '2011-04-14 10:48:05.506'
+    - '2011-04-14 10:48:05.506'
+  - - '26'
+    - '2'
+    - !!null 
+    - '2011-04-14 10:48:05.519'
+    - '2011-04-14 10:48:05.519'
+  - - '27'
+    - '4'
+    - !!null 
+    - '2011-04-14 10:48:05.53'
+    - '2011-04-14 10:48:05.53'
+  - - '28'
+    - '4'
+    - !!null 
+    - '2011-04-14 10:48:05.541'
+    - '2011-04-14 10:48:05.541'
+  - - '29'
+    - '8'
+    - !!null 
+    - '2011-04-14 10:48:05.548'
+    - '2011-04-14 10:48:05.548'
+  - - '30'
+    - '8'
+    - !!null 
+    - '2011-04-14 10:48:05.556'
+    - '2011-04-14 10:48:05.556'
+  - - '31'
+    - '117.929622095754'
+    - !!null 
+    - '2011-04-14 10:49:55.472'
+    - '2011-04-14 10:49:55.472'
+  - - '32'
+    - '117.929599229216'
+    - !!null 
+    - '2011-04-14 10:49:55.577'
+    - '2011-04-14 10:49:55.577'
+  - - '33'
+    - '117.926984229626'
+    - !!null 
+    - '2011-04-14 10:49:55.585'
+    - '2011-04-14 10:49:55.585'
+  - - '34'
+    - '117.930357725678'
+    - !!null 
+    - '2011-04-14 10:49:55.597'
+    - '2011-04-14 10:49:55.597'
+  - - '35'
+    - '117.927363477857'
+    - !!null 
+    - '2011-04-14 10:49:55.608'
+    - '2011-04-14 10:49:55.608'
+  - - '36'
+    - '117.928964548369'
+    - !!null 
+    - '2011-04-14 10:49:55.618'
+    - '2011-04-14 10:49:55.618'
+  - - '37'
+    - '117.928261267907'
+    - !!null 
+    - '2011-04-14 10:49:55.63'
+    - '2011-04-14 10:49:55.63'
+  - - '38'
+    - '117.929435092108'
+    - !!null 
+    - '2011-04-14 10:49:55.641'
+    - '2011-04-14 10:49:55.641'
+  - - '39'
+    - '29.0886613970756'
+    - !!null 
+    - '2011-04-14 10:50:11.809'
+    - '2011-04-14 10:50:11.809'
+  - - '40'
+    - '29.0888934116598'
+    - !!null 
+    - '2011-04-14 10:50:11.972'
+    - '2011-04-14 10:50:11.972'
+  - - '41'
+    - '29.0856577350129'
+    - !!null 
+    - '2011-04-14 10:50:11.981'
+    - '2011-04-14 10:50:11.981'
+  - - '42'
+    - '29.0866135146697'
+    - !!null 
+    - '2011-04-14 10:50:11.993'
+    - '2011-04-14 10:50:11.993'
+  - - '43'
+    - '29.0845177865179'
+    - !!null 
+    - '2011-04-14 10:50:12.019'
+    - '2011-04-14 10:50:12.019'
+  - - '44'
+    - '29.0872089362921'
+    - !!null 
+    - '2011-04-14 10:50:12.03'
+    - '2011-04-14 10:50:12.03'
+  - - '45'
+    - '29.0862222361293'
+    - !!null 
+    - '2011-04-14 10:50:12.038'
+    - '2011-04-14 10:50:12.038'
+  - - '46'
+    - '29.0851426609124'
+    - !!null 
+    - '2011-04-14 10:50:12.063'
+    - '2011-04-14 10:50:12.063'
+  - - '47'
+    - '116.25'
+    - !!null 
+    - '2011-04-14 10:50:55.722'
+    - '2011-04-14 10:50:55.722'
+  - - '48'
+    - '125.16'
+    - !!null 
+    - '2011-04-14 10:50:55.824'
+    - '2011-04-14 10:50:55.824'
+  - - '49'
+    - '124.75'
+    - !!null 
+    - '2011-04-14 10:50:55.832'
+    - '2011-04-14 10:50:55.832'
+  - - '50'
+    - '140.37'
+    - !!null 
+    - '2011-04-14 10:50:55.839'
+    - '2011-04-14 10:50:55.839'
+  - - '51'
+    - '166.19'
+    - !!null 
+    - '2011-04-14 10:50:55.846'
+    - '2011-04-14 10:50:55.846'
+  - - '52'
+    - '118.97'
+    - !!null 
+    - '2011-04-14 10:50:55.854'
+    - '2011-04-14 10:50:55.854'
+  - - '53'
+    - '111.97'
+    - !!null 
+    - '2011-04-14 10:50:55.861'
+    - '2011-04-14 10:50:55.861'
+  - - '54'
+    - '151.39'
+    - !!null 
+    - '2011-04-14 10:50:55.868'
+    - '2011-04-14 10:50:55.868'
+  - - '55'
+    - '223.25'
+    - !!null 
+    - '2011-04-14 10:51:23.394'
+    - '2011-04-14 10:51:23.394'
+  - - '56'
+    - '241.26'
+    - !!null 
+    - '2011-04-14 10:51:23.538'
+    - '2011-04-14 10:51:23.538'
+  - - '57'
+    - '333.64'
+    - !!null 
+    - '2011-04-14 10:51:23.548'
+    - '2011-04-14 10:51:23.548'
+  - - '58'
+    - '70.99'
+    - !!null 
+    - '2011-04-14 10:51:23.556'
+    - '2011-04-14 10:51:23.556'
+  - - '59'
+    - '36.32'
+    - !!null 
+    - '2011-04-14 10:51:23.564'
+    - '2011-04-14 10:51:23.564'
+  - - '60'
+    - '15.56'
+    - !!null 
+    - '2011-04-14 10:51:23.571'
+    - '2011-04-14 10:51:23.571'
+  - - '61'
+    - '325.15'
+    - !!null 
+    - '2011-04-14 10:51:23.579'
+    - '2011-04-14 10:51:23.579'
+  - - '62'
+    - '17.07'
+    - !!null 
+    - '2011-04-14 10:51:23.587'
+    - '2011-04-14 10:51:23.587'
+  - - '63'
+    - '30.56'
+    - !!null 
+    - '2011-04-14 10:57:12.071'
+    - '2011-04-14 10:57:12.071'
+  - - '64'
+    - '36.14'
+    - !!null 
+    - '2011-04-14 10:57:12.336'
+    - '2011-04-14 10:57:12.336'
+  - - '65'
+    - '34.15'
+    - !!null 
+    - '2011-04-14 10:57:12.344'
+    - '2011-04-14 10:57:12.344'
+  - - '66'
+    - '38.64'
+    - !!null 
+    - '2011-04-14 10:57:12.352'
+    - '2011-04-14 10:57:12.352'
+  - - '67'
+    - '32.07'
+    - !!null 
+    - '2011-04-14 10:57:12.359'
+    - '2011-04-14 10:57:12.359'
+  - - '68'
+    - '28.94'
+    - !!null 
+    - '2011-04-14 10:57:12.367'
+    - '2011-04-14 10:57:12.367'
+  - - '69'
+    - '32.39'
+    - !!null 
+    - '2011-04-14 10:57:12.374'
+    - '2011-04-14 10:57:12.374'
+  - - '70'
+    - '28.01'
+    - !!null 
+    - '2011-04-14 10:57:12.381'
+    - '2011-04-14 10:57:12.381'
+  - - '71'
+    - '1401225.71'
+    - !!null 
+    - '2011-04-14 12:30:10.787'
+    - '2011-04-14 12:30:10.787'
+  - - '72'
+    - '1326636.77'
+    - !!null 
+    - '2011-04-14 12:30:10.985'
+    - '2011-04-14 12:30:10.985'
+  - - '73'
+    - '1042410.79'
+    - !!null 
+    - '2011-04-14 12:30:10.993'
+    - '2011-04-14 12:30:10.993'
+  - - '74'
+    - '1144215.57'
+    - !!null 
+    - '2011-04-14 12:30:11.019'
+    - '2011-04-14 12:30:11.019'
+  - - '75'
+    - '1112952.1'
+    - !!null 
+    - '2011-04-14 12:30:11.029'
+    - '2011-04-14 12:30:11.029'
+  - - '76'
+    - '1080304.48'
+    - !!null 
+    - '2011-04-14 12:30:11.039'
+    - '2011-04-14 12:30:11.039'
+  - - '77'
+    - '1059078.43'
+    - !!null 
+    - '2011-04-14 12:30:11.059'
+    - '2011-04-14 12:30:11.059'
+  - - '78'
+    - '1110884.9'
+    - !!null 
+    - '2011-04-14 12:30:11.074'
+    - '2011-04-14 12:30:11.074'
+  - - '79'
+    - '0.43'
+    - !!null 
+    - '2011-04-14 12:41:31.259'
+    - '2011-04-14 12:41:31.259'
+  - - '80'
+    - '0.44'
+    - !!null 
+    - '2011-04-14 12:41:31.361'
+    - '2011-04-14 12:41:31.361'
+  - - '81'
+    - '0.65'
+    - !!null 
+    - '2011-04-14 12:41:31.368'
+    - '2011-04-14 12:41:31.368'
+  - - '82'
+    - '1.82'
+    - !!null 
+    - '2011-04-14 12:41:31.375'
+    - '2011-04-14 12:41:31.375'
+  - - '83'
+    - '0.39'
+    - !!null 
+    - '2011-04-14 12:41:31.382'
+    - '2011-04-14 12:41:31.382'
+  - - '84'
+    - '0.23'
+    - !!null 
+    - '2011-04-14 12:41:31.389'
+    - '2011-04-14 12:41:31.389'
+  - - '85'
+    - '0.48'
+    - !!null 
+    - '2011-04-14 12:41:31.396'
+    - '2011-04-14 12:41:31.396'
+
+---
+observations:
+  columns:
+  - id
+  - comment
+  - rownr
+  - created_at
+  - updated_at
+  records: 
+---
+  - - '197'
+    - !!null 
+    - '2'
+    - '2011-04-07 15:05:29.448'
+    - '2011-04-07 15:05:29.448'
+  - - '198'
+    - !!null 
+    - '3'
+    - '2011-04-07 15:05:29.578'
+    - '2011-04-07 15:05:29.578'
+  - - '199'
+    - !!null 
+    - '4'
+    - '2011-04-07 15:05:29.602'
+    - '2011-04-07 15:05:29.602'
+  - - '200'
+    - !!null 
+    - '5'
+    - '2011-04-07 15:05:29.613'
+    - '2011-04-07 15:05:29.613'
+  - - '201'
+    - !!null 
+    - '6'
+    - '2011-04-07 15:05:29.624'
+    - '2011-04-07 15:05:29.624'
+  - - '202'
+    - !!null 
+    - '7'
+    - '2011-04-07 15:05:29.636'
+    - '2011-04-07 15:05:29.636'
+  - - '203'
+    - !!null 
+    - '8'
+    - '2011-04-07 15:05:29.647'
+    - '2011-04-07 15:05:29.647'
+  - - '204'
+    - !!null 
+    - '2'
+    - '2011-04-14 10:45:53.095'
+    - '2011-04-14 10:45:53.095'
+  - - '205'
+    - !!null 
+    - '3'
+    - '2011-04-14 10:45:53.368'
+    - '2011-04-14 10:45:53.368'
+  - - '206'
+    - !!null 
+    - '4'
+    - '2011-04-14 10:45:53.378'
+    - '2011-04-14 10:45:53.378'
+  - - '207'
+    - !!null 
+    - '5'
+    - '2011-04-14 10:45:53.384'
+    - '2011-04-14 10:45:53.384'
+  - - '208'
+    - !!null 
+    - '6'
+    - '2011-04-14 10:45:53.39'
+    - '2011-04-14 10:45:53.39'
+  - - '209'
+    - !!null 
+    - '7'
+    - '2011-04-14 10:45:53.411'
+    - '2011-04-14 10:45:53.411'
+  - - '210'
+    - !!null 
+    - '8'
+    - '2011-04-14 10:45:53.417'
+    - '2011-04-14 10:45:53.417'
+  - - '211'
+    - !!null 
+    - '9'
+    - '2011-04-14 10:45:53.426'
+    - '2011-04-14 10:45:53.426'
+
+---
+projects:
+  columns:
+  - id
+  - shortname
+  - name
+  - description
+  - comment
+  - created_at
+  - updated_at
+  records: 
+---
+  - - '1'
+    - z2 e data
+    - Z2 Europe data
+    - !!null 
+    - !!null 
+    - '2011-03-28 09:59:58.836'
+    - '2011-03-28 09:59:58.836'
+  - - '2'
+    - p5e nutrients
+    - P5 Europe Nutrient cycling
+    - !!null 
+    - !!null 
+    - '2011-03-28 11:16:42.801'
+    - '2011-03-31 12:20:03.278'
+  - - '3'
+    - p1 e productivity
+    - P1 Europe Productivity
+    - !!null 
+    - !!null 
+    - '2011-03-28 11:17:56.874'
+    - '2011-03-30 14:15:16.4736'
+
+---
+taggings:
+  columns:
+  - id
+  - tag_id
+  - taggable_type
+  - taggable_id
+  records: 
+---
+  - - '101'
+    - '1'
+    - Datacolumn
+    - '58'
+  - - '102'
+    - '2'
+    - Datacolumn
+    - '58'
+  - - '103'
+    - '3'
+    - Datacolumn
+    - '59'
+  - - '104'
+    - '5'
+    - Datacolumn
+    - '60'
+  - - '105'
+    - '2'
+    - Datacolumn
+    - '60'
+  - - '106'
+    - '9'
+    - Datacolumn
+    - '61'
+  - - '107'
+    - '7'
+    - Datacolumn
+    - '61'
+  - - '108'
+    - '5'
+    - Datacolumn
+    - '62'
+  - - '109'
+    - '11'
+    - Datacolumn
+    - '62'
+  - - '110'
+    - '5'
+    - Datacolumn
+    - '63'
+  - - '111'
+    - '11'
+    - Datacolumn
+    - '63'
+  - - '112'
+    - '12'
+    - Datacolumn
+    - '64'
+  - - '113'
+    - '7'
+    - Datacolumn
+    - '64'
+  - - '114'
+    - '13'
+    - Datacolumn
+    - '64'
+  - - '115'
+    - '14'
+    - Datacolumn
+    - '64'
+  - - '116'
+    - '15'
+    - Datacolumn
+    - '64'
+  - - '117'
+    - '16'
+    - Datacolumn
+    - '64'
+  - - '118'
+    - '12'
+    - Datacolumn
+    - '65'
+  - - '119'
+    - '17'
+    - Datacolumn
+    - '65'
+  - - '120'
+    - '18'
+    - Datacolumn
+    - '65'
+  - - '121'
+    - '19'
+    - Datacolumn
+    - '65'
+  - - '122'
+    - '12'
+    - Datacolumn
+    - '66'
+  - - '123'
+    - '5'
+    - Datacolumn
+    - '67'
+  - - '124'
+    - '20'
+    - Datacolumn
+    - '67'
+  - - '125'
+    - '21'
+    - Datacolumn
+    - '67'
+  - - '126'
+    - '5'
+    - Datacolumn
+    - '68'
+  - - '127'
+    - '22'
+    - Datacolumn
+    - '68'
+  - - '128'
+    - '23'
+    - Datacolumn
+    - '68'
+  - - '129'
+    - '7'
+    - Datacolumn
+    - '69'
+  - - '130'
+    - '24'
+    - Datacolumn
+    - '69'
+  - - '131'
+    - '25'
+    - Datacolumn
+    - '69'
+  - - '132'
+    - '26'
+    - Datacolumn
+    - '69'
+  - - '133'
+    - '27'
+    - Datacolumn
+    - '69'
+  - - '134'
+    - '28'
+    - Datacolumn
+    - '69'
+  - - '135'
+    - '29'
+    - Datacolumn
+    - '69'
+  - - '136'
+    - '30'
+    - Datacolumn
+    - '69'
+  - - '137'
+    - '7'
+    - Datacolumn
+    - '70'
+  - - '138'
+    - '24'
+    - Datacolumn
+    - '70'
+  - - '139'
+    - '31'
+    - Datacolumn
+    - '70'
+  - - '140'
+    - '26'
+    - Datacolumn
+    - '70'
+  - - '141'
+    - '32'
+    - Datacolumn
+    - '70'
+  - - '142'
+    - '7'
+    - Datacolumn
+    - '71'
+  - - '143'
+    - '24'
+    - Datacolumn
+    - '71'
+  - - '144'
+    - '31'
+    - Datacolumn
+    - '71'
+  - - '145'
+    - '26'
+    - Datacolumn
+    - '71'
+  - - '146'
+    - '32'
+    - Datacolumn
+    - '71'
+  - - '147'
+    - '7'
+    - Datacolumn
+    - '72'
+  - - '148'
+    - '24'
+    - Datacolumn
+    - '72'
+  - - '149'
+    - '33'
+    - Datacolumn
+    - '72'
+  - - '150'
+    - '26'
+    - Datacolumn
+    - '72'
+  - - '151'
+    - '7'
+    - Datacolumn
+    - '73'
+  - - '152'
+    - '24'
+    - Datacolumn
+    - '73'
+  - - '153'
+    - '34'
+    - Datacolumn
+    - '73'
+  - - '154'
+    - '26'
+    - Datacolumn
+    - '73'
+  - - '155'
+    - '35'
+    - Datacolumn
+    - '73'
+  - - '156'
+    - '36'
+    - Datacolumn
+    - '73'
+
+---
+tags:
+  columns:
+  - id
+  - name
+  - kind
+  records: 
+---
+  - - '1'
+    - species
+    - tag
+  - - '2'
+    - object identifier
+    - tag
+  - - '3'
+    - date
+    - tag
+  - - '5'
+    - location
+    - tag
+  - - '7'
+    - variable
+    - tag
+  - - '9'
+    - N
+    - tag
+  - - '11'
+    - dwc/terms/locationID
+    - tag
+  - - '12'
+    - experimental treatment
+    - tag
+  - - '13'
+    - species richness
+    - tag
+  - - '14'
+    - explanatory variable
+    - tag
+  - - '15'
+    - gemet:biodiversity
+    - tag
+  - - '16'
+    - bcomplex:Plant diversity
+    - tag
+  - - '17'
+    - extinction series
+    - tag
+  - - '18'
+    - bcomplex:Species extinction
+    - tag
+  - - '19'
+    - gemet:extinction (ecological)
+    - tag
+  - - '20'
+    - longitude
+    - tag
+  - - '21'
+    - dwc/terms/decimalLongitude
+    - tag
+  - - '22'
+    - latitude
+    - tag
+  - - '23'
+    - dwc/terms/decimalLatitude
+    - tag
+  - - '24'
+    - co variable
+    - tag
+  - - '25'
+    - elevation
+    - tag
+  - - '26'
+    - environmental variable
+    - tag
+  - - '27'
+    - bcomplex:Altitude
+    - tag
+  - - '28'
+    - gemet:altitude
+    - tag
+  - - '29'
+    - dwc/terms/maximumElevationInMeters
+    - tag
+  - - '30'
+    - dwc/terms/minimumDepthInMeters
+    - tag
+  - - '31'
+    - aspect
+    - tag
+  - - '32'
+    - exposition
+    - tag
+  - - '33'
+    - slope
+    - tag
+  - - '34'
+    - solar radiation
+    - tag
+  - - '35'
+    - bcomplex:Solar radiation
+    - tag
+  - - '36'
+    - gemet:solar radiation
+    - tag
+
+---
+textvalues:
+  columns:
+  - id
+  - text
+  - comment
+  - created_at
+  - updated_at
+  records: 
+---
+  - - '9'
+    - No trees
+    - !!null 
+    - '2011-04-14 10:49:32.914'
+    - '2011-04-14 10:49:32.914'
+  - - '10'
+    - No trees
+    - !!null 
+    - '2011-04-14 10:49:33.143'
+    - '2011-04-14 10:49:33.143'
+  - - '11'
+    - A. altissima_A. fortunei_B. luminifera_C. fargesii_C. biondii_E. chinensis _E.
+      glabripetalus_E. japonicus_I. polycarpa_M. flexuosa_M. grijsii_M. thunbergii_M.ÿleptophyllaÿÿ_M.
+      yuyuanensis_P. bournei_Q. phillyreoides
+    - !!null 
+    - '2011-04-14 10:49:33.15'
+    - '2011-04-14 10:49:33.15'
+  - - '12'
+    - E. chinensis _M. thunbergii
+    - !!null 
+    - '2011-04-14 10:49:33.16'
+    - '2011-04-14 10:49:33.16'
+  - - '13'
+    - C. camphora_C. glauca_D. oldhamii_S. superba
+    - !!null 
+    - '2011-04-14 10:49:33.172'
+    - '2011-04-14 10:49:33.172'
+  - - '14'
+    - A. altissima_A. fortunei_C. fargesii_C. sclerophylla
+    - !!null 
+    - '2011-04-14 10:49:33.182'
+    - '2011-04-14 10:49:33.182'
+  - - '15'
+    - C. fargesii_C. sclerophylla_C. biondii_C. glauca_E. chinensis_E. japonicus_L.
+      glaber_Q. phillyreoides
+    - !!null 
+    - '2011-04-14 10:49:33.194'
+    - '2011-04-14 10:49:33.194'
+  - - '16'
+    - C. fargesii_C. sclerophylla_C. biondii_C. glauca_E. chinensis_E. japonicus_L.
+      glaber_Q. phillyreoides
+    - !!null 
+    - '2011-04-14 10:49:33.205'
+    - '2011-04-14 10:49:33.205'
+
+---
+import_categoricvalues:
+  columns:
+  - id
+  - datacolumn_id
+  - raw_data_value
+  - categoricvalue_id
+  - approved
+  - created_at
+  - updated_at
+  records: 
+---
+  - - '26'
+    - '58'
+    - !!null 
+    - '66'
+    - false
+    - '2011-04-07 15:05:35.301'
+    - '2011-04-07 15:05:35.301'
+  - - '27'
+    - '58'
+    - !!null 
+    - '67'
+    - false
+    - '2011-04-07 15:05:35.371'
+    - '2011-04-07 15:05:35.371'
+  - - '28'
+    - '58'
+    - !!null 
+    - '68'
+    - false
+    - '2011-04-07 15:05:35.375'
+    - '2011-04-07 15:05:35.375'
+  - - '29'
+    - '60'
+    - !!null 
+    - '69'
+    - false
+    - '2011-04-07 15:07:22.177'
+    - '2011-04-07 15:07:22.177'
+  - - '30'
+    - '60'
+    - !!null 
+    - '70'
+    - false
+    - '2011-04-07 15:07:22.201'
+    - '2011-04-07 15:07:22.201'
+  - - '31'
+    - '62'
+    - !!null 
+    - '71'
+    - false
+    - '2011-04-14 10:46:13.062'
+    - '2011-04-14 10:46:13.062'
+  - - '32'
+    - '62'
+    - !!null 
+    - '72'
+    - false
+    - '2011-04-14 10:46:13.153'
+    - '2011-04-14 10:46:13.153'
+  - - '33'
+    - '62'
+    - !!null 
+    - '73'
+    - false
+    - '2011-04-14 10:46:13.157'
+    - '2011-04-14 10:46:13.157'
+  - - '34'
+    - '62'
+    - !!null 
+    - '74'
+    - false
+    - '2011-04-14 10:46:13.16'
+    - '2011-04-14 10:46:13.16'
+  - - '35'
+    - '62'
+    - !!null 
+    - '75'
+    - false
+    - '2011-04-14 10:46:13.163'
+    - '2011-04-14 10:46:13.163'
+  - - '36'
+    - '62'
+    - !!null 
+    - '76'
+    - false
+    - '2011-04-14 10:46:13.166'
+    - '2011-04-14 10:46:13.166'
+  - - '37'
+    - '62'
+    - !!null 
+    - '77'
+    - false
+    - '2011-04-14 10:46:13.169'
+    - '2011-04-14 10:46:13.169'
+  - - '38'
+    - '62'
+    - !!null 
+    - '78'
+    - false
+    - '2011-04-14 10:46:13.172'
+    - '2011-04-14 10:46:13.172'
+  - - '39'
+    - '62'
+    - !!null 
+    - '79'
+    - false
+    - '2011-04-14 10:46:13.176'
+    - '2011-04-14 10:46:13.176'
+  - - '40'
+    - '62'
+    - !!null 
+    - '80'
+    - false
+    - '2011-04-14 10:46:13.178'
+    - '2011-04-14 10:46:13.178'
+  - - '41'
+    - '63'
+    - !!null 
+    - '81'
+    - false
+    - '2011-04-14 10:46:37.115'
+    - '2011-04-14 10:46:37.115'
+  - - '42'
+    - '63'
+    - !!null 
+    - '82'
+    - false
+    - '2011-04-14 10:46:37.139'
+    - '2011-04-14 10:46:37.139'
+  - - '43'
+    - '63'
+    - !!null 
+    - '83'
+    - false
+    - '2011-04-14 10:46:37.143'
+    - '2011-04-14 10:46:37.143'
+  - - '44'
+    - '63'
+    - !!null 
+    - '84'
+    - false
+    - '2011-04-14 10:46:37.146'
+    - '2011-04-14 10:46:37.146'
+  - - '45'
+    - '63'
+    - !!null 
+    - '85'
+    - false
+    - '2011-04-14 10:46:37.149'
+    - '2011-04-14 10:46:37.149'
+  - - '46'
+    - '63'
+    - !!null 
+    - '86'
+    - false
+    - '2011-04-14 10:46:37.152'
+    - '2011-04-14 10:46:37.152'
+  - - '47'
+    - '63'
+    - !!null 
+    - '87'
+    - false
+    - '2011-04-14 10:46:37.155'
+    - '2011-04-14 10:46:37.155'
+  - - '48'
+    - '63'
+    - !!null 
+    - '88'
+    - false
+    - '2011-04-14 10:46:37.158'
+    - '2011-04-14 10:46:37.158'
+  - - '49'
+    - '65'
+    - !!null 
+    - '89'
+    - false
+    - '2011-04-14 10:48:15.822'
+    - '2011-04-14 10:48:15.822'
+  - - '50'
+    - '65'
+    - !!null 
+    - '90'
+    - false
+    - '2011-04-14 10:48:15.931'
+    - '2011-04-14 10:48:15.931'
+  - - '51'
+    - '65'
+    - !!null 
+    - '91'
+    - false
+    - '2011-04-14 10:48:15.934'
+    - '2011-04-14 10:48:15.934'
+  - - '52'
+    - '65'
+    - !!null 
+    - '92'
+    - false
+    - '2011-04-14 10:48:15.937'
+    - '2011-04-14 10:48:15.937'
+  - - '53'
+    - '65'
+    - !!null 
+    - '93'
+    - false
+    - '2011-04-14 10:48:15.94'
+    - '2011-04-14 10:48:15.94'
+  - - '54'
+    - '65'
+    - !!null 
+    - '94'
+    - false
+    - '2011-04-14 10:48:15.943'
+    - '2011-04-14 10:48:15.943'
+  - - '55'
+    - '65'
+    - !!null 
+    - '95'
+    - false
+    - '2011-04-14 10:48:15.945'
+    - '2011-04-14 10:48:15.945'
+  - - '56'
+    - '65'
+    - !!null 
+    - '96'
+    - false
+    - '2011-04-14 10:48:15.948'
+    - '2011-04-14 10:48:15.948'
+  - - '57'
+    - '71'
+    - !!null 
+    - '97'
+    - false
+    - '2011-04-14 10:51:33.425'
+    - '2011-04-14 10:51:33.425'
+  - - '58'
+    - '71'
+    - !!null 
+    - '98'
+    - false
+    - '2011-04-14 10:51:33.453'
+    - '2011-04-14 10:51:33.453'
+  - - '59'
+    - '71'
+    - !!null 
+    - '99'
+    - false
+    - '2011-04-14 10:51:33.456'
+    - '2011-04-14 10:51:33.456'
+  - - '60'
+    - '71'
+    - !!null 
+    - '100'
+    - false
+    - '2011-04-14 10:51:33.459'
+    - '2011-04-14 10:51:33.459'
+
+---
+carts:
+  columns:
+  - id
+  - created_at
+  - updated_at
+  records: 
+---
+  - - '1'
+    - '2011-03-28 11:25:53.782'
+    - '2011-03-28 11:25:53.782'
+  - - '2'
+    - '2011-04-20 08:32:25.919'
+    - '2011-04-20 08:32:25.919'
+
+---
+author_paperproposals:
+  columns:
+  - id
+  - paperproposal_id
+  - user_id
+  - kind
+  - created_at
+  - updated_at
+  records: 
+---
+  - - '1'
+    - '1'
+    - '4'
+    - user
+    - '2011-03-28 11:25:52.965'
+    - '2011-03-28 11:25:52.965'
+  - - '2'
+    - '1'
+    - '6'
+    - user
+    - '2011-03-28 11:25:52.974'
+    - '2011-03-28 11:25:52.974'
+  - - '6'
+    - '1'
+    - '1'
+    - ack
+    - '2011-03-28 14:38:59.8434'
+    - '2011-03-28 14:38:59.8434'
+  - - '11'
+    - '1'
+    - '3'
+    - main
+    - '2011-03-31 14:47:08.023'
+    - '2011-03-31 14:47:08.023'
+  - - '12'
+    - '1'
+    - '5'
+    - main
+    - '2011-03-31 14:47:08.045'
+    - '2011-03-31 14:47:08.045'
+  - - '13'
+    - '1'
+    - '6'
+    - main
+    - '2011-03-31 14:47:08.047'
+    - '2011-03-31 14:47:08.047'
+  - - '24'
+    - '3'
+    - '1'
+    - ack
+    - '2011-04-20 11:50:38.67'
+    - '2011-04-20 11:50:38.67'
+
+---
+paperproposal_votes:
+  columns:
+  - id
+  - paperproposal_id
+  - user_id
+  - comment
+  - vote
+  - project_board_vote
+  - created_at
+  - updated_at
+  records: 
+---
+  - - '4'
+    - '3'
+    - '1'
+    - all the best
+    - accept
+    - true
+    - '2011-04-20 11:51:06.297'
+    - '2011-04-20 11:51:43.075'
+  - - '5'
+    - '3'
+    - '3'
+    - accept
+    - accept
+    - false
+    - '2011-04-20 11:51:44.638'
+    - '2011-04-20 11:54:57.764'
+  - - '6'
+    - '3'
+    - '5'
+    - fine
+    - accept
+    - false
+    - '2011-04-20 11:51:44.649'
+    - '2011-04-20 11:54:07.123'
+  - - '7'
+    - '3'
+    - '1'
+    - 2nd accept
+    - accept
+    - false
+    - '2011-04-20 11:51:44.651'
+    - '2011-04-20 11:52:16.856'
+
+---
+paperproposals:
+  columns:
+  - id
+  - author_id
+  - envisaged_journal
+  - title
+  - rationale
+  - corresponding_id
+  - envisaged_date
+  - state
+  - expiry_date
+  - board_state
+  - senior_author_id
+  - external_data
+  - lock
+  - created_at
+  - updated_at
+  - initial_title
+  - comment
+  records: 
+---
+  - - '1'
+    - '5'
+    - Gaya save the world
+    - Nutrient cycling and diversity in subtropical forests
+    - Diversity enhancing nutrient cycling Diversity enhancing nutrient cycling Diversity
+      enhancing nutrient cycling Diversity enhancing nutrient cycling Diversity enhancing
+      nutrient cycling Diversity enhancing nutrient cycling Diversity enhancing nutrient
+      cycling Diversity enhancing nutrient cycling Diversity enhancing nutrient cycling
+      Diversity enhancing nutrient cycling Diversity enhancing nutrient cycling Diversity
+      enhancing nutrient cycling Diversity enhancing nutrient cycling Diversity enhancing
+      nutrient cycling Diversity enhancing nutrient cycling
+    - '5'
+    - '2011-03-28'
+    - in prep
+    - !!null 
+    - prep
+    - '3'
+    - ''
+    - false
+    - '2009-03-28 11:25:52.856'
+    - '2011-03-31 14:47:07.337'
+    - Nutrient cycling paper proposal
+    - ''
+  - - '3'
+    - '6'
+    - Questions and Answers
+    - very new Proposal
+    - rationale
+    - '6'
+    - '2011-04-20'
+    - in prep
+    - !!null 
+    - final
+    - '4'
+    - ''
+    - false
+    - '2011-04-20 11:50:16.595'
+    - '2011-04-20 11:54:58.598'
+    - this was the first title
+    - ''
+
+---
+projects_roles:
+  columns:
+  - project_id
+  - role_id
+  - created_at
+  - updated_at
+  records: 
+---
+  - - '1'
+    - '23'
+    - '2011-04-18 12:03:11.479953'
+    - '2011-04-18 12:03:11.479953'
+  - - '1'
+    - '24'
+    - '2011-04-19 14:36:46.951'
+    - '2011-04-19 14:36:46.951'
+  - - '2'
+    - '26'
+    - '2011-04-21 08:39:45.899'
+    - '2011-04-21 08:39:45.899'
+  - - '2'
+    - '21'
+    - '2011-04-21 09:45:50.039'
+    - '2011-04-21 09:45:50.039'
+  - - '3'
+    - '27'
+    - '2011-04-21 09:33:10.865'
+    - '2011-04-21 09:33:10.865'
+  - - '3'
+    - '21'
+    - '2011-04-21 09:46:20.367'
+    - '2011-04-21 09:46:20.367'

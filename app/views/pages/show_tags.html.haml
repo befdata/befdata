@@ -1,0 +1,14 @@
+%h3 Tags
+%ul
+  - @tags.each do |tag|
+    %li
+      = tag.name
+      %ul
+        - tag.taggings.each do |tagging|
+          %li
+            = link_to tagging.taggable.dataset.title, {:controller => :datasets, |
+              :action => :show, :id => tagging.taggable.dataset_id }
+            (
+            = tagging.taggable.long_label
+            )
+

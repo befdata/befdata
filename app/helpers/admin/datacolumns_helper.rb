@@ -1,0 +1,2 @@
+module Admin::DatacolumnsHelper
+end

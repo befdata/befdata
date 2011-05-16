@@ -1,0 +1,21 @@
+- form_for @dataset, :url => { :action => "create_freeformat" }  do |ds|
+
+  %h2
+    Free-format file upload
+  %h3
+    = "(#{@filename})"
+  %br
+
+  %div
+    = ds.label :title
+    = ds.text_field :title
+    %br
+    = ds.label :abstract
+    = ds.text_area :abstract, :cols => 80, :rows => 15
+    %br
+    = ds.label :comment
+    = ds.text_area :comment, :cols => 80, :rows => 15
+
+    = ds.hidden_field :filename
+
+    = ds.submit :"Next step"

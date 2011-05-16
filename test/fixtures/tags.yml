@@ -1,0 +1,33 @@
+---
+tags_001:
+  id: 8
+  kind: tag
+  name: carbon
+tags_002:
+  id: 7
+  kind: tag
+  name: variable
+tags_003:
+  id: 6
+  kind: tag
+  name: C
+tags_004:
+  id: 5
+  kind: tag
+  name: location
+tags_005:
+  id: 4
+  kind: tag
+  name: plant organ
+tags_006:
+  id: 3
+  kind: tag
+  name: date
+tags_007:
+  id: 2
+  kind: tag
+  name: object identifier
+tags_008:
+  id: 1
+  kind: tag
+  name: species
