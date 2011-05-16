@@ -1,9 +1,0 @@
-%li= select "people", "person_id", @all_persons, {}, {:onchange => 'selectPersonRoles(this)'}
-- form_for @used_persons, :url => {:controller=> :data_request, :action => :update} do |form|
-  - @used_persons.each do |person|
-    %li{:onclick => "this.parentNode.removeChild(this);"}
-      %input{:name => "personroles[]", :type => "hidden", :value => person.id}/
-      = person.to_label
-      - fields_for @data_request do |data_request|
-        = data_request.hidden_field :id
-  = form.submit :submit
