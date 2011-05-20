@@ -35,4 +35,15 @@ test:
   database: befchina-test
   pool: 5
   username:
-  password: 
+  password:
+
+performance:
+adapter: postgresql
+host: localhost
+port: 5432
+encoding: unicode
+database: befchina-benchmark
+pool: 5
+username: 
+password:
+
