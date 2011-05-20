@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110418100144) do
+ActiveRecord::Schema.define(:version => 20110520093223) do
 
   create_table "author_paperproposals", :force => true do |t|
     t.integer  "paperproposal_id"
@@ -221,7 +221,7 @@ ActiveRecord::Schema.define(:version => 20110418100144) do
 
   create_table "roles", :force => true do |t|
     t.string   "name",              :limit => 40
-    t.string   "authorizable_type", :limit => 40
+    t.string   "authorizable_type", :limit => 25
     t.integer  "authorizable_id"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -237,7 +237,7 @@ ActiveRecord::Schema.define(:version => 20110418100144) do
   create_table "sheetcells", :force => true do |t|
     t.integer  "datacolumn_id"
     t.integer  "value_id"
-    t.string   "value_type"
+    t.string   "value_type",     :limit => 25
     t.integer  "rownr"
     t.text     "comment"
     t.integer  "observation_id"
@@ -252,7 +252,7 @@ ActiveRecord::Schema.define(:version => 20110418100144) do
 
   create_table "taggings", :force => true do |t|
     t.integer "tag_id"
-    t.string  "taggable_type", :default => ""
+    t.string  "taggable_type", :limit => 25, :default => ""
     t.integer "taggable_id"
   end
 
