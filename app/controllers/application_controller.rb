@@ -1,4 +1,4 @@
-class ApplicationController < ActionController::Base
+class ::ApplicationController < ActionController::Base
   protect_from_forgery
 
   helper_method :current_user_session, :current_user
@@ -7,7 +7,7 @@ class ApplicationController < ActionController::Base
 
 protected
   def layout_from_config
-    layout = ActiveRecord::Base.configurations[RAILS_ENV]["layout"]
+    layout = ActiveRecord::Base.configurations[::Rails.env]["layout"]
     case layout
       when "fundiv" then
         "fundiv"
