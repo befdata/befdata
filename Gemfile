@@ -17,6 +17,7 @@ gem 'active_scaffold'
 
 group :test, :development do
   gem "rspec-rails", "~> 2.4"
+  gem "ruby-prof"
 end
 
 
