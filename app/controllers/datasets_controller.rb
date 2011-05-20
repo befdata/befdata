@@ -11,7 +11,7 @@ class DatasetsController < ApplicationController
       allow :proposer, :of => :dataset
     end
 
-    action :upload, :upload_freeformat, :create_freeformat do
+    action :upload, :upload_freeformat, :upload_dataset_freeformat, :create_freeformat, :create_dataset_freeformat do
       allow logged_in
     end
   end
@@ -151,6 +151,20 @@ class DatasetsController < ApplicationController
     end
   end
 
+  def upload_dataset_freeformat
+    freeformat_id = params[:freeformat_id]
+    if !freeformat_id.blank?
+      freeformat = Freeformat.find(params[:freeformat_id])
+      @filename = freeformat.file_file_name
+      @dataset = Dataset.new
+      @dataset.title = @filename
+      @dataset.abstract = @filename
+      @dataset.filename=@filename
+    else
+      redirect_to data_path and return
+    end
+  end
+
   def create_freeformat
     @dataset = Dataset.new(params[:dataset])
 
@@ -164,6 +178,21 @@ class DatasetsController < ApplicationController
     end
 
   end
+
+  def create_dataset_freeformat
+    @dataset = Dataset.new(params[:dataset])
+
+    unless @dataset.save
+      flash[:error] = @dataset.errors.full_messages
+      redirect_to data_path and return
+    else
+      redirect_to url_for(:controller => :datasets,
+                          :action => :show,
+                          :id => @dataset.id) and return
+    end
+
+  end
+
 
   def update_freeformat_associations
 
