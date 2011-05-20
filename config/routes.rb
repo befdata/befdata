@@ -16,7 +16,9 @@ Befchina::Application.routes.draw do
   resources :datasets
   match 'upload' => 'datasets#upload', :as => :upload
   match 'upload_freeformat' => 'datasets#upload_freeformat', :as => :upload_freeformat
+  match 'upload_dataset_freeformat' => 'datasets#upload_dataset_freeformat', :as => :upload_dataset_freeformat
   match 'create_freeformat' => 'datasets#create_freeformat', :as => :create_freeformat
+  match 'create_dataset_freeformat' => 'datasets#create_dataset_freeformat', :as => :create_dataset_freeformat
   match 'update_freeformat_associations' => 'datasets#update_freeformat_associations', :as => :update_freeformat_associations
   match 'save_freeformat_associations' => 'datasets#save_freeformat_associations', :as => :save_freeformat_associations
   match 'download' => 'datasets#download', :as => :download
@@ -28,6 +30,7 @@ Befchina::Application.routes.draw do
 
   match 'imports/create_dataset_filevalue' => 'imports#create_dataset_filevalue'
   match 'imports/create_freeformat_filevalue' => 'imports#create_freeformat_filevalue'
+  match 'imports/create_dataset_freeformat' => 'imports#create_dataset_freeformat'
   match 'imports/raw_data_overview' => 'imports#raw_data_overview'
   match 'imports/raw_data_per_header' => 'imports#raw_data_per_header'
   match 'imports/update_data_header' => 'imports#update_data_header'

@@ -13,6 +13,7 @@ class PagesController < ApplicationController
   def data
 
     @file = Filevalue.new
+    @freeformat = Freeformat.new
 
     @tags = Tag.find(:all, :order => :name)
     @datasets = Dataset.find(:all, :order => :title)

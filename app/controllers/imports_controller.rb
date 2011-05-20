@@ -33,6 +33,16 @@ class ImportsController < ApplicationController
     end
   end
 
+  def create_dataset_freeformat
+    freeformat = Freeformat.new(params[:freeformat])
+
+    if freeformat.save
+        redirect_to :controller => :datasets, :action => :upload_dataset_freeformat, :freeformat_id => freeformat.id
+    else
+      flash[:errors] = freeformat.errors
+      redirect_to :back
+    end
+  end
 
 
   def raw_data_overview

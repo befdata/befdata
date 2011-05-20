@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110520093223) do
+ActiveRecord::Schema.define(:version => 20110520133838) do
 
   create_table "author_paperproposals", :force => true do |t|
     t.integer  "paperproposal_id"
@@ -134,6 +134,17 @@ ActiveRecord::Schema.define(:version => 20110520093223) do
   end
 
   add_index "filevalues", ["paperproposal_id"], :name => "index_filevalues_on_paperproposal_id"
+
+  create_table "freeformats", :force => true do |t|
+    t.string   "file_file_name"
+    t.string   "file_content_type"
+    t.integer  "file_file_size"
+    t.datetime "file_updated_at"
+    t.integer  "paperproposal_id"
+    t.integer  "dataset_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "import_categoricvalues", :force => true do |t|
     t.integer  "datacolumn_id"
