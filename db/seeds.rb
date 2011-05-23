@@ -44,9 +44,9 @@ if Rails.env="performance"
   p "Creating 8000 observations"
   while i < 8000
     observation = Observation.create(:rownr => i + 1)
-    p i = i + 1
+    i = i + 1
   end
-  p "Finished"
+  p "Finished creating observations"
 
   i=0
   p "Creating 20 columns in the dataset"

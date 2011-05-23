@@ -21,6 +21,17 @@ class PolymorphicTest < ActionDispatch::PerformanceTest
     all_dataset = Dataset.all.collect{|d| d.accepts_role? :owner, User.first}
   end
 
+  def test_collect_column_from_dataset
+    dataset = Dataset.first
+    datacolumn = Datacolumn.find(:all, :conditions => [ "dataset_id = ?", dataset.id ],
+                                      :order => 'columnnr ASC')
+  end
 
+  def test_collect_sheetcells_from_datacolumn
+    dataset = Dataset.first
+    datacolumns = Datacolumn.find(:all, :conditions => [ "dataset_id = ?", dataset.id ],
+                                      :order => 'columnnr ASC')
+    sheetcells = Sheetcell.find(:all, :conditions => [ "datacolumn_id = ?", datacolumns.first.id ], :include => :value)
+  end
   
 end
