@@ -5,13 +5,13 @@ class DatasetsController < ApplicationController
   access_control do
     allow all, :to => [:show, :index, :load_context]
 
-    action :download, :edit, :update_freeformat_associations, :save_freeformat_associations do
+    actions :download, :edit, :update_freeformat_associations, :save_freeformat_associations, :download_freeformat do
       allow :admin
       allow :owner, :of => :dataset
       allow :proposer, :of => :dataset
     end
 
-    action :upload, :upload_freeformat, :upload_dataset_freeformat, :create_freeformat, :create_dataset_freeformat do
+    actions :upload, :upload_freeformat, :upload_dataset_freeformat, :create_freeformat, :create_dataset_freeformat do
       allow logged_in
     end
   end
@@ -67,6 +67,8 @@ class DatasetsController < ApplicationController
       @methodtitles[h] = tmp.select{|mm| mm.columnheader == h}.first.datagroup.title
     end
 
+    # collecting the free formats associated to this data set
+    @freeformats = @dataset.freeformats
 
     # The determination of Vip or Vop status only makes sense if the
     # current user is logged in
@@ -93,6 +95,12 @@ class DatasetsController < ApplicationController
 #
 #    end # if logged_in?
 
+  end
+
+  # Downloading one free format file from withing the "show"
+  def download_freeformat
+    @freeformat = Freeformat.find(params[:id])
+    send_file @freeformat.file.path, :type => @freeformat.file_content_type, :disposition => 'inline'
   end
 
   # This action assembles a requested context, or a part of it, at

@@ -26,6 +26,16 @@
   %p= @dataset.circumstances
 - unless @dataset.comment.blank?
   %p= @dataset.comment
+
+- unless @freeformats.blank?
+  %p
+    There are #{@freeformats.length} free format files available for this data set.
+  %table
+    %tr
+    - @freeformats.each do |ff|
+      %tr
+        %td= link_to ff.file_file_name, ff.file.url
+
 - unless @measmeths.blank?
   The following data columns are available in the raw data part of this data set:
   %ul

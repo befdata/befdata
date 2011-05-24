@@ -51,10 +51,13 @@ class Dataset < ActiveRecord::Base
 
   has_many :datacolumns, :dependent => :destroy, :order => "columnnr"
   has_many :sheetcells, :through => :datacolumns
+  has_many :freeformats, :dependent => :destroy
 
 
   validates_presence_of :title, :abstract, :filename
   validates_uniqueness_of :title, :filename
+
+
 
 
   # Checks if all the cells (Measurement) saved during the upload of a

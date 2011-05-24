@@ -56,6 +56,7 @@ Befchina::Application.routes.draw do
 
 
   
+  match 'files/freeformats/:id/download' => 'datasets#download_freeformat'
   match 'files/:id/download' => 'filevalues#download'
 
 

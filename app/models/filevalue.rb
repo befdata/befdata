@@ -10,7 +10,7 @@ class Filevalue < ActiveRecord::Base
   has_attached_file :file,
   :basename => "basename",
   :path => ":rails_root/files/:filename",
-  :url => "files/:id/download"
+  :url => "/files/:id/download"
 
 
 

@@ -8,7 +8,7 @@ class Freeformat < ActiveRecord::Base
   has_attached_file :file,
   :basename => "basename",
   :path => ":rails_root/files/freeformats/:id_:filename",
-  :url => "files/:id/download"
+  :url => "/files/freeformats/:id/download"
 
   def basename
     return File.basename(self.file.original_filename, File.extname(self.file.original_filename))
