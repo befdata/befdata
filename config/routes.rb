@@ -20,7 +20,9 @@ Befchina::Application.routes.draw do
   match 'create_freeformat' => 'datasets#create_freeformat', :as => :create_freeformat
   match 'create_dataset_freeformat' => 'datasets#create_dataset_freeformat', :as => :create_dataset_freeformat
   match 'update_freeformat_associations' => 'datasets#update_freeformat_associations', :as => :update_freeformat_associations
+  match 'update_dataset_freeformat_associations' => 'datasets#update_dataset_freeformat_associations', :as => :update_dataset_freeformat_associations
   match 'save_freeformat_associations' => 'datasets#save_freeformat_associations', :as => :save_freeformat_associations
+  match 'save_dataset_freeformat_associations' => 'datasets#save_dataset_freeformat_associations', :as => :save_dataset_freeformat_associations
   match 'download' => 'datasets#download', :as => :download
 
   resources :tags
@@ -42,7 +44,9 @@ Befchina::Application.routes.draw do
   match 'imports/cell_category_update' => 'imports#cell_category_update'
   match 'imports/cell_category_create' => 'imports#cell_category_create'
   match 'imports/freeformat_overview' => 'imports#freeformat_overview'
+  match 'imports/dataset_freeformat_overview' => 'imports#dataset_freeformat_overview'
   match 'imports/save_freeformat_tags' => 'imports#save_freeformat_tags'
+  match 'imports/save_dataset_freeformat_tags' => 'imports#save_dataset_freeformat_tags'
 
   namespace :admin do |admin|
     resources :datasets, :projects, :users, :datagroups, :tags, :datacolumns, :categoricvalues do

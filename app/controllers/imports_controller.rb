@@ -529,6 +529,20 @@ class ImportsController < ApplicationController
 
   end
 
+  def dataset_freeformat_overview
+
+    @dataset = Dataset.find(params[:dataset_id])
+
+    if @dataset
+      # nothing to be done
+    else
+      # really should tell them about the error
+      redirect_to data_path and return
+    end
+
+  end
+
+
   def save_freeformat_tags
 
     @datacolumn = Datacolumn.find(params[:datacolumn][:id])
@@ -537,6 +551,16 @@ class ImportsController < ApplicationController
     redirect_to url_for(:controller => :datasets,
                           :action => :show,
                           :id => @datacolumn.dataset_id) and return
+  end
+
+  def save_dataset_freeformat_tags
+
+    @dataset = Dataset.find(params[:dataset][:id])
+    @dataset.update_attributes(params[:dataset])
+
+    redirect_to url_for(:controller => :datasets,
+                          :action => :show,
+                          :id => @dataset.id) and return
   end
 
 private

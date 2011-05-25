@@ -1,0 +1,22 @@
+- form_for @dataset, :url => { :action => "save_dataset_freeformat_associations" }  do |ds|
+  %h2
+    Dataset assiciate free-format file upload
+  %h3
+    Select the owner and project for the file
+  %p
+    = "#{@dataset.title} (#{@dataset.filename})"
+
+  %div
+    Owner
+    = select("owner", "owner_id", @people_list.collect {|person| [person.to_label, person.id] },
+                                  { :index => nil },
+                                  {:default => ''})
+    %br
+    Project
+    = select("project", "project_id", @project_list.collect {|project| [project.shortname, project.id] },
+                                      { :index => nil },
+                                      {:default => ''})
+
+    %br
+    = ds.hidden_field :id
+    = ds.submit :"Next step"

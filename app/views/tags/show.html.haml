@@ -2,10 +2,10 @@
   = @tag.name
 
 %ul
-- @tag.taggings.each do |tagging|
+- @datasets.each do |dataset|
   %li
-    = link_to tagging.taggable.dataset.title, {:controller => :datasets,
+    = link_to dataset.title, {:controller => :datasets,
                                                :action => :show,
-                                               :id => tagging.taggable.dataset_id }
-    = "( #{tagging.taggable.long_label} )"
+                                               :id => dataset.id }
+    -#= "( #{tagging.taggable.long_label} )"
 

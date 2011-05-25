@@ -42,7 +42,7 @@ class Dataset < ActiveRecord::Base
   acts_as_authorization_object :subject_class_name => 'User'
   acts_as_authorization_object :subject_class_name => 'Project'
 
-  is_taggable :projecttags
+  is_taggable :projecttags   # deprecated
   is_taggable :tags, :languages
 
   belongs_to :upload_spreadsheet, :class_name => "Filevalue",

@@ -5,13 +5,19 @@ class DatasetsController < ApplicationController
   access_control do
     allow all, :to => [:show, :index, :load_context]
 
-    actions :download, :edit, :update_freeformat_associations, :save_freeformat_associations, :download_freeformat do
+    # proponents should not be able to alter aspects of datasets they do not own
+    actions :download, :edit, :update_freeformat_associations, :save_freeformat_associations,
+            :download_freeformat, :save_dataset_freeformat_associations do
       allow :admin
       allow :owner, :of => :dataset
       allow :proposer, :of => :dataset
     end
 
-    actions :upload, :upload_freeformat, :upload_dataset_freeformat, :create_freeformat, :create_dataset_freeformat do
+
+    # for the first upload of the file, before owners are associated, logged in users have the right
+    # to update freeformat associations
+    actions :upload, :upload_freeformat, :upload_dataset_freeformat, :create_freeformat,
+            :create_dataset_freeformat, :update_dataset_freeformat_associations do
       allow logged_in
     end
   end
@@ -169,6 +175,10 @@ class DatasetsController < ApplicationController
       @dataset.abstract = @filename
       @dataset.filename=@filename
       @dataset.freeformats << freeformat
+      unless @dataset.save
+        flash[:error] = @dataset.errors.full_messages
+        redirect_to data_path and return
+      end
     else
       redirect_to data_path and return
     end
@@ -189,9 +199,9 @@ class DatasetsController < ApplicationController
   end
 
   def create_dataset_freeformat
-    @dataset = Dataset.new(params[:dataset])
+    @dataset = Dataset.find(params[:dataset][:id])
 
-    unless @dataset.save
+    unless @dataset.update_attributes(params[:dataset])
       flash[:error] = @dataset.errors.full_messages
       redirect_to data_path and return
     else
@@ -249,6 +259,26 @@ class DatasetsController < ApplicationController
       redirect_to data_path and return
     end
   end
+
+  def save_dataset_freeformat_associations
+    begin
+      @dataset = Dataset.find(params[:dataset][:id])
+      @owner = User.find(params[:owner][:owner_id])
+      @project = Project.find(params[:project][:project_id])
+
+      @owner.has_role! :owner, @dataset
+      @project.has_role! :owner, @dataset
+
+      redirect_to url_for(:controller => :imports,
+                          :action => :dataset_freeformat_overview,
+                          :dataset_id => @dataset.id) and return
+
+    rescue ActiveRecord::RecordNotFound
+      # No context with this id exists
+      redirect_to data_path and return
+    end
+  end
+
 
   def upload
     if !params[:filevalue_id].blank?
