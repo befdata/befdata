@@ -168,6 +168,7 @@ class DatasetsController < ApplicationController
       @dataset.title = @filename
       @dataset.abstract = @filename
       @dataset.filename=@filename
+      @dataset.freeformats << freeformat
     else
       redirect_to data_path and return
     end
@@ -195,8 +196,8 @@ class DatasetsController < ApplicationController
       redirect_to data_path and return
     else
       redirect_to url_for(:controller => :datasets,
-                          :action => :show,
-                          :id => @dataset.id) and return
+                          :action => :update_dataset_freeformat_associations,
+                          :dataset_id => @dataset.id) and return
     end
 
   end
@@ -208,6 +209,20 @@ class DatasetsController < ApplicationController
       @dataset = Dataset.find(params[:dataset_id])
       @people_list = User.find(:all, :order => :lastname)
       @project_list = Project.find(:all)
+
+    rescue ActiveRecord::RecordNotFound
+      # No context with this id exists
+      redirect_to data_path and return
+    end
+
+  end
+
+  def update_dataset_freeformat_associations
+
+    begin
+      @dataset = Dataset.find(params[:dataset_id])
+      @people_list = User.find(:all, :order => :lastname)
+      @project_list = Project.find(:all, :order => :shortname)
 
     rescue ActiveRecord::RecordNotFound
       # No context with this id exists
