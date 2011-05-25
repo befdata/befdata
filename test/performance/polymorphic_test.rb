@@ -27,11 +27,29 @@ class PolymorphicTest < ActionDispatch::PerformanceTest
                                       :order => 'columnnr ASC')
   end
 
-  def test_collect_sheetcells_from_datacolumn
+  def test_collect_sheetcells_from_datacolumn_no_value
+    dataset = Dataset.first
+    datacolumns = Datacolumn.find(:all, :conditions => [ "dataset_id = ?", dataset.id ],
+                                      :order => 'columnnr ASC')
+    sheetcells = Sheetcell.find(:all, :conditions => [ "datacolumn_id = ?", datacolumns.first.id ])
+  end
+
+  def test_collect_sheetcells_from_datacolumn_include_value_method1
+    dataset = Dataset.first
+    datacolumns = Datacolumn.find(:all, :conditions => [ "dataset_id = ?", dataset.id ],
+                                      :order => 'columnnr ASC')
+    sheetcells = datacolumns.first.sheetcells.collect{|m| m.value}
+  end
+
+  def test_collect_sheetcells_from_datacolumn_include_value_method2
     dataset = Dataset.first
     datacolumns = Datacolumn.find(:all, :conditions => [ "dataset_id = ?", dataset.id ],
                                       :order => 'columnnr ASC')
     sheetcells = Sheetcell.find(:all, :conditions => [ "datacolumn_id = ?", datacolumns.first.id ], :include => :value)
   end
-  
+
+  def test_collect_all_datasets_for_project
+    project = Project.first
+    datasets = Dataset.all.collect { |ds| ds.accepts_role? :owner, project}
+  end
 end
