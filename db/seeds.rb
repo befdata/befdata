@@ -110,4 +110,18 @@ if Rails.env="performance"
   end
   p "Finished adding the data to test the sheet cell performance"
 
+  p "Creating a project to test datasets linked to projects"
+  project = Project.create(:shortname => "Test",
+                            :name => "Test",
+                            :description => "Test")
+
+  i=0
+  while(i<1000)
+    dataset = Dataset.find(i+1)
+    project.has_role! :owner, dataset if dataset
+    i = i + 1
+  end
+
+  p "Finished a project to test datasets linked to projects"
+
 end
