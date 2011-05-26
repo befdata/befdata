@@ -14,6 +14,20 @@ class DatasetsController < ApplicationController
     end
 
 
+#    action :download_freeformat do
+#      allow logged_in if @dataset.free_for_member == true
+#    end
+#
+#    action :download_freeformat do
+#      allow_all  if @dataset.free_for_public == true
+#    end
+#
+#
+#    action :download_freeformat do
+#      allow  :owner if @dataset.free_within_project == true
+#    end
+
+
     # for the first upload of the file, before owners are associated, logged in users have the right
     # to update freeformat associations
     actions :upload, :upload_freeformat, :upload_dataset_freeformat, :create_freeformat,
