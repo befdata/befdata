@@ -10,25 +10,13 @@
 
 class ImportsController < ApplicationController
 
+  def create_freeformat_datafile
+    datafile = Datafile.new(params[:datafile])
 
-  def create_dataset_filevalue
-    filevalue = Filevalue.new(params[:filevalue])
-
-    if filevalue.save
-        redirect_to :controller => :datasets, :action => :upload, :filevalue_id => filevalue.id
+    if datafile.save
+        redirect_to :controller => :datasets, :action => :upload_freeformat, :datafile_id => datafile.id
     else
-      flash[:errors] = filevalue.errors
-      redirect_to :back
-    end
-  end
-
-  def create_freeformat_filevalue
-    filevalue = Filevalue.new(params[:filevalue])
-
-    if filevalue.save
-        redirect_to :controller => :datasets, :action => :upload_freeformat, :filevalue_id => filevalue.id
-    else
-      flash[:errors] = filevalue.errors
+      flash[:errors] = datafile.errors
       redirect_to :back
     end
   end
@@ -52,17 +40,13 @@ class ImportsController < ApplicationController
     
     @dataset ||= Dataset.find(params[:dataset_id], :include => [:datacolumns])
 
-    # import information from the spreadsheet
-    filevalue = @dataset.upload_spreadsheet
-    filepath = filevalue.file.path
-
     # provides @methodsheet, @respPeopleSheet, @categorySheet,
     # @rawdatasheet,
     # @columnheadersRaw: Array of the columnheaders
     # @checkUnique: are they unique?
     # @ch_people_hash: {0=>"Column header", 1=>"rarefy_100", ...
     # @ch_cat_hash: {0=>"Column header", 1=>"rarefy_100", ...
-    provide_metasheets(filepath)
+    provide_metasheets(@dataset.upload_spreadsheet.file.path)
 
     logger.debug "------------ after loading metasheet ---------"
     logger.debug @columnheadersRaw.inspect
@@ -181,8 +165,7 @@ class ImportsController < ApplicationController
       select{|dc| dc.columnheader == params[:data_header]}.first
 
     # open the spreadsheet
-    filepath = @dataset.upload_spreadsheet.file.path
-    provide_metasheets(filepath)
+    provide_metasheets(@dataset.upload_spreadsheet.file.path)
 
     # data column specific information: start with the column header
     ch = @data_column.columnheader

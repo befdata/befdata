@@ -1,4 +1,4 @@
-class FilevaluesController < ApplicationController
+class DatafilesController < ApplicationController
 
   access_control do
     action :download do
@@ -7,7 +7,7 @@ class FilevaluesController < ApplicationController
   end
 
   def download
-   @file = Filevalue.find(params[:id])
+   @file = Datafile.find(params[:id])
    send_file @file.file.path, :type => @file.file_content_type, :disposition => 'inline'
   end
 

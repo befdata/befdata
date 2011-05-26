@@ -15,6 +15,7 @@ Befchina::Application.routes.draw do
 
   resources :datasets
   match 'upload' => 'datasets#upload', :as => :upload
+  match 'create_dataset' => 'datasets#create', :as => :create_dataset  
   match 'upload_freeformat' => 'datasets#upload_freeformat', :as => :upload_freeformat
   match 'upload_dataset_freeformat' => 'datasets#upload_dataset_freeformat', :as => :upload_dataset_freeformat
   match 'create_freeformat' => 'datasets#create_freeformat', :as => :create_freeformat
@@ -30,8 +31,8 @@ Befchina::Application.routes.draw do
 
   resources :projects
 
-  match 'imports/create_dataset_filevalue' => 'imports#create_dataset_filevalue'
-  match 'imports/create_freeformat_filevalue' => 'imports#create_freeformat_filevalue'
+#  match 'imports/create_dataset_datafile' => 'imports#create_dataset_datafile'
+  match 'imports/create_freeformat_datafile' => 'imports#create_freeformat_datafile'
   match 'imports/create_dataset_freeformat' => 'imports#create_dataset_freeformat'
   match 'imports/raw_data_overview' => 'imports#raw_data_overview'
   match 'imports/raw_data_per_header' => 'imports#raw_data_per_header'
@@ -61,7 +62,7 @@ Befchina::Application.routes.draw do
 
   
   match 'files/freeformats/:id/download' => 'datasets#download_freeformat'
-  match 'files/:id/download' => 'filevalues#download'
+  match 'files/:id/download' => 'datafiles#download'
 
 
   resources :carts

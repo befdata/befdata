@@ -45,7 +45,7 @@ class Dataset < ActiveRecord::Base
   is_taggable :projecttags   # deprecated
   is_taggable :tags, :languages
 
-  belongs_to :upload_spreadsheet, :class_name => "Filevalue",
+  belongs_to :upload_spreadsheet, :class_name => "Datafile",
                                   :foreign_key => "upload_spreadsheet_id",
                                   :dependent => :destroy
 
@@ -138,9 +138,9 @@ class Dataset < ActiveRecord::Base
                                     :observation => observation,
                                     :import_value => self.filename)
 
-      file_value = Filevalue.find_by_file_file_name(self.filename)
-      logger.debug "- Attaching the sheetcell to the filevalue  -"
-      sheet_cell.update_attributes(:value => file_value,
+      datafile = Datafile.find_by_file_file_name(self.filename)
+      logger.debug "- Attaching the sheetcell to the datafile  -"
+      sheet_cell.update_attributes(:value => datafile,
                                    :comment => "portal match")
 
       return true

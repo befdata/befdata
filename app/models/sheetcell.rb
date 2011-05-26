@@ -24,7 +24,7 @@ class Sheetcell < ActiveRecord::Base
   belongs_to :textvalue, :class_name => "Textvalue", :foreign_key => "value_id"
   belongs_to :numericvalue, :class_name => "Numericvalue", :foreign_key => "value_id"
   belongs_to :categoricvalue, :class_name => "Categoricvalue", :foreign_key => "value_id"
-  belongs_to :filevalue, :class_name => "Filevalue", :foreign_key => "value_id"
+  belongs_to :datafile, :class_name => "Datafile", :foreign_key => "value_id"
 
 
 
