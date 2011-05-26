@@ -1,5 +1,5 @@
 ---
-filevalues_001:
+datafiles_001:
   created_at: 2011-03-29 08:03:05.524200000Z
   file_content_type: application/msword
   file_file_name: ppProduction.doc
@@ -8,7 +8,7 @@ filevalues_001:
   id: 3
   paperproposal_id: 2
   updated_at: 2011-03-29 08:03:05.524200000Z
-filevalues_002:
+datafiles_002:
   created_at: 2011-03-28 13:58:05.720400000Z
   file_content_type: application/vnd.ms-excel
   file_file_name: SP5_TargetSpecies_CN_final_8_target_carbon-_short .xls
@@ -17,7 +17,7 @@ filevalues_002:
   id: 2
   paperproposal_id:
   updated_at: 2011-03-28 13:58:05.720400000Z
-filevalues_003:
+datafiles_003:
   created_at: 2011-03-28 12:35:15.824000000Z
   file_content_type: application/msword
   file_file_name: ppNutrientCyclingtest.doc

@@ -41,7 +41,7 @@ class PaperproposalsController < ApplicationController
     @datasets = Dataset.find(:all, :order => 'title')
     @current_cart = current_cart
 
-    1.times {@paperproposal.filevalues.build}
+    1.times {@paperproposal.datafiles.build}
     
   end
 

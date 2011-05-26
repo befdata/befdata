@@ -11,15 +11,102 @@ class DatasetsController < ApplicationController
       allow :proposer, :of => :dataset
     end
 
-    actions :upload, :upload_freeformat, :upload_dataset_freeformat, :create_freeformat, :create_dataset_freeformat do
+    actions :create, :upload, :upload_freeformat, :upload_dataset_freeformat, :create_freeformat, :create_dataset_freeformat do
       allow logged_in
+    end
+  end
+
+  def create
+    datafile = Datafile.new(params[:datafile])
+
+    unless datafile.save
+      flash[:errors] = datafile.errors
+      redirect_to :back
+    end
+
+    begin
+      book = Spreadsheet.open datafile.file.path
+      # after closing, the file can be destroyed if necessary, the
+      # information stays in the book object
+      book.io.close
+
+      # Start with the first sheet; if the page is reloaded, there
+      # may already be a context to this datafile
+      if datafile.dataset.blank?
+        @dataset = Dataset.new
+        @dataset.upload_spreadsheet = datafile
+
+        # gather all the cell values that can just be copied into
+        # the new context
+        filename = datafile.file_file_name
+        simple_hash = gather_simple_general_metadata(filename, book)
+        @dataset.update_attributes(simple_hash)
+
+        datemin = Array(book.worksheet(0).column(0))[32].to_s
+        day_month = "1/1/"
+        @dataset.datemin = parse_date_txt(datemin, day_month)
+        datemax = Array(book.worksheet(0).column(0))[34].to_s
+        day_month = "12/31/"
+        @dataset.datemax = parse_date_txt(datemax, day_month)
+
+        @dataset.save
+
+        # Gather the people
+        # Determine number of people
+        cols = Array(book.worksheet(0).row(14)).length
+        ppl = cols - 1 # The first column contains only meta data
+
+        #          # The current user is automatically added to the user array
+        #          logger.debug "---------- after saving the new context -------"
+        #          people = [@current_user]
+        users = []
+
+        ppl.times do |i| # starts at 0
+          person = Array(book.worksheet(0).column(i+1))[14..15]
+          # Look for the givenName in both name fields
+          users += User.find_all_by_firstname(person[0])
+
+          # Look for the surName in both name fields
+          users += User.find_all_by_lastname(person[1])
+
+          # Additionally, do a fuzzy search on both name values
+          # people += Person.fuzzy_find(person[0]) # givenName
+          # people += Person.fuzzy_find(person[1]) # surName
+
+          users = users.uniq # Eliminate the doubled entries
+        end
+
+        # Add all found roles to the context. Evaluation of
+        # correctness will be step 2
+        users.each do |pr|
+          pr.has_role! :owner, @dataset
+        end
+
+      else # there already is context information for this file
+        @dataset = datafile.dataset
+      end
+
+      # Project Tag list
+      proj_tag_list = Array(book.worksheet(0).column(1))[11]
+      if proj_tag_list
+        @dataset.projecttag_list = proj_tag_list
+      end
+      @dataset.save
+
+      # Render the page that presents the general metadata for a
+      # data set, for user interaction
+      # (view/contexts/upload.html.erb)
+      @step = 1
+      @people_list = User.find(:all, :order => :lastname)
+    rescue Ole::Storage::FormatError
+      # Uploaded file was no valid Excel file
+      redirect_to data_path and return
     end
   end
 
   # This action provides edit forms for the given context
   def edit
     # Main auth determination happens in AdminBaseController
-
 
     @contacts = @dataset.users.select{|p| p.has_role?(:owner, @context)}
     @contact = @contacts.first
@@ -52,7 +139,7 @@ class DatasetsController < ApplicationController
     @projects = @projects.flatten.compact.uniq
 
     tmp = Datacolumn.find(:all, :conditions => [ "dataset_id = ?", params[:id] ],
-                                      :order => 'columnnr ASC')
+    :order => 'columnnr ASC')
     @header = tmp.map{|d| d.columnheader }.uniq
 
     @measmeths = {}
@@ -63,7 +150,7 @@ class DatasetsController < ApplicationController
       mm = tmp.select{|mm| mm.columnheader == h}.first
       @measmeths[h] = mm
       @measurements[h] = Sheetcell.find(:all,
-                                          :conditions => [ "datacolumn_id = ?", mm.id ])
+      :conditions => [ "datacolumn_id = ?", mm.id ])
       @methodtitles[h] = tmp.select{|mm| mm.columnheader == h}.first.datagroup.title
     end
 
@@ -74,26 +161,26 @@ class DatasetsController < ApplicationController
     # current user is logged in
     #ToDo Was macht das?
     @submethod_list_user = []
-#    if logged_in?
-#      # This loop checks the Vip/Vop-status for every PersonRole, the
-#      # current user plays.  If any status is found, the view renders
-#      # a appropriate download link.
-#      @vip = false
-#      @vop = false
-#
-#      proles = @current_user.person_roles
-#      proles.each do |r|
-#        @vip = true if @context.vips.include?(r)
-#        @vop = true if @context.vops.include?(r)
-#      end
-#
-#      # list of submethods of this user
-#      tmp = proles.collect{|pr| pr.measmeths_personroles}.flatten.uniq
-#      @submethod_list_user = tmp.collect{|mp| mp.measurements_methodstep}.flatten.uniq
-#    else # not logged_in
-#      @submethod_list_user = []
-#
-#    end # if logged_in?
+    #    if logged_in?
+    #      # This loop checks the Vip/Vop-status for every PersonRole, the
+    #      # current user plays.  If any status is found, the view renders
+    #      # a appropriate download link.
+    #      @vip = false
+    #      @vop = false
+    #
+    #      proles = @current_user.person_roles
+    #      proles.each do |r|
+    #        @vip = true if @context.vips.include?(r)
+    #        @vop = true if @context.vops.include?(r)
+    #      end
+    #
+    #      # list of submethods of this user
+    #      tmp = proles.collect{|pr| pr.measmeths_personroles}.flatten.uniq
+    #      @submethod_list_user = tmp.collect{|mp| mp.measurements_methodstep}.flatten.uniq
+    #    else # not logged_in
+    #      @submethod_list_user = []
+    #
+    #    end # if logged_in?
 
   end
 
@@ -109,8 +196,8 @@ class DatasetsController < ApplicationController
   # ImportController)
   def download
 
-#     @data_sheet = DataSheet.new
-#     book = DataSheet.new
+    #     @data_sheet = DataSheet.new
+    #     book = DataSheet.new
     report = StringIO.new
     Spreadsheet.client_encoding = 'UTF-8'
     book = Spreadsheet::Workbook.new
@@ -122,7 +209,6 @@ class DatasetsController < ApplicationController
     # Write the metadata sheet
     create_metasheet(book, @dataset, formats)
     logger.debug "metasheet created"
-
 
     create_methodsheet(book, @dataset, formats)
     logger.debug "methodsheet created"
@@ -146,10 +232,10 @@ class DatasetsController < ApplicationController
   end
 
   def upload_freeformat
-    filevalue_id = params[:filevalue_id]
-    if !filevalue_id.blank?
-      filevalue = Filevalue.find(params[:filevalue_id])
-      @filename = filevalue.file_file_name
+    datafile_id = params[:datafile_id]
+    if !datafile_id.blank?
+      datafile = Datafile.find(datafile_id)
+      @filename = datafile.file_file_name
       @dataset = Dataset.new
       @dataset.title = @filename
       @dataset.abstract = @filename
@@ -181,8 +267,8 @@ class DatasetsController < ApplicationController
       redirect_to data_path and return
     else
       redirect_to url_for(:controller => :datasets,
-                          :action => :update_freeformat_associations,
-                          :dataset_id => @dataset.id) and return
+      :action => :update_freeformat_associations,
+      :dataset_id => @dataset.id) and return
     end
 
   end
@@ -195,12 +281,11 @@ class DatasetsController < ApplicationController
       redirect_to data_path and return
     else
       redirect_to url_for(:controller => :datasets,
-                          :action => :show,
-                          :id => @dataset.id) and return
+      :action => :show,
+      :id => @dataset.id) and return
     end
 
   end
-
 
   def update_freeformat_associations
 
@@ -226,8 +311,8 @@ class DatasetsController < ApplicationController
       @project.has_role! :owner, @dataset
 
       redirect_to url_for(:controller => :imports,
-                          :action => :freeformat_overview,
-                          :dataset_id => @dataset.id) and return
+      :action => :freeformat_overview,
+      :dataset_id => @dataset.id) and return
 
     rescue ActiveRecord::RecordNotFound
       # No context with this id exists
@@ -236,107 +321,7 @@ class DatasetsController < ApplicationController
   end
 
   def upload
-    if !params[:filevalue_id].blank?
-      # When coming from the upload page, a file parameter must be
-      # set.  This means, that there has not been any context yet
-      # made with this file.
-
-      filevalue = Filevalue.find(params[:filevalue_id])
-      begin
-        filepath = filevalue.file.path
-        book = Spreadsheet.open filepath
-        # after closing, the file can be destroyed if necessary, the
-        # information stays in the book object
-        book.io.close
-
-        # Start with the first sheet; if the page is reloaded, there
-        # may already be a context to this filevalue
-        if filevalue.dataset.blank?
-          @dataset = Dataset.new
-          @dataset.upload_spreadsheet = filevalue
-
-          # gather all the cell values that can just be copied into
-          # the new context
-          filename = filevalue.file_file_name
-          simple_hash = gather_simple_general_metadata(filename, book)
-          @dataset.update_attributes(simple_hash)
-
-          logger.debug "-- data conversion --"
-          datemin = Array(book.worksheet(0).column(0))[32].to_s
-          logger.debug "-- datemin #{datemin} --"
-          day_month = "1/1/"
-          @dataset.datemin = parse_date_txt(datemin, day_month)
-          datemax = Array(book.worksheet(0).column(0))[34].to_s
-          logger.debug "-- datemax #{datemax} --"
-          day_month = "12/31/"
-          @dataset.datemax = parse_date_txt(datemax, day_month)
-
-
-
-          @dataset.save
-          logger.debug "---------- after saving the new context -------"
-          logger.debug @dataset.valid?
-          logger.debug @dataset.errors.inspect
-
-
-          # Gather the people
-          # Determine number of people
-          cols = Array(book.worksheet(0).row(14)).length
-          ppl = cols - 1 # The first column contains only meta data
-          logger.debug "------------ ppl.inspect  ---------"
-          logger.debug ppl.inspect
-
-#          # The current user is automatically added to the user array
-#          logger.debug "---------- after saving the new context -------"
-#          people = [@current_user]
-          users = []
-
-          ppl.times do |i| # starts at 0
-            person = Array(book.worksheet(0).column(i+1))[14..15]
-            logger.debug "------------ person.inspect  ---------"
-            logger.debug person.inspect
-            # Look for the givenName in both name fields
-            users += User.find_all_by_firstname(person[0])
-
-            # Look for the surName in both name fields
-            users += User.find_all_by_lastname(person[1])
-
-            # Additionally, do a fuzzy search on both name values
-            # people += Person.fuzzy_find(person[0]) # givenName
-            # people += Person.fuzzy_find(person[1]) # surName
-
-            users = users.uniq # Eliminate the doubled entries
-          end
-
-
-          # Add all found roles to the context. Evaluation of
-          # correctness will be step 2
-          users.each do |pr|
-            pr.has_role! :owner, @dataset
-          end
-
-        else # there already is context information for this file
-          @dataset = filevalue.dataset
-        end
-
-        # Project Tag list
-        proj_tag_list = Array(book.worksheet(0).column(1))[11]
-        if proj_tag_list
-          @dataset.projecttag_list = proj_tag_list
-        end
-        @dataset.save
-
-        # Render the page that presents the general metadata for a
-        # data set, for user interaction
-        # (view/contexts/upload.html.erb)
-        @step = 1
-        @people_list = User.find(:all, :order => :lastname)
-      rescue Ole::Storage::FormatError
-        # Uploaded file was no valid Excel file
-        redirect_to data_path and return
-      end
-
-    elsif params[:step] == '1'
+    if params[:step] == '1'
       # At this point, the parameter "filename" is given; there has
       # already an upload been done, the context for which "upload"
       # is called is already existing.  Because of this, the upload
@@ -353,24 +338,24 @@ class DatasetsController < ApplicationController
         end
 
         @dataset.update_attributes( :title => params[:title],
-                                    :abstract => params[:abstract],
-                                    :comment => params[:comment],
-                                    :usagerights => params[:usagerights],
-                                    :published => params[:published],
-                                    :spatialextent => params[:spatialextent],
-          :datemin => DateTime.civil(params[:date][:"min(1i)"].to_i, params[:date][:"min(2i)"].to_i, params[:date][:"min(3i)"].to_i, params[:date][:"min(4i)"].to_i, params[:date][:"min(5i)"].to_i),
-          :datemax => DateTime.civil(params[:date][:"max(1i)"].to_i, params[:date][:"max(2i)"].to_i, params[:date][:"max(3i)"].to_i, params[:date][:"max(4i)"].to_i, params[:date][:"max(5i)"].to_i),
-                                    :temporalextent => params[:temporalextent],
-                                    :taxonomicextent => params[:taxonomicextent],
-                                    :design => params[:design],
-                                    :dataanalysis => params[:dataanalysis],
-                                    :circumstances => params[:circumstances] )
+        :abstract => params[:abstract],
+        :comment => params[:comment],
+        :usagerights => params[:usagerights],
+        :published => params[:published],
+        :spatialextent => params[:spatialextent],
+        :datemin => DateTime.civil(params[:date][:"min(1i)"].to_i, params[:date][:"min(2i)"].to_i, params[:date][:"min(3i)"].to_i, params[:date][:"min(4i)"].to_i, params[:date][:"min(5i)"].to_i),
+        :datemax => DateTime.civil(params[:date][:"max(1i)"].to_i, params[:date][:"max(2i)"].to_i, params[:date][:"max(3i)"].to_i, params[:date][:"max(4i)"].to_i, params[:date][:"max(5i)"].to_i),
+        :temporalextent => params[:temporalextent],
+        :taxonomicextent => params[:taxonomicextent],
+        :design => params[:design],
+        :dataanalysis => params[:dataanalysis],
+        :circumstances => params[:circumstances] )
 
         # Finally, set the new step, so that the evaluation process
         # moves forward
         redirect_to url_for(:controller => :imports,
-                            :action => :raw_data_overview,
-                            :dataset_id => @dataset.id) and return
+        :action => :raw_data_overview,
+        :dataset_id => @dataset.id) and return
 
       else
         # No dataset found
@@ -391,7 +376,6 @@ class DatasetsController < ApplicationController
         @dataset.finished = params[:finished]
         @dataset.save
 
-
         # If the dataset is finished, show it
         if @dataset.finished == true
           logger.debug "After all, rebuild the search index"
@@ -405,8 +389,8 @@ class DatasetsController < ApplicationController
           end
 
           redirect_to url_for :controller => :datasets,
-                              :action => :show,
-                              :id => @dataset.id and return
+          :action => :show,
+          :id => @dataset.id and return
         else
           logger.debug "context not finished"
           logger.debug [@dataset.id, @dataset.title].to_s
@@ -420,11 +404,11 @@ class DatasetsController < ApplicationController
       # upload page.
       redirect_to data_path and return
     end
-#    else
-#      # Not logged in, redirect to login form
-#      session[:return_to] = request.request_uri
-#      redirect_to login_path and return
-#    end
+    #    else
+    #      # Not logged in, redirect to login form
+    #      session[:return_to] = request.request_uri
+    #      redirect_to login_path and return
+    #    end
   end
 
   def parse_date_txt(date_text, day_month_txt)
@@ -439,7 +423,6 @@ class DatasetsController < ApplicationController
     end
     return(date_tmp)
   end
-
 
   # The general metadata sheet contains information about the data set
   # as a whole.  The gather_simple_general_metadata method gathers the
@@ -466,7 +449,6 @@ class DatasetsController < ApplicationController
     return simple_metadata
   end
 
-
   def numeric?(object)
     result = false
     if object.class == String
@@ -485,8 +467,6 @@ class DatasetsController < ApplicationController
     result
   end
 
-
-
   # Asks if object is a valid integer.
   def integer?(object)
     if numeric?(object)
@@ -502,12 +482,11 @@ class DatasetsController < ApplicationController
     end
   end
 
-
   def load_dataset
     @dataset = Dataset.find(params[:id])
   end
 
- private
+  private
 
   # Creates the first sheet of a context file, the one with the
   # metadata.
@@ -557,7 +536,7 @@ class DatasetsController < ApplicationController
         # else
         #   sheet[15,i] = cprpr.institution.name
         #   sheet[16,i] = cprpr.institution.city
-          sheet[16,i] = cpr.email
+        sheet[16,i] = cpr.email
         # end
         # sheet[18,i] = cprpr.role.name ||= ""
         i += 1
@@ -811,12 +790,12 @@ class DatasetsController < ApplicationController
           end
         else
           value = case m.value_type
-                  when "Categoricvalue" then m.value.short
-                  when "Numericvalue" then m.value.number
-                  when "Datetimevalue" then m.value.year
-                  when "Textvalue" then m.value.text
-                  when "Filevalue" then m.file_file_name
-                  end
+          when "Categoricvalue" then m.value.short
+          when "Numericvalue" then m.value.number
+          when "Datetimevalue" then m.value.year
+          when "Textvalue" then m.value.text
+          when "Datafile" then m.file_file_name
+          end
         end
 
         sheet[m.observation.rownr-1,column-1] = value if value

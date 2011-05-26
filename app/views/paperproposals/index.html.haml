@@ -22,6 +22,6 @@
     %p
       = p_proposal.rationale
     %ul
-      - p_proposal.filevalues.each do |fv|
+      - p_proposal.datafiles.each do |fv|
         %li= link_to fv.file_file_name, fv.file.url
 

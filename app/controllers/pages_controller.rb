@@ -12,7 +12,7 @@ class PagesController < ApplicationController
   # This provide a first look to our metadata and give a hint about our data
   def data
 
-    @file = Filevalue.new
+    @file = Datafile.new
     @freeformat = Freeformat.new
 
     @tags = Tag.find(:all, :order => :name)

@@ -822,7 +822,7 @@ datetimevalues:
     - '2011-04-07 15:07:17.476'
 
 ---
-filevalues:
+datafiles:
   columns:
   - id
   - file_file_name
