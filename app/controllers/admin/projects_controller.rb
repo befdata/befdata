@@ -1,8 +1,8 @@
 class Admin::ProjectsController < Admin::AdminController
     active_scaffold :project do |config|
-    config.label = "Projekte"
+    config.label = "Projects"
     config.show.link = false
-    config.search.link = false
+    # config.search.link = false
     # show config
     config.show.columns = [:shortname, :name, :description, :comment]
 

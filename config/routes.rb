@@ -50,7 +50,8 @@ Befchina::Application.routes.draw do
   match 'imports/save_dataset_freeformat_tags' => 'imports#save_dataset_freeformat_tags'
 
   namespace :admin do |admin|
-    resources :datasets, :projects, :users, :datagroups, :tags, :datacolumns, :categoricvalues do
+    resources :datasets, :projects, :users, :datagroups, :tags,
+              :datacolumns, :categoricvalues, :freeformats do
       as_routes
     end
   end
