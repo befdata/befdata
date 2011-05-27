@@ -10,7 +10,7 @@ class Admin::DatasetsController < Admin::AdminController
 
 
 
-    config.update.link.label = "Edit Context"
+    config.update.link.label = "Edit Data set"
     config.columns = [:id, :title, :filename, :download_counter]
     config.update.columns = [:title, :finished, :visible_for_public,
                              :filename,

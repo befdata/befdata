@@ -2,10 +2,18 @@ class DatasetsController < ApplicationController
 
   before_filter :load_dataset, :only => [:download, :show, :edit]
 
+  before_filter :load_freeformat_dataset, :only => [:download_freeformat]
+
+  before_filter :load_dataset_freeformat, :only => [:update_dataset_freeformat_associations]
+
   access_control do
     allow all, :to => [:show, :index, :load_context]
 
     # proponents should not be able to alter aspects of datasets they do not own
+    # update freeformat associations: dataset through params[:dataset_id]
+    # download freeformat: no dataset, freeformat through params[:id]
+    # save freeformat associations: dataset through params[:dataset][:id]
+    # save dataset freeformat association: dataset through params[:dataset][:id]
     actions :download, :edit, :update_freeformat_associations, :save_freeformat_associations,
             :download_freeformat, :save_dataset_freeformat_associations do
       allow :admin
@@ -14,10 +22,11 @@ class DatasetsController < ApplicationController
     end
 
 
-#    action :download_freeformat do
-#      allow logged_in if @dataset.free_for_member == true
-#    end
-#
+   action :download_freeformat do
+     allow logged_in, :if => :dataset_is_free_for_members
+     allow all, :if => :dataset_is_free_for_public
+   end
+
 #    action :download_freeformat do
 #      allow_all  if @dataset.free_for_public == true
 #    end
@@ -204,9 +213,9 @@ class DatasetsController < ApplicationController
 
   end
 
-  # Downloading one free format file from withing the "show"
+  # Downloading one free format file from within the "show" view
   def download_freeformat
-    @freeformat = Freeformat.find(params[:id])
+    # @freeformat = Freeformat.find(params[:id])  # before filter
     send_file @freeformat.file.path, :type => @freeformat.file_content_type, :disposition => 'inline'
   end
 
@@ -328,7 +337,7 @@ class DatasetsController < ApplicationController
   def update_dataset_freeformat_associations
 
     begin
-      @dataset = Dataset.find(params[:dataset_id])
+      # @dataset = Dataset.find(params[:dataset_id])  # before filter
       @people_list = User.find(:all, :order => :lastname)
       @project_list = Project.find(:all, :order => :shortname)
 
@@ -349,8 +358,8 @@ class DatasetsController < ApplicationController
       @project.has_role! :owner, @dataset
 
       redirect_to url_for(:controller => :imports,
-      :action => :freeformat_overview,
-      :dataset_id => @dataset.id) and return
+        :action => :freeformat_overview,
+        :dataset_id => @dataset.id) and return
 
     rescue ActiveRecord::RecordNotFound
       # No context with this id exists
@@ -544,7 +553,28 @@ class DatasetsController < ApplicationController
     @dataset = Dataset.find(params[:id])
   end
 
+
+  def load_freeformat_dataset
+    @freeformat = Freeformat.find(params[:id])
+    @dataset = @freeformat.dataset
+  end
+
+  def load_dataset_freeformat
+    @dataset = Dataset.find(params[:dataset_id])
+  end
+
   private
+
+
+  def dataset_is_free_for_members
+    return true if @dataset.free_for_members
+    false
+  end
+
+  def dataset_is_free_for_public
+    return true if @dataset.free_for_public
+    false
+  end
 
   # Creates the first sheet of a context file, the one with the
   # metadata.
