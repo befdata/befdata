@@ -14,6 +14,7 @@ class Admin::DatasetsController < Admin::AdminController
     config.columns = [:id, :title, :filename, :download_counter]
     config.update.columns = [:title, :finished, :visible_for_public,
                              :filename,
+                             # :freeformats,
                              :abstract, :comment, :usagerights,
                              :published, :spatialextent, :datemin, :datemax,
                              :temporalextent, :taxonomicextent, :design,

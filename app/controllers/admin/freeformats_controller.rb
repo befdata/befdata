@@ -11,7 +11,7 @@ class Admin::FreeformatsController < Admin::AdminController
     config.list.sorting = {:id => :asc }
 
     [config.update, config.create].each do |c|
-      c.columns = [:id]
+      c.columns = [:dataset_id, :paperproposal_id]
     end
   end
 end

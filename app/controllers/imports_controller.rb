@@ -46,7 +46,7 @@ class ImportsController < ApplicationController
     # @checkUnique: are they unique?
     # @ch_people_hash: {0=>"Column header", 1=>"rarefy_100", ...
     # @ch_cat_hash: {0=>"Column header", 1=>"rarefy_100", ...
-    provide_metasheets(@dataset.upload_spreadsheet.file.path)
+    provide_metasheets(@dataset.upload_spreadsheet.file.path)  unless @dataset.upload_spreadsheet.blank?
 
     logger.debug "------------ after loading metasheet ---------"
     logger.debug @columnheadersRaw.inspect

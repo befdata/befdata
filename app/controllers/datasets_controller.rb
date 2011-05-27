@@ -567,12 +567,12 @@ class DatasetsController < ApplicationController
 
 
   def dataset_is_free_for_members
-    return true if @dataset.free_for_members
+    return true if @dataset.free_for_members  unless @dataset.blank?
     false
   end
 
   def dataset_is_free_for_public
-    return true if @dataset.free_for_public
+    return true if @dataset.free_for_public unless @dataset.blank?
     false
   end
 
