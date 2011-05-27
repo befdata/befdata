@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110525135114) do
+ActiveRecord::Schema.define(:version => 20110526100335) do
 
   create_table "author_paperproposals", :force => true do |t|
     t.integer  "paperproposal_id"
@@ -65,6 +65,18 @@ ActiveRecord::Schema.define(:version => 20110525135114) do
 
   add_index "datacolumns", ["datagroup_id", "dataset_id"], :name => "index_datacolumns_on_datagroup_id_and_dataset_id"
   add_index "datacolumns", ["datagroup_id"], :name => "index_datacolumns_on_datagroup_id"
+
+  create_table "datafiles", :force => true do |t|
+    t.string   "file_file_name"
+    t.string   "file_content_type"
+    t.integer  "file_file_size"
+    t.datetime "file_updated_at"
+    t.integer  "paperproposal_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "datafiles", ["paperproposal_id"], :name => "index_datafiles_on_paperproposal_id"
 
   create_table "datagroups", :force => true do |t|
     t.string   "informationsource"
@@ -126,18 +138,6 @@ ActiveRecord::Schema.define(:version => 20110525135114) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
-
-  create_table "filevalues", :force => true do |t|
-    t.string   "file_file_name"
-    t.string   "file_content_type"
-    t.integer  "file_file_size"
-    t.datetime "file_updated_at"
-    t.integer  "paperproposal_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "filevalues", ["paperproposal_id"], :name => "index_filevalues_on_paperproposal_id"
 
   create_table "freeformats", :force => true do |t|
     t.string   "file_file_name"
