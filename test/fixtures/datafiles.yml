@@ -26,3 +26,53 @@ datafiles_003:
   id: 1
   paperproposal_id: 1
   updated_at: 2011-03-28 12:35:15.824000000Z
+
+
+
+
+filevalues_005:
+  created_at: 2011-03-28 12:35:15.824000 Z
+  updated_at: 2011-03-28 12:35:15.824000 Z
+  file_file_size: 57856
+  file_content_type: application/msword
+  file_updated_at: 2011-03-28 12:35:15.764000 Z
+  file_file_name: ppNutrientCyclingtest.doc
+  id: 1
+  paperproposal_id: 1
+filevalues_001:
+  created_at: 2011-05-01 12:49:52.764154 Z
+  updated_at: 2011-05-01 12:49:52.764154 Z
+  file_file_size: 1447936
+  file_content_type: application/vnd.ms-powerpoint
+  file_updated_at: 2011-05-01 12:49:52.732413 Z
+  file_file_name: People.ppt
+  id: 6
+  paperproposal_id:
+filevalues_002:
+  created_at: 2011-05-01 11:47:07.086892 Z
+  updated_at: 2011-05-01 11:47:07.086892 Z
+  file_file_size: 51200
+  file_content_type: application/vnd.ms-excel
+  file_updated_at: 2011-05-01 11:47:07.078694 Z
+  file_file_name: z2_SiteB_PLOTS 1mGIS meta_kn_for  testing.xls
+  id: 5
+  paperproposal_id:
+filevalues_003:
+  created_at: 2011-03-29 08:03:05.524200 Z
+  updated_at: 2011-03-29 08:03:05.524200 Z
+  file_file_size: 57856
+  file_content_type: application/msword
+  file_updated_at: 2011-03-29 08:03:05.443200 Z
+  file_file_name: ppProduction.doc
+  id: 3
+  paperproposal_id: 2
+filevalues_004:
+  created_at: 2011-03-28 13:58:05.720400 Z
+  updated_at: 2011-03-28 13:58:05.720400 Z
+  file_file_size: 32256
+  file_content_type: application/vnd.ms-excel
+  file_updated_at: 2011-03-28 13:58:05.677400 Z
+  file_file_name: SP5_TargetSpecies_CN_final_8_target_carbon-_short .xls
+  id: 2
+  paperproposal_id:
+
