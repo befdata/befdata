@@ -1,73 +1,73 @@
----
-datetimevalues_001:
-  comment:
-  created_at: 2011-03-28 14:01:38.880400000Z
-  date: 2008-11-09 00:00:00.000000000Z
-  day:
-  id: 8
-  month:
-  updated_at: 2011-03-28 14:01:38.880400000Z
-  year:
-datetimevalues_002:
-  comment:
-  created_at: 2011-03-28 14:01:38.871400000Z
-  date: 2008-11-09 00:00:00.000000000Z
-  day:
-  id: 7
-  month:
-  updated_at: 2011-03-28 14:01:38.871400000Z
-  year:
-datetimevalues_003:
-  comment:
-  created_at: 2011-03-28 14:01:38.862400000Z
-  date: 2008-11-09 00:00:00.000000000Z
-  day:
-  id: 6
-  month:
-  updated_at: 2011-03-28 14:01:38.862400000Z
-  year:
-datetimevalues_004:
-  comment:
-  created_at: 2011-03-28 14:01:38.849400000Z
-  date: 2008-11-09 00:00:00.000000000Z
-  day:
+--- 
+datetimevalues_004: 
+  comment: 
+  created_at: 2011-03-28 14:01:38.849400 Z
+  month: 
+  updated_at: 2011-03-28 14:01:38.849400 Z
   id: 5
-  month:
-  updated_at: 2011-03-28 14:01:38.849400000Z
-  year:
-datetimevalues_005:
-  comment:
-  created_at: 2011-03-28 14:01:38.818400000Z
-  date: 2008-11-09 00:00:00.000000000Z
-  day:
+  date: 2008-11-09 00:00:00 Z
+  day: 
+  year: 
+datetimevalues_005: 
+  comment: 
+  created_at: 2011-03-28 14:01:38.818400 Z
+  month: 
+  updated_at: 2011-03-28 14:01:38.818400 Z
   id: 4
-  month:
-  updated_at: 2011-03-28 14:01:38.818400000Z
-  year:
-datetimevalues_006:
-  comment:
-  created_at: 2011-03-28 14:01:38.810400000Z
-  date: 2008-11-09 00:00:00.000000000Z
-  day:
+  date: 2008-11-09 00:00:00 Z
+  day: 
+  year: 
+datetimevalues_006: 
+  comment: 
+  created_at: 2011-03-28 14:01:38.810400 Z
+  month: 
+  updated_at: 2011-03-28 14:01:38.810400 Z
   id: 3
-  month:
-  updated_at: 2011-03-28 14:01:38.810400000Z
-  year:
-datetimevalues_007:
-  comment:
-  created_at: 2011-03-28 14:01:38.800400000Z
-  date: 2008-11-09 00:00:00.000000000Z
-  day:
+  date: 2008-11-09 00:00:00 Z
+  day: 
+  year: 
+datetimevalues_007: 
+  comment: 
+  created_at: 2011-03-28 14:01:38.800400 Z
+  month: 
+  updated_at: 2011-03-28 14:01:38.800400 Z
   id: 2
-  month:
-  updated_at: 2011-03-28 14:01:38.800400000Z
-  year:
-datetimevalues_008:
-  comment:
-  created_at: 2011-03-28 14:01:38.621400000Z
-  date: 2008-11-09 00:00:00.000000000Z
-  day:
+  date: 2008-11-09 00:00:00 Z
+  day: 
+  year: 
+datetimevalues_008: 
+  comment: 
+  created_at: 2011-03-28 14:01:38.621400 Z
+  month: 
+  updated_at: 2011-03-28 14:01:38.621400 Z
   id: 1
-  month:
-  updated_at: 2011-03-28 14:01:38.621400000Z
-  year:
+  date: 2008-11-09 00:00:00 Z
+  day: 
+  year: 
+datetimevalues_001: 
+  comment: 
+  created_at: 2011-03-28 14:01:38.880400 Z
+  month: 
+  updated_at: 2011-03-28 14:01:38.880400 Z
+  id: 8
+  date: 2008-11-09 00:00:00 Z
+  day: 
+  year: 
+datetimevalues_002: 
+  comment: 
+  created_at: 2011-03-28 14:01:38.871400 Z
+  month: 
+  updated_at: 2011-03-28 14:01:38.871400 Z
+  id: 7
+  date: 2008-11-09 00:00:00 Z
+  day: 
+  year: 
+datetimevalues_003: 
+  comment: 
+  created_at: 2011-03-28 14:01:38.862400 Z
+  month: 
+  updated_at: 2011-03-28 14:01:38.862400 Z
+  id: 6
+  date: 2008-11-09 00:00:00 Z
+  day: 
+  year: 

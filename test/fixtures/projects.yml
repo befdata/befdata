@@ -1,25 +1,25 @@
----
-projects_001:
-  comment:
-  created_at: 2011-03-28 11:17:56.874000000Z
-  description:
-  id: 3
-  name: P1 Europe productivity
+--- 
+projects_001: 
   shortname: p1 e productivity
-  updated_at: 2011-03-28 11:17:56.874000000Z
-projects_002:
-  comment:
-  created_at: 2011-03-28 11:16:42.801000000Z
-  description:
-  id: 2
-  name: P5 Europe Nutrient cycling
+  name: P1 Europe productivity
+  comment: 
+  created_at: 2011-03-28 11:17:56.874000 Z
+  updated_at: 2011-03-28 11:17:56.874000 Z
+  id: 3
+  description: 
+projects_002: 
   shortname: p5 e nutrients
-  updated_at: 2011-03-28 11:16:42.801000000Z
-projects_003:
-  comment:
-  created_at: 2011-03-28 09:59:58.836000000Z
-  description:
-  id: 1
-  name: Z2 Europe data
+  name: P5 Europe Nutrient cycling
+  comment: 
+  created_at: 2011-03-28 11:16:42.801000 Z
+  updated_at: 2011-03-28 11:16:42.801000 Z
+  id: 2
+  description: 
+projects_003: 
   shortname: z2 e data
-  updated_at: 2011-03-28 09:59:58.836000000Z
+  name: Z2 Europe data
+  comment: 
+  created_at: 2011-03-28 09:59:58.836000 Z
+  updated_at: 2011-03-28 09:59:58.836000 Z
+  id: 1
+  description: 

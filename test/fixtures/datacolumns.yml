@@ -1,111 +1,293 @@
----
-datacolumns_001:
-  category_longshort:
-  columnheader: Carbon
-  columnnr: 7
-  comment: C, variable
-  created_at: 2011-03-28 13:59:35.847400000Z
-  datagroup_id: 7
-  dataset_id: 1
-  definition: ! 'Carbon concentration
-
-'
-  id: 7
-  import_data_type: number
-  missingcode:
-  unit: percent
-  updated_at: 2011-03-28 13:59:35.847400000Z
-datacolumns_002:
-  category_longshort:
-  columnheader: Season
-  columnnr: 6
-  comment: ''
-  created_at: 2011-03-28 13:59:35.733400000Z
-  datagroup_id: 6
-  dataset_id: 1
-  definition: Season
-  id: 6
-  import_data_type: text
-  missingcode: ''
-  unit: ''
-  updated_at: 2011-03-28 14:31:15.879400000Z
-datacolumns_003:
-  category_longshort:
-  columnheader: CSP
-  columnnr: 5
+--- 
+datacolumns_016: 
   comment: location, object identifier
-  created_at: 2011-03-28 13:59:35.566400000Z
-  datagroup_id: 5
+  import_data_type: category
+  created_at: 2011-03-28 13:59:35.566400 Z
+  updated_at: 2011-03-28 14:24:09.335400 Z
   dataset_id: 1
-  definition: ! 'CSP ID number
-
-'
   id: 5
-  import_data_type: category
-  missingcode:
-  unit:
-  updated_at: 2011-03-28 14:24:09.335400000Z
-datacolumns_004:
-  category_longshort:
-  columnheader: ID
-  columnnr: 4
+  unit: 
+  columnnr: 5
+  datagroup_id: 5
+  columnheader: CSP
+  definition: |
+    CSP ID number
+
+  category_longshort: 
+  missingcode: 
+datacolumns_005: 
+  comment: variable, co variable, aspect, environmental variable, exposition
+  import_data_type: number
+  created_at: 2011-05-01 11:47:24.779629 Z
+  updated_at: 2011-05-01 11:47:24.779629 Z
+  dataset_id: 3
+  id: 28
+  unit: m
+  columnnr: 9
+  datagroup_id: 15
+  columnheader: ASPECT
+  definition: mean aspect (from interpolated raster)
+  category_longshort: 
+  missingcode: 
+datacolumns_017: 
   comment: object identifier
-  created_at: 2011-03-28 13:59:35.425400000Z
-  datagroup_id: 4
+  import_data_type: category
+  created_at: 2011-03-28 13:59:35.425400 Z
+  updated_at: 2011-03-28 14:05:42.323400 Z
   dataset_id: 1
-  definition: ! 'Identification number of the individual
-
-'
   id: 4
-  import_data_type: category
-  missingcode:
-  unit:
-  updated_at: 2011-03-28 14:05:42.323400000Z
-datacolumns_005:
-  category_longshort:
-  columnheader: Organ
-  columnnr: 3
+  unit: 
+  columnnr: 4
+  datagroup_id: 4
+  columnheader: ID
+  definition: |
+    Identification number of the individual
+
+  category_longshort: 
+  missingcode: 
+datacolumns_006: 
+  comment: variable, co variable, elevation, environmental variable, bcomplex:Altitude, gemet:altitude, dwc/terms/maximumElevationInMeters, dwc/terms/minimumDepthInMeters
+  import_data_type: number
+  created_at: 2011-05-01 11:47:24.557318 Z
+  updated_at: 2011-05-01 11:47:24.557318 Z
+  dataset_id: 3
+  id: 27
+  unit: m
+  columnnr: 8
+  datagroup_id: 14
+  columnheader: ALTITUDE
+  definition: mean elevation (from interpolated raster)
+  category_longshort: 
+  missingcode: 
+datacolumns_018: 
   comment: object identifier, plant organ
-  created_at: 2011-03-28 13:59:35.265400000Z
-  datagroup_id: 3
+  import_data_type: category
+  created_at: 2011-03-28 13:59:35.265400 Z
+  updated_at: 2011-03-28 13:59:35.265400 Z
   dataset_id: 1
-  definition: ! 'Sampled plant part
-
-'
   id: 3
-  import_data_type: category
-  missingcode:
-  unit:
-  updated_at: 2011-03-28 13:59:35.265400000Z
-datacolumns_006:
-  category_longshort:
-  columnheader: Date
-  columnnr: 2
+  unit: 
+  columnnr: 3
+  datagroup_id: 3
+  columnheader: Organ
+  definition: |
+    Sampled plant part
+
+  category_longshort: 
+  missingcode: 
+datacolumns_007: 
+  comment: location, latitude, dwc/terms/decimalLatitude
+  import_data_type: number
+  created_at: 2011-05-01 11:47:24.170601 Z
+  updated_at: 2011-05-01 11:47:24.170601 Z
+  dataset_id: 3
+  id: 26
+  unit: decdegree
+  columnnr: 7
+  datagroup_id: 13
+  columnheader: Y_DD
+  definition: latitude of plot south west corner (South - North), rounded, based on the 1m interpolation
+  category_longshort: 
+  missingcode: 
+datacolumns_019: 
   comment: date
-  created_at: 2011-03-28 13:59:35.108400000Z
-  datagroup_id: 2
-  dataset_id: 1
-  definition: ! 'Date
-
-'
-  id: 2
   import_data_type: date(2009-07-14)
-  missingcode:
-  unit:
-  updated_at: 2011-03-28 14:01:37.981400000Z
-datacolumns_007:
-  category_longshort:
-  columnheader: Species
-  columnnr: 1
-  comment: species, object identifier
-  created_at: 2011-03-28 13:59:34.335400000Z
-  datagroup_id: 1
+  created_at: 2011-03-28 13:59:35.108400 Z
+  updated_at: 2011-03-28 14:01:37.981400 Z
   dataset_id: 1
-  definition: ! 'Species name
+  id: 2
+  unit: 
+  columnnr: 2
+  datagroup_id: 2
+  columnheader: Date
+  definition: |
+    Date
 
-'
-  id: 1
+  category_longshort: 
+  missingcode: 
+datacolumns_008: 
+  comment: location, longitude,  dwc/terms/decimalLongitude
+  import_data_type: number
+  created_at: 2011-05-01 11:47:23.992102 Z
+  updated_at: 2011-05-01 11:47:23.992102 Z
+  dataset_id: 3
+  id: 25
+  unit: decdegree
+  columnnr: 6
+  datagroup_id: 12
+  columnheader: X_DD
+  definition: longitude of plot south west corner ( West - East), rounded, based on the 1m interpolation
+  category_longshort: 
+  missingcode: 
+datacolumns_020: 
+  comment: species, object identifier
   import_data_type: category
-  missingcode:
-  unit:
-  updated_at: 2011-03-28 14:00:18.898400000Z
+  created_at: 2011-03-28 13:59:34.335400 Z
+  updated_at: 2011-03-28 14:00:18.898400 Z
+  dataset_id: 1
+  id: 1
+  unit: 
+  columnnr: 1
+  datagroup_id: 1
+  columnheader: Species
+  definition: |
+    Species name
+
+  category_longshort: 
+  missingcode: 
+datacolumns_009: 
+  comment: experimental treatment
+  import_data_type: text
+  created_at: 2011-05-01 11:47:23.820422 Z
+  updated_at: 2011-05-01 11:47:23.820422 Z
+  dataset_id: 3
+  id: 24
+  unit: 
+  columnnr: 5
+  datagroup_id: 11
+  columnheader: TREE_CMP
+  definition: Tree species composition according to design.
+  category_longshort: 
+  missingcode: 
+datacolumns_010: 
+  comment: experimental treatment, extinction series, bcomplex:Species extinction, gemet:extinction (ecological)
+  import_data_type: category
+  created_at: 2011-05-01 11:47:23.434679 Z
+  updated_at: 2011-05-01 11:47:23.434679 Z
+  dataset_id: 3
+  id: 23
+  unit: 
+  columnnr: 4
+  datagroup_id: 10
+  columnheader: Extinction
+  definition: Extinction series type within the main experiment
+  category_longshort: 
+  missingcode: 
+datacolumns_011: 
+  comment: experimental treatment, variable, species richness, explanatory variable, gemet:biodiversity, bcomplex:Plant diversity
+  import_data_type: number
+  created_at: 2011-05-01 11:47:23.233153 Z
+  updated_at: 2011-05-01 11:47:23.233153 Z
+  dataset_id: 3
+  id: 22
+  unit: count
+  columnnr: 3
+  datagroup_id: 9
+  columnheader: TREE_R
+  definition: "Planted tree species richness "
+  category_longshort: 
+  missingcode: 
+datacolumns_012: 
+  comment: location, dwc/terms/locationID
+  import_data_type: category
+  created_at: 2011-05-01 11:47:22.856482 Z
+  updated_at: 2011-05-01 11:47:22.856482 Z
+  dataset_id: 3
+  id: 21
+  unit: 
+  columnnr: 2
+  datagroup_id: 8
+  columnheader: PLOT_NO
+  definition: Name of each plot, coded with letters and numbers in Site A.
+  category_longshort: 
+  missingcode: 
+datacolumns_001: 
+  comment: People.ppt
+  import_data_type: file
+  created_at: 2011-05-01 12:51:22.604910 Z
+  updated_at: 2011-05-01 12:51:22.604910 Z
+  dataset_id: 4
+  id: 32
+  unit: 
+  columnnr: 1
+  datagroup_id: 18
+  columnheader: People.ppt
+  definition: "BEF members: group pictures with names 2010"
+  category_longshort: 
+  missingcode: 
+datacolumns_013: 
+  comment: location, dwc/terms/locationID
+  import_data_type: category
+  created_at: 2011-05-01 11:47:22.114992 Z
+  updated_at: 2011-05-01 11:47:22.114992 Z
+  dataset_id: 3
+  id: 20
+  unit: 
+  columnnr: 1
+  datagroup_id: 5
+  columnheader: PTAG
+  definition: Plot ID across CSP, MainA, MainB
+  category_longshort: 
+  missingcode: 
+datacolumns_002: 
+  comment: variable, co variable, solar radiation, environmental variable, bcomplex:Solar radiation, gemet:solar radiation
+  import_data_type: number
+  created_at: 2011-05-01 11:47:25.800259 Z
+  updated_at: 2011-05-01 11:47:25.800259 Z
+  dataset_id: 3
+  id: 31
+  unit: 
+  columnnr: 12
+  datagroup_id: 17
+  columnheader: SOLAR
+  definition: solar radiation
+  category_longshort: 
+  missingcode: 
+datacolumns_014: 
+  comment: C, variable
+  import_data_type: number
+  created_at: 2011-03-28 13:59:35.847400 Z
+  updated_at: 2011-03-28 13:59:35.847400 Z
+  dataset_id: 1
+  id: 7
+  unit: percent
+  columnnr: 7
+  datagroup_id: 7
+  columnheader: Carbon
+  definition: |
+    Carbon concentration
+
+  category_longshort: 
+  missingcode: 
+datacolumns_003: 
+  comment: variable, co variable, slope, environmental variable
+  import_data_type: number
+  created_at: 2011-05-01 11:47:25.393559 Z
+  updated_at: 2011-05-01 11:47:25.393559 Z
+  dataset_id: 3
+  id: 30
+  unit: degree
+  columnnr: 11
+  datagroup_id: 16
+  columnheader: SLOPE
+  definition: slope in degree?
+  category_longshort: 
+  missingcode: 
+datacolumns_015: 
+  comment: ""
+  import_data_type: text
+  created_at: 2011-03-28 13:59:35.733400 Z
+  updated_at: 2011-03-28 14:31:15.879400 Z
+  dataset_id: 1
+  id: 6
+  unit: ""
+  columnnr: 6
+  datagroup_id: 6
+  columnheader: Season
+  definition: Season
+  category_longshort: 
+  missingcode: ""
+datacolumns_004: 
+  comment: variable, co variable, aspect, environmental variable, exposition
+  import_data_type: category
+  created_at: 2011-05-01 11:47:25.187986 Z
+  updated_at: 2011-05-01 11:47:25.187986 Z
+  dataset_id: 3
+  id: 29
+  unit: 
+  columnnr: 10
+  datagroup_id: 15
+  columnheader: ASP_COM
+  definition: common aspect (from interpolated raster)
+  category_longshort: 
+  missingcode: 

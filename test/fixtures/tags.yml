@@ -1,33 +1,145 @@
----
-tags_001:
-  id: 8
-  kind: tag
-  name: carbon
-tags_002:
-  id: 7
-  kind: tag
+--- 
+tags_030: 
   name: variable
-tags_003:
-  id: 6
   kind: tag
+  id: 7
+tags_019: 
+  name: longitude
+  kind: tag
+  id: 18
+tags_008: 
+  name: aspect
+  kind: tag
+  id: 29
+tags_031: 
   name: C
-tags_004:
-  id: 5
   kind: tag
+  id: 6
+tags_020: 
+  name: gemet:extinction (ecological)
+  kind: tag
+  id: 17
+tags_009: 
+  name: dwc/terms/minimumDepthInMeters
+  kind: tag
+  id: 28
+tags_032: 
   name: location
-tags_005:
-  id: 4
   kind: tag
+  id: 5
+tags_021: 
+  name: bcomplex:Species extinction
+  kind: tag
+  id: 16
+tags_010: 
+  name: dwc/terms/maximumElevationInMeters
+  kind: tag
+  id: 27
+tags_033: 
   name: plant organ
-tags_006:
-  id: 3
   kind: tag
+  id: 4
+tags_022: 
+  name: extinction series
+  kind: tag
+  id: 15
+tags_011: 
+  name: gemet:altitude
+  kind: tag
+  id: 26
+tags_034: 
   name: date
-tags_007:
-  id: 2
   kind: tag
+  id: 3
+tags_023: 
+  name: bcomplex:Plant diversity
+  kind: tag
+  id: 14
+tags_012: 
+  name: bcomplex:Altitude
+  kind: tag
+  id: 25
+tags_001: 
+  name: BEF China projects
+  kind: tag
+  id: 36
+tags_035: 
   name: object identifier
-tags_008:
-  id: 1
   kind: tag
+  id: 2
+tags_024: 
+  name: gemet:biodiversity
+  kind: tag
+  id: 13
+tags_013: 
+  name: environmental variable
+  kind: tag
+  id: 24
+tags_002: 
+  name: BEF China members
+  kind: tag
+  id: 35
+tags_036: 
   name: species
+  kind: tag
+  id: 1
+tags_025: 
+  name: explanatory variable
+  kind: tag
+  id: 12
+tags_014: 
+  name: elevation
+  kind: tag
+  id: 23
+tags_003: 
+  name: gemet:solar radiation
+  kind: tag
+  id: 34
+tags_026: 
+  name: species richness
+  kind: tag
+  id: 11
+tags_015: 
+  name: co variable
+  kind: tag
+  id: 22
+tags_004: 
+  name: bcomplex:Solar radiation
+  kind: tag
+  id: 33
+tags_027: 
+  name: experimental treatment
+  kind: tag
+  id: 10
+tags_016: 
+  name: dwc/terms/decimalLatitude
+  kind: tag
+  id: 21
+tags_005: 
+  name: solar radiation
+  kind: tag
+  id: 32
+tags_028: 
+  name: dwc/terms/locationID
+  kind: tag
+  id: 9
+tags_017: 
+  name: latitude
+  kind: tag
+  id: 20
+tags_006: 
+  name: slope
+  kind: tag
+  id: 31
+tags_029: 
+  name: carbon
+  kind: tag
+  id: 8
+tags_018: 
+  name: dwc/terms/decimalLongitude
+  kind: tag
+  id: 19
+tags_007: 
+  name: exposition
+  kind: tag
+  id: 30

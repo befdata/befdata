@@ -1,37 +1,37 @@
----
-paperproposals_001:
-  author_id: 6
-  board_state: prep
-  comment: ''
-  corresponding_id: 6
-  created_at: 2011-03-29 08:02:32.867200000Z
-  envisaged_date: 2011-03-29
-  envisaged_journal: Plant Growth
-  expiry_date:
-  external_data: ''
-  id: 2
+--- 
+paperproposals_001: 
   initial_title: Production paper proposal 1
-  lock: false
-  rationale: Production and diversity.
-  senior_author_id: 4
-  state: in prep
+  envisaged_journal: Plant Growth
+  comment: ""
+  created_at: 2011-03-29 08:02:32.867200 Z
   title: Production is enhanced by diversity
-  updated_at: 2011-03-29 08:02:32.867200000Z
-paperproposals_002:
-  author_id: 5
-  board_state: prep
-  comment:
-  corresponding_id: 5
-  created_at: 2011-03-28 11:25:52.856000000Z
-  envisaged_date: 2011-03-28
-  envisaged_journal: Gaya save the world
-  expiry_date:
-  external_data: ''
-  id: 1
-  initial_title: Nutrient cycling paper proposal
+  senior_author_id: 4
+  updated_at: 2011-03-29 08:02:32.867200 Z
+  rationale: Production and diversity.
   lock: false
-  rationale: Diversity enhancing nutrient cycling
-  senior_author_id: 3
+  board_state: prep
+  id: 2
+  expiry_date: 
+  envisaged_date: 2011-03-29
+  corresponding_id: 6
+  author_id: 6
   state: in prep
+  external_data: ""
+paperproposals_002: 
+  initial_title: Nutrient cycling paper proposal
+  envisaged_journal: Gaya save the world
+  comment: 
+  created_at: 2011-03-28 11:25:52.856000 Z
   title: Nutrient cycling and diversity in subtropical forests
-  updated_at: 2011-03-28 13:06:06.441000000Z
+  senior_author_id: 3
+  updated_at: 2011-03-28 13:06:06.441000 Z
+  rationale: Diversity enhancing nutrient cycling
+  lock: false
+  board_state: prep
+  id: 1
+  expiry_date: 
+  envisaged_date: 2011-03-28
+  corresponding_id: 5
+  author_id: 5
+  state: in prep
+  external_data: ""
