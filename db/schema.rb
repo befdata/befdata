@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110531145846) do
+ActiveRecord::Schema.define(:version => 20110531163835) do
 
   create_table "author_paperproposals", :force => true do |t|
     t.integer  "paperproposal_id"
@@ -127,6 +127,8 @@ ActiveRecord::Schema.define(:version => 20110531145846) do
     t.boolean  "free_for_public",       :default => false
     t.boolean  "free_within_projects",  :default => false
     t.boolean  "student_file",          :default => false
+    t.boolean  "destroy_me",            :default => false
+    t.date     "destroy_me_date"
   end
 
   create_table "datetimevalues", :force => true do |t|

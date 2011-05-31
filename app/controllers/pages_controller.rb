@@ -16,7 +16,7 @@ class PagesController < ApplicationController
     @freeformat = Freeformat.new
 
     @tags = Tag.find(:all, :order => :name)
-    @datasets = Dataset.find(:all, :order => :title)
+    @datasets = Dataset.where(:destroy_me => false).order(:title)
     
   end
 
