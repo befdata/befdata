@@ -19,7 +19,8 @@ class Sheetcell < ActiveRecord::Base
   belongs_to :observation, :dependent => :destroy
   belongs_to :datacolumn
   
-  belongs_to :value, :polymorphic => :true, :dependent => :destroy
+  belongs_to :value, :polymorphic => :true  # no dependent destroy anymore, since that may be the bottleneck in
+                                            # performance when deleting datacolumns
   belongs_to :datetimevalue, :class_name => "Datetimevalue", :foreign_key => "value_id"
   belongs_to :textvalue, :class_name => "Textvalue", :foreign_key => "value_id"
   belongs_to :numericvalue, :class_name => "Numericvalue", :foreign_key => "value_id"
