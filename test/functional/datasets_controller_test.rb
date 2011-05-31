@@ -4,7 +4,7 @@ require "authlogic/test_case"
 class DatasetsControllerTest < ActionController::TestCase
   setup :activate_authlogic
 
-  test "after create freeformat file new dataset should  created" do
+  test "after create freeformat file new dataset should be created" do
   # Arrange
   nadrowski = users(:users_006)
   UserSession.create(nadrowski)
