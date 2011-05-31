@@ -7,7 +7,7 @@
 #   Mayor.create(:name => 'Daley', :city => cities.first)
 
 
-if Rails.env="performance"
+if Rails.env == "performance"
   i = 0
   p "Creating 5000 users and datasets"
   while i < 5000
