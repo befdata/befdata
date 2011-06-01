@@ -54,11 +54,10 @@ class DatasetsController < ApplicationController
     end
 
     begin
-      book = Spreadsheet.open datafile.file.path
+      book = Dataworkbook.new(datafile)
       # after closing, the file can be destroyed if necessary, the
       # information stays in the book object
-      book.io.close
-
+      
       # Start with the first sheet; if the page is reloaded, there
       # may already be a context to this datafile
       if datafile.dataset.blank?
@@ -67,64 +66,29 @@ class DatasetsController < ApplicationController
 
         # gather all the cell values that can just be copied into
         # the new context
-        filename = datafile.file_file_name
-        simple_hash = gather_simple_general_metadata(filename, book)
-        @dataset.update_attributes(simple_hash)
+        @dataset.update_attributes(book.general_metadata_hash)
 
-        datemin = Array(book.worksheet(0).column(0))[32].to_s
-        day_month = "1/1/"
-        @dataset.datemin = parse_date_txt(datemin, day_month)
-        datemax = Array(book.worksheet(0).column(0))[34].to_s
-        day_month = "12/31/"
-        @dataset.datemax = parse_date_txt(datemax, day_month)
+        # Calculate the start and end dates of field research
+        @dataset.datemin = book.datemin
+        @dataset.datemax = book.datemax
 
         @dataset.save
 
-        # Gather the people
-        # Determine number of people
-        cols = Array(book.worksheet(0).row(14)).length
-        ppl = cols - 1 # The first column contains only meta data
-
-        #          # The current user is automatically added to the user array
-        #          logger.debug "---------- after saving the new context -------"
-        #          people = [@current_user]
-        users = []
-
-        ppl.times do |i| # starts at 0
-          person = Array(book.worksheet(0).column(i+1))[14..15]
-          # Look for the givenName in both name fields
-          users += User.find_all_by_firstname(person[0])
-
-          # Look for the surName in both name fields
-          users += User.find_all_by_lastname(person[1])
-
-          # Additionally, do a fuzzy search on both name values
-          # people += Person.fuzzy_find(person[0]) # givenName
-          # people += Person.fuzzy_find(person[1]) # surName
-
-          users = users.uniq # Eliminate the doubled entries
+        book.people_names_hash.each do |person| # starts at 0
+          user = User.find_all_by_firstname_and_lastname(person[:firstname], person[:lastname])
+          user.has_role! :owner, @dataset
         end
-
-        # Add all found roles to the context. Evaluation of
-        # correctness will be step 2
-        users.each do |pr|
-          pr.has_role! :owner, @dataset
-        end
-
       else # there already is context information for this file
         @dataset = datafile.dataset
       end
 
       # Project Tag list
-      proj_tag_list = Array(book.worksheet(0).column(1))[11]
-      if proj_tag_list
-        @dataset.projecttag_list = proj_tag_list
-      end
+      @dataset.projecttag_list = book.tag_list unless book.tag_list.blank? 
+
       @dataset.save
 
       # Render the page that presents the general metadata for a
       # data set, for user interaction
-      # (view/contexts/upload.html.erb)
       @step = 1
       @people_list = User.find(:all, :order => :lastname)
     rescue Ole::Storage::FormatError
@@ -476,77 +440,6 @@ class DatasetsController < ApplicationController
     #      session[:return_to] = request.request_uri
     #      redirect_to login_path and return
     #    end
-  end
-
-  def parse_date_txt(date_text, day_month_txt)
-    begin
-      if integer?(date_text)
-        date_text = date_text.to_i.to_s
-        date_text = day_month_txt + date_text if date_text.length == 4
-      end
-      date_tmp = DateTime.parse(date_text)
-    rescue ArgumentError
-      date_tmp = DateTime.parse(Date.today.to_s)
-    end
-    return(date_tmp)
-  end
-
-  # The general metadata sheet contains information about the data set
-  # as a whole.  The gather_simple_general_metadata method gathers the
-  # contents of the text cells within this sheet.  Dates as well as
-  # people are collected with other methods (!!
-  # read_date_from_workbook, assort_people_to_general_metadata).
-  def gather_simple_general_metadata(filename, book)
-    simple_metadata = Hash.new
-    simple_metadata[:filename] = filename
-    simple_metadata[:downloads] = 0
-    simple_metadata[:finished] = false
-    general_sheet =  Array(book.worksheet(0).column(0))
-    simple_metadata[:title] = general_sheet[3]
-    simple_metadata[:abstract] = general_sheet[6]
-    simple_metadata[:comment] = general_sheet[9]
-    simple_metadata[:usagerights] = general_sheet[22]
-    simple_metadata[:published] = general_sheet[24]
-    simple_metadata[:spatialextent] = general_sheet[28]
-    simple_metadata[:temporalextent] = general_sheet[36]
-    simple_metadata[:taxonomicextent] = general_sheet[39]
-    simple_metadata[:design] = general_sheet[42]
-    simple_metadata[:dataanalysis] = general_sheet[45]
-    simple_metadata[:circumstances] = general_sheet[48]
-    return simple_metadata
-  end
-
-  def numeric?(object)
-    result = false
-    if object.class == String
-      if object.at(0) == "0"
-        if object.at(1) == "."
-          result = true if Float(object) rescue false
-        else
-          result = false
-        end
-      else
-        result = true if Float(object) rescue false
-      end
-    else
-      result = true if Float(object) rescue false
-    end
-    result
-  end
-
-  # Asks if object is a valid integer.
-  def integer?(object)
-    if numeric?(object)
-      object = object.to_f
-      mod = object.modulo(1)
-      if mod == 0
-        true
-      else
-        false
-      end
-    else
-      false
-    end
   end
 
   def load_dataset
