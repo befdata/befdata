@@ -473,7 +473,7 @@ class ImportsController < ApplicationController
       first_cell.update_attributes(params[:sheetcell])
       same_entry_cells = first_cell.same_entry_cells
       logger.debug "- same_entry_cells  -"
-      logger.debug same_entry_cells.to_yaml
+      logger.debug same_entry_cells.inspect
 
       # category
       cat = first_cell.categoricvalue
