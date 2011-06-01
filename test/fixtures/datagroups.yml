@@ -56,7 +56,7 @@ datagroups_018:
   instrumentation: 
   id: 1
   timelatency: 10.0
-  description: The scientific species fullnames are based on the "Flora of China" identified by Teng Fang and verified by Helge Bruelheide (trees) and Alexandra Efmeier (herbs). Scientific species names consist of epithet and genus. For identification, the Author name and the year of the publications of the description are required.
+  description: The scientific species fullnames are based on the "Flora of China" identified by Teng Fang and verified by Helge Bruelheide (trees) and Alexandra Efmeier (herbs). Scientific species names consist of epithet and genus. For identification, the Author name and the year of the publications of the description are required.
   informationsource: Flora of China, Helge Bruelheide
   methodvaluetype: nominal
 datagroups_007: 
