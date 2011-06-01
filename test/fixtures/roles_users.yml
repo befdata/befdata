@@ -1,25 +1,31 @@
----
-roles_users_001:
-  user_id: 3
-  role_id: 4
-roles_users_002:
-  user_id: 2
-  role_id: 7
-roles_users_003:
-  user_id: 6
-  role_id: 4
-roles_users_004:
-  user_id: 1
-  role_id: 5
-roles_users_005:
-  user_id: 1
-  role_id: 1
-roles_users_006:
-  user_id: 1
-  role_id: 7
-roles_users_007:
-  user_id: 1
-  role_id: 8
-roles_users_008:
-  user_id: 5
-  role_id: 4
+--- 
+RolesUsers_001: 
+  user_id: "1"
+  role_id: "1"
+RolesUsers_002: 
+  user_id: "1"
+  role_id: "11"
+RolesUsers_003: 
+  user_id: "1"
+  role_id: "2"
+RolesUsers_004: 
+  user_id: "2"
+  role_id: "3"
+RolesUsers_005: 
+  user_id: "3"
+  role_id: "12"
+RolesUsers_006: 
+  user_id: "4"
+  role_id: "13"
+RolesUsers_007: 
+  user_id: "5"
+  role_id: "14"
+RolesUsers_008: 
+  user_id: "6"
+  role_id: "15"
+RolesUsers_009: 
+  user_id: "1"
+  role_id: "16"
+RolesUsers_010: 
+  user_id: "3"
+  role_id: "16"
