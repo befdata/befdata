@@ -25,8 +25,9 @@ if Rails.env == "performance"
     dataset.save(:validate => false)
     person.save(:validate => false)
     person.has_role! :owner, dataset
-    p i = i + 1
+    i = i + 1
   end
+  p "Finished creating users and datasets"
 
   person = User.first
   i = 0
@@ -34,8 +35,19 @@ if Rails.env == "performance"
   while i < 4000
     dataset = Dataset.find(i+1)
     person.has_role! :owner, dataset if dataset
-    p i = i + 1
+   i = i + 1
   end
+  p "Finished 5000 roles for first user to all datasets"
+
+  p "Create tags for testing"
+  i=0
+  while(i<500)
+    Tag.create(:name => "Test #{i}",
+               :kind => "Tag")
+
+    i = i + 1
+  end
+  p "Finished adding tags for testing"
 
   p "Creating the data to test the sheet cell performance"
   dataset = Dataset.first
@@ -50,10 +62,17 @@ if Rails.env == "performance"
 
   i=0
   p "Creating 20 columns in the dataset"
+  # get the tag list for the columns and data groups
+  tags = Tag.find(:all, :order => :name)
+  taglist = tags[0, 30].join(",")
   while i < 20
     p "Creating column #{i + 1}"
     data_group = Datagroup.create(:title => "Test#{i}",
                                   :description => "Test#{i}")
+    # add tags
+    data_group.tag_list = taglist
+    data_group.save
+
     # the first 5 columns will be text
     datatype = "text"
     case i
@@ -77,6 +96,9 @@ if Rails.env == "performance"
                                      :columnnr => i + 1,
                                      :definition => "Test#{i}",
                                      :import_data_type => datatype)
+    # add tags
+    data_column.tag_list = taglist
+    data_column.save
 
     #create a sheet cell for each of the observations
     j=0
