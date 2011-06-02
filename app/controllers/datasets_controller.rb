@@ -48,13 +48,16 @@ class DatasetsController < ApplicationController
   def create
     datafile = Datafile.new(params[:datafile])
 
-    unless datafile.save
+      unless datafile.save
       flash[:errors] = datafile.errors
       redirect_to :back
     end
 
+    book = Spreadsheet.open datafile.file.path    
+    book.io.close # Close the file after reading
+
     begin
-      book = Dataworkbook.new(datafile)
+      book = Dataworkbook.new(datafile, book)
       # after closing, the file can be destroyed if necessary, the
       # information stays in the book object
       
@@ -71,12 +74,9 @@ class DatasetsController < ApplicationController
         # Calculate the start and end dates of field research
         @dataset.datemin = book.datemin
         @dataset.datemax = book.datemax
-
-        @dataset.save
-
         book.people_names_hash.each do |person| # starts at 0
-          user = User.find_all_by_firstname_and_lastname(person[:firstname], person[:lastname])
-          user.has_role! :owner, @dataset
+          users = User.find_all_by_firstname_and_lastname(person[:firstname], person[:lastname])
+          users.each{|user| user.has_role! :owner, @dataset}
         end
       else # there already is context information for this file
         @dataset = datafile.dataset

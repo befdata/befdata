@@ -1,10 +1,8 @@
 class Dataworkbook
-  def initialize(datafile)
+  def initialize(datafile, book)
     # Open the file and read its content
-    @book = Spreadsheet.open datafile.file.path
-    @datafile = datafile
-    # Close the file after reading
-    book.io.close
+    @book = book.dup
+    @datafile = datafile.dup
   end
 
   # The general metadata sheet contains information about the data set
@@ -45,7 +43,7 @@ class Dataworkbook
     # Gather the people
     users = []
     n.times do |i|
-    users << {:firstname => general_metadata_sheet.column(i+1)[14], :lastname => general_metadata_sheet.column(i+1)[15]}
+    users << {:firstname => Array(general_metadata_sheet.column(i+1))[14], :lastname => Array(general_metadata_sheet.column(i+1))[15]}
     end
 
     return users
@@ -54,8 +52,6 @@ class Dataworkbook
   def tag_list
     Array(general_metadata_sheet.column(1))[11]
   end
-  
-  protected
   
   def datemin
     value = general_metadata_column[32].to_s
