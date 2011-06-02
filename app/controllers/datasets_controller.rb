@@ -15,32 +15,30 @@ class DatasetsController < ApplicationController
     # save freeformat associations: dataset through params[:dataset][:id]
     # save dataset freeformat association: dataset through params[:dataset][:id]
     actions :download, :edit, :update_freeformat_associations, :save_freeformat_associations,
-            :download_freeformat, :save_dataset_freeformat_associations do
+    :download_freeformat, :save_dataset_freeformat_associations do
       allow :admin
       allow :owner, :of => :dataset
       allow :proposer, :of => :dataset
     end
 
+    action :download_freeformat do
+      allow logged_in, :if => :dataset_is_free_for_members
+      allow all, :if => :dataset_is_free_for_public
+    end
 
-   action :download_freeformat do
-     allow logged_in, :if => :dataset_is_free_for_members
-     allow all, :if => :dataset_is_free_for_public
-   end
-
-#    action :download_freeformat do
-#      allow_all  if @dataset.free_for_public == true
-#    end
-#
-#
-#    action :download_freeformat do
-#      allow  :owner if @dataset.free_within_project == true
-#    end
-
+    #    action :download_freeformat do
+    #      allow_all  if @dataset.free_for_public == true
+    #    end
+    #
+    #
+    #    action :download_freeformat do
+    #      allow  :owner if @dataset.free_within_project == true
+    #    end
 
     # for the first upload of the file, before owners are associated, logged in users have the right
     # to update freeformat associations
     actions :create, :upload, :upload_freeformat, :upload_dataset_freeformat, :create_freeformat,
-            :create_dataset_freeformat, :update_dataset_freeformat_associations do
+    :create_dataset_freeformat, :update_dataset_freeformat_associations do
       allow logged_in
     end
   end
@@ -48,19 +46,19 @@ class DatasetsController < ApplicationController
   def create
     datafile = Datafile.new(params[:datafile])
 
-      unless datafile.save
+    unless datafile.save
       flash[:errors] = datafile.errors
       redirect_to :back
     end
 
-    book = Spreadsheet.open datafile.file.path    
+    book = Spreadsheet.open datafile.file.path
     book.io.close # Close the file after reading
 
     begin
       book = Dataworkbook.new(datafile, book)
       # after closing, the file can be destroyed if necessary, the
       # information stays in the book object
-      
+
       # Start with the first sheet; if the page is reloaded, there
       # may already be a context to this datafile
       if datafile.dataset.blank?
@@ -83,7 +81,7 @@ class DatasetsController < ApplicationController
       end
 
       # Project Tag list
-      @dataset.projecttag_list = book.tag_list unless book.tag_list.blank? 
+      @dataset.projecttag_list = book.tag_list unless book.tag_list.blank?
 
       @dataset.save
 
@@ -279,9 +277,9 @@ class DatasetsController < ApplicationController
       redirect_to data_path and return
     else
       redirect_to url_for(:controller => :datasets,
-                          :action => :update_dataset_freeformat_associations,
-                          :dataset_id => @dataset.id) and return
-      end
+      :action => :update_dataset_freeformat_associations,
+      :dataset_id => @dataset.id) and return
+    end
   end
 
   def update_freeformat_associations
@@ -322,8 +320,8 @@ class DatasetsController < ApplicationController
       @project.has_role! :owner, @dataset
 
       redirect_to url_for(:controller => :imports,
-        :action => :freeformat_overview,
-        :dataset_id => @dataset.id) and return
+      :action => :freeformat_overview,
+      :dataset_id => @dataset.id) and return
 
     rescue ActiveRecord::RecordNotFound
       # No context with this id exists
@@ -341,8 +339,8 @@ class DatasetsController < ApplicationController
       @project.has_role! :owner, @dataset
 
       redirect_to url_for(:controller => :imports,
-                          :action => :dataset_freeformat_overview,
-                          :dataset_id => @dataset.id) and return
+      :action => :dataset_freeformat_overview,
+      :dataset_id => @dataset.id) and return
 
     rescue ActiveRecord::RecordNotFound
       # No context with this id exists
@@ -350,102 +348,59 @@ class DatasetsController < ApplicationController
     end
   end
 
-
   def upload
-    if params[:step] == '1'
+    redirect_to data_path and return unless %w[1 5].include?(params[:step])
+
+    @dataset = Dataset.find(params[:dataset_id])
+    redirect_to data_path and return if @dataset.blank? # No dataset found
+
+    case params[:step]
+    when '1'
       # At this point, the parameter "filename" is given; there has
       # already an upload been done, the context for which "upload"
       # is called is already existing.  Because of this, the upload
       # of a file is leaped over.  We are at step 1.
-      @dataset = Dataset.find(params[:id])
-      unless @dataset.blank?
 
-        users = User.find(params[:people])
+      users = User.find(params[:people])
 
-        # assigning provenance information: linking people to the data
-        # set
-        users.each do |pr|
-          pr.has_role! :owner, @dataset
-        end
-
-        @dataset.update_attributes( :title => params[:title],
-        :abstract => params[:abstract],
-        :comment => params[:comment],
-        :usagerights => params[:usagerights],
-        :published => params[:published],
-        :spatialextent => params[:spatialextent],
-        :datemin => DateTime.civil(params[:date][:"min(1i)"].to_i, params[:date][:"min(2i)"].to_i, params[:date][:"min(3i)"].to_i, params[:date][:"min(4i)"].to_i, params[:date][:"min(5i)"].to_i),
-        :datemax => DateTime.civil(params[:date][:"max(1i)"].to_i, params[:date][:"max(2i)"].to_i, params[:date][:"max(3i)"].to_i, params[:date][:"max(4i)"].to_i, params[:date][:"max(5i)"].to_i),
-        :temporalextent => params[:temporalextent],
-        :taxonomicextent => params[:taxonomicextent],
-        :design => params[:design],
-        :dataanalysis => params[:dataanalysis],
-        :circumstances => params[:circumstances] )
-
-        # Finally, set the new step, so that the evaluation process
-        # moves forward
-        redirect_to url_for(:controller => :imports,
-        :action => :raw_data_overview,
-        :dataset_id => @dataset.id) and return
-
-      else
-        # No dataset found
-        redirect_to data_path and return
+      # assigning provenance information: linking people to the data
+      # set
+      users.each do |pr|
+        pr.has_role! :owner, @dataset
       end
-    elsif params[:step] == '5'
+
+      @dataset.update_attributes( :title => params[:title],
+      :abstract => params[:abstract],
+      :comment => params[:comment],
+      :usagerights => params[:usagerights],
+      :published => params[:published],
+      :spatialextent => params[:spatialextent],
+      :datemin => DateTime.civil(params[:date][:"min(1i)"].to_i, params[:date][:"min(2i)"].to_i, params[:date][:"min(3i)"].to_i, params[:date][:"min(4i)"].to_i, params[:date][:"min(5i)"].to_i),
+      :datemax => DateTime.civil(params[:date][:"max(1i)"].to_i, params[:date][:"max(2i)"].to_i, params[:date][:"max(3i)"].to_i, params[:date][:"max(4i)"].to_i, params[:date][:"max(5i)"].to_i),
+      :temporalextent => params[:temporalextent],
+      :taxonomicextent => params[:taxonomicextent],
+      :design => params[:design],
+      :dataanalysis => params[:dataanalysis],
+      :circumstances => params[:circumstances] )
+
+      # Finally, set the new step, so that the evaluation process
+      # moves forward
+      redirect_to url_for(:controller => :imports, :action => :raw_data_overview, :dataset_id => @dataset.id) and return
+    when '5'
       @step = 5
-      logger.debug " entering step 5 "
 
-      @dataset = Dataset.find(params[:dataset_id])
-      logger.debug " loading dataset "
-      logger.debug @dataset.inspect
+      # Upoading and evaluation finished
+      @dataset.finished = params[:finished]
+      @dataset.save
 
-      unless @dataset.blank?
-        # Upoading and evaluation finished
-        logger.debug "Upoading and evaluation finished, showing params[:finished]"
-        logger.info params[:finished]
-        @dataset.finished = params[:finished]
-        @dataset.save
-
-        # If the dataset is finished, show it
-        if @dataset.finished == true
-          logger.debug "After all, rebuild the search index"
-          # After all, rebuild the search index
-          begin
-            #TODO INDEX doesnt work without Ferret
-            #Dataset.rebuild_index
-            logger.debug "rebuilding done"
-          rescue
-            logger.debug "rebuilding did not work"
-          end
-
-          redirect_to url_for :controller => :datasets,
-          :action => :show,
-          :id => @dataset.id and return
-        else
-          logger.debug "context not finished"
-          logger.debug [@dataset.id, @dataset.title].to_s
-        end
-      else
-        # No context found
-        redirect_to data_path and return
-      end
-    else
-      # Neither file parameter nor step parameter. Redirect to the
-      # upload page.
-      redirect_to data_path and return
+      # If the dataset is finished, show it
+      redirect_to url_for :controller => :datasets, :action => :show, :id => @dataset.id and return if @dataset.finished
     end
-    #    else
-    #      # Not logged in, redirect to login form
-    #      session[:return_to] = request.request_uri
-    #      redirect_to login_path and return
-    #    end
   end
 
   def load_dataset
     @dataset = Dataset.find(params[:id])
   end
-
 
   def load_freeformat_dataset
     @freeformat = Freeformat.find(params[:id])
@@ -457,7 +412,6 @@ class DatasetsController < ApplicationController
   end
 
   private
-
 
   def dataset_is_free_for_members
     return true if @dataset.free_for_members  unless @dataset.blank?
