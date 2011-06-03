@@ -4,7 +4,7 @@
   (#{@dataset.filename})
 %div= render 'context_export_destroy'
 %div= render 'dataset_step_five'
-- if @checkUnique
+- if @book.columnheaders_unique?
   %p
     Congratulations, your data columns have unique headers and were
     uploaded to our data base!  Now you should go through each of the
