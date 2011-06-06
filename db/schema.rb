@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110606083721) do
+ActiveRecord::Schema.define(:version => 20110606095522) do
 
   create_table "author_paperproposals", :force => true do |t|
     t.integer  "paperproposal_id"
@@ -37,7 +37,7 @@ ActiveRecord::Schema.define(:version => 20110606083721) do
     t.datetime "updated_at"
   end
 
-  create_table "categoricvalues", :force => true do |t|
+  create_table "categories", :force => true do |t|
     t.string   "short"
     t.string   "long"
     t.text     "description"
@@ -46,7 +46,7 @@ ActiveRecord::Schema.define(:version => 20110606083721) do
     t.datetime "updated_at"
   end
 
-  add_index "categoricvalues", ["short"], :name => "index_categoricvalues_on_short"
+  add_index "categories", ["short"], :name => "index_categoricvalues_on_short"
 
   create_table "datacolumns", :force => true do |t|
     t.integer  "datagroup_id"
