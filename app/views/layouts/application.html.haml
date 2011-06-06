@@ -8,6 +8,8 @@
     = active_scaffold_includes
     = csrf_meta_tag
   %body
+    - unless Rails.env == 'production'
+      #rails_env_notice{:style => 'background-color: #fafad2'}= "You are currently working under #{Rails.env} environment."
     #header
       #logo
         %h1 BEF – China Project Database
