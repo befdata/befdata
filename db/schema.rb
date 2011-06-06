@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110601150018) do
+ActiveRecord::Schema.define(:version => 20110606083721) do
 
   create_table "author_paperproposals", :force => true do |t|
     t.integer  "paperproposal_id"
@@ -261,11 +261,12 @@ ActiveRecord::Schema.define(:version => 20110601150018) do
     t.string   "import_value"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "category_id"
+    t.string   "accepted_value", :limit => 250
   end
 
   add_index "sheetcells", ["datacolumn_id"], :name => "index_sheetcells_on_datacolumn_id"
   add_index "sheetcells", ["observation_id"], :name => "index_sheetcells_on_observation_id"
-  add_index "sheetcells", ["value_id", "value_type"], :name => "index_sheetcells_on_value_id_and_value_type"
 
   create_table "taggings", :force => true do |t|
     t.integer "tag_id"
