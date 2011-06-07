@@ -1,6 +1,6 @@
 #!/bin/bash
 
-ROOT=$PWD/../..
+ROOT=$PWD/..
 BACKUP_FOLDER=$ROOT/backup
 
 export RAILS_ENV=staging
