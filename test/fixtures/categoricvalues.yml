@@ -1,313 +1,65 @@
 --- 
-categoricvalues_036: 
-  comment: added from category sheet
-  created_at: 2011-03-28 14:01:52.077400 Z
-  updated_at: 2011-03-28 14:01:52.077400 Z
-  id: 10
-  short: T
-  description: Twig
-  long: Twig
-categoricvalues_025: 
-  comment: "added from category sheet in dataset: Coordinates, treatment information, and environmental variables for the Experimental Plots in Xingangshan, Site B for testing"
-  created_at: 2011-05-01 11:47:33.042667 Z
-  updated_at: 2011-05-01 11:47:33.042667 Z
-  id: 34
-  short: p217160
-  description: p217160
-  long: p217160
-categoricvalues_014: 
-  comment: "added from category sheet in dataset: Coordinates, treatment information, and environmental variables for the Experimental Plots in Xingangshan, Site B for testing"
-  created_at: 2011-05-01 11:47:51.406637 Z
-  updated_at: 2011-05-01 11:47:51.406637 Z
-  id: 45
-  short: N20
-  description: N20
-  long: N20
-categoricvalues_003: 
-  comment: "added from category sheet in dataset: Coordinates, treatment information, and environmental variables for the Experimental Plots in Xingangshan, Site B for testing"
-  created_at: 2011-05-01 12:40:59.041751 Z
-  updated_at: 2011-05-01 12:40:59.041751 Z
-  id: 56
-  short: N
-  description: North
-  long: North
-categoricvalues_037: 
-  comment: added from category sheet
-  created_at: 2011-03-28 14:01:52.034400 Z
-  updated_at: 2011-03-28 14:01:52.034400 Z
-  id: 9
-  short: L
-  description: Leaf
-  long: Leaf
-categoricvalues_026: 
-  comment: "added from category sheet in dataset: Coordinates, treatment information, and environmental variables for the Experimental Plots in Xingangshan, Site B for testing"
-  created_at: 2011-05-01 11:47:33.026218 Z
-  updated_at: 2011-05-01 11:47:33.026218 Z
-  id: 33
-  short: p210270
-  description: p210270
-  long: p210270
-categoricvalues_015: 
-  comment: "added from category sheet in dataset: Coordinates, treatment information, and environmental variables for the Experimental Plots in Xingangshan, Site B for testing"
-  created_at: 2011-05-01 11:47:51.391333 Z
-  updated_at: 2011-05-01 11:47:51.391333 Z
-  id: 44
-  short: Q16
-  description: Q16
-  long: Q16
-categoricvalues_004: 
-  comment: "added from category sheet in dataset: Coordinates, treatment information, and environmental variables for the Experimental Plots in Xingangshan, Site B for testing"
-  created_at: 2011-05-01 12:40:59.005691 Z
-  updated_at: 2011-05-01 12:40:59.005691 Z
-  id: 55
-  short: E
-  description: East
-  long: East
-categoricvalues_038: 
+Categoricvalues_001: 
+  id: "59"
+  short: na
+  long: na
+  description: na
   comment: manually approved
-  created_at: 2011-03-28 14:00:19.723400 Z
-  updated_at: 2011-03-28 14:00:36.090400 Z
-  id: 5
-  short: Loropetalum chinense
-  description: Loropetalum chinense
-  long: Loropetalum chinense
-categoricvalues_027: 
-  comment: "added from category sheet in dataset: Coordinates, treatment information, and environmental variables for the Experimental Plots in Xingangshan, Site B for testing"
-  created_at: 2011-05-01 11:47:33.008560 Z
-  updated_at: 2011-05-01 11:47:33.008560 Z
-  id: 32
-  short: p222190
-  description: p222190
-  long: p222190
-categoricvalues_016: 
-  comment: "added from category sheet in dataset: Coordinates, treatment information, and environmental variables for the Experimental Plots in Xingangshan, Site B for testing"
-  created_at: 2011-05-01 11:47:51.374925 Z
-  updated_at: 2011-05-01 11:47:51.374925 Z
-  id: 43
-  short: J27
-  description: J27
-  long: J27
-categoricvalues_005: 
-  comment: "added from category sheet in dataset: Coordinates, treatment information, and environmental variables for the Experimental Plots in Xingangshan, Site B for testing"
-  created_at: 2011-05-01 11:48:46.931944 Z
-  updated_at: 2011-05-01 11:48:46.931944 Z
-  id: 54
-  short: S
-  description: SLA
-  long: SLA
-categoricvalues_039: 
+  created_at: 2011-06-01 13:50:24.057
+  updated_at: 2011-06-01 13:52:20.058
+Categoricvalues_002: 
+  id: "60"
+  short: Toxicodendron sylvestre
+  long: Toxicodendron sylvestre
+  description: Toxicodendron sylvestre
+  comment: "added from category sheet in dataset: Test species name import"
+  created_at: 2011-06-01 13:55:19.488
+  updated_at: 2011-06-01 13:55:19.488
+Categoricvalues_003: 
+  id: "61"
+  short: Mahonia bealei
+  long: Mahonia bealei
+  description: Mahonia bealei
+  comment: "added from category sheet in dataset: Test species name import"
+  created_at: 2011-06-01 13:55:19.723
+  updated_at: 2011-06-01 13:55:19.723
+Categoricvalues_004: 
+  id: "62"
+  short: Betula luminifera
+  long: Betula luminifera
+  description: Betula luminifera
+  comment: "added from category sheet in dataset: Test species name import"
+  created_at: 2011-06-01 13:55:19.743
+  updated_at: 2011-06-01 13:55:19.743
+Categoricvalues_005: 
+  id: "63"
+  short: Diospyros japonica
+  long: Diospyros japonica
+  description: Diospyros japonica
+  comment: "added from category sheet in dataset: Test species name import"
+  created_at: 2011-06-01 13:55:19.798
+  updated_at: 2011-06-01 13:55:19.798
+Categoricvalues_006: 
+  id: "64"
+  short: <1
+  long: <1
+  description: <1
   comment: manually approved
-  created_at: 2011-03-28 14:00:19.482400 Z
-  updated_at: 2011-03-28 14:00:28.555400 Z
-  id: 1
-  short: Eurya muricata
-  description: Eurya muricata
-  long: Eurya muricata
-categoricvalues_028: 
-  comment: "added from category sheet in dataset: Coordinates, treatment information, and environmental variables for the Experimental Plots in Xingangshan, Site B for testing"
-  created_at: 2011-05-01 11:47:32.992709 Z
-  updated_at: 2011-05-01 11:47:32.992709 Z
-  id: 31
-  short: p209220
-  description: p209220
-  long: p209220
-categoricvalues_017: 
-  comment: "added from category sheet in dataset: Coordinates, treatment information, and environmental variables for the Experimental Plots in Xingangshan, Site B for testing"
-  created_at: 2011-05-01 11:47:51.359526 Z
-  updated_at: 2011-05-01 11:47:51.359526 Z
-  id: 42
-  short: V19
-  description: V19
-  long: V19
-categoricvalues_006: 
-  comment: "added from category sheet in dataset: Coordinates, treatment information, and environmental variables for the Experimental Plots in Xingangshan, Site B for testing"
-  created_at: 2011-05-01 11:48:46.916751 Z
-  updated_at: 2011-05-01 11:48:46.916751 Z
-  id: 53
-  short: R
-  description: Rarity
-  long: Rarity
-categoricvalues_029: 
-  comment: "added from category sheet in dataset: Coordinates, treatment information, and environmental variables for the Experimental Plots in Xingangshan, Site B for testing"
-  created_at: 2011-05-01 11:47:32.978063 Z
-  updated_at: 2011-05-01 11:47:32.978063 Z
-  id: 30
-  short: p220090
-  description: p220090
-  long: p220090
-categoricvalues_018: 
-  comment: "added from category sheet in dataset: Coordinates, treatment information, and environmental variables for the Experimental Plots in Xingangshan, Site B for testing"
-  created_at: 2011-05-01 11:47:51.146793 Z
-  updated_at: 2011-05-01 11:47:51.146793 Z
-  id: 41
-  short: I22
-  description: I22
-  long: I22
-categoricvalues_007: 
-  comment: "added from category sheet in dataset: Coordinates, treatment information, and environmental variables for the Experimental Plots in Xingangshan, Site B for testing"
-  created_at: 2011-05-01 11:48:46.901711 Z
-  updated_at: 2011-05-01 11:48:46.901711 Z
-  id: 52
-  short: G
-  description: Genetic
-  long: Genetic
-categoricvalues_030: 
-  comment: "added from category sheet in dataset: Coordinates, treatment information, and environmental variables for the Experimental Plots in Xingangshan, Site B for testing"
-  created_at: 2011-05-01 11:47:32.946366 Z
-  updated_at: 2011-05-01 11:47:32.946366 Z
-  id: 29
-  short: p220100
-  description: p220100
-  long: p220100
-categoricvalues_019: 
-  comment: "added from category sheet in dataset: Coordinates, treatment information, and environmental variables for the Experimental Plots in Xingangshan, Site B for testing"
-  created_at: 2011-05-01 11:47:51.131023 Z
-  updated_at: 2011-05-01 11:47:51.131023 Z
-  id: 40
-  short: T9
-  description: T9
-  long: T9
-categoricvalues_008: 
-  comment: "added from category sheet in dataset: Coordinates, treatment information, and environmental variables for the Experimental Plots in Xingangshan, Site B for testing"
-  created_at: 2011-05-01 11:48:46.886701 Z
-  updated_at: 2011-05-01 11:48:46.886701 Z
-  id: 51
-  short: F
-  description: Free succession
-  long: Free succession
-categoricvalues_031: 
-  comment: manually approved
-  created_at: 2011-03-28 14:24:10.057400 Z
-  updated_at: 2011-03-28 14:29:07.249400 Z
-  id: 28
-  short: "1"
-  description: Comparative Study Site 1
-  long: CSP1
-categoricvalues_020: 
-  comment: "added from category sheet in dataset: Coordinates, treatment information, and environmental variables for the Experimental Plots in Xingangshan, Site B for testing"
-  created_at: 2011-05-01 11:47:51.099842 Z
-  updated_at: 2011-05-01 11:47:51.099842 Z
-  id: 39
-  short: T10
-  description: T10
-  long: T10
-categoricvalues_009: 
-  comment: "added from category sheet in dataset: Coordinates, treatment information, and environmental variables for the Experimental Plots in Xingangshan, Site B for testing"
-  created_at: 2011-05-01 11:48:46.871487 Z
-  updated_at: 2011-05-01 11:48:46.871487 Z
-  id: 50
-  short: E
-  description: Economic
-  long: Economic
-categoricvalues_032: 
-  comment: manually approved
-  created_at: 2011-03-28 14:05:43.050400 Z
-  updated_at: 2011-03-28 14:05:51.072400 Z
-  id: 17
-  short: 0911081
-  description: 0911081
-  long: 0911081
-categoricvalues_021: 
-  comment: "added from category sheet in dataset: Coordinates, treatment information, and environmental variables for the Experimental Plots in Xingangshan, Site B for testing"
-  created_at: 2011-05-01 11:47:33.306756 Z
-  updated_at: 2011-05-01 11:47:33.306756 Z
-  id: 38
-  short: p205270
-  description: p205270
-  long: p205270
-categoricvalues_010: 
-  comment: "added from category sheet in dataset: Coordinates, treatment information, and environmental variables for the Experimental Plots in Xingangshan, Site B for testing"
-  created_at: 2011-05-01 11:48:46.855347 Z
-  updated_at: 2011-05-01 11:48:46.855347 Z
-  id: 49
-  short: C
-  description: C random
-  long: C random
-categoricvalues_033: 
-  comment: manually approved
-  created_at: 2011-03-28 14:05:42.739400 Z
-  updated_at: 2011-03-28 14:06:00.299400 Z
-  id: 13
-  short: "363847"
-  description: "363847"
-  long: "363847"
-categoricvalues_022: 
-  comment: "added from category sheet in dataset: Coordinates, treatment information, and environmental variables for the Experimental Plots in Xingangshan, Site B for testing"
-  created_at: 2011-05-01 11:47:33.088863 Z
-  updated_at: 2011-05-01 11:47:33.088863 Z
-  id: 37
-  short: p205260
-  description: p205260
-  long: p205260
-categoricvalues_011: 
-  comment: "added from category sheet in dataset: Coordinates, treatment information, and environmental variables for the Experimental Plots in Xingangshan, Site B for testing"
-  created_at: 2011-05-01 11:48:46.839342 Z
-  updated_at: 2011-05-01 11:48:46.839342 Z
-  id: 48
-  short: B
-  description: B random
-  long: B random
-categoricvalues_034: 
-  comment: added from category sheet
-  created_at: 2011-03-28 14:01:52.089400 Z
-  updated_at: 2011-03-28 14:01:52.089400 Z
-  id: 12
-  short: R
-  description: Root
-  long: Root
-categoricvalues_023: 
-  comment: "added from category sheet in dataset: Coordinates, treatment information, and environmental variables for the Experimental Plots in Xingangshan, Site B for testing"
-  created_at: 2011-05-01 11:47:33.073512 Z
-  updated_at: 2011-05-01 11:47:33.073512 Z
-  id: 36
-  short: p218250
-  description: p218250
-  long: p218250
-categoricvalues_012: 
-  comment: "added from category sheet in dataset: Coordinates, treatment information, and environmental variables for the Experimental Plots in Xingangshan, Site B for testing"
-  created_at: 2011-05-01 11:48:46.617921 Z
-  updated_at: 2011-05-01 11:48:46.617921 Z
-  id: 47
-  short: A
-  description: A random
-  long: A random
-categoricvalues_001: 
-  comment: "added from category sheet in dataset: Coordinates, treatment information, and environmental variables for the Experimental Plots in Xingangshan, Site B for testing"
-  created_at: 2011-05-01 12:40:59.071093 Z
-  updated_at: 2011-05-01 12:40:59.071093 Z
-  id: 58
-  short: W
-  description: West
-  long: West
-categoricvalues_035: 
-  comment: added from category sheet
-  created_at: 2011-03-28 14:01:52.083400 Z
-  updated_at: 2011-03-28 14:01:52.083400 Z
-  id: 11
-  short: S
-  description: Stem
-  long: Stem
-categoricvalues_024: 
-  comment: "added from category sheet in dataset: Coordinates, treatment information, and environmental variables for the Experimental Plots in Xingangshan, Site B for testing"
-  created_at: 2011-05-01 11:47:33.058133 Z
-  updated_at: 2011-05-01 11:47:33.058133 Z
-  id: 35
-  short: p214200
-  description: p214200
-  long: p214200
-categoricvalues_013: 
-  comment: "added from category sheet in dataset: Coordinates, treatment information, and environmental variables for the Experimental Plots in Xingangshan, Site B for testing"
-  created_at: 2011-05-01 11:47:51.421941 Z
-  updated_at: 2011-05-01 11:47:51.421941 Z
-  id: 46
-  short: R25
-  description: R25
-  long: R25
-categoricvalues_002: 
-  comment: "added from category sheet in dataset: Coordinates, treatment information, and environmental variables for the Experimental Plots in Xingangshan, Site B for testing"
-  created_at: 2011-05-01 12:40:59.056233 Z
-  updated_at: 2011-05-01 12:40:59.056233 Z
-  id: 57
-  short: S
-  description: South
-  long: South
+  created_at: 2011-06-01 15:03:35.858
+  updated_at: 2011-06-01 15:03:52.819
+Categoricvalues_007: 
+  id: "65"
+  short: Toxicodendron sylvestre
+  long: Toxicodendron sylvestre
+  description: Toxicodendron sylvestre
+  comment: "added from category sheet in dataset: Test species name import second version"
+  created_at: 2011-06-01 15:06:09.098
+  updated_at: 2011-06-01 15:06:09.098
+Categoricvalues_008: 
+  id: "66"
+  short: Mahonia bealei
+  long: Mahonia bealei
+  description: Mahonia bealei
+  comment: "added from category sheet in dataset: Test species name import second version"
+  created_at: 2011-06-01 15:06:09.205
+  updated_at: 2011-06-01 15:06:09.205

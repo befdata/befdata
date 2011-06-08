@@ -13,6 +13,7 @@ class Datafile < ActiveRecord::Base
   :basename => "basename",
   :path => ":rails_root/files/:filename",
   :url => "/files/:id/download"
+  
   def basename
     return File.basename(self.file.original_filename, File.extname(self.file.original_filename))
   end

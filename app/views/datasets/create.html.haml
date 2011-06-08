@@ -17,7 +17,7 @@
       - form_tag url_for(:controller => :datasets, :action => :upload) do
         = error_messages_for :datasets, :object_name => @dataset.class.human_name.downcase
         = hidden_field_tag 'step', '1'
-        = hidden_field_tag 'id', @dataset.id
+        = hidden_field_tag 'dataset_id', @dataset.id
         %ul
           - @dataset.users.each do |user|
             %li{:onclick => "this.parentNode.removeChild(this);"}

@@ -1,97 +1,49 @@
 --- 
-textvalues_011: 
+Textvalues_001: 
+  id: "17"
+  text: Metcalf
   comment: 
-  created_at: 2011-03-28 14:31:16.506399 Z
-  updated_at: 2011-03-28 14:31:16.506399 Z
-  text: Aut08
-  id: 6
-textvalues_012: 
+  created_at: 2011-06-01 13:53:08.221
+  updated_at: 2011-06-01 13:53:08.221
+Textvalues_002: 
+  id: "18"
+  text: C.K.Schneider
   comment: 
-  created_at: 2011-03-28 14:31:16.484400 Z
-  updated_at: 2011-03-28 14:31:16.484400 Z
-  text: Aut08
-  id: 5
-textvalues_001: 
+  created_at: 2011-06-01 13:53:09.106
+  updated_at: 2011-06-01 13:53:09.106
+Textvalues_003: 
+  id: "19"
+  text: Fortune
   comment: 
-  created_at: 2011-05-01 12:39:18.619741 Z
-  updated_at: 2011-05-01 12:39:18.619741 Z
-  text: "A. altissima_A. fortunei_B. luminifera_C. fargesii_C. biondii_E. chinensis _E. glabripetalus_E. japonicus_I. polycarpa_M. flexuosa_M. grijsii_M. thunbergii_M.\xC3\xBFleptophylla\xC3\xBF\xC3\xBF_M. yuyuanensis_P. bournei_Q. phillyreoides"
-  id: 16
-textvalues_013: 
+  created_at: 2011-06-01 13:53:09.146
+  updated_at: 2011-06-01 13:53:09.146
+Textvalues_004: 
+  id: "20"
+  text: (Siebold & Zucc.) Kuntze
   comment: 
-  created_at: 2011-03-28 14:31:16.473400 Z
-  updated_at: 2011-03-28 14:31:16.473400 Z
-  text: Aut08
-  id: 4
-textvalues_002: 
+  created_at: 2011-06-01 13:53:09.168
+  updated_at: 2011-06-01 13:53:09.168
+Textvalues_005: 
+  id: "21"
+  text: (Siebold & Zucc.) Kuntze
   comment: 
-  created_at: 2011-05-01 12:39:18.607169 Z
-  updated_at: 2011-05-01 12:39:18.607169 Z
-  text: C. fargesii_C. sclerophylla_C. biondii_C. glauca_E. chinensis_E. japonicus_L. glaber_Q. phillyreoides
-  id: 15
-textvalues_014: 
+  created_at: 2011-06-01 15:04:38.521
+  updated_at: 2011-06-01 15:04:38.521
+Textvalues_006: 
+  id: "22"
+  text: Fortune
   comment: 
-  created_at: 2011-03-28 14:31:16.462400 Z
-  updated_at: 2011-03-28 14:31:16.462400 Z
-  text: Aut08
-  id: 3
-textvalues_003: 
+  created_at: 2011-06-01 15:04:38.72
+  updated_at: 2011-06-01 15:04:38.72
+Textvalues_007: 
+  id: "23"
+  text: (Siebold & Zucc.) Kuntze
   comment: 
-  created_at: 2011-05-01 12:39:18.594515 Z
-  updated_at: 2011-05-01 12:39:18.594515 Z
-  text: No trees
-  id: 14
-textvalues_015: 
+  created_at: 2011-06-01 15:04:38.737
+  updated_at: 2011-06-01 15:04:38.737
+Textvalues_008: 
+  id: "24"
+  text: Fortune
   comment: 
-  created_at: 2011-03-28 14:31:16.453400 Z
-  updated_at: 2011-03-28 14:31:16.453400 Z
-  text: Aut08
-  id: 2
-textvalues_004: 
-  comment: 
-  created_at: 2011-05-01 12:39:18.581994 Z
-  updated_at: 2011-05-01 12:39:18.581994 Z
-  text: C. fargesii_C. sclerophylla_C. biondii_C. glauca_E. chinensis_E. japonicus_L. glaber_Q. phillyreoides
-  id: 13
-textvalues_016: 
-  comment: 
-  created_at: 2011-03-28 14:31:16.204400 Z
-  updated_at: 2011-03-28 14:31:16.204400 Z
-  text: Aut08
-  id: 1
-textvalues_005: 
-  comment: 
-  created_at: 2011-05-01 12:39:18.569401 Z
-  updated_at: 2011-05-01 12:39:18.569401 Z
-  text: No trees
-  id: 12
-textvalues_006: 
-  comment: 
-  created_at: 2011-05-01 12:39:18.556585 Z
-  updated_at: 2011-05-01 12:39:18.556585 Z
-  text: A. altissima_A. fortunei_C. fargesii_C. sclerophylla
-  id: 11
-textvalues_007: 
-  comment: 
-  created_at: 2011-05-01 12:39:18.543341 Z
-  updated_at: 2011-05-01 12:39:18.543341 Z
-  text: C. camphora_C. glauca_D. oldhamii_S. superba
-  id: 10
-textvalues_008: 
-  comment: 
-  created_at: 2011-05-01 12:39:18.508449 Z
-  updated_at: 2011-05-01 12:39:18.508449 Z
-  text: E. chinensis _M. thunbergii
-  id: 9
-textvalues_010: 
-  comment: 
-  created_at: 2011-03-28 14:31:16.513399 Z
-  updated_at: 2011-03-28 14:31:16.513399 Z
-  text: Aut08
-  id: 7
-textvalues_009: 
-  comment: 
-  created_at: 2011-03-28 14:31:16.530400 Z
-  updated_at: 2011-03-28 14:31:16.530400 Z
-  text: Aut08
-  id: 8
+  created_at: 2011-06-01 15:04:38.761
+  updated_at: 2011-06-01 15:04:38.761

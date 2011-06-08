@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110531163835) do
+ActiveRecord::Schema.define(:version => 20110601150018) do
 
   create_table "author_paperproposals", :force => true do |t|
     t.integer  "paperproposal_id"
@@ -229,13 +229,6 @@ ActiveRecord::Schema.define(:version => 20110531163835) do
     t.datetime "updated_at"
   end
 
-  create_table "projects_roles", :id => false, :force => true do |t|
-    t.integer  "project_id"
-    t.integer  "role_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
   create_table "roles", :force => true do |t|
     t.string   "name",              :limit => 40
     t.string   "authorizable_type", :limit => 25
@@ -245,6 +238,13 @@ ActiveRecord::Schema.define(:version => 20110531163835) do
   end
 
   add_index "roles", ["authorizable_type", "authorizable_id"], :name => "index_roles_on_authorizable_type_and_authorizable_id"
+
+  create_table "roles_projects", :id => false, :force => true do |t|
+    t.integer  "project_id"
+    t.integer  "role_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "roles_users", :id => false, :force => true do |t|
     t.integer "user_id"

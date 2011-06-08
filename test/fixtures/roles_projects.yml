@@ -1,0 +1,46 @@
+--- 
+RolesProjects_001: 
+  project_id: "3"
+  role_id: "9"
+  created_at: 
+  updated_at: 
+RolesProjects_002: 
+  project_id: "2"
+  role_id: "8"
+  created_at: 
+  updated_at: 
+RolesProjects_003: 
+  project_id: "2"
+  role_id: "10"
+  created_at: 
+  updated_at: 
+RolesProjects_004: 
+  project_id: "2"
+  role_id: "10"
+  created_at: 
+  updated_at: 
+RolesProjects_005: 
+  project_id: "2"
+  role_id: "10"
+  created_at: 
+  updated_at: 
+RolesProjects_006: 
+  project_id: "1"
+  role_id: "7"
+  created_at: 
+  updated_at: 
+RolesProjects_007: 
+  project_id: "1"
+  role_id: "8"
+  created_at: 
+  updated_at: 
+RolesProjects_008: 
+  project_id: "3"
+  role_id: "11"
+  created_at: 2011-06-01 14:17:45.005
+  updated_at: 2011-06-01 14:17:45.005
+RolesProjects_009: 
+  project_id: "1"
+  role_id: "11"
+  created_at: 2011-06-01 14:21:04.128
+  updated_at: 2011-06-01 14:21:04.128

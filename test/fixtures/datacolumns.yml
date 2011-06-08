@@ -1,293 +1,113 @@
 --- 
-datacolumns_016: 
-  comment: location, object identifier
-  import_data_type: category
-  created_at: 2011-03-28 13:59:35.566400 Z
-  updated_at: 2011-03-28 14:24:09.335400 Z
-  dataset_id: 1
-  id: 5
+Datacolumns_001: 
+  id: "33"
+  datagroup_id: "19"
+  dataset_id: "5"
+  columnheader: height
+  columnnr: "1"
+  definition: height in m
   unit: 
-  columnnr: 5
-  datagroup_id: 5
-  columnheader: CSP
-  definition: |
-    CSP ID number
-
-  category_longshort: 
   missingcode: 
-datacolumns_005: 
-  comment: variable, co variable, aspect, environmental variable, exposition
+  comment: height, variable, response
   import_data_type: number
-  created_at: 2011-05-01 11:47:24.779629 Z
-  updated_at: 2011-05-01 11:47:24.779629 Z
-  dataset_id: 3
-  id: 28
-  unit: m
-  columnnr: 9
-  datagroup_id: 15
-  columnheader: ASPECT
-  definition: mean aspect (from interpolated raster)
   category_longshort: 
+  created_at: 2011-06-01 13:47:46.018
+  updated_at: 2011-06-01 13:47:46.018
+Datacolumns_002: 
+  id: "34"
+  datagroup_id: "20"
+  dataset_id: "5"
+  columnheader: fullauthor
+  columnnr: "2"
+  definition: Author name for species description
+  unit: id
   missingcode: 
-datacolumns_017: 
-  comment: object identifier
-  import_data_type: category
-  created_at: 2011-03-28 13:59:35.425400 Z
-  updated_at: 2011-03-28 14:05:42.323400 Z
-  dataset_id: 1
-  id: 4
-  unit: 
-  columnnr: 4
-  datagroup_id: 4
-  columnheader: ID
-  definition: |
-    Identification number of the individual
-
-  category_longshort: 
-  missingcode: 
-datacolumns_006: 
-  comment: variable, co variable, elevation, environmental variable, bcomplex:Altitude, gemet:altitude, dwc/terms/maximumElevationInMeters, dwc/terms/minimumDepthInMeters
-  import_data_type: number
-  created_at: 2011-05-01 11:47:24.557318 Z
-  updated_at: 2011-05-01 11:47:24.557318 Z
-  dataset_id: 3
-  id: 27
-  unit: m
-  columnnr: 8
-  datagroup_id: 14
-  columnheader: ALTITUDE
-  definition: mean elevation (from interpolated raster)
-  category_longshort: 
-  missingcode: 
-datacolumns_018: 
-  comment: object identifier, plant organ
-  import_data_type: category
-  created_at: 2011-03-28 13:59:35.265400 Z
-  updated_at: 2011-03-28 13:59:35.265400 Z
-  dataset_id: 1
-  id: 3
-  unit: 
-  columnnr: 3
-  datagroup_id: 3
-  columnheader: Organ
-  definition: |
-    Sampled plant part
-
-  category_longshort: 
-  missingcode: 
-datacolumns_007: 
-  comment: location, latitude, dwc/terms/decimalLatitude
-  import_data_type: number
-  created_at: 2011-05-01 11:47:24.170601 Z
-  updated_at: 2011-05-01 11:47:24.170601 Z
-  dataset_id: 3
-  id: 26
-  unit: decdegree
-  columnnr: 7
-  datagroup_id: 13
-  columnheader: Y_DD
-  definition: latitude of plot south west corner (South - North), rounded, based on the 1m interpolation
-  category_longshort: 
-  missingcode: 
-datacolumns_019: 
-  comment: date
-  import_data_type: date(2009-07-14)
-  created_at: 2011-03-28 13:59:35.108400 Z
-  updated_at: 2011-03-28 14:01:37.981400 Z
-  dataset_id: 1
-  id: 2
-  unit: 
-  columnnr: 2
-  datagroup_id: 2
-  columnheader: Date
-  definition: |
-    Date
-
-  category_longshort: 
-  missingcode: 
-datacolumns_008: 
-  comment: location, longitude,  dwc/terms/decimalLongitude
-  import_data_type: number
-  created_at: 2011-05-01 11:47:23.992102 Z
-  updated_at: 2011-05-01 11:47:23.992102 Z
-  dataset_id: 3
-  id: 25
-  unit: decdegree
-  columnnr: 6
-  datagroup_id: 12
-  columnheader: X_DD
-  definition: longitude of plot south west corner ( West - East), rounded, based on the 1m interpolation
-  category_longshort: 
-  missingcode: 
-datacolumns_020: 
-  comment: species, object identifier
-  import_data_type: category
-  created_at: 2011-03-28 13:59:34.335400 Z
-  updated_at: 2011-03-28 14:00:18.898400 Z
-  dataset_id: 1
-  id: 1
-  unit: 
-  columnnr: 1
-  datagroup_id: 1
-  columnheader: Species
-  definition: |
-    Species name
-
-  category_longshort: 
-  missingcode: 
-datacolumns_009: 
-  comment: experimental treatment
+  comment: species author, dwc/terms/scientificNameAuthorship
   import_data_type: text
-  created_at: 2011-05-01 11:47:23.820422 Z
-  updated_at: 2011-05-01 11:47:23.820422 Z
-  dataset_id: 3
-  id: 24
-  unit: 
-  columnnr: 5
-  datagroup_id: 11
-  columnheader: TREE_CMP
-  definition: Tree species composition according to design.
   category_longshort: 
+  created_at: 2011-06-01 13:47:47.817
+  updated_at: 2011-06-01 13:47:47.817
+Datacolumns_003: 
+  id: "36"
+  datagroup_id: "1"
+  dataset_id: "5"
+  columnheader: fullname
+  columnnr: "4"
+  definition: fullname consisting of genus and species epiteth; use this name for a given synonym
+  unit: id
   missingcode: 
-datacolumns_010: 
-  comment: experimental treatment, extinction series, bcomplex:Species extinction, gemet:extinction (ecological)
+  comment: species, dwc/terms/scientificName, dwc/terms/acceptedNameUsage
   import_data_type: category
-  created_at: 2011-05-01 11:47:23.434679 Z
-  updated_at: 2011-05-01 11:47:23.434679 Z
-  dataset_id: 3
-  id: 23
-  unit: 
-  columnnr: 4
-  datagroup_id: 10
-  columnheader: Extinction
-  definition: Extinction series type within the main experiment
   category_longshort: 
+  created_at: 2011-06-01 13:47:48.22
+  updated_at: 2011-06-01 13:47:48.22
+Datacolumns_004: 
+  id: "35"
+  datagroup_id: "21"
+  dataset_id: "5"
+  columnheader: Year
+  columnnr: "3"
+  definition: year of species description
+  unit: year
   missingcode: 
-datacolumns_011: 
-  comment: experimental treatment, variable, species richness, explanatory variable, gemet:biodiversity, bcomplex:Plant diversity
+  comment: dwc/terms/scientificNameAuthorship, datetime, year
+  import_data_type: year
+  category_longshort: 
+  created_at: 2011-06-01 13:47:48.031
+  updated_at: 2011-06-01 13:54:10.082
+Datacolumns_005: 
+  id: "37"
+  datagroup_id: "19"
+  dataset_id: "6"
+  columnheader: height
+  columnnr: "1"
+  definition: height in m
+  unit: 
+  missingcode: 
+  comment: height, variable, response
   import_data_type: number
-  created_at: 2011-05-01 11:47:23.233153 Z
-  updated_at: 2011-05-01 11:47:23.233153 Z
-  dataset_id: 3
-  id: 22
-  unit: count
-  columnnr: 3
-  datagroup_id: 9
-  columnheader: TREE_R
-  definition: "Planted tree species richness "
   category_longshort: 
+  created_at: 2011-06-01 15:02:39.401
+  updated_at: 2011-06-01 15:02:39.401
+Datacolumns_006: 
+  id: "38"
+  datagroup_id: "20"
+  dataset_id: "6"
+  columnheader: fullauthor
+  columnnr: "2"
+  definition: Author name for species description
+  unit: id
   missingcode: 
-datacolumns_012: 
-  comment: location, dwc/terms/locationID
-  import_data_type: category
-  created_at: 2011-05-01 11:47:22.856482 Z
-  updated_at: 2011-05-01 11:47:22.856482 Z
-  dataset_id: 3
-  id: 21
-  unit: 
-  columnnr: 2
-  datagroup_id: 8
-  columnheader: PLOT_NO
-  definition: Name of each plot, coded with letters and numbers in Site A.
-  category_longshort: 
-  missingcode: 
-datacolumns_001: 
-  comment: People.ppt
-  import_data_type: file
-  created_at: 2011-05-01 12:51:22.604910 Z
-  updated_at: 2011-05-01 12:51:22.604910 Z
-  dataset_id: 4
-  id: 32
-  unit: 
-  columnnr: 1
-  datagroup_id: 18
-  columnheader: People.ppt
-  definition: "BEF members: group pictures with names 2010"
-  category_longshort: 
-  missingcode: 
-datacolumns_013: 
-  comment: location, dwc/terms/locationID
-  import_data_type: category
-  created_at: 2011-05-01 11:47:22.114992 Z
-  updated_at: 2011-05-01 11:47:22.114992 Z
-  dataset_id: 3
-  id: 20
-  unit: 
-  columnnr: 1
-  datagroup_id: 5
-  columnheader: PTAG
-  definition: Plot ID across CSP, MainA, MainB
-  category_longshort: 
-  missingcode: 
-datacolumns_002: 
-  comment: variable, co variable, solar radiation, environmental variable, bcomplex:Solar radiation, gemet:solar radiation
-  import_data_type: number
-  created_at: 2011-05-01 11:47:25.800259 Z
-  updated_at: 2011-05-01 11:47:25.800259 Z
-  dataset_id: 3
-  id: 31
-  unit: 
-  columnnr: 12
-  datagroup_id: 17
-  columnheader: SOLAR
-  definition: solar radiation
-  category_longshort: 
-  missingcode: 
-datacolumns_014: 
-  comment: C, variable
-  import_data_type: number
-  created_at: 2011-03-28 13:59:35.847400 Z
-  updated_at: 2011-03-28 13:59:35.847400 Z
-  dataset_id: 1
-  id: 7
-  unit: percent
-  columnnr: 7
-  datagroup_id: 7
-  columnheader: Carbon
-  definition: |
-    Carbon concentration
-
-  category_longshort: 
-  missingcode: 
-datacolumns_003: 
-  comment: variable, co variable, slope, environmental variable
-  import_data_type: number
-  created_at: 2011-05-01 11:47:25.393559 Z
-  updated_at: 2011-05-01 11:47:25.393559 Z
-  dataset_id: 3
-  id: 30
-  unit: degree
-  columnnr: 11
-  datagroup_id: 16
-  columnheader: SLOPE
-  definition: slope in degree?
-  category_longshort: 
-  missingcode: 
-datacolumns_015: 
-  comment: ""
+  comment: species author, dwc/terms/scientificNameAuthorship
   import_data_type: text
-  created_at: 2011-03-28 13:59:35.733400 Z
-  updated_at: 2011-03-28 14:31:15.879400 Z
-  dataset_id: 1
-  id: 6
-  unit: ""
-  columnnr: 6
-  datagroup_id: 6
-  columnheader: Season
-  definition: Season
   category_longshort: 
-  missingcode: ""
-datacolumns_004: 
-  comment: variable, co variable, aspect, environmental variable, exposition
-  import_data_type: category
-  created_at: 2011-05-01 11:47:25.187986 Z
-  updated_at: 2011-05-01 11:47:25.187986 Z
-  dataset_id: 3
-  id: 29
-  unit: 
-  columnnr: 10
-  datagroup_id: 15
-  columnheader: ASP_COM
-  definition: common aspect (from interpolated raster)
-  category_longshort: 
+  created_at: 2011-06-01 15:02:40.346
+  updated_at: 2011-06-01 15:02:40.346
+Datacolumns_007: 
+  id: "40"
+  datagroup_id: "1"
+  dataset_id: "6"
+  columnheader: fullname
+  columnnr: "4"
+  definition: fullname consisting of genus and species epiteth; use this name for a given synonym
+  unit: id
   missingcode: 
+  comment: species, dwc/terms/scientificName, dwc/terms/acceptedNameUsage
+  import_data_type: category
+  category_longshort: 
+  created_at: 2011-06-01 15:02:40.938
+  updated_at: 2011-06-01 15:02:40.938
+Datacolumns_008: 
+  id: "39"
+  datagroup_id: "21"
+  dataset_id: "6"
+  columnheader: Year
+  columnnr: "3"
+  definition: year of species description
+  unit: year
+  missingcode: 
+  comment: dwc/terms/scientificNameAuthorship, datetime, year
+  import_data_type: year
+  category_longshort: 
+  created_at: 2011-06-01 15:02:40.78
+  updated_at: 2011-06-01 15:05:26.658
