@@ -140,8 +140,8 @@ class DatasetsController < ApplicationController
     @header.each do |h|
       mm = tmp.select{|mm| mm.columnheader == h}.first
       @measmeths[h] = mm
-      @measurements[h] = Sheetcell.find(:all,
-      :conditions => [ "datacolumn_id = ?", mm.id ])
+      # SR - commented out line below as it doesn't seem to be used anywhere
+      #@measurements[h] = Sheetcell.find(:all, :conditions => [ "datacolumn_id = ?", mm.id ])
       @methodtitles[h] = tmp.select{|mm| mm.columnheader == h}.first.datagroup.title
     end
 

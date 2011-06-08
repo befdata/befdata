@@ -10,7 +10,7 @@
         = succeed "," do
           %b= cell.import_value
         cell comment: #{cell.comment},
-        category comment: #{cell.categoricvalue.comment}.
+        category comment: #{cell.category.comment}.
         %ul
           %li
             = render 'category_approve', :cell_id => cell.id
