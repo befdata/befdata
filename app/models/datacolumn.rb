@@ -37,17 +37,17 @@ class Datacolumn < ActiveRecord::Base
   # a sorted array.
   def measurements_sorted
     # !! Zeitfresser ??
-    ms = Sheetcell.find_all_by_datacolumn_id(self.id, :include => :observation)
+    ms = Sheetcell.find_all_by_datacolumn_id(self.id, :include => :observation, :include => :category)
     ms = ms.sort_by{|m| m.observation.rownr}
     # ms = self.measurements.sort_by{bm| m.observation.rownr}
     ms
   end
 
-    def categories
+  def categories
     # !! Zeitfresser ??
     ms = self.sheetcells
     meas_with_cats = ms.
-      collect{|m| m.value_type == "Categoricvalue"}.flatten.uniq.compact
+      collect{|m| m.datatype.name == "category"}.flatten.uniq.compact
   end
 
 
@@ -55,29 +55,56 @@ class Datacolumn < ActiveRecord::Base
   # Textvalue) associated to the measurements of this data column
   # instance?
   def values_stored?
-    ms = self.sheetcells
-    vls = ms.collect{|m| m.value}.compact
-    return !vls.empty?
+    ms = self.sheetcells.find(:all, :conditions => ["accepted_value IS NOT NULL OR accepted_value !='' OR category_id > 0"])
+    return !ms.empty?
   end
 
   def first_five
-    ms = self.sheetcells
+    #ms = self.sheetcells
     # Measurements are automatically added at import, but they may not
     # be linked to values yet.
-    vls = ms.collect{|m| m.value}.compact
-    n = vls.length
-    if n > 0
-      text1 = "First five of entries: "
-      f_five = vls[0..4]
-      begin
-        f_five = f_five.collect{|vl| vl.show_value}
-        text2 = "(#{f_five.to_sentence})"
-        text3 = text1 + text2
-      rescue
-        text3 = "No entries for values found"
+    if(self.values_stored?)
+      vls = self.sheetcells
+      n = vls.length
+      max =  n < 5 ? n-1 : 4
+      if n > 0
+        text1 = "First five entries: "
+        f_five = vls[0..max]
+        begin
+          f_five = f_five.collect{|vl| vl.show_value}
+          text2 = "(#{f_five.to_sentence})"
+          text3 = text1 + text2
+        rescue
+          text3 = "No entries for values found"
+        end
+      else
+        "No values yet imported for this data column"
       end
     else
       "No values yet imported for this data column"
+    end
+  end
+
+  # returns the first 'count' number of unique uploaded values
+  def uploaded_values(count)
+    values = self.sheetcells.find(:all, :order => "import_value",
+                                        :limit => count,
+                                        :group => "import_value",
+                                        :select => "import_value")
+    return values
+  end
+
+  # returns the first 'count' number of unique accepted values
+  def accepted_values(count)
+    if(self.values_stored?)
+      values = self.sheetcells.find(:all, :limit => count,
+                                          :joins => "LEFT OUTER JOIN categories ON categories.id = sheetcells.category_id" ,
+                                          :select => "distinct case when sheetcells.category_id > 0 then categories.short else sheetcells.accepted_value end as accepted_value",
+                                          :order => "accepted_value")
+
+      return values
+    else
+      return "No values yet imported for this data column"
     end
   end
 
