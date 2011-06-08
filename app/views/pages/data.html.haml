@@ -14,6 +14,7 @@
   -@tags.each do |tag|
     = link_to tag.name, {:controller => :tags,
                          :action => :show, :id => tag.id}
+    = "--"
 
 
 %br

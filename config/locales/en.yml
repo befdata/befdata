@@ -8,7 +8,7 @@ en:
     role: "Role"
     pi: "Principle investigator"
     co-pi: "2nd Principle investigator"
-    phd: "PhD student"
+    phd student: "PhD student"
     speaker: "Speaker"
     technician: "Technician"
     student: "Student"
