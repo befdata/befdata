@@ -2,8 +2,8 @@
 - if current_user
   %div
     = render 'dataset_upload'
-  -#%div
-  -#  = render 'freeformat_upload'
+  %div
+    = render 'freeformat_upload'
   %div
     = render 'dataset_freeformat_upload'
 
@@ -14,6 +14,7 @@
   -@tags.each do |tag|
     = link_to tag.name, {:controller => :tags,
                          :action => :show, :id => tag.id}
+    = "--"
 
 
 %br
