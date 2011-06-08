@@ -1,8 +1,11 @@
 require 'test_helper'
 
 class PaperproposalTest < ActiveSupport::TestCase
-  # Replace this with your real tests.
-  test "the truth" do
-    assert true
+
+  test "any paperproposal can have one project linked" do
+    paperproposal = paperproposals("Paperproposals_001")
+    assert paperproposal.project
   end
+
+
 end
