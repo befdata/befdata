@@ -9,12 +9,11 @@
 #require 'spreadsheet'
 
 class ImportsController < ApplicationController
-
   def create_freeformat_datafile
     datafile = Datafile.new(params[:datafile])
 
     if datafile.save
-        redirect_to :controller => :datasets, :action => :upload_freeformat, :datafile_id => datafile.id
+      redirect_to :controller => :datasets, :action => :upload_freeformat, :datafile_id => datafile.id
     else
       flash[:errors] = datafile.errors
       redirect_to :back
@@ -25,129 +24,70 @@ class ImportsController < ApplicationController
     freeformat = Freeformat.new(params[:freeformat])
 
     if freeformat.save
-        redirect_to :controller => :datasets, :action => :upload_dataset_freeformat, :freeformat_id => freeformat.id
+      redirect_to :controller => :datasets, :action => :upload_dataset_freeformat, :freeformat_id => freeformat.id
     else
       flash[:errors] = freeformat.errors
       redirect_to :back
     end
   end
 
-
   def raw_data_overview
-    logger.debug "------------ just entered raw_data_overview  ---------"
-    store_location
-
-    
     @dataset ||= Dataset.find(params[:dataset_id], :include => [:datacolumns])
 
-    # provides @methodsheet, @respPeopleSheet, @categorySheet,
-    # @rawdatasheet,
-    # @columnheadersRaw: Array of the columnheaders
-    # @checkUnique: are they unique?
-    # @ch_people_hash: {0=>"Column header", 1=>"rarefy_100", ...
-    # @ch_cat_hash: {0=>"Column header", 1=>"rarefy_100", ...
-    provide_metasheets(@dataset.upload_spreadsheet.file.path)  unless @dataset.upload_spreadsheet.blank?
-
-    logger.debug "------------ after loading metasheet ---------"
-    logger.debug @columnheadersRaw.inspect
+    spreadsheet = Spreadsheet.open @dataset.upload_spreadsheet.file.path
+    spreadsheet.io.close
+    @book = Dataworkbook.new(@dataset.upload_spreadsheet, spreadsheet)
 
     # Are there data columns already associated to this Dataset?
-    n_data_cols = @dataset.datacolumns.length
+    return unless @dataset.datacolumns.length == 0 # which means that there are no observations nor measurements
 
-    if n_data_cols == 0 # which means that there are no observations
-                        # nor measurements
+    return unless @book.columnheaders_unique? # we can only go on, if column headers of data columns are unique
 
-      if @checkUnique # we can only go on, if column headers of data
-                      # columns are unique
-        # generate data column instances
-        @columnheadersRaw.each do |ch|
-          logger.debug "- having entered header loop (#{ch}) -"
+    # generate data column instances
+    @book.columnheaders_raw.each do |ch|
 
-          # Data column information
-          col_nr_raw_data = 1 + Array(@rawdatasheet.row(0)).index(ch)
-          data_column_ch =
-            data_column_info_for_columnheader(ch, @methodsheet,
-                                              col_nr_raw_data, @dataset.id)
+      # Data column information
+      data_column_ch = @book.data_column_info_for_columnheader(ch)
+      data_column_ch[:dataset_id] = @dataset.id
 
-          logger.debug "----------  Data_Group information ---------------"
-          data_group_ch = methodsheet_datagroup(ch, @methodsheet)
-          logger.debug data_group_ch.inspect
+      data_group_ch = methodsheet_datagroup(ch, @book.data_description_sheet)
 
+      data_group = Datagroup.find_by_title(data_group_ch[:title])
+      data_group = Datagroup.create(data_group_ch) if data_group.blank?
 
-          logger.debug "- Create new data group if no match is found --"
-          data_group = Datagroup.find_by_title(data_group_ch[:title])
-          if data_group.blank?
-            logger.debug "- Creating new data group  -"
-            data_group = Datagroup.create(data_group_ch)
-          end
-          logger.debug data_group.inspect
+      data_column_ch[:datagroup_id] = data_group.id
 
-          logger.debug "------------  update data column information ---------"
-          data_column_ch[:datagroup_id] = data_group.id
-          logger.debug data_column_ch.inspect
-
-          logger.debug "------------ create new data column ------- "
-          data_column_new = Datacolumn.create(data_column_ch)
-          logger.debug data_column_new.inspect
-          logger.debug "-- add tags --"
-          unless data_column_new.comment.blank?
-            tags_new = data_column_new.comment
-            data_column_new.tag_list = tags_new
-            data_column_new.save
-          end
-
-          data_hash = data_for_columnheader(ch)[:data]
-          logger.debug data_hash.inspect
-          unless data_hash.blank?
-            logger.debug "- create all measurements  -"
-            logger.debug "- Zeitschlucker?:  before @Dataset.rownr_observation_id_hash -"
-            @dataset.reload
-            rownr_obs_hash = @dataset.rownr_observation_id_hash
-            logger.debug "-- after reloading Dataset Nr. #{@dataset.id}   ----"
-            logger.debug "the hash with row numbers and observations: #{@dataset.rownr_observation_id_hash.inspect}"
-
-            # Go through each entry in the spreadsheet
-            data_hash.each do |rownr, entry|
-              # Is there an observation in this Dataset with this rownr?
-              # "select{} writes an array of [rnr, obs_id], but since
-              # there should be only one obs_id per rownr, this can be
-              # flattened and the second array object corresponds to the
-              # observation Id.
-              obs_id = rownr_obs_hash.
-                select{|rnr, obs_id| rnr == rownr}.flatten[1]
-              logger.debug "- obs_id: #{obs_id.inspect}  -"
-
-              # If not, create a new Observation
-              if obs_id.nil?
-                obs = Observation.create(:rownr => rownr)
-                obs_id = obs.id
-              end
-              logger.debug "- obs_id after checking if it exists: #{obs_id.inspect}  -"
-
-              # create measurement (with value as import_value)
-              logger.debug "entry before converting to integer: #{entry}"
-              entry = entry.to_i.to_s if integer?(entry)
-              logger.debug "entry after: #{entry}"
-              sc = Sheetcell.create(:datacolumn => data_column_new,
-                                    :observation_id => obs_id,
-                                    :import_value => entry)
-              logger.debug "and this is the sheetcell: #{sc.inspect}"
-            end # is there data provided?
-          end
-        end
+      data_column_new = Datacolumn.create(data_column_ch)
+      unless data_column_new.comment.blank?
+        data_column_new.tag_list = data_column_new.comment
       end
 
-      # reload Dataset
-      @dataset = Dataset.find(@dataset)
+      data_hash = data_for_columnheader(ch)[:data]
+      unless data_hash.blank?
+        rownr_obs_hash = @dataset.rownr_observation_id_hash
+
+        # Go through each entry in the spreadsheet
+        data_hash.each do |rownr, entry|
+          # Is there an observation in this Dataset with this rownr?
+          # "select{} writes an array of [rnr, obs_id], but since
+          # there should be only one obs_id per rownr, this can be
+          # flattened and the second array object corresponds to the
+          # observation Id.
+          obs_id = rownr_obs_hash.select{|rnr, obs_id| rnr == rownr}.flatten[1]
+
+          # If not, create a new Observation
+          if obs_id.nil?
+            obs = Observation.create(:rownr => rownr)
+            obs_id = obs.id
+          end
+
+          # create measurement (with value as import_value)
+          entry = entry.to_i.to_s if integer?(entry)
+          sc = Sheetcell.create(:datacolumn => data_column_new, :observation_id => obs_id, :import_value => entry)
+        end # is there data provided?
+      end
     end
-
-    #    else
-#      # Not logged in, redirect to login form
-#      session[:return_to] = request.request_uri
-#      redirect_to login_path and return
-#    end
   end # raw data overview
-
 
   # After the general metadata of a data set has been saved to a
   # Context in the ContextsController and after the cell entries in
@@ -159,17 +99,16 @@ class ImportsController < ApplicationController
     benchmark_time = Time.new
     logger.debug "---------- in raw_data_per_header ---------------"
     @dataset ||= Dataset.find(params[:dataset_id],
-                              :include => [:datacolumns ,
-                                           :upload_spreadsheet])
+    :include => [:datacolumns ,
+      :upload_spreadsheet])
     @data_column ||= @dataset.datacolumns.
-      select{|dc| dc.columnheader == params[:data_header]}.first
+    select{|dc| dc.columnheader == params[:data_header]}.first
 
     # open the spreadsheet
     provide_metasheets(@dataset.upload_spreadsheet.file.path)
 
     # data column specific information: start with the column header
     ch = @data_column.columnheader
-
 
     method_index = Array(@methodsheet.column(0)).index(ch)
     unless method_index.blank?
@@ -216,7 +155,6 @@ class ImportsController < ApplicationController
     logger.debug "--- after filling @prs mit 'lookup_data_header_people(ch)' ---"
     logger.debug @ppl.inspect
 
-
     # raw data
 
     # returns a data hash with rownr => data entry from the
@@ -234,41 +172,39 @@ class ImportsController < ApplicationController
     # if no import categories are provided yet
     if @data_column.import_categoricvalues.blank?
       sheet_cats_hash_array =  look_for_provided_cats(ch,
-                                                      @categorySheet,
-                                                      @dataset.title)
+      @categorySheet,
+      @dataset.title)
       logger.debug "sheet_cats_hash_array.inspect"
       logger.debug sheet_cats_hash_array.inspect
 
       # !! the problem here is that cat_info has to have entries in all short, long,
       # and description to be properly saved
       sheet_new_cats = sheet_cats_hash_array.
-        map{|cat_info| Categoricvalue.create(cat_info)}
+      map{|cat_info| Categoricvalue.create(cat_info)}
       logger.debug "sheet_new_cats"
       logger.debug sheet_new_cats
 
       sheet_new_imp_cats = sheet_new_cats.
-        map{|cat| ImportCategoricvalue.new(:categoricvalue => cat)}
+      map{|cat| ImportCategoricvalue.new(:categoricvalue => cat)}
 
       @data_column.import_categoricvalues = sheet_new_imp_cats
 
     end
 
     @sheet_cats = @data_column.import_categoricvalues.
-      map{|imp_c| [imp_c.categoricvalue.id,
-                   imp_c.categoricvalue.short,
-                   imp_c.categoricvalue.long]}
-
+    map{|imp_c| [imp_c.categoricvalue.id,
+        imp_c.categoricvalue.short,
+        imp_c.categoricvalue.long]}
 
     all_values = @data_column.measurements_sorted.
-      collect{|m| m.value}
+    collect{|m| m.value}
     full_values = all_values.compact
     @first_meas = full_values[0..20].
-      collect{|v| v.show_value}.to_sentence
+    collect{|v| v.show_value}.to_sentence
 
     logger.debug "---------- leaving raw_data_per_header ---------------"
     logger.debug "----------------------- #{Time.new - benchmark_time} ms"
   end
-
 
   def update_data_header
     if current_user
@@ -318,7 +254,7 @@ class ImportsController < ApplicationController
     end
   end
 
-# Assingning provenance informaiton: linking people to a data column
+  # Assingning provenance informaiton: linking people to a data column
   def update_people_for_data_header
     if current_user
       data_column = Datacolumn.find(params[:datacolumn][:id])
@@ -337,7 +273,7 @@ class ImportsController < ApplicationController
     end
   end
 
-   # Adding data values to data columns.  Values are imported from the
+  # Adding data values to data columns.  Values are imported from the
   # workbook that has been uploaded in the ContextsController.  We
   # save the identity of the cell, in which the value is stored (see
   # Measurement) as well as value itself.  Values are distributed
@@ -348,7 +284,7 @@ class ImportsController < ApplicationController
   def add_data_values
     if current_user
       data_column =
-        Datacolumn.find(params[:datacolumn][:id])
+      Datacolumn.find(params[:datacolumn][:id])
       data_column.update_attributes(params[:datacolumn])
 
       # Text values do not have associated categoric values (naming
@@ -361,30 +297,30 @@ class ImportsController < ApplicationController
         logger.debug "------------ looking for naming conventions  ---------"
         portal_cats = data_column.datagroup.datacell_categories
         sheet_cats = data_column.import_categoricvalues.
-          map{|icat| icat.categoricvalue}
+        map{|icat| icat.categoricvalue}
         if data_column.import_data_type == "category"
           category_data_column_import(data_column.id, portal_cats,
-                                      sheet_cats)
+          sheet_cats)
         elsif data_column.import_data_type == "number"
           numeric_data_column_import(data_column.id, portal_cats,
-                                     sheet_cats)
+          sheet_cats)
         elsif data_column.import_data_type == "date(14.07.2009)"
           datetime_data_column_import(data_column.id, portal_cats,
-                                      sheet_cats)
+          sheet_cats)
         elsif data_column.import_data_type == "date(2009-07-14)"
           datetime_data_column_import(data_column.id, portal_cats,
-                                      sheet_cats)
+          sheet_cats)
         elsif data_column.import_data_type == "year"
           year_data_column_import(data_column.id, portal_cats,
-                                  sheet_cats)
+          sheet_cats)
         end
       end
 
       # by now values have been added
       unless data_column.categories.blank?
         redirect_to(:controller => :imports,
-                    :action => :data_column_categories,
-                    :data_column_id => data_column.id)
+        :action => :data_column_categories,
+        :data_column_id => data_column.id)
       else
         redirect_to :back
       end
@@ -404,11 +340,11 @@ class ImportsController < ApplicationController
     @cats_to_choose = [portal_cats + sheet_cats].flatten.uniq
     @cats_to_choose.sort!{|x,y| x.verbose <=> y.verbose}
     cells_with_cats = @data_column.sheetcells.
-      select{|cell| cell.value_type == "Categoricvalue"}
+    select{|cell| cell.value_type == "Categoricvalue"}
     # Cells (Measurements) can be set to valid; categoric values can
     # be set to "manually approved".
     cells = cells_with_cats.
-      select{|cell|  cell.comment == "invalid"}
+    select{|cell|  cell.comment == "invalid"}
     cell_unique_entries = cells.collect{|cell|  cell.import_value}.uniq.sort
     @cell_uniq_arr = []
     cell_unique_entries.each do |entry|
@@ -430,7 +366,7 @@ class ImportsController < ApplicationController
     redirect_to root_path
   end
 
-    def cell_category_create
+  def cell_category_create
     if current_user
       first_cell = Sheetcell.find(params[:sheetcell][:id])
       entry = first_cell.import_value
@@ -448,9 +384,9 @@ class ImportsController < ApplicationController
         same_entry_cells.each do |cell|
           old_cat = cell.categoricvalue
           cell.update_attributes(:value => cat,
-                                 :comment => "valid")
+          :comment => "valid")
           old_cat.destroy # validates that it is not destroyed if
-                          # linked to measurement or import category
+          # linked to measurement or import category
         end
         redirect_to :back
       else
@@ -463,7 +399,6 @@ class ImportsController < ApplicationController
       redirect_to login_path and return
     end
   end
-
 
   def cell_category_update
     if current_user
@@ -484,7 +419,7 @@ class ImportsController < ApplicationController
         logger.debug cell.inspect
         old_cat = cell.categoricvalue
         cell.update_attributes(:value => cat,
-                               :comment => "valid")
+        :comment => "valid")
         old_cat.destroy
       end
 
@@ -496,7 +431,7 @@ class ImportsController < ApplicationController
       session[:return_to] = request.request_uri
       redirect_to login_path and return
     end
-  end 
+  end
 
   def freeformat_overview
 
@@ -525,15 +460,14 @@ class ImportsController < ApplicationController
 
   end
 
-
   def save_freeformat_tags
 
     @datacolumn = Datacolumn.find(params[:datacolumn][:id])
     @datacolumn.update_attributes(params[:datacolumn])
 
     redirect_to url_for(:controller => :datasets,
-                          :action => :show,
-                          :id => @datacolumn.dataset_id) and return
+    :action => :show,
+    :id => @datacolumn.dataset_id) and return
   end
 
   def save_dataset_freeformat_tags
@@ -542,11 +476,12 @@ class ImportsController < ApplicationController
     @dataset.update_attributes(params[:dataset])
 
     redirect_to url_for(:controller => :datasets,
-                          :action => :show,
-                          :id => @dataset.id) and return
+    :action => :show,
+    :id => @dataset.id) and return
   end
 
-private
+  private
+
   def provide_metasheets(filename)
     ## open the spreadsheet and locate the next column to import
     ##  require 'spreadsheet'
@@ -585,47 +520,6 @@ private
     # if columnheaders are not unique, they have to be renamed at this
     # point. Before submethods are saved, the columnheaders have to be
     # unique
-
-  end
-
-  def data_column_info_for_columnheader(columnheader, methodsheet,
-                                   raw_data_col_nr, data_set_id)
-    logger.debug "-------- in method_info_for_columnheader ------------"
-    ch = columnheader
-    method_index = Array(methodsheet.column(0)).index(ch)
-    logger.debug "------------ method_index   ----------"
-    logger.debug method_index.inspect
-
-    # Submethod information
-    unless method_index.nil?
-      data_header_Def = Array(methodsheet.column(1))[method_index]
-      data_header_Def = ch if data_header_Def.blank?
-      data_header_Unit = Array(methodsheet.column(2))[method_index]
-      data_header_Missing = Array(methodsheet.column(3))[method_index]
-      data_header_Comment = Array(methodsheet.column(4))[method_index]
-      dc_import_data_type = Array(methodsheet.column(9))[method_index]
-    else # column header does not appear in the method sheet
-      data_header_Def = ch
-      data_header_Unit = nil
-      data_header_Missing = nil
-      data_header_Comment = nil
-      dc_import_data_type = nil
-    end
-
-
-    # return the information
-    data_header_ch = {:dataset_id => data_set_id,
-      :columnheader => ch,
-      :columnnr => raw_data_col_nr,
-      :definition => data_header_Def,
-      :unit => data_header_Unit,
-      :missingcode => data_header_Missing,
-      :comment => data_header_Comment,
-      :import_data_type => dc_import_data_type}
-
-    return data_header_ch
-
-    logger.debug "-------- leaving method_info_for_columnheader ------------"
   end
 
   # During the upload process we look several times back in the
@@ -683,10 +577,10 @@ private
   end
 
   def data_for_columnheader(columnheader)
-    logger.debug "- in data_for_columnheader (#{columnheader})  -"
-    ch = columnheader
-    col = Array(@rawdatasheet.row(0)).index(ch)
-    data_with_head = Array(@rawdatasheet.column(col))
+    col = Array(@book.raw_data_sheet.row(0)).index(columnheader)
+
+    data_with_head = Array(@book.raw_data_sheet.column(col))
+
     if data_with_head.length > 1
       data_hash = generate_data_hash(data_with_head) # deletes dataheader
       rowmax_with_header = data_hash.keys.max
@@ -699,7 +593,6 @@ private
       data_lookup_ch = { :data => data_hash,
         :rowmax => rowmax}
     else
-      logger.debug "- no data provided (#{columnheader})  -"
       data_lookup_ch = {:data => nil, :rowmax => 1}
     end # if data length > 1
 
@@ -757,7 +650,7 @@ private
     return methAvailable
   end
 
-# The third sheet of the data workbook lists people which have
+  # The third sheet of the data workbook lists people which have
   # collected data found in the raw data sheet of the workbook.  These
   # people are associated to subprojects and have roles within their
   # subprojects.  These people can be asked if there are questions
@@ -789,9 +682,9 @@ private
       #people += Person.fuzzy_find(people_sur)
     end
     people = people.uniq
-#    prs = people.collect{|p| p.person_roles}.flatten
-#    prs = prs.flatten.uniq
-#    prs = prs.sort_by{|pr| pr.person.lastname}
+    #    prs = people.collect{|p| p.person_roles}.flatten
+    #    prs = prs.flatten.uniq
+    #    prs = prs.sort_by{|pr| pr.person.lastname}
     return people
   end
 
@@ -832,8 +725,7 @@ private
     result
   end
 
-
-# Look for information from the category sheet.
+  # Look for information from the category sheet.
   def look_for_provided_cats(columnheader, categorysheet, dataset_title)
     logger.debug "## acronym and descriptions provided"
     logger.debug columnheader.inspect
@@ -872,7 +764,7 @@ private
   # add_data_values.
   def category_data_column_import(data_column_id, portal_cats, sheet_cats)
     data_column = Datacolumn.find(data_column_id,
-                                              :include => :sheetcells)
+    :include => :sheetcells)
 
     # the entries themselves
     cells = data_column.sheetcells
@@ -884,8 +776,8 @@ private
       obs = cell.observation
 
       comment_cat_hash =
-        suggest_category_for_entry(portal_cats, sheet_cats,
-                                   entry)
+      suggest_category_for_entry(portal_cats, sheet_cats,
+      entry)
       cat = comment_cat_hash[:cat]
       cell_comment = comment_cat_hash[:cell_comment]
 
@@ -893,8 +785,8 @@ private
 
       if cell_comment == "invalid"
         cat = Categoricvalue.
-          create(:short => entry, :long => entry, :description => entry,
-                 :comment => "automatically generated")
+        create(:short => entry, :long => entry, :description => entry,
+        :comment => "automatically generated")
       end
 
       old_val = cell.value
@@ -907,11 +799,10 @@ private
 
   end
 
-
   def numeric_data_column_import(data_column_id, portal_cats,
-                                 sheet_cats)
+    sheet_cats)
     data_column = Datacolumn.find(data_column_id,
-                                              :include => :sheetcells)
+    :include => :sheetcells)
 
     cells = data_column.sheetcells
 
@@ -921,8 +812,8 @@ private
       obs = cell.observation
 
       comment_cat_hash =
-        suggest_category_for_entry(portal_cats, sheet_cats,
-                                   entry)
+      suggest_category_for_entry(portal_cats, sheet_cats,
+      entry)
 
       # invalid if not categoricvalue is found
       cell_comment = comment_cat_hash[:cell_comment]
@@ -934,8 +825,8 @@ private
         cell_comment = "valid"
       else
         value = Categoricvalue.
-          create(:short => entry, :long => entry, :description => entry,
-                 :comment => "automatically generated")
+        create(:short => entry, :long => entry, :description => entry,
+        :comment => "automatically generated")
       end
 
       cell.value = value
@@ -946,7 +837,7 @@ private
 
   def text_data_column_import(data_column_id)
     data_column = Datacolumn.find(data_column_id,
-                                              :include => :sheetcells)
+    :include => :sheetcells)
 
     # the entries themselves
     cells = data_column.sheetcells
@@ -972,15 +863,13 @@ private
     end # Data column entries loop
   end
 
-
   def datetime_data_column_import(data_column_id, portal_cats, sheet_cats)
     data_column = Datacolumn.find(data_column_id,
-                                              :include => :sheetcells)
+    :include => :sheetcells)
     date_format = case data_column.import_data_type
-                  when "date(14.07.2009)" then '%d.%m.%Y'
-                  when "date(2009-07-14)" then '%Y-%m-%d'
-                  end
-
+    when "date(14.07.2009)" then '%d.%m.%Y'
+    when "date(2009-07-14)" then '%Y-%m-%d'
+    end
 
     cells = data_column.sheetcells
 
@@ -990,8 +879,8 @@ private
       obs = cell.observation
 
       comment_cat_hash =
-        suggest_category_for_entry(portal_cats, sheet_cats,
-                                   entry)
+      suggest_category_for_entry(portal_cats, sheet_cats,
+      entry)
 
       # invalid if not categoricvalue is found
       cell_comment = comment_cat_hash[:cell_comment]
@@ -1011,8 +900,8 @@ private
           cell_comment = "valid"
         else
           value = Categoricvalue.
-            create(:short => entry, :long => entry, :description => entry,
-                   :comment => "automatically generated")
+          create(:short => entry, :long => entry, :description => entry,
+          :comment => "automatically generated")
         end
       end
 
@@ -1024,7 +913,7 @@ private
 
   def year_data_column_import(data_column_id, portal_cats, sheet_cats)
     data_column = Datacolumn.find(data_column_id,
-                                              :include => [:sheetcells])
+    :include => [:sheetcells])
 
     cells = data_column.sheetcells
 
@@ -1034,8 +923,8 @@ private
       obs = cell.observation
 
       comment_cat_hash =
-        suggest_category_for_entry(portal_cats, sheet_cats,
-                                   entry)
+      suggest_category_for_entry(portal_cats, sheet_cats,
+      entry)
       cell_comment = comment_cat_hash[:cell_comment]
 
       if cell_comment != "invalid"
@@ -1046,8 +935,8 @@ private
         cell_comment = "valid"
       else
         value = Categoricvalue.
-          create(:short => entry, :long => entry, :description => entry,
-                 :comment => "automatically generated")
+        create(:short => entry, :long => entry, :description => entry,
+        :comment => "automatically generated")
       end
 
       cell.value = value
