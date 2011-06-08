@@ -873,7 +873,6 @@ class ImportsController < ApplicationController
       else
         begin
           entry = Date.strptime(entry, date_format)
-          Date.parse(entry)
 
           cell.accepted_value = entry.to_s
           cell_comment = "valid"
