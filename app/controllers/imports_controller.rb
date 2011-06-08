@@ -59,9 +59,9 @@ class ImportsController < ApplicationController
       end
 
       datatype = Datatype.find_by_name(data_column_ch[:import_data_type])
+      data_hash = @book.data_for_columnheader(columnheader)[:data]
 
-
-            unless data_hash.blank?
+      unless data_hash.blank?
         rownr_obs_hash = @dataset.rownr_observation_id_hash
 
         # Go through each entry in the spreadsheet
@@ -76,6 +76,7 @@ class ImportsController < ApplicationController
           end
 
           # create measurement (with value as import_value)
+          entry = entry.to_i.to_s if integer?(entry)
           sc = Sheetcell.create(:datacolumn => data_column_new,
                                 :observation_id => obs_id,
                                 :import_value => entry,
@@ -94,14 +95,14 @@ class ImportsController < ApplicationController
   def raw_data_per_header
     @dataset ||= Dataset.find(params[:dataset_id], :include => [:datacolumns, :upload_spreadsheet])
     @data_column ||= @dataset.datacolumns.select{|dc| dc.columnheader == params[:data_header]}.first
-      
+
     load_workbook
 
     # data column specific information: start with the column header
     columnheader = @data_column.columnheader
 
     data_group_title = method_index.blank? ? columnheader : Array(@book.data_description_sheet.column(5))[@book.method_index_for_columnheader(columnheader)]
-    @data_groups_available = @book.find_similar_data_groups(data_group_title)
+    @data_groups_available = Datagroup.find_similar_by_title(data_group_title)
 
     # collect all methods for the select button
     @methods_short_list = Datagroup.find(:all, :order => "title").collect{|m| [m.title, m.id]}
@@ -149,10 +150,10 @@ class ImportsController < ApplicationController
     end
 
     @sheet_cats = @data_column.import_categoricvalues.map{|imp_c| [imp_c.category.id,
-                                                                    imp_c.category.short,
-                                                                    imp_c.category.long
-                                                                  ]
-                                                          }
+        imp_c.category.short,
+        imp_c.category.long
+      ]
+    }
   end
 
   def update_data_header
@@ -261,8 +262,8 @@ class ImportsController < ApplicationController
       # by now values have been added
       unless data_column.categories.blank?
         redirect_to(:controller => :imports,
-                    :action => :data_column_categories,
-                    :data_column_id => data_column.id)
+        :action => :data_column_categories,
+        :data_column_id => data_column.id)
       else
         redirect_to :back
       end
@@ -325,7 +326,7 @@ class ImportsController < ApplicationController
         same_entry_cells.each do |cell|
           old_cat = cell.category
           cell.update_attributes(:category => cat,
-                                :comment => "valid")
+          :comment => "valid")
           old_cat.destroy # validates that it is not destroyed if
           # linked to measurement or import category
         end
@@ -360,7 +361,7 @@ class ImportsController < ApplicationController
         logger.debug cell.inspect
         old_cat = cell.category
         cell.update_attributes(:category => cat,
-                              :comment => "valid")
+        :comment => "valid")
         old_cat.destroy
       end
 
@@ -428,7 +429,7 @@ class ImportsController < ApplicationController
     spreadsheet.io.close
     @book = Dataworkbook.new(@dataset.upload_spreadsheet, spreadsheet)
   end
-  
+
   # Asks if object is a valid integer.
   def integer?(object)
     if numeric?(object)
@@ -484,9 +485,9 @@ class ImportsController < ApplicationController
           short = short.to_i.to_s if integer?(short)
           comment = 'added from category sheet in dataset: ' + dataset_title
           provided_hash = {:short => short,
-                            :long => prov_long[i0],
-                            :description => prov_description[i0],
-                            :comment => comment}
+            :long => prov_long[i0],
+            :description => prov_description[i0],
+            :comment => comment}
           logger.debug "provided_hash.inspect"
           logger.debug provided_hash.inspect
           provided_hash_array << provided_hash
@@ -523,9 +524,9 @@ class ImportsController < ApplicationController
 
       if cell_comment == "invalid"
         cat = Category.create(:short => entry,
-                              :long => entry,
-                              :description => entry,
-                              :comment => "automatically generated")
+        :long => entry,
+        :description => entry,
+        :comment => "automatically generated")
       end
 
       old_val = cell.category
@@ -560,9 +561,9 @@ class ImportsController < ApplicationController
         cell_comment = "valid"
       else
         value = Category.create(:short => entry,
-                                  :long => entry,
-                                  :description => entry,
-                                  :comment => "automatically generated")
+        :long => entry,
+        :description => entry,
+        :comment => "automatically generated")
         cell.category = value
       end
 
@@ -600,10 +601,10 @@ class ImportsController < ApplicationController
   def datetime_data_column_import(data_column_id, portal_cats, sheet_cats)
     data_column = Datacolumn.find(data_column_id, :include => :sheetcells)
     date_format =
-        case data_column.import_data_type
-          when "date(14.07.2009)" then '%d.%m.%Y'
-          when "date(2009-07-14)" then '%Y-%m-%d'
-        end
+    case data_column.import_data_type
+    when "date(14.07.2009)" then '%d.%m.%Y'
+    when "date(2009-07-14)" then '%Y-%m-%d'
+    end
 
     cells = data_column.sheetcells
 
@@ -627,9 +628,9 @@ class ImportsController < ApplicationController
           cell_comment = "valid"
         rescue
           value = Category.create(:short => entry,
-                                        :long => entry,
-                                        :description => entry,
-                                        :comment => "automatically generated")
+          :long => entry,
+          :description => entry,
+          :comment => "automatically generated")
           cell.category = value
         end
       end
@@ -660,9 +661,9 @@ class ImportsController < ApplicationController
         cell_comment = "valid"
       else
         value = Category.create(:short => entry,
-                                :long => entry,
-                                :description => entry,
-                                :comment => "automatically generated")
+        :long => entry,
+        :description => entry,
+        :comment => "automatically generated")
         cell.category = value
       end
 

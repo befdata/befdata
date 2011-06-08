@@ -14,7 +14,6 @@ class Datagroup < ActiveRecord::Base
 
   has_many :datacolumns
 
-
   #TODO FERRET
   #acts_as_ferret :fields => [:title, :description, :comment]
 
@@ -23,14 +22,11 @@ class Datagroup < ActiveRecord::Base
   validates_presence_of :title, :description
   validates_uniqueness_of :title
 
-
-  after_destroy :destroy_taggings  
-
+  after_destroy :destroy_taggings
   def destroy_taggings
     logger.debug "in destroy taggings"
     self.taggings.destroy_all
   end
-
 
   def datacell_categories
     dcs = self.datacolumns.collect{|dh| dh.sheetcells}.flatten
@@ -45,15 +41,15 @@ class Datagroup < ActiveRecord::Base
 
   def datacell_categories_sql
     Category.all(:conditions => ["id in (select sc.category_id
-                                                from public.datacolumns dc
-	                                              inner join public.sheetcells sc
-                                                on dc.Id = sc.datacolumn_id
-                                                inner join public.categories c
-                                                on sc.category_id = c.Id
-                                                where dc.datagroup_id=" + self.id.to_s +
-                                                " order by c.short)"
-                                        ]
-                      )
+      from public.datacolumns dc
+      inner join public.sheetcells sc
+      on dc.Id = sc.datacolumn_id
+      inner join public.categories c
+      on sc.category_id = c.Id
+      where dc.datagroup_id=" + self.id.to_s +
+      " order by c.short)"
+    ]
+    )
   end
 
   def abbr_method
@@ -70,11 +66,17 @@ class Datagroup < ActiveRecord::Base
 
     unless helper
       helper = Datagroup.create(:title => "Helper",
-                                :description => "Helper Method for something")
+      :description => "Helper Method for something")
     end
 
     return helper
   end
 
+  def self.find_similar_by_title(title)
+
+    # find suitable methods already available
+    methods_available = Datagroup.find_all_by_title(title)
+    methods_available = [Datagroup.helper_method] unless methods_available
+  end
 
 end

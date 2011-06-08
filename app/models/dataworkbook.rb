@@ -160,9 +160,8 @@ class Dataworkbook
 
   def data_for_columnheader(columnheader)
 
-    data_with_head = Array(@book.raw_data_sheet.column(raw_data_sheet.row(0).to_a.index(columnheader)))
-
     data_lookup_ch = {:data => nil, :rowmax => 1}
+    data_with_head = Array(raw_data_sheet.column(raw_data_sheet.row(0).to_a.index(columnheader)))
 
     if data_with_head.length > 1
       data_hash = generate_data_hash(data_with_head) # deletes dataheader
@@ -199,13 +198,6 @@ class Dataworkbook
     data_hash.delete_if{|k,v| k == 1}
 
     return data_hash
-  end
-
-  def find_similar_data_groups(data_group_title)
-
-    # find suitable methods already available
-    methods_available = Datagroup.find_all_by_title(data_group_title)
-    methods_available = [Datagroup.helper_method] unless methods_available
   end
 
   # The third sheet of the data workbook lists people which have
