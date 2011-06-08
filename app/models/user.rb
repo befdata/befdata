@@ -18,6 +18,8 @@ class User < ActiveRecord::Base
     
   end
 
+  has_one :user_avatar
+
   def to_label
     if salutation
       "#{firstname} #{lastname}, #{salutation}"
