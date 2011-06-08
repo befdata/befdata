@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110608115008) do
+ActiveRecord::Schema.define(:version => 20110608152544) do
 
   create_table "author_paperproposals", :force => true do |t|
     t.integer  "paperproposal_id"
@@ -129,6 +129,14 @@ ActiveRecord::Schema.define(:version => 20110608115008) do
     t.boolean  "student_file",          :default => false
     t.boolean  "destroy_me",            :default => false
     t.date     "destroy_me_date"
+  end
+
+  create_table "datasets_projects", :force => true do |t|
+    t.integer  "dataset_id"
+    t.integer  "project_id"
+    t.text     "comment"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "datetimevalues", :force => true do |t|
