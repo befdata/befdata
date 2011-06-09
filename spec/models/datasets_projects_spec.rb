@@ -1,5 +1,5 @@
 require 'spec_helper'
 
-describe DatasetsProject do
+describe DatasetProject do
   pending "add some examples to (or delete) #{__FILE__}"
 end
