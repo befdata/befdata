@@ -40,7 +40,7 @@
 class Dataset < ActiveRecord::Base
 
   acts_as_authorization_object :subject_class_name => 'User'
-  acts_as_authorization_object :subject_class_name => 'Project'
+  # acts_as_authorization_object :subject_class_name => 'Project'
 
   is_taggable :projecttags   # deprecated
   is_taggable :tags, :languages
@@ -54,6 +54,7 @@ class Dataset < ActiveRecord::Base
   has_many :freeformats, :dependent => :destroy
 
   has_many :dataset_projects
+  has_many :projects, :through => :dataset_projects
 
 
   validates_presence_of :title, :abstract, :filename

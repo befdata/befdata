@@ -1,6 +1,6 @@
 class Paperproposal < ActiveRecord::Base
 
-    acts_as_authorization_object :subject_class_name => 'Project'
+    # acts_as_authorization_object :subject_class_name => 'Project'
 
     belongs_to :author, :class_name => "User", :foreign_key => "author_id"
     belongs_to :corresponding, :class_name => "User", :foreign_key => "corresponding_id"

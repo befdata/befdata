@@ -336,7 +336,7 @@ class DatasetsController < ApplicationController
       @project = Project.find(params[:project][:project_id])
 
       @owner.has_role! :owner, @dataset
-      @project.has_role! :owner, @dataset
+      @dataset.projects << @project
 
       redirect_to url_for(:controller => :imports,
       :action => :dataset_freeformat_overview,
