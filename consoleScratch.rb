@@ -1,10 +1,22 @@
 # -*- coding: iso-8859-1 -*-
 
+## looping through projects to get associated paperproposals and fill the
+## paperproposals projects link table
+projects = Project.all
+projects.each do |project|
+  project_paperproposal_roles = project.role_objects.select { |ro| ro.authorizable_type == "Paperproposal" }
+  project_paperproposal_roles.each do |role|
+    paperproposal = Paperproposal.find(role.authorizable_id)
+    paperproposal.update_attributes(:authored_by_project => project)
+  end
+end
+
+
 ## looping through projects to get associated datasets and fill the
 ## datasets projects link table
 projects = Project.all
 projects.each do |project|
-  project_dataset_roles = p.role_objects.select { |ro| ro.authorizable_type == "Dataset" }
+  project_dataset_roles = project.role_objects.select { |ro| ro.authorizable_type == "Dataset" }
   project_dataset_roles.each do |role|
     dataset = Dataset.find(role.authorizable_id)
     dp = DatasetProject.create(:project => project,
