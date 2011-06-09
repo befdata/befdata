@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110609085010) do
+ActiveRecord::Schema.define(:version => 20110609103932) do
 
   create_table "author_paperproposals", :force => true do |t|
     t.integer  "paperproposal_id"
@@ -223,6 +223,7 @@ ActiveRecord::Schema.define(:version => 20110609085010) do
     t.datetime "updated_at"
     t.string   "initial_title"
     t.text     "comment"
+    t.integer  "project_id"
   end
 
   add_index "paperproposals", ["author_id"], :name => "index_paperproposals_on_author_id"

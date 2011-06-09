@@ -6,6 +6,8 @@ class Paperproposal < ActiveRecord::Base
     belongs_to :corresponding, :class_name => "User", :foreign_key => "corresponding_id"
     belongs_to :senior_author, :class_name => "User", :foreign_key => "senior_author_id"
 
+    belongs_to :authored_by_project, :class_name => "Project", :foreign_key => :project_id
+
     has_many :authors, :class_name => "User", :source => :user, :through => :author_paperproposals
     has_many :author_paperproposals, :dependent => :destroy, :include => [:user]
 
