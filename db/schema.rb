@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110608152544) do
+ActiveRecord::Schema.define(:version => 20110609074333) do
 
   create_table "author_paperproposals", :force => true do |t|
     t.integer  "paperproposal_id"
@@ -101,6 +101,14 @@ ActiveRecord::Schema.define(:version => 20110608152544) do
 
   add_index "dataset_paperproposals", ["dataset_id", "paperproposal_id"], :name => "index_dataset_paperproposals_on_dataset_id_and_paperproposal_id"
 
+  create_table "dataset_projects", :force => true do |t|
+    t.integer  "dataset_id"
+    t.integer  "project_id"
+    t.text     "comment"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "datasets", :force => true do |t|
     t.string   "title"
     t.text     "abstract"
@@ -129,14 +137,6 @@ ActiveRecord::Schema.define(:version => 20110608152544) do
     t.boolean  "student_file",          :default => false
     t.boolean  "destroy_me",            :default => false
     t.date     "destroy_me_date"
-  end
-
-  create_table "datasets_projects", :force => true do |t|
-    t.integer  "dataset_id"
-    t.integer  "project_id"
-    t.text     "comment"
-    t.datetime "created_at"
-    t.datetime "updated_at"
   end
 
   create_table "datetimevalues", :force => true do |t|
