@@ -53,6 +53,8 @@ class Dataset < ActiveRecord::Base
   has_many :sheetcells, :through => :datacolumns
   has_many :freeformats, :dependent => :destroy
 
+  has_many :datasets_projects
+
 
   validates_presence_of :title, :abstract, :filename
   validates_uniqueness_of :title, :filename
