@@ -121,13 +121,7 @@ class DatasetsController < ApplicationController
     # Assemble context owners
     @contacts = @dataset.users.select{|p| p.has_role?(:owner, @dataset)}
 
-    @projects = []
-    @contacts.each do |p|
-      projects = p.projects
-      projects = projects.uniq
-      @projects << projects
-    end
-    @projects = @projects.flatten.compact.uniq
+    @projects = @dataset.projects
 
     tmp = Datacolumn.find(:all, :conditions => [ "dataset_id = ?", params[:id] ],
     :order => 'columnnr ASC')
