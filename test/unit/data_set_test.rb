@@ -6,4 +6,10 @@ class DataSetTest < ActiveSupport::TestCase
     p_datasets = projects("Projects_001").datasets
     assert p_datasets
   end
+
+  test "datasets are associated to dataset projects" do
+    dataset = Dataset.first
+    assert !dataset.dataset_projects.nil?
+  end
+
 end

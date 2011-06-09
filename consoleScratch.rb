@@ -1,8 +1,16 @@
 # -*- coding: iso-8859-1 -*-
 
-
-testing saving
-
+## looping through projects to get associated datasets and fill the
+## datasets projects link table
+projects = Project.all
+projects.each do |project|
+  project_dataset_roles = p.role_objects.select { |ro| ro.authorizable_type == "Dataset" }
+  project_dataset_roles.each do |role|
+    dataset = Dataset.find(role.authorizable_id)
+    dp = DatasetProject.create(:project => project,
+                               :dataset => dataset)
+  end
+end
 
 
 * # manipulating provenance
@@ -123,7 +131,7 @@ cells.each do |cell|
   entry = Date.strptime(cell.import_value, '%d.%m.%Y')
   entry = entry.to_s
   value = Datetimevalue.new(:date => entry)
-  # Kategorien löschen
+  # Kategorien lï¿½schen
   if value.date.nil?
     problem_cells << cell
     p "Problem with cell #{cell.id}"

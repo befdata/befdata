@@ -5,6 +5,8 @@ class Project < ActiveRecord::Base
 
   acts_as_authorization_subject
 
+  has_many :dataset_projects
+
   validates_presence_of :shortname, :name
   validates_uniqueness_of :shortname, :name
 
