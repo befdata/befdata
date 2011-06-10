@@ -16,7 +16,7 @@ pushd $ROOT
   echo "Backup database"
   if [ ! -d $BACKUP_FOLDER ]; then mkdir $BACKUP_FOLDER; fi
 
-  pg_dump -U ${DB_USER} --password ${DB_NAME} > $BACKUP_FOLDER/${DB_NAME}-${SUFFIX}.sql
+  pg_dump -U ${DB_USER} ${DB_NAME} > $BACKUP_FOLDER/${DB_NAME}-${SUFFIX}.sql
   tar -czf $BACKUP_FOLDER/${DB_NAME}-${SUFFIX}-files.tgz $ROOT/files/*
 
 popd
