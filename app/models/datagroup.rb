@@ -34,25 +34,24 @@ class Datagroup < ActiveRecord::Base
 
   def datacell_categories
     dcs = self.datacolumns.collect{|dh| dh.sheetcells}.flatten
-    dcs = dcs.select{|dc| dc.value_type == "Categoricvalue"}
+    dcs = dcs.select{|dc| dc.datatype.name == "category"}
     cats = []
     unless dcs.blank?
-      cats = dcs.collect{|dc| dc.categoricvalue}.uniq
+      cats = dcs.collect{|dc| dc.category}.uniq
       cats = cats.sort{|x,y| x.short <=> y.short}
     end
     cats
   end
 
   def datacell_categories_sql
-    Categoricvalue.all(:conditions => ["id in (select cv.Id
+    Category.all(:conditions => ["id in (select sc.category_id
                                                 from public.datacolumns dc
 	                                              inner join public.sheetcells sc
                                                 on dc.Id = sc.datacolumn_id
-                                                inner join public.categoricvalues cv
-                                                on sc.value_id = cv.Id
+                                                inner join public.categories c
+                                                on sc.category_id = c.Id
                                                 where dc.datagroup_id=" + self.id.to_s +
-                                                " and sc.value_type = 'Categoricvalue'
-                                                order by cv.short)"
+                                                " order by c.short)"
                                         ]
                       )
   end
