@@ -1,4 +1,4 @@
 require 'test_helper'
 
-class Admin::CategoricvaluesHelperTest < ActionView::TestCase
+class Admin::CategoryHelperTest < ActionView::TestCase
 end

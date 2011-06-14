@@ -2,352 +2,352 @@
 Sheetcells_001: 
   id: "253"
   datacolumn_id: "33"
-  value_id: "65"
-  value_type: Numericvalue
   rownr: 
   comment: valid
   observation_id: "77"
   import_value: "5"
   created_at: 2011-06-01 13:47:47.563
   updated_at: 2011-06-01 13:50:23.624
+  accepted_value: "5"
+  datatype_id: 5
 Sheetcells_002: 
   id: "251"
   datacolumn_id: "33"
-  value_id: "66"
-  value_type: Numericvalue
   rownr: 
   comment: valid
   observation_id: "75"
   import_value: "3"
   created_at: 2011-06-01 13:47:47.52
   updated_at: 2011-06-01 13:50:24.363
+  accepted_value: "3"
+  datatype_id: 5
 Sheetcells_003: 
   id: "250"
   datacolumn_id: "33"
-  value_id: "67"
-  value_type: Numericvalue
   rownr: 
   comment: valid
   observation_id: "74"
   import_value: "2"
   created_at: 2011-06-01 13:47:47.254
   updated_at: 2011-06-01 13:50:24.381
+  accepted_value: "2"
+  datatype_id: 5
 Sheetcells_004: 
   id: "252"
   datacolumn_id: "33"
-  value_id: "59"
-  value_type: Categoricvalue
   rownr: 
   comment: valid
   observation_id: "76"
   import_value: na
   created_at: 2011-06-01 13:47:47.549
   updated_at: 2011-06-01 13:52:20.23
+  category_id: "59"
+  datatype_id: 4
 Sheetcells_005: 
   id: "257"
   datacolumn_id: "34"
-  value_id: "17"
-  value_type: Textvalue
   rownr: 
   comment: valid
   observation_id: "77"
   import_value: Metcalf
   created_at: 2011-06-01 13:47:47.959
   updated_at: 2011-06-01 13:53:08.364
+  accepted_value: Metcalf
+  datatype_id: 1
 Sheetcells_006: 
   id: "256"
   datacolumn_id: "34"
-  value_id: "18"
-  value_type: Textvalue
   rownr: 
   comment: valid
   observation_id: "76"
   import_value: C.K.Schneider
   created_at: 2011-06-01 13:47:47.948
   updated_at: 2011-06-01 13:53:09.131
+  accepted_value: C.K.Schneider
+  datatype_id: 1
 Sheetcells_007: 
   id: "255"
   datacolumn_id: "34"
-  value_id: "19"
-  value_type: Textvalue
   rownr: 
   comment: valid
   observation_id: "75"
   import_value: Fortune
   created_at: 2011-06-01 13:47:47.941
   updated_at: 2011-06-01 13:53:09.153
+  accepted_value: Fortune
+  datatype_id: 1
 Sheetcells_008: 
   id: "254"
   datacolumn_id: "34"
-  value_id: "20"
-  value_type: Textvalue
   rownr: 
   comment: valid
   observation_id: "74"
   import_value: (Siebold & Zucc.) Kuntze
   created_at: 2011-06-01 13:47:47.933
   updated_at: 2011-06-01 13:53:09.174
+  accepted_value: (Siebold & Zucc.) Kuntze
+  datatype_id: 1
 Sheetcells_009: 
   id: "261"
   datacolumn_id: "35"
-  value_id: "9"
-  value_type: Datetimevalue
   rownr: 
   comment: valid
   observation_id: "77"
   import_value: "1932"
   created_at: 2011-06-01 13:47:48.182
   updated_at: 2011-06-01 13:54:11.854
+  accepted_value: "1932"
+  datatype_id: 2
 Sheetcells_010: 
   id: "260"
   datacolumn_id: "35"
-  value_id: "10"
-  value_type: Datetimevalue
   rownr: 
   comment: valid
   observation_id: "76"
   import_value: "1912"
   created_at: 2011-06-01 13:47:48.156
   updated_at: 2011-06-01 13:54:12.231
+  accepted_value: "1912"
+  datatype_id: 2
 Sheetcells_011: 
   id: "259"
   datacolumn_id: "35"
-  value_id: "11"
-  value_type: Datetimevalue
   rownr: 
   comment: valid
   observation_id: "75"
   import_value: "1850"
   created_at: 2011-06-01 13:47:48.149
   updated_at: 2011-06-01 13:54:12.253
+  accepted_value: "1850"
+  datatype_id: 2
 Sheetcells_012: 
   id: "258"
   datacolumn_id: "35"
-  value_id: "12"
-  value_type: Datetimevalue
   rownr: 
   comment: valid
   observation_id: "74"
   import_value: "1891"
   created_at: 2011-06-01 13:47:48.122
   updated_at: 2011-06-01 13:54:12.271
+  accepted_value: "1891"
+  datatype_id: 2
 Sheetcells_013: 
   id: "265"
   datacolumn_id: "36"
-  value_id: "63"
-  value_type: Categoricvalue
   rownr: 
   comment: sheet match
   observation_id: "77"
   import_value: Diospyros japonica
   created_at: 2011-06-01 13:47:48.439
   updated_at: 2011-06-01 13:55:44.915
+  category_id: "63"
+  datatype_id: 4
 Sheetcells_014: 
   id: "264"
   datacolumn_id: "36"
-  value_id: "62"
-  value_type: Categoricvalue
   rownr: 
   comment: sheet match
   observation_id: "76"
   import_value: Betula luminifera
   created_at: 2011-06-01 13:47:48.43
   updated_at: 2011-06-01 13:55:45.369
+  category_id: "62"
+  datatype_id: 4
 Sheetcells_015: 
   id: "263"
   datacolumn_id: "36"
-  value_id: "61"
-  value_type: Categoricvalue
   rownr: 
   comment: sheet match
   observation_id: "75"
   import_value: Mahonia bealei
   created_at: 2011-06-01 13:47:48.422
   updated_at: 2011-06-01 13:55:45.391
+  category_id: "61"
+  datatype_id: 4
 Sheetcells_016: 
   id: "262"
   datacolumn_id: "36"
-  value_id: "60"
-  value_type: Categoricvalue
   rownr: 
   comment: sheet match
   observation_id: "74"
   import_value: Toxicodendron sylvestre
   created_at: 2011-06-01 13:47:48.414
   updated_at: 2011-06-01 13:55:45.41
+  category_id: "65"
+  datatype_id: 4
 Sheetcells_017: 
   id: "268"
   datacolumn_id: "37"
-  value_id: "68"
-  value_type: Numericvalue
   rownr: 
   comment: valid
   observation_id: "80"
   import_value: "10"
   created_at: 2011-06-01 15:02:40.28
   updated_at: 2011-06-01 15:03:36.508
+  accepted_value: "10"
+  datatype_id: 5
 Sheetcells_018: 
   id: "267"
   datacolumn_id: "37"
-  value_id: "59"
-  value_type: Categoricvalue
   rownr: 
   comment: portal match
   observation_id: "79"
   import_value: na
   created_at: 2011-06-01 15:02:40.264
   updated_at: 2011-06-01 15:03:36.522
+  category_id: "59"
+  datatype_id: 4
 Sheetcells_019: 
   id: "266"
   datacolumn_id: "37"
-  value_id: "69"
-  value_type: Numericvalue
   rownr: 
   comment: valid
   observation_id: "78"
   import_value: "2"
   created_at: 2011-06-01 15:02:40.153
   updated_at: 2011-06-01 15:03:36.751
+  accepted_value: "2"
+  datatype_id: 5
 Sheetcells_020: 
   id: "269"
   datacolumn_id: "37"
-  value_id: "64"
-  value_type: Categoricvalue
   rownr: 
   comment: valid
   observation_id: "81"
   import_value: <1
   created_at: 2011-06-01 15:02:40.305
   updated_at: 2011-06-01 15:03:52.913
+  category_id: "64"
+  datatype_id: 4
 Sheetcells_021: 
   id: "270"
   datacolumn_id: "38"
-  value_id: "21"
-  value_type: Textvalue
   rownr: 
   comment: valid
   observation_id: "78"
   import_value: (Siebold & Zucc.) Kuntze
   created_at: 2011-06-01 15:02:40.726
   updated_at: 2011-06-01 15:04:38.629
+  accepted_value: (Siebold & Zucc.) Kuntze
+  datatype_id: 1
 Sheetcells_022: 
   id: "271"
   datacolumn_id: "38"
-  value_id: "22"
-  value_type: Textvalue
   rownr: 
   comment: valid
   observation_id: "79"
   import_value: Fortune
   created_at: 2011-06-01 15:02:40.737
   updated_at: 2011-06-01 15:04:38.727
+  accepted_value: Fortune
+  datatype_id: 1
 Sheetcells_023: 
   id: "272"
   datacolumn_id: "38"
-  value_id: "23"
-  value_type: Textvalue
   rownr: 
   comment: valid
   observation_id: "80"
   import_value: (Siebold & Zucc.) Kuntze
   created_at: 2011-06-01 15:02:40.744
   updated_at: 2011-06-01 15:04:38.75
+  accepted_value: (Siebold & Zucc.) Kuntze
+  datatype_id: 1
 Sheetcells_024: 
   id: "273"
   datacolumn_id: "38"
-  value_id: "24"
-  value_type: Textvalue
   rownr: 
   comment: valid
   observation_id: "81"
   import_value: Fortune
   created_at: 2011-06-01 15:02:40.754
   updated_at: 2011-06-01 15:04:38.78
+  accepted_value: Fortune
+  datatype_id: 1
 Sheetcells_025: 
   id: "274"
   datacolumn_id: "39"
-  value_id: "13"
-  value_type: Datetimevalue
   rownr: 
   comment: valid
   observation_id: "78"
   import_value: "1891"
   created_at: 2011-06-01 15:02:40.884
   updated_at: 2011-06-01 15:05:28.171
+  accepted_value: "1891"
+  datatype_id: 2
 Sheetcells_026: 
   id: "275"
   datacolumn_id: "39"
-  value_id: "14"
-  value_type: Datetimevalue
   rownr: 
   comment: valid
   observation_id: "79"
   import_value: "1850"
   created_at: 2011-06-01 15:02:40.891
   updated_at: 2011-06-01 15:05:28.356
+  accepted_value: "1850"
+  datatype_id: 2
 Sheetcells_027: 
   id: "276"
   datacolumn_id: "39"
-  value_id: "15"
-  value_type: Datetimevalue
   rownr: 
   comment: valid
   observation_id: "80"
   import_value: "1891"
   created_at: 2011-06-01 15:02:40.898
   updated_at: 2011-06-01 15:05:28.379
+  accepted_value: "1891"
+  datatype_id: 2
 Sheetcells_028: 
   id: "277"
   datacolumn_id: "39"
-  value_id: "16"
-  value_type: Datetimevalue
   rownr: 
   comment: valid
   observation_id: "81"
   import_value: "1850"
   created_at: 2011-06-01 15:02:40.906
   updated_at: 2011-06-01 15:05:28.406
+  accepted_value: "1850"
+  datatype_id: 2
 Sheetcells_029: 
   id: "278"
   datacolumn_id: "40"
-  value_id: "60"
-  value_type: Categoricvalue
   rownr: 
   comment: portal match
   observation_id: "78"
   import_value: Toxicodendron sylvestre
   created_at: 2011-06-01 15:02:41.034
   updated_at: 2011-06-01 15:06:46.691
+  category_id: "65"
+  datatype_id: 4
 Sheetcells_030: 
   id: "279"
   datacolumn_id: "40"
-  value_id: "61"
-  value_type: Categoricvalue
   rownr: 
   comment: portal match
   observation_id: "79"
   import_value: Mahonia bealei
   created_at: 2011-06-01 15:02:41.042
   updated_at: 2011-06-01 15:06:46.789
+  category_id: "61"
+  datatype_id: 4
 Sheetcells_031: 
   id: "280"
   datacolumn_id: "40"
-  value_id: "60"
-  value_type: Categoricvalue
   rownr: 
   comment: portal match
   observation_id: "80"
   import_value: Toxicodendron sylvestre
   created_at: 2011-06-01 15:02:41.067
   updated_at: 2011-06-01 15:06:46.815
+  category_id: "65"
+  datatype_id: 4
 Sheetcells_032: 
   id: "281"
   datacolumn_id: "40"
-  value_id: "61"
-  value_type: Categoricvalue
   rownr: 
   comment: portal match
   observation_id: "81"
   import_value: Mahonia bealei
   created_at: 2011-06-01 15:02:41.074
   updated_at: 2011-06-01 15:06:46.832
+  category_id: "61"
+  datatype_id: 4

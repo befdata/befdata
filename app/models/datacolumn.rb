@@ -51,8 +51,7 @@ class Datacolumn < ActiveRecord::Base
   end
 
 
-  # Are there values (Datetimevalue, Numericvalue, Categoricvalue,
-  # Textvalue) associated to the measurements of this data column
+  # Are there values associated to the measurements of this data column
   # instance?
   def values_stored?
     ms = self.sheetcells.find(:all, :conditions => ["accepted_value IS NOT NULL OR accepted_value !='' OR category_id > 0"])
@@ -85,8 +84,8 @@ class Datacolumn < ActiveRecord::Base
     end
   end
 
-  # returns the first 'count' number of unique uploaded values
-  def uploaded_values(count)
+  # returns the first 'count' number unique imported values
+  def imported_values(count)
     values = self.sheetcells.find(:all, :order => "import_value",
                                         :limit => count,
                                         :group => "import_value",
@@ -94,7 +93,7 @@ class Datacolumn < ActiveRecord::Base
     return values
   end
 
-  # returns the first 'count' number of unique accepted values
+  # returns the first 'count' number unique accepted values
   def accepted_values(count)
     if(self.values_stored?)
       values = self.sheetcells.find(:all, :limit => count,
