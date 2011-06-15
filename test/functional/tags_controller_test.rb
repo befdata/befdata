@@ -2,7 +2,12 @@ require 'test_helper'
 
 class TagsControllerTest < ActionController::TestCase
   test "should get show" do
-    get :show, :id => 1
+    get :show, :id => Tag.first.id
+    assert_response :success
+  end
+
+  test "should get index" do
+    get :index
     assert_response :success
   end
 

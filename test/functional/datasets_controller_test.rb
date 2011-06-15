@@ -28,11 +28,10 @@ class DatasetsControllerTest < ActionController::TestCase
   #Assert
   end
 
-  test "show freeformat dataset should work" do
-  # Arrange
-
-  # Act
-
-  #Assert
+  test "should get show dataset" do
+    get :show, {:id => Dataset.first.id}
+    assert_response :success
   end
+
+  
 end

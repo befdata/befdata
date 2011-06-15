@@ -10,4 +10,10 @@ class ActiveSupport::TestCase
   fixtures :all
 
   # Add more helper methods to be used by all tests here...
+
+  def login_nadrowski
+    nadrowski = users(:users_006)
+    UserSession.create(nadrowski)
+  end
+
 end

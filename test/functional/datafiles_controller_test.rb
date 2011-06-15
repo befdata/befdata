@@ -1,8 +1,12 @@
 require 'test_helper'
+require 'authlogic/test_case'
 
 class DatafilesControllerTest < ActionController::TestCase
-  # Replace this with your real tests.
-  test "the truth" do
-    assert true
+  setup :activate_authlogic
+
+  test "should get download" do
+    login_nadrowski
+    get :download, {:id => Datafile.first}
+    assert_response :success
   end
 end
