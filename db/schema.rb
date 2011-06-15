@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110608115008) do
+ActiveRecord::Schema.define(:version => 20110609122951) do
 
   create_table "author_paperproposals", :force => true do |t|
     t.integer  "paperproposal_id"
@@ -102,6 +102,14 @@ ActiveRecord::Schema.define(:version => 20110608115008) do
   end
 
   add_index "dataset_paperproposals", ["dataset_id", "paperproposal_id"], :name => "index_dataset_paperproposals_on_dataset_id_and_paperproposal_id"
+
+  create_table "dataset_projects", :force => true do |t|
+    t.integer  "dataset_id"
+    t.integer  "project_id"
+    t.text     "comment"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "datasets", :force => true do |t|
     t.string   "title"
@@ -222,6 +230,7 @@ ActiveRecord::Schema.define(:version => 20110608115008) do
     t.datetime "updated_at"
     t.string   "initial_title"
     t.text     "comment"
+    t.integer  "project_id"
   end
 
   add_index "paperproposals", ["author_id"], :name => "index_paperproposals_on_author_id"

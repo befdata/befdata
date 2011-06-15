@@ -118,13 +118,7 @@ class DatasetsController < ApplicationController
     # Assemble context owners
     @contacts = @dataset.users.select{|p| p.has_role?(:owner, @dataset)}
 
-    @projects = []
-    @contacts.each do |p|
-      projects = p.projects
-      projects = projects.uniq
-      @projects << projects
-    end
-    @projects = @projects.flatten.compact.uniq
+    @projects = @dataset.projects
 
     tmp = Datacolumn.find(:all, :conditions => [ "dataset_id = ?", params[:id] ],
     :order => 'columnnr ASC')
@@ -333,7 +327,7 @@ class DatasetsController < ApplicationController
       @project = Project.find(params[:project][:project_id])
 
       @owner.has_role! :owner, @dataset
-      @project.has_role! :owner, @dataset
+      @dataset.projects << @project
 
       redirect_to url_for(:controller => :imports,
       :action => :dataset_freeformat_overview,
