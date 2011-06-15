@@ -10,10 +10,10 @@
       = "(#{person.roles_for(@project).map{|e| t("role."+e.name)}.join(",")})"
 
 
-- unless @project.datasets_owned.count==0
+- unless @project.datasets.empty?
   %b Datasets
   %ul
-    - @project.datasets_owned.each do |ds|
+    - @project.datasets.each do |ds|
       %li
         = link_to ds.title, {:controller => :datasets,
                                          :action => :show,
@@ -22,10 +22,10 @@
           = link_to image_tag("/images/cart_put.png"), create_cart_context_path(:dataset_id => ds.id), :method => :post
 
 
-- unless @project.paperproposals_owned.count==0
+- unless @project.authored_paperproposals.empty?
   %b Paper proposal submissions
   %ul
-    - @project.paperproposals_owned.each do |pp|
+    - @project.authored_paperproposals.each do |pp|
       %li
         = link_to pp.title, {:controller => :paperproposals,
                                          :action => :show,
