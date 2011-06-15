@@ -1,3 +1,4 @@
+#TODO Check if this really is Deprecated
 class Admin::RolesController < Admin::AdminController
   active_scaffold :roles do |config|
 
