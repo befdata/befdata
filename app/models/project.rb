@@ -42,12 +42,4 @@ class Project < ActiveRecord::Base
 
   end
 
-  def datasets_owned
-    Dataset.all.select { |ds| ds.accepts_role?(:owner, self)}
-  end
-
-  def paperproposals_owned
-    Paperproposal.all.select { |pp| pp.accepts_role?(:owner, self)}
-  end
-
 end

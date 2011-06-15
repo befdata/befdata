@@ -9,7 +9,7 @@ class ImportsControllerTest < ActionController::TestCase
     nadrowski = users(:users_006)
     UserSession.create(nadrowski)
 
-    freeformat = {:file => File.new(File.join(fixture_path, 'files', 'People.ppt'))}
+    freeformat = {:file => File.new(File.join(fixture_path, 'test_files_for_upload', 'empty_freeformat_file.ppt'))}
 
     # Act
     post(:create_dataset_freeformat, {:freeformat => freeformat})
