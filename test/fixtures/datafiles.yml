@@ -1,37 +1,37 @@
 --- 
-Datafiles_001: 
-  id: "1"
-  file_file_name: 8346952459374534ppNutrientCyclingtest.doc
-  file_content_type: application/msword
-  file_file_size: "57856"
-  file_updated_at: 2011-03-28 12:35:15.764
-  paperproposal_id: "1"
+datafiles_001: 
   created_at: 2011-03-28 12:35:15.824
   updated_at: 2011-03-28 12:35:15.824
-Datafiles_002: 
-  id: "3"
-  file_file_name: 8346952459374534ppProduction.doc
-  file_content_type: application/msword
   file_file_size: "57856"
-  file_updated_at: 2011-03-29 08:03:05.4432
-  paperproposal_id: "2"
+  file_content_type: application/msword
+  file_updated_at: 2011-03-28 12:35:15.764
+  file_file_name: 8346952459374534ppNutrientCyclingtest.doc
+  id: "1"
+  paperproposal_id: "1"
+datafiles_002: 
   created_at: 2011-03-29 08:03:05.5242
   updated_at: 2011-03-29 08:03:05.5242
-Datafiles_003: 
-  id: "4"
-  file_file_name: 8346952459374534species first test.xls
-  file_content_type: application/vnd.ms-excel
-  file_file_size: "24576"
-  file_updated_at: 2011-06-01 13:47:07.55
-  paperproposal_id: 
+  file_file_size: "57856"
+  file_content_type: application/msword
+  file_updated_at: 2011-03-29 08:03:05.4432
+  file_file_name: 8346952459374534ppProduction.doc
+  id: "3"
+  paperproposal_id: "2"
+datafiles_003: 
   created_at: 2011-06-01 13:47:07.662
   updated_at: 2011-06-01 13:47:07.662
-Datafiles_004: 
-  id: "5"
-  file_file_name: 8346952459374534species second test.xls
+  file_file_size: "24576"
   file_content_type: application/vnd.ms-excel
-  file_file_size: "23040"
-  file_updated_at: 2011-06-01 15:02:01.543
+  file_updated_at: 2011-06-01 13:47:07.55
+  file_file_name: 8346952459374534species first test.xls
+  id: "4"
   paperproposal_id: 
+datafiles_004: 
   created_at: 2011-06-01 15:02:01.648
   updated_at: 2011-06-01 15:02:01.648
+  file_file_size: "23040"
+  file_content_type: application/vnd.ms-excel
+  file_updated_at: 2011-06-01 15:02:01.543
+  file_file_name: 8346952459374534species second test.xls
+  id: "5"
+  paperproposal_id: 

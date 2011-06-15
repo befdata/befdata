@@ -1,253 +1,253 @@
 --- 
-Datagroups_001: 
-  id: "3"
-  informationsource: 
-  methodvaluetype: category
-  title: Plant organ sampled
-  description: "Leaf samples were taken with telescope pruning shears (lenght: up to 6.5m)  from the lower outer and preferentially sun exposed canopy when possible. Leaves of shrub species were sampled in upper canopy.  One year old twigs, and roots which a diameter between 1 and 3mm were taken."
-  instrumentation: 
-  timelatency: "1000"
-  timelatencyunit: year
-  comment: 
-  created_at: 2011-03-28 13:59:35.2564
-  updated_at: 2011-03-28 13:59:35.2564
-Datagroups_002: 
-  id: "14"
-  informationsource: 
-  methodvaluetype: number
-  title: elevation
-  description: elevation
-  instrumentation: 
-  timelatency: 
-  timelatencyunit: 
-  comment: 
-  created_at: 2011-05-01 11:46:40.633028
-  updated_at: 2011-05-01 11:46:40.633028
-Datagroups_003: 
-  id: "2"
-  informationsource: 
-  methodvaluetype: integer
-  title: Date time information
-  description: Date time information, given as year or as date or as date time.
-  instrumentation: 
-  timelatency: "1000"
-  timelatencyunit: years
-  comment: 
-  created_at: 2011-03-28 13:59:35.0964
-  updated_at: 2011-03-28 13:59:35.0964
-Datagroups_004: 
-  id: "13"
-  informationsource: 
-  methodvaluetype: number
-  title: latitude
-  description: latitude
-  instrumentation: 
-  timelatency: 
-  timelatencyunit: 
-  comment: 
-  created_at: 2011-05-01 11:46:39.105733
-  updated_at: 2011-05-01 11:46:39.105733
-Datagroups_005: 
-  id: "1"
-  informationsource: Flora of China, Helge Bruelheide
-  methodvaluetype: nominal
-  title: Scientific plant species name
-  description: The scientific species fullnames are based on the "Flora of China" identified by Teng Fang and verified by Helge Bruelheide (trees) and Alexandra Efmeier (herbs). Scientific species names consist of epithet and genus. For identification, the Author name and the year of the publications of the description are required.
-  instrumentation: 
-  timelatency: "10"
-  timelatencyunit: years
+datagroups_016: 
   comment: 
   created_at: 2011-03-28 13:59:34.1444
+  timelatencyunit: years
+  title: Scientific plant species name
   updated_at: 2011-03-28 13:59:34.1444
-Datagroups_006: 
-  id: "12"
-  informationsource: 
-  methodvaluetype: number
-  title: longitude
-  description: longitude
   instrumentation: 
-  timelatency: 
-  timelatencyunit: 
-  comment: 
-  created_at: 2011-05-01 11:46:37.573884
-  updated_at: 2011-05-01 11:46:37.573884
-Datagroups_007: 
-  id: "11"
-  informationsource: 
-  methodvaluetype: text
-  title: helper
-  description: helper
-  instrumentation: 
-  timelatency: 
-  timelatencyunit: 
-  comment: 
-  created_at: 2011-05-01 11:46:36.272046
-  updated_at: 2011-05-01 11:46:36.272046
-Datagroups_008: 
-  id: "10"
-  informationsource: 
-  methodvaluetype: category
-  title: Extinction series type within main experiment.
-  description: The acronym corresponds to the species pool of the random scenario (A, B, C), the directed extinction scenarios (R for rarity, S for SLA), the economic species (E), and  free succession plots (F).  In site B there is another treatment for genetic variation (G).
-  instrumentation: 
-  timelatency: 
-  timelatencyunit: 
-  comment: 
-  created_at: 2011-05-01 11:46:34.738593
-  updated_at: 2011-05-01 11:46:34.738593
-Datagroups_009: 
-  id: "9"
-  informationsource: 
-  methodvaluetype: number
-  title: Diversity based on taxon
-  description: Taxon diversity can be given as species richness, or other diversity indices.  We also use rarefied species richness, shannon diversity index, and phylogenetic diversity indices.
-  instrumentation: 
-  timelatency: 
-  timelatencyunit: 
-  comment: 
-  created_at: 2011-05-01 11:46:33.176676
-  updated_at: 2011-05-01 11:46:33.176676
-Datagroups_010: 
-  id: "8"
-  informationsource: 
-  methodvaluetype: category
-  title: Site B plot acronym according to design spreadsheet.
-  description: Site B plot number according to design spreadsheet. Plots are named according to their location on the original spreadsheet used for treatment design. This has letters from West to East and numbers from North to south. Some plots were moved half a gridcell (1 mu) so be suitable for planting (grid cell loctype)
-  instrumentation: 
-  timelatency: 
-  timelatencyunit: 
-  comment: 
-  created_at: 2011-05-01 11:46:31.881328
-  updated_at: 2011-05-01 11:46:31.881328
-Datagroups_011: 
-  id: "7"
-  informationsource: 
-  methodvaluetype: number
-  title: Carbon
-  description: Carbon
-  instrumentation: 
-  timelatency: 
-  timelatencyunit: 
-  comment: 
-  created_at: 2011-03-28 13:59:35.8384
-  updated_at: 2011-03-28 13:59:35.8384
-Datagroups_012: 
-  id: "18"
-  informationsource: 
-  methodvaluetype: 
-  title: "BEF members: group pictures with names 2010"
-  description: Slide showing mostly European members of the BEF China project including names and projects.
-  instrumentation: 
-  timelatency: 
-  timelatencyunit: 
-  comment: 
-  created_at: 2011-05-01 12:51:22.491656
-  updated_at: 2011-05-01 12:51:22.491656
-Datagroups_013: 
-  id: "6"
-  informationsource: 
-  methodvaluetype: text
-  title: Helper
-  description: Helper column give further information on other columns or summarize several columns
-  instrumentation: 
-  timelatency: 
-  timelatencyunit: 
-  comment: 
-  created_at: 2011-03-28 13:59:35.7254
-  updated_at: 2011-03-28 13:59:35.7254
-Datagroups_014: 
-  id: "17"
-  informationsource: 
-  methodvaluetype: number
-  title: solar radiation
-  description: solar radiation
-  instrumentation: 
-  timelatency: 
-  timelatencyunit: 
-  comment: 
-  created_at: 2011-05-01 11:46:46.622642
-  updated_at: 2011-05-01 11:46:46.622642
-Datagroups_015: 
-  id: "5"
-  informationsource: 
+  id: "1"
+  timelatency: "10"
+  description: The scientific species fullnames are based on the "Flora of China" identified by Teng Fang and verified by Helge Bruelheide (trees) and Alexandra Efmeier (herbs). Scientific species names consist of epithet and genus. For identification, the Author name and the year of the publications of the description are required.
+  informationsource: Flora of China, Helge Bruelheide
   methodvaluetype: nominal
-  title: BEF research plot name
-  description: "Reasearch plots of the Biodiversity - Ecosystem functioning experiment (BEF-China). There are three main sites for research plots in the BEF Experiment: Comparative Study Plots (CSP) in the  Gutianshan Nature Reserve, having a size of 30x30m^2, measured on the ground. Main Experiment plots have a size of 1 mu, which is about 25x25m^2 in horizontal projection. Pilot Study Plots have a size of 1x1 m^2."
-  instrumentation: 
-  timelatency: "500"
-  timelatencyunit: year
-  comment: 
-  created_at: 2011-03-28 13:59:35.5574
-  updated_at: 2011-03-28 13:59:35.5574
-Datagroups_016: 
-  id: "16"
-  informationsource: 
-  methodvaluetype: number
-  title: slope
-  description: slope
-  instrumentation: 
-  timelatency: 
-  timelatencyunit: 
-  comment: 
-  created_at: 2011-05-01 11:46:45.072263
-  updated_at: 2011-05-01 11:46:45.072263
-Datagroups_017: 
-  id: "4"
-  informationsource: 
-  methodvaluetype: nominal
-  title: Metal Tag Numbers in the CSPs
-  description: "The stems were marked with a metal tag with a code compound of a number of six positions. The tag was attached to each individual by attaching it with a wire sorrounding one stem, taking care to leave it long enough to allow the grow of the stem. Normally the wire was attached between 1 and 1.8m over the ground. If the individual had many stems, such as often seen in shrubs, only one of the stems was tagged. "
-  instrumentation: letters are attached if the same number was used for different tree individuals. This occurred a few times. Numbers are unique only within CSPs
-  timelatency: "30"
-  timelatencyunit: year
-  comment: 
-  created_at: 2011-03-28 13:59:35.4144
-  updated_at: 2011-03-28 13:59:35.4144
-Datagroups_018: 
-  id: "15"
-  informationsource: 
-  methodvaluetype: number
-  title: aspect
-  description: aspect
-  instrumentation: 
-  timelatency: 
-  timelatencyunit: 
-  comment: 
-  created_at: 2011-05-01 11:46:42.218239
-  updated_at: 2011-05-01 11:46:42.218239
-Datagroups_019: 
-  id: "19"
-  informationsource: 
-  methodvaluetype: number
-  title: height
-  description: height in m
-  instrumentation: 
-  timelatency: 
-  timelatencyunit: 
+datagroups_005: 
   comment: 
   created_at: 2011-06-01 13:47:45.502
-  updated_at: 2011-06-01 13:47:45.502
-Datagroups_020: 
-  id: "20"
-  informationsource: 
-  methodvaluetype: text
-  title: Author name for species description
-  description: Author name for species description
-  instrumentation: 
-  timelatency: 
   timelatencyunit: 
+  title: height
+  updated_at: 2011-06-01 13:47:45.502
+  instrumentation: 
+  id: "19"
+  timelatency: 
+  description: height in m
+  informationsource: 
+  methodvaluetype: number
+datagroups_017: 
+  comment: 
+  created_at: 2011-03-28 13:59:35.8384
+  timelatencyunit: 
+  title: Carbon
+  updated_at: 2011-03-28 13:59:35.8384
+  instrumentation: 
+  id: "7"
+  timelatency: 
+  description: Carbon
+  informationsource: 
+  methodvaluetype: number
+datagroups_006: 
+  comment: 
+  created_at: 2011-05-01 11:46:46.622642
+  timelatencyunit: 
+  title: solar radiation
+  updated_at: 2011-05-01 11:46:46.622642
+  instrumentation: 
+  id: "17"
+  timelatency: 
+  description: solar radiation
+  informationsource: 
+  methodvaluetype: number
+datagroups_018: 
+  comment: 
+  created_at: 2011-03-28 13:59:35.4144
+  timelatencyunit: year
+  title: Metal Tag Numbers in the CSPs
+  updated_at: 2011-03-28 13:59:35.4144
+  instrumentation: letters are attached if the same number was used for different tree individuals. This occurred a few times. Numbers are unique only within CSPs
+  id: "4"
+  timelatency: "30"
+  description: "The stems were marked with a metal tag with a code compound of a number of six positions. The tag was attached to each individual by attaching it with a wire sorrounding one stem, taking care to leave it long enough to allow the grow of the stem. Normally the wire was attached between 1 and 1.8m over the ground. If the individual had many stems, such as often seen in shrubs, only one of the stems was tagged. "
+  informationsource: 
+  methodvaluetype: nominal
+datagroups_007: 
+  comment: 
+  created_at: 2011-05-01 11:46:34.738593
+  timelatencyunit: 
+  title: Extinction series type within main experiment.
+  updated_at: 2011-05-01 11:46:34.738593
+  instrumentation: 
+  id: "10"
+  timelatency: 
+  description: The acronym corresponds to the species pool of the random scenario (A, B, C), the directed extinction scenarios (R for rarity, S for SLA), the economic species (E), and  free succession plots (F).  In site B there is another treatment for genetic variation (G).
+  informationsource: 
+  methodvaluetype: category
+datagroups_019: 
+  comment: 
+  created_at: 2011-05-01 12:51:22.491656
+  timelatencyunit: 
+  title: "BEF members: group pictures with names 2010"
+  updated_at: 2011-05-01 12:51:22.491656
+  instrumentation: 
+  id: "18"
+  timelatency: 
+  description: Slide showing mostly European members of the BEF China project including names and projects.
+  informationsource: 
+  methodvaluetype: 
+datagroups_008: 
+  comment: 
+  created_at: 2011-03-28 13:59:35.0964
+  timelatencyunit: years
+  title: Date time information
+  updated_at: 2011-03-28 13:59:35.0964
+  instrumentation: 
+  id: "2"
+  timelatency: "1000"
+  description: Date time information, given as year or as date or as date time.
+  informationsource: 
+  methodvaluetype: integer
+datagroups_020: 
+  comment: 
+  created_at: 2011-05-01 11:46:37.573884
+  timelatencyunit: 
+  title: longitude
+  updated_at: 2011-05-01 11:46:37.573884
+  instrumentation: 
+  id: "12"
+  timelatency: 
+  description: longitude
+  informationsource: 
+  methodvaluetype: number
+datagroups_009: 
   comment: 
   created_at: 2011-06-01 13:47:47.767
-  updated_at: 2011-06-01 13:47:47.767
-Datagroups_021: 
-  id: "21"
-  informationsource: 
-  methodvaluetype: datetime
-  title: Date time value
-  description: Date time value
-  instrumentation: 
-  timelatency: 
   timelatencyunit: 
+  title: Author name for species description
+  updated_at: 2011-06-01 13:47:47.767
+  instrumentation: 
+  id: "20"
+  timelatency: 
+  description: Author name for species description
+  informationsource: 
+  methodvaluetype: text
+datagroups_021: 
+  comment: 
+  created_at: 2011-03-28 13:59:35.2564
+  timelatencyunit: year
+  title: Plant organ sampled
+  updated_at: 2011-03-28 13:59:35.2564
+  instrumentation: 
+  id: "3"
+  timelatency: "1000"
+  description: "Leaf samples were taken with telescope pruning shears (lenght: up to 6.5m)  from the lower outer and preferentially sun exposed canopy when possible. Leaves of shrub species were sampled in upper canopy.  One year old twigs, and roots which a diameter between 1 and 3mm were taken."
+  informationsource: 
+  methodvaluetype: category
+datagroups_010: 
+  comment: 
+  created_at: 2011-03-28 13:59:35.5574
+  timelatencyunit: year
+  title: BEF research plot name
+  updated_at: 2011-03-28 13:59:35.5574
+  instrumentation: 
+  id: "5"
+  timelatency: "500"
+  description: "Reasearch plots of the Biodiversity - Ecosystem functioning experiment (BEF-China). There are three main sites for research plots in the BEF Experiment: Comparative Study Plots (CSP) in the  Gutianshan Nature Reserve, having a size of 30x30m^2, measured on the ground. Main Experiment plots have a size of 1 mu, which is about 25x25m^2 in horizontal projection. Pilot Study Plots have a size of 1x1 m^2."
+  informationsource: 
+  methodvaluetype: nominal
+datagroups_011: 
+  comment: 
+  created_at: 2011-05-01 11:46:33.176676
+  timelatencyunit: 
+  title: Diversity based on taxon
+  updated_at: 2011-05-01 11:46:33.176676
+  instrumentation: 
+  id: "9"
+  timelatency: 
+  description: Taxon diversity can be given as species richness, or other diversity indices.  We also use rarefied species richness, shannon diversity index, and phylogenetic diversity indices.
+  informationsource: 
+  methodvaluetype: number
+datagroups_012: 
+  comment: 
+  created_at: 2011-05-01 11:46:39.105733
+  timelatencyunit: 
+  title: latitude
+  updated_at: 2011-05-01 11:46:39.105733
+  instrumentation: 
+  id: "13"
+  timelatency: 
+  description: latitude
+  informationsource: 
+  methodvaluetype: number
+datagroups_001: 
+  comment: 
+  created_at: 2011-05-01 11:46:42.218239
+  timelatencyunit: 
+  title: aspect
+  updated_at: 2011-05-01 11:46:42.218239
+  instrumentation: 
+  id: "15"
+  timelatency: 
+  description: aspect
+  informationsource: 
+  methodvaluetype: number
+datagroups_013: 
   comment: 
   created_at: 2011-06-01 13:47:47.992
+  timelatencyunit: 
+  title: Date time value
   updated_at: 2011-06-01 13:47:47.992
+  instrumentation: 
+  id: "21"
+  timelatency: 
+  description: Date time value
+  informationsource: 
+  methodvaluetype: datetime
+datagroups_002: 
+  comment: 
+  created_at: 2011-03-28 13:59:35.7254
+  timelatencyunit: 
+  title: Helper
+  updated_at: 2011-03-28 13:59:35.7254
+  instrumentation: 
+  id: "6"
+  timelatency: 
+  description: Helper column give further information on other columns or summarize several columns
+  informationsource: 
+  methodvaluetype: text
+datagroups_014: 
+  comment: 
+  created_at: 2011-05-01 11:46:45.072263
+  timelatencyunit: 
+  title: slope
+  updated_at: 2011-05-01 11:46:45.072263
+  instrumentation: 
+  id: "16"
+  timelatency: 
+  description: slope
+  informationsource: 
+  methodvaluetype: number
+datagroups_003: 
+  comment: 
+  created_at: 2011-05-01 11:46:36.272046
+  timelatencyunit: 
+  title: helper
+  updated_at: 2011-05-01 11:46:36.272046
+  instrumentation: 
+  id: "11"
+  timelatency: 
+  description: helper
+  informationsource: 
+  methodvaluetype: text
+datagroups_015: 
+  comment: 
+  created_at: 2011-05-01 11:46:31.881328
+  timelatencyunit: 
+  title: Site B plot acronym according to design spreadsheet.
+  updated_at: 2011-05-01 11:46:31.881328
+  instrumentation: 
+  id: "8"
+  timelatency: 
+  description: Site B plot number according to design spreadsheet. Plots are named according to their location on the original spreadsheet used for treatment design. This has letters from West to East and numbers from North to south. Some plots were moved half a gridcell (1 mu) so be suitable for planting (grid cell loctype)
+  informationsource: 
+  methodvaluetype: category
+datagroups_004: 
+  comment: 
+  created_at: 2011-05-01 11:46:40.633028
+  timelatencyunit: 
+  title: elevation
+  updated_at: 2011-05-01 11:46:40.633028
+  instrumentation: 
+  id: "14"
+  timelatency: 
+  description: elevation
+  informationsource: 
+  methodvaluetype: number
