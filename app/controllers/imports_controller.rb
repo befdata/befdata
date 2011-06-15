@@ -35,54 +35,12 @@ class ImportsController < ApplicationController
     load_workbook
 
     # Are there data columns already associated to this Dataset?
-    return unless @dataset.datacolumns.length == 0 # which means that there are no observations nor measurements
+    return unless @book.columnheaders_unique? # we can only go on, if columnheaders of data columns are unique
 
-    return unless @book.columnheaders_unique? # we can only go on, if column headers of data columns are unique
-
-    # generate data column instances
-    @book.columnheaders_raw.each do |columnheader|
-
-      # Data column information
-      data_column_ch = @book.data_column_info_for_columnheader(columnheader)
-      data_column_ch[:dataset_id] = @dataset.id
-
-      data_group_ch = @book.methodsheet_datagroup(columnheader)
-
-      data_group = Datagroup.find_by_title(data_group_ch[:title])
-      data_group = Datagroup.create(data_group_ch) if data_group.blank?
-
-      data_column_ch[:datagroup_id] = data_group.id
-
-      data_column_new = Datacolumn.create(data_column_ch)
-      unless data_column_new.comment.blank?
-        data_column_new.tag_list = data_column_new.comment
-      end
-
-      datatype = Datatype.find_by_name(data_column_ch[:import_data_type])
-      data_hash = @book.data_for_columnheader(columnheader)[:data]
-
-      unless data_hash.blank?
-        rownr_obs_hash = @dataset.rownr_observation_id_hash
-
-        # Go through each entry in the spreadsheet
-        data_hash.each do |rownr, entry|
-          # Is there an observation in this Dataset with this rownr?
-          obs_id = rownr_obs_hash.select{|rnr, obs_id| rnr == rownr}.flatten[1]
-
-          # If not, create a new Observation
-          if obs_id.nil?
-            obs = Observation.create(:rownr => rownr)
-            obs_id = obs.id
-          end
-
-          # create measurement (with value as import_value)
-          entry = entry.to_i.to_s if integer?(entry)
-          sc = Sheetcell.create(:datacolumn => data_column_new,
-                                :observation_id => obs_id,
-                                :import_value => entry,
-                                :datatype => datatype)
-        end # is there data provided?
-      end
+    if @dataset.datacolumns.length == 0
+      @just_uploaded = true
+      Dataworkbook.delay.import_data(@dataset.id)
+    else
     end
   end # raw data overview
 
@@ -425,9 +383,7 @@ class ImportsController < ApplicationController
   private
 
   def load_workbook
-    spreadsheet = Spreadsheet.open @dataset.upload_spreadsheet.file.path
-    spreadsheet.io.close
-    @book = Dataworkbook.new(@dataset.upload_spreadsheet, spreadsheet)
+    @book = Dataworkbook.new(@dataset.upload_spreadsheet)
   end
 
   # Asks if object is a valid integer.

@@ -51,11 +51,8 @@ class DatasetsController < ApplicationController
       redirect_to :back
     end
 
-    spreadsheet = Spreadsheet.open datafile.file.path
-    spreadsheet.io.close # Close the file after reading
-
     begin
-      book = Dataworkbook.new(datafile, spreadsheet)
+      book = Dataworkbook.new(datafile)
       # after closing, the file can be destroyed if necessary, the
       # information stays in the book object
 
