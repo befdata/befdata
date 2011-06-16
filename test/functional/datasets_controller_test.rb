@@ -5,8 +5,7 @@ class DatasetsControllerTest < ActionController::TestCase
 
   test "after create freeformat file new dataset should be created" do
   # Arrange
-  nadrowski = users(:users_006)
-  UserSession.create(nadrowski)
+  login_nadrowski
 
   freeformat_file = {:file => File.new(File.join(fixture_path, 'test_files_for_uploads', 'empty_test_file.txt'))}
   freeformat = Freeformat.create(freeformat_file)
