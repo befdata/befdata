@@ -8,7 +8,7 @@ class DatasetsControllerTest < ActionController::TestCase
   nadrowski = users(:users_006)
   UserSession.create(nadrowski)
 
-  freeformat_file = {:file => File.new(File.join(fixture_path, 'test_files_for_upload', 'empty_test_file.txt'))}
+  freeformat_file = {:file => File.new(File.join(fixture_path, 'test_files_for_uploads', 'empty_test_file.txt'))}
   freeformat = Freeformat.create(freeformat_file)
 
   # Act
