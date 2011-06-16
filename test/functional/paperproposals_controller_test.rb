@@ -9,5 +9,10 @@ class PaperproposalsControllerTest < ActionController::TestCase
     assert_response :success
   end
 
+  test "without login should not show the index and should redirect to login" do
+    get :index
+    assert_redirected_to :login
+  end
+
   
 end
