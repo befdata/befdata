@@ -289,9 +289,9 @@ ActiveRecord::Schema.define(:version => 20110608144129) do
   end
 
   create_table "user_avatars", :force => true do |t|
-    t.string   "user_avatar_file_name"
-    t.string   "user_avatar_content_type"
-    t.integer  "user_avatar_file_size"
+    t.string   "avatar_file_name"
+    t.string   "avatar_content_type"
+    t.integer  "avatar_file_size"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

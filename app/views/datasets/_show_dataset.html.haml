@@ -2,7 +2,7 @@
   %p
     For more information, please contact
     - @contacts.each do |c|
-      #{link_to c, user_path(c.path_name)}
+      = render c
     The following projects were involved:
     - @projects.each do |p|
       #{link_to p, project_path(p.id)}

@@ -18,7 +18,7 @@ class Admin::UsersController < Admin::AdminController
     config.show.columns = [:firstname, :middlenames, :lastname, :salutation, :comment, :roles_without_objects, :roles_with_objects, :email]
 
     # list config
-    config.columns = [:firstname, :lastname, :roles_without_objects, :roles_with_objects]
+    config.columns = [:firstname, :lastname, :roles_without_objects, :roles_with_objects, :user_avatar]
     config.list.sorting = { :lastname => :asc }
 
     [config.update, config.create].each do |c|
@@ -28,7 +28,7 @@ class Admin::UsersController < Admin::AdminController
         :institution_name, :institution_url,
         :institution_phone, :institution_fax,
         :street, :city, :country,
-        :admin, :project_board]
+        :admin, :project_board, :user_avatar]
     end
 
     config.subform.layout = :vertical

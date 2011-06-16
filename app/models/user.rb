@@ -14,11 +14,16 @@ class User < ActiveRecord::Base
   has_many :for_paperproposal_votes, :class_name => "PaperproposalVote",
            :source => :paperproposal_votes, :conditions => {:project_board_vote => false }
 
-  belongs_to :project do
-    
-  end
+  belongs_to :project
 
-  has_one :user_avatar
+  belongs_to :user_avatar
+
+  after_initialize :init
+
+
+  def init
+    self.user_avatar ||= self.user_avatar = UserAvatar.find_by_avatar_file_name("avatar-missing.png")
+  end
 
   def to_label
     if salutation
@@ -132,6 +137,8 @@ class User < ActiveRecord::Base
     end
     @projectsarray
   end
+
+
 
 
 end

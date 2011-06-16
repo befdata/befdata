@@ -1,6 +1,7 @@
-%span{:style => "font-size: large;"}= @user.full_name
+%h2{:style => "font-size: large;"}
+  = render :partial => @user, :locals => {:avatar => :large}
 
-.comment
+.user_show
   - unless @user.institution_phone.blank?
     = "#{t("address.phone")}: #{@user.institution_phone}"
     %br/

@@ -1,9 +1,9 @@
 class CreateUserAvatars < ActiveRecord::Migration
   def self.up
     create_table :user_avatars do |t|
-      t.string :user_avatar_file_name
-      t.string :user_avatar_content_type
-      t.integer :user_avatar_file_size
+      t.string :avatar_file_name
+      t.string :avatar_content_type
+      t.integer :avatar_file_size
 
       t.timestamps
     end
