@@ -34,6 +34,7 @@ Befchina::Application.routes.draw do
 #  match 'imports/create_dataset_datafile' => 'imports#create_dataset_datafile'
   match 'imports/create_freeformat_datafile' => 'imports#create_freeformat_datafile'
   match 'imports/create_dataset_freeformat' => 'imports#create_dataset_freeformat'
+  match 'imports/update_freeformat_file' => 'imports#update_freeformat_file'
   match 'imports/raw_data_overview' => 'imports#raw_data_overview'
   match 'imports/raw_data_per_header' => 'imports#raw_data_per_header'
   match 'imports/update_data_header' => 'imports#update_data_header'

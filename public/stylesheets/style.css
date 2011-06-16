@@ -416,3 +416,11 @@ a img {
 
 }
 
+.noBullet {
+  list-style: none none;
+}
+
+.hidden {
+    display: none;
+}
+

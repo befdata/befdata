@@ -31,6 +31,18 @@ class ImportsController < ApplicationController
     end
   end
 
+  def update_freeformat_file
+    freeformat = Freeformat.find(params[:freeformat][:id])
+    freeformat.file = params[:freeformat][:file]
+    if freeformat.save
+      redirect_to :controller => :datasets, :action => :show, :id => freeformat.dataset.id
+    else
+      flash[:errors] = freeformat.errors
+      redirect_to :back
+    end
+  
+  end
+
   def raw_data_overview
     @dataset ||= Dataset.find(params[:dataset_id], :include => [:datacolumns])
 
