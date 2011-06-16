@@ -32,7 +32,12 @@
     There are #{@freeformats.length} free format files available for this data set.
   %ul
     - @freeformats.each do |ff|
-      %li.noBullet= link_to ff.file_file_name, ff.file.url
+      %li.noBullet
+        = link_to ff.file_file_name, ff.file.url
+        %a.showr{:id => "freeformat_#{ff.id}"} change file
+        .hidden{:id => "form_freeformat_#{ff.id}"}
+          = render :partial => 'freeformats/edit', :locals => {:freeformat => ff}
+
 
 - unless @measmeths.blank?
   The following data columns are available in the raw data part of this data set:

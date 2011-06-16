@@ -420,3 +420,7 @@ a img {
   list-style: none none;
 }
 
+.hidden {
+    display: none;
+}
+
