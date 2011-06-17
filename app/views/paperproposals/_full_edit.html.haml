@@ -6,52 +6,62 @@
       = f.submit
 
 
-  %div.box
-    %h3 Collect and show Context
+  %div.box#datasets
+    %h3 Collect and show Datasets
     - form_for @paperproposal do |f|
       - is_warning = false
       %div.scroll_checkboxes
-        - for dataset in @datasets
-          - dgdr = @paperproposal.dataset_paperproposals.find_by_dataset_id(dataset.id)
-          - is_in = @current_cart.datasets.include?(dataset) ? true : false
-          - if is_in && dgdr.nil?
-            - is_warning = true
-          = label_tag dataset.title
-          = check_box_tag "datasets[]", dataset.id, ( is_in || !dgdr.nil?)
-          = select "aspect", dataset.id, ["main", "side"], { :include_blank => true,
-              :selected => dgdr.nil? ? false : dgdr.aspect }
-          %br
+        %ul
+          - for dataset in @datasets
+            - dgdr = @paperproposal.dataset_paperproposals.find_by_dataset_id(dataset.id)
+            - is_in = @current_cart.datasets.include?(dataset) ? true : false
+            - if is_in && dgdr.nil?
+              - is_warning = true
+            %li.noBullet
+              = label_tag dataset.title
+              = check_box_tag "datasets[]", dataset.id, ( is_in || !dgdr.nil?)
+              = select "aspect", dataset.id, ["main", "side"],
+                  { :include_blank => true,
+                    :selected => dgdr.nil? ? false : dgdr.aspect }
+
       = f.submit :add
       - if is_warning
         = image_tag("/images/error.png", :title => "Warning")
         Warning! There are data columns from cart not added to this data proposal
 
-  %div.box
+  %div.box#author-list
     %h3 complete Author list
 
     %ul
-      %li First Author
-      %ul
-        %li= @paperproposal.author.to_label
-      %li Corresponding Author
-      %ul
-        %li= @paperproposal.corresponding.to_label
-      %li Senior Author
-      %ul
-        %li= @paperproposal.senior_author.to_label
-      %li Main Proponent (self selected)
-      %ul
-        - @paperproposal.author_paperproposals.select{|join| join.kind == "user"}.each do |author_data_request|
-          = author_data_request.user.to_label
-      %li Potential Contributor (auto-generated)
-      %ul
-        - @paperproposal.author_paperproposals.select{|join| join.kind == "main"}.each do |author_data_request|
-          %li= author_data_request.user.to_label
-      %li Acknowledgment
-      %ul
-        - @paperproposal.author_paperproposals.select{|join| join.kind == "ack"}.each do |author_data_request|
-          %li= author_data_request.user.to_label
-      %li Complete author list
+      %li#first
+        First Author
+        %ul
+          %li= @paperproposal.author.to_label
+      %li#corresponding
+        Corresponding Author
+        %ul
+          %li= @paperproposal.corresponding.to_label
+      %li#senior
+        Senior Author
+        %ul
+          %li= @paperproposal.senior_author.to_label
+      %li#main
+        Main Proponent (self selected)
+        %ul
+          - @paperproposal.author_paperproposals.select{|join| join.kind == "user"}.each do |author_data_request|
+            %li= author_data_request.user.to_label
+      %li#potential
+        Potential Contributor (auto-generated)
+        %ul
+          - @paperproposal.author_paperproposals.select{|join| join.kind == "main"}.each do |author_data_request|
+            %li= author_data_request.user.to_label
+      %li#ack
+        Acknowledgment
+        %ul
+          - @paperproposal.author_paperproposals.select{|join| join.kind == "ack"}.each do |author_data_request|
+            %li= author_data_request.user.to_label
+      %li
+        Complete author list
       != author_list_formatter(@paperproposal.author_list)
 
   = render :partial => 'additional_files'
