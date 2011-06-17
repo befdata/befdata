@@ -17,4 +17,9 @@ class ActiveSupport::TestCase
     UserSession.create(nadrowski)
   end
 
+  def login_and_load_paperproposal(title)
+    login_nadrowski
+    @paperproposal = Paperproposal.find_by_title(title)
+  end
+
 end
