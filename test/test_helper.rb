@@ -17,9 +17,14 @@ class ActiveSupport::TestCase
     UserSession.create(nadrowski)
   end
 
-  def login_and_load_paperproposal(title)
-    login_nadrowski
+  def login_and_load_paperproposal(user, title)
+    login_user user
     @paperproposal = Paperproposal.find_by_title(title)
+  end
+
+  def login_user(user)
+    user = User.find_by_login user
+    UserSession.create(user)
   end
 
 end
