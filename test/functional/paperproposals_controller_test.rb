@@ -30,7 +30,7 @@ class PaperproposalsControllerTest < ActionController::TestCase
   end
 
   test "should add datasets to paperproposal and the author list is changed" do
-    login_and_load_paperproposal "Step 1 Paperproposal"
+    login_and_load_paperproposal "nadrowski", "Step 1 Paperproposal"
     @dataset_with_michael = Dataset.find_by_title("Test species name import second version")
 
     
@@ -48,7 +48,7 @@ class PaperproposalsControllerTest < ActionController::TestCase
 
   
   test "should add file to paperproposal should work" do
-    login_and_load_paperproposal "Step 1 Paperproposal"
+    login_and_load_paperproposal "nadrowski", "Step 1 Paperproposal"
     paperproposal_file = {:file => File.new(File.join(fixture_path, 'test_files_for_uploads', 'empty_test_file.txt'))}
 
 
@@ -61,7 +61,7 @@ class PaperproposalsControllerTest < ActionController::TestCase
   end
 
   test "should not send to board if no dataset is set" do
-    login_and_load_paperproposal "Step 1 Paperproposal"
+    login_and_load_paperproposal "nadrowski", "Step 1 Paperproposal"
 
     get :edit, :id => @paperproposal.id
     assert_response :success
@@ -70,35 +70,61 @@ class PaperproposalsControllerTest < ActionController::TestCase
   end
 
   test "should send to board if it is possible" do
+    login_and_load_paperproposal "pinutrientcycling", "Step 2 Paperproposal"
 
+    post :update_state, :id => @paperproposal.id, :paperproposal => {:board_state => "submit"}
+    @paperproposal.reload
+
+    assert (@paperproposal.board_state == "submit")
+    assert_redirected_to @paperproposal
   end
 
-  test "for project board it should be possible to..." do
+  test "should show [Submitted to board, waiting for acceptance.] after send to project board" do
+    login_and_load_paperproposal "pinutrientcycling", "Step 2 Paperproposal"
 
+    post :update_state, :id => @paperproposal.id, :paperproposal => {:board_state => "submit"}
+
+    get :show, :id => @paperproposal.id
+
+    assert_response :success
+    assert_select "div.box", {:text => /Submitted to board, waiting for acceptance./}
+  end
+
+  test "for project board member it should be possible to vote" do
+    pending "Untestable because vote is in view of user controller and action in paperproposal"
   end
 
   test "project board can reject the paperproposal" do
-
+    pending "Untestable because vote is in view of user controller and action in paperproposal"
   end
 
   test "it should be possible to edit a rejected paperproposal" do
+    login_and_load_paperproposal "nadrowski", "Step 3 Paperproposal rejected"
 
+    get :edit, :id => @paperproposal.id
+
+    assert_response :success
   end
 
   test "it should not be possible to edit a paperproposal in vote" do
-
+    pending "but it is still possible"
+#    login_and_load_paperproposal "pinutrientcycling", "Step 3 Paperproposal"
+#
+#    get :edit, :id => @paperproposal.id
+#
+#    assert_response :redirect
   end
 
   test "should show a paperproposal for owner" do
-
+    pending "paperproposal is show for everybody."
   end
 
   test "should show a paperproposal for project board if they can vote for it" do
-
+    pending "paperproposal is show for everybody."
   end
 
   test "should show a paperproposal for dataset owner and responsible if they can vote" do
-
-  end  
+    pending "paperproposal is show for everybody."
+  end 
   
 end
