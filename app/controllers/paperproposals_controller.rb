@@ -1,7 +1,7 @@
 class PaperproposalsController < ApplicationController
 
 
-  before_filter :require_user, :only => [:index, :new, :create, :destroy, :update, :show]
+  before_filter :require_user, :only => [:index, :new, :create, :destroy, :update, :show, :update_state, :update_vote]
   before_filter :load_proposal, :only => [:show, :edit, :update, :destroy]
 
   #####################################
