@@ -29,3 +29,9 @@ roles_users_004:
 roles_users_005: 
   role_id: "11"
   user_id: "1"
+roles_users_011:
+  role_id: "17"
+  user_id: "2"
+roles_users_012:
+  role_id: "17"
+  user_id: "1"

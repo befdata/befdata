@@ -1,2 +1,37 @@
---- {}
-
+--- 
+paperproposal_votes_001: 
+  comment: 
+  created_at: 2011-06-20 06:52:06.444342
+  vote: none
+  updated_at: 2011-06-20 06:52:06.444342
+  id: "1"
+  user_id: "1"
+  paperproposal_id: "5"
+  project_board_vote: t
+paperproposal_votes_002: 
+  comment: 
+  created_at: 2011-06-20 06:52:06.507449
+  vote: none
+  updated_at: 2011-06-20 06:52:06.507449
+  id: "2"
+  user_id: "2"
+  paperproposal_id: "5"
+  project_board_vote: t
+paperproposal_votes_003: 
+  comment: 
+  created_at: 2011-06-20 08:23:21.447421
+  vote: none
+  updated_at: 2011-06-20 08:23:21.447421
+  id: "4"
+  user_id: "2"
+  paperproposal_id: "6"
+  project_board_vote: t
+paperproposal_votes_004: 
+  comment: please make some changes
+  created_at: 2011-06-20 08:23:21.423379
+  vote: reject
+  updated_at: 2011-06-20 08:23:46.918698
+  id: "3"
+  user_id: "1"
+  paperproposal_id: "6"
+  project_board_vote: t

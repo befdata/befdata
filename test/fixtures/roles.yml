@@ -76,3 +76,10 @@ roles_005:
   authorizable_type: Paperproposal
   id: "10"
   authorizable_id: "1"
+roles_012:
+  name: project_board
+  created_at: 2011-06-20 06:47:31.643839
+  updated_at: 2011-06-20 06:47:31.643839
+  authorizable_type:
+  id: "17"
+  authorizable_id: 
