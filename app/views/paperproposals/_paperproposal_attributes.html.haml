@@ -2,7 +2,7 @@
 = f.text_field :title
 %br
 = f.label :initial_title
-= f.text_field :initial_title
+= @paperproposal.id ? (f.text_field :initial_title, :disabled => 'disabled') : (f.text_field :initial_title)
 %br
 = f.label :envisaged_journal
 = f.text_field :envisaged_journal
