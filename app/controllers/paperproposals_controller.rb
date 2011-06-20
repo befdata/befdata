@@ -10,8 +10,7 @@ class PaperproposalsController < ApplicationController
 
   #show list of data requests
   def index
-    @paperproposals = Paperproposal.all
-    # .sort_by(&created_at)
+    @paperproposals = Paperproposal.all.sort_by(&:created_at)
   end
 
   #prepare for new data request
