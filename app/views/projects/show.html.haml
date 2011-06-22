@@ -6,7 +6,7 @@
 %ul
   - @project.users.each do |person|
     %li
-      = link_to person, user_path(person.path_name)
+      = render person
       = "(#{person.roles_for(@project).map{|e| t("role."+e.name)}.join(",")})"
 
 
