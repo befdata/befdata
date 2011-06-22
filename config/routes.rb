@@ -16,14 +16,10 @@ Befchina::Application.routes.draw do
   resources :datasets
   match 'upload' => 'datasets#upload', :as => :upload
   match 'create_dataset' => 'datasets#create', :as => :create_dataset  
-  match 'upload_freeformat' => 'datasets#upload_freeformat', :as => :upload_freeformat
   match 'upload_dataset_freeformat' => 'datasets#upload_dataset_freeformat', :as => :upload_dataset_freeformat
-  match 'create_freeformat' => 'datasets#create_freeformat', :as => :create_freeformat
   match 'create_dataset_freeformat' => 'datasets#create_dataset_freeformat', :as => :create_dataset_freeformat
-  match 'update_freeformat_associations' => 'datasets#update_freeformat_associations', :as => :update_freeformat_associations
   match 'update_dataset_freeformat_associations' => 'datasets#update_dataset_freeformat_associations', :as => :update_dataset_freeformat_associations
-  match 'save_freeformat_associations' => 'datasets#save_freeformat_associations', :as => :save_freeformat_associations
-  match 'save_dataset_freeformat_associations' => 'datasets#save_dataset_freeformat_associations', :as => :save_dataset_freeformat_associations
+ match 'save_dataset_freeformat_associations' => 'datasets#save_dataset_freeformat_associations', :as => :save_dataset_freeformat_associations
   match 'download' => 'datasets#download', :as => :download
 
   resources :tags
@@ -31,10 +27,8 @@ Befchina::Application.routes.draw do
 
   resources :projects
 
-#  match 'imports/create_dataset_datafile' => 'imports#create_dataset_datafile'
-  match 'imports/create_freeformat_datafile' => 'imports#create_freeformat_datafile'
   match 'imports/create_dataset_freeformat' => 'imports#create_dataset_freeformat'
-  match 'imports/update_freeformat_file' => 'imports#update_freeformat_file'
+  match 'imports/update_dataset_freeformat_file' => 'imports#update_dataset_freeformat_file'
   match 'imports/raw_data_overview' => 'imports#raw_data_overview'
   match 'imports/raw_data_per_header' => 'imports#raw_data_per_header'
   match 'imports/update_data_header' => 'imports#update_data_header'
@@ -45,9 +39,7 @@ Befchina::Application.routes.draw do
   match 'imports/context_export_destroy' => 'imports#context_export_destroy'
   match 'imports/cell_category_update' => 'imports#cell_category_update'
   match 'imports/cell_category_create' => 'imports#cell_category_create'
-  match 'imports/freeformat_overview' => 'imports#freeformat_overview'
   match 'imports/dataset_freeformat_overview' => 'imports#dataset_freeformat_overview'
-  match 'imports/save_freeformat_tags' => 'imports#save_freeformat_tags'
   match 'imports/save_dataset_freeformat_tags' => 'imports#save_dataset_freeformat_tags'
 
   namespace :admin do

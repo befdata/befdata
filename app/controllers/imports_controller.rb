@@ -21,7 +21,7 @@ class ImportsController < ApplicationController
     end
   end
 
-  def update_freeformat_file
+  def update_dataset_freeformat_file
     freeformat = Freeformat.find(params[:freeformat][:id])
     freeformat.file = params[:freeformat][:file]
     if freeformat.save
