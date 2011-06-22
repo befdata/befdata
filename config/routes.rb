@@ -52,7 +52,7 @@ Befchina::Application.routes.draw do
 
   namespace :admin do
     resources :datasets, :projects, :users, :datagroups, :tags,
-              :datacolumns, :categoricvalues, :freeformats do
+              :datacolumns, :categoricvalues, :freeformats, :user_avatars do
       as_routes
     end
   end
@@ -72,7 +72,6 @@ Befchina::Application.routes.draw do
   match 'create_cart_context/:dataset_id' => 'carts#create_cart_context', :as => :create_cart_context
   match 'delete_cart_context/:dataset_id' => 'carts#delete_cart_context', :as => :delete_cart_context
   match 'cart' => 'carts#show', :as => 'current_cart'
-
 
 
   # The priority is based upon order of creation:

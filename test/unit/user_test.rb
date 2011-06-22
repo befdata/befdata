@@ -6,4 +6,11 @@ class UserTest < ActiveSupport::TestCase
     user = User.new
     assert !user.save
   end
+
+  test "create user and add avatar to it" do
+    @user = User.new
+    @user.avatar = sample_avatar
+    @user.lastname = "testlastname"
+    assert @user.avatar_file_name != "bla"
+  end
 end
