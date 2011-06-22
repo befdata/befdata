@@ -216,19 +216,6 @@ class DatasetsController < ApplicationController
     @dataset.save
   end
 
-  def upload_freeformat
-    datafile_id = params[:datafile_id]
-    if !datafile_id.blank?
-      datafile = Datafile.find(datafile_id)
-      @filename = datafile.file_file_name
-      @dataset = Dataset.new
-      @dataset.title = @filename
-      @dataset.abstract = @filename
-      @dataset.filename=@filename
-    else
-      redirect_to data_path and return
-    end
-  end
 
   def upload_dataset_freeformat
     freeformat_id = params[:freeformat_id]
@@ -249,19 +236,6 @@ class DatasetsController < ApplicationController
     end
   end
 
-  def create_freeformat
-    @dataset = Dataset.new(params[:dataset])
-
-    unless @dataset.save
-      flash[:error] = @dataset.errors.full_messages
-      redirect_to data_path and return
-    else
-      redirect_to url_for(:controller => :datasets,
-      :action => :update_freeformat_associations,
-      :dataset_id => @dataset.id) and return
-    end
-
-  end
 
   def create_dataset_freeformat
     @dataset = Dataset.find(params[:dataset][:id])
@@ -276,19 +250,6 @@ class DatasetsController < ApplicationController
     end
   end
 
-  def update_freeformat_associations
-
-    begin
-      @dataset = Dataset.find(params[:dataset_id])
-      @people_list = User.find(:all, :order => :lastname)
-      @project_list = Project.find(:all)
-
-    rescue ActiveRecord::RecordNotFound
-      # No context with this id exists
-      redirect_to data_path and return
-    end
-
-  end
 
   def update_dataset_freeformat_associations
 
@@ -304,24 +265,6 @@ class DatasetsController < ApplicationController
 
   end
 
-  def save_freeformat_associations
-    begin
-      @dataset = Dataset.find(params[:dataset][:id])
-      @owner = User.find(params[:owner][:owner_id])
-      @project = Project.find(params[:project][:project_id])
-
-      @owner.has_role! :owner, @dataset
-      @project.has_role! :owner, @dataset
-
-      redirect_to url_for(:controller => :imports,
-      :action => :freeformat_overview,
-      :dataset_id => @dataset.id) and return
-
-    rescue ActiveRecord::RecordNotFound
-      # No context with this id exists
-      redirect_to data_path and return
-    end
-  end
 
   def save_dataset_freeformat_associations
     begin

@@ -9,16 +9,6 @@
 #require 'spreadsheet'
 
 class ImportsController < ApplicationController
-  def create_freeformat_datafile
-    datafile = Datafile.new(params[:datafile])
-
-    if datafile.save
-      redirect_to :controller => :datasets, :action => :upload_freeformat, :datafile_id => datafile.id
-    else
-      flash[:errors] = datafile.errors
-      redirect_to :back
-    end
-  end
 
   def create_dataset_freeformat
     freeformat = Freeformat.new(params[:freeformat])
@@ -445,20 +435,6 @@ class ImportsController < ApplicationController
     end
   end
 
-  def freeformat_overview
-
-    dataset = Dataset.find(params[:dataset_id])
-
-    if(dataset.create_freeformat_sheetcell)
-      # add the tags to the datacolumn
-      @datacolumn = dataset.datacolumns[0]
-    else
-      # really should tell them about the error
-      redirect_to data_path and return
-    end
-
-  end
-
   def dataset_freeformat_overview
 
     @dataset = Dataset.find(params[:dataset_id])
@@ -470,16 +446,6 @@ class ImportsController < ApplicationController
       redirect_to data_path and return
     end
 
-  end
-
-  def save_freeformat_tags
-
-    @datacolumn = Datacolumn.find(params[:datacolumn][:id])
-    @datacolumn.update_attributes(params[:datacolumn])
-
-    redirect_to url_for(:controller => :datasets,
-    :action => :show,
-    :id => @datacolumn.dataset_id) and return
   end
 
   def save_dataset_freeformat_tags

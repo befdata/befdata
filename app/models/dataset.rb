@@ -111,47 +111,5 @@ class Dataset < ActiveRecord::Base
   def download_counter
     "Downloads: #{self.downloads}"
   end
-
-  def create_freeformat_sheetcell
-    begin
-      logger.debug "- Create new data group if no match is found --"
-      data_group = Datagroup.find_by_title(self.title)
-      if data_group.blank?
-        logger.debug "- Creating new data group  -"
-        data_group = Datagroup.create(:title => self.title,
-                                      :description => self.abstract)
-      end
-      logger.debug data_group.inspect
-
-      logger.debug "- Creating new data column  -"
-      data_column = Datacolumn.create(:datagroup => data_group,
-                                     :dataset => self,
-                                     :columnheader => self.filename,
-                                     :comment => self.filename,
-                                     :columnnr => 1,
-                                     :definition => self.title,
-                                     :import_data_type => "file")
-      logger.debug data_column.inspect
-
-      logger.debug "- Creating new observation  -"
-      observation = Observation.create(:rownr => 1)
-
-      logger.debug "- Creating new sheetcell  -"
-      sheet_cell = Sheetcell.create(:datacolumn => data_column,
-                                    :observation => observation,
-                                    :import_value => self.filename)
-
-      datafile = Datafile.find_by_file_file_name(self.filename)
-      logger.debug "- Attaching the sheetcell to the datafile  -"
-      sheet_cell.update_attributes(:value => datafile,
-                                   :comment => "portal match")
-
-      return true
-    rescue => e
-      logger.error "Dataset.create_freeformat_sheetcell => exception #{e.class.name} : #{e.message}"
-      return false
-    end
-
-  end
   
 end
