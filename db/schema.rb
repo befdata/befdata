@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110608144129) do
+ActiveRecord::Schema.define(:version => 20110621180629) do
 
   create_table "author_paperproposals", :force => true do |t|
     t.integer  "paperproposal_id"
@@ -288,14 +288,6 @@ ActiveRecord::Schema.define(:version => 20110608144129) do
     t.datetime "updated_at"
   end
 
-  create_table "user_avatars", :force => true do |t|
-    t.string   "avatar_file_name"
-    t.string   "avatar_content_type"
-    t.integer  "avatar_file_size"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
   create_table "users", :force => true do |t|
     t.string   "login",                              :null => false
     t.string   "email",                              :null => false
@@ -327,7 +319,9 @@ ActiveRecord::Schema.define(:version => 20110608144129) do
     t.string   "country"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "user_avatar_id"
+    t.string   "avatar_file_name"
+    t.string   "avatar_content_type"
+    t.integer  "avatar_file_size"
   end
 
 end

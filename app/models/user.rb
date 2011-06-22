@@ -1,4 +1,3 @@
-
 class User < ActiveRecord::Base
   acts_as_authentic
   acts_as_authorization_subject
@@ -16,13 +15,29 @@ class User < ActiveRecord::Base
 
   belongs_to :project
 
-  belongs_to :user_avatar
+  # setting up avatar-image
+  validates_attachment_content_type :avatar, :content_type => ['image/jpeg','image/png']
 
-  after_initialize :init
+  has_attached_file :avatar,
+    :url => "/images/user_avatars/:basename_:style.:extension",
+    :default_url => "/images/user_avatars/avatar-missing_:style.png",
+    :path => ":rails_root/public/images/user_avatars/:basename_:style.:extension",
+    :default_style => :small,
+    :styles => {
+      :small => "50x50#",
+      :medium => "80x80#",
+      :large => "150x150#"
+  }
 
+  before_save :change_avatar_file_name
 
-  def init
-    self.user_avatar ||= self.user_avatar = UserAvatar.find_by_avatar_file_name("avatar-missing.png")
+  def change_avatar_file_name
+    if avatar_file_name
+      new_name = " #{id}_#{lastname}#{File.extname(avatar_file_name).downcase}"
+      if avatar_file_name != new_name
+        self.avatar.instance_write(:file_name, new_name)
+      end
+    end
   end
 
   def to_label

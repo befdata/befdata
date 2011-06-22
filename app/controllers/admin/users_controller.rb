@@ -18,7 +18,7 @@ class Admin::UsersController < Admin::AdminController
     config.show.columns = [:firstname, :middlenames, :lastname, :salutation, :comment, :roles_without_objects, :roles_with_objects, :email]
 
     # list config
-    config.columns = [:firstname, :lastname, :roles_without_objects, :roles_with_objects, :user_avatar]
+    config.columns = [:avatar, :firstname, :lastname, :roles_without_objects, :roles_with_objects]
     config.list.sorting = { :lastname => :asc }
 
     [config.update, config.create].each do |c|
@@ -28,10 +28,15 @@ class Admin::UsersController < Admin::AdminController
         :institution_name, :institution_url,
         :institution_phone, :institution_fax,
         :street, :city, :country,
-        :admin, :project_board, :user_avatar]
+        :admin, :project_board, :avatar]
     end
 
     config.subform.layout = :vertical
+
+    #for the avatar-imapge upload
+    config.create.multipart = true
+    config.update.multipart = true
+    ActiveScaffold::Bridges::Paperclip::Lib::PaperclipBridgeHelpers.thumbnail_style=:small
   end
 
 end

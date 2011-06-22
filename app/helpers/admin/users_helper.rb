@@ -19,5 +19,13 @@ module Admin::UsersHelper
         map{|role_object| "#{role_object.name} of #{role_object.authorizable_type} with id: #{role_object.authorizable_id}"}.join(", ")
   end
 
+#  def user_avatar_form_column (record, name)
+#    form_for record.user_avatar
+#  end
+
+  def thumbnail_form_column (record, name)
+    image_tag record.user_avatar.avatar.url
+  end
+
 
 end

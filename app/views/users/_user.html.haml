@@ -5,8 +5,8 @@
   - avatar ||= :small
   - name ||= :show
   - if (avatar != :none) then
-    = link_to( image_tag( user.user_avatar.avatar.url(avatar)), user_path(user.path_name))
+    = link_to(image_tag(user.avatar.url(avatar)), user_path(user.path_name))
   - if (name == :show) then
-    = link_to user , user_path(user.path_name)
+    = link_to user, user_path(user.path_name)
   - if (name == :full) then
-    = link_to user.full_name , user_path(user.path_name)
+    = link_to user.full_name, user_path(user.path_name)
