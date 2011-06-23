@@ -9,11 +9,16 @@
 #require 'spreadsheet'
 
 class ImportsController < ApplicationController
+  before_filter :load_freeformats_dataset, :only => [:update_dataset_freeformat_file]
 
   skip_before_filter :deny_access_to_all
   access_control do
     #TODO this has to be specified see #
     allow logged_in
+
+    action :update_dataset_freeformat_file do
+      allow :owner, :of => :freeformats_dataset
+    end
   end
 
   def create_dataset_freeformat
@@ -990,6 +995,10 @@ class ImportsController < ApplicationController
     logger.debug cat.inspect
     logger.debug "------------ leaving find_entry_in_cat_array  --------------------"
     return cat
+  end
+
+  def load_freeformats_dataset
+    @freeformats_dataset = Freeformat.find(params[:freeformat][:id]).dataset
   end
 
 end
