@@ -47,7 +47,6 @@
         %b= @measmeths[key].columnheader
         (#{@measmeths[key].definition}.
         Data group: "#{@methodtitles[key].humanize}").
-        #{@measmeths[key].first_five}.
+        #{@measmeths[key].accepted_values(5)}.
         (#{@measmeths[key].users.map{|person| link_to person, user_path(person.path_name)}.to_sentence})
 
-        = render :partial => "show_files_submethod", :locals => {:key => key}

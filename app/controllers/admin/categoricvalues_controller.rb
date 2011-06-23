@@ -1,11 +1,11 @@
-class Admin::CategoricvaluesController < Admin::AdminController
-    active_scaffold :categoricvalue do |config|
-      config.label = "Categoric Values"
+class Admin::CategoryController < Admin::AdminController
+    active_scaffold :category do |config|
+      config.label = "Categories"
 
       config.show.link = false
       config.delete.link = false
       config.search.link = false
-      config.update.link.label = "Edit Categoric Value"
+      config.update.link.label = "Edit Category"
 
       config.list.columns = [:description, :long,
                              :short, :comment, :tags]
