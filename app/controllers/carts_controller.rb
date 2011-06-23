@@ -1,5 +1,15 @@
 class CartsController < ApplicationController
 
+  skip_before_filter :deny_access_to_all
+  access_control do
+    actions :show, :create_cart_context do
+      allow logged_in
+    end
+    action :delete_cart_context do
+      allow logged_in #TODO this should be only allowed for the owner of a cart or similar see #4670
+    end
+  end
+
   def show
     @cart = current_cart
   end

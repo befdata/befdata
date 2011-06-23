@@ -10,6 +10,12 @@
 
 class ImportsController < ApplicationController
 
+  skip_before_filter :deny_access_to_all
+  access_control do
+    #TODO this has to be specified see #
+    allow logged_in
+  end
+
   def create_dataset_freeformat
     freeformat = Freeformat.new(params[:freeformat])
 

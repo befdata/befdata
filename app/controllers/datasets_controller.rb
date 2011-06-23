@@ -6,6 +6,7 @@ class DatasetsController < ApplicationController
 
   before_filter :load_dataset_freeformat, :only => [:update_dataset_freeformat_associations]
 
+  skip_before_filter :deny_access_to_all
   access_control do
     allow all, :to => [:show, :index, :load_context]
 
@@ -25,15 +26,6 @@ class DatasetsController < ApplicationController
       allow logged_in, :if => :dataset_is_free_for_members
       allow all, :if => :dataset_is_free_for_public
     end
-
-    #    action :download_freeformat do
-    #      allow_all  if @dataset.free_for_public == true
-    #    end
-    #
-    #
-    #    action :download_freeformat do
-    #      allow  :owner if @dataset.free_within_project == true
-    #    end
 
     # for the first upload of the file, before owners are associated, logged in users have the right
     # to update freeformat associations

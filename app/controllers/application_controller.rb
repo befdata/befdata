@@ -1,11 +1,15 @@
 class ::ApplicationController < ActionController::Base
   protect_from_forgery
-
   helper_method :current_user_session, :current_user
-
   layout :layout_from_config
 
+  access_control :deny_access_to_all do
+    deny all
+  end
+
+
 protected
+
   def layout_from_config
     layout = ActiveRecord::Base.configurations[::Rails.env]["layout"]
     case layout
@@ -14,10 +18,11 @@ protected
       else
         "application"
     end
-
   end
 
+
 private
+
   def current_user_session
     return @current_user_session if defined?(@current_user_session)
     @current_user_session = UserSession.find
