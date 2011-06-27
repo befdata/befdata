@@ -228,14 +228,25 @@ class Dataworkbook
   def data_for_columnheader(columnheader)
 
     data_lookup_ch = {:data => nil, :rowmax => 1}
-
-    if data_with_head.length > 1
-      data_hash = generate_data_hash(data_with_head(columnheader)) # deletes dataheader
+    data = data_with_head(columnheader)
+    if data.length > 1
+      data_hash = generate_data_hash(data) # deletes dataheader
       data_lookup_ch[:data] = data_hash
       data_lookup_ch[:rowmax] =  data_hash.keys.max.nil? ? 0 : data_hash.keys.max - 1 # starting at second row
     end
 
     return data_lookup_ch
+  end
+
+  def data_group_title(columnheader)
+    Array(data_description_sheet.column(5))[method_index_for_columnheader(columnheader)]
+  end
+
+  def columnheader_people_hash
+    ## there may be several people associated to one columnheader
+    people_for_columnheader = {}
+    data_responsible_person_sheet.column(0).to_a.compact.each_with_index{|o, i| people_for_columnheader[i] = o}
+    return people_for_columnheader
   end
 
   # The third sheet of the data workbook lists people which have
@@ -251,19 +262,20 @@ class Dataworkbook
   # associated to a data header (see MeasurementsMethodstep,
   # MeasurementsMethodstepsController).
   def lookup_data_header_people(columnheader)
+
     # there are often several people for one column in raw data;
     # people can also be added automatically to the submethod
-    people_rows = @ch_people_hash.select{|k,v| v == columnheader}.collect{|r_ch| r_ch[0]} # only the row index
+    people_rows = columnheader_people_hash.select{|k,v| v == columnheader}.keys # only the row index
     people_given = []
     people_sur   = []
     people_proj  = []
     people_role  = []
     people = []
     people_rows.each do |r|
-      people_given << @respPeopleSheet.row(r)[1]
-      people_sur   << @respPeopleSheet.row(r)[2]
-      people_proj   << @respPeopleSheet.row(r)[3]
-      people_role   << @respPeopleSheet.row(r)[4]
+      people_given << data_responsible_person_sheet.row(r)[1]
+      people_sur << data_responsible_person_sheet.row(r)[2]
+      people_proj << data_responsible_person_sheet.row(r)[3]
+      people_role << data_responsible_person_sheet.row(r)[4]
       people += User.find_all_by_lastname(people_sur)
     end
     people = people.uniq

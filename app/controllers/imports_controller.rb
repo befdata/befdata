@@ -72,7 +72,7 @@ class ImportsController < ApplicationController
     # data column specific information: start with the column header
     columnheader = @data_column.columnheader
 
-    data_group_title = method_index.blank? ? columnheader : Array(@book.data_description_sheet.column(5))[@book.method_index_for_columnheader(columnheader)]
+    data_group_title = @book.method_index_for_columnheader(columnheader).blank? ? columnheader : @book.data_group_title(columnheader)
     @data_groups_available = Datagroup.find_similar_by_title(data_group_title)
 
     # collect all methods for the select button
@@ -120,11 +120,7 @@ class ImportsController < ApplicationController
       @data_column.import_categoricvalues = sheet_new_imp_cats
     end
 
-    @sheet_cats = @data_column.import_categoricvalues.map{|imp_c| [imp_c.category.id,
-        imp_c.category.short,
-        imp_c.category.long
-      ]
-    }
+    @sheet_cats = @data_column.import_categoricvalues.map{|imp_c| [imp_c.category.id, imp_c.category.short, imp_c.category.long]}
   end
 
   def update_data_header

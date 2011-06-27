@@ -17,7 +17,7 @@
     stage be able to download your data, since this needs uploading
     and during this rough quality checking.
 %p
-  Data provided: #{@data_column.uploaded_values(10).inspect}
+  Data provided: #{@data_column.imported_values(10).inspect}
 - form_for @data_column, :url => {:controller=> :imports, :action => :add_data_values} do |form|
   = form.hidden_field :id
   = form.label :import_data_type, "Which type of data is this?"

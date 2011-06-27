@@ -76,7 +76,7 @@ class Datagroup < ActiveRecord::Base
 
     # find suitable methods already available
     methods_available = Datagroup.find_all_by_title(title)
-    methods_available = [Datagroup.helper_method] unless methods_available
+    #methods_available = [Datagroup.helper_method] unless methods_available
   end
 
 end
