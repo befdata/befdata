@@ -1,5 +1,5 @@
 - cell = Sheetcell.find(cell_id)
-- cat_new = Categoricvalue.new(:short => cell.import_value)
+- cat_new = Category.new(:short => cell.import_value)
 - form_for cell , :url  =>  {:controller  =>  :imports, :action  =>  :cell_category_create} do |f|
   = f.error_messages
   = f.hidden_field :id

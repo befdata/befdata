@@ -37,7 +37,7 @@ ActiveRecord::Schema.define(:version => 20110621180629) do
     t.datetime "updated_at"
   end
 
-  create_table "categoricvalues", :force => true do |t|
+  create_table "categories", :force => true do |t|
     t.string   "short"
     t.string   "long"
     t.text     "description"
@@ -46,7 +46,7 @@ ActiveRecord::Schema.define(:version => 20110621180629) do
     t.datetime "updated_at"
   end
 
-  add_index "categoricvalues", ["short"], :name => "index_categoricvalues_on_short"
+  add_index "categories", ["short"], :name => "index_categoricvalues_on_short"
 
   create_table "datacolumns", :force => true do |t|
     t.integer  "datagroup_id"
@@ -90,6 +90,8 @@ ActiveRecord::Schema.define(:version => 20110621180629) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  add_index "datagroups", ["id"], :name => "index_datagroups_on_id"
 
   create_table "dataset_paperproposals", :force => true do |t|
     t.string   "aspect"
@@ -139,6 +141,11 @@ ActiveRecord::Schema.define(:version => 20110621180629) do
     t.date     "destroy_me_date"
   end
 
+  create_table "datatypes", :force => true do |t|
+    t.string "name"
+    t.string "format"
+  end
+
   create_table "datetimevalues", :force => true do |t|
     t.datetime "date"
     t.integer  "year"
@@ -163,7 +170,7 @@ ActiveRecord::Schema.define(:version => 20110621180629) do
   create_table "import_categoricvalues", :force => true do |t|
     t.integer  "datacolumn_id"
     t.string   "raw_data_value"
-    t.integer  "categoricvalue_id"
+    t.integer  "category_id"
     t.boolean  "approved"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -270,11 +277,13 @@ ActiveRecord::Schema.define(:version => 20110621180629) do
     t.string   "import_value"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "category_id"
+    t.string   "accepted_value", :limit => 250
+    t.integer  "datatype_id"
   end
 
   add_index "sheetcells", ["datacolumn_id"], :name => "index_sheetcells_on_datacolumn_id"
   add_index "sheetcells", ["observation_id"], :name => "index_sheetcells_on_observation_id"
-  add_index "sheetcells", ["value_id", "value_type"], :name => "index_sheetcells_on_value_id_and_value_type"
 
   create_table "taggings", :force => true do |t|
     t.integer "tag_id"

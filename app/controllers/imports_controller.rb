@@ -6,8 +6,6 @@
 # "spreadsheet".  This has to be changed here to adapt to other
 # formats such as Open Office or .xlsx files.
 
-#require 'spreadsheet'
-
 class ImportsController < ApplicationController
   before_filter :load_freeformats_dataset, :only => [:update_dataset_freeformat_file]
 
@@ -47,9 +45,7 @@ class ImportsController < ApplicationController
   def raw_data_overview
     @dataset ||= Dataset.find(params[:dataset_id], :include => [:datacolumns])
 
-    spreadsheet = Spreadsheet.open @dataset.upload_spreadsheet.file.path
-    spreadsheet.io.close
-    @book = Dataworkbook.new(@dataset.upload_spreadsheet, spreadsheet)
+    load_workbook
 
     # Are there data columns already associated to this Dataset?
     return unless @dataset.datacolumns.length == 0 # which means that there are no observations nor measurements
@@ -57,13 +53,13 @@ class ImportsController < ApplicationController
     return unless @book.columnheaders_unique? # we can only go on, if column headers of data columns are unique
 
     # generate data column instances
-    @book.columnheaders_raw.each do |ch|
+    @book.columnheaders_raw.each do |columnheader|
 
       # Data column information
-      data_column_ch = @book.data_column_info_for_columnheader(ch)
+      data_column_ch = @book.data_column_info_for_columnheader(columnheader)
       data_column_ch[:dataset_id] = @dataset.id
 
-      data_group_ch = methodsheet_datagroup(ch, @book.data_description_sheet)
+      data_group_ch = @book.methodsheet_datagroup(columnheader)
 
       data_group = Datagroup.find_by_title(data_group_ch[:title])
       data_group = Datagroup.create(data_group_ch) if data_group.blank?
@@ -75,17 +71,15 @@ class ImportsController < ApplicationController
         data_column_new.tag_list = data_column_new.comment
       end
 
-      data_hash = data_for_columnheader(ch)[:data]
+      datatype = Datatype.find_by_name(data_column_ch[:import_data_type])
+      data_hash = @book.data_for_columnheader(columnheader)[:data]
+
       unless data_hash.blank?
         rownr_obs_hash = @dataset.rownr_observation_id_hash
 
         # Go through each entry in the spreadsheet
         data_hash.each do |rownr, entry|
           # Is there an observation in this Dataset with this rownr?
-          # "select{} writes an array of [rnr, obs_id], but since
-          # there should be only one obs_id per rownr, this can be
-          # flattened and the second array object corresponds to the
-          # observation Id.
           obs_id = rownr_obs_hash.select{|rnr, obs_id| rnr == rownr}.flatten[1]
 
           # If not, create a new Observation
@@ -96,7 +90,10 @@ class ImportsController < ApplicationController
 
           # create measurement (with value as import_value)
           entry = entry.to_i.to_s if integer?(entry)
-          sc = Sheetcell.create(:datacolumn => data_column_new, :observation_id => obs_id, :import_value => entry)
+          sc = Sheetcell.create(:datacolumn => data_column_new,
+                                :observation_id => obs_id,
+                                :import_value => entry,
+                                :datatype => datatype)
         end # is there data provided?
       end
     end
@@ -109,114 +106,67 @@ class ImportsController < ApplicationController
   # well as data checking and allocation to value tables
   # (Numericvalue, Categoricvalue, etc).
   def raw_data_per_header
-    benchmark_time = Time.new
-    logger.debug "---------- in raw_data_per_header ---------------"
-    @dataset ||= Dataset.find(params[:dataset_id],
-    :include => [:datacolumns ,
-      :upload_spreadsheet])
-    @data_column ||= @dataset.datacolumns.
-    select{|dc| dc.columnheader == params[:data_header]}.first
+    @dataset ||= Dataset.find(params[:dataset_id], :include => [:datacolumns, :upload_spreadsheet])
+    @data_column ||= @dataset.datacolumns.select{|dc| dc.columnheader == params[:data_header]}.first
 
-    # open the spreadsheet
-    provide_metasheets(@dataset.upload_spreadsheet.file.path)
+    load_workbook
 
     # data column specific information: start with the column header
-    ch = @data_column.columnheader
+    columnheader = @data_column.columnheader
 
-    method_index = Array(@methodsheet.column(0)).index(ch)
-    unless method_index.blank?
-      data_group_Title = Array(@methodsheet.column(5))[method_index]
-    else
-      data_group_Title = ch
-    end
-    logger.debug "------ before looking for similar methods --- "
-    logger.debug "----- #{Time.new - benchmark_time} ms"
-    methAvailable = find_similar_data_groups(data_group_Title)
-    logger.debug "----- #{Time.new - benchmark_time} ms"
-    logger.debug "------ after looking for similar methods --- "
-    @data_groups_available = methAvailable
-    logger.debug "@data_groups_available"
-    logger.debug @data_groups_available.inspect
+    data_group_title = method_index.blank? ? columnheader : Array(@book.data_description_sheet.column(5))[@book.method_index_for_columnheader(columnheader)]
+    @data_groups_available = Datagroup.find_similar_by_title(data_group_title)
 
     # collect all methods for the select button
-    all_methods = Datagroup.find(:all, :order => "title")
-    @methods_short_list = all_methods.collect{|m| [m.title, m.id]}
+    @methods_short_list = Datagroup.find(:all, :order => "title").collect{|m| [m.title, m.id]}
 
     # prepare a new data group instance to save it if needed
-    data_group_ch = methodsheet_datagroup(ch, @methodsheet)
-    @data_group_new = Datagroup.new(data_group_ch)
-    logger.debug "@data_group_new"
-    logger.debug @data_group_new.inspect
+    @data_group_new = Datagroup.new(@book.methodsheet_datagroup(columnheader))
 
     # list of all Person Roles, sorted
-    logger.debug "------------------- Person Roles -----------------"
     @people_list = User.find(:all, :order => :lastname)
 
     # Are there already people associated?
     @ppl = @data_column.users
 
     # Only look into the spreadsheet, if there are no people linked.
-    logger.debug "----- #{Time.new - benchmark_time} ms"
     if @ppl.blank?
-      ppl = lookup_data_header_people(ch)
+      ppl = @book.lookup_data_header_people(columnheader)
       ppl = ppl.flatten.uniq
       ppl.each do |user|
         user.has_role! :responsible, @data_column
       end
       @ppl = @data_column.users
     end
-    logger.debug "--- after filling @prs mit 'lookup_data_header_people(ch)' ---"
-    logger.debug @ppl.inspect
-
-    # raw data
 
     # returns a data hash with rownr => data entry from the
     # spreadsheet !Zeitschlucker?!
-    @cell_values_all = @data_column.rownr_entry_hash
-    logger.debug "---------- @cell_values_all ---------------"
-    logger.debug @cell_values_all.inspect
-    logger.debug "----------------------- #{Time.new - benchmark_time} ms"
+    #@cell_values_all = @data_column.rownr_entry_hash
+    #logger.debug @cell_values_all.inspect
 
     # collect all categories for this data column; Array of Categories
-    @portal_cats = @data_column.datagroup.datacell_categories
+    @portal_cats = @data_column.datagroup.datacell_categories_sql
 
     # collect all categories provided in the category sheet and
     # present them, no matter if they are double or not.  Do this only
     # if no import categories are provided yet
     if @data_column.import_categoricvalues.blank?
-      sheet_cats_hash_array =  look_for_provided_cats(ch,
-      @categorySheet,
-      @dataset.title)
-      logger.debug "sheet_cats_hash_array.inspect"
-      logger.debug sheet_cats_hash_array.inspect
+      sheet_cats_hash_array = look_for_provided_cats(columnheader, @book.data_categories_sheet, @dataset.title)
 
       # !! the problem here is that cat_info has to have entries in all short, long,
       # and description to be properly saved
-      sheet_new_cats = sheet_cats_hash_array.
-      map{|cat_info| Categoricvalue.create(cat_info)}
-      logger.debug "sheet_new_cats"
-      logger.debug sheet_new_cats
+      sheet_new_cats = sheet_cats_hash_array.map{|cat_info| Category.create(cat_info)}
 
-      sheet_new_imp_cats = sheet_new_cats.
-      map{|cat| ImportCategoricvalue.new(:categoricvalue => cat)}
+      sheet_new_imp_cats = sheet_new_cats.map{|cat| ImportCategoricvalue.new(:category => cat)}
 
       @data_column.import_categoricvalues = sheet_new_imp_cats
-
     end
 
-    @sheet_cats = @data_column.import_categoricvalues.
-    map{|imp_c| [imp_c.categoricvalue.id,
-        imp_c.categoricvalue.short,
-        imp_c.categoricvalue.long]}
-
-    all_values = @data_column.measurements_sorted.
-    collect{|m| m.value}
-    full_values = all_values.compact
-    @first_meas = full_values[0..20].
-    collect{|v| v.show_value}.to_sentence
-
-    logger.debug "---------- leaving raw_data_per_header ---------------"
-    logger.debug "----------------------- #{Time.new - benchmark_time} ms"
+    @sheet_cats = @data_column.import_categoricvalues.map{|imp_c| [imp_c.category.id,
+        imp_c.category.short,
+        imp_c.category.long
+      ]
+    }
   end
 
   def update_data_header
@@ -296,8 +246,7 @@ class ImportsController < ApplicationController
   # to write the views etc for that!!)
   def add_data_values
     if current_user
-      data_column =
-      Datacolumn.find(params[:datacolumn][:id])
+      data_column = Datacolumn.find(params[:datacolumn][:id])
       data_column.update_attributes(params[:datacolumn])
 
       # Text values do not have associated categoric values (naming
@@ -308,24 +257,18 @@ class ImportsController < ApplicationController
         text_data_column_import(data_column.id)
       else
         logger.debug "------------ looking for naming conventions  ---------"
-        portal_cats = data_column.datagroup.datacell_categories
-        sheet_cats = data_column.import_categoricvalues.
-        map{|icat| icat.categoricvalue}
+        portal_cats = data_column.datagroup.datacell_categories_sql
+        sheet_cats = data_column.import_categoricvalues.map{|icat| icat.category}
         if data_column.import_data_type == "category"
-          category_data_column_import(data_column.id, portal_cats,
-          sheet_cats)
+          category_data_column_import(data_column.id, portal_cats, sheet_cats)
         elsif data_column.import_data_type == "number"
-          numeric_data_column_import(data_column.id, portal_cats,
-          sheet_cats)
+          numeric_data_column_import(data_column.id, portal_cats, sheet_cats)
         elsif data_column.import_data_type == "date(14.07.2009)"
-          datetime_data_column_import(data_column.id, portal_cats,
-          sheet_cats)
+          datetime_data_column_import(data_column.id, portal_cats, sheet_cats)
         elsif data_column.import_data_type == "date(2009-07-14)"
-          datetime_data_column_import(data_column.id, portal_cats,
-          sheet_cats)
+          datetime_data_column_import(data_column.id, portal_cats, sheet_cats)
         elsif data_column.import_data_type == "year"
-          year_data_column_import(data_column.id, portal_cats,
-          sheet_cats)
+          year_data_column_import(data_column.id, portal_cats, sheet_cats)
         end
       end
 
@@ -348,12 +291,11 @@ class ImportsController < ApplicationController
   def data_column_categories
     @data_column = Datacolumn.find(params[:data_column_id])
     @dataset = @data_column.dataset
-    portal_cats = @data_column.datagroup.datacell_categories
-    sheet_cats = @data_column.import_categoricvalues.map{|icat| icat.categoricvalue}
+    portal_cats = @data_column.datagroup.datacell_categories_sql
+    sheet_cats = @data_column.import_categoricvalues.map{|icat| icat.category}
     @cats_to_choose = [portal_cats + sheet_cats].flatten.uniq
     @cats_to_choose.sort!{|x,y| x.verbose <=> y.verbose}
-    cells_with_cats = @data_column.sheetcells.
-    select{|cell| cell.value_type == "Categoricvalue"}
+    cells_with_cats = @data_column.sheetcells.select{|cell| cell.datatype.name == "category"}
     # Cells (Measurements) can be set to valid; categoric values can
     # be set to "manually approved".
     cells = cells_with_cats.
@@ -386,7 +328,7 @@ class ImportsController < ApplicationController
       same_entry_cells = first_cell.same_entry_cells
 
       # the new category; needs error handling
-      cat = Categoricvalue.new(params[:categoricvalue])
+      cat = Category.new(params[:category])
       cat.comment = "manually approved"
       cat.long = entry if cat.long.blank?
       cat.description = cat.long if cat.description.blank?
@@ -395,8 +337,8 @@ class ImportsController < ApplicationController
 
       if cat.save
         same_entry_cells.each do |cell|
-          old_cat = cell.categoricvalue
-          cell.update_attributes(:value => cat,
+          old_cat = cell.category
+          cell.update_attributes(:category => cat,
           :comment => "valid")
           old_cat.destroy # validates that it is not destroyed if
           # linked to measurement or import category
@@ -424,14 +366,14 @@ class ImportsController < ApplicationController
       logger.debug same_entry_cells.inspect
 
       # category
-      cat = first_cell.categoricvalue
+      cat = first_cell.category
       cat.update_attributes(:comment => "manually approved")
 
       same_entry_cells.each do |cell|
         logger.debug "- old and new cell  -"
         logger.debug cell.inspect
-        old_cat = cell.categoricvalue
-        cell.update_attributes(:value => cat,
+        old_cat = cell.category
+        cell.update_attributes(:category => cat,
         :comment => "valid")
         old_cat.destroy
       end
@@ -471,210 +413,10 @@ class ImportsController < ApplicationController
 
   private
 
-  def provide_metasheets(filename)
-    ## open the spreadsheet and locate the next column to import
-    ##  require 'spreadsheet'
-
-    book = Spreadsheet.open filename
-    book.io.close
-
-    ## specify location of sheets
-    @methodsheet = book.worksheet(1)
-    @respPeopleSheet = book.worksheet(2)
-    @categorySheet = book.worksheet(3)
-    @rawdatasheet = book.worksheet(4)
-
-    ## assemble the information on raw data from the last sheet
-    @columnheadersRaw = Array(@rawdatasheet.row(0)).compact
-
-    ## there are several people associated to one columnheader
-    ch_people = Array(@respPeopleSheet.column(0))
-    @ch_people_hash = {}
-    ch_people.each_index do |x|
-      @ch_people_hash[x] = ch_people[x]
-    end
-    @ch_people_hash.delete_if{|k,v| v.nil?}
-
-    ## there are several entries for categories for each columnheader
-    ch_cat = Array(@categorySheet.column(0))
-    @ch_cat_hash = {}
-    ch_cat.each_index do |x|
-      @ch_cat_hash[x] = ch_cat[x]
-    end
-    @ch_cat_hash.delete_if{|k,v| v.nil?}
-
-    ## each context should have unique columnheaders
-    @checkUnique = @columnheadersRaw.length == @columnheadersRaw.uniq.length
-
-    # if columnheaders are not unique, they have to be renamed at this
-    # point. Before submethods are saved, the columnheaders have to be
-    # unique
-  end
-
-  # During the upload process we look several times back in the
-  # spreadsheet.  In this case, we are looking for data group
-  # information (Methodstep, MethodstepsController).  Data groups
-  # consist of several data column instances
-  # (MeasurementsMethodstep). During first upload (raw_data_overview),
-  # we use the information provided in the method sheet in columns 5
-  # to 11 to guess a similar data group from the data portal.  During
-  # the upload of each single data column from the raw data sheet
-  # (raw_data_per_header), we use this information to initialize a new
-  # data group instance which can then be altered and saved to save
-  # this new data group on the portal.
-  def methodsheet_datagroup(columnheader, methodsheet)
-    logger.debug " in methodsheet_datagroup(columnheader) ---------- "
-    ch = columnheader
-    method_index = methodsheet.column(0).to_a.index(ch)
-    unless method_index.nil?
-      row = methodsheet.row(method_index)
-      data_group_Title = row[5]
-      # if not data group Title is given, date the definition of the
-      # data column header
-      if data_group_Title.nil?
-        data_group_Title = row[1] # data column definition
-        if data_group_Title.nil?
-          data_group_Title = ch
-        end
-      end
-      data_group_Descr = row[6]
-      data_group_Descr = (data_group_Descr.nil? ? data_group_Title : data_group_Descr)
-      data_group_Instr = row[7]
-      data_group_Sourc = row[8]
-      data_group_NType = row[9]
-      data_group_TScal = row[10]
-      data_group_TScUn = row[11]
-    else # no discription for this ch in the method sheet
-      data_group_Title = ch
-      data_group_Descr = ch
-      data_group_Instr = nil
-      data_group_Sourc = nil
-      data_group_NType = nil
-      data_group_TScal = nil
-      data_group_TScUn = nil
-    end
-
-    # summary
-    data_group = {:title => data_group_Title,
-      :description => data_group_Descr,
-      :methodvaluetype => data_group_NType,
-      :instrumentation => data_group_Instr,
-      :informationsource => data_group_Sourc,
-      :timelatency => data_group_TScal,
-      :timelatencyunit => data_group_TScUn}
-    return data_group
-  end
-
-  def data_for_columnheader(columnheader)
-    col = Array(@book.raw_data_sheet.row(0)).index(columnheader)
-
-    data_with_head = Array(@book.raw_data_sheet.column(col))
-
-    if data_with_head.length > 1
-      data_hash = generate_data_hash(data_with_head) # deletes dataheader
-      rowmax_with_header = data_hash.keys.max
-      if rowmax_with_header.nil?
-        rowmax = 0
-      else
-        rowmax = rowmax_with_header - 1 # starting at second row
-      end
-      # generate lookup
-      data_lookup_ch = { :data => data_hash,
-        :rowmax => rowmax}
-    else
-      data_lookup_ch = {:data => nil, :rowmax => 1}
-    end # if data length > 1
-
-    return(data_lookup_ch)
-  end
-
-  # Takes the entire data column of a raw data sheet and converts it
-  # to a hash which stores row numbers as key and the measurements
-  # from the spreadsheet as hash value.  Additionally deletes the
-  # first row, since this contains the columnheader and not a
-  # measurement.  The row number stored here is equal to the row
-  # number in the spreadsheet.
-  def generate_data_hash(data_array)
-    data_hash = {}
-    data_array.each_index do |x|
-      d = data_array[x]
-      if d.class == Spreadsheet::Formula
-        d = d.value
-      elsif d.class == Spreadsheet::Excel::Error
-        d = "Error in Excel Formula"
-      end
-      row = x + 1
-      d = d.to_i.to_s if integer?(d)
-      data_hash[row] = d unless d.nil?
-    end
-    # deleting the first row which contains the column header and not
-    # a value
-    data_hash.delete_if{|k,v| k==1}
-    return(data_hash)
-  end
-
-  # Uses "ferret" to match information given in an imported workbook
-  # or any text to find similar data groups (see Methodstep,
-  # Admin::MethodstepsController) on the portal.
-  def find_similar_data_groups(data_group_Title)
-
-    logger.debug "---------- in find_similar_data_groups --------------"
-    logger.debug "data_group_Title"
-    logger.debug data_group_Title.inspect
-    # find suitable methods already available
-    #methAvailable = Datagroup.find_with_ferret(data_group_Title)
-    methAvailable = Datagroup.find_all_by_title(data_group_Title)
-    # now making sure that at least one known method is fund
-    unless methAvailable
-      #TODO THIS DOESNT WORK !!!!!!!!!
-      #! We should add numeric helper and text helper, use text
-      #! helper if there is text in the column, and
-      #methAvailable << Datagroup.find(74)
-      methAvailable = [Datagroup.helper_method]
-    end
-    logger.debug "methAvailable"
-    logger.debug methAvailable.inspect
-    logger.debug "methAvailable.collect{|dg| dg.id}"
-    logger.debug methAvailable.collect{|dg| dg.id}.inspect
-    return methAvailable
-  end
-
-  # The third sheet of the data workbook lists people which have
-  # collected data found in the raw data sheet of the workbook.  These
-  # people are associated to subprojects and have roles within their
-  # subprojects.  These people can be asked if there are questions
-  # concerning data in a given column of the raw data sheet.  These
-  # people should also be considered when writing papers using the
-  # data from this column in the rawdata sheet (see DataRequest and
-  # DataRequestsController).
-  #
-  # The lookup method is only called when there are no people already
-  # associated to a data header (see MeasurementsMethodstep,
-  # MeasurementsMethodstepsController).
-  def lookup_data_header_people(ch)
-    # there are often several people for one column in raw data;
-    # people can also be added automatically to the submethod
-    people_rows = @ch_people_hash.select{|k,v| v==ch} # [[1, "rarefy_100"]]
-    people_rows = people_rows.collect{|r_ch| r_ch[0]} # only the row index
-    people_given = []
-    people_sur   = []
-    people_proj  = []
-    people_role  = []
-    people = []
-    people_rows.each do |r|
-      people_given << @respPeopleSheet.row(r)[1]
-      people_sur   << @respPeopleSheet.row(r)[2]
-      people_proj   << @respPeopleSheet.row(r)[3]
-      people_role   << @respPeopleSheet.row(r)[4]
-      people += User.find_all_by_lastname(people_sur)
-      #TODO SEARCH HACK
-      #people += Person.fuzzy_find(people_sur)
-    end
-    people = people.uniq
-    #    prs = people.collect{|p| p.person_roles}.flatten
-    #    prs = prs.flatten.uniq
-    #    prs = prs.sort_by{|pr| pr.person.lastname}
-    return people
+  def load_workbook
+    spreadsheet = Spreadsheet.open @dataset.upload_spreadsheet.file.path
+    spreadsheet.io.close
+    @book = Dataworkbook.new(@dataset.upload_spreadsheet, spreadsheet)
   end
 
   # Asks if object is a valid integer.
@@ -752,8 +494,7 @@ class ImportsController < ApplicationController
   # (Measurement).  No output generated.  Is called by
   # add_data_values.
   def category_data_column_import(data_column_id, portal_cats, sheet_cats)
-    data_column = Datacolumn.find(data_column_id,
-    :include => :sheetcells)
+    data_column = Datacolumn.find(data_column_id, :include => :sheetcells)
 
     # the entries themselves
     cells = data_column.sheetcells
@@ -764,22 +505,21 @@ class ImportsController < ApplicationController
       entry = cell.import_value
       obs = cell.observation
 
-      comment_cat_hash =
-      suggest_category_for_entry(portal_cats, sheet_cats,
-      entry)
+      comment_cat_hash = suggest_category_for_entry(portal_cats, sheet_cats, entry)
       cat = comment_cat_hash[:cat]
       cell_comment = comment_cat_hash[:cell_comment]
 
       cell.comment = cell_comment
 
       if cell_comment == "invalid"
-        cat = Categoricvalue.
-        create(:short => entry, :long => entry, :description => entry,
+        cat = Category.create(:short => entry,
+        :long => entry,
+        :description => entry,
         :comment => "automatically generated")
       end
 
-      old_val = cell.value
-      cell.value = cat
+      old_val = cell.category
+      cell.category = cat
       cell.save
       old_val.destroy if old_val
       logger.debug "- cell.save  -"
@@ -788,10 +528,8 @@ class ImportsController < ApplicationController
 
   end
 
-  def numeric_data_column_import(data_column_id, portal_cats,
-    sheet_cats)
-    data_column = Datacolumn.find(data_column_id,
-    :include => :sheetcells)
+  def numeric_data_column_import(data_column_id, portal_cats, sheet_cats)
+    data_column = Datacolumn.find(data_column_id, :include => :sheetcells)
 
     cells = data_column.sheetcells
 
@@ -800,33 +538,31 @@ class ImportsController < ApplicationController
       entry = cell.import_value
       obs = cell.observation
 
-      comment_cat_hash =
-      suggest_category_for_entry(portal_cats, sheet_cats,
-      entry)
+      comment_cat_hash = suggest_category_for_entry(portal_cats, sheet_cats, entry)
 
       # invalid if not categoricvalue is found
       cell_comment = comment_cat_hash[:cell_comment]
 
       if cell_comment != "invalid"
-        value = comment_cat_hash[:cat]
+        cell.category = comment_cat_hash[:cat]
       elsif numeric?(entry)
-        value = Numericvalue.create(:number => entry)
+        cell.accepted_value = entry
         cell_comment = "valid"
       else
-        value = Categoricvalue.
-        create(:short => entry, :long => entry, :description => entry,
+        value = Category.create(:short => entry,
+        :long => entry,
+        :description => entry,
         :comment => "automatically generated")
+        cell.category = value
       end
 
-      cell.value = value
       cell.comment = cell_comment
       cell.save
     end # Entry loop
   end
 
   def text_data_column_import(data_column_id)
-    data_column = Datacolumn.find(data_column_id,
-    :include => :sheetcells)
+    data_column = Datacolumn.find(data_column_id, :include => :sheetcells)
 
     # the entries themselves
     cells = data_column.sheetcells
@@ -838,13 +574,12 @@ class ImportsController < ApplicationController
 
       # here could one place custom validation
       if true
-        value = Textvalue.create(:text => entry)
+        cell.accepted_value = entry
         cell_comment = "valid"
       else
         # validation error
       end
 
-      cell.value = value
       cell.comment = cell_comment
       cell.save
       logger.debug "------------ after saving cell.save  ---------"
@@ -853,9 +588,9 @@ class ImportsController < ApplicationController
   end
 
   def datetime_data_column_import(data_column_id, portal_cats, sheet_cats)
-    data_column = Datacolumn.find(data_column_id,
-    :include => :sheetcells)
-    date_format = case data_column.import_data_type
+    data_column = Datacolumn.find(data_column_id, :include => :sheetcells)
+    date_format =
+    case data_column.import_data_type
     when "date(14.07.2009)" then '%d.%m.%Y'
     when "date(2009-07-14)" then '%Y-%m-%d'
     end
@@ -867,42 +602,35 @@ class ImportsController < ApplicationController
       entry = cell.import_value
       obs = cell.observation
 
-      comment_cat_hash =
-      suggest_category_for_entry(portal_cats, sheet_cats,
-      entry)
+      comment_cat_hash = suggest_category_for_entry(portal_cats, sheet_cats, entry)
 
       # invalid if not categoricvalue is found
       cell_comment = comment_cat_hash[:cell_comment]
 
       if cell_comment != "invalid"
-        value = comment_cat_hash[:cat]
+        cell.category = comment_cat_hash[:cat]
       else
         begin
           entry = Date.strptime(entry, date_format)
-        rescue
-          # just go on
-        end
-        entry = entry.to_s
-        value = Datetimevalue.new(:date => entry)
-        if !value.date.nil?
-          value.save
+
+          cell.accepted_value = entry.to_s
           cell_comment = "valid"
-        else
-          value = Categoricvalue.
-          create(:short => entry, :long => entry, :description => entry,
+        rescue
+          value = Category.create(:short => entry,
+          :long => entry,
+          :description => entry,
           :comment => "automatically generated")
+          cell.category = value
         end
       end
 
-      cell.value = value
       cell.comment = cell_comment
       cell.save
     end # Entry loop
   end
 
   def year_data_column_import(data_column_id, portal_cats, sheet_cats)
-    data_column = Datacolumn.find(data_column_id,
-    :include => [:sheetcells])
+    data_column = Datacolumn.find(data_column_id, :include => [:sheetcells])
 
     cells = data_column.sheetcells
 
@@ -911,24 +639,23 @@ class ImportsController < ApplicationController
       entry = cell.import_value
       obs = cell.observation
 
-      comment_cat_hash =
-      suggest_category_for_entry(portal_cats, sheet_cats,
-      entry)
+      comment_cat_hash = suggest_category_for_entry(portal_cats, sheet_cats, entry)
       cell_comment = comment_cat_hash[:cell_comment]
 
       if cell_comment != "invalid"
-        value = comment_cat_hash[:cat]
+        cell.category = comment_cat_hash[:cat]
       elsif integer?(entry)
         entry = entry.to_i.to_s
-        value = Datetimevalue.create(:year => entry)
+        cell.accepted_value= entry
         cell_comment = "valid"
       else
-        value = Categoricvalue.
-        create(:short => entry, :long => entry, :description => entry,
+        value = Category.create(:short => entry,
+        :long => entry,
+        :description => entry,
         :comment => "automatically generated")
+        cell.category = value
       end
 
-      cell.value = value
       cell.comment = cell_comment
       cell.save
     end # Entry loop

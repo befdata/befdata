@@ -99,8 +99,12 @@ class Dataworkbook
     return date
   end
 
+  def method_index_for_columnheader(columnheader)
+    data_description_sheet.column(0).to_a.index(columnheader)
+  end
+
   def data_column_info_for_columnheader(columnheader)
-    method_index = Array(data_description_sheet.column(0)).index(columnheader)
+    method_index = method_index_for_columnheader(columnheader)
 
     data_header_ch = {}
     data_header_ch[:columnheader] = columnheader
@@ -119,4 +123,113 @@ class Dataworkbook
     return data_header_ch
 
   end
+
+  # During the upload process we look several times back in the
+  # spreadsheet.  In this case, we are looking for data group
+  # information (Methodstep, MethodstepsController).  Data groups
+  # consist of several data column instances
+  # (MeasurementsMethodstep). During first upload (raw_data_overview),
+  # we use the information provided in the method sheet in columns 5
+  # to 11 to guess a similar data group from the data portal.  During
+  # the upload of each single data column from the raw data sheet
+  # (raw_data_per_header), we use this information to initialize a new
+  # data group instance which can then be altered and saved to save
+  # this new data group on the portal.
+  def methodsheet_datagroup(columnheader)
+
+    method_index = method_index_for_columnheader(columnheader)
+
+    data_group = {}
+    if method_index.nil? # no discription for this columnheader in the method sheet
+      data_group[:title] = columnheader
+      data_group[:description] = columnheader
+    else
+      row = data_description_sheet.row(method_index)
+      data_group[:title] = row[5].blank? ? row[1] : row[5]
+      data_group[:title] ||= columnheader
+      data_group[:description] = row[6].blank? ? data_group[:title] : row[6]
+      data_group[:instrumentation] = row[7]
+      data_group[:informationsource] = row[8]
+      data_group[:methodvaluetype] = row[9]
+      data_group[:timelatency] = row[10]
+      data_group[:timelatencyunit] = row[11]
+    end
+
+    return data_group
+  end
+
+  def data_for_columnheader(columnheader)
+
+    data_lookup_ch = {:data => nil, :rowmax => 1}
+    data_with_head = Array(raw_data_sheet.column(raw_data_sheet.row(0).to_a.index(columnheader)))
+
+    if data_with_head.length > 1
+      data_hash = generate_data_hash(data_with_head) # deletes dataheader
+      data_lookup_ch[:data] = data_hash
+      data_lookup_ch[:rowmax] =  data_hash.keys.max.nil? ? 0 : data_hash.keys.max - 1 # starting at second row
+    end
+
+    return data_lookup_ch
+  end
+
+  private
+
+  # Takes the entire data column of a raw data sheet and converts it
+  # to a hash which stores row numbers as key and the measurements
+  # from the spreadsheet as hash value.  Additionally deletes the
+  # first row, since this contains the columnheader and not a
+  # measurement.  The row number stored here is equal to the row
+  # number in the spreadsheet.
+  def generate_data_hash(data_array)
+    data_hash = {}
+    data_array.each_index do |x|
+      d = data_array[x]
+      if d.class == Spreadsheet::Formula
+        d = d.value
+      elsif d.class == Spreadsheet::Excel::Error
+        d = "Error in Excel Formula"
+      end
+      row = x + 1
+      d = d.to_i.to_s if Integer(d) rescue false
+      data_hash[row] = d unless d.nil?
+    end
+    # deleting the first row which contains the column header and not
+    # a value
+    data_hash.delete_if{|k,v| k == 1}
+
+    return data_hash
+  end
+
+  # The third sheet of the data workbook lists people which have
+  # collected data found in the raw data sheet of the workbook.  These
+  # people are associated to subprojects and have roles within their
+  # subprojects.  These people can be asked if there are questions
+  # concerning data in a given column of the raw data sheet.  These
+  # people should also be considered when writing papers using the
+  # data from this column in the rawdata sheet (see DataRequest and
+  # DataRequestsController).
+  #
+  # The lookup method is only called when there are no people already
+  # associated to a data header (see MeasurementsMethodstep,
+  # MeasurementsMethodstepsController).
+  def lookup_data_header_people(columnheader)
+    # there are often several people for one column in raw data;
+    # people can also be added automatically to the submethod
+    people_rows = @ch_people_hash.select{|k,v| v == columnheader}.collect{|r_ch| r_ch[0]} # only the row index
+    people_given = []
+    people_sur   = []
+    people_proj  = []
+    people_role  = []
+    people = []
+    people_rows.each do |r|
+      people_given << @respPeopleSheet.row(r)[1]
+      people_sur   << @respPeopleSheet.row(r)[2]
+      people_proj   << @respPeopleSheet.row(r)[3]
+      people_role   << @respPeopleSheet.row(r)[4]
+      people += User.find_all_by_lastname(people_sur)
+    end
+    people = people.uniq
+    return people
+  end
+
 end

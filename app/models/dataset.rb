@@ -68,14 +68,17 @@ class Dataset < ActiveRecord::Base
   # linked to values (eg Datetimevalue, Numericvalue, Categoricvalue,
   # Textvalue)
   def cells_linked_to_values?
-    ms = self.sheetcells
+    #ms = self.sheetcells
     
-    test = false
-    unless ms.blank?
-      vls = ms.collect{|m| m.value}.flatten.compact
-      test = ms.length== vls.length
-    end
-    test
+    #test = false
+    #unless ms.blank?
+    #  vls = ms.collect{|m| m.accepted_value}.flatten.compact
+    #  test = ms.length== vls.length
+   # end
+   # test
+
+    ms = self.sheetcells.find(:all, :conditions => ["accepted_value IS NOT NULL OR accepted_value !='' OR category_id > 0"])
+    return !ms.empty?
   end
 
   # During the import routine, we step through each of the data
