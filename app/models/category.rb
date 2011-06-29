@@ -1,6 +1,7 @@
 class Category < ActiveRecord::Base
 
-  #has_many :sheetcells, :as => :value
+  belongs_to :user, :class_name => "User", :foreign_key => "user_id"
+  belongs_to :datagroup, :class_name => "Datagroup", :foreign_key => "datagroup_id"
   has_many :sheetcells
   ## if there is any measurement linked to a category,
   ## it should not be destroyed; If there is a reason to change this
@@ -55,6 +56,5 @@ class Category < ActiveRecord::Base
     logger.debug "in destroy taggings"
     cds = self.taggings.destroy_all
   end
-
 
 end

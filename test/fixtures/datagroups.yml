@@ -11,6 +11,7 @@ datagroups_016:
   description: The scientific species fullnames are based on the "Flora of China" identified by Teng Fang and verified by Helge Bruelheide (trees) and Alexandra Efmeier (herbs). Scientific species names consist of epithet and genus. For identification, the Author name and the year of the publications of the description are required.
   informationsource: Flora of China, Helge Bruelheide
   methodvaluetype: nominal
+  system: false
 datagroups_005: 
   comment: 
   created_at: 2011-06-01 13:47:45.502
@@ -23,6 +24,7 @@ datagroups_005:
   description: height in m
   informationsource: 
   methodvaluetype: number
+  system: false
 datagroups_017: 
   comment: 
   created_at: 2011-03-28 13:59:35.8384
@@ -35,6 +37,7 @@ datagroups_017:
   description: Carbon
   informationsource: 
   methodvaluetype: number
+  system: false
 datagroups_006: 
   comment: 
   created_at: 2011-05-01 11:46:46.622642
@@ -47,6 +50,7 @@ datagroups_006:
   description: solar radiation
   informationsource: 
   methodvaluetype: number
+  system: false
 datagroups_018: 
   comment: 
   created_at: 2011-03-28 13:59:35.4144
@@ -59,6 +63,7 @@ datagroups_018:
   description: "The stems were marked with a metal tag with a code compound of a number of six positions. The tag was attached to each individual by attaching it with a wire sorrounding one stem, taking care to leave it long enough to allow the grow of the stem. Normally the wire was attached between 1 and 1.8m over the ground. If the individual had many stems, such as often seen in shrubs, only one of the stems was tagged. "
   informationsource: 
   methodvaluetype: nominal
+  system: false
 datagroups_007: 
   comment: 
   created_at: 2011-05-01 11:46:34.738593
@@ -71,6 +76,7 @@ datagroups_007:
   description: The acronym corresponds to the species pool of the random scenario (A, B, C), the directed extinction scenarios (R for rarity, S for SLA), the economic species (E), and  free succession plots (F).  In site B there is another treatment for genetic variation (G).
   informationsource: 
   methodvaluetype: category
+  system: false
 datagroups_019: 
   comment: 
   created_at: 2011-05-01 12:51:22.491656
@@ -82,7 +88,8 @@ datagroups_019:
   timelatency: 
   description: Slide showing mostly European members of the BEF China project including names and projects.
   informationsource: 
-  methodvaluetype: 
+  methodvaluetype:
+  system: false
 datagroups_008: 
   comment: 
   created_at: 2011-03-28 13:59:35.0964
@@ -95,6 +102,7 @@ datagroups_008:
   description: Date time information, given as year or as date or as date time.
   informationsource: 
   methodvaluetype: integer
+  system: false
 datagroups_020: 
   comment: 
   created_at: 2011-05-01 11:46:37.573884
@@ -107,6 +115,7 @@ datagroups_020:
   description: longitude
   informationsource: 
   methodvaluetype: number
+  system: false
 datagroups_009: 
   comment: 
   created_at: 2011-06-01 13:47:47.767
@@ -119,6 +128,7 @@ datagroups_009:
   description: Author name for species description
   informationsource: 
   methodvaluetype: text
+  system: false
 datagroups_021: 
   comment: 
   created_at: 2011-03-28 13:59:35.2564
@@ -131,6 +141,7 @@ datagroups_021:
   description: "Leaf samples were taken with telescope pruning shears (lenght: up to 6.5m)  from the lower outer and preferentially sun exposed canopy when possible. Leaves of shrub species were sampled in upper canopy.  One year old twigs, and roots which a diameter between 1 and 3mm were taken."
   informationsource: 
   methodvaluetype: category
+  system: false
 datagroups_010: 
   comment: 
   created_at: 2011-03-28 13:59:35.5574
@@ -143,6 +154,7 @@ datagroups_010:
   description: "Reasearch plots of the Biodiversity - Ecosystem functioning experiment (BEF-China). There are three main sites for research plots in the BEF Experiment: Comparative Study Plots (CSP) in the  Gutianshan Nature Reserve, having a size of 30x30m^2, measured on the ground. Main Experiment plots have a size of 1 mu, which is about 25x25m^2 in horizontal projection. Pilot Study Plots have a size of 1x1 m^2."
   informationsource: 
   methodvaluetype: nominal
+  system: false
 datagroups_011: 
   comment: 
   created_at: 2011-05-01 11:46:33.176676
@@ -155,6 +167,7 @@ datagroups_011:
   description: Taxon diversity can be given as species richness, or other diversity indices.  We also use rarefied species richness, shannon diversity index, and phylogenetic diversity indices.
   informationsource: 
   methodvaluetype: number
+  system: false
 datagroups_012: 
   comment: 
   created_at: 2011-05-01 11:46:39.105733
@@ -167,6 +180,7 @@ datagroups_012:
   description: latitude
   informationsource: 
   methodvaluetype: number
+  system: false
 datagroups_001: 
   comment: 
   created_at: 2011-05-01 11:46:42.218239
@@ -179,6 +193,7 @@ datagroups_001:
   description: aspect
   informationsource: 
   methodvaluetype: number
+  system: false
 datagroups_013: 
   comment: 
   created_at: 2011-06-01 13:47:47.992
@@ -191,6 +206,7 @@ datagroups_013:
   description: Date time value
   informationsource: 
   methodvaluetype: datetime
+  system: false
 datagroups_002: 
   comment: 
   created_at: 2011-03-28 13:59:35.7254
@@ -203,6 +219,7 @@ datagroups_002:
   description: Helper column give further information on other columns or summarize several columns
   informationsource: 
   methodvaluetype: text
+  system: false
 datagroups_014: 
   comment: 
   created_at: 2011-05-01 11:46:45.072263
@@ -215,6 +232,7 @@ datagroups_014:
   description: slope
   informationsource: 
   methodvaluetype: number
+  system: false
 datagroups_003: 
   comment: 
   created_at: 2011-05-01 11:46:36.272046
@@ -227,6 +245,7 @@ datagroups_003:
   description: helper
   informationsource: 
   methodvaluetype: text
+  system: false
 datagroups_015: 
   comment: 
   created_at: 2011-05-01 11:46:31.881328
@@ -239,6 +258,7 @@ datagroups_015:
   description: Site B plot number according to design spreadsheet. Plots are named according to their location on the original spreadsheet used for treatment design. This has letters from West to East and numbers from North to south. Some plots were moved half a gridcell (1 mu) so be suitable for planting (grid cell loctype)
   informationsource: 
   methodvaluetype: category
+  system: false
 datagroups_004: 
   comment: 
   created_at: 2011-05-01 11:46:40.633028
@@ -251,3 +271,17 @@ datagroups_004:
   description: elevation
   informationsource: 
   methodvaluetype: number
+  system: false
+datagroups_0022:
+  comment:
+  created_at: 2011-06-29 11:46:40.633028
+  timelatencyunit:
+  title: Category sheet match
+  updated_at: 2011-06-29 11:46:40.633028
+  instrumentation:
+  id: "22"
+  timelatency:
+  description: Category sheet match
+  informationsource:
+  methodvaluetype:
+  system: true

@@ -48,54 +48,12 @@ class ImportsController < ApplicationController
     load_workbook
 
     # Are there data columns already associated to this Dataset?
-    return unless @dataset.datacolumns.length == 0 # which means that there are no observations nor measurements
+    return unless @book.columnheaders_unique? # we can only go on, if columnheaders of data columns are unique
 
-    return unless @book.columnheaders_unique? # we can only go on, if column headers of data columns are unique
-
-    # generate data column instances
-    @book.columnheaders_raw.each do |columnheader|
-
-      # Data column information
-      data_column_ch = @book.data_column_info_for_columnheader(columnheader)
-      data_column_ch[:dataset_id] = @dataset.id
-
-      data_group_ch = @book.methodsheet_datagroup(columnheader)
-
-      data_group = Datagroup.find_by_title(data_group_ch[:title])
-      data_group = Datagroup.create(data_group_ch) if data_group.blank?
-
-      data_column_ch[:datagroup_id] = data_group.id
-
-      data_column_new = Datacolumn.create(data_column_ch)
-      unless data_column_new.comment.blank?
-        data_column_new.tag_list = data_column_new.comment
-      end
-
-      datatype = Datatype.find_by_name(data_column_ch[:import_data_type])
-      data_hash = @book.data_for_columnheader(columnheader)[:data]
-
-      unless data_hash.blank?
-        rownr_obs_hash = @dataset.rownr_observation_id_hash
-
-        # Go through each entry in the spreadsheet
-        data_hash.each do |rownr, entry|
-          # Is there an observation in this Dataset with this rownr?
-          obs_id = rownr_obs_hash.select{|rnr, obs_id| rnr == rownr}.flatten[1]
-
-          # If not, create a new Observation
-          if obs_id.nil?
-            obs = Observation.create(:rownr => rownr)
-            obs_id = obs.id
-          end
-
-          # create measurement (with value as import_value)
-          entry = entry.to_i.to_s if integer?(entry)
-          sc = Sheetcell.create(:datacolumn => data_column_new,
-                                :observation_id => obs_id,
-                                :import_value => entry,
-                                :datatype => datatype)
-        end # is there data provided?
-      end
+    if @dataset.datacolumns.length == 0
+      @just_uploaded = true
+      Dataworkbook.delay.import_data(@dataset.id)
+    else
     end
   end # raw data overview
 
@@ -114,7 +72,7 @@ class ImportsController < ApplicationController
     # data column specific information: start with the column header
     columnheader = @data_column.columnheader
 
-    data_group_title = method_index.blank? ? columnheader : Array(@book.data_description_sheet.column(5))[@book.method_index_for_columnheader(columnheader)]
+    data_group_title = @book.method_index_for_columnheader(columnheader).blank? ? columnheader : @book.data_group_title(columnheader)
     @data_groups_available = Datagroup.find_similar_by_title(data_group_title)
 
     # collect all methods for the select button
@@ -162,78 +120,56 @@ class ImportsController < ApplicationController
       @data_column.import_categoricvalues = sheet_new_imp_cats
     end
 
-    @sheet_cats = @data_column.import_categoricvalues.map{|imp_c| [imp_c.category.id,
-        imp_c.category.short,
-        imp_c.category.long
-      ]
-    }
+    @sheet_cats = @data_column.import_categoricvalues.map{|imp_c| [imp_c.category.id, imp_c.category.short, imp_c.category.long]}
   end
 
   def update_data_header
-    if current_user
-      data_header = Datacolumn.find(params[:datacolumn][:id])
+    data_header = Datacolumn.find(params[:datacolumn][:id])
 
-      if data_header.update_attributes(params[:datacolumn])
-        redirect_to :back
-      else
-        redirect_to data_path
-      end
-
+    if data_header.update_attributes(params[:datacolumn])
+      redirect_to :back
     else
-      # Not logged in, redirect to login form
-      session[:return_to] = request.request_uri
-      redirect_to login_path and return
+      redirect_to data_path
     end
   end
 
   def update_data_group
-    if current_user
-      data_header = Datacolumn.find(params[:datacolumn][:id])
-      data_group = Datagroup.new(params[:datagroup])
+    data_header = Datacolumn.find(params[:datacolumn][:id])
+    data_group = Datagroup.new(params[:datagroup])
 
-      logger.debug "--------------------------------------------------"
-      logger.debug data_header.inspect
-      logger.debug data_group.inspect
-      logger.debug params.inspect
+    logger.debug "--------------------------------------------------"
+    logger.debug data_header.inspect
+    logger.debug data_group.inspect
+    logger.debug params.inspect
 
-      begin
-        Datacolumn.transaction do
-          if data_group.save
-            data_header.datagroup = data_group
-            data_header.save
-            redirect_to :back
-          else
-            flash[:notice] = data_group.errors
-            redirect_to :back
-          end
+    begin
+      Datacolumn.transaction do
+        if data_group.save
+          data_header.datagroup = data_group
+          data_header.save
+          redirect_to :back
+        else
+          flash[:notice] = data_group.errors
+          redirect_to :back
         end
-      rescue ActiveRecord::RecordInvalid => invalid
-        redirect_to :root
       end
-    else
-      # Not logged in, redirect to login form
-      session[:return_to] = request.request_uri
-      redirect_to login_path and return
+    rescue ActiveRecord::RecordInvalid => invalid
+      redirect_to :root
     end
   end
 
   # Assingning provenance informaiton: linking people to a data column
   def update_people_for_data_header
-    if current_user
-      data_column = Datacolumn.find(params[:datacolumn][:id])
-      people = User.find(params[:people])
+    redirect_to :back and return if params[:people].blank?
+    data_column = Datacolumn.find(params[:datacolumn][:id])
+    people = User.find(params[:people])
 
-      # assigning provenance information: linking people to a data
-      # column
-      people.each do |pr|
-        pr.has_role! :responsible, data_column
-      end
-      redirect_to :back
-    else
-      # Not logged in, redirect to login form
-      session[:return_to] = request.request_uri
-      redirect_to login_path and return
+    # assigning provenance information: linking people to a data
+    # column
+    people.each do |pr|
+      pr.has_role! :responsible, data_column
     end
+    redirect_to :back
   end
 
   # Adding data values to data columns.  Values are imported from the
@@ -245,46 +181,40 @@ class ImportsController < ApplicationController
   # workbooks, one may also save free format files.  (!! We still have
   # to write the views etc for that!!)
   def add_data_values
-    if current_user
-      data_column = Datacolumn.find(params[:datacolumn][:id])
-      data_column.update_attributes(params[:datacolumn])
+    data_column = Datacolumn.find(params[:datacolumn][:id])
+    data_column.update_attributes(params[:datacolumn])
 
-      # Text values do not have associated categoric values (naming
-      # conventions), all the others have.  This is because the
-      # scientists wanted to have different options in describing
-      # types of missing values.
-      if data_column.import_data_type == "text"
-        text_data_column_import(data_column.id)
-      else
-        logger.debug "------------ looking for naming conventions  ---------"
-        portal_cats = data_column.datagroup.datacell_categories_sql
-        sheet_cats = data_column.import_categoricvalues.map{|icat| icat.category}
-        if data_column.import_data_type == "category"
-          category_data_column_import(data_column.id, portal_cats, sheet_cats)
-        elsif data_column.import_data_type == "number"
-          numeric_data_column_import(data_column.id, portal_cats, sheet_cats)
-        elsif data_column.import_data_type == "date(14.07.2009)"
-          datetime_data_column_import(data_column.id, portal_cats, sheet_cats)
-        elsif data_column.import_data_type == "date(2009-07-14)"
-          datetime_data_column_import(data_column.id, portal_cats, sheet_cats)
-        elsif data_column.import_data_type == "year"
-          year_data_column_import(data_column.id, portal_cats, sheet_cats)
-        end
-      end
-
-      # by now values have been added
-      unless data_column.categories.blank?
-        redirect_to(:controller => :imports,
-        :action => :data_column_categories,
-        :data_column_id => data_column.id)
-      else
-        redirect_to :back
-      end
-
+    # Text values do not have associated categoric values (naming
+    # conventions), all the others have.  This is because the
+    # scientists wanted to have different options in describing
+    # types of missing values.
+    if data_column.import_data_type == "text"
+      data_column.accept_imported_values("text")
+      #text_data_column_import(data_column.id)
     else
-      # Not logged in, redirect to login form
-      session[:return_to] = request.request_uriportal_cats
-      redirect_to login_path and return
+      logger.debug "------------ looking for naming conventions  ---------"
+      portal_cats = data_column.datagroup.datacell_categories_sql
+      sheet_cats = data_column.import_categoricvalues.map{|icat| icat.category}
+      if data_column.import_data_type == "category"
+        category_data_column_import(data_column.id, portal_cats, sheet_cats)
+      elsif data_column.import_data_type == "number"
+        numeric_data_column_import(data_column.id, portal_cats, sheet_cats)
+      elsif data_column.import_data_type == "date(14.07.2009)"
+        datetime_data_column_import(data_column.id, portal_cats, sheet_cats)
+      elsif data_column.import_data_type == "date(2009-07-14)"
+        datetime_data_column_import(data_column.id, portal_cats, sheet_cats)
+      elsif data_column.import_data_type == "year"
+        year_data_column_import(data_column.id, portal_cats, sheet_cats)
+      end
+    end
+
+    # by now values have been added
+    unless data_column.categories.blank?
+      redirect_to(:controller => :imports,
+      :action => :data_column_categories,
+      :data_column_id => data_column.id)
+    else
+      redirect_to :back
     end
   end
 
@@ -322,70 +252,56 @@ class ImportsController < ApplicationController
   end
 
   def cell_category_create
-    if current_user
-      first_cell = Sheetcell.find(params[:sheetcell][:id])
-      entry = first_cell.import_value
-      same_entry_cells = first_cell.same_entry_cells
+    first_cell = Sheetcell.find(params[:sheetcell][:id])
+    entry = first_cell.import_value
+    same_entry_cells = first_cell.same_entry_cells
 
-      # the new category; needs error handling
-      cat = Category.new(params[:category])
-      cat.comment = "manually approved"
-      cat.long = entry if cat.long.blank?
-      cat.description = cat.long if cat.description.blank?
-      logger.debug "------------ after crating new category  ---------"
-      logger.debug cat.inspect
+    # the new category; needs error handling
+    cat = Category.new(params[:category])
+    cat.comment = "manually approved"
+    cat.long = entry if cat.long.blank?
+    cat.description = cat.long if cat.description.blank?
+    logger.debug "------------ after crating new category  ---------"
+    logger.debug cat.inspect
 
-      if cat.save
-        same_entry_cells.each do |cell|
-          old_cat = cell.category
-          cell.update_attributes(:category => cat,
-          :comment => "valid")
-          old_cat.destroy # validates that it is not destroyed if
-          # linked to measurement or import category
-        end
-        redirect_to :back
-      else
-        redirect_to data_path
+    if cat.save
+      same_entry_cells.each do |cell|
+        old_cat = cell.category
+        cell.update_attributes(:category => cat,
+        :comment => "valid")
+        old_cat.destroy # validates that it is not destroyed if
+        # linked to measurement or import category
       end
-
+      redirect_to :back
     else
-      # Not logged in, redirect to login form
-      session[:return_to] = request.request_uri
-      redirect_to login_path and return
+      redirect_to data_path
     end
   end
 
   def cell_category_update
-    if current_user
-      first_cell = Sheetcell.find(params[:sheetcell][:id])
-      logger.debug "- params[:measurement]  -"
-      logger.debug params[:sheetecell].inspect
-      first_cell.update_attributes(params[:sheetcell])
-      same_entry_cells = first_cell.same_entry_cells
-      logger.debug "- same_entry_cells  -"
-      logger.debug same_entry_cells.inspect
+    first_cell = Sheetcell.find(params[:sheetcell][:id])
+    logger.debug "- params[:measurement]  -"
+    logger.debug params[:sheetecell].inspect
+    first_cell.update_attributes(params[:sheetcell])
+    same_entry_cells = first_cell.same_entry_cells
+    logger.debug "- same_entry_cells  -"
+    logger.debug same_entry_cells.inspect
 
-      # category
-      cat = first_cell.category
-      cat.update_attributes(:comment => "manually approved")
+    # category
+    cat = first_cell.category
+    cat.update_attributes(:comment => "manually approved")
 
-      same_entry_cells.each do |cell|
-        logger.debug "- old and new cell  -"
-        logger.debug cell.inspect
-        old_cat = cell.category
-        cell.update_attributes(:category => cat,
-        :comment => "valid")
-        old_cat.destroy
-      end
-
-      # !! validations !!
-      redirect_to :back
-
-    else
-      # Not logged in, redirect to login form
-      session[:return_to] = request.request_uri
-      redirect_to login_path and return
+    same_entry_cells.each do |cell|
+      logger.debug "- old and new cell  -"
+      logger.debug cell.inspect
+      old_cat = cell.category
+      cell.update_attributes(:category => cat,
+      :comment => "valid")
+      old_cat.destroy
     end
+
+    # !! validations !!
+    redirect_to :back
   end
 
   def dataset_freeformat_overview
@@ -414,9 +330,7 @@ class ImportsController < ApplicationController
   private
 
   def load_workbook
-    spreadsheet = Spreadsheet.open @dataset.upload_spreadsheet.file.path
-    spreadsheet.io.close
-    @book = Dataworkbook.new(@dataset.upload_spreadsheet, spreadsheet)
+    @book = Dataworkbook.new(@dataset.upload_spreadsheet)
   end
 
   # Asks if object is a valid integer.

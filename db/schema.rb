@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110621180629) do
+ActiveRecord::Schema.define(:version => 20110629122838) do
 
   create_table "author_paperproposals", :force => true do |t|
     t.integer  "paperproposal_id"
@@ -44,6 +44,9 @@ ActiveRecord::Schema.define(:version => 20110621180629) do
     t.text     "comment"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "datagroup_id"
+    t.integer  "user_id"
+    t.integer  "status_id"
   end
 
   add_index "categories", ["short"], :name => "index_categoricvalues_on_short"
@@ -89,6 +92,7 @@ ActiveRecord::Schema.define(:version => 20110621180629) do
     t.text     "comment"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean  "system"
   end
 
   add_index "datagroups", ["id"], :name => "index_datagroups_on_id"

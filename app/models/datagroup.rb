@@ -23,9 +23,18 @@ class Datagroup < ActiveRecord::Base
   validates_uniqueness_of :title
 
   after_destroy :destroy_taggings
+  before_destroy :check_for_system_datagroup
   def destroy_taggings
     logger.debug "in destroy taggings"
     self.taggings.destroy_all
+  end
+
+  def check_for_system_datagroup
+    datagroup = self.reload
+    if(datagroup.system)
+      raise Exception, "Cannot destroy a system datagroup"
+      false
+    end
   end
 
   def datacell_categories
@@ -76,7 +85,7 @@ class Datagroup < ActiveRecord::Base
 
     # find suitable methods already available
     methods_available = Datagroup.find_all_by_title(title)
-    methods_available = [Datagroup.helper_method] unless methods_available
+    #methods_available = [Datagroup.helper_method] unless methods_available
   end
 
 end
