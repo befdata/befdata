@@ -55,5 +55,9 @@ class Categoricvalue < ActiveRecord::Base
     cds = self.taggings.destroy_all
   end
 
+  def to_label
+    short
+  end
+
 
 end
