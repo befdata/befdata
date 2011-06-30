@@ -11,14 +11,14 @@ class Admin::DatasetsController < Admin::AdminController
 
 
     config.update.link.label = "Edit Data set"
-    config.columns = [:id, :title, :filename, :download_counter]
+    config.columns = [:id, :title, :filename, :download_counter, :destroy_me]
     config.update.columns = [:title, :finished, :visible_for_public,
                              :filename,
                              # :freeformats,
                              :abstract, :comment, :usagerights,
                              :published, :spatialextent, :datemin, :datemax,
                              :temporalextent, :taxonomicextent, :design,
-                             :dataanalysis, :circumstances]
+                             :dataanalysis, :circumstances, :destroy_me ,:destroy_me_date]
 
   end
 end
