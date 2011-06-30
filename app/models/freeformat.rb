@@ -14,5 +14,9 @@ class Freeformat < ActiveRecord::Base
     return File.basename(self.file.original_filename, File.extname(self.file.original_filename))
   end
 
+  def to_label
+    self.file_file_name.to_s
+  end
+
 
 end
