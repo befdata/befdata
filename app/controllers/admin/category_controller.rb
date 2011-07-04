@@ -16,7 +16,8 @@ class Admin::CategoryController < Admin::AdminController
                              :short, :comment, :tags]
 
       config.update.columns = [:description, :long,
-                             :short, :comment, :tags]
+                             :short, :comment, :tags,
+                             :sheetcells, :import_categories]
         # config.columns[:methodstep].collapsed = true
     end
 end

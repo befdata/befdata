@@ -57,12 +57,12 @@ class DatacolumnTest < ActiveSupport::TestCase
       if cell.import_value == cell.accepted_value then
         # check that the data type is still a number
         assert (cell.datatype_id == 7)
-        assert (cell.status_id == 4)
+        assert (cell.status_id == Sheetcellstatus::VALID)
         valid_numbers += 1
       else
         # if it's not a valid number then a category will have been created
         assert (cell.datatype_id == 5)
-        assert (cell.status_id == 5)
+        assert (cell.status_id == Sheetcellstatus::INVALID)
       end
     end
     # there should be 6 valid numbers
@@ -79,11 +79,11 @@ class DatacolumnTest < ActiveSupport::TestCase
         # check that the data type is still a date
         assert (cell.datatype_id == 3)
         valid_dates += 1
-        assert (cell.status_id == 4)
+        assert (cell.status_id == Sheetcellstatus::VALID)
       else
         # if it's not a valid date then a category will have been created
         assert (cell.datatype_id == 5)
-        assert (cell.status_id == 5)
+        assert (cell.status_id == Sheetcellstatus::INVALID)
       end
     end
     # there should be 6 valid dates
@@ -100,11 +100,11 @@ class DatacolumnTest < ActiveSupport::TestCase
         # check that the data type is still a year
         assert (cell.datatype_id == 2)
         valid_years += 1
-        assert (cell.status_id == 4)
+        assert (cell.status_id == Sheetcellstatus::VALID)
       else
         # if it's not a valid year then a category will have been created
         assert (cell.datatype_id == 5)
-        assert (cell.status_id == 5)
+        assert (cell.status_id == Sheetcellstatus::INVALID)
       end
     end
     # there should be 6 valid years
@@ -119,9 +119,9 @@ class DatacolumnTest < ActiveSupport::TestCase
     invalid_count = 0
     datacolumn.sheetcells.each do |cell|
       assert(cell.category_id > 0, "A category id has not been set")
-      if(cell.status_id == 2) then
+      if(cell.status_id == Sheetcellstatus::SHEET_MATCH) then
         sheet_match_count += 1
-      elsif(cell.status_id == 5) then
+      elsif(cell.status_id == Sheetcellstatus::INVALID) then
         invalid_count += 1
       end
     end
@@ -138,11 +138,11 @@ class DatacolumnTest < ActiveSupport::TestCase
     portal_match_count=0
     datacolumn.sheetcells.each do |cell|
       assert(cell.category_id > 0, "A category id has not been set")
-      if(cell.status_id == 2) then
+      if(cell.status_id == Sheetcellstatus::SHEET_MATCH) then
         sheet_match_count += 1
-      elsif(cell.status_id == 5) then
+      elsif(cell.status_id == Sheetcellstatus::INVALID) then
         invalid_count += 1
-      elsif(cell.status_id == 3) then
+      elsif(cell.status_id == Sheetcellstatus::PORTAL_MATCH) then
         invalid_count += 1
       end
     end
@@ -161,11 +161,11 @@ class DatacolumnTest < ActiveSupport::TestCase
         # check that the data type is still a date
         assert (cell.datatype_id == 4)
         valid_dates += 1
-        assert (cell.status_id == 4)
+        assert (cell.status_id == Sheetcellstatus::VALID)
       else
         # if it's not a valid date then a category will have been created
         assert (cell.datatype_id == 5)
-        assert (cell.status_id == 5)
+        assert (cell.status_id == Sheetcellstatus::INVALID)
       end
     end
     # there should be 7 valid dates
@@ -181,12 +181,12 @@ class DatacolumnTest < ActiveSupport::TestCase
       if cell.import_value == cell.accepted_value then
         # check that the data type is still a number
         assert (cell.datatype_id == 7)
-        assert (cell.status_id == 4)
+        assert (cell.status_id == Sheetcellstatus::VALID)
         valid_numbers += 1
       else
         # if it's not a valid number then a category will have been created
         assert (cell.datatype_id == 5)
-        assert (cell.status_id == 5)
+        assert (cell.status_id == Sheetcellstatus::INVALID)
       end
     end
     # there should be 6 valid numbers
