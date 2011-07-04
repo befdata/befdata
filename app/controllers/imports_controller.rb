@@ -107,7 +107,7 @@ class ImportsController < ApplicationController
     #logger.debug @cell_values_all.inspect
 
     # collect all categories for this data column; Array of Categories
-    @portal_cats = @data_column.datagroup.datacell_categories_sql
+    @portal_cats = @data_column.datagroup.datacell_categories
 
     @sheet_cats = @data_column.import_categories.map{|imp_c| [imp_c.category.id, imp_c.category.short, imp_c.category.long]}
   end

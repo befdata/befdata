@@ -47,18 +47,11 @@ class Datagroup < ActiveRecord::Base
   end
 
   def datacell_categories
-    dcs = self.datacolumns.collect{|dh| dh.sheetcells}.flatten
-    dcs = dcs.select{|dc| dc.datatype.name == "category"}
-    cats = []
-    unless dcs.blank?
-      cats = dcs.collect{|dc| dc.category}.uniq
-      cats = cats.sort{|x,y| x.short <=> y.short}
-    end
-    cats
+    Category.all(:conditions => ["datagroup_id = ?" , self.id])
   end
 
   def datacell_categories_sql
-    Category.all(:conditions => ["id in (select sc.category_id
+    Category.all(:conditions => ["datagroup_id in (select sc.category_id
       from public.datacolumns dc
       inner join public.sheetcells sc
       on dc.Id = sc.datacolumn_id

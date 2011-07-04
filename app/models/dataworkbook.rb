@@ -160,7 +160,7 @@ class Dataworkbook
                                         :description => cat[:description],
                                         :datagroup_id => Datagroup.system_datagroup.first.id,
                                         :user_id => 1,
-                                        :status_id => 1)
+                                        :status_id => Categorystatus::CATEGORY_SHEET)
               if !import_cat.nil?
                 unique_cat = import_cat
               end
