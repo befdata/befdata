@@ -7,7 +7,7 @@ class Category < ActiveRecord::Base
   ## it should not be destroyed; If there is a reason to change this
   ## category, it should only be changed
   ## before_destroy :no_measurement_linked?
-  has_many :import_categoricvalues
+  has_many :import_categories
 
   # tagging
   is_taggable :tags, :languages

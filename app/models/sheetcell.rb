@@ -15,6 +15,11 @@ class Sheetcell < ActiveRecord::Base
   belongs_to :category
   belongs_to :datatype
 
+  # set the default value for status_id
+  def init
+    self.status_id = 1    # unaccepted
+  end
+
   def same_entry_cells
     entry = self.import_value
     data_column = self.datacolumn

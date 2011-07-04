@@ -104,7 +104,7 @@ class Dataworkbook
     return date
   end
 
-  def self.import_data(dataset_id)
+  def import_data(dataset_id)
     book = Dataworkbook.new(Dataset.find(dataset_id).upload_spreadsheet)
     #    dataset_id = @datafile.dataset.id
 
@@ -143,10 +143,32 @@ class Dataworkbook
           # create measurement (with value as import_value)
           #entry = entry.to_i.to_s if integer?(entry)
           sc = Sheetcell.create(:datacolumn => data_column_new,
-          :observation_id => obs_id,
-          :import_value => entry,
-          :datatype => datatype)
+                                :observation_id => obs_id,
+                                :import_value => entry,
+                                :datatype => datatype)
         end # is there data provided?
+
+        # add any sheet categories included for this column
+        sheet_categories = sheet_categories_for_columnheader(columnheader)
+        unless sheet_categories.blank?
+          sheet_categories.each do | cat |
+            # the category should be unique within the selected datagroup
+            unique_cat = Category.find(:first, :conditions => ["short = ? and datagroup_id=?", cat[:short], Datagroup.system_datagroup.first.id])
+            if(unique_cat.nil?)
+              import_cat = Category.create(:short => cat[:short],
+                                        :long => cat[:long],
+                                        :description => cat[:description],
+                                        :datagroup_id => Datagroup.system_datagroup.first.id,
+                                        :user_id => 1,
+                                        :status_id => 1)
+              if !import_cat.nil?
+                unique_cat = import_cat
+              end
+            end
+            ImportCategory.create(:category => unique_cat,
+                                  :datacolumn => data_column_new)
+          end
+        end
       end
     end
   end
@@ -282,6 +304,32 @@ class Dataworkbook
     return people
   end
 
+  def sheet_categories_for_columnheader(columnheader)
+
+    header = Array(data_categories_sheet.column(0))
+    short = Array(data_categories_sheet.column(1))
+    long = Array(data_categories_sheet.column(2))
+    description = Array(data_categories_sheet.column(3))
+    ## collecting the relevant rows
+    provided_hash_array = []
+    i=0
+    for i in 0 .. header.length-1 do
+      unless header[i].nil?
+        if header[i] == columnheader
+          short_text = short[i]
+          #short_text = short_text.to_i.to_s if integer?(short_text)
+          provided_hash = {:short => short_text,
+                            :long => long[i],
+                            :description => description[i]
+                          }
+          provided_hash_array << provided_hash
+        end
+      end
+    end
+
+    return provided_hash_array
+  end
+
   private
 
   # Takes the entire data column of a raw data sheet and converts it
@@ -309,4 +357,5 @@ class Dataworkbook
 
     return data_hash
   end
+
 end

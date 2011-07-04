@@ -24,6 +24,10 @@ class Datagroup < ActiveRecord::Base
 
   after_destroy :destroy_taggings
   before_destroy :check_for_system_datagroup
+  after_initialize :init
+
+  scope :system_datagroup, where(:system => true)
+
   def destroy_taggings
     logger.debug "in destroy taggings"
     self.taggings.destroy_all
@@ -35,6 +39,11 @@ class Datagroup < ActiveRecord::Base
       raise Exception, "Cannot destroy a system datagroup"
       false
     end
+  end
+
+  # set the default value for system
+  def init
+    self.system = false
   end
 
   def datacell_categories

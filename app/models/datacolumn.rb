@@ -11,7 +11,7 @@ class Datacolumn < ActiveRecord::Base
 
   has_many :sheetcells, :dependent => :destroy
 
-  has_many :import_categoricvalues, :dependent => :destroy
+  has_many :import_categories, :dependent => :destroy
 
   validates_presence_of :datagroup_id, :dataset_id, :columnheader, :columnnr, :definition
   validates_uniqueness_of :columnheader, :columnnr, :scope => :dataset_id
@@ -110,6 +110,54 @@ class Datacolumn < ActiveRecord::Base
   # This method provides a nice look of MeasurementsMethodstep in admin views
   def long_label
     "(#{columnheader}, id: #{id}) #{definition}"
+  end
+
+  # saves the accepted values for each sheetcell in the column
+  # first looking for a match in existing categories
+  # then looking for a match in categories from the datasheet
+  # if there are no category matches then the import value is used as the accepted value
+  # NB: all of the business logic is in functions within the database
+  def add_data_values()
+
+    # store the system data group id as this makes the SQL faster since it's one less join
+    system_datagroup_id = Datagroup.system_datagroup.first.id if !Datagroup.system_datagroup.first.nil?
+    # remove any previous accepted values so that we can keep a track of what has been updated
+    sqlclean = "select clear_datacolumn_accepted_values(#{id})"
+    # this bit will need to change once we change the column datatype to be an integer
+    case self.import_data_type
+        when "text"
+          datatype_id = 1
+        when "year"
+          datatype_id = 2
+        when "date(2009-07-14)"
+          datatype_id = 3
+        when "date(14.07.2009)"
+          datatype_id = 4
+        when "category"
+          datatype_id = 5
+        else
+          datatype_id = 7    # number
+      end
+    # I would like to change this so that the SQL is in one function but it wasn't working
+    # I will look at this again - SR
+    if(datatype_id == 1)then
+      sql = "select accept_text_datacolumn_values(#{id})"
+    else
+      sql = "select accept_datacolumn_values(#{datatype_id}, #{id}, #{datagroup_id}, #{system_datagroup_id})"
+    end
+
+    begin
+      connection = ActiveRecord::Base.connection();
+      connection.begin_db_transaction
+      connection.execute(sqlclean)
+      connection.execute(sql)
+
+      connection.commit_db_transaction
+    rescue
+      connection.rollback_db_transaction
+      raise
+    end
+
   end
 
 end

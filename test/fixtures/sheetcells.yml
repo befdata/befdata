@@ -10,6 +10,7 @@ Sheetcells_001:
   updated_at: 2011-06-01 13:50:23.624
   accepted_value: "5"
   datatype_id: 5
+  status_id: 4
 Sheetcells_002: 
   id: "251"
   datacolumn_id: "33"
@@ -21,6 +22,7 @@ Sheetcells_002:
   updated_at: 2011-06-01 13:50:24.363
   accepted_value: "3"
   datatype_id: 5
+  status_id: 4
 Sheetcells_003: 
   id: "250"
   datacolumn_id: "33"
@@ -32,6 +34,7 @@ Sheetcells_003:
   updated_at: 2011-06-01 13:50:24.381
   accepted_value: "2"
   datatype_id: 5
+  status_id: 4
 Sheetcells_004: 
   id: "252"
   datacolumn_id: "33"
@@ -43,6 +46,7 @@ Sheetcells_004:
   updated_at: 2011-06-01 13:52:20.23
   category_id: "59"
   datatype_id: 4
+  status_id: 4
 Sheetcells_005: 
   id: "257"
   datacolumn_id: "34"
@@ -54,6 +58,7 @@ Sheetcells_005:
   updated_at: 2011-06-01 13:53:08.364
   accepted_value: Metcalf
   datatype_id: 1
+  status_id: 4
 Sheetcells_006: 
   id: "256"
   datacolumn_id: "34"
@@ -65,6 +70,7 @@ Sheetcells_006:
   updated_at: 2011-06-01 13:53:09.131
   accepted_value: C.K.Schneider
   datatype_id: 1
+  status_id: 4
 Sheetcells_007: 
   id: "255"
   datacolumn_id: "34"
@@ -76,6 +82,7 @@ Sheetcells_007:
   updated_at: 2011-06-01 13:53:09.153
   accepted_value: Fortune
   datatype_id: 1
+  status_id: 4
 Sheetcells_008: 
   id: "254"
   datacolumn_id: "34"
@@ -87,6 +94,7 @@ Sheetcells_008:
   updated_at: 2011-06-01 13:53:09.174
   accepted_value: (Siebold & Zucc.) Kuntze
   datatype_id: 1
+  status_id: 4
 Sheetcells_009: 
   id: "261"
   datacolumn_id: "35"
@@ -98,6 +106,7 @@ Sheetcells_009:
   updated_at: 2011-06-01 13:54:11.854
   accepted_value: "1932"
   datatype_id: 2
+  status_id: 4
 Sheetcells_010: 
   id: "260"
   datacolumn_id: "35"
@@ -109,6 +118,7 @@ Sheetcells_010:
   updated_at: 2011-06-01 13:54:12.231
   accepted_value: "1912"
   datatype_id: 2
+  status_id: 4
 Sheetcells_011: 
   id: "259"
   datacolumn_id: "35"
@@ -120,6 +130,7 @@ Sheetcells_011:
   updated_at: 2011-06-01 13:54:12.253
   accepted_value: "1850"
   datatype_id: 2
+  status_id: 4
 Sheetcells_012: 
   id: "258"
   datacolumn_id: "35"
@@ -131,6 +142,7 @@ Sheetcells_012:
   updated_at: 2011-06-01 13:54:12.271
   accepted_value: "1891"
   datatype_id: 2
+  status_id: 4
 Sheetcells_013: 
   id: "265"
   datacolumn_id: "36"
@@ -142,6 +154,7 @@ Sheetcells_013:
   updated_at: 2011-06-01 13:55:44.915
   category_id: "63"
   datatype_id: 4
+  status_id: 4
 Sheetcells_014: 
   id: "264"
   datacolumn_id: "36"
@@ -153,6 +166,7 @@ Sheetcells_014:
   updated_at: 2011-06-01 13:55:45.369
   category_id: "62"
   datatype_id: 4
+  status_id: 4
 Sheetcells_015: 
   id: "263"
   datacolumn_id: "36"
@@ -164,6 +178,7 @@ Sheetcells_015:
   updated_at: 2011-06-01 13:55:45.391
   category_id: "61"
   datatype_id: 4
+  status_id: 4
 Sheetcells_016: 
   id: "262"
   datacolumn_id: "36"
@@ -175,6 +190,7 @@ Sheetcells_016:
   updated_at: 2011-06-01 13:55:45.41
   category_id: "65"
   datatype_id: 4
+  status_id: 4
 Sheetcells_017: 
   id: "268"
   datacolumn_id: "37"
@@ -186,6 +202,7 @@ Sheetcells_017:
   updated_at: 2011-06-01 15:03:36.508
   accepted_value: "10"
   datatype_id: 5
+  status_id: 4
 Sheetcells_018: 
   id: "267"
   datacolumn_id: "37"
@@ -197,6 +214,7 @@ Sheetcells_018:
   updated_at: 2011-06-01 15:03:36.522
   category_id: "59"
   datatype_id: 4
+  status_id: 4
 Sheetcells_019: 
   id: "266"
   datacolumn_id: "37"
@@ -208,6 +226,7 @@ Sheetcells_019:
   updated_at: 2011-06-01 15:03:36.751
   accepted_value: "2"
   datatype_id: 5
+  status_id: 4
 Sheetcells_020: 
   id: "269"
   datacolumn_id: "37"
@@ -219,6 +238,7 @@ Sheetcells_020:
   updated_at: 2011-06-01 15:03:52.913
   category_id: "64"
   datatype_id: 4
+  status_id: 4
 Sheetcells_021: 
   id: "270"
   datacolumn_id: "38"
@@ -230,6 +250,7 @@ Sheetcells_021:
   updated_at: 2011-06-01 15:04:38.629
   accepted_value: (Siebold & Zucc.) Kuntze
   datatype_id: 1
+  status_id: 4
 Sheetcells_022: 
   id: "271"
   datacolumn_id: "38"
@@ -241,6 +262,7 @@ Sheetcells_022:
   updated_at: 2011-06-01 15:04:38.727
   accepted_value: Fortune
   datatype_id: 1
+  status_id: 4
 Sheetcells_023: 
   id: "272"
   datacolumn_id: "38"
@@ -252,6 +274,7 @@ Sheetcells_023:
   updated_at: 2011-06-01 15:04:38.75
   accepted_value: (Siebold & Zucc.) Kuntze
   datatype_id: 1
+  status_id: 4
 Sheetcells_024: 
   id: "273"
   datacolumn_id: "38"
@@ -263,6 +286,7 @@ Sheetcells_024:
   updated_at: 2011-06-01 15:04:38.78
   accepted_value: Fortune
   datatype_id: 1
+  status_id: 4
 Sheetcells_025: 
   id: "274"
   datacolumn_id: "39"
@@ -274,6 +298,7 @@ Sheetcells_025:
   updated_at: 2011-06-01 15:05:28.171
   accepted_value: "1891"
   datatype_id: 2
+  status_id: 4
 Sheetcells_026: 
   id: "275"
   datacolumn_id: "39"
@@ -285,6 +310,7 @@ Sheetcells_026:
   updated_at: 2011-06-01 15:05:28.356
   accepted_value: "1850"
   datatype_id: 2
+  status_id: 4
 Sheetcells_027: 
   id: "276"
   datacolumn_id: "39"
@@ -296,6 +322,7 @@ Sheetcells_027:
   updated_at: 2011-06-01 15:05:28.379
   accepted_value: "1891"
   datatype_id: 2
+  status_id: 4
 Sheetcells_028: 
   id: "277"
   datacolumn_id: "39"
@@ -307,6 +334,7 @@ Sheetcells_028:
   updated_at: 2011-06-01 15:05:28.406
   accepted_value: "1850"
   datatype_id: 2
+  status_id: 4
 Sheetcells_029: 
   id: "278"
   datacolumn_id: "40"
@@ -318,6 +346,7 @@ Sheetcells_029:
   updated_at: 2011-06-01 15:06:46.691
   category_id: "65"
   datatype_id: 4
+  status_id: 4
 Sheetcells_030: 
   id: "279"
   datacolumn_id: "40"
@@ -329,6 +358,7 @@ Sheetcells_030:
   updated_at: 2011-06-01 15:06:46.789
   category_id: "61"
   datatype_id: 4
+  status_id: 4
 Sheetcells_031: 
   id: "280"
   datacolumn_id: "40"
@@ -340,6 +370,7 @@ Sheetcells_031:
   updated_at: 2011-06-01 15:06:46.815
   category_id: "65"
   datatype_id: 4
+  status_id: 4
 Sheetcells_032: 
   id: "281"
   datacolumn_id: "40"
@@ -351,3 +382,772 @@ Sheetcells_032:
   updated_at: 2011-06-01 15:06:46.832
   category_id: "61"
   datatype_id: 4
+  status_id: 4
+Sheetcells_282:
+  id: "282"
+  datacolumn_id: "41"
+  rownr:
+  comment: Unit test data set
+  observation_id: "82"
+  import_value: Canada
+  created_at: 2011-07-01 15:02:41.074
+  updated_at: 2011-07-01 15:06:46.832
+  category_id:
+  datatype_id: 1
+  status_id: 1
+Sheetcells_283:
+  id: "283"
+  datacolumn_id: "41"
+  rownr:
+  comment: Unit test data set
+  observation_id: "83"
+  import_value: France
+  created_at: 2011-07-01 15:02:41.074
+  updated_at: 2011-07-01 15:06:46.832
+  category_id:
+  datatype_id: 1
+  status_id: 1
+Sheetcells_284:
+  id: "284"
+  datacolumn_id: "41"
+  rownr:
+  comment: Unit test data set
+  observation_id: "84"
+  import_value: Spain
+  created_at: 2011-07-01 15:02:41.074
+  updated_at: 2011-07-01 15:06:46.832
+  category_id:
+  datatype_id: 1
+  status_id: 1
+Sheetcells_285:
+  id: "285"
+  datacolumn_id: "41"
+  rownr:
+  comment: Unit test data set
+  observation_id: "85"
+  import_value: England
+  created_at: 2011-07-01 15:02:41.074
+  updated_at: 2011-07-01 15:06:46.832
+  category_id:
+  datatype_id: 1
+  status_id: 1
+Sheetcells_286:
+  id: "286"
+  datacolumn_id: "41"
+  rownr:
+  comment: Unit test data set
+  observation_id: "86"
+  import_value: Germany
+  created_at: 2011-07-01 15:02:41.074
+  updated_at: 2011-07-01 15:06:46.832
+  category_id:
+  datatype_id: 1
+  status_id: 1
+Sheetcells_287:
+  id: "287"
+  datacolumn_id: "41"
+  rownr:
+  comment: Unit test data set
+  observation_id: "87"
+  import_value: Ireland
+  created_at: 2011-07-01 15:02:41.074
+  updated_at: 2011-07-01 15:06:46.832
+  category_id:
+  datatype_id: 1
+  status_id: 1
+Sheetcells_288:
+  id: "288"
+  datacolumn_id: "41"
+  rownr:
+  comment: Unit test data set
+  observation_id: "88"
+  import_value: Wales
+  created_at: 2011-07-01 15:02:41.074
+  updated_at: 2011-07-01 15:06:46.832
+  category_id:
+  datatype_id: 1
+  status_id: 1
+Sheetcells_289:
+  id: "289"
+  datacolumn_id: "41"
+  rownr:
+  comment: Unit test data set
+  observation_id: "89"
+  import_value: Poland
+  created_at: 2011-07-01 15:02:41.074
+  updated_at: 2011-07-01 15:06:46.832
+  category_id:
+  datatype_id: 1
+  status_id: 1
+Sheetcells_290:
+  id: "290"
+  datacolumn_id: "42"
+  rownr:
+  comment: Unit test data set
+  observation_id: "82"
+  import_value: 10
+  created_at: 2011-07-01 15:02:41.074
+  updated_at: 2011-07-01 15:06:46.832
+  category_id:
+  datatype_id: 7
+  status_id: 1
+Sheetcells_291:
+  id: "291"
+  datacolumn_id: "42"
+  rownr:
+  comment: Unit test data set
+  observation_id: "83"
+  import_value: 11
+  created_at: 2011-07-01 15:02:41.074
+  updated_at: 2011-07-01 15:06:46.832
+  category_id:
+  datatype_id: 7
+  status_id: 1
+Sheetcells_292:
+  id: "292"
+  datacolumn_id: "42"
+  rownr:
+  comment: Unit test data set
+  observation_id: "84"
+  import_value: NA
+  created_at: 2011-07-01 15:02:41.074
+  updated_at: 2011-07-01 15:06:46.832
+  category_id:
+  datatype_id: 7
+  status_id: 1
+Sheetcells_293:
+  id: "293"
+  datacolumn_id: "42"
+  rownr:
+  comment: Unit test data set
+  observation_id: "85"
+  import_value: 1
+  created_at: 2011-07-01 15:02:41.074
+  updated_at: 2011-07-01 15:06:46.832
+  category_id:
+  datatype_id: 7
+  status_id: 1
+Sheetcells_294:
+  id: "294"
+  datacolumn_id: "42"
+  rownr:
+  comment: Unit test data set
+  observation_id: "86"
+  import_value: <1
+  created_at: 2011-07-01 15:02:41.074
+  updated_at: 2011-07-01 15:06:46.832
+  category_id:
+  datatype_id: 7
+  status_id: 1
+Sheetcells_295:
+  id: "295"
+  datacolumn_id: "42"
+  rownr:
+  comment: Unit test data set
+  observation_id: "87"
+  import_value: 7
+  created_at: 2011-07-01 15:02:41.074
+  updated_at: 2011-07-01 15:06:46.832
+  category_id:
+  datatype_id: 7
+  status_id: 1
+Sheetcells_296:
+  id: "296"
+  datacolumn_id: "42"
+  rownr:
+  comment: Unit test data set
+  observation_id: "88"
+  import_value: 8
+  created_at: 2011-07-01 15:02:41.074
+  updated_at: 2011-07-01 15:06:46.832
+  category_id:
+  datatype_id: 7
+  status_id: 1
+Sheetcells_297:
+  id: "297"
+  datacolumn_id: "42"
+  rownr:
+  comment: Unit test data set
+  observation_id: "89"
+  import_value: 6
+  created_at: 2011-07-01 15:02:41.074
+  updated_at: 2011-07-01 15:06:46.832
+  category_id:
+  datatype_id: 7
+  status_id: 1
+Sheetcells_298:
+  id: "298"
+  datacolumn_id: "43"
+  rownr:
+  comment: Unit test data set
+  observation_id: "82"
+  import_value: 2001-11-11
+  created_at: 2011-07-01 15:02:41.074
+  updated_at: 2011-07-01 15:06:46.832
+  category_id:
+  datatype_id: 3
+  status_id: 1
+Sheetcells_299:
+  id: "299"
+  datacolumn_id: "43"
+  rownr:
+  comment: Unit test data set
+  observation_id: "83"
+  import_value: 202-11-11
+  created_at: 2011-07-01 15:02:41.074
+  updated_at: 2011-07-01 15:06:46.832
+  category_id:
+  datatype_id: 3
+  status_id: 1
+Sheetcells_300:
+  id: "300"
+  datacolumn_id: "43"
+  rownr:
+  comment: Unit test data set
+  observation_id: "84"
+  import_value: NA
+  created_at: 2011-07-01 15:02:41.074
+  updated_at: 2011-07-01 15:06:46.832
+  category_id:
+  datatype_id: 3
+  status_id: 1
+Sheetcells_301:
+  id: "301"
+  datacolumn_id: "43"
+  rownr:
+  comment: Unit test data set
+  observation_id: "85"
+  import_value: 1
+  created_at: 2011-07-01 15:02:41.074
+  updated_at: 2011-07-01 15:06:46.832
+  category_id:
+  datatype_id: 3
+  status_id: 1
+Sheetcells_302:
+  id: "302"
+  datacolumn_id: "43"
+  rownr:
+  comment: Unit test data set
+  observation_id: "86"
+  import_value: 2001-11-12
+  created_at: 2011-07-01 15:02:41.074
+  updated_at: 2011-07-01 15:06:46.832
+  category_id:
+  datatype_id: 3
+  status_id: 1
+Sheetcells_303:
+  id: "303"
+  datacolumn_id: "43"
+  rownr:
+  comment: Unit test data set
+  observation_id: "87"
+  import_value: 2001-10-11
+  created_at: 2011-07-01 15:02:41.074
+  updated_at: 2011-07-01 15:06:46.832
+  category_id:
+  datatype_id: 3
+  status_id: 1
+Sheetcells_304:
+  id: "304"
+  datacolumn_id: "43"
+  rownr:
+  comment: Unit test data set
+  observation_id: "88"
+  import_value: 2001-11-11
+  created_at: 2011-07-01 15:02:41.074
+  updated_at: 2011-07-01 15:06:46.832
+  category_id:
+  datatype_id: 3
+  status_id: 1
+Sheetcells_305:
+  id: "305"
+  datacolumn_id: "43"
+  rownr:
+  comment: Unit test data set
+  observation_id: "89"
+  import_value: 2001-11-11
+  created_at: 2011-07-01 15:02:41.074
+  updated_at: 2011-07-01 15:06:46.832
+  category_id:
+  datatype_id: 3
+  status_id: 1
+Sheetcells_306:
+  id: "306"
+  datacolumn_id: "44"
+  rownr:
+  comment: Unit test data set
+  observation_id: "82"
+  import_value: 2001
+  created_at: 2011-07-01 15:02:41.074
+  updated_at: 2011-07-01 15:06:46.832
+  category_id:
+  datatype_id: 2
+  status_id: 1
+Sheetcells_307:
+  id: "307"
+  datacolumn_id: "44"
+  rownr:
+  comment: Unit test data set
+  observation_id: "83"
+  import_value: 2002-11-11
+  created_at: 2011-07-01 15:02:41.074
+  updated_at: 2011-07-01 15:06:46.832
+  category_id:
+  datatype_id: 2
+  status_id: 1
+Sheetcells_308:
+  id: "308"
+  datacolumn_id: "44"
+  rownr:
+  comment: Unit test data set
+  observation_id: "84"
+  import_value: 1987
+  created_at: 2011-07-01 15:02:41.074
+  updated_at: 2011-07-01 15:06:46.832
+  category_id:
+  datatype_id: 2
+  status_id: 1
+Sheetcells_309:
+  id: "309"
+  datacolumn_id: "44"
+  rownr:
+  comment: Unit test data set
+  observation_id: "85"
+  import_value: 1987
+  created_at: 2011-07-01 15:02:41.074
+  updated_at: 2011-07-01 15:06:46.832
+  category_id:
+  datatype_id: 2
+  status_id: 1
+Sheetcells_310:
+  id: "310"
+  datacolumn_id: "44"
+  rownr:
+  comment: Unit test data set
+  observation_id: "86"
+  import_value: 2000
+  created_at: 2011-07-01 15:02:41.074
+  updated_at: 2011-07-01 15:06:46.832
+  category_id:
+  datatype_id: 2
+  status_id: 1
+Sheetcells_311:
+  id: "311"
+  datacolumn_id: "44"
+  rownr:
+  comment: Unit test data set
+  observation_id: "87"
+  import_value: AAA
+  created_at: 2011-07-01 15:02:41.074
+  updated_at: 2011-07-01 15:06:46.832
+  category_id:
+  datatype_id: 2
+  status_id: 1
+Sheetcells_311:
+  id: "311"
+  datacolumn_id: "44"
+  rownr:
+  comment: Unit test data set
+  observation_id: "88"
+  import_value: 1987
+  created_at: 2011-07-01 15:02:41.074
+  updated_at: 2011-07-01 15:06:46.832
+  category_id:
+  datatype_id: 2
+  status_id: 1
+Sheetcells_312:
+  id: "312"
+  datacolumn_id: "44"
+  rownr:
+  comment: Unit test data set
+  observation_id: "89"
+  import_value: 1934
+  created_at: 2011-07-01 15:02:41.074
+  updated_at: 2011-07-01 15:06:46.832
+  category_id:
+  datatype_id: 2
+  status_id: 1
+Sheetcells_313:
+  id: "313"
+  datacolumn_id: "45"
+  rownr:
+  comment: Unit test data set
+  observation_id: "82"
+  import_value: AAA
+  created_at: 2011-07-01 15:02:41.074
+  updated_at: 2011-07-01 15:06:46.832
+  category_id:
+  datatype_id: 5
+  status_id: 1
+Sheetcells_314:
+  id: "314"
+  datacolumn_id: "45"
+  rownr:
+  comment: Unit test data set
+  observation_id: "83"
+  import_value: BBB
+  created_at: 2011-07-01 15:02:41.074
+  updated_at: 2011-07-01 15:06:46.832
+  category_id:
+  datatype_id: 5
+  status_id: 1
+Sheetcells_315:
+  id: "315"
+  datacolumn_id: "45"
+  rownr:
+  comment: Unit test data set
+  observation_id: "84"
+  import_value: CCC
+  created_at: 2011-07-01 15:02:41.074
+  updated_at: 2011-07-01 15:06:46.832
+  category_id:
+  datatype_id: 5
+  status_id: 1
+Sheetcells_316:
+  id: "316"
+  datacolumn_id: "45"
+  rownr:
+  comment: Unit test data set
+  observation_id: "85"
+  import_value: DDD
+  created_at: 2011-07-01 15:02:41.074
+  updated_at: 2011-07-01 15:06:46.832
+  category_id:
+  datatype_id: 5
+  status_id: 1
+Sheetcells_317:
+  id: "317"
+  datacolumn_id: "45"
+  rownr:
+  comment: Unit test data set
+  observation_id: "86"
+  import_value: EEE
+  created_at: 2011-07-01 15:02:41.074
+  updated_at: 2011-07-01 15:06:46.832
+  category_id:
+  datatype_id: 5
+  status_id: 1
+Sheetcells_318:
+  id: "318"
+  datacolumn_id: "45"
+  rownr:
+  comment: Unit test data set
+  observation_id: "87"
+  import_value: FFF
+  created_at: 2011-07-01 15:02:41.074
+  updated_at: 2011-07-01 15:06:46.832
+  category_id:
+  datatype_id: 5
+  status_id: 1
+Sheetcells_319:
+  id: "319"
+  datacolumn_id: "45"
+  rownr:
+  comment: Unit test data set
+  observation_id: "88"
+  import_value: FFF
+  created_at: 2011-07-01 15:02:41.074
+  updated_at: 2011-07-01 15:06:46.832
+  category_id:
+  datatype_id: 5
+  status_id: 1
+Sheetcells_320:
+  id: "320"
+  datacolumn_id: "45"
+  rownr:
+  comment: Unit test data set
+  observation_id: "89"
+  import_value: GGG
+  created_at: 2011-07-01 15:02:41.074
+  updated_at: 2011-07-01 15:06:46.832
+  category_id:
+  datatype_id: 5
+  status_id: 1
+Sheetcells_321:
+  id: "321"
+  datacolumn_id: "46"
+  rownr:
+  comment: Unit test data set
+  observation_id: "82"
+  import_value: red
+  created_at: 2011-07-01 15:02:41.074
+  updated_at: 2011-07-01 15:06:46.832
+  category_id:
+  datatype_id: 5
+  status_id: 1
+Sheetcells_322:
+  id: "322"
+  datacolumn_id: "46"
+  rownr:
+  comment: Unit test data set
+  observation_id: "83"
+  import_value: orange
+  created_at: 2011-07-01 15:02:41.074
+  updated_at: 2011-07-01 15:06:46.832
+  category_id:
+  datatype_id: 5
+  status_id: 1
+Sheetcells_323:
+  id: "323"
+  datacolumn_id: "46"
+  rownr:
+  comment: Unit test data set
+  observation_id: "84"
+  import_value: yellow
+  created_at: 2011-07-01 15:02:41.074
+  updated_at: 2011-07-01 15:06:46.832
+  category_id:
+  datatype_id: 5
+  status_id: 1
+Sheetcells_324:
+  id: "324"
+  datacolumn_id: "46"
+  rownr:
+  comment: Unit test data set
+  observation_id: "85"
+  import_value: gold
+  created_at: 2011-07-01 15:02:41.074
+  updated_at: 2011-07-01 15:06:46.832
+  category_id:
+  datatype_id: 5
+  status_id: 1
+Sheetcells_325:
+  id: "325"
+  datacolumn_id: "46"
+  rownr:
+  comment: Unit test data set
+  observation_id: "86"
+  import_value: blue
+  created_at: 2011-07-01 15:02:41.074
+  updated_at: 2011-07-01 15:06:46.832
+  category_id:
+  datatype_id: 5
+  status_id: 1
+Sheetcells_326:
+  id: "326"
+  datacolumn_id: "46"
+  rownr:
+  comment: Unit test data set
+  observation_id: "87"
+  import_value: indigo
+  created_at: 2011-07-01 15:02:41.074
+  updated_at: 2011-07-01 15:06:46.832
+  category_id:
+  datatype_id: 5
+  status_id: 1
+Sheetcells_327:
+  id: "327"
+  datacolumn_id: "46"
+  rownr:
+  comment: Unit test data set
+  observation_id: "88"
+  import_value: violet
+  created_at: 2011-07-01 15:02:41.074
+  updated_at: 2011-07-01 15:06:46.832
+  category_id:
+  datatype_id: 5
+  status_id: 1
+Sheetcells_328:
+  id: "328"
+  datacolumn_id: "46"
+  rownr:
+  comment: Unit test data set
+  observation_id: "89"
+  import_value: brown
+  created_at: 2011-07-01 15:02:41.074
+  updated_at: 2011-07-01 15:06:46.832
+  category_id:
+  datatype_id: 5
+  status_id: 1
+Sheetcells_329:
+  id: "329"
+  datacolumn_id: "47"
+  rownr:
+  comment: Unit test data set
+  observation_id: "82"
+  import_value: 12.11.09
+  created_at: 2011-07-01 15:02:41.074
+  updated_at: 2011-07-01 15:06:46.832
+  category_id:
+  datatype_id: 4
+  status_id: 1
+Sheetcells_330:
+  id: "330"
+  datacolumn_id: "47"
+  rownr:
+  comment: Unit test data set
+  observation_id: "83"
+  import_value: 17.11.09
+  created_at: 2011-07-01 15:02:41.074
+  updated_at: 2011-07-01 15:06:46.832
+  category_id:
+  datatype_id: 4
+  status_id: 1
+Sheetcells_331:
+  id: "331"
+  datacolumn_id: "47"
+  rownr:
+  comment: Unit test data set
+  observation_id: "84"
+  import_value: 16.11.09
+  created_at: 2011-07-01 15:02:41.074
+  updated_at: 2011-07-01 15:06:46.832
+  category_id:
+  datatype_id: 4
+  status_id: 1
+Sheetcells_332:
+  id: "332"
+  datacolumn_id: "47"
+  rownr:
+  comment: Unit test data set
+  observation_id: "85"
+  import_value: 15.11.09
+  created_at: 2011-07-01 15:02:41.074
+  updated_at: 2011-07-01 15:06:46.832
+  category_id:
+  datatype_id: 4
+  status_id: 1
+Sheetcells_333:
+  id: "333"
+  datacolumn_id: "47"
+  rownr:
+  comment: Unit test data set
+  observation_id: "86"
+  import_value: 14.11.09
+  created_at: 2011-07-01 15:02:41.074
+  updated_at: 2011-07-01 15:06:46.832
+  category_id:
+  datatype_id: 4
+  status_id: 1
+Sheetcells_334:
+  id: "334"
+  datacolumn_id: "47"
+  rownr:
+  comment: Unit test data set
+  observation_id: "87"
+  import_value: 13.11.09
+  created_at: 2011-07-01 15:02:41.074
+  updated_at: 2011-07-01 15:06:46.832
+  category_id:
+  datatype_id: 4
+  status_id: 1
+Sheetcells_335:
+  id: "335"
+  datacolumn_id: "47"
+  rownr:
+  comment: Unit test data set
+  observation_id: "88"
+  import_value: 12.11.2011
+  created_at: 2011-07-01 15:02:41.074
+  updated_at: 2011-07-01 15:06:46.832
+  category_id:
+  datatype_id: 4
+  status_id: 1
+Sheetcells_336:
+  id: "336"
+  datacolumn_id: "47"
+  rownr:
+  comment: Unit test data set
+  observation_id: "89"
+  import_value: March 2001
+  created_at: 2011-07-01 15:02:41.074
+  updated_at: 2011-07-01 15:06:46.832
+  category_id:
+  datatype_id: 4
+  status_id: 1
+Sheetcells_337:
+  id: "337"
+  datacolumn_id: "48"
+  rownr:
+  comment: Unit test data set
+  observation_id: "82"
+  import_value: 10
+  created_at: 2011-07-01 15:02:41.074
+  updated_at: 2011-07-01 15:06:46.832
+  category_id:
+  datatype_id: 7
+  status_id: 1
+Sheetcells_338:
+  id: "338"
+  datacolumn_id: "48"
+  rownr:
+  comment: Unit test data set
+  observation_id: "83"
+  import_value: 11.111112
+  created_at: 2011-07-01 15:02:41.074
+  updated_at: 2011-07-01 15:06:46.832
+  category_id:
+  datatype_id: 7
+  status_id: 1
+Sheetcells_339:
+  id: "339"
+  datacolumn_id: "48"
+  rownr:
+  comment: Unit test data set
+  observation_id: "84"
+  import_value: 1.2.0
+  created_at: 2011-07-01 15:02:41.074
+  updated_at: 2011-07-01 15:06:46.832
+  category_id:
+  datatype_id: 7
+  status_id: 1
+Sheetcells_340:
+  id: "340"
+  datacolumn_id: "48"
+  rownr:
+  comment: Unit test data set
+  observation_id: "85"
+  import_value: 45
+  created_at: 2011-07-01 15:02:41.074
+  updated_at: 2011-07-01 15:06:46.832
+  category_id:
+  datatype_id: 7
+  status_id: 1
+Sheetcells_341:
+  id: "341"
+  datacolumn_id: "48"
+  rownr:
+  comment: Unit test data set
+  observation_id: "86"
+  import_value: 1000.21
+  created_at: 2011-07-01 15:02:41.074
+  updated_at: 2011-07-01 15:06:46.832
+  category_id:
+  datatype_id: 7
+  status_id: 1
+Sheetcells_342:
+  id: "342"
+  datacolumn_id: "48"
+  rownr:
+  comment: Unit test data set
+  observation_id: "87"
+  import_value: 0.987
+  created_at: 2011-07-01 15:02:41.074
+  updated_at: 2011-07-01 15:06:46.832
+  category_id:
+  datatype_id: 7
+  status_id: 1
+Sheetcells_343:
+  id: "343"
+  datacolumn_id: "48"
+  rownr:
+  comment: Unit test data set
+  observation_id: "88"
+  import_value: 88.889
+  created_at: 2011-07-01 15:02:41.074
+  updated_at: 2011-07-01 15:06:46.832
+  category_id:
+  datatype_id: 7
+  status_id: 1
+Sheetcells_344:
+  id: "344"
+  datacolumn_id: "48"
+  rownr:
+  comment: Unit test data set
+  observation_id: "89"
+  import_value: not a number
+  created_at: 2011-07-01 15:02:41.074
+  updated_at: 2011-07-01 15:06:46.832
+  category_id:
+  datatype_id: 7
+  status_id: 1
