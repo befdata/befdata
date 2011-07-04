@@ -7,10 +7,11 @@ class UserTest < ActiveSupport::TestCase
     assert !user.save
   end
 
-  test "create user and add avatar to it" do
-    @user = User.new
+  test "add avatar to user" do
+    @user = User.find_by_login 'nadrowski'
     @user.avatar = sample_avatar
-    @user.lastname = "testlastname"
-    assert @user.avatar_file_name != "bla"
+    @user.save
+    expected_avatar_file_name = "#{@user.id}_#{@user.lastname}#{File.extname(sample_avatar).downcase}"
+    assert @user.avatar_file_name == expected_avatar_file_name
   end
 end

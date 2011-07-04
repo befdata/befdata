@@ -33,7 +33,7 @@ class User < ActiveRecord::Base
 
   def change_avatar_file_name
     if avatar_file_name
-      new_name = " #{id}_#{lastname}#{File.extname(avatar_file_name).downcase}"
+      new_name = "#{id}_#{lastname}#{File.extname(avatar_file_name).downcase}"
       if avatar_file_name != new_name
         self.avatar.instance_write(:file_name, new_name)
       end
