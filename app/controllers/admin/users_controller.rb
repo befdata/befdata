@@ -3,8 +3,7 @@ class Admin::UsersController < Admin::AdminController
 
   active_scaffold :user do |config|
     config.label = "Associated people"
-    #config.show.link = false
-    ## config.search.link = false
+
     config.search.columns = [:firstname, :lastname]
 
     config.columns << :password
@@ -33,7 +32,7 @@ class Admin::UsersController < Admin::AdminController
 
     config.subform.layout = :vertical
 
-    #for the avatar-imapge upload
+    # for the avatar-imapge upload
     config.create.multipart = true
     config.update.multipart = true
     ActiveScaffold::Bridges::Paperclip::Lib::PaperclipBridgeHelpers.thumbnail_style=:small
