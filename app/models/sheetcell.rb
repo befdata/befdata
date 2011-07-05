@@ -17,7 +17,7 @@ class Sheetcell < ActiveRecord::Base
 
   # set the default value for status_id
   def init
-    self.status_id = Sheetcellstatus::UNACCEPTED    # unaccepted
+    self.status_id = Sheetcellstatus::UNPROCESSED
   end
 
   def same_entry_cells

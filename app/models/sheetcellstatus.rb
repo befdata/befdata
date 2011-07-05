@@ -1,5 +1,5 @@
 class Sheetcellstatus
-  UNACCEPTED = 1
+  UNPROCESSED = 1
   SHEET_MATCH = 2
   PORTAL_MATCH = 3
   VALID = 4
