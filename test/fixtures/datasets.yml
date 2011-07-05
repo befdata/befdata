@@ -25,7 +25,7 @@ datasets_001:
   dataanalysis: ""
   submission_at: 
   destroy_me_date: 
-  destroy_me: f
+  destroy_me: t
   finished: f
   design: ""
 datasets_002: 
