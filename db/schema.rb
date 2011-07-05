@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110621180629) do
+ActiveRecord::Schema.define(:version => 20110705171431) do
 
   create_table "author_paperproposals", :force => true do |t|
     t.integer  "paperproposal_id"
@@ -158,6 +158,7 @@ ActiveRecord::Schema.define(:version => 20110621180629) do
     t.integer  "dataset_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.text     "description"
   end
 
   create_table "import_categoricvalues", :force => true do |t|

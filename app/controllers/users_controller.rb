@@ -16,7 +16,7 @@ class UsersController < ApplicationController
 
   # The index method simply lists all staff members, ordered by their last name.
   def index
-    @users = User.find(:all, :order => "lastname")
+    @users = User.all :order => "lastname"
   end
 
   # Whenever a logged in user wants to change its profile information, this action is responsible.
