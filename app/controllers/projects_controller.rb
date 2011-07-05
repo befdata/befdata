@@ -8,7 +8,7 @@ skip_before_filter :deny_access_to_all
   end
 
   def index
-    @projects = Project.find(:all, :order => "shortname")
+    @projects = Project.all( :order => "shortname")
   end
 
   def show
