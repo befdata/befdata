@@ -7,17 +7,14 @@ class Admin::CategoricvaluesController < Admin::AdminController
       config.search.link = false
       config.update.link.label = "Edit Categoric Value"
 
-      config.list.columns = [:id, :description, :long,
-                             :short, :comment, :tags, :links]
+      config.list.columns = [:id, :short, :long, :tags, :sheetcells, :import_categoricvalues]
 
       config.list.per_page = 1000
 
-      config.create.columns = [:description, :long,
-                             :short, :comment, :tags]
+      config.create.columns = [:short, :long, :description, :comment, :tags]
 
-      config.update.columns = [:id, :description, :long,
-                             :short, :comment, :tags, :sheetcells, :import_categoricvalues]
+      config.update.columns = [:id, :short, :long, :description, :comment, :tags,
+                              :sheetcells, :import_categoricvalues]
 
-        # config.columns[:methodstep].collapsed = true
     end
 end

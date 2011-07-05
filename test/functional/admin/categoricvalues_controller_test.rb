@@ -23,11 +23,16 @@ class Admin::CategoricvaluesControllerTest < ActionController::TestCase
     assert_select "td.id-column", @categoricvalue.id.to_s
   end
 
-  test "show number of links to sheetcells and categoricvalues in index" do
+  test "show number of links to sheetcells in index" do
     login_and_load_categoricvalue
     get :index
-    text_for_links = "#{@categoricvalue.sheetcells.size}, #{@categoricvalue.import_categoricvalues.size}"
-    assert_select "td.links-column", text_for_links
+    assert_select "td.sheetcells-column", @categoricvalue.sheetcells.size.to_s
+  end
+
+  test "show number of links to categoricvalues in index" do
+    login_and_load_categoricvalue
+    get :index
+    assert_select "td.import_categoricvalues-column", @categoricvalue.import_categoricvalues.size.to_s
   end
 
   test "show id in update" do

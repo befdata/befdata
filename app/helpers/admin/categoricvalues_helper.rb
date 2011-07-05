@@ -12,7 +12,14 @@ module Admin::CategoricvaluesHelper
     label :record, record.import_categoricvalues.size
   end
 
-  def links_column(record)
-    record.sheetcells.size.to_s + ", " + record.import_categoricvalues.size.to_s
+  def sheetcells_column(record)
+    record.sheetcells.size
   end
+
+  def import_categoricvalues_column(record)
+    record.import_categoricvalues.size
+  end
+
+
+
 end
