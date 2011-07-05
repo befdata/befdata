@@ -24,10 +24,10 @@
         ="(#{t("role."+role.name)})"
 
 
-- unless @user.datasets_owned.count==0
+- unless @user_datasets_owned.empty?
   %b Datasets
   %ul
-    - @user.datasets_owned.each do |ds|
+    - @user_datasets_owned.each do |ds|
       %li
         = link_to ds.title, {:controller => :datasets,
                                          :action => :show,
