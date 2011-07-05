@@ -217,7 +217,7 @@ class DatasetsController < ApplicationController
       @dataset = Dataset.new
       @dataset.title = @filename
       @dataset.abstract = @filename
-      @dataset.filename=@filename
+      @dataset.filename = @filename
       @dataset.freeformats << freeformat
       unless @dataset.save
         flash[:error] = @dataset.errors.full_messages
