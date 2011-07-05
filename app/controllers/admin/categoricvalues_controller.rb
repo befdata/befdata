@@ -18,7 +18,6 @@ class Admin::CategoricvaluesController < Admin::AdminController
                                :description, :comment, :tags,
                               :sheetcells, :import_categoricvalues]
 
-
       config.show.columns = [:id, :short, :long, :description, :comment, :tags,
                               :sheetcells, :import_categoricvalues]
 
