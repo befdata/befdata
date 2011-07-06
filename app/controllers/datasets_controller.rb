@@ -6,6 +6,7 @@ class DatasetsController < ApplicationController
 
   before_filter :load_dataset_freeformat, :only => [:update_dataset_freeformat_associations]
 
+  rescue_from 'Acl9::AccessDenied', :with => :access_denied
   skip_before_filter :deny_access_to_all
   access_control do
     allow all, :to => [:show, :index, :load_context]
@@ -32,6 +33,15 @@ class DatasetsController < ApplicationController
     actions :create, :upload, :upload_freeformat, :upload_dataset_freeformat, :create_freeformat,
     :create_dataset_freeformat, :update_dataset_freeformat_associations do
       allow logged_in
+    end
+  end
+
+  def access_denied
+    if current_user then
+      flash[:notice] = 'Access denied. You do not have permission to download this file.'
+    else
+      flash[:notice] = 'Access denied. Maybe try to login first.'
+      redirect_to login_path
     end
   end
 
