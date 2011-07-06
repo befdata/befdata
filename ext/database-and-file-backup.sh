@@ -17,6 +17,6 @@ pushd $ROOT
   echo "Backup database"
   pg_dump -U ${DB_USER} -W ${DB_NAME} > $BACKUP_FOLDER/${DB_NAME}-${SUFFIX}.sql
   echo "Backup files"
-  tar -czf $BACKUP_FOLDER/${DB_NAME}-${SUFFIX}-files.tgz $ROOT/files/*
+  tar -czf $BACKUP_FOLDER/${DB_NAME}-${SUFFIX}-files.tgz $ROOT/files/* $ROOT/public/images/user_avatars/* 
 
 popd
