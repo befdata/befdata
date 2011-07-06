@@ -17,6 +17,9 @@ pushd $ROOT
   do
     echo "Updating to revision $line"
     hg update -r ${line}
+    
+    echo "Updating gems"
+    bundle install
 
     echo "Migrating the database"
     rake db:migrate --trace
