@@ -4,8 +4,11 @@ index/*
 config/config.yml
 *.svn*
 *tuneup*
+
 public/files/*
 public/downloads/*
+public/images/user_avatars/*
+
 log/*
 xls/*
 config/database.yml
