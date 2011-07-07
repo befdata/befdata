@@ -7,21 +7,21 @@ class TagsController < ApplicationController
   end
 
   def index
-    @tags = Tag.find(:all, :order => :name)
+    @tags = Tag.all :order => :name
   end
 
   def show
     redirect_to(:action => "index") and return if params[:id].blank?
-    @tag = Tag.find(:first, :conditions => ["id = ?", params[:id]], :include => :taggings)
+    @tag = Tag.first(:conditions => ["id = ?", params[:id]], :include => :taggings)
     return redirect_to(:action => "index", :status => :not_found) unless @tag
 
     taggings_datasets = @tag.taggings.select{|ti| ti.taggable_type == "Dataset"}
     tag_datasets = taggings_datasets.collect{|ti| ti.taggable}
     taggings_datacolumns = @tag.taggings.select{|ti| ti.taggable_type == "Datacolumn"}
     tag_dc_datasets = taggings_datacolumns.collect{|ti| ti.taggable.dataset}.uniq
-    @datasets = (tag_datasets + tag_dc_datasets).uniq
-
-
+    unique_datasets = (tag_datasets + tag_dc_datasets).uniq
+    non_destroy_datasets = unique_datasets.find_all{|d| !d.destroy_me}
+    @datasets = non_destroy_datasets.sort_by {|x| x.title}
   end
 
 end

@@ -16,7 +16,7 @@ class UsersController < ApplicationController
 
   # The index method simply lists all staff members, ordered by their last name.
   def index
-    @users = User.find(:all, :order => "lastname")
+    @users = User.all :order => "lastname"
   end
 
   # Whenever a logged in user wants to change its profile information, this action is responsible.
@@ -35,11 +35,14 @@ class UsersController < ApplicationController
 
   # The show method provides all informations about one specific person.
   def show
-
     redirect_to(:action => "index") and return if params[:id].blank?
+
     first, last = params[:id].split(/_/)
-    @user = User.find(:first, :conditions => ["firstname = ? and lastname = ?", first, last])
-    return redirect_to(:action => "index", :status => :not_found) unless @user
+    @user = User.first( :conditions => ["firstname = ? and lastname = ?", first, last])
+
+    @user_datasets_owned = @user.datasets_owned.find_all{|d| !d.destroy_me}.sort_by {|d| d.title}
+
+    redirect_to(:action => "index", :status => :not_found) unless @user
   end
 
 

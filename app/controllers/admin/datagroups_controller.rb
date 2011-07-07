@@ -1,6 +1,6 @@
 class Admin::DatagroupsController < Admin::AdminController
     active_scaffold :datagroup do |config|
-    config.label = ""
+    config.label = "Datagroups"
 
     config.show.link = false
     config.search.link = false

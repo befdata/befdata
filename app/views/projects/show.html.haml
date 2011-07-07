@@ -10,10 +10,10 @@
       = "(#{person.roles_for(@project).map{|e| t("role."+e.name)}.join(",")})"
 
 
-- unless @project.datasets.empty?
+- unless @project_datasets.empty?
   %b Datasets
   %ul
-    - @project.datasets.each do |ds|
+    - @project_datasets.each do |ds|
       %li
         = link_to ds.title, {:controller => :datasets,
                                          :action => :show,

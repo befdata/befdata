@@ -9,12 +9,11 @@
   = link_to "Tags", data_show_tags_path
 
 %div
-  -@tags.each do |tag|
-    = link_to tag.name, {:controller => :tags,
-                         :action => :show, :id => tag.id}
+  - tag_cloud @tags, %w(nube1 nube2 nube3 nube4 nube5) do |tag, css_class|
+    = link_to tag.name, {:controller => :tags, :action => :show, :id => tag.id},
+                      :class => css_class
     = "--"
-
-
+  
 %br
 %br
 %h3 Data sets

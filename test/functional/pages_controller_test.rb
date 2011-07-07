@@ -16,4 +16,15 @@ class PagesControllerTest < ActionController::TestCase
     assert_response :success
   end
 
+  test "sould get data" do
+    get :data
+    assert_response :success
+  end
+
+  test "should not show datasets with destroy me true" do
+    get :data
+    dataset = Dataset.where("destroy_me = true").first
+    assigned_datasets = assigns[:datasets]
+    assert !assigned_datasets.include?(dataset)
+  end
 end

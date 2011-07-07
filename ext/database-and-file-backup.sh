@@ -1,13 +1,13 @@
 #!/bin/bash
 
-ROOT=$PWD/..
-BACKUP_FOLDER=$ROOT/backup
+ROOT=/var/www/production/china
+BACKUP_FOLDER=$ROOT/../backups
 
-export RAILS_ENV=staging
+export RAILS_ENV=production
 
 SUFFIX=`date +%Y%m%d-%H%M`
-DB_USER=database_dumper
-DB_NAME=befchina-staging
+DB_USER=befdata-prod
+DB_NAME=production_befchina
 
 echo "PostgreSQl Version  = `psql --version`"
 echo "PostgreSQL Dumper Version = `pg_dump --version`"
@@ -15,8 +15,9 @@ echo "PostgreSQL Dumper Version = `pg_dump --version`"
 pushd $ROOT
   if [ ! -d $BACKUP_FOLDER ]; then mkdir $BACKUP_FOLDER; fi
   echo "Backup database"
-  pg_dump -U ${DB_USER} -W ${DB_NAME} > $BACKUP_FOLDER/${DB_NAME}-${SUFFIX}.sql
+  pg_dump -U ${DB_USER} ${DB_NAME} > $BACKUP_FOLDER/${DB_NAME}-${SUFFIX}.sql
   echo "Backup files"
-  tar -czf $BACKUP_FOLDER/${DB_NAME}-${SUFFIX}-files.tgz $ROOT/files/*
+  cd $ROOT
+  tar -czf $BACKUP_FOLDER/${DB_NAME}-${SUFFIX}-files.tgz files/* public/images/user_avatars/* 
 
 popd

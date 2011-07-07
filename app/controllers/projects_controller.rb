@@ -8,10 +8,11 @@ skip_before_filter :deny_access_to_all
   end
 
   def index
-    @projects = Project.find(:all, :order => "shortname")
+    @projects = Project.all( :order => "shortname")
   end
 
   def show
     @project = Project.find(params[:id])
+    @project_datasets = @project.datasets.find_all{|d| !d.destroy_me}.sort_by {|d| d.title}
   end
 end
