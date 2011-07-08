@@ -1,7 +1,7 @@
 #!/bin/bash
 
-ROOT=$PWD/..
-RAILS_ENV=development
+ROOT=path_to_root_folder_of_app_where_config.ru_resides
+RAILS_ENV=fill_in_environment
 
 echo "Used Ruby = `which ruby`"
 
