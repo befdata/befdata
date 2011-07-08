@@ -35,10 +35,10 @@ class Datagroup < ActiveRecord::Base
 
   def check_for_system_datagroup
     datagroup = self.reload
-    if(datagroup.system)
-      raise Exception, "Cannot destroy a system datagroup"
+    #if(datagroup.type_id==Datagrouptype::HELPER | datagroup.type_id==Datagrouptype::SHEETCATEGORYMATCH)
+    #  raise Exception, "Cannot destroy a system datagroup"
       false
-    end
+    #end
   end
 
   # set the default value for system

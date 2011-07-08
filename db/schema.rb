@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110704134017) do
+ActiveRecord::Schema.define(:version => 20110708135946) do
 
   create_table "author_paperproposals", :force => true do |t|
     t.integer  "paperproposal_id"
@@ -92,7 +92,7 @@ ActiveRecord::Schema.define(:version => 20110704134017) do
     t.text     "comment"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean  "system"
+    t.integer  "type_id"
   end
 
   add_index "datagroups", ["id"], :name => "index_datagroups_on_id"
@@ -184,6 +184,7 @@ ActiveRecord::Schema.define(:version => 20110704134017) do
     t.integer  "dataset_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.text     "description"
   end
 
   create_table "import_categories", :force => true do |t|
