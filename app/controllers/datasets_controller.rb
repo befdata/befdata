@@ -43,11 +43,8 @@ class DatasetsController < ApplicationController
       redirect_to :back
     end
 
-    spreadsheet = Spreadsheet.open datafile.file.path
-    spreadsheet.io.close # Close the file after reading
-
     begin
-      book = Dataworkbook.new(datafile, spreadsheet)
+      book = Dataworkbook.new(datafile)
       # after closing, the file can be destroyed if necessary, the
       # information stays in the book object
 
@@ -126,8 +123,8 @@ class DatasetsController < ApplicationController
     @header.each do |h|
       mm = tmp.select{|mm| mm.columnheader == h}.first
       @measmeths[h] = mm
-      @measurements[h] = Sheetcell.find(:all,
-      :conditions => [ "datacolumn_id = ?", mm.id ])
+      # SR - commented out line below as it doesn't seem to be used anywhere
+      #@measurements[h] = Sheetcell.find(:all, :conditions => [ "datacolumn_id = ?", mm.id ])
       @methodtitles[h] = tmp.select{|mm| mm.columnheader == h}.first.datagroup.title
     end
 

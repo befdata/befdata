@@ -14,7 +14,6 @@ class Datagroup < ActiveRecord::Base
 
   has_many :datacolumns
 
-
   #TODO FERRET
   #acts_as_ferret :fields => [:title, :description, :comment]
 
@@ -23,38 +22,45 @@ class Datagroup < ActiveRecord::Base
   validates_presence_of :title, :description
   validates_uniqueness_of :title
 
+  after_destroy :destroy_taggings
+  before_destroy :check_for_system_datagroup
 
-  after_destroy :destroy_taggings  
+  scope :sheet_category_match, where(:type_id => Datagrouptype::SHEETCATEGORYMATCH)
+  after_initialize :init
+
+  # set the default value for system
+  def init
+    self.type_id = Datagrouptype::DEFAULT
+  end
 
   def destroy_taggings
     logger.debug "in destroy taggings"
     self.taggings.destroy_all
   end
 
+  def check_for_system_datagroup
+    datagroup = self.reload
+    if(datagroup.type_id != Datagrouptype::DEFAULT)
+      raise Exception, "Cannot destroy a system datagroup"
+      false
+    end
+  end
 
   def datacell_categories
-    dcs = self.datacolumns.collect{|dh| dh.sheetcells}.flatten
-    dcs = dcs.select{|dc| dc.value_type == "Categoricvalue"}
-    cats = []
-    unless dcs.blank?
-      cats = dcs.collect{|dc| dc.categoricvalue}.uniq
-      cats = cats.sort{|x,y| x.short <=> y.short}
-    end
-    cats
+    Category.all(:conditions => ["datagroup_id = ?" , self.id])
   end
 
   def datacell_categories_sql
-    Categoricvalue.all(:conditions => ["id in (select cv.Id
-                                                from public.datacolumns dc
-	                                              inner join public.sheetcells sc
-                                                on dc.Id = sc.datacolumn_id
-                                                inner join public.categoricvalues cv
-                                                on sc.value_id = cv.Id
-                                                where dc.datagroup_id=" + self.id.to_s +
-                                                " and sc.value_type = 'Categoricvalue'
-                                                order by cv.short)"
-                                        ]
-                      )
+    Category.all(:conditions => ["datagroup_id in (select sc.category_id
+      from public.datacolumns dc
+      inner join public.sheetcells sc
+      on dc.Id = sc.datacolumn_id
+      inner join public.categories c
+      on sc.category_id = c.Id
+      where dc.datagroup_id=" + self.id.to_s +
+      " order by c.short)"
+    ]
+    )
   end
 
   def abbr_method
@@ -71,11 +77,17 @@ class Datagroup < ActiveRecord::Base
 
     unless helper
       helper = Datagroup.create(:title => "Helper",
-                                :description => "Helper Method for something")
+      :description => "Helper Method for something")
     end
 
     return helper
   end
 
+  def self.find_similar_by_title(title)
+
+    # find suitable methods already available
+    methods_available = Datagroup.find_all_by_title(title)
+    #methods_available = [Datagroup.helper_method] unless methods_available
+  end
 
 end
