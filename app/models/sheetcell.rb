@@ -14,6 +14,7 @@ class Sheetcell < ActiveRecord::Base
   belongs_to :datacolumn
   belongs_to :category
   belongs_to :datatype
+  after_initialize :init
 
   # set the default value for status_id
   def init

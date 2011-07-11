@@ -120,7 +120,7 @@ class Datacolumn < ActiveRecord::Base
   def add_data_values()
 
     # store the system data group id as this makes the SQL faster since it's one less join
-    system_datagroup_id = Datagroup.system_datagroup.first.id if !Datagroup.system_datagroup.first.nil?
+    scm_datagroup_id = Datagroup.sheet_category_match.first.id if !Datagroup.sheet_category_match.first.nil?
     # remove any previous accepted values so that we can keep a track of what has been updated
     sqlclean = "select clear_datacolumn_accepted_values(#{id})"
     # this bit will need to change once we change the column datatype to be an integer
@@ -143,7 +143,7 @@ class Datacolumn < ActiveRecord::Base
     if(datatype_id == 1)then
       sql = "select accept_text_datacolumn_values(#{id})"
     else
-      sql = "select accept_datacolumn_values(#{datatype_id}, #{id}, #{datagroup_id}, #{system_datagroup_id})"
+      sql = "select accept_datacolumn_values(#{datatype_id}, #{id}, #{datagroup_id}, #{scm_datagroup_id})"
     end
 
     begin

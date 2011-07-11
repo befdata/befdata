@@ -24,9 +24,14 @@ class Datagroup < ActiveRecord::Base
 
   after_destroy :destroy_taggings
   before_destroy :check_for_system_datagroup
+
+  scope :sheet_category_match, where(:type_id => Datagrouptype::SHEETCATEGORYMATCH)
   after_initialize :init
 
-  scope :system_datagroup, where(:system => true)
+  # set the default value for system
+  def init
+    self.type_id = Datagrouptype::DEFAULT
+  end
 
   def destroy_taggings
     logger.debug "in destroy taggings"
@@ -35,15 +40,10 @@ class Datagroup < ActiveRecord::Base
 
   def check_for_system_datagroup
     datagroup = self.reload
-    #if(datagroup.type_id==Datagrouptype::HELPER | datagroup.type_id==Datagrouptype::SHEETCATEGORYMATCH)
-    #  raise Exception, "Cannot destroy a system datagroup"
+    if(datagroup.type_id != Datagrouptype::DEFAULT)
+      raise Exception, "Cannot destroy a system datagroup"
       false
-    #end
-  end
-
-  # set the default value for system
-  def init
-    self.system = false
+    end
   end
 
   def datacell_categories
