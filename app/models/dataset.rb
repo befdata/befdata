@@ -111,5 +111,46 @@ class Dataset < ActiveRecord::Base
   def download_counter
     "Downloads: #{self.downloads}"
   end
+
+
+  # This method delete all necessary object which containts to this dataset
+  # so its possible to upload a new datafile
+  def clean
+    dataset_sheetcells = self.sheetcells
+    sheetcells_with_cat_values = dataset_sheetcells.select{|sc| sc.value_type == "Categoricvalue"}
+    sheetcells_without_cat_values =dataset_sheetcells.select{|sc| sc.value_type != "Categoricvalue"}
+    uniq_categoricvalues = sheetcells_with_cat_values.collect{|sc| sc.value}.uniq
+    uniq_values_without_catvals = sheetcells_without_cat_values.collect{|sc| sc.value}.uniq.compact
+
+    # observations are destroyed with sheetcells
+
+    dataset_sheetcells.each{|sc| sc.destroy}
+    uniq_categoricvalues.each{|cat| cat.destroy}
+    uniq_values_without_catvals.each{|value| value.destroy}
+
+    datacolumns = self.datacolumns
+    import_categories = datacolumns.collect{|dc| dc.import_categoricvalues}.flatten.compact
+    uniq_categoricvalues = import_categories.collect{|ic| ic.categoricvalue}.uniq.compact
+    import_categories.each{|t| t.destroy}
+    uniq_categoricvalues.each{|cat| cat.destroy}
+
+    datacolumns.each do |datacolumn|
+      # accepted_roles are destroyed by acl9
+      datagroup = datacolumn.datagroup
+      if datagroup.datacolumns.length == 1
+        datagroup.destroy
+      end
+      datacolumn.destroy
+    end
+
+    datafile = self.upload_spreadsheet
+    if datafile
+      datafile.destroy
+    end
+
+
+    freeformats = self.freeformats
+    freeformats.each{|freeformat| freeformat.destroy}
+  end
   
 end
