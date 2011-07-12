@@ -31,20 +31,16 @@ class Categoricvalue < ActiveRecord::Base
   end
   
   def check_for_measurements
-    puts "in check for measurements"
     cat = self.reload
     unless cat.sheetcells.length == 0
-      puts "measurements linked"
       errors.add_to_base "Cannot destroy categoric value with Data Cells associations"
       false
     end
   end
 
   def check_for_import_categories
-    puts "in check for import categories"
     cat = self.reload
     unless cat.import_categoricvalues.length == 0
-      puts "import categories linked"
       errors.add_to_base "Cannot destroy categoric value with Import Categories associations"
       false
     end
