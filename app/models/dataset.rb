@@ -147,10 +147,6 @@ class Dataset < ActiveRecord::Base
     if datafile
       datafile.destroy
     end
-
-
-    freeformats = self.freeformats
-    freeformats.each{|freeformat| freeformat.destroy}
   end
   
 end
