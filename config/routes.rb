@@ -13,13 +13,18 @@ Befchina::Application.routes.draw do
   match 'data' => 'pages#data', :as => :data
   match 'data/show_tags' => 'tags#index'
 
-  resources :datasets
-  match 'upload' => 'datasets#upload', :as => :upload
+  resources :datasets do
+    member do
+      post :clean
+    end
+  end
+
+  match 'upload' => 'datasets#upload', :as => :upload  
   match 'create_dataset' => 'datasets#create', :as => :create_dataset  
   match 'upload_dataset_freeformat' => 'datasets#upload_dataset_freeformat', :as => :upload_dataset_freeformat
   match 'create_dataset_freeformat' => 'datasets#create_dataset_freeformat', :as => :create_dataset_freeformat
   match 'update_dataset_freeformat_associations' => 'datasets#update_dataset_freeformat_associations', :as => :update_dataset_freeformat_associations
- match 'save_dataset_freeformat_associations' => 'datasets#save_dataset_freeformat_associations', :as => :save_dataset_freeformat_associations
+  match 'save_dataset_freeformat_associations' => 'datasets#save_dataset_freeformat_associations', :as => :save_dataset_freeformat_associations
   match 'download' => 'datasets#download', :as => :download
 
   resources :tags
