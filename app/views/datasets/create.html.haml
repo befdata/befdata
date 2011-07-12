@@ -90,9 +90,9 @@
       %dl
         %dt= label_tag 'finished', nil
         %dd
-          = select_tag 'finished',                                                              |
-            '<option value = "false">False</option>                                             |
-            <option value = "true" selected = "selected">True</option>', :class => 'text-input' |
+          = select_tag 'finished',
+            '<option value = "false">False</option> <option value = "true" selected = "selected">True</option>',
+            :class => 'text-input'
       %dl
         %dt
         %dd= submit_tag
