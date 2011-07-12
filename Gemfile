@@ -13,6 +13,7 @@ gem 'is_taggable'
 gem 'spreadsheet'
 gem 'yaml_db'
 gem 'active_scaffold'
+gem 'delayed_job'
 
 group :test, :development do
   gem "rspec-rails", "~> 2.4"
