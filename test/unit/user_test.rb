@@ -11,7 +11,7 @@ class UserTest < ActiveSupport::TestCase
     @user = User.find_by_login 'nadrowski'
     @user.avatar = sample_avatar
     @user.save
-    expected_avatar_file_name = "#{@user.id}_#{@user.lastname}#{File.extname(sample_avatar).downcase}"
+    expected_avatar_file_name = "#{@user.id}_#{@user.lastname}#{File.extname(sample_avatar.path).downcase}"
     assert @user.avatar_file_name == expected_avatar_file_name
   end
 end
