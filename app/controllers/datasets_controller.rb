@@ -1,6 +1,6 @@
 class DatasetsController < ApplicationController
 
-  before_filter :load_dataset, :only => [:download, :show, :edit]
+  before_filter :load_dataset, :only => [:download, :show, :edit, :clean]
 
   before_filter :load_freeformat_dataset, :only => [:download_freeformat]
 
@@ -20,6 +20,11 @@ class DatasetsController < ApplicationController
       allow :admin
       allow :owner, :of => :dataset
       allow :proposer, :of => :dataset
+    end
+
+    actions :clean do
+      allow :admin
+      allow :owner, :of => :dataset
     end
 
     action :download_freeformat do
@@ -100,6 +105,17 @@ class DatasetsController < ApplicationController
       @projects << projects
     end
     @project = @projects.first
+  end
+
+  def clean
+    if @dataset && params[:datafile]
+      @dataset.clean
+      @dataset.upload_spreadsheet = Datafile.new(params[:datafile])
+      @dataset.save
+      redirect_to url_for(:controller => :imports, :action => :raw_data_overview, :dataset_id => @dataset.id) and return
+    else
+      redirect_back_or_default root_url
+    end
   end
 
   def show

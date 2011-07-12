@@ -1,20 +1,27 @@
 %span{:style => "font-size: large;"}
-  Context: #{@dataset.title}
+  Dataset: #{@dataset.title}
 - unless @dataset.blank?
   %p
     For more information, please contact #{link_to @contact, user_path(@contact.path_name)}
     of project #{link_to @project, project_path(1)}
-.comment
-  %span{:style => "font-size: medium;"} Edit meta data of this context
-  -#= render :active_scaffold => "admin/contexts", :constraints => {:id => @dataset.id}
-.comment
-  %span{:style => "font-size: medium;"}
-    Edit method descriptions of this
-    context
-  %p
-    At the time of writing, it is only possible to add, but not to
-    delete methods or personroles to a given columnheader (=
-    measurements_methodstep)
-  -#= render :active_scaffold => "admin/measurements_methodsteps", :constraints => {:context_id => @dataset.id}
-%div
-  -#= render  :active_scaffold => "admin/methods"
+  .comment
+    %span{:style => "font-size: medium;"} Edit meta data of this dataset
+    = render :active_scaffold => "admin/datasets", :constraints => {:id => @dataset.id}
+  .comment
+    %span{:style => "font-size: medium;"}
+      Edit method descriptions of this
+      context
+    %p
+      At the time of writing, it is only possible to add, but not to
+      delete methods or personroles to a given columnheader (=
+      measurements_methodstep)
+    = render :active_scaffold => "admin/datacolumns", :constraints => {:dataset_id => @dataset.id}
+  .comment
+    %span{:style => "font-size: medium;"}
+      If you want upload a new datafile, please confirm this message.
+      = form_for :datafile, :url => clean_dataset_path(@dataset), :html => {:multipart => true} do |f|
+        = f.error_messages
+        = f.file_field :file
+        = f.submit 'Data set upload', :confirm => "The early uploaded Datafile is cleaned"
+
+
