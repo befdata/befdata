@@ -170,7 +170,7 @@ class ImportsController < ApplicationController
     data_column.add_data_values()
 
     # by now values have been added
-    unless data_column.categories.blank?
+    unless !data_column.has_categories_uploaded
       redirect_to(:controller => :imports,
                   :action => :data_column_categories,
                   :data_column_id => data_column.id)
@@ -182,20 +182,10 @@ class ImportsController < ApplicationController
   def data_column_categories
     @data_column = Datacolumn.find(params[:data_column_id])
     @dataset = @data_column.dataset
-    portal_cats = @data_column.datagroup.datacell_categories_sql
-    sheet_cats = @data_column.import_categories.map{|icat| icat.category}
-    @cats_to_choose = [portal_cats + sheet_cats].flatten.uniq
-    @cats_to_choose.sort!{|x,y| x.verbose <=> y.verbose}
-    cells_with_cats = @data_column.sheetcells.select{|cell| cell.datatype.name == "category"}
-    # Cells (Measurements) can be set to valid; categoric values can
-    # be set to "manually approved".
-    cells = cells_with_cats.
-    select{|cell|  cell.comment == "invalid"}
-    cell_unique_entries = cells.collect{|cell|  cell.import_value}.uniq.sort
-    @cell_uniq_arr = []
-    cell_unique_entries.each do |entry|
-      @cell_uniq_arr << cells.select{|cell| cell.import_value == entry }[0]
-    end
+
+    @cats_to_choose = @data_column.datagroup.datacell_categories
+    @cell_uniq_arr = @data_column.invalid_values
+
   end
 
   # Exports a Context for merging and correcting as .xls file.  Then
@@ -335,101 +325,6 @@ class ImportsController < ApplicationController
       cell.comment = cell_comment
       cell.save
     end # Entry loop
-  end
-
-  def year_data_column_import(data_column_id, portal_cats, sheet_cats)
-    data_column = Datacolumn.find(data_column_id, :include => [:sheetcells])
-
-    cells = data_column.sheetcells
-
-    # Check each entry loop
-    cells.each do |cell|
-      entry = cell.import_value
-      obs = cell.observation
-
-      comment_cat_hash = suggest_category_for_entry(portal_cats, sheet_cats, entry)
-      cell_comment = comment_cat_hash[:cell_comment]
-
-      if cell_comment != "invalid"
-        cell.category = comment_cat_hash[:cat]
-      elsif integer?(entry)
-        entry = entry.to_i.to_s
-        cell.accepted_value= entry
-        cell_comment = "valid"
-      else
-        value = Category.create(:short => entry,
-        :long => entry,
-        :description => entry,
-        :comment => "automatically generated")
-        cell.category = value
-      end
-
-      cell.comment = cell_comment
-      cell.save
-    end # Entry loop
-  end
-
-  # Checking categories for exact matches, first on the portal, then
-  # in the spreadsheet.  Returns a hash with the cell_comment,
-  # stating: "portal match", "sheet match", "invalid".  The hash also
-  # contains the Categoricvalue if found.
-  def suggest_category_for_entry(portal_cats, sheet_cats, entry)
-    cat_found = nil
-    entry = entry.to_i.to_s if integer?(entry)
-
-    cat = find_entry_in_cat_array(portal_cats, entry)
-    logger.debug "------------ cat after portal match  ----------"
-    logger.debug cat.inspect
-    unless cat.blank?
-      cell_comment = "portal match"
-    else
-      cat = find_entry_in_cat_array(sheet_cats, entry)
-      logger.debug "------------ cat after sheet match  ----------"
-      logger.debug cat.inspect
-      unless cat.blank?
-        cell_comment = "sheet match"
-      else
-        # in come the "find similar" routines; these can give numbers
-        # of increasing dissimilarity, so that the lowest number is
-        # identical, for example
-      end
-    end
-
-    if cat.nil?
-      cell_comment = "invalid"
-    end
-
-    return {:cell_comment => cell_comment,
-      :cat => cat}
-  end
-
-  def find_entry_in_cat_array(cat_array, entry)
-    # Is there a match?  Short or long.  Note in Measurement
-    # .upload_info: portal match
-    logger.debug "------------ entering find_entry_in_cat_array  -----------"
-    logger.debug "------------ entry  --------------------"
-    logger.debug entry
-    logger.debug "------------ cat_array  --------------------"
-    logger.debug cat_array.inspect
-    matches = cat_array.select{|c| c.short == entry}
-    logger.debug "------------ matches short  --------------------"
-    logger.debug matches.inspect
-    if matches.blank?
-      matches = cat_array.select{|c| c.long == entry}
-      logger.debug "------------ matches long  --------------------"
-      logger.debug matches.inspect
-      if matches.blank?
-        cat = nil
-      else # matching categoricvalue.long
-        cat = matches[0]
-      end
-    else # matching categoricvalue.short
-      cat = matches[0]
-    end
-    logger.debug "------------ cat  --------------------"
-    logger.debug cat.inspect
-    logger.debug "------------ leaving find_entry_in_cat_array  --------------------"
-    return cat
   end
 
   def load_freeformats_dataset

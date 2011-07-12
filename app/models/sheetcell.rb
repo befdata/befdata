@@ -18,7 +18,11 @@ class Sheetcell < ActiveRecord::Base
 
   # set the default value for status_id
   def init
-    self.status_id = Sheetcellstatus::UNPROCESSED
+    if(!self.attributes["status_id"].nil?)
+      if(self.status_id.nil?)
+        self.status_id = Sheetcellstatus::UNPROCESSED
+      end
+    end
   end
 
   def same_entry_cells

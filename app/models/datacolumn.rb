@@ -43,45 +43,16 @@ class Datacolumn < ActiveRecord::Base
     ms
   end
 
-  def categories
-    # !! Zeitfresser ??
-    ms = self.sheetcells
-    meas_with_cats = ms.
-      collect{|m| m.datatype.name == "category"}.flatten.uniq.compact
-  end
-
-
-  # Are there values associated to the measurements of this data column
-  # instance?
-  def values_stored?
-    ms = self.sheetcells.find(:all, :conditions => ["accepted_value IS NOT NULL OR accepted_value !='' OR category_id > 0"])
+  # Are there categories associated to the measurements of this data column instance?
+  def has_categories_uploaded
+    ms = self.sheetcells.find(:all, :conditions => ["category_id > 0"])
     return !ms.empty?
   end
 
-  def first_five
-    #ms = self.sheetcells
-    # Measurements are automatically added at import, but they may not
-    # be linked to values yet.
-    if(self.values_stored?)
-      vls = self.sheetcells
-      n = vls.length
-      max =  n < 5 ? n-1 : 4
-      if n > 0
-        text1 = "First five entries: "
-        f_five = vls[0..max]
-        begin
-          f_five = f_five.collect{|vl| vl.show_value}
-          text2 = "(#{f_five.to_sentence})"
-          text3 = text1 + text2
-        rescue
-          text3 = "No entries for values found"
-        end
-      else
-        "No values yet imported for this data column"
-      end
-    else
-      "No values yet imported for this data column"
-    end
+  # Are there values associated to the measurements of this data column instance?
+  def values_stored?
+    ms = self.sheetcells.find(:all, :conditions => ["accepted_value IS NOT NULL OR accepted_value !='' OR category_id > 0"])
+    return !ms.empty?
   end
 
   # returns the first 'count' number unique imported values
@@ -157,6 +128,16 @@ class Datacolumn < ActiveRecord::Base
       connection.rollback_db_transaction
       raise
     end
+
+  end
+
+  # returns all the invalid uploaded sheetcells
+  def invalid_values
+    return self.sheetcells.find(:all, :conditions => ["status_id = ?", Sheetcellstatus::INVALID])
+  end
+
+  # returns all unique categories available in the portal or the sheet for this column
+  def available_categories
 
   end
 

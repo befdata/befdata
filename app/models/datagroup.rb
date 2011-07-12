@@ -30,7 +30,9 @@ class Datagroup < ActiveRecord::Base
 
   # set the default value for system
   def init
-    self.type_id = Datagrouptype::DEFAULT
+    if(self.type_id.nil?)
+      self.type_id = Datagrouptype::DEFAULT
+    end
   end
 
   def destroy_taggings
@@ -73,11 +75,12 @@ class Datagroup < ActiveRecord::Base
   end
 
   def helper_method
-    helper = Datagroup.find_all_by_title("Helper")
+    helper = Datagroup.find_all_by_type_id(Datagrouptype::HELPER)
 
     unless helper
       helper = Datagroup.create(:title => "Helper",
-      :description => "Helper Method for something")
+                                :description => "Helper Method for something",
+                                :type_id => Datagrouptype::HELPER)
     end
 
     return helper
