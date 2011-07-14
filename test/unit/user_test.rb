@@ -12,6 +12,7 @@ class UserTest < ActiveSupport::TestCase
     @user.avatar = sample_avatar
     @user.save
     expected_avatar_file_name = "#{@user.id}_#{@user.lastname}#{File.extname(sample_avatar.path).downcase}"
-    assert @user.avatar_file_name == expected_avatar_file_name
+    error_hint = "Could not add avatar-image to user. Maybe Paperclip/ImageMagick is not correctly set up."
+    assert @user.avatar_file_name == expected_avatar_file_name, error_hint
   end
 end

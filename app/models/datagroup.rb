@@ -77,5 +77,4 @@ class Datagroup < ActiveRecord::Base
     return helper
   end
 
-
 end

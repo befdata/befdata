@@ -86,4 +86,8 @@ class Datacolumn < ActiveRecord::Base
     "(#{columnheader}, id: #{id}) #{definition}"
   end
 
+  def to_label
+    columnheader
+  end
+
 end

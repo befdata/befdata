@@ -14,7 +14,6 @@ class Admin::DatasetsControllerTest < ActionController::TestCase
     login_nadrowski
     get :index
     m = Dataset.find_all_by_destroy_me(true).empty? ? '' : '[checked=checked]'
-    m = ''
     assert_select "td.destroy_me-column > input[type=checkbox]#{m}"
   end
 
