@@ -153,8 +153,13 @@ class User < ActiveRecord::Base
     @projectsarray
   end
 
-
-
+  def authorized_for_update?
+    if (self == current_user || current_user.has_role?("admin")) then
+      true
+    else
+      false
+    end
+  end
 
 end
 

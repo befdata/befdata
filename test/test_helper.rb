@@ -36,4 +36,8 @@ class ActiveSupport::TestCase
     @categoricvalue = Categoricvalue.find_by_long long
   end
 
+  def non_admin_users
+    User.all - User.joins(:role_objects).where('"roles"."name" = \'admin\'')
+  end
+
 end
