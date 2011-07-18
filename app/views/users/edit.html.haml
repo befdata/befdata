@@ -6,7 +6,9 @@
 %b= "Project Board Votes" unless @project_board_votes.empty?
 - @project_board_votes.each do |vote|
   %div.box
-    %h3= "Paper Proposal: #{link_to vote.paperproposal.title, vote.paperproposal}"
+    %h3
+      = "Paper Proposal:"
+      = link_to vote.paperproposal.title, vote.paperproposal
     %p
       Rational:
       = vote.paperproposal.rationale
