@@ -1,3 +1,10 @@
+GIT
+  remote: https://github.com/sinefunc/is_taggable.git
+  revision: 20f2b31dcec9b813b6ac91416dc2e4c050099ff8
+  branch: rails3
+  specs:
+    is_taggable (0.1.0)
+
 GEM
   remote: http://rubygems.org/
   specs:
@@ -45,17 +52,17 @@ GEM
       abstract (>= 1.0.0)
     haml (3.1.2)
     i18n (0.5.0)
-    is_taggable (0.1.0)
     mail (2.2.19)
       activesupport (>= 2.3.6)
       i18n (>= 0.4.0)
       mime-types (~> 1.16)
       treetop (~> 1.4.8)
     mime-types (1.16)
-    paperclip (2.3.12)
+    paperclip (2.3.15)
       activerecord (>= 2.3.0)
       activesupport (>= 2.3.2)
       cocaine (>= 0.0.2)
+      mime-types
     pg (0.11.0)
     pg (0.11.0-x86-mingw32)
     polyglot (0.3.1)
@@ -94,7 +101,7 @@ GEM
       railties (~> 3.0)
       rspec (~> 2.6.0)
     ruby-ole (1.2.11.1)
-    ruby-prof (0.10.7)
+    ruby-prof (0.10.8)
     spreadsheet (0.6.5.5)
       ruby-ole (>= 1.0)
     test-unit (2.3.0)
@@ -117,7 +124,7 @@ DEPENDENCIES
   authlogic
   dynamic_form
   haml
-  is_taggable
+  is_taggable!
   paperclip
   pg
   rails (= 3.0.8)
