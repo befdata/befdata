@@ -7,7 +7,7 @@ class Settings::UsersController < Settings::SettingsController
 
   active_scaffold :user do |config|
 
-    config.label = "Edit your Profile"
+    config.label = "Your Profile"
     config.actions.exclude :delete, :search, :create
     config.subform.layout = :vertical
 
