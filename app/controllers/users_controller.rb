@@ -30,7 +30,6 @@ class UsersController < ApplicationController
     #ToDo make it better, better scope, soon with rails 3
     @to_vote.reject!{|element| element.paperproposal.board_state == "final"}
     @data_requests = Paperproposal.find_all_by_board_state("submit")
-
   end
 
   # The show method provides all informations about one specific person.

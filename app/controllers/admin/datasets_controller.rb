@@ -19,6 +19,5 @@ class Admin::DatasetsController < Admin::AdminController
                              :published, :spatialextent, :datemin, :datemax,
                              :temporalextent, :taxonomicextent, :design,
                              :dataanalysis, :circumstances, :destroy_me ,:destroy_me_date]
-
   end
 end
