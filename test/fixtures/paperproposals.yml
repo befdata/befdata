@@ -65,7 +65,7 @@ paperproposals_001:
   created_at: 2011-07-19 15:04:36.250126
   senior_author_id: "2"
   title: "Final Paperproposal "
-  project_id: 
+  project_id: "2"
   updated_at: 2011-07-19 15:20:40.758105
   rationale: This is a final paperproposal, owned by Martin Phdstudentproductivity. With added datasets contains freeformat and datafile
   lock: f
