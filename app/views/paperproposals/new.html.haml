@@ -6,7 +6,7 @@
     %div#right_box
       Main Proponent List
       %p
-        (You can select yourself your main proponent, with your selected data columns additional main proponent join the list)
+        (Main proponents are those authors, that contribute major aspects to the analysis.)
       = select "not_needed", "param", @all_persons.map{|person| [person.to_label, person.id]}, {}, {:onchange => 'selectPeople(this)'}
       %ul
         - f.fields_for :authors, @paperproposal.authors do |field|
