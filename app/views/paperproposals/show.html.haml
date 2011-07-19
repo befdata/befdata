@@ -15,8 +15,5 @@
     %p Its allowed to download files, present now list of download actions
     %ul
       - @paperproposal.datasets.each do |dataset|
-        %li= link_to dataset.title,
-                  {:controller => 'datasets',
-                   :action => 'download',
-                   :id => dataset.id}
+        %li= link_to dataset.title, dataset
 
