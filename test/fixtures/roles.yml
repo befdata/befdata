@@ -1,85 +1,106 @@
 --- 
 roles_006: 
-  name: owner
-  created_at: 2011-05-01 13:26:09.97425
-  updated_at: 2011-05-01 13:26:09.97425
-  authorizable_type: Paperproposal
-  id: "9"
-  authorizable_id: "2"
-roles_007: 
-  name: owner
-  created_at: 2011-06-01 13:47:09.313
-  updated_at: 2011-06-01 13:47:09.313
-  authorizable_type: Dataset
-  id: "11"
-  authorizable_id: "5"
-roles_008: 
   name: pi
   created_at: 2011-06-01 14:24:49.893
   updated_at: 2011-06-01 14:24:49.893
   authorizable_type: Project
   id: "12"
   authorizable_id: "2"
-roles_009: 
+roles_007: 
   name: pi
   created_at: 2011-06-01 14:25:04.933
   updated_at: 2011-06-01 14:25:04.933
   authorizable_type: Project
   id: "13"
   authorizable_id: "3"
-roles_010: 
+roles_008: 
   name: phdstudent
   created_at: 2011-06-01 14:26:52.431
   updated_at: 2011-06-01 14:26:52.431
   authorizable_type: Project
   id: "14"
   authorizable_id: "2"
-roles_011: 
+roles_009: 
   name: phdstudent
   created_at: 2011-06-01 14:27:16.632
   updated_at: 2011-06-01 14:27:16.632
   authorizable_type: Project
   id: "15"
   authorizable_id: "3"
-roles_001: 
+roles_010: 
+  name: project_board
+  created_at: 2011-06-20 06:47:31.643839
+  updated_at: 2011-06-20 06:47:31.643839
+  authorizable_type: 
+  id: "17"
+  authorizable_id: 
+roles_011: 
   name: owner
   created_at: 2011-06-01 15:02:04.616
   updated_at: 2011-06-01 15:02:04.616
   authorizable_type: Dataset
   id: "16"
   authorizable_id: "6"
-roles_002: 
+roles_012: 
   name: pi
   created_at: 2011-03-28 10:03:41.604
   updated_at: 2011-03-28 10:03:41.604
   authorizable_type: Project
   id: "3"
   authorizable_id: "1"
-roles_003: 
+roles_001: 
+  name: owner
+  created_at: 2011-07-19 15:05:42.743795
+  updated_at: 2011-07-19 15:05:42.743795
+  authorizable_type: Dataset
+  id: "18"
+  authorizable_id: "7"
+roles_013: 
   name: postdoc
   created_at: 2011-03-28 10:00:37.31
   updated_at: 2011-03-28 10:00:37.31
   authorizable_type: Project
   id: "2"
   authorizable_id: "1"
-roles_004: 
+roles_002: 
+  name: proposer
+  created_at: 2011-07-19 15:13:41.190623
+  updated_at: 2011-07-19 15:13:41.190623
+  authorizable_type: Dataset
+  id: "19"
+  authorizable_id: "6"
+roles_014: 
   name: admin
   created_at: 2011-03-28 09:55:20.466
   updated_at: 2011-03-28 09:55:20.466
   authorizable_type: 
   id: "1"
   authorizable_id: 
-roles_005: 
+roles_003: 
+  name: proposer
+  created_at: 2011-07-19 15:13:41.232697
+  updated_at: 2011-07-19 15:13:41.232697
+  authorizable_type: Dataset
+  id: "20"
+  authorizable_id: "7"
+roles_015: 
   name: owner
   created_at: 2011-05-01 13:27:08.649028
   updated_at: 2011-05-01 13:27:08.649028
   authorizable_type: Paperproposal
   id: "10"
   authorizable_id: "1"
-roles_012:
-  name: project_board
-  created_at: 2011-06-20 06:47:31.643839
-  updated_at: 2011-06-20 06:47:31.643839
-  authorizable_type:
-  id: "17"
-  authorizable_id: 
+roles_004: 
+  name: owner
+  created_at: 2011-05-01 13:26:09.97425
+  updated_at: 2011-05-01 13:26:09.97425
+  authorizable_type: Paperproposal
+  id: "9"
+  authorizable_id: "2"
+roles_005: 
+  name: owner
+  created_at: 2011-06-01 13:47:09.313
+  updated_at: 2011-06-01 13:47:09.313
+  authorizable_type: Dataset
+  id: "11"
+  authorizable_id: "5"
