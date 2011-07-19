@@ -54,6 +54,12 @@ Befchina::Application.routes.draw do
     end
   end
 
+  namespace :settings do
+    resources :users do
+      as_routes
+    end
+  end
+
   resources :paperproposals
   match 'paperproposals/update_vote/:id' => 'paperproposals#update_vote', :as => :update_vote
   match 'paperproposals/update_state/:id' => 'paperproposals#update_state', :as => :paperproposal_update_state

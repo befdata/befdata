@@ -1,10 +1,17 @@
-class Admin::UsersController < Admin::AdminController
+class Settings::UsersController < Settings::SettingsController
+
+  access_control do
+    allow :admin
+    allow logged_in # TODO: should this be more restrictive? how do I get the constraint and current user?
+  end
 
   active_scaffold :user do |config|
-    config.label = "Users"
 
-    config.search.columns = [:firstname, :lastname]
+    config.label = "Your Profile"
+    config.actions.exclude :delete, :search, :create
+    config.subform.layout = :vertical
 
+    # password column config
     config.columns << :password
     config.columns[:password].label = "New Password<br/>(Leave this blank to keep old password)"
     config.columns[:password].form_ui = :password
@@ -13,30 +20,30 @@ class Admin::UsersController < Admin::AdminController
     config.columns[:password_confirmation].form_ui = :password
 
     # show config
-    config.show.columns = [:firstname, :middlenames, :lastname, :salutation, :comment, :roles_without_objects, :roles_with_objects, :email]
-
-    # list config
-    config.columns = [:avatar, :firstname, :lastname, :roles_without_objects, :roles_with_objects]
-    config.list.sorting = { :lastname => :asc }
-
-    [config.update, config.create].each do |c|
-      c.columns = [:firstname, :middlenames, :lastname, :salutation,
+    config.show.columns = [:firstname, :middlenames, :lastname, :salutation,
         :login, :password, :password_confirmation, :comment,
         :url, :email,
         :institution_name, :institution_url,
         :institution_phone, :institution_fax,
         :street, :city, :country,
         :admin, :project_board, :avatar]
-    end
 
-    config.subform.layout = :vertical
+    # list config
+    config.columns = [:avatar, :firstname, :lastname, :roles_without_objects, :roles_with_objects]
+    config.list.sorting = { :lastname => :asc }
+
+    #Update config
+    config.update.columns = [:firstname, :middlenames, :lastname, :salutation,
+        :login, :password, :password_confirmation, :comment,
+        :url, :email,
+        :institution_name, :institution_url,
+        :institution_phone, :institution_fax,
+        :street, :city, :country,
+        :avatar]
 
     # for the avatar-imapge upload
-    config.create.multipart = true
     config.update.multipart = true
     ActiveScaffold::Bridges::Paperclip::Lib::PaperclipBridgeHelpers.thumbnail_style=:small
   end
 
 end
-
-
