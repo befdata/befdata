@@ -145,5 +145,15 @@ class PaperproposalsControllerTest < ActionController::TestCase
 
     assert_equal "Test", @paperproposal.initial_title
   end
+
+  test "should show all links to dataset if the paperproposal is final" do
+    login_and_load_paperproposal "Phdstudentproductivity", "Final Paperproposal"
+
+    get :show, :id => @paperproposal.id
+
+    assert_select 'div.box ul' do |element|
+      assert element[0].children.select{|child| child.to_s =~ /dataset/}.count == 2
+    end
+  end
   
 end
