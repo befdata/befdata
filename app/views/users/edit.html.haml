@@ -19,17 +19,20 @@
       - if vote.vote == "none"
         Accept or reject?
         = form.select :vote, ["accept", "reject"]
+        %br
+        = form.label :comment
+        = form.text_field :comment
+        = form.submit "Send your vote"
       - else
         Your vote was:
         = vote.vote
-      %br
-      = form.label :comment
-      = form.text_field :comment
-      = form.submit "Send your vote"
+
 - @to_vote.each do |vote|
   %b Vote to submit
   %div.box
-    %h3= "Paper Proposal: #{link_to vote.paperproposal.title, vote.paperproposal}"
+    %h3
+      = "Paper Proposal:"
+      = link_to vote.paperproposal.title, vote.paperproposal
     %p
       Rational:
       = vote.paperproposal.rationale
@@ -40,10 +43,10 @@
       - if vote.vote == "none"
         Accept or reject?
         = form.select :vote, ["accept", "reject"]
+        %br
+        = form.label :comment
+        = form.text_field :comment
+        = form.submit "Send your vote"
       - else
         Your vote was:
         = vote.vote
-      %br
-      = form.label :comment
-      = form.text_field :comment
-      = form.submit "Send your vote"
