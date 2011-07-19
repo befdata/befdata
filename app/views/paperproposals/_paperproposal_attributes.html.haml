@@ -20,6 +20,9 @@
 = f.label :senior_author
 = f.select :senior_author_id, @all_persons.map{|person| [person.to_label, person.id]}, { :include_blank => true }
 %br
+= f.label :authored_by_project
+= f.select :project_id, Project.all.map{|project| [project.to_label, project.id]}, { :include_blank => false }
+%br
 = f.label :rationale
 = f.text_area :rationale
 %br
