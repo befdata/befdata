@@ -48,7 +48,6 @@ class PaperproposalsController < ApplicationController
     @current_cart = current_cart
 
     1.times {@paperproposal.datafiles.build}
-    
   end
 
   #######################################
@@ -58,6 +57,7 @@ class PaperproposalsController < ApplicationController
   #create new data request
   def create
     @paperproposal = Paperproposal.new(params[:paperproposal])
+    @paperproposal.initial_title = @paperproposal.title
     proponents = User.find_all_by_id(params[:people]).
         map{|person| AuthorPaperproposal.new(:user => person, :kind => "user")}
     @paperproposal.author_paperproposals = proponents
