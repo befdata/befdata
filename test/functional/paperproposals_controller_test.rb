@@ -125,6 +125,25 @@ class PaperproposalsControllerTest < ActionController::TestCase
 
   test "should show a paperproposal for dataset owner and responsible if they can vote" do
     pending "paperproposal is show for everybody."
-  end 
+  end
+
+  test "should not show the initial title on create page" do
+    login_nadrowski
+
+    get :new
+
+    assert_select 'div#content' do |element|
+      assert !(element.first =~ /Initial title/)
+    end
+  end
+
+  test "should have initital title same as the title after creation process" do
+    login_nadrowski
+
+    post :create, :paperproposal => {:title => "Test", :rationale => "Rational"}
+    @paperproposal = Paperproposal.find_by_title("Test")
+
+    assert_equal "Test", @paperproposal.initial_title
+  end
   
 end
