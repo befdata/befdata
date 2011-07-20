@@ -1,0 +1,97 @@
+---
+ImportCategory_001:
+  id: "35"
+  datacolumn_id: "36"
+  raw_data_value:
+  category_id: "60"
+  approved:
+  created_at: 2011-06-01 13:55:20.252
+  updated_at: 2011-06-01 13:55:20.252
+ImportCategory_002:
+  id: "36"
+  datacolumn_id: "36"
+  raw_data_value:
+  category_id: "61"
+  approved:
+  created_at: 2011-06-01 13:55:20.756
+  updated_at: 2011-06-01 13:55:20.756
+ImportCategory_003:
+  id: "37"
+  datacolumn_id: "36"
+  raw_data_value:
+  category_id: "62"
+  approved:
+  created_at: 2011-06-01 13:55:20.763
+  updated_at: 2011-06-01 13:55:20.763
+ImportCategory_004:
+  id: "38"
+  datacolumn_id: "36"
+  raw_data_value:
+  category_id: "63"
+  approved:
+  created_at: 2011-06-01 13:55:20.769
+  updated_at: 2011-06-01 13:55:20.769
+ImportCategory_005:
+  id: "39"
+  datacolumn_id: "40"
+  raw_data_value:
+  category_id: "65"
+  approved:
+  created_at: 2011-06-01 15:06:09.731
+  updated_at: 2011-06-01 15:06:09.731
+ImportCategory_006:
+  id: "40"
+  datacolumn_id: "40"
+  raw_data_value:
+  category_id: "66"
+  approved:
+  created_at: 2011-06-01 15:06:09.807
+  updated_at: 2011-06-01 15:06:09.807
+ImportCategory_041:
+  id: "41"
+  datacolumn_id: "45"
+  raw_data_value:
+  category_id: "67"
+  approved:
+  created_at: 2011-07-01 15:06:09.807
+  updated_at: 2011-07-01 15:06:09.807
+ImportCategory_042:
+  id: "42"
+  datacolumn_id: "45"
+  raw_data_value:
+  category_id: "68"
+  approved:
+  created_at: 2011-07-01 15:06:09.807
+  updated_at: 2011-07-01 15:06:09.807
+ImportCategory_043:
+  id: "43"
+  datacolumn_id: "45"
+  raw_data_value:
+  category_id: "69"
+  approved:
+  created_at: 2011-07-01 15:06:09.807
+  updated_at: 2011-07-01 15:06:09.807
+ImportCategory_044:
+  id: "44"
+  datacolumn_id: "45"
+  raw_data_value:
+  category_id: "70"
+  approved:
+  created_at: 2011-07-01 15:06:09.807
+  updated_at: 2011-07-01 15:06:09.807
+ImportCategory_045:
+  id: "45"
+  datacolumn_id: "45"
+  raw_data_value:
+  category_id: "71"
+  approved:
+  created_at: 2011-07-01 15:06:09.807
+  updated_at: 2011-07-01 15:06:09.807
+ImportCategory_046:
+  id: "46"
+  datacolumn_id: "45"
+  raw_data_value:
+  category_id: "72"
+  approved:
+  created_at: 2011-07-01 15:06:09.807
+  updated_at: 2011-07-01 15:06:09.807

@@ -53,7 +53,7 @@ Befchina::Application.routes.draw do
 
   namespace :admin do
     resources :datasets, :projects, :users, :datagroups, :tags,
-              :datacolumns, :categoricvalues, :freeformats, :user_avatars,
+              :datacolumns, :categories, :freeformats, :user_avatars,
               :paperproposals do
       as_routes
     end

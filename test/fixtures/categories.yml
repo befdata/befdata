@@ -1,0 +1,147 @@
+--- 
+Categories_001: 
+  id: "59"
+  short: na
+  long: na
+  description: na
+  comment: manually approved
+  created_at: 2011-06-01 13:50:24.057
+  updated_at: 2011-06-01 13:52:20.058
+  datagroup_id: 7
+  user_id: 1
+Categories_002: 
+  id: "60"
+  short: Toxicodendron sylvestre
+  long: Toxicodendron sylvestre
+  description: Toxicodendron sylvestre
+  comment: "added from category sheet in dataset: Test species name import"
+  created_at: 2011-06-01 13:55:19.488
+  updated_at: 2011-06-01 13:55:19.488
+  datagroup_id: 1
+  user_id: 1
+Categories_003: 
+  id: "61"
+  short: Mahonia bealei
+  long: Mahonia bealei
+  description: Mahonia bealei
+  comment: "added from category sheet in dataset: Test species name import"
+  created_at: 2011-06-01 13:55:19.723
+  updated_at: 2011-06-01 13:55:19.723
+  datagroup_id: 1
+  user_id: 1
+Categories_004: 
+  id: "62"
+  short: Betula luminifera
+  long: Betula luminifera
+  description: Betula luminifera
+  comment: "added from category sheet in dataset: Test species name import"
+  created_at: 2011-06-01 13:55:19.743
+  updated_at: 2011-06-01 13:55:19.743
+  datagroup_id: 1
+  user_id: 1
+Categories_005: 
+  id: "63"
+  short: Diospyros japonica
+  long: Diospyros japonica
+  description: Diospyros japonica
+  comment: "added from category sheet in dataset: Test species name import"
+  created_at: 2011-06-01 13:55:19.798
+  updated_at: 2011-06-01 13:55:19.798
+  datagroup_id: 1
+  user_id: 1
+Categories_006: 
+  id: "64"
+  short: <1
+  long: <1
+  description: <1
+  comment: manually approved
+  created_at: 2011-06-01 15:03:35.858
+  updated_at: 2011-06-01 15:03:52.819
+  datagroup_id: 7
+  user_id: 1
+Categories_007:
+  id: "65"
+  short: Toxicodendron sylvestre
+  long: Toxicodendron sylvestre
+  description: Toxicodendron sylvestre
+  comment: "added from category sheet in dataset: Test species name import second version"
+  created_at: 2011-06-01 15:06:09.098
+  updated_at: 2011-06-01 15:06:09.098
+  datagroup_id: 1
+  user_id: 1
+Categories_008: 
+  id: "66"
+  short: Mahonia bealei
+  long: Mahonia bealei
+  description: Mahonia bealei
+  comment: "added from category sheet in dataset: Test species name import second version"
+  created_at: 2011-06-01 15:06:09.205
+  updated_at: 2011-06-01 15:06:09.205
+  datagroup_id: 1
+  user_id: 1
+Categories_067:
+  id: "67"
+  short: AAA
+  long: AAA
+  description: AAA
+  comment: "Unit test spreadsheet"
+  created_at: 2011-07-01 15:06:09.205
+  updated_at: 2011-07-01 15:06:09.205
+  datagroup_id: 22
+  user_id: 1
+  status_id: 1
+Categories_068:
+  id: "68"
+  short: BBB
+  long: BBB
+  description: BBB
+  comment: "Unit test spreadsheet"
+  created_at: 2011-07-01 15:06:09.205
+  updated_at: 2011-07-01 15:06:09.205
+  datagroup_id: 22
+  user_id: 1
+  status_id: 1
+Categories_069:
+  id: "69"
+  short: CCC
+  long: CCC
+  description: CCC
+  comment: "Unit test spreadsheet"
+  created_at: 2011-07-01 15:06:09.205
+  updated_at: 2011-07-01 15:06:09.205
+  datagroup_id: 22
+  user_id: 1
+  status_id: 1
+Categories_070:
+  id: "70"
+  short: DDD
+  long: DDD
+  description: DDD
+  comment: "Unit test spreadsheet"
+  created_at: 2011-07-01 15:06:09.205
+  updated_at: 2011-07-01 15:06:09.205
+  datagroup_id: 22
+  user_id: 1
+  status_id: 1
+Categories_071:
+  id: "71"
+  short: EEE
+  long: EEE
+  description: EEE
+  comment: "Unit test spreadsheet"
+  created_at: 2011-07-01 15:06:09.205
+  updated_at: 2011-07-01 15:06:09.205
+  datagroup_id: 22
+  user_id: 1
+  status_id: 1
+Categories_072:
+  id: "72"
+  short: FFF
+  long: FFF
+  description: FFF
+  comment: "Unit test spreadsheet"
+  created_at: 2011-07-01 15:06:09.205
+  updated_at: 2011-07-01 15:06:09.205
+  datagroup_id: 22
+  user_id: 1
+  status_id: 1

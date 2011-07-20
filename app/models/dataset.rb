@@ -68,14 +68,17 @@ class Dataset < ActiveRecord::Base
   # linked to values (eg Datetimevalue, Numericvalue, Categoricvalue,
   # Textvalue)
   def cells_linked_to_values?
-    ms = self.sheetcells
+    #ms = self.sheetcells
     
-    test = false
-    unless ms.blank?
-      vls = ms.collect{|m| m.value}.flatten.compact
-      test = ms.length== vls.length
-    end
-    test
+    #test = false
+    #unless ms.blank?
+    #  vls = ms.collect{|m| m.accepted_value}.flatten.compact
+    #  test = ms.length== vls.length
+   # end
+   # test
+
+    ms = self.sheetcells.find(:all, :conditions => ["accepted_value IS NOT NULL OR accepted_value !='' OR category_id > 0"])
+    return !ms.empty?
   end
 
   # During the import routine, we step through each of the data
@@ -117,20 +120,20 @@ class Dataset < ActiveRecord::Base
   # so its possible to upload a new datafile
   def clean
     dataset_sheetcells = self.sheetcells
-    sheetcells_with_cat_values = dataset_sheetcells.select{|sc| sc.value_type == "Categoricvalue"}
-    sheetcells_without_cat_values =dataset_sheetcells.select{|sc| sc.value_type != "Categoricvalue"}
-    uniq_categoricvalues = sheetcells_with_cat_values.collect{|sc| sc.value}.uniq
-    uniq_values_without_catvals = sheetcells_without_cat_values.collect{|sc| sc.value}.uniq.compact
+    sheetcells_with_cat_values = dataset_sheetcells.select{|sc| sc.datatype.name=="Category"}
+    sheetcells_without_cat_values = dataset_sheetcells.select{|sc| sc.datatype.name!="Category"}
+    uniq_categories = sheetcells_with_cat_values.collect{|sc| sc.value}.uniq
+    uniq_values_without_catvals = sheetcells_without_cat_values.collect{|sc| sc.accepted_value}.uniq.compact
 
     # observations are destroyed with sheetcells
 
     dataset_sheetcells.each{|sc| sc.destroy}
-    uniq_categoricvalues.each{|cat| cat.destroy}
+    uniq_categories.each{|cat| cat.destroy}
     uniq_values_without_catvals.each{|value| value.destroy}
 
     datacolumns = self.datacolumns
-    import_categories = datacolumns.collect{|dc| dc.import_categoricvalues}.flatten.compact
-    uniq_categoricvalues = import_categories.collect{|ic| ic.categoricvalue}.uniq.compact
+    import_categories = datacolumns.collect{|dc| dc.import_categories}.flatten.compact
+    uniq_categoricvalues = import_categories.collect{|ic| ic.category}.uniq.compact
     import_categories.each{|t| t.destroy}
     uniq_categoricvalues.each{|cat| cat.destroy}
 
