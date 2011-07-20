@@ -25,7 +25,7 @@ pushd $ROOT
 
   echo "==========Updating to most recent revision=========="
   hg up default -C
-
+  bundle install
   echo `hg id -in` > tmp/hg.rev
 
   echo "==========Restarting server=========="
