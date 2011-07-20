@@ -1,13 +1,16 @@
-%p
-  Uploading "#{@dataset.title}"
+%h2
+  = @dataset.title
 
-  (#{@dataset.filename})
 %div= render 'context_export_destroy'
 %div= render 'dataset_step_five'
 - if @book.columnheaders_unique?
   %p
-    Congratulations, your data columns have unique headers and were
-    uploaded to our data base!  Now you should go through each of the
+    - if @just_uploaded
+      Your data set was registered and is now processed. Please stay tuned.
+    - else
+      We processed #{@dataset.datacolumns.length} of #{@book.columnheaders_raw.length} data columns.
+  %p
+    Congratulations, your data columns have unique headers. Now you should go through each of the
     data columns to load your data.
   %div= render 'data_header_link_list'
 - else

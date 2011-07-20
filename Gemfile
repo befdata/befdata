@@ -13,6 +13,7 @@ gem 'is_taggable', :git => "https://github.com/sinefunc/is_taggable.git", :branc
 gem 'spreadsheet'
 gem 'yaml_db'
 gem 'active_scaffold'
+gem 'delayed_job'
 
 group :test, :development do
   gem "rspec-rails", "~> 2.4"

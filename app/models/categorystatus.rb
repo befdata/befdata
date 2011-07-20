@@ -1,0 +1,5 @@
+class Categorystatus
+  CATEGORY_SHEET = 1
+  MANUALLY_APPROVED = 2
+  AUTOMATICALLY_ADDED = 3
+end

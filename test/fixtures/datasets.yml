@@ -57,35 +57,32 @@ datasets_002:
   destroy_me: f
   finished: f
   design: ""
-datasets_003: 
+datasets_003:
   comment: ""
-  created_at: 2011-07-19 15:05:02.751224
-  upload_spreadsheet_id: 
+  created_at: 2011-07-01 15:02:04.119
+  upload_spreadsheet_id: "6"
   visible_for_public: t
   student_file: f
-  datemax: 
+  datemax: 2011-04-18 00:00:00
   downloads: "0"
-  circumstances: 
-  title: This Dataset contains one Freeformat File
-  updated_at: 2011-07-19 15:05:31.933465
-  published: 
-  usagerights: 
-  abstract: |-
-    This Dataset is for testing with freeformats.
-    
-    z1_CSP_Main_TreeAndShrubSpecies_synonyms_03 vm - Kopie.xls
-  taxonomicextent: 
-  temporalextent: 
-  spatialextent: 
+  circumstances: ""
+  title: Unit tests
+  updated_at: 2011-07-01 15:02:34.559
+  published: ""
+  usagerights: ""
+  abstract: Unit tests
+  taxonomicextent: ""
+  temporalextent: ""
+  spatialextent: Unit tests
   id: "7"
-  datemin: 
+  datemin: 2011-04-18 00:00:00
   free_within_projects: f
   free_for_public: f
   free_for_members: f
-  filename: z1_CSP_Main_TreeAndShrubSpecies_synonyms_03 vm - Kopie.xls
-  dataanalysis: 
-  submission_at: 
-  destroy_me_date: 
+  filename: Unit test spreadsheet.xls
+  dataanalysis: ""
+  submission_at:
+  destroy_me_date:
   destroy_me: f
-  finished: 
-  design: 
+  finished: f
+  design: ""
