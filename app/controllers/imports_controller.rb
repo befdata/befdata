@@ -170,7 +170,7 @@ class ImportsController < ApplicationController
     data_column.add_data_values()
 
     # by now values have been added
-    unless !data_column.has_categories_uploaded
+    if data_column.has_categories_uploaded
       redirect_to(:controller => :imports,
                   :action => :data_column_categories,
                   :data_column_id => data_column.id)
