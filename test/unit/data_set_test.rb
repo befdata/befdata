@@ -52,13 +52,13 @@ class DataSetTest < ActiveSupport::TestCase
 
   test "clean a dataset should delete all import categoric values" do
     dataset = datasets("datasets_001")
-    all_import_values = ImportCategoricvalue.count
-    import_categories_length = dataset.datacolumns.collect{|dc| dc.import_categoricvalues}.flatten.compact.length
+    all_import_values = ImportCategory.count
+    import_categories_length = dataset.datacolumns.collect{|dc| dc.import_categories}.flatten.compact.length
     import_categories_expected_length = all_import_values - import_categories_length
 
     dataset.clean
 
-    assert_equal(import_categories_expected_length, ImportCategoricvalue.count)
+    assert_equal(import_categories_expected_length, ImportCategory.count)
   end
 
 

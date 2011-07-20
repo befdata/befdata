@@ -31,9 +31,9 @@ class ActiveSupport::TestCase
     File.new(File.join(fixture_path, 'test_files_for_uploads', filename))
   end
 
-  def login_and_load_categoricvalue (user = "nadrowski", long = "Mahonia bealei")
+  def login_and_load_category (user = "nadrowski", long = "Mahonia bealei")
     login_user user
-    @categoricvalue = Categoricvalue.find_by_long long
+    @category= Category.find_by_long long
   end
 
   def non_admin_users

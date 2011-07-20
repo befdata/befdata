@@ -1,4 +1,4 @@
-class Admin::CategoryController < Admin::AdminController
+class Admin::CategoriesController < Admin::AdminController
     active_scaffold :category do |config|
       config.label = "Categories"
 

@@ -7,7 +7,7 @@ class DataworkbookTest < ActiveSupport::TestCase
     @dataset = Dataset.find(5)
     @spreadsheet = Spreadsheet.open @dataset.upload_spreadsheet.file.path
     @spreadsheet.io.close
-    @book = Dataworkbook.new(@dataset.upload_spreadsheet, @spreadsheet)
+    @book = Dataworkbook.new(@dataset.upload_spreadsheet)
   end
 
   # Replace this with your real tests.
