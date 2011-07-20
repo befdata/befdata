@@ -47,9 +47,14 @@ Befchina::Application.routes.draw do
   match 'imports/dataset_freeformat_overview' => 'imports#dataset_freeformat_overview'
   match 'imports/save_dataset_freeformat_tags' => 'imports#save_dataset_freeformat_tags'
 
+  resources :paperproposals
+  match 'paperproposals/update_vote/:id' => 'paperproposals#update_vote', :as => :update_vote
+  match 'paperproposals/update_state/:id' => 'paperproposals#update_state', :as => :paperproposal_update_state
+
   namespace :admin do
     resources :datasets, :projects, :users, :datagroups, :tags,
-              :datacolumns, :categoricvalues, :freeformats, :user_avatars do
+              :datacolumns, :categoricvalues, :freeformats, :user_avatars,
+              :paperproposals do
       as_routes
     end
   end
@@ -60,9 +65,7 @@ Befchina::Application.routes.draw do
     end
   end
 
-  resources :paperproposals
-  match 'paperproposals/update_vote/:id' => 'paperproposals#update_vote', :as => :update_vote
-  match 'paperproposals/update_state/:id' => 'paperproposals#update_state', :as => :paperproposal_update_state
+
 
 
   
