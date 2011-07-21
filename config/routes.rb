@@ -60,7 +60,7 @@ Befchina::Application.routes.draw do
   end
 
   namespace :settings do
-    resources :users do
+    resources :users, :datasets, :datacolumns do
       as_routes
     end
   end

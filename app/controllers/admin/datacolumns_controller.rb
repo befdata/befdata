@@ -1,6 +1,6 @@
 class Admin::DatacolumnsController < Admin::AdminController
   active_scaffold :datacolumn do |config|
-    config.label = "Datacolumn"
+    config.label = "Datacolumns"
 
     config.show.link = false
     config.delete.link = false

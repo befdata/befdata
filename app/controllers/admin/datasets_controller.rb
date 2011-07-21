@@ -8,8 +8,6 @@ class Admin::DatasetsController < Admin::AdminController
     #config.delete.link = false
     #config.search.link = false
 
-
-
     config.update.link.label = "Edit Data set"
     config.columns = [:id, :title, :filename, :download_counter, :destroy_me]
     config.update.columns = [:title, :finished, :visible_for_public,

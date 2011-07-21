@@ -6,7 +6,7 @@
     of project #{link_to @project, project_path(1)}
   .comment
     %span{:style => "font-size: medium;"} Edit meta data of this dataset
-    = render :active_scaffold => "admin/datasets", :constraints => {:id => @dataset.id}
+    = render :active_scaffold => "settings/datasets", :constraints => {:id => @dataset.id}
   .comment
     %span{:style => "font-size: medium;"}
       Edit method descriptions of this
@@ -15,7 +15,7 @@
       At the time of writing, it is only possible to add, but not to
       delete methods or personroles to a given columnheader (=
       measurements_methodstep)
-    = render :active_scaffold => "admin/datacolumns", :constraints => {:dataset_id => @dataset.id}
+    = render :active_scaffold => "settings/datacolumns", :constraints => {:dataset_id => @dataset.id}
   .comment
     %span{:style => "font-size: medium;"}
       If you want upload a new datafile, please confirm this message.
