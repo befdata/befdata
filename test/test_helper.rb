@@ -33,7 +33,7 @@ class ActiveSupport::TestCase
 
   def login_and_load_category (user = "nadrowski", long = "Mahonia bealei")
     login_user user
-    @category= Category.find_by_long long
+    @category = Category.find_by_long long
   end
 
   def non_admin_users

@@ -26,8 +26,11 @@ class Admin::DatagroupsControllerTest < ActionController::TestCase
 
   test "show delete link only when no datacolumns linked" do
     login_nadrowski
-    dg_without_dc = Datagroup.includes(:datacolumns).where('datacolumns.id' => nil).first
-    dg_with_dc = Datagroup.includes(:datacolumns).where('datacolumns.id IS NOT NULL').first
+    with_dc = Datagroup.joins(:datacolumns).where('datacolumns.id IS NOT NULL')
+    without_dc = Datagroup.all - with_dc
+
+    dg_with_dc = with_dc.first
+    dg_without_dc = without_dc.first
     get :index
 
     delete_link_selector = "tr#as_admin__datagroups-list-ID-row a.destroy"

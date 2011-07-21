@@ -6,7 +6,7 @@ class Settings::UsersControllerTest < ActionController::TestCase
   # basic functionality
 
   test "normal users can see their list of details" do
-    non_admin_user = (User.all - User.joins(:role_objects).where('"roles"."name" = \'admin\'')).first
+    non_admin_user = non_admin_users.first
     login_user non_admin_user.login
 
     get :index
