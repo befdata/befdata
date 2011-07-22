@@ -11,7 +11,7 @@
     - if current_user.has_role? :admin
       %li
         %img{:src => "/images/table_edit.png"}
-        #{link_to 'Data Columns', data_dataset_path(@dataset)}
+        #{link_to 'Approve Data Columns', data_dataset_path(@dataset)}
       %li
         %img{:src => "/images/cross.png"}
         #{link_to 'Delete', destroy_dataset_path(@dataset)}

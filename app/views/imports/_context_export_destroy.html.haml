@@ -1,4 +1,2 @@
-%span{:style => "width: 50%; height: 50px; float: left;"}
-  = link_to  "Delete", link_to 'Delete', destroy_dataset_path(@dataset), :confirm => 'Make sure to download present stage before deleting', :method => :delete
 %span{:style => "width: 50%; height: 50px; float: right;"}
-  = link_to 'Download edit', {:controller => :datasets, :action => :show, :id => @dataset.id}
+  = link_to 'Back to Dataset page', {:controller => :datasets, :action => :show, :id => @dataset.id}
