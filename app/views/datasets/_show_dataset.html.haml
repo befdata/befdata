@@ -1,31 +1,52 @@
+.span-3.last
+  = render :partial => 'edit_download_destroy_links'
+
 - unless @contacts.blank?
-  %p
+  .span-4.last{:style => 'float:right;'}
     For more information, please contact
     - @contacts.each do |c|
       = render c
     The following projects were involved:
     - @projects.each do |p|
+      %br
       #{link_to p, project_path(p.id)}
 
-= render :partial => 'edit_download_destroy_links'
 - unless @dataset.usagerights.blank?
-  %p= @dataset.usagerights
+  .span-8
+    %h4 Usage Rights
+    %p= @dataset.usagerights
 - unless @dataset.abstract.blank?
-  %p= @dataset.abstract
+  .span-8
+    %h4 Dataset Abstract
+    %p= @dataset.abstract
 - unless @dataset.design.blank?
-  %p= @dataset.design
+  .span-8
+    %h4 Dataset Design
+    %p= @dataset.design
 - unless @dataset.spatialextent.blank?
-  %p= @dataset.spatialextent
+  .span-8
+    %h4 Spatial Extent
+    %p= @dataset.spatialextent
 - unless @dataset.published.blank?
-  %p= @dataset.published
+  .span-8
+    %h4 Published
+    %p= @dataset.published
 - unless @dataset.temporalextent.blank?
-  %p= @dataset.temporalextent
+  .span-8
+    %h4 Temporal Extent
+    %p= @dataset.temporalextent
 - unless @dataset.taxonomicextent.blank?
-  %p= @dataset.taxonomicextent
+  .span-8
+    %h4 Taxonomic Extent
+    %p= @dataset.taxonomicextent
 - unless @dataset.circumstances.blank?
-  %p= @dataset.circumstances
+  .span-8
+    %h4 Measurement Circumstances
+    %p= @dataset.circumstances
 - unless @dataset.comment.blank?
-  %p= @dataset.comment
+  .span-8
+    %h4 Comment
+    %p= @dataset.comment
 
 - unless @freeformats.blank?
   %p
@@ -41,13 +62,20 @@
 
 
 - unless @measmeths.blank?
-  The following data columns are available in the raw data part of this data set:
-  %ul
-    - @header.each do |key|
-      %li
-        %b= @measmeths[key].columnheader
-        (#{@measmeths[key].definition}.
-        Data group: "#{@methodtitles[key].humanize}").
-        #{@measmeths[key].accepted_values(5)}.
-        (#{@measmeths[key].users.map{|person| link_to person, user_path(person.path_name)}.to_sentence})
-
+  .span-12.last
+    %p The following data columns are available in the raw data part of this data set:
+    - @header.each_with_index do |key, i|
+      .span-4.dataset_columns{:class => (i + 1) % 3 == 0 ? 'last' : 'border'}
+        .columnheader= @measmeths[key].columnheader
+        #{@measmeths[key].definition}
+        %br
+        %i Data group: #{@methodtitles[key].humanize}
+        %br
+        - av = @measmeths[key].accepted_values(5)
+        - if av.kind_of?(String)
+          %img{:src => '/images/error.png'}
+        #{av}
+        %br
+        - u = @measmeths[key].users
+        - unless u.blank?
+          #{u.map{|person| link_to person, user_path(person.path_name)}.to_sentence}

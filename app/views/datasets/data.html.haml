@@ -1,8 +1,7 @@
 %h2
   = @dataset.title
 
-%div= render 'context_export_destroy'
-%div= render 'dataset_step_five'
+%div= render 'step_five'
 - if @book.columnheaders_unique?
   %p
     - if @just_uploaded

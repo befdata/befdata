@@ -1,6 +1,6 @@
 class DatasetsController < ApplicationController
 
-  before_filter :load_dataset, :only => [:download, :show, :edit, :clean]
+  before_filter :load_dataset, :only => [:download, :show, :edit, :data, :clean, :destroy]
 
   before_filter :load_freeformat_dataset, :only => [:download_freeformat]
 
@@ -15,14 +15,14 @@ class DatasetsController < ApplicationController
     # download freeformat: no dataset, freeformat through params[:id]
     # save freeformat associations: dataset through params[:dataset][:id]
     # save dataset freeformat association: dataset through params[:dataset][:id]
-    actions :download, :edit, :update_freeformat_associations, :save_freeformat_associations,
+    actions :download, :edit, :data, :update_freeformat_associations, :save_freeformat_associations,
     :download_freeformat, :save_dataset_freeformat_associations do
       allow :admin
       allow :owner, :of => :dataset
       allow :proposer, :of => :dataset
     end
 
-    actions :clean do
+    actions :clean, :destroy do
       allow :admin
       allow :owner, :of => :dataset
     end
@@ -109,7 +109,7 @@ class DatasetsController < ApplicationController
       @dataset.clean
       @dataset.upload_spreadsheet = Datafile.new(params[:datafile])
       @dataset.save
-      redirect_to url_for(:controller => :imports, :action => :raw_data_overview, :dataset_id => @dataset.id) and return
+      redirect_to data_dataset_path(@dataset) and return
     else
       redirect_back_or_default root_url
     end
@@ -174,6 +174,26 @@ class DatasetsController < ApplicationController
 
   end
 
+
+  def data
+#    @dataset ||= Dataset.find(params[:id], :include => [:datacolumns])
+  
+    @book = Dataworkbook.new(@dataset.upload_spreadsheet)
+  
+    # Are there data columns already associated to this Dataset?
+    return unless @book.columnheaders_unique? # we can only go on, if columnheaders of data columns are unique
+  
+    if @dataset.datacolumns.length == 0
+      @just_uploaded = true
+      #Dataworkbook.delay.import_data(@dataset.id)
+      @spreadsheet = Spreadsheet.open @dataset.upload_spreadsheet.file.path
+      @spreadsheet.io.close
+      @book = Dataworkbook.new(@dataset.upload_spreadsheet)
+      @book.import_data(@dataset.id)
+    else
+    end
+  end # raw data overview
+  
   # Downloading one free format file from within the "show" view
   def download_freeformat
     # @freeformat = Freeformat.find(params[:id])  # before filter
@@ -327,7 +347,7 @@ class DatasetsController < ApplicationController
 
       # Finally, set the new step, so that the evaluation process
       # moves forward
-      redirect_to url_for(:controller => :imports, :action => :raw_data_overview, :dataset_id => @dataset.id) and return
+      redirect_to data_dataset_path(@dataset) and return
     when '5'
       @step = 5
 
@@ -353,6 +373,13 @@ class DatasetsController < ApplicationController
     @dataset = Dataset.find(params[:dataset_id])
   end
 
+  def destroy
+    @dataset.destroy
+  
+    flash[:notice] = "Dataset successfully deleted."
+    redirect_to data_path
+  end
+  
   private
 
   def dataset_is_free_for_members

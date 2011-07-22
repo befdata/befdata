@@ -203,7 +203,7 @@ class Dataworkbook
   # spreadsheet.  In this case, we are looking for data group
   # information (Methodstep, MethodstepsController).  Data groups
   # consist of several data column instances
-  # (MeasurementsMethodstep). During first upload (raw_data_overview),
+  # (MeasurementsMethodstep). During first upload,
   # we use the information provided in the method sheet in columns 5
   # to 11 to guess a similar data group from the data portal.  During
   # the upload of each single data column from the raw data sheet

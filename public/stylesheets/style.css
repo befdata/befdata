@@ -1,7 +1,179 @@
+/* -------------------------------------------------------------- 
+Reset -compressed-  based on html5doctor
+-------------------------------------------------------------- */
+html, body, div, span, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, abbr, address, cite, code, del, dfn, em, img, ins, kbd, q, samp, small, strong, sub, sup, var, b, i, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, figcaption, figure, footer, header, hgroup, menu, nav, section, summary, time, mark, audio, video { margin: 0; padding: 0; border: 0; outline: 0; font-size: 100%; vertical-align: baseline; background: transparent; }
+article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section { display: block }
+nav ul, header ul, footer ul, ul.scrollerlinks { list-style: none }
+footer ul, footer ol {margin: 0; padding: 0}
+blockquote, q { quotes: none }
+blockquote:before, blockquote:after, q:before, q:after { content: ''; content: none; }
+a { margin: 0; padding: 0; font-size: 100%; vertical-align: baseline; background: transparent; }
+ins { background-color: #ff9; color: #000; text-decoration: none; }
+mark { background-color: #ff9; color: #000; font-style: italic; font-weight: bold; }
+del { text-decoration: line-through }
+abbr[title], dfn[title] { border-bottom: 1px dotted; cursor: help; }
+/* tables still need cellspacing="0" in the markup */
+table { border-collapse: collapse; border-spacing: 0; }
+hr { display: block; height: 1px; border: 0; border-top: 1px solid #ccc; margin: 1em 0; padding: 0; }
+input, select { vertical-align: middle; background-color: #ddd; }
+label, input[type=button], input[type=submit], button { cursor: pointer }
+body * {outline: none;}
+/* This helps to make newer HTML5 elements behave like DIVs in older browers */ 
+article, aside, dialog, figure, footer, header,
+hgroup, nav, section {
+    display:block;
+}
+
+/* Tables still need 'cellspacing="0"' in the markup. */
+table { 
+	border-collapse: separate; 
+	border-spacing: 0; 
+}
+/* float:none prevents the span-x classes from breaking table-cell display */
+caption, th, td { 
+	text-align: left; 
+	font-weight: normal; 
+	float:none !important; 
+}
+table, th, td { 
+	vertical-align: middle; 
+}
+
+/* Remove possible quote marks (") from <q>, <blockquote>. */
+blockquote:before, blockquote:after, q:before, q:after { content: ''; }
+blockquote, q { quotes: "" ""; }
+
+/* Remove annoying border on linked images. */
+a img { border: none; }
+
+/* Remember to define your own focus styles! */
+:focus { outline: 0; }
+
+/* -------------------------------------------------------------- 
+Blueprint Grid
+-------------------------------------------------------------- */
+/* A container should group all your columns. */
+.container {
+  width: 928px;
+  margin: 0 auto;
+}
+
+
+/* Body margin for a sensile default look. */
+body {
+  margin:0;	
+}
+
+
+/* Columns
+-------------------------------------------------------------- */
+
+/* Sets up basic grid floating and margin. */
+.span-1, .span-2, .span-3, .span-4, .span-5, .span-6, .span-7, .span-8, .span-9, .span-10, .span-11, .span-12 {float:left; margin-right: 32px;}
+
+/* The last column in a row needs this class. */
+div.last { margin-right: 0; }
+
+/* Use these classes to set the width of a column. */
+.span-1  { width: 48px;}
+.span-2  { width: 128px;}
+.span-3  { width: 208px;}
+.span-4  { width: 288px;}
+.span-5  { width: 368px;}
+.span-6  { width: 448px;}
+.span-7  { width: 528px;}
+.span-8  { width: 608px;}
+.span-9  { width: 688px;}
+.span-10 { width: 768px;}
+.span-11 { width: 848px;}
+.span-12, div.span-12 { width: 928px; margin: 0; }
+
+
+/* Add these to a column to append empty cols. */
+.append-1  { padding-right: 80px;}
+.append-2  { padding-right: 160px;}
+.append-3  { padding-right: 240px;}
+.append-4  { padding-right: 320px;}
+.append-5  { padding-right: 400px;}
+.append-6  { padding-right: 480px;}
+.append-7  { padding-right: 560px;}
+.append-8  { padding-right: 640px;}
+.append-9  { padding-right: 720px;}
+.append-10 { padding-right: 800px;}
+.append-11 { padding-right: 880px;}
+
+
+/* Add these to a column to prepend empty cols. */
+.prepend-1  { padding-left: 80px;}
+.prepend-2  { padding-left: 160px;}
+.prepend-3  { padding-left: 240px;}
+.prepend-4  { padding-left: 320px;}
+.prepend-5  { padding-left: 400px;}
+.prepend-6  { padding-left: 480px;}
+.prepend-7  { padding-left: 560px;}
+.prepend-8  { padding-left: 640px;}
+.prepend-9  { padding-left: 720px;}
+.prepend-10 { padding-left: 800px;}
+.prepend-11 { padding-left: 880px;}
+
+
+
+/* Border on right hand side of a column. */
+div.border {
+  padding-right:15px;
+  margin-right:16px;
+  border-right: 1px solid #eee;
+}
+
+/* Border with more whitespace, spans one column. */
+div.colborder {
+  padding-right:35px;
+  margin-right:32px;
+  border-right: 1px solid #eee;
+}
+
+/* Use these classes on an element to push it into the 
+   next column, or to pull it into the previous column.  */
+
+.pull-1 { margin-left: -80px;}
+.pull-2 { margin-left: -160px;}
+.pull-3 { margin-left: -240px;}
+.pull-4 { margin-left: -320px;}
+.pull-5 { margin-left: -400px;}
+.pull-6 { margin-left: -480px;}
+.pull-7 { margin-left: -560px;}
+.pull-8 { margin-left: -640px;}
+.pull-9 { margin-left: -720px;}
+.pull-10 { margin-left: -800px;}
+.pull-11 { margin-left: -880px;}
+.pull-12 { margin-left: -960px;}
+
+.pull-1, .pull-2, .pull-3, .pull-4, .pull-5, .pull-6, .pull-7, .pull-8, .pull-9, .pull-10, .pull-11, .pull-12 {float:left;position:relative;}
+
+
+.push-1 { margin: 0 -80px 1.5em 80px;}
+.push-2 { margin: 0 -160px 1.5em 160px;}
+.push-3 { margin: 0 -240px 1.5em 240px;}
+.push-4 { margin: 0 -320px 1.5em 320px;}
+.push-5 { margin: 0 -400px 1.5em 400px;}
+.push-6 { margin: 0 -480px 1.5em 480px;}
+.push-7 { margin: 0 -560px 1.5em 560px;}
+.push-8 { margin: 0 -640px 1.5em 640px;}
+.push-9 { margin: 0 -720px 1.5em 720px;}
+.push-10 { margin: 0 -800px 1.5em 800px;}
+.push-11 { margin: 0 -880px 1.5em 880px;}
+.push-12 { margin: 0 -960px 1.5em 960px;}
+
+.push-1, .push-2, .push-3, .push-4, .push-5, .push-6, .push-7, .push-8, .push-9, .push-10, .push-11, .push-12 {float:right;position:relative;}
+.clearfix:after, .container:after {content:"\0020";display:block;height:0;clear:both;visibility:hidden;overflow:hidden;}
+.clearfix, .container {display:block;}
+.clear {clear:both;}
+
+/* -------------------------------------------------------------- 
+Custom Layout
+-------------------------------------------------------------- */
 
 body {
-	margin: 0px;
-	padding: 0px;
 	background: url(../images/bg03.jpg) no-repeat center top;
 	font: 13px Arial, Helvetica, sans-serif;
 	color: #212121;
@@ -25,7 +197,7 @@ h3 {
 
 p, ol, ul, input, select {
 	margin-bottom: 1.8em;
-	line-height: 160%;
+	line-height: 130%;
 }
 
 a {
@@ -431,3 +603,8 @@ a img {
 .nube4 {font-size: 1.6em;}
 .nube5 {font-size: 1.8em;}
 .nube6 {font-size: 2.0em;}
+
+.dataset_actions { padding: 1em 0; }
+.dataset_actions li { list-style-type: none; }
+.dataset_columns { margin-bottom: 1em; }
+.dataset_columns .columnheader { font-weight: bold; text-decoration: underline; }
