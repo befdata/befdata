@@ -2,12 +2,8 @@
   Dataset: #{@dataset.title}
 
 %div
-  = link_to 'Upload edit or delete', |
-    {:controller => :imports,        |
-    :action => :raw_data_overview,   |
-    :dataset_id => @dataset.id}      |
-
-.comment= t("dataset.step#{@step}")
+  = link_to 'Data Columns', data_dataset_path(@dataset)
+  .comment= t("dataset.step#{@step}")
   
 .active-scaffold
   - if @step == 1

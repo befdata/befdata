@@ -1,6 +1,4 @@
 = render 'context_export_destroy'
-= render 'dataset_step_five'
-= render 'data_header_link_list'
 %h1= @data_column.columnheader
 %p= @dataset.title
 %div
@@ -26,5 +24,3 @@
                 Data values found in data column
                 "#{@data_column.columnheader}"
               = render 'datavalues_for_dataheader'
-            = render :partial => 'data_header_link_list'
-            = render 'context_export_destroy'

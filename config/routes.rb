@@ -19,13 +19,15 @@ Befchina::Application.routes.draw do
     end
   end
 
-  match 'upload' => 'datasets#upload', :as => :upload  
+  match 'upload' => 'datasets#upload', :as => :upload
   match 'create_dataset' => 'datasets#create', :as => :create_dataset  
   match 'upload_dataset_freeformat' => 'datasets#upload_dataset_freeformat', :as => :upload_dataset_freeformat
   match 'create_dataset_freeformat' => 'datasets#create_dataset_freeformat', :as => :create_dataset_freeformat
   match 'update_dataset_freeformat_associations' => 'datasets#update_dataset_freeformat_associations', :as => :update_dataset_freeformat_associations
   match 'save_dataset_freeformat_associations' => 'datasets#save_dataset_freeformat_associations', :as => :save_dataset_freeformat_associations
   match 'download' => 'datasets#download', :as => :download
+  match 'datasets/:id/data' => 'datasets#data', :as => :data_dataset
+  match 'datasets/:id/destroy' => 'datasets#destroy', :as => :destroy_dataset
 
   resources :tags
   #match 'tags/index' => 'tags#index'

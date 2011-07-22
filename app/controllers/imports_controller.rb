@@ -42,29 +42,10 @@ class ImportsController < ApplicationController
   
   end
 
-  def raw_data_overview
-    @dataset ||= Dataset.find(params[:dataset_id], :include => [:datacolumns])
-
-    load_workbook
-
-    # Are there data columns already associated to this Dataset?
-    return unless @book.columnheaders_unique? # we can only go on, if columnheaders of data columns are unique
-
-    if @dataset.datacolumns.length == 0
-      @just_uploaded = true
-      #Dataworkbook.delay.import_data(@dataset.id)
-      @spreadsheet = Spreadsheet.open @dataset.upload_spreadsheet.file.path
-      @spreadsheet.io.close
-      @book = Dataworkbook.new(@dataset.upload_spreadsheet)
-      @book.import_data(@dataset.id)
-    else
-    end
-  end # raw data overview
-
   # After the general metadata of a data set has been saved to a
   # Context in the ContextsController and after the cell entries in
-  # the raw data sheet have been saved in Measurement instances
-  # (raw_data_overview), this method manages provenance information as
+  # the raw data sheet have been saved in Measurement instances,
+  # this method manages provenance information as
   # well as data checking and allocation to value tables
   # (Numericvalue, Categoricvalue, etc).
   def raw_data_per_header
@@ -186,20 +167,6 @@ class ImportsController < ApplicationController
     @cats_to_choose = @data_column.datagroup.datacell_categories
     @cell_uniq_arr = @data_column.invalid_values
 
-  end
-
-  # Exports a Context for merging and correcting as .xls file.  Then
-  # destroys this context and all its values.
-  def context_export_destroy
-    # export context is missing, should use the export from the
-    # context controller
-
-    # destroy context
-    dataset = Dataset.find(params[:dataset_id])
-    dataset.destroy
-
-    # reset_session; this logs you out
-    redirect_to root_path
   end
 
   def cell_category_create

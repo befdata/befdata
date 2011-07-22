@@ -1,10 +1,7 @@
 <span style="font-size: large;">Dataset: <%= @dataset.title %></span>
 
 <div>
-  <%= link_to 'Upload edit or delete',
-                   {:controller => :imports,
-                    :action => :raw_data_overview,
-                    :dataset_id => @dataset.id} %>
+  <%= link_to 'Data Columns', data_dataset_path(@dataset) %>
 </div>
 
 <div class="comment"><%= t("dataset.step#{@step}") %></div>

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110720114133) do
+ActiveRecord::Schema.define(:version => 20110721154927) do
 
   create_table "author_paperproposals", :force => true do |t|
     t.integer  "paperproposal_id"
@@ -64,6 +64,7 @@ ActiveRecord::Schema.define(:version => 20110720114133) do
     t.string   "category_longshort"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean  "approved"
   end
 
   add_index "datacolumns", ["datagroup_id", "dataset_id"], :name => "index_datacolumns_on_datagroup_id_and_dataset_id"

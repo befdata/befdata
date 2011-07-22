@@ -1,9 +1,17 @@
-- actions = []
 - if current_user
-  - if current_user.has_role?(:owner, @dataset) || current_user.has_role?(:admin) || current_user.has_role?(:proposer, @dataset)
-    - actions << "#{link_to 'Download', {:controller => :datasets, :action => 'download', :id => @dataset.id, :t => 'vip'}}"
-  - if current_user.has_role? :owner, @dataset
-    - actions << "#{link_to 'Edit', edit_dataset_path(@dataset)}"
-  - if current_user.has_role? :admin
-    - actions << "#{link_to 'Upload edit or delete', {:controller => :imports, :action => :raw_data_overview, :dataset_id => @dataset.id}}"
-  %p!= actions.join("  •  ")
+  %ul.dataset_actions
+    - if current_user.has_role?(:owner, @dataset) || current_user.has_role?(:admin) || current_user.has_role?(:proposer, @dataset)
+      %li
+        %img{:src => "/images/disk.png"}
+        #{link_to 'Download', {:controller => :datasets, :action => 'download', :id => @dataset.id, :t => 'vip'}}
+    - if current_user.has_role? :owner, @dataset
+      %li
+        %img{:src => "/images/pencil.png"}
+        #{link_to 'Edit Dataset', edit_dataset_path(@dataset)}
+    - if current_user.has_role? :admin
+      %li
+        %img{:src => "/images/table_edit.png"}
+        #{link_to 'Approve Data Columns', data_dataset_path(@dataset)}
+      %li
+        %img{:src => "/images/cross.png"}
+        #{link_to 'Delete', destroy_dataset_path(@dataset)}
