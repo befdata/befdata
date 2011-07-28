@@ -1,0 +1,14 @@
+.span-8.last
+  %h4 Edit Data Group
+%p
+  You may choose one of the available Data Groups or create a new one and click on
+  %i Save.
+= render :partial => 'form_for_datagroup' 
+
+.span-8.last
+  %h4 Responsible People
+%p
+  Add members of the research unit by selecting them from the drop
+  down list below.  Delete people from the association to a data
+  column by clicking on their name in the bullet list below.
+= render :partial => 'form_for_people'

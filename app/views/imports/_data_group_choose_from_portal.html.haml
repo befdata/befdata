@@ -1,7 +1,0 @@
-- form_for @data_column, :url => {:action => :update_data_header, :controller => :imports} do |form|
-  = form.hidden_field :id
-  = form.label :datagroup_id, "Which method seems suitable?"
-  = form.select(:datagroup_id, |
-    @methods_short_list,        |
-    :prompt => "Select please") |
-  = form.submit "Choose another method available from the portal"

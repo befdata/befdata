@@ -44,7 +44,7 @@ class DatasetsController < ApplicationController
     datafile = Datafile.new(params[:datafile])
 
     unless datafile.save
-      flash[:errors] = datafile.errors
+      flash[:error] = "#{datafile.errors.to_a.first.capitalize}"
       redirect_to :back
     end
 
@@ -176,19 +176,15 @@ class DatasetsController < ApplicationController
 
 
   def data
-#    @dataset ||= Dataset.find(params[:id], :include => [:datacolumns])
-  
     @book = Dataworkbook.new(@dataset.upload_spreadsheet)
-  
+    @selected_tab = '3'
+
     # Are there data columns already associated to this Dataset?
     return unless @book.columnheaders_unique? # we can only go on, if columnheaders of data columns are unique
   
     if @dataset.datacolumns.length == 0
       @just_uploaded = true
       #Dataworkbook.delay.import_data(@dataset.id)
-      @spreadsheet = Spreadsheet.open @dataset.upload_spreadsheet.file.path
-      @spreadsheet.io.close
-      @book = Dataworkbook.new(@dataset.upload_spreadsheet)
       @book.import_data(@dataset.id)
     else
     end
@@ -253,7 +249,7 @@ class DatasetsController < ApplicationController
       @dataset.filename = @filename
       @dataset.freeformats << freeformat
       unless @dataset.save
-        flash[:error] = @dataset.errors.full_messages
+        flash[:error] = "#{@dataset.errors.to_a.first.capitalize}"
         redirect_to data_path and return
       end
     else
@@ -266,7 +262,7 @@ class DatasetsController < ApplicationController
     @dataset = Dataset.find(params[:dataset][:id])
 
     unless @dataset.update_attributes(params[:dataset])
-      flash[:error] = @dataset.errors.full_messages
+      flash[:error] = "#{@dataset.errors.to_a.first.capitalize}"
       redirect_to data_path and return
     else
       redirect_to url_for(:controller => :datasets,
@@ -394,7 +390,7 @@ class DatasetsController < ApplicationController
 
   # Creates the first sheet of a context file, the one with the
   # metadata.
-  def create_metasheet(book, context, formats)
+  def create_metasheet (book, context, formats)
     # This action canot be called externally.
     sheet = book.create_worksheet :name => 'General Metadata'
 
@@ -496,7 +492,7 @@ class DatasetsController < ApplicationController
   # Creates the second sheet of a context file, the one with the
   # method descriptions.  If no methods are given, all methods of the
   # context will be used.
-  def create_methodsheet(book, dataset, formats, methods = nil)
+  def create_methodsheet (book, dataset, formats, methods = nil)
     # This action canot be called externally.
 
     #Create the sheet and fill in the headers
@@ -558,7 +554,7 @@ class DatasetsController < ApplicationController
   # Creates the third sheet of a context file, the one with the people
   # involved.  If no Method are given, all people of the context will
   # be listed.
-  def create_peoplesheet(book, dataset, formats, methods = nil)
+  def create_peoplesheet (book, dataset, formats, methods = nil)
     # This action canot be called externally.
 
     sheet = book.create_worksheet :name => 'Members involved'
@@ -654,7 +650,7 @@ class DatasetsController < ApplicationController
 
   # Creates the last sheet of a context file, the one that contains the raw data.
   # If no Method are given, all people of the context will be listed.
-  def create_datasheet(book, dataset, formats, methods = nil)
+  def create_datasheet (book, dataset, formats, methods = nil)
     # This action canot be called externally.
 
     sheet = book.create_worksheet :name => 'Raw data'

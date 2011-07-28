@@ -44,7 +44,7 @@ class Datacolumn < ActiveRecord::Base
   end
 
   # Are there categories associated to the measurements of this data column instance?
-  def has_categories_uploaded
+  def categories_uploaded?
     ms = self.sheetcells.find(:all, :conditions => ["category_id > 0"])
     return !ms.empty?
   end
@@ -88,7 +88,7 @@ class Datacolumn < ActiveRecord::Base
   # then looking for a match in categories from the datasheet
   # if there are no category matches then the import value is used as the accepted value
   # NB: all of the business logic is in functions within the database
-  def add_data_values()
+  def add_data_values
 
     # store the sheet category match data group id as this makes the SQL faster since it's one less join
     scm_datagroup_id = Datagroup.find_sheet_category_match().id

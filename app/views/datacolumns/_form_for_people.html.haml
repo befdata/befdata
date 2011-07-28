@@ -1,0 +1,25 @@
+.span-8.last
+  %h4 Responsible People
+- form_tag :controller=> 'datacolumns', :action => 'update_people' do |form|
+  %p
+    Add members of the research unit by selecting them from the drop down list below.
+    Delete people form the association to a data column by clicking on their name in the bullet list below.
+  = hidden_field_tag 'id', @data_column.id
+  .span-3= label_tag 'people', 'People'
+  .span-3.last
+  = select "person", "person_id", @people_list.map{|p| [p.to_label, p.id]}, {}, {:onchange => 'selectPeople(this)'}
+  %ul{:style => 'list-style: none;'}
+    - @ppl.each do |person|
+      %li{:onclick => "this.parentNode.removeChild(this);"}
+        %input{:name => "people[]", :type => "hidden", :value => person.id}/
+        = image_tag person.avatar.to_s, :height => '16'
+        = person.to_label
+  %p
+    Add people external to BEF-China in the comments of the data
+    column.  Please include contact data.  If applicable, encourage
+    these scientists to become a member of BEF-China by signing our data
+    sharing agreement.
+  .span-3= label_tag :comment
+  .span-3.last= text_area_tag :comment, @data_column.comment
+  %button{:name => "commit", :type => "submit"} Save Responsible People
+  %p.clear    

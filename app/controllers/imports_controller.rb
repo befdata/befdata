@@ -25,7 +25,7 @@ class ImportsController < ApplicationController
     if freeformat.save
       redirect_to :controller => :datasets, :action => :upload_dataset_freeformat, :freeformat_id => freeformat.id
     else
-      flash[:errors] = freeformat.errors
+      flash[:error] = "#{freeformat.errors.to_a.first.capitalize}"
       redirect_to :back
     end
   end
@@ -36,7 +36,7 @@ class ImportsController < ApplicationController
     if freeformat.save
       redirect_to :controller => :datasets, :action => :show, :id => freeformat.dataset.id
     else
-      flash[:errors] = freeformat.errors
+      flash[:error] = "#{freeformat.errors.to_a.first.capitalize}"
       redirect_to :back
     end
   
@@ -103,72 +103,6 @@ class ImportsController < ApplicationController
     end
   end
 
-  def update_data_group
-    data_header = Datacolumn.find(params[:datacolumn][:id])
-    data_group = Datagroup.new(params[:datagroup])
-
-    logger.debug "--------------------------------------------------"
-    logger.debug data_header.inspect
-    logger.debug data_group.inspect
-    logger.debug params.inspect
-
-    begin
-      Datacolumn.transaction do
-        if data_group.save
-          data_header.datagroup = data_group
-          data_header.save
-          redirect_to :back
-        else
-          flash[:notice] = data_group.errors
-          redirect_to :back
-        end
-      end
-    rescue ActiveRecord::RecordInvalid => invalid
-      redirect_to :root
-    end
-  end
-
-  # Assingning provenance informaiton: linking people to a data column
-  def update_people_for_data_header
-    redirect_to :back and return if params[:people].blank?
-    data_column = Datacolumn.find(params[:datacolumn][:id])
-    people = User.find(params[:people])
-
-    # assigning provenance information: linking people to a data
-    # column
-    people.each do |pr|
-      pr.has_role! :responsible, data_column
-    end
-    redirect_to :back
-  end
-
-  # Adding data values to data columns.  Values are imported from the
-  # workbook that has been uploaded in the ContextsController.
-  def add_data_values
-    data_column = Datacolumn.find(params[:datacolumn][:id])
-    data_column.update_attributes(params[:datacolumn])
-
-    data_column.add_data_values()
-
-    # by now values have been added
-    if data_column.has_categories_uploaded
-      redirect_to(:controller => :imports,
-                  :action => :data_column_categories,
-                  :data_column_id => data_column.id)
-    else
-      redirect_to :back
-    end
-  end
-
-  def data_column_categories
-    @data_column = Datacolumn.find(params[:data_column_id])
-    @dataset = @data_column.dataset
-
-    @cats_to_choose = @data_column.datagroup.datacell_categories
-    @cell_uniq_arr = @data_column.invalid_values
-
-  end
-
   def cell_category_create
     first_cell = Sheetcell.find(params[:sheetcell][:id])
     entry = first_cell.import_value
@@ -179,8 +113,6 @@ class ImportsController < ApplicationController
     cat.comment = "manually approved"
     cat.long = entry if cat.long.blank?
     cat.description = cat.long if cat.description.blank?
-    logger.debug "------------ after crating new category  ---------"
-    logger.debug cat.inspect
 
     if cat.save
       same_entry_cells.each do |cell|
@@ -198,20 +130,14 @@ class ImportsController < ApplicationController
 
   def cell_category_update
     first_cell = Sheetcell.find(params[:sheetcell][:id])
-    logger.debug "- params[:measurement]  -"
-    logger.debug params[:sheetecell].inspect
     first_cell.update_attributes(params[:sheetcell])
     same_entry_cells = first_cell.same_entry_cells
-    logger.debug "- same_entry_cells  -"
-    logger.debug same_entry_cells.inspect
 
     # category
     cat = first_cell.category
     cat.update_attributes(:comment => "manually approved")
 
     same_entry_cells.each do |cell|
-      logger.debug "- old and new cell  -"
-      logger.debug cell.inspect
       old_cat = cell.category
       cell.update_attributes(:category => cat,
       :comment => "valid")

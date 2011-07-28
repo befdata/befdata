@@ -1,0 +1,36 @@
+%h4
+  Unique categories for: #{@data_column.columnheader}
+%div
+  %ul
+    - @cell_uniq_arr.each do |cell|
+      %li
+        Category for:
+        = succeed "," do
+          %b= cell.import_value
+        cell comment: #{cell.comment},
+        category comment: #{cell.category.comment}.
+        %ul
+          - cell = Sheetcell.find(cell_id)
+          %li
+          - form_for cell , :url  =>  {:controller  =>  :imports, :action  =>  :cell_category_update} do |f|
+            = f.error_messages
+            = f.hidden_field :id
+            %p To approve the chosen category, press:
+            = f.submit :approve
+          %li
+            - form_for cell , :url  =>  {:controller  =>  :imports, :action  =>  :cell_category_update} do |f|
+              = f.error_messages
+              = f.hidden_field :id
+              / The cell already has "Categoricvalue" as valuetype
+              = f.collection_select :value_id, @cats_to_choose, :id, :verbose
+              %p To choose from available categories, press: #{f.submit "choose"}
+          %li
+            - cat_new = Category.new(:short => cell.import_value)
+            - form_for cell , :url  =>  {:controller  =>  :imports, :action  =>  :cell_category_create} do |f|
+              = f.error_messages
+              = f.hidden_field :id
+              - fields_for cat_new do |cat|
+                = cat.text_field :short
+                = cat.text_field :long
+                = cat.text_field :description
+              %p To create a completely new category, press: #{f.submit "create"}
