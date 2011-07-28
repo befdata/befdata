@@ -121,6 +121,9 @@ class Dataworkbook
       data_column_ch[:dataset_id] = dataset_id
       data_column_ch[:tag_list] = data_column_ch[:comment] unless data_column_ch[:comment].blank?
       data_column_ch[:datagroup_id] = data_group.id
+      data_column_ch[:datagroup_approved] = false
+      data_column_ch[:datatype_approved] = false
+      data_column_ch[:finished] = false
       data_column_new = Datacolumn.create(data_column_ch)
 
       datatype = Datatype.find_by_name(data_column_ch[:import_data_type])
@@ -171,6 +174,7 @@ class Dataworkbook
           end
         end
       end
+      data_column_new.finished = true
     end
   end
 

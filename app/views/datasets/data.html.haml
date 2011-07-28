@@ -1,23 +1,29 @@
-%h2
-  = @dataset.title
-
-%div= render 'step_five'
+%h3.span-8{:style => 'padding-top: 20px;'}= @dataset.title
 - if @book.columnheaders_unique?
-  %p
+  .span-8
     - if @just_uploaded
-      Your data set was registered and is now processed. Please stay tuned.
+      %p
+        Your data set was registered and is now processed.
+        Please stay tuned. You may reload your browser to receive status updates.
     - else
-      We processed #{@dataset.datacolumns.length} of #{@book.columnheaders_raw.length} data columns.
-  %p
-    Congratulations, your data columns have unique headers. Now you should go through each of the
-    data columns to load your data.
-  %div= render 'data_header_link_list'
+      %p
+        We processed #{@dataset.finished_datacolumns.length} of #{@book.columnheaders_raw.length} data columns.
+  .span-8
+    %p
+      Congratulations, your data columns have unique headers. Now you should go through each of the
+      data columns to load your data.
+      %div= render 'data_column_tabs'
 - else
-  %p
-    Sorry, we cannot proceed.  The headers in the data columns have
-    to be unique, otherwise we cannot use the information in the
-    people, methods, or category sheets.  Please delete this context,
-    make sure your data column headers in the raw data sheet are
-    unique, and reload.  You can download the current state of your
-    workbook here:
-    %b= link_to @dataset.title, {:controller => :datasets, :action => 'show', :id => @dataset.id}
+  .span-8
+    %p
+      Sorry, we cannot proceed.  The headers in the data columns have
+      to be unique, otherwise we cannot use the information in the
+      people, methods, or category sheets.  Please delete this context,
+      make sure your data column headers in the raw data sheet are
+      unique, and reload.  You can download the current state of your
+      workbook here:
+      %b= link_to @dataset.title, {:controller => :datasets, :action => 'show', :id => @dataset.id}
+.sidenote
+  .head Please note
+  .content= #render "step_#{@step}"
+    

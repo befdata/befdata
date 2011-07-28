@@ -1,0 +1,12 @@
+/ This partial is only rendered when the Data Group is approved but the Data Type is not.
+.span-7.last
+  %h4 Approve Data Type
+%p
+  .approved_false The Data Type of this Data Column was not yet approved.
+  Please confirm or change the Data Type. No values were uploaded yet.
+  Decide, which Data Type your data has and click on
+  %i Save.
+  Your data will then be uploaded.
+  There is now only a text representation of your data in the data base.
+  Nobody will at this stage be able to download your data.
+= render :partial => 'form_for_datatype'

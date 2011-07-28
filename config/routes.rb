@@ -33,6 +33,10 @@ Befchina::Application.routes.draw do
   #match 'tags/index' => 'tags#index'
 
   resources :projects
+  resources :datacolumns
+  match 'datacolumns/update_datagroup' => 'datacolumns#update_datagroup'
+  match 'datacolumns/update_datatype' => 'datacolumns#update_datatype'
+  match 'datacolumns/update_people' => 'datacolumns#update_people'
 
   match 'imports/create_dataset_freeformat' => 'imports#create_dataset_freeformat'
   match 'imports/update_dataset_freeformat_file' => 'imports#update_dataset_freeformat_file'

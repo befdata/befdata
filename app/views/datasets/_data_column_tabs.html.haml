@@ -1,0 +1,9 @@
+:javascript
+  $(function() {
+    $( "#datacolumn_tabs" ).tabs({selected: #{@selected_tab}});
+  });
+#datacolumn_tabs
+  %ul
+    - @dataset.datacolumns.each_with_index do |dc, i|
+      %li{:class => "approved_#{dc.datagroup_approved?.to_s}"}
+        = link_to dc.columnheader, {:controller => :datacolumns, :action => 'edit', :id => dc.id}

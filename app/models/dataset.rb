@@ -88,6 +88,9 @@ class Dataset < ActiveRecord::Base
     self.datacolumns.collect{|dc| dc.columnheader}
   end
 
+  def finished_datacolumns
+    datacolumns.select{|dc| dc.finished == true}
+  end
   # The class Observation stores all rows of the primary data sheets
   # uploaded to the data portal.  Here a hash is constructed that
   # stores the observation ID as value and the rownr as key.

@@ -2,7 +2,7 @@
   = render :partial => 'edit_download_destroy_links'
 
 - unless @contacts.blank?
-  .span-4.last{:style => 'float:right;'}
+  .span-3.last{:style => 'float:right;'}
     For more information, please contact
     - @contacts.each do |c|
       = render c
@@ -12,39 +12,39 @@
       #{link_to p, project_path(p.id)}
 
 - unless @dataset.usagerights.blank?
-  .span-8
+  .span-8.append-1
     %h4 Usage Rights
     %p= @dataset.usagerights
 - unless @dataset.abstract.blank?
-  .span-8
+  .span-8.append-1
     %h4 Dataset Abstract
     %p= @dataset.abstract
 - unless @dataset.design.blank?
-  .span-8
+  .span-8.append-1
     %h4 Dataset Design
     %p= @dataset.design
 - unless @dataset.spatialextent.blank?
-  .span-8
+  .span-8.append-1
     %h4 Spatial Extent
     %p= @dataset.spatialextent
 - unless @dataset.published.blank?
-  .span-8
+  .span-8.append-1
     %h4 Published
     %p= @dataset.published
 - unless @dataset.temporalextent.blank?
-  .span-8
+  .span-8.append-1
     %h4 Temporal Extent
     %p= @dataset.temporalextent
 - unless @dataset.taxonomicextent.blank?
-  .span-8
+  .span-8.append-1
     %h4 Taxonomic Extent
     %p= @dataset.taxonomicextent
 - unless @dataset.circumstances.blank?
-  .span-8
+  .span-8.append-1
     %h4 Measurement Circumstances
     %p= @dataset.circumstances
 - unless @dataset.comment.blank?
-  .span-8
+  .span-8.append-1
     %h4 Comment
     %p= @dataset.comment
 
@@ -74,8 +74,20 @@
         - av = @measmeths[key].accepted_values(5)
         - if av.kind_of?(String)
           %img{:src => '/images/error.png'}
-        #{av}
-        %br
+          = av
+        - else
+          %table.import_values
+            %tr
+              %th.span-1.centercolumn
+                Row
+              %th.span-4.last
+                Value
+            - av.each_with_index do |sc, i|
+              - even = (i % 2 == 0) 
+              %tr
+                %td.centercolumn.span-1{:class => "#{even ? 'even' : 'odd'}"} #{i}
+                %td.span-4.last{:class => "#{even ? 'even' : 'odd'}"} #{sc.accepted_value}
         - u = @measmeths[key].users
         - unless u.blank?
-          #{u.map{|person| link_to person, user_path(person.path_name)}.to_sentence}
+          %i Responsible for this Data Column:
+          #{u.map{|person| link_to person, user_path(person.path_name)}.to_sentence.html_safe}
