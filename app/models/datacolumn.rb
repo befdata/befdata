@@ -90,31 +90,31 @@ class Datacolumn < ActiveRecord::Base
   # NB: all of the business logic is in functions within the database
   def add_data_values()
 
-    # store the system data group id as this makes the SQL faster since it's one less join
-    scm_datagroup_id = Datagroup.sheet_category_match.first.id if !Datagroup.sheet_category_match.first.nil?
+    # store the sheet category match data group id as this makes the SQL faster since it's one less join
+    scm_datagroup_id = Datagroup.find_sheet_category_match().id
     # remove any previous accepted values so that we can keep a track of what has been updated
     sqlclean = "select clear_datacolumn_accepted_values(#{id})"
     # this bit will need to change once we change the column datatype to be an integer
     case self.import_data_type
         when "text"
-          datatype_id = 1
+          datatype = Datatypehelper.find_by_id(1)
         when "year"
-          datatype_id = 2
+          datatype = Datatypehelper.find_by_id(2)
         when "date(2009-07-14)"
-          datatype_id = 3
+          datatype = Datatypehelper.find_by_id(3)
         when "date(14.07.2009)"
-          datatype_id = 4
+          datatype = Datatypehelper.find_by_id(4)
         when "category"
-          datatype_id = 5
+          datatype = Datatypehelper.find_by_id(5)
         else
-          datatype_id = 7    # number
+          datatype = Datatypehelper.find_by_id(7)
       end
     # I would like to change this so that the SQL is in one function but it wasn't working
-    # I will look at this again - SR
-    if(datatype_id == 1)then
+    # TODO: I will look at this again - SR
+    if(datatype.name == "text") then
       sql = "select accept_text_datacolumn_values(#{id})"
     else
-      sql = "select accept_datacolumn_values(#{datatype_id}, #{id}, #{datagroup_id}, #{scm_datagroup_id})"
+      sql = "select accept_datacolumn_values(#{datatype.id}, #{id}, #{datagroup_id}, #{scm_datagroup_id})"
     end
 
     begin

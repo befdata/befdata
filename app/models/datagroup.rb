@@ -30,7 +30,7 @@ class Datagroup < ActiveRecord::Base
 
   # set the default value for system
   def init
-    if(self.type_id.nil?)
+    if(@new_record)
       self.type_id = Datagrouptype::DEFAULT
     end
   end
@@ -84,6 +84,18 @@ class Datagroup < ActiveRecord::Base
     end
 
     return helper
+  end
+
+  def self.find_sheet_category_match
+    match = Datagroup.find_by_type_id(Datagrouptype::SHEETCATEGORYMATCH)
+
+    unless match
+      match = Datagroup.create(:title => "Sheet category match",
+                                :description => "Sheet category match",
+                                :type_id => Datagrouptype::SHEETCATEGORYMATCH)
+    end
+
+    return match
   end
 
   def self.find_similar_by_title(title)

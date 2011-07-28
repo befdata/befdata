@@ -13,15 +13,26 @@ class Sheetcell < ActiveRecord::Base
   belongs_to :observation, :dependent => :destroy
   belongs_to :datacolumn
   belongs_to :category
-  belongs_to :datatype
   after_initialize :init
 
   # set the default value for status_id
   def init
-    if(!self.attributes["status_id"].nil?)
-      if(self.status_id.nil?)
-        self.status_id = Sheetcellstatus::UNPROCESSED
-      end
+    #if(!self.attributes["status_id"].nil?)
+    #  if(self.status_id.nil?)
+    #    self.status_id = Sheetcellstatus::UNPROCESSED
+    #  end
+    #end
+
+    if(@new_record)
+      self.status_id = Sheetcellstatus::UNPROCESSED
+    end
+  end
+
+  def datatype
+    if(!self.datatype_id.nil?)
+      return Datatypehelper.find_by_id(self.datatype_id)
+    else
+      return nil
     end
   end
 
@@ -37,13 +48,14 @@ class Sheetcell < ActiveRecord::Base
   # returns the accepted data for the sheet cell
   # we need to check that the category exists as it might not
   def show_value
-    if(self.datatype.name== "category" && !self.category.nil?)
-      return self.category.show_value
-    else
-      # todo: we should format the field based on the datatype
-      return self.accepted_value
+    if(!self.datatype.nil?)
+      if(self.datatype.iscategory && !self.category.nil?)
+        return self.category.show_value
+      else
+        # todo: we should format the field based on the datatype
+        return self.accepted_value
+      end
     end
-
   end
 
 end

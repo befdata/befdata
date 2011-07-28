@@ -123,7 +123,7 @@ class Dataworkbook
       data_column_ch[:datagroup_id] = data_group.id
       data_column_new = Datacolumn.create(data_column_ch)
 
-      datatype = Datatype.find_by_name(data_column_ch[:import_data_type])
+      datatype = Datatypehelper.find_by_name(data_column_ch[:import_data_type])
       data_hash = book.data_for_columnheader(columnheader)[:data]
 
       unless data_hash.blank?
@@ -145,7 +145,7 @@ class Dataworkbook
           sc = Sheetcell.create(:datacolumn => data_column_new,
                                 :observation_id => obs_id,
                                 :import_value => entry,
-                                :datatype => datatype)
+                                :datatype_id => datatype.id)
         end # is there data provided?
 
         # add any sheet categories included for this column

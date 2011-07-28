@@ -45,7 +45,7 @@ class Category < ActiveRecord::Base
   def check_for_import_categories
     puts "in check for import categories"
     cat = self.reload
-    unless cat.import_categoricvalues.length == 0
+    unless cat.import_categories.length == 0
       puts "import categories linked"
       errors.add_to_base "Cannot destroy categories with Import Categories associations"
       false
