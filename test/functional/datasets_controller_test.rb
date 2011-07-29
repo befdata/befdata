@@ -31,5 +31,15 @@ class DatasetsControllerTest < ActionController::TestCase
     assert_response :success
   end
 
+  test "members can download free for members datasets" do
+    user = User.find_by_login "Phdstudentnutrientcycling"
+    login_user user.login
+    ds = Dataset.find_by_title "Test species name import second version"
+
+    assert (ds.free_for_members && !user.has_roles_for?(ds))
+    get :download, :id => ds.id
+    assert :success
+  end
+
   
 end

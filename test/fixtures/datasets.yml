@@ -49,7 +49,7 @@ datasets_002:
   datemin: 2011-04-18 00:00:00
   free_within_projects: f
   free_for_public: f
-  free_for_members: f
+  free_for_members: t
   filename: species second test.xls
   dataanalysis: ""
   submission_at: 
