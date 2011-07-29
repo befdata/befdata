@@ -12,7 +12,11 @@ class Category < ActiveRecord::Base
   # tagging
   is_taggable :tags, :languages
 
+  # !! before save we should check if all is given: short, long, description
   validates_presence_of :short, :long, :description
+  # but if at least short is given try to fill long and description
+  before_validation :try_filling_missing_values
+
   ## does not work, no "column" "data_group"... p. 398 in the rails book has
   ## solution
   ## validates_uniqueness_of :short, :long, :description, :scope => :data_group
@@ -22,7 +26,12 @@ class Category < ActiveRecord::Base
   before_destroy :check_for_measurements, :check_for_import_categories
   after_destroy :destroy_taggings
 
-  ## !! before save we should check if all is given: short, long, description
+  def try_filling_missing_values
+    if self.short then
+      self.long ||= self.short
+      self.description ||= self.long
+    end
+  end
 
   def verbose
     "#{short} -- #{long} -- #{description}"
