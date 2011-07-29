@@ -6,6 +6,8 @@ class DatasetsController < ApplicationController
 
   before_filter :load_dataset_freeformat, :only => [:update_dataset_freeformat_associations]
 
+  rescue_from 'Acl9::AccessDenied', :with => :access_denied
+
   skip_before_filter :deny_access_to_all
   access_control do
     allow all, :to => [:show, :index, :load_context]
@@ -126,7 +128,7 @@ class DatasetsController < ApplicationController
     # Assemble context owners
     @contacts = @dataset.users.select{|p| p.has_role?(:owner, @dataset)}
 
-    @projects = @dataset.projects
+    @projects = @dataset.projects.uniq
 
     tmp = Datacolumn.find(:all, :conditions => [ "dataset_id = ?", params[:id] ],
     :order => 'columnnr ASC')
@@ -700,6 +702,17 @@ class DatasetsController < ApplicationController
 
         sheet[m.observation.rownr-1,column-1] = value if value
       end
+    end
+  end
+
+  def access_denied
+    if current_user
+      flash[:error] = 'Access denied. You do not have the appropriate rights to perform this operation.'
+      redirect_to :back
+    else
+      flash[:error] = 'Access denied. Try to log in first.'
+      session[:return_to] = request.env['HTTP_REFERER']
+      redirect_to login_path
     end
   end
 
