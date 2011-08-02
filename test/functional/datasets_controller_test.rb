@@ -61,4 +61,15 @@ class DatasetsControllerTest < ActionController::TestCase
     assert_match /.*Access denied.*/, flash[:error]
   end
   
+  # Data 
+  
+  test "data method should display all datacolumns" do
+    pending "Implement me!"
+  end
+  
+  # Destroy
+  
+  test "destroy should delete a dataset" do
+    pending "Implement me!"  
+  end
 end
