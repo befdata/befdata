@@ -1,12 +1,17 @@
 class Dataworkbook
+  # This method is automagically called for every new Dataworkbook object on creation.
   def initialize(datafile)
+    # Open the povided datafile
     open(datafile)
   end
 
+  # Opens the actual datafile from the disk and reads its content.
   def open(datafile)
     # Open the file and read its content
     @datafile = datafile
     @book = Spreadsheet.open @datafile.file.path
+    
+    # Close after reading, for memorys sake.
     @book.io.close
   end
 
@@ -33,80 +38,112 @@ class Dataworkbook
     return metadata
   end
 
+  # Returns the object representing the first (the general metadata) sheet.
   def general_metadata_sheet
     @book.worksheet(0)
   end
 
-  def data_description_sheet # former methodsheet
+  # Returns the object representing the second (the data description) sheet.
+  # Formerly called 'methodsheet'. 
+  def data_description_sheet 
     @book.worksheet(1)
   end
 
+  # Returns the object representing the third (the responsible people) sheet.
   def data_responsible_person_sheet
     @book.worksheet(2)
   end
 
+  # Returns the object representing the fourth (the categories) sheet.
   def data_categories_sheet
     @book.worksheet(3)
   end
 
+  # Returns the object representing the fifth (the raw data) sheet.
   def raw_data_sheet
     @book.worksheet(4)
   end
 
+  # Wraps the general metadata column into an array.
   def general_metadata_column
     Array(general_metadata_sheet.column(0))
   end
 
+  # Provides an array with the headers of all raw data columns.
   def columnheaders_raw
     Array(raw_data_sheet.row(0)).compact
   end
 
+  # Checks whether the raw data headers are unique.
   def columnheaders_unique?
     columnheaders_raw.length == columnheaders_raw.uniq.length
   end
 
+  # Returns a hash with all responsible people named in the Workbook.
   def people_names_hash
-    # Determine number of people
-    n = Array(general_metadata_sheet.row(14)).length - 1 # The first column contains only meta data
+    # Determine number of responsible people in the Workbook.
+    # We subtract 1 because the first column contains only meta data not actual names.
+    n = Array(general_metadata_sheet.row(14)).length - 1 
 
-    # Gather the people
+    # Gather the first and last name of the reponsible people from the Workbook.
     users = []
     n.times do |i|
       users << {:firstname => Array(general_metadata_sheet.column(i+1))[14], :lastname => Array(general_metadata_sheet.column(i+1))[15]}
     end
 
+    # Return the users.
     return users
   end
 
+  # Returns an array of the tags that were in the respective cell.
   def tag_list
     Array(general_metadata_sheet.column(1))[11]
   end
 
+  # Helper method to determine the correct minimal date value from the string given in the Workbook.
   def datemin
+    # Retrieve the value from the Workbook.
     value = general_metadata_column[32].to_s
     begin
+      # Try to parse it as a date.
       date = Date.parse(value)
     rescue ArgumentError
+      # When parse did not succeed, we have to guesstimate.
+      # Is the string usable as year? If yes, use it. If no, fall back to the current year.
       year = date.to_i > 2000 ? data.to_i : Date.today.year
+      
+      # Create a new date object from the guesstimated year.
+      # Use the first of January as day and month values.
       date = Date.new(year, 1, 1)
     end
     return date
   end
 
+# Helper method to determine the correct maximal date value from the string given in the Workbook.
   def datemax
+    # Retrieve the value from the Workbook.
     value = general_metadata_column[34].to_s
     begin
+      # Try to parse it as a date.
       date = Date.parse(value)
     rescue ArgumentError
+      # When parse did not succeed, we have to guesstimate.
+      # Is the string usable as year? If yes, use it. If no, fall back to the current year.
       year = date.to_i > 2000 ? data.to_i : Date.today.year
+      
+      # Create a new date object from the guesstimated year.
+      # Use the last of December as day and month values.
       date = Date.new(year, 12, 31)
     end
     return date
   end
 
+  # The method that loads the Workbook into the database.
+  # This is a class method for a reason:
+  # To be called by a background worker like resque, this method can't be an instance method.  
   def import_data(dataset_id)
+    # Since this is a class method, we have to instantiate an object first.
     book = Dataworkbook.new(Dataset.find(dataset_id).upload_spreadsheet)
-    #    dataset_id = @datafile.dataset.id
 
     # generate data column instances
     book.columnheaders_raw.each do |columnheader|
@@ -126,6 +163,7 @@ class Dataworkbook
       data_column_ch[:finished] = false
       data_column_new = Datacolumn.create(data_column_ch)
 
+      # Retrieve tha datatype.
       datatype = Datatypehelper.find_by_name(data_column_ch[:import_data_type])
       data_hash = book.data_for_columnheader(columnheader)[:data]
 
@@ -178,10 +216,12 @@ class Dataworkbook
     end
   end
 
+  # Reverse lookup for column headers. Returns the index for any provided columnheader.
   def method_index_for_columnheader(columnheader)
     data_description_sheet.column(0).to_a.index(columnheader)
   end
 
+  # Returns a hash filled with all informations regarding a given columnheader.
   def data_column_info_for_columnheader(columnheader)
     method_index = method_index_for_columnheader(columnheader)
 
@@ -237,21 +277,29 @@ class Dataworkbook
     return data_group
   end
 
+  # Once an import process was fired, 
+  # this method retrieves the count of already imported sheetcells per column.
   def progress_hash
+    # Get all columns.
     columns = @datafile.dataset.datacolumns
     progress = {}
+    # For all columns, count the sheetcells.
     columnheaders_raw.each do |columnheader|
       progress[columnheader] = 0
       c = columns.select{|c| c.columnheader == columnheader}.first
+      # Doing this directly in SQL is mind boggingly faster than doing this via ActiveRecord.
       count_query = "SELECT count(*) FROM sheetcells WHERE datacolumn_id = #{c.id}"
       values = c.blank? ? 0 : ActiveRecord::Base.connection.execute(count_query).column_values(0).first
     end
   end
 
+  # Return the complete column from the raw data sheet for a given columnheader,
+  # including the header again.
   def data_with_head(columnheader)
     Array(raw_data_sheet.column(raw_data_sheet.row(0).to_a.index(columnheader)))
   end
 
+  # Returns a hash with al the raw data for a given columnheader.
   def data_for_columnheader(columnheader)
 
     data_lookup_ch = {:data => nil, :rowmax => 1}
@@ -265,11 +313,13 @@ class Dataworkbook
     return data_lookup_ch
   end
 
+  # Returns the string that represents the Data Group title for any given columnheader from the Workbook.
   def data_group_title(columnheader)
     Array(data_description_sheet.column(5))[method_index_for_columnheader(columnheader)]
   end
 
-  def columnheader_people_hash
+  # Returns a hash filled with all people for all columnheaders
+  def columnheader_people
     ## there may be several people associated to one columnheader
     people_for_columnheader = {}
     data_responsible_person_sheet.column(0).to_a.compact.each_with_index{|o, i| people_for_columnheader[i] = o}
@@ -292,7 +342,7 @@ class Dataworkbook
 
     # there are often several people for one column in raw data;
     # people can also be added automatically to the submethod
-    people_rows = columnheader_people_hash.select{|k,v| v == columnheader}.keys # only the row index
+    people_rows = columnheader_people.select{|k,v| v == columnheader}.keys # only the row index
     people_given = []
     people_sur   = []
     people_proj  = []
@@ -309,6 +359,7 @@ class Dataworkbook
     return people
   end
 
+  # Returns the category information from the Workbook for a given columnheader.
   def sheet_categories_for_columnheader(columnheader)
 
     header = Array(data_categories_sheet.column(0))
