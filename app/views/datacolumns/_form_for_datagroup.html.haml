@@ -1,11 +1,13 @@
+:javascript
+  $( "#modal" ).dialog({
+    height: 600,
+    width: 500,
+    modal: true,
+    autoOpen: false,
+    title: "Create new Data Group"
+  });
 / This partial is only rendered when the Data Group is unapproved.
 .span-8.last
-  %h4 Approve Data Group
-%p
-  .approved_false The Data Group of this Data Column was not yet approved.
-  Please confirm or change the Data Group. You may choose one
-  of the available Data Groups or create a new one and click on.
-  %i Save.
 - form_tag :action => 'update_datagroup', :controller => 'datacolumns' do |form|
   = hidden_field_tag :id, @data_column.id
   %p From your upload:
@@ -14,35 +16,39 @@
   .span-6
     %h4= @data_column.datagroup.title
     %p= @data_column.datagroup.description
-  %p.clear Possible matches in the portal:
-  - @data_groups_available.each do |datagroup|
-    .span-1.last
-      = radio_button_tag 'datagroup', datagroup.id, false
-    .span-6
-      %h4= datagroup.title
-      %p= datagroup.description
-      %p
-        %b Previously assigned Data Columns
-        - datagroup.datacolumns.each do |datacolumn|
-          = datacolumn.columnheader
-  %p.clear You may as well create a new Data Group:
-  .span-1.last
-    = radio_button_tag 'datagroup', '-1', false
-  .span-6
-    .span-3= label_tag 'new_datagroup[title]', 'Title'
-    .span-3.last= text_field_tag 'new_datagroup[title]'
-    .span-3= label_tag 'new_datagroup[description]', 'Description'
-    .span-3.last= text_field_tag 'new_datagroup[description]'
-    .span-3= label_tag 'new_datagroup[instrumentation]', 'Instrumentation'
-    .span-3.last= text_field_tag 'new_datagroup[instrumentation]'
-    .span-3= label_tag 'new_datagroup[informationsource]', 'Source of information'
-    .span-3.last= text_field_tag 'new_datagroup[informationsource]'
-    .span-3= label_tag 'new_datagroup[methodvaluetype]', 'Method value type'
-    .span-3.last= text_field_tag'new_datagroup[methodvaluetype]'
-    .span-3= label_tag 'new_datagroup[timelatency]', 'Time latency'
-    .span-3.last= text_field_tag 'new_datagroup[timelatency]'
-    .span-3= label_tag 'new_datagroup[timelatencyunit]', 'Time latency unit'
-    .span-3.last= text_field_tag 'new_datagroup[timelatencyunit]'
+  - unless @data_groups_available.blank?
+    %p.clear Possible matches in the portal:
+    - @data_groups_available.each do |datagroup|
+      .span-1.last
+        = radio_button_tag 'datagroup', datagroup.id, false
+      .span-6
+        %h4= datagroup.title
+        %p= datagroup.description
+        %p
+          %b Previously assigned Data Columns
+          - datagroup.datacolumns.each do |datacolumn|
+            = datacolumn.columnheader
   %button{:name => "commit", :type => "submit"} Save Data Group
-  %p.clear         
-  
+  %p.clear
+    %a{:href => '#', :onclick => '$("#modal").dialog("open")'} You may as well create a new Data Group
+#modal
+  - form_tag :action => 'update_datagroup', :controller => 'datacolumns' do |form|
+    .span-6
+      = hidden_field_tag 'datagroup', '-1'
+      = hidden_field_tag :id, @data_column.id
+      .span-3= label_tag 'new_datagroup[title]', 'Title'
+      .span-3.last= text_field_tag 'new_datagroup[title]', @data_column.datagroup.title
+      .span-3= label_tag 'new_datagroup[description]', 'Description'
+      .span-3.last= text_area_tag 'new_datagroup[description]', @data_column.datagroup.description
+      .span-3= label_tag 'new_datagroup[instrumentation]', 'Instrumentation'
+      .span-3.last= text_field_tag 'new_datagroup[instrumentation]', @data_column.datagroup.instrumentation
+      .span-3= label_tag 'new_datagroup[informationsource]', 'Source of information'
+      .span-3.last= text_field_tag 'new_datagroup[informationsource]', @data_column.datagroup.informationsource
+      .span-3= label_tag 'new_datagroup[methodvaluetype]', 'Method value type'
+      .span-3.last= text_field_tag'new_datagroup[methodvaluetype]', @data_column.datagroup.methodvaluetype
+      .span-3= label_tag 'new_datagroup[timelatency]', 'Time latency'
+      .span-3.last= text_field_tag 'new_datagroup[timelatency]', @data_column.datagroup.timelatency
+      .span-3= label_tag 'new_datagroup[timelatencyunit]', 'Time latency unit'
+      .span-3.last= text_field_tag 'new_datagroup[timelatencyunit]', @data_column.datagroup.timelatencyunit
+    %button{:name => "commit", :type => "submit"} Create Data Group
+      
