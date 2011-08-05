@@ -179,7 +179,6 @@ class DatasetsController < ApplicationController
 
   def data
     @book = Dataworkbook.new(@dataset.upload_spreadsheet)
-    @selected_tab = '0'
     
     # Are there data columns already associated to this Dataset?
     return unless @book.columnheaders_unique? # we can only go on, if columnheaders of data columns are unique
