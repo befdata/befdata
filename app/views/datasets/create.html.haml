@@ -1,10 +1,6 @@
 %span{:style => "font-size: large;"}
   Dataset: #{@dataset.title}
 
-%div
-  = link_to 'Data Columns', data_dataset_path(@dataset)
-  .comment= t("dataset.step#{@step}")
-  
 .active-scaffold
   - if @step == 1
     - if @dataset.valid?
@@ -68,7 +64,7 @@
           %dd= text_area_tag 'circumstances', @dataset.circumstances, :size => '40x7', :class => 'text-input'
         %dl
           %dt
-          %dd= submit_tag 'Finish step 1'
+          %dd= submit_tag 'Save Metadata'
       / ending the form
     - else
       / context not valid
