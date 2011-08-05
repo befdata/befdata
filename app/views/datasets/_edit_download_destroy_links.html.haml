@@ -14,4 +14,4 @@
         #{link_to 'Approve Data Columns', data_dataset_path(@dataset)}
       %li
         %img{:src => "/images/cross.png"}
-        #{link_to 'Delete', destroy_dataset_path(@dataset)}
+        #{link_to 'Delete', destroy_dataset_path(@dataset), :confirm => "Do you really want to delete this dataset?"}
