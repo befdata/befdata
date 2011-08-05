@@ -34,3 +34,4 @@
                 = cat.text_field :long
                 = cat.text_field :description
               %p To create a completely new category, press: #{f.submit "create"}
+= render :partial => 'progress_bar', :locals => {:percent => 50}

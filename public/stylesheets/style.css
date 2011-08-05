@@ -608,9 +608,10 @@ a img {
 .dataset_columns { margin-bottom: 1em; }
 .dataset_columns .columnheader { font-weight: bold; text-decoration: underline; }
 
-.approved_false { color: #f00; }
-.approved_medium { color: #eb8f00; }
-.approved_true { color: #9bc56f; }
+.approved_0 a { color: #f00 !important; }
+.approved_1 a { color: #f00 !important; }
+.approved_2 a { color: #eb8f00 !important; }
+.approved_3 a { color: #9bc56f !important; }
 
 .sidenote { float:right; width: 208px; margin: 10px 20px; border: 2px solid #9bc56f; border-radius: 4px; }
 .sidenote .head { background: #243f12; margin: 0; padding: 3px; color: #fff; }

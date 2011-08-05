@@ -145,4 +145,11 @@ class Datacolumn < ActiveRecord::Base
     columnheader
   end
 
+  def approval_stage
+    stage = '0'
+    stage = '1' if self.datagroup_approved
+    stage = '2' if self.datagroup_approved && self.datatype_approved
+    stage = '3' if self.datagroup_approved && self.datatype_approved && self.invalid_values.blank?
+    return stage
+  end
 end

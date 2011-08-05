@@ -13,9 +13,6 @@ class DatacolumnsController < ApplicationController
   # This method provides all neccessary informations
   # for the display of the Data Column approval pages.
   def edit
-    # Unless we know more, we're in the first step.
-    @step = 'one'
-    
     # Get the central Data Column object from the database.
     @data_column ||= Datacolumn.find(params[:id])
 
@@ -34,20 +31,19 @@ class DatacolumnsController < ApplicationController
 
     # Is the Data Type of this Data Column approved? If no, then render the Data Type approval partial.
     unless @data_column.datatype_approved?
-      @step = 'two'
       render :partial => 'approve_datatype' and return
     end
 
-    @step = 'three'
     @dataset = @data_column.dataset
     @cats_to_choose = @data_column.datagroup.datacell_categories
     @cell_uniq_arr = @data_column.invalid_values
 
+    # User has to have a look on values that were marked as invalid
+    unless @cell_uniq_arr.blank?
+      render :partial => 'approve_categories' and return
+    end 
     # Collect all methods for the select tag.
     @methods_short_list = Datagroup.find(:all, :order => "title").collect{|m| [m.title, m.id]}
-
-    # Prepare a new data group instance to save it if needed. Still needed? don't think so.
-    @data_group_new = Datagroup.new(@book.methodsheet_datagroup(columnheader))
 
     # Gather the list of all Person Roles, sorted by their last name.
     @people_list = User.find(:all, :order => :lastname)
@@ -87,7 +83,7 @@ class DatacolumnsController < ApplicationController
       @data_column.save
       
       # Create a nice success message and redirect back so we render the same view again.
-      flash[:notice] = "Data Group successfully saved. Data Column #{@data_column.columnheader} was marked as approved."
+      flash[:notice] = "Data Group successfully saved."
       redirect_to :back
     else
       # The datagroup parameter was '-1', hence we need to create a new Data Group.
@@ -103,7 +99,7 @@ class DatacolumnsController < ApplicationController
             @data_column.save
             
             # Generate a nice success message and redirect back so we render the same view again.
-            flash[:notice] = "Data Group successfully saved. Data Column #{@data_column.columnheader} was marked as approved."
+            flash[:notice] = "Data Group successfully saved."
             redirect_to :back
           else
             # When saving went wrong, generate a failure message and redirect back anyway.
@@ -144,7 +140,8 @@ class DatacolumnsController < ApplicationController
       @data_column.save
     end
     
-    # Redirect back so we render the same view again.
+    # Create a nice success message and redirect back so we render the same view again.
+    flash[:notice] = "Responsible people successfully saved."
     redirect_to :back
   end
 
@@ -164,7 +161,11 @@ class DatacolumnsController < ApplicationController
     @data_column.datatype_approved = true
     @data_column.save
     
-    # Redirect back so we render the same view again.
+    # Create a nice success message and redirect back so we render the same view again.
+    flash[:notice] = "Data Type successfully saved."
     redirect_to :back
+  end
+  
+  def update_metadata
   end
 end

@@ -91,6 +91,15 @@ class Dataset < ActiveRecord::Base
   def finished_datacolumns
     datacolumns.select{|dc| dc.finished == true}
   end
+  
+  def datacolumns_with_approved_datagroup
+    datacolumns.select{|dc| dc.datagroup_approved == true}
+  end
+
+  def datacolumns_with_approved_datatype
+    datacolumns.select{|dc| dc.datatype_approved == true}
+  end
+  
   # The class Observation stores all rows of the primary data sheets
   # uploaded to the data portal.  Here a hash is constructed that
   # stores the observation ID as value and the rownr as key.

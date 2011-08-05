@@ -5,5 +5,5 @@
 #datacolumn_tabs
   %ul
     - @dataset.datacolumns.each_with_index do |dc, i|
-      %li{:class => "approved_#{dc.datagroup_approved?.to_s}"}
+      %li{:class => "approved_#{dc.approval_stage.to_s}"}
         = link_to dc.columnheader, {:controller => :datacolumns, :action => 'edit', :id => dc.id}
