@@ -663,7 +663,7 @@ button[type] {
   padding:12px 36px;   /* IE7 */
   
 }
-button img, a.button img{
+button img, a.button img {
   margin:0 3px -3px 0 !important;
   padding:0;
   border:none;
@@ -672,6 +672,8 @@ button img, a.button img{
   float:none;
 }
 
+#modal { top: 20px; }
+#modal textarea { min-height: 150px; }
 
 /* Button colors
 -------------------------------------------------------------- */

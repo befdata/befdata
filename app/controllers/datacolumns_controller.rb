@@ -25,7 +25,7 @@ class DatacolumnsController < ApplicationController
     # We extract the column header to determine the available Data Groups from the Data Workbook.
     columnheader = @data_column.columnheader
     data_group_title = @book.method_index_for_columnheader(columnheader).blank? ? columnheader : @book.data_group_title(columnheader)
-    @data_groups_available = Datagroup.find_similar_by_title(data_group_title)
+    @data_groups_available = Datagroup.find_similar_by_title(data_group_title).delete_if{|d| d == @data_column.datagroup}
 
     # Is the Data Group of this Data Column approved? If no, then render the Data Group approval partial.
     unless @data_column.datagroup_approved?
