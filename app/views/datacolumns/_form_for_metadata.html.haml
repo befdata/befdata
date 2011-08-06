@@ -1,6 +1,16 @@
-.span-8.last
-- form_tag :controller=> 'datacolumns', :action => 'update_metadata' do |form|
-  %p
-    TODO: Implement me!
-  %button{:name => "commit", :type => "submit"} Save Responsible People
+.span-7
+  - form_tag :controller=> 'datacolumns', :action => 'update_metadata' do |form|
+    .span-6
+      = hidden_field_tag :id, @data_column.id
+      .span-3= label_tag 'datacolumn[definition]', 'Definition'
+      .span-3.last= text_area_tag 'datacolumn[definition]', @data_column.definition
+      .span-3= label_tag 'datacolumn[comment]', 'Comment'
+      .span-3.last= text_area_tag 'datacolumn[comment]', @data_column.comment
+      .span-3= #label_tag 'datacolumn[tags]', 'Tags'
+      .span-3.last= #text_field_tag 'datacolumn[tags]', @data_column.tag_list
+      .span-3= label_tag 'datacolumn[unit]', 'Unit'
+      .span-3.last= text_field_tag 'datacolumn[unit]', @data_column.unit
+      .span-3= label_tag 'datacolumn[missingcode]', 'Missing values coded as'
+      .span-3.last= text_field_tag 'datacolumn[missingcode]', @data_column.missingcode
+      %button{:name => "commit", :type => "submit"} Save Metadata
   %p.clear    

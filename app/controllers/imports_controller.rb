@@ -93,16 +93,6 @@ class ImportsController < ApplicationController
     @sheet_cats = @data_column.import_categories.map{|imp_c| [imp_c.category.id, imp_c.category.short, imp_c.category.long]}
   end
 
-  def update_data_header
-    data_header = Datacolumn.find(params[:datacolumn][:id])
-
-    if data_header.update_attributes(params[:datacolumn])
-      redirect_to :back
-    else
-      redirect_to data_path
-    end
-  end
-
   def dataset_freeformat_overview
 
     @dataset = Dataset.find(params[:dataset_id])

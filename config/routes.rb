@@ -37,7 +37,7 @@ Befchina::Application.routes.draw do
   match 'datacolumns/update_datagroup' => 'datacolumns#update_datagroup'
   match 'datacolumns/update_datatype' => 'datacolumns#update_datatype'
   match 'datacolumns/update_people' => 'datacolumns#update_people'
-  match 'datacolumns/update_people' => 'datacolumns#update_metadata'
+  match 'datacolumns/update_metadata' => 'datacolumns#update_metadata'
   match 'datacolumns/update_category' => 'datacolumns#update_category'
   match 'datacolumns/create_category' => 'datacolumns#create_category'
 

@@ -1,15 +1,15 @@
-.span-7.last
+.span-8.last
   %h4 Edit Metadata
-%p
-  Please hava a look on the metadata and the responsible people for this Data Column.
-  %i Save.
-= render :partial => 'form_for_metadata' 
+  %p
+    Please hava a look on the metadata and the responsible people for this Data Column.
+  = render :partial => 'form_for_metadata' 
 
 .span-8.last
   %h4 Responsible People
-%p
-  Add members of the research unit by selecting them from the drop
-  down list below.  Delete people from the association to a data
-  column by clicking on their name in the bullet list below.
-= render :partial => 'form_for_people'
+  %p
+    Add members of the research unit by selecting them from the drop
+    down list below.  Delete people from the association to a data
+    column by clicking on their name in the bullet list below.
+  = render :partial => 'form_for_people'
+
 = render :partial => 'progress_bar', :locals => {:percent => 75}
