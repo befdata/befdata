@@ -608,7 +608,7 @@ a img {
 .dataset_columns { margin-bottom: 1em; }
 .dataset_columns .columnheader { font-weight: bold; text-decoration: underline; }
 
-.approved_0 a { color: #f00 !important; }
+.approved_0, .approved_0 a { color: #f00 !important; }
 .approved_1 a { color: #f00 !important; }
 .approved_2 a { color: #eb8f00 !important; }
 .approved_3 a { color: #9bc56f !important; }
@@ -672,6 +672,8 @@ button img, a.button img {
   height:16px;
   float:none;
 }
+
+button.inline { float: right; }
 
 #modal { top: 20px; }
 #modal textarea { min-height: 150px; }

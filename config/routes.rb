@@ -38,6 +38,8 @@ Befchina::Application.routes.draw do
   match 'datacolumns/update_datatype' => 'datacolumns#update_datatype'
   match 'datacolumns/update_people' => 'datacolumns#update_people'
   match 'datacolumns/update_people' => 'datacolumns#update_metadata'
+  match 'datacolumns/update_category' => 'datacolumns#update_category'
+  match 'datacolumns/create_category' => 'datacolumns#create_category'
 
   match 'imports/create_dataset_freeformat' => 'imports#create_dataset_freeformat'
   match 'imports/update_dataset_freeformat_file' => 'imports#update_dataset_freeformat_file'

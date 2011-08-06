@@ -3,7 +3,7 @@ class DatacolumnsController < ApplicationController
   # ACL9 access block for the methods of this controller.
   skip_before_filter :deny_access_to_all
   access_control do
-    actions :edit, :update_datagroup, :update_datatype, :update_people do
+    actions :edit, :update_datagroup, :update_datatype, :update_people, :update_category, :create_category do
       allow :admin
       allow :owner, :of => :dataset
       allow :proposer, :of => :dataset
@@ -167,5 +167,50 @@ class DatacolumnsController < ApplicationController
   end
   
   def update_metadata
+  end
+  
+  def update_category
+    first_cell = Sheetcell.find(params[:sheetcell][:id])
+    first_cell.update_attributes(params[:sheetcell])
+    same_entry_cells = first_cell.same_entry_cells
+
+    # category
+    cat = first_cell.category
+    cat.update_attributes(:comment => "manually approved")
+
+    same_entry_cells.each do |cell|
+      old_cat = cell.category
+      cell.update_attributes(:category => cat, :comment => "valid")
+      old_cat.destroy
+    end
+
+    # Create a nice success message and redirect back so we render the same view again.
+    flash[:notice] = "Category successfully validated."
+    redirect_to :back
+  end
+  
+  def create_category
+    first_cell = Sheetcell.find(params[:sheetcell][:id])
+    entry = first_cell.import_value
+    same_entry_cells = first_cell.same_entry_cells
+
+    # the new category; needs error handling
+    cat = Category.new(params[:category])
+    cat.comment = "manually approved"
+    cat.long = entry if cat.long.blank?
+    cat.description = cat.long if cat.description.blank?
+
+    if cat.save
+      same_entry_cells.each do |cell|
+        old_cat = cell.category
+        cell.update_attributes(:category => cat,
+        :comment => "valid")
+        old_cat.destroy # validates that it is not destroyed if
+        # linked to measurement or import category
+      end
+      redirect_to :back
+    else
+      redirect_to data_path
+    end
   end
 end

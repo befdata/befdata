@@ -103,51 +103,6 @@ class ImportsController < ApplicationController
     end
   end
 
-  def cell_category_create
-    first_cell = Sheetcell.find(params[:sheetcell][:id])
-    entry = first_cell.import_value
-    same_entry_cells = first_cell.same_entry_cells
-
-    # the new category; needs error handling
-    cat = Category.new(params[:category])
-    cat.comment = "manually approved"
-    cat.long = entry if cat.long.blank?
-    cat.description = cat.long if cat.description.blank?
-
-    if cat.save
-      same_entry_cells.each do |cell|
-        old_cat = cell.category
-        cell.update_attributes(:category => cat,
-        :comment => "valid")
-        old_cat.destroy # validates that it is not destroyed if
-        # linked to measurement or import category
-      end
-      redirect_to :back
-    else
-      redirect_to data_path
-    end
-  end
-
-  def cell_category_update
-    first_cell = Sheetcell.find(params[:sheetcell][:id])
-    first_cell.update_attributes(params[:sheetcell])
-    same_entry_cells = first_cell.same_entry_cells
-
-    # category
-    cat = first_cell.category
-    cat.update_attributes(:comment => "manually approved")
-
-    same_entry_cells.each do |cell|
-      old_cat = cell.category
-      cell.update_attributes(:category => cat,
-      :comment => "valid")
-      old_cat.destroy
-    end
-
-    # !! validations !!
-    redirect_to :back
-  end
-
   def dataset_freeformat_overview
 
     @dataset = Dataset.find(params[:dataset_id])
