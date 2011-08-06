@@ -320,14 +320,16 @@ class DatasetsController < ApplicationController
       # is called is already existing.  Because of this, the upload
       # of a file is leaped over.  We are at step 1.
 
-      users = User.find(params[:people])
-
-      # assigning provenance information: linking people to the data
-      # set
-      users.each do |pr|
-        pr.has_role! :owner, @dataset
+      unless params[:people].blank?
+        users = User.find(params[:people])
+  
+        # assigning provenance information: linking people to the data
+        # set
+        users.each do |pr|
+          pr.has_role! :owner, @dataset
+        end
       end
-
+      
       @dataset.update_attributes( :title => params[:title],
       :abstract => params[:abstract],
       :comment => params[:comment],

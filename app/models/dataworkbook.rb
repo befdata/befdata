@@ -195,7 +195,7 @@ class Dataworkbook
           sheet_categories.each do | cat |
             # the category should be unique within the selected datagroup
             scm_datagroup_id = Datagroup.sheet_category_match.first.id if !Datagroup.sheet_category_match.first.nil?
-            unique_cat = Category.find(:first, :conditions => ["short = ? and datagroup_id=?", cat[:short], scm_datagroup_id])
+            unique_cat = Category.find(:first, :conditions => ["short = ? and datagroup_id=?", cat[:short].to_s, scm_datagroup_id])
             if(unique_cat.nil?)
               import_cat = Category.create(:short => cat[:short],
                                         :long => cat[:long],
