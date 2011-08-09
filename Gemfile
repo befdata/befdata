@@ -16,7 +16,6 @@ gem 'active_scaffold'
 gem 'delayed_job'
 
 group :test, :development do
-  gem "rspec-rails", "~> 2.4"
   gem "test-unit"
   gem "ruby-prof"
 end
