@@ -118,7 +118,7 @@ class Datacolumn < ActiveRecord::Base
     end
 
     begin
-      connection = ActiveRecord::Base.connection();
+      connection = ActiveRecord::Base.connection()
       connection.begin_db_transaction
       connection.execute(sqlclean)
       connection.execute(sql)
