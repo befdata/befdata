@@ -54,13 +54,14 @@ class DatacolumnsController < ApplicationController
 
     # Look into the spreadsheet, when there are no people linked.
     if @ppl.blank?
-      # Look for people in the Data Workbook and link them to the Data Group.
-      ppl = @book.lookup_data_header_people(columnheader)
-      ppl = ppl.flatten.uniq
-      ppl.each do |user|
-        user.has_role! :responsible, @data_column
-      end
-      @ppl = @data_column.users
+      #TODO commented out the whole block - see #4824
+      ## Look for people in the Data Workbook and link them to the Data Group.
+      #ppl = @book.lookup_data_header_people(columnheader)
+      #ppl = ppl.flatten.uniq
+      #ppl.each do |user|
+      #  user.has_role! :responsible, @data_column
+      #end
+      #@ppl = @data_column.users
     end
     @step = 'five'
     render :layout => false
