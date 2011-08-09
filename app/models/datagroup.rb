@@ -90,7 +90,10 @@ class Datagroup < ActiveRecord::Base
     match = Datagroup.find_by_type_id(Datagrouptype::SHEETCATEGORYMATCH)
 
     unless match
-      match = Datagroup.create(:title => "Sheet category match",
+      #TODO check if this has to do with bug #4809
+      #@sophia this seems unnecessary why is it needed? As it is now there can not be two datagroups with the same title and therefor the creation silently fails!
+      #In one migration and the fixtures there exists a "Category sheet match" datagroup ... is this intentionally?
+      match = Datagroup.create!(:title => "Sheet category match",
                                 :description => "Sheet category match",
                                 :type_id => Datagrouptype::SHEETCATEGORYMATCH)
     end
