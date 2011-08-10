@@ -179,17 +179,16 @@ class DatasetsController < ApplicationController
 
   def data
     @book = Dataworkbook.new(@dataset.upload_spreadsheet)
-    
-    # Are there data columns already associated to this Dataset?
-    return unless @book.columnheaders_unique? # we can only go on, if columnheaders of data columns are unique
+
+    return unless @book.columnheaders_unique?
   
     if @dataset.datacolumns.length == 0
       @just_uploaded = true
-      #Dataworkbook.delay.import_data(@dataset.id)
       @book.import_data(@dataset.id)
-    else
+      load_dataset #reload
     end
-  end # raw data overview
+
+  end
   
   # Downloading one free format file from within the "show" view
   def download_freeformat
