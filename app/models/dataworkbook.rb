@@ -148,63 +148,79 @@ class Dataworkbook
     # generate data column instances
     book.columnheaders_raw.each do |columnheader|
 
-      # Data group available?
-      data_group_ch = book.methodsheet_datagroup(columnheader)
-      data_group = Datagroup.find_by_title(data_group_ch[:title])
-      data_group = Datagroup.create(data_group_ch) if data_group.blank?
-
-      # Data column information
-      data_column_ch = book.data_column_info_for_columnheader(columnheader)
-      data_column_ch[:dataset_id] = dataset_id
-      data_column_ch[:tag_list] = data_column_ch[:comment] unless data_column_ch[:comment].blank?
-      data_column_ch[:datagroup_id] = data_group.id
-      data_column_ch[:datagroup_approved] = false
-      data_column_ch[:datatype_approved] = false
-      data_column_ch[:finished] = false
-      data_column_new = Datacolumn.create(data_column_ch)
-
-      # Retrieve tha datatype.
-      datatype = Datatypehelper.find_by_name(data_column_ch[:import_data_type])
+      data_column_information = initialize_data_column_information(book, columnheader, dataset_id)
+      data_column_new = Datacolumn.create(data_column_information)
       all_cells_for_one_column = book.data_for_columnheader(columnheader)[:data]
+      datatype = Datatypehelper.find_by_name(data_column_information[:import_data_type])
 
       unless all_cells_for_one_column.blank?
-        existing_observations = Dataset.find(dataset_id).rownr_observation_id_hash
-        sheetcells_to_be_saved = []
 
-        all_cells_for_one_column.each do |row_number, cell_content|
-          observation_id = existing_observations[row_number] || Observation.create(:rownr => row_number).id
+        save_all_cells_to_database(dataset_id, data_column_new, datatype, all_cells_for_one_column)
+        add_any_sheet_categories_included_for_this_column(columnheader, data_column_new)
 
-          sheetcells_to_be_saved << Sheetcell.new(:datacolumn => data_column_new,
-                                                    :observation_id => observation_id,
-                                                    :import_value => cell_content,
-                                                    :datatype_id => datatype.id)
-        end
-        Sheetcell.import(sheetcells_to_be_saved)
-
-        # add any sheet categories included for this column
-        sheet_categories = sheet_categories_for_columnheader(columnheader)
-        unless sheet_categories.blank?
-          sheet_categories.each do | cat |
-            # the category should be unique within the selected datagroup
-            scm_datagroup_id = Datagroup.sheet_category_match.first.id if !Datagroup.sheet_category_match.first.nil?
-            unique_cat = Category.find(:first, :conditions => ["short = ? and datagroup_id=?", cat[:short].to_s, scm_datagroup_id])
-            if(unique_cat.nil?)
-              import_cat = Category.create(:short => cat[:short],
-                                        :long => cat[:long],
-                                        :description => cat[:description],
-                                        :datagroup_id => scm_datagroup_id,
-                                        :user_id => 1,
-                                        :status_id => Categorystatus::CATEGORY_SHEET)
-              if !import_cat.nil?
-                unique_cat = import_cat
-              end
-            end
-            ImportCategory.create(:category => unique_cat,
-                                  :datacolumn => data_column_new)
-          end
-        end
       end
       data_column_new.finished = true
+    end
+  end
+
+  def initialize_data_column_information(book, columnheader, dataset_id)
+    data_group = get_or_create_data_group(book, columnheader)
+
+    data_column_information = book.data_column_info_for_columnheader(columnheader)
+    data_column_information[:dataset_id] = dataset_id
+    data_column_information[:tag_list] = data_column_information[:comment] unless data_column_information[:comment].blank?
+    data_column_information[:datagroup_id] = data_group.id
+    data_column_information[:datagroup_approved] = false
+    data_column_information[:datatype_approved] = false
+    data_column_information[:finished] = false
+
+    data_column_information
+  end
+
+  def get_or_create_data_group(book, columnheader)
+    data_group_ch = book.methodsheet_datagroup(columnheader)
+    data_group = Datagroup.find_by_title(data_group_ch[:title])
+    data_group = Datagroup.create(data_group_ch) if data_group.blank?
+
+    data_group
+  end
+
+  def save_all_cells_to_database(dataset_id, data_column_new, datatype, all_cells)
+    existing_observations = Dataset.find(dataset_id).rownr_observation_id_hash
+    sheetcells_to_be_saved = []
+
+    all_cells.each do |row_number, cell_content|
+      observation_id = existing_observations[row_number] || Observation.create(:rownr => row_number).id
+
+      sheetcells_to_be_saved << Sheetcell.new(:datacolumn => data_column_new,
+                                                :observation_id => observation_id,
+                                                :import_value => cell_content,
+                                                :datatype_id => datatype.id)
+    end
+    Sheetcell.import(sheetcells_to_be_saved)
+  end
+
+  def add_any_sheet_categories_included_for_this_column(columnheader, data_column_new)
+    sheet_categories = sheet_categories_for_columnheader(columnheader)
+    unless sheet_categories.blank?
+      sheet_categories.each do | cat |
+        # the category should be unique within the selected datagroup
+        scm_datagroup_id = Datagroup.sheet_category_match.first.id if !Datagroup.sheet_category_match.first.nil?
+        unique_cat = Category.find(:first, :conditions => ["short = ? and datagroup_id=?", cat[:short].to_s, scm_datagroup_id])
+        if(unique_cat.nil?)
+          import_cat = Category.create(:short => cat[:short],
+                                    :long => cat[:long],
+                                    :description => cat[:description],
+                                    :datagroup_id => scm_datagroup_id,
+                                    :user_id => 1,
+                                    :status_id => Categorystatus::CATEGORY_SHEET)
+          if !import_cat.nil?
+            unique_cat = import_cat
+          end
+        end
+        ImportCategory.create(:category => unique_cat,
+                              :datacolumn => data_column_new)
+      end
     end
   end
 
