@@ -28,9 +28,4 @@ class PagesController < ApplicationController
     
   end
 
-  #TODO This Action is not used see #4668
-  def show_tags
-    @tags = Tag.find(:all, :order => :name, :include => :taggings )
-  end
-
 end
