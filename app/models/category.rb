@@ -1,30 +1,20 @@
+## Categories are values that can be reused by sheetcells.  They enable the construction of a
+## controlled vocabulary within the portal.
 class Category < ActiveRecord::Base
 
   belongs_to :user, :class_name => "User", :foreign_key => "user_id"
   belongs_to :datagroup, :class_name => "Datagroup", :foreign_key => "datagroup_id"
   has_many :sheetcells
-  ## if there is any measurement linked to a category,
-  ## it should not be destroyed; If there is a reason to change this
-  ## category, it should only be changed
-  ## before_destroy :no_measurement_linked?
   has_many :import_categories
 
-  # tagging
   is_taggable :tags, :languages
 
-  # !! before save we should check if all is given: short, long, description
   validates_presence_of :short, :long, :description
-  # but if at least short is given try to fill long and description
   before_validation :try_filling_missing_values
-
-  ## does not work, no "column" "data_group"... p. 398 in the rails book has
-  ## solution
-  ## validates_uniqueness_of :short, :long, :description, :scope => :data_group
-  ## within one method, categories should be unique
-  ## categories are linked via measurements - submethods to methods
 
   before_destroy :check_for_measurements, :check_for_import_categories
   after_destroy :destroy_taggings
+
 
   def try_filling_missing_values
     if self.short then
