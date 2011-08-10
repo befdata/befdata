@@ -1,5 +1,5 @@
 .span-7
-  - form_tag :controller=> 'datacolumns', :action => 'update_metadata' do |form|
+  = form_tag :controller=> 'datacolumns', :action => 'update_metadata' do |form|
     .span-6
       = hidden_field_tag :id, @data_column.id
       .span-3= label_tag 'datacolumn[definition]', 'Definition'

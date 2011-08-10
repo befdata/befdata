@@ -2,7 +2,7 @@
 - @cell_uniq_arr.each do |cell|
   Category for value
   %b= cell.import_value
-  - form_tag :action => 'update_category', :controller => 'datacolumns' do |form|
+  = form_tag :action => 'update_category', :controller => 'datacolumns' do |form|
     %p.clear
       = hidden_field_tag :id, @data_column.id
       = hidden_field_tag 'sheetcell[id]', cell.id

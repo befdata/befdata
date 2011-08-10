@@ -32,7 +32,7 @@
       %tr
         %td.centercolumn.span-1{:class => "#{even ? 'even' : 'odd'}"} #{i}
         %td.span-4.last{:class => "#{even ? 'even' : 'odd'}"} #{sc.import_value}
-- form_tag :action => :update_datatype, :controller => :datacolumns do |form|
+= form_tag :action => :update_datatype, :controller => :datacolumns do |form|
   = hidden_field_tag :id, @data_column.id
   .span-3= label_tag 'datacolumn[import_data_type]', "Which type of data is this?"
   .span-3.last= select('datacolumn', 'import_data_type', %w{category year date(14.07.2009) date(2009-07-14) number text}, :prompt => "Select please")
