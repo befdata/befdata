@@ -165,34 +165,21 @@ class Dataworkbook
 
       # Retrieve tha datatype.
       datatype = Datatypehelper.find_by_name(data_column_ch[:import_data_type])
-      data_hash = book.data_for_columnheader(columnheader)[:data]
+      all_cells_for_one_column = book.data_for_columnheader(columnheader)[:data]
 
-      unless data_hash.blank?
-        rownr_obs_hash = Dataset.find(dataset_id).rownr_observation_id_hash
-
-        # Go through each entry in the spreadsheet
+      unless all_cells_for_one_column.blank?
+        existing_observations = Dataset.find(dataset_id).rownr_observation_id_hash
         sheetcells_to_be_saved = []
-        data_hash.each do |rownr, entry|
-          # Is there an observation in this Dataset with this rownr?
-          obs_id = rownr_obs_hash.select{|rnr, obs_id| rnr == rownr}.flatten[1]
 
-          # If not, create a new Observation
-          if obs_id.nil?
-            obs = Observation.create(:rownr => rownr)
-            obs_id = obs.id
-          end
+        all_cells_for_one_column.each do |row_number, cell_content|
+          observation_id = existing_observations[row_number] || Observation.create(:rownr => row_number).id
 
-          # create measurement (with value as import_value)
-          #entry = entry.to_i.to_s if integer?(entry)
           sheetcells_to_be_saved << Sheetcell.new(:datacolumn => data_column_new,
-                                                    :observation_id => obs_id,
-                                                    :import_value => entry,
+                                                    :observation_id => observation_id,
+                                                    :import_value => cell_content,
                                                     :datatype_id => datatype.id)
-
-        end # is there data provided?
-
+        end
         Sheetcell.import(sheetcells_to_be_saved)
-
 
         # add any sheet categories included for this column
         sheet_categories = sheet_categories_for_columnheader(columnheader)
