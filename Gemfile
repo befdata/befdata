@@ -9,11 +9,12 @@ gem 'authlogic'
 gem 'acl9'
 gem 'dynamic_form'
 gem 'paperclip'
-gem 'is_taggable', :git => "https://github.com/sinefunc/is_taggable.git", :branch => "rails3"
+gem 'is_taggable'#, :git => "https://github.com/sinefunc/is_taggable.git", :branch => "rails3"
 gem 'spreadsheet'
 gem 'yaml_db'
 gem 'active_scaffold'
 gem 'delayed_job'
+gem 'activerecord-import'
 
 group :test, :development do
   gem "test-unit"

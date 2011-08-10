@@ -36,6 +36,8 @@ GEM
       activesupport (= 3.0.8)
       arel (~> 2.0.10)
       tzinfo (~> 0.3.23)
+    activerecord-import (0.2.7)
+      activerecord (~> 3.0.0)
     activeresource (3.0.8)
       activemodel (= 3.0.8)
       activesupport (= 3.0.8)
@@ -111,6 +113,7 @@ PLATFORMS
 DEPENDENCIES
   acl9
   active_scaffold
+  activerecord-import
   authlogic
   delayed_job
   dynamic_form

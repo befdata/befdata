@@ -171,6 +171,7 @@ class Dataworkbook
         rownr_obs_hash = Dataset.find(dataset_id).rownr_observation_id_hash
 
         # Go through each entry in the spreadsheet
+        sheetcells_to_be_saved = []
         data_hash.each do |rownr, entry|
           # Is there an observation in this Dataset with this rownr?
           obs_id = rownr_obs_hash.select{|rnr, obs_id| rnr == rownr}.flatten[1]
@@ -183,11 +184,15 @@ class Dataworkbook
 
           # create measurement (with value as import_value)
           #entry = entry.to_i.to_s if integer?(entry)
-          sc = Sheetcell.create(:datacolumn => data_column_new,
-                                :observation_id => obs_id,
-                                :import_value => entry,
-                                :datatype_id => datatype.id)
+          sheetcells_to_be_saved << Sheetcell.new(:datacolumn => data_column_new,
+                                                    :observation_id => obs_id,
+                                                    :import_value => entry,
+                                                    :datatype_id => datatype.id)
+
         end # is there data provided?
+
+        Sheetcell.import(sheetcells_to_be_saved)
+
 
         # add any sheet categories included for this column
         sheet_categories = sheet_categories_for_columnheader(columnheader)
