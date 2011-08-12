@@ -13,10 +13,10 @@ class Admin::UsersController < Admin::AdminController
     config.columns[:password_confirmation].form_ui = :password
 
     # show config
-    config.show.columns = [:firstname, :middlenames, :lastname, :salutation, :comment, :roles_without_objects, :roles_with_objects, :email]
+    config.show.columns = [:id, :avatar, :firstname, :middlenames, :lastname, :salutation, :comment, :roles_without_objects, :roles_with_objects, :email]
 
     # list config
-    config.columns = [:avatar, :firstname, :lastname, :roles_without_objects, :roles_with_objects]
+    config.columns = [:id, :avatar, :firstname, :lastname, :roles_without_objects, :roles_with_objects]
     config.list.sorting = { :lastname => :asc }
 
     [config.update, config.create].each do |c|

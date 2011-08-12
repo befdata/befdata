@@ -4,10 +4,9 @@ class Admin::CategoriesController < Admin::AdminController
 
       config.show.link = false
       config.delete.link = false
-      config.search.link = false
       config.update.link.label = "Edit Category"
 
-      config.list.columns = [:description, :long,
+      config.list.columns = [:id, :description, :long,
                              :short, :comment, :tags]
 
       config.list.per_page = 1000
