@@ -14,56 +14,62 @@ class DatacolumnsController < ApplicationController
   # This method provides all neccessary informations
   # for the display of the Data Column approval pages.
   def edit
-    # Get the central Data Column object from the database.
-    @data_column ||= Datacolumn.find(params[:id])
-
-    # We're working with the Data Workbook, too. Thus, we have to load it.
-    @book = Dataworkbook.new(@data_column.dataset.upload_spreadsheet)
-
-    # We extract the column header to determine the available Data Groups from the Data Workbook.
-    columnheader = @data_column.columnheader
-    data_group_title = @book.method_index_for_columnheader(columnheader).blank? ? columnheader : @book.data_group_title(columnheader)
-    @data_groups_available = Datagroup.find_similar_by_title(data_group_title).delete_if{|d| d == @data_column.datagroup}
-
-    # Is the Data Group of this Data Column approved? If no, then render the Data Group approval partial.
-    unless @data_column.datagroup_approved?
-      render :partial => 'approve_datagroup' and return
-    end
-
-    # Is the Data Type of this Data Column approved? If no, then render the Data Type approval partial.
-    unless @data_column.datatype_approved?
-      render :partial => 'approve_datatype' and return
-    end
-
-    @dataset = @data_column.dataset
-    @cats_to_choose = @data_column.datagroup.datacell_categories
-    @cell_uniq_arr = @data_column.invalid_values
-
-    # User has to have a look on values that were marked as invalid
-    unless @cell_uniq_arr.blank?
-      render :partial => 'approve_categories' and return
-    end
-    # Collect all methods for the select tag.
-    @methods_short_list = Datagroup.find(:all, :order => "title").collect{|m| [m.title, m.id]}
-
-    # Gather the list of all Person Roles, sorted by their last name.
-    @people_list = User.find(:all, :order => :lastname)
-
-    # Collect the already linked people.
-    @ppl = @data_column.users
-
-    # Look into the spreadsheet, when there are no people linked.
-    if @ppl.blank?
-      # Look for people in the Data Workbook and link them to the Data Group.
-      ppl = @book.lookup_data_header_people(columnheader)
-      ppl = ppl.flatten.uniq
-      ppl.each do |user|
-        user.has_role! :responsible, @data_column
+    begin
+      # Get the central Data Column object from the database.
+      @data_column ||= Datacolumn.find(params[:id])
+  
+      # We're working with the Data Workbook, too. Thus, we have to load it.
+      @book = Dataworkbook.new(@data_column.dataset.upload_spreadsheet)
+  
+      # We extract the column header to determine the available Data Groups from the Data Workbook.
+      columnheader = @data_column.columnheader
+      data_group_title = @book.method_index_for_columnheader(columnheader).blank? ? columnheader : @book.data_group_title(columnheader)
+      @data_groups_available = Datagroup.find_similar_by_title(data_group_title).delete_if{|d| d == @data_column.datagroup}
+  
+      # Is the Data Group of this Data Column approved? If no, then render the Data Group approval partial.
+      unless @data_column.datagroup_approved?
+        render :partial => 'approve_datagroup' and return
       end
+  
+      # Is the Data Type of this Data Column approved? If no, then render the Data Type approval partial.
+      unless @data_column.datatype_approved?
+        render :partial => 'approve_datatype' and return
+      end
+  
+      @dataset = @data_column.dataset
+      @cats_to_choose = @data_column.datagroup.datacell_categories
+      @cell_uniq_arr = @data_column.invalid_values
+  
+      # User has to have a look on values that were marked as invalid
+      unless @cell_uniq_arr.blank?
+        render :partial => 'approve_categories' and return
+      end
+      # Collect all methods for the select tag.
+      @methods_short_list = Datagroup.find(:all, :order => "title").collect{|m| [m.title, m.id]}
+  
+      # Gather the list of all Person Roles, sorted by their last name.
+      @people_list = User.find(:all, :order => :lastname)
+  
+      # Collect the already linked people.
       @ppl = @data_column.users
+  
+      # Look into the spreadsheet, when there are no people linked.
+      if @ppl.blank?
+        # Look for people in the Data Workbook and link them to the Data Group.
+        ppl = @book.lookup_data_header_people(columnheader)
+        ppl = ppl.flatten.uniq
+        ppl.each do |user|
+          user.has_role! :responsible, @data_column
+        end
+        @ppl = @data_column.users
+      end
+      @step = 'five'
+      render :layout => false
+    rescue
+      # The tabbed display prevent the usual error messages from being displayed.
+      # We therefore catch all exceptions and display a generic error message along with the exception itself.
+      render :text => "Sorry, something went wrong! #{$!}"
     end
-    @step = 'five'
-    render :layout => false
   end
 
   # This method is called whenever someone clicks on the 'Save Data Group' Button
