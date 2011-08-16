@@ -61,7 +61,6 @@
           .hidden{:id => "form_freeformat_#{ff.id}"}
             = render :partial => 'freeformats/edit', :locals => {:freeformat => ff}
 
-
 - unless @measmeths.blank?
   .span-12.last
     %p The following data columns are available in the raw data part of this data set:
@@ -79,14 +78,11 @@
         - else
           %table.import_values
             %tr
-              %th.span-1.centercolumn
-                Row
               %th.span-4.last
                 Value
             - av.each_with_index do |sc, i|
               - even = (i % 2 == 0) 
               %tr
-                %td.centercolumn.span-1{:class => "#{even ? 'even' : 'odd'}"} #{i}
                 %td.span-4.last{:class => "#{even ? 'even' : 'odd'}"} #{sc.accepted_value}
         - u = @measmeths[key].users
         - unless u.blank?
