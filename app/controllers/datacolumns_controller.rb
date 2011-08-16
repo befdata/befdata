@@ -38,10 +38,10 @@ class DatacolumnsController < ApplicationController
   
       @dataset = @data_column.dataset
       @cats_to_choose = @data_column.datagroup.datacell_categories
-      @cell_uniq_arr = @data_column.invalid_values
+      @invalid_values_hash = @data_column.invalid_values
   
       # User has to have a look on values that were marked as invalid
-      unless @cell_uniq_arr.blank?
+      unless @invalid_values_hash.blank?
         render :partial => 'approve_categories' and return
       end
       # Collect all methods for the select tag.
@@ -208,7 +208,7 @@ class DatacolumnsController < ApplicationController
 
     same_entry_cells.each do |cell|
       old_cat = cell.category
-      cell.update_attributes(:category => cat, :comment => "valid")
+      cell.update_attributes(:category => cat, :comment => "valid", :status_id => Sheetcellstatus::PORTAL_MATCH)
       old_cat.destroy
     end
 

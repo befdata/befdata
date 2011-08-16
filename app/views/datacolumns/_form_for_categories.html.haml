@@ -1,11 +1,11 @@
 .span-8.last
-- @cell_uniq_arr.each do |cell|
+- @invalid_values_hash.each do |value, cell_ids|
   Category for value
-  %b= cell.import_value
+  %b= value
   = form_tag :action => 'update_category', :controller => 'datacolumns' do |form|
     %p.clear
       = hidden_field_tag :id, @data_column.id
-      = hidden_field_tag 'sheetcell[id]', cell.id
+      = hidden_field_tag 'sheetcell[id]', cell_ids.first
       = hidden_field_tag 'sheetcell[status_id]', Sheetcellstatus::PORTAL_MATCH
       = select_tag 'sheetcell[category_id]', options_from_collection_for_select(@cats_to_choose, 'id', 'verbose')
       %button.inline{:name => "commit", :type => "submit"} Save Category

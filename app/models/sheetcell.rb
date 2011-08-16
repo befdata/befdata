@@ -37,11 +37,9 @@ class Sheetcell < ActiveRecord::Base
   end
 
   def same_entry_cells
-    entry = self.import_value
-    data_column = self.datacolumn
-    all_cells = data_column.sheetcells
+    all_cells = self.datacolumn.sheetcells
     same_entry_cells = all_cells.
-      select{|cell|  cell.import_value == entry}.flatten
+      select{|cell| cell.import_value == self.import_value}.flatten
     return same_entry_cells
   end
 

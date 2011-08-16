@@ -133,7 +133,18 @@ class Datacolumn < ActiveRecord::Base
 
   # returns all the invalid uploaded sheetcells
   def invalid_values
-    return self.sheetcells.find(:all, :conditions => ["status_id = ?", Sheetcellstatus::INVALID])
+    # Get all the invalid sheetcells of this data column from the database
+    invalid_sheetcells = self.sheetcells.find(:all, :conditions => ["status_id = ?", Sheetcellstatus::INVALID])
+      
+    # No need to order the sheetcells if none were found
+    return Hash.new if invalid_sheetcells.blank? 
+    
+    # Create a new hash and preset the keys with empty arrays
+    invalid_values_hash = Hash.new {|h,k| h[k] = []}
+    
+    # Move all found sheetcell ids to the hash ordered by value
+    invalid_sheetcells.each{|sc| invalid_values_hash[sc.import_value] << sc.id}
+    return invalid_values_hash
   end
 
   # returns all unique categories available in the portal or the sheet for this column
