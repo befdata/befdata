@@ -68,10 +68,8 @@ class DatasetsController < ApplicationController
         # Calculate the start and end dates of field research
         @dataset.datemin = book.datemin
         @dataset.datemax = book.datemax
-        book.people_names_hash.each do |person| # starts at 0
-          users = User.find_all_by_firstname_and_lastname(person[:firstname], person[:lastname])
-          users.each{|user| user.has_role! :owner, @dataset}
-        end
+        book.give_owner_rights_to_members_listed_as_responsible(@dataset)
+        
       else # there already is context information for this file
         @dataset = datafile.dataset
       end

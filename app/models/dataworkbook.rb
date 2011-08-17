@@ -79,20 +79,21 @@ class Dataworkbook
     columnheaders_raw.length == columnheaders_raw.uniq.length
   end
 
-  # Returns a hash with all responsible people named in the Workbook.
-  def people_names_hash
-    # Determine number of responsible people in the Workbook.
-    # We subtract 1 because the first column contains only meta data not actual names.
-    n = Array(general_metadata_sheet.row(14)).length - 1 
+  def members_listed_as_responsible
+    given_names = general_metadata_sheet.row(14)
+    surnames  = general_metadata_sheet.row(15)
+    emails = general_metadata_sheet.row(16)
 
-    # Gather the first and last name of the reponsible people from the Workbook.
-    users = []
-    n.times do |i|
-      users << {:firstname => Array(general_metadata_sheet.column(i+1))[14], :lastname => Array(general_metadata_sheet.column(i+1))[15]}
+    users_from_sheet_with_row_header = given_names.zip surnames, emails
+    users_from_sheet = users_from_sheet_with_row_header.drop(1)
+    users_from_sheet
+  end
+
+  def give_owner_rights_to_members_listed_as_responsible(dataset)
+    members_listed_as_responsible.each do |member|
+      user_on_portal = User.find_by_firstname_and_lastname(member[0], member[1])
+      user_on_portal.has_role!(:owner, dataset) if user_on_portal
     end
-
-    # Return the users.
-    return users
   end
 
   # Returns an array of the tags that were in the respective cell.
@@ -291,21 +292,6 @@ class Dataworkbook
     return data_group
   end
 
-  # Once an import process was fired, 
-  # this method retrieves the count of already imported sheetcells per column.
-  def progress_hash
-    # Get all columns.
-    columns = @datafile.dataset.datacolumns
-    progress = {}
-    # For all columns, count the sheetcells.
-    columnheaders_raw.each do |columnheader|
-      progress[columnheader] = 0
-      c = columns.select{|c| c.columnheader == columnheader}.first
-      # Doing this directly in SQL is mind boggingly faster than doing this via ActiveRecord.
-      count_query = "SELECT count(*) FROM sheetcells WHERE datacolumn_id = #{c.id}"
-      values = c.blank? ? 0 : ActiveRecord::Base.connection.execute(count_query).column_values(0).first
-    end
-  end
 
   # Return the complete column from the raw data sheet for a given columnheader,
   # including the header again.
