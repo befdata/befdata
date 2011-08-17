@@ -184,7 +184,7 @@ class DatasetsController < ApplicationController
   
     if @dataset.datacolumns.length == 0
       @just_uploaded = true
-      @book.import_data(@dataset.id)
+      @book.import_data(@dataset.id, current_user)
       load_dataset #reload
     end
 

@@ -141,7 +141,7 @@ class Dataworkbook
   # The method that loads the Workbook into the database.
   # This is a class method for a reason:
   # To be called by a background worker like resque, this method can't be an instance method.  
-  def import_data(dataset_id)
+  def import_data(dataset_id, user)
     # Since this is a class method, we have to instantiate an object first.
     book = Dataworkbook.new(Dataset.find(dataset_id).upload_spreadsheet)
 
@@ -156,7 +156,7 @@ class Dataworkbook
       unless all_cells_for_one_column.blank?
 
         save_all_cells_to_database(dataset_id, data_column_new, datatype, all_cells_for_one_column)
-        add_any_sheet_categories_included_for_this_column(columnheader, data_column_new, dataset_id)
+        add_any_sheet_categories_included_for_this_column(columnheader, data_column_new, dataset_id, user)
 
       end
       data_column_new.finished = true
@@ -200,7 +200,7 @@ class Dataworkbook
     Sheetcell.import(sheetcells_to_be_saved)
   end
 
-  def add_any_sheet_categories_included_for_this_column(columnheader, data_column_new, dataset_id)
+  def add_any_sheet_categories_included_for_this_column(columnheader, data_column_new, dataset_id, user)
     sheet_categories = sheet_categories_for_columnheader(columnheader)
     unless sheet_categories.blank?
       dataset = Dataset.find(dataset_id)
@@ -217,7 +217,7 @@ class Dataworkbook
                                     :long => cat[:long],
                                     :description => cat[:description],
                                     :datagroup_id => scm_datagroup_id,
-                                    :user_id => 1,
+                                    :user_id => user.id,
                                     :comment => comment,
                                     :status_id => Categorystatus::CATEGORY_SHEET)
           if !import_cat.nil?

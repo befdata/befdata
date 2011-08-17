@@ -88,7 +88,7 @@ class Datacolumn < ActiveRecord::Base
   # then looking for a match in categories from the datasheet
   # if there are no category matches then the import value is used as the accepted value
   # NB: all of the business logic is in functions within the database
-  def add_data_values
+  def add_data_values(user)
 
     # store the sheet category match data group id as this makes the SQL faster since it's one less join
     scm_datagroup_id = Datagroup.find_sheet_category_match().id
@@ -122,7 +122,7 @@ class Datacolumn < ActiveRecord::Base
       unless dataset.nil?
         comment = dataset.title
       end
-      sql = "select accept_datacolumn_values(#{datatype.id}, #{id}, #{datagroup_id}, #{scm_datagroup_id}, 1, '#{comment}')"
+      sql = "select accept_datacolumn_values(#{datatype.id}, #{id}, #{datagroup_id}, #{scm_datagroup_id}, #{user.id}, '#{comment}')"
     end
 
     begin
