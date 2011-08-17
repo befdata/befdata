@@ -117,32 +117,15 @@ class DatasetsController < ApplicationController
 
   def show
 
-    # Assemble context owners
-    @contacts = @dataset.users.select{|p| p.has_role?(:owner, @dataset)}
-
+    @contacts = @dataset.owners
     @projects = @dataset.projects.uniq
-
-    @header = @dataset.headers
-
-    @measmeths = {}
-    @measurements = {}
-    @methodtitles = {}
-
-    @header.each do |h|
-      mm = tmp.select{|mm| mm.columnheader == h}.first
-      @measmeths[h] = mm
-      # SR - commented out line below as it doesn't seem to be used anywhere
-      #@measurements[h] = Sheetcell.find(:all, :conditions => [ "datacolumn_id = ?", mm.id ])
-      @methodtitles[h] = tmp.select{|mm| mm.columnheader == h}.first.datagroup.title
-    end
-
-    # collecting the free formats associated to this data set
     @freeformats = @dataset.freeformats
+    @datacolumns = @dataset.datacolumns
 
     # The determination of Vip or Vop status only makes sense if the
     # current user is logged in
     #ToDo Was macht das?
-    @submethod_list_user = []
+    # @submethod_list_user = []
     #    if logged_in?
     #      # This loop checks the Vip/Vop-status for every PersonRole, the
     #      # current user plays.  If any status is found, the view renders

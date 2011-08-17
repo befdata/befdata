@@ -149,5 +149,9 @@ class Dataset < ActiveRecord::Base
     #  datafile.destroy
     #end
   end
+
+  def owners
+    self.users.select{|u| u.has_role?(:owner, self)}
+  end
   
 end

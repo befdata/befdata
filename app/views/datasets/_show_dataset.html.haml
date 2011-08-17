@@ -61,17 +61,17 @@
           .hidden{:id => "form_freeformat_#{ff.id}"}
             = render :partial => 'freeformats/edit', :locals => {:freeformat => ff}
 
-- unless @measmeths.blank?
+- if @datacolumns
   .span-12.last
     %p The following data columns are available in the raw data part of this data set:
-    - @header.each_with_index do |key, i|
+    - @datacolumns.each_with_index do |column, i|
       .span-4.dataset_columns{:class => (i + 1) % 3 == 0 ? 'last' : 'border'}
-        .columnheader= @measmeths[key].columnheader
-        #{@measmeths[key].definition}
+        .columnheader= column.columnheader
+        = column.definition
         %br
-        %i Data group: #{@methodtitles[key].humanize}
+        %i Data group: #{column.datagroup.title}
         %br
-        - av = @measmeths[key].accepted_values(5)
+        - av = column.accepted_values(5)
         - if av.kind_of?(String)
           %img{:src => '/images/error.png'}
           = av
@@ -81,10 +81,10 @@
               %th.span-4.last
                 Value
             - av.each_with_index do |sc, i|
-              - even = (i % 2 == 0) 
+              - even = (i % 2 == 0)
               %tr
                 %td.span-4.last{:class => "#{even ? 'even' : 'odd'}"} #{sc.accepted_value}
-        - u = @measmeths[key].users
+        - u = column.users
         - unless u.blank?
           %i Responsible for this Data Column:
-          #{u.map{|person| link_to person, user_path(person.path_name)}.to_sentence.html_safe}
+          = u.map{|person| link_to person, user_path(person.path_name)}.to_sentence.html_safe
