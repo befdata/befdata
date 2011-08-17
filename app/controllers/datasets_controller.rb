@@ -116,12 +116,6 @@ class DatasetsController < ApplicationController
   end
 
   def show
-    begin
-      @dataset = Dataset.find(params[:id])
-    rescue ActiveRecord::RecordNotFound
-      # No context with this id exists
-      redirect_to data_path and return
-    end
 
     # Assemble context owners
     @contacts = @dataset.users.select{|p| p.has_role?(:owner, @dataset)}
