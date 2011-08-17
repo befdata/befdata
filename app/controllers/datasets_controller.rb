@@ -569,9 +569,10 @@ class DatasetsController < ApplicationController
   end
 
   # Creates the fourth sheet of a context file, the one that contains
-  # the categoric descriptions.  If no Method are given, all
+  # the categoric descriptions.  If no Columns  are given, all
   # appropriate categories of the context will be listed.
-  def create_categorysheet(book, dataset, formats, methods = nil)
+  # Note: Columns were earlier called methods
+  def create_categorysheet(book, dataset, formats, columns = nil)
     # This action canot be called externally.
 
     sheet = book.create_worksheet :name => 'column categories'
@@ -583,39 +584,27 @@ class DatasetsController < ApplicationController
     sheet[0,2] = "Category long"
     sheet[0,3] = "Category description"
 
-    if methods
-      # If methods are given, use the given methods.
-      mms = methods
+    if columns
+      cols = columns
     else
-      # If no methods are given, use all methods of the context.
-      mms = Datacolumn.find(:all, :conditions => ["dataset_id = ?", dataset.id], :order => "columnnr ASC")
+      cols = Datacolumn.find(:all, :conditions => ["dataset_id = ?", dataset.id], :order => "columnnr ASC")
     end
 
-    mms_cat = []
-    mms.each do |mm|
-      # Each MeasurementsMethodstep is tested if it contains categories.
-      # If it's categoric, we want to have this MeasurementsMethodstep.
-      firstMeas = mm.sheetcells.first
-      unless firstMeas.nil?
-        if firstMeas.value_type == "Categoricvalue"
-          mms_cat << mm
-        end
-      end
-    end
-    mms_cat = mms_cat.uniq
+    category_cols = cols.select{|c| (c.sheetcells.first != nil) && (c.sheetcells.first.datatype.is_category?) && (c.datatype_approved)}.uniq
 
     row = 1
-    m_old = []
-    mms_cat.each do |step|
-      step.sheetcells.sort{|a,b| a.value.short <=> b.value.short}.each do |m|
-        unless m_old.include?(m.value.long) || m.value.long == m.value.description
+    processed_categories = []
+    
+    category_cols.each do |category_col|
+      category_col.sheetcells.sort{|a,b| a.category.short <=> b.category.short}.each do |sheetcell|
+        unless processed_categories.include?(sheetcell.category.long) || sheetcell.category.long == sheetcell.category.description
           sheet.row(row).default_format = formats[:dataformat]
-          sheet[row,0] = step.columnheader
-          sheet[row,1] = m.value.short
-          sheet[row,2] = m.value.long
-          sheet[row,3] = m.value.description
+          sheet[row,0] = category_col.columnheader
+          sheet[row,1] = sheetcell.category.short
+          sheet[row,2] = sheetcell.category.long
+          sheet[row,3] = sheetcell.category.description
 
-          m_old << m.value.long
+          processed_categories << sheetcell.category.long
           row += 1
         end
       end

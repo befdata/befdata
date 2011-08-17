@@ -47,7 +47,7 @@ class Sheetcell < ActiveRecord::Base
   # we need to check that the category exists as it might not
   def show_value
     if(!self.datatype.nil?)
-      if(self.datatype.iscategory && !self.category.nil?)
+      if(self.datatype.is_category? && !self.category.nil?)
         return self.category.show_value
       else
         # todo: we should format the field based on the datatype
