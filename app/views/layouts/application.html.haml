@@ -39,10 +39,10 @@
     .container
       #content
         - if flash[:error]
-          #error.span-11
+          #error
             = flash[:error]
         - if flash[:notice]
-          #notice.span-11
+          #notice
             = flash[:notice]
         = yield
     #footer

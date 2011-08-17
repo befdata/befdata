@@ -277,15 +277,16 @@ a img {
 
 #error {
 	border: 1px solid #f00;
-	width: 900px;
-	padding: 20px;
-	margin-bottom: 20px;
+	padding: 10px;
+	margin: 10px 0px;
+	width: 100%;
 }
 
 #notice {
 	border: 1px solid #699c4d;
 	padding: 10px;
-	margin: 10px;
+	margin: 10px 0px;
+	width: 100%;
 }
 
 .post {
