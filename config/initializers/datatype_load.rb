@@ -6,7 +6,8 @@ class Datatypehelper
                          Datatype.new(3, "date(2009-07-14)", "yyyy.mm.dd"),
                          Datatype.new(4, "date(14.07.2009)", "dd.mm.yyyy"),
                          Datatype.new(5, "category", ""),
-                         Datatype.new(7, "number", "")
+                         Datatype.new(7, "number", ""),
+                         Datatype.new(8, "unknown", "")
                         ]
 
   # A little helper method to extract a datatype from the collection by name
@@ -17,7 +18,7 @@ class Datatypehelper
     DATATYPE_COLLECTION.each{ |dt| found = dt if dt.name == name }
       
     # Fallback for the event of not finding a datatype for this name
-    found = DATATYPE_COLLECTION.select{|dt| dt.name == 'category'}.shift unless found
+    found = DATATYPE_COLLECTION.select{|dt| dt.name == 'unknown'}.shift unless found
       
     return found
   end
@@ -30,7 +31,7 @@ class Datatypehelper
     DATATYPE_COLLECTION.each{ |dt| found = dt if dt.id == id }
 
     # Fallback for the event of not finding a datatype for this id
-    found = DATATYPE_COLLECTION.select{|dt| dt.id == 5}.shift unless found
+    found = DATATYPE_COLLECTION.select{|dt| dt.id == 8}.shift unless found
 
     return found
   end

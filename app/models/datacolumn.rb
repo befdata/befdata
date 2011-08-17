@@ -106,15 +106,23 @@ class Datacolumn < ActiveRecord::Base
           datatype = Datatypehelper.find_by_id(4)
         when "category"
           datatype = Datatypehelper.find_by_id(5)
-        else
+        when "number"
           datatype = Datatypehelper.find_by_id(7)
+      else
+        #unknown
+        datatype = Datatypehelper.find_by_id(8)
       end
     # I would like to change this so that the SQL is in one function but it wasn't working
     # TODO: I will look at this again - SR
     if(datatype.name == "text") then
       sql = "select accept_text_datacolumn_values(#{id})"
     else
-      sql = "select accept_datacolumn_values(#{datatype.id}, #{id}, #{datagroup_id}, #{scm_datagroup_id})"
+      dataset = Dataset.find(self.dataset_id)
+      comment = ""
+      unless dataset.nil?
+        comment = dataset.title
+      end
+      sql = "select accept_datacolumn_values(#{datatype.id}, #{id}, #{datagroup_id}, #{scm_datagroup_id}, 1, '#{comment}')"
     end
 
     begin

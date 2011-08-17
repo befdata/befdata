@@ -156,7 +156,7 @@ class Dataworkbook
       unless all_cells_for_one_column.blank?
 
         save_all_cells_to_database(dataset_id, data_column_new, datatype, all_cells_for_one_column)
-        add_any_sheet_categories_included_for_this_column(columnheader, data_column_new)
+        add_any_sheet_categories_included_for_this_column(columnheader, data_column_new, dataset_id)
 
       end
       data_column_new.finished = true
@@ -200,9 +200,14 @@ class Dataworkbook
     Sheetcell.import(sheetcells_to_be_saved)
   end
 
-  def add_any_sheet_categories_included_for_this_column(columnheader, data_column_new)
+  def add_any_sheet_categories_included_for_this_column(columnheader, data_column_new, dataset_id)
     sheet_categories = sheet_categories_for_columnheader(columnheader)
     unless sheet_categories.blank?
+      dataset = Dataset.find(dataset_id)
+      comment = ""
+      unless dataset.nil?
+        comment = dataset.title
+      end
       sheet_categories.each do | cat |
         # the category should be unique within the selected datagroup
         scm_datagroup_id = Datagroup.sheet_category_match.first.id if !Datagroup.sheet_category_match.first.nil?
@@ -213,6 +218,7 @@ class Dataworkbook
                                     :description => cat[:description],
                                     :datagroup_id => scm_datagroup_id,
                                     :user_id => 1,
+                                    :comment => comment,
                                     :status_id => Categorystatus::CATEGORY_SHEET)
           if !import_cat.nil?
             unique_cat = import_cat
@@ -380,7 +386,8 @@ class Dataworkbook
     for i in 0 .. header.length-1 do
       unless header[i].nil?
         if header[i] == columnheader
-          short_text = short[i]
+          d = convert_to_string(short[i])
+          short_text = d unless d.nil?
           #short_text = short_text.to_i.to_s if integer?(short_text)
           provided_hash = {:short => short_text,
                             :long => long[i],
@@ -405,14 +412,8 @@ class Dataworkbook
   def generate_data_hash(data_array)
     data_hash = {}
     data_array.each_index do |x|
-      d = data_array[x]
-      if d.class == Spreadsheet::Formula
-        d = d.value
-      elsif d.class == Spreadsheet::Excel::Error
-        d = "Error in Excel Formula"
-      end
+      d = convert_to_string(data_array[x])
       row = x + 1
-      d = d.to_i.to_s if Integer(d) rescue false
       data_hash[row] = d unless d.nil?
     end
     # deleting the first row which contains the column header and not
@@ -420,6 +421,19 @@ class Dataworkbook
     data_hash.delete_if{|k,v| k == 1}
 
     return data_hash
+  end
+
+  def convert_to_string(input)
+    unless input.nil?
+      if input.class == Spreadsheet::Formula
+          input = input.value
+      elsif input.class == Spreadsheet::Excel::Error
+        input = "Error in Excel Formula"
+      end
+      input = input.to_i.to_s if Integer(input) rescue false
+    end
+
+    return input
   end
 
 end
