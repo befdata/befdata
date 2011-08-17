@@ -192,8 +192,7 @@ class DatasetsController < ApplicationController
   
   # Downloading one free format file from within the "show" view
   def download_freeformat
-    # @freeformat = Freeformat.find(params[:id])  # before filter
-    send_file @freeformat.file.path, :type => @freeformat.file_content_type, :disposition => 'inline'
+    send_file @freeformat.file.path
   end
 
   # This action assembles a requested context, or a part of it, at

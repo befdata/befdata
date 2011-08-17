@@ -9,7 +9,7 @@ class DatafilesController < ApplicationController
 
   def download
    @file = Datafile.find(params[:id])
-   send_file @file.file.path, :type => @file.file_content_type, :disposition => 'inline'
+   send_file @file.file.path
   end
 
 end
