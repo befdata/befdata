@@ -101,10 +101,4 @@ class Datagroup < ActiveRecord::Base
     return match
   end
 
-  def self.find_similar_by_title(title)
-
-    # find suitable methods already available
-    methods_available = Datagroup.find_all_by_title(title)
-    #methods_available = [Datagroup.helper_method] unless methods_available
-  end
 end

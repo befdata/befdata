@@ -58,7 +58,7 @@ class ImportsController < ApplicationController
     columnheader = @data_column.columnheader
 
     data_group_title = @book.method_index_for_columnheader(columnheader).blank? ? columnheader : @book.data_group_title(columnheader)
-    @data_groups_available = Datagroup.find_similar_by_title(data_group_title)
+    @data_groups_available = Datagroup.find_all_by_title(data_group_title)
 
     # collect all methods for the select button
     @methods_short_list = Datagroup.find(:all, :order => "title").collect{|m| [m.title, m.id]}
