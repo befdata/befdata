@@ -597,7 +597,7 @@ class DatasetsController < ApplicationController
     
     category_cols.each do |category_col|
       category_col.sheetcells.sort{|a,b| a.category.short <=> b.category.short}.each do |sheetcell|
-        unless processed_categories.include?(sheetcell.category.long) || sheetcell.category.long == sheetcell.category.description
+        unless processed_categories.include?(sheetcell.category.long)
           sheet.row(row).default_format = formats[:dataformat]
           sheet[row,0] = category_col.columnheader
           sheet[row,1] = sheetcell.category.short
@@ -613,22 +613,20 @@ class DatasetsController < ApplicationController
 
   # Creates the last sheet of a context file, the one that contains the raw data.
   # If no Method are given, all people of the context will be listed.
-  def create_datasheet (book, dataset, formats, methods = nil)
+  def create_datasheet (book, dataset, formats, columns = nil)
     # This action canot be called externally.
 
     sheet = book.create_worksheet :name => 'Raw data'
 
-    if methods
-      # If methods are given, use the given methods.
-      mms = methods
+    if columns
+      datacols = columns
     else
-      # If no methods are given, use all methods of the context.
-      mms = Datacolumn.find(:all, :conditions => ["dataset_id = ?", dataset.id], :order => "columnnr ASC")
+      datacols = Datacolumn.find(:all, :conditions => ["dataset_id = ?", dataset.id], :order => "columnnr ASC")
     end
 
     column = 0
-    mms.each do |datacolumn|
-      if methods
+    datacols.each do |datacolumn|
+      if columns
         # If only some methods are rendered, each
         # MeasurementsMethodstep is rendered from the beginning of the
         # page

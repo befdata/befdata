@@ -23,3 +23,4 @@ glob:*DO_NOT_EDIT
 .project
 .rvmrc
 test/fixtures_dump
+glob:.bundle/config
