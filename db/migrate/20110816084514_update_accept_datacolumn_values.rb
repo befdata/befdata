@@ -3,6 +3,21 @@ class UpdateAcceptDatacolumnValues < ActiveRecord::Migration
     execute <<-SQL
 
 --
+-- Name: insert_sheet_category(integer, integer, integer, text); Type: FUNCTION; Schema: public; Owner: -
+--
+
+CREATE OR REPLACE FUNCTION insert_sheet_category(sheetcategory_id integer, datagroup_id integer, status_id integer, import_value text) RETURNS integer
+LANGUAGE sql
+AS $_$
+  insert into categories (short, long, description, comment, created_at, updated_at, datagroup_id, user_id, status_id)
+	(select short, long, description, comment, now() as created_at, now() as updated_at, $2 as datagroup_id, user_id, $3 as status_id
+		from categories where id = $1);
+
+  select id from categories where (short=$4 or long=$4) and datagroup_id = $2;$_$;
+
+
+
+--
 -- Name: accept_datacolumn_values(integer, integer, integer, integer, integer, text); Type: FUNCTION; Schema: public; Owner: -
 --
 
@@ -70,19 +85,6 @@ CREATE OR REPLACE FUNCTION accept_datacolumn_values(datatype_id integer, datacol
                 and sheetcells.datacolumn_id=$2 and c.datagroup_id = $3 and sheetcells.category_id is null and sheetcells.accepted_value is null
 
                   returning true$_$;
-
---
--- Name: insert_sheet_category(integer, integer, integer, text); Type: FUNCTION; Schema: public; Owner: -
---
-
-CREATE OR REPLACE FUNCTION insert_sheet_category(sheetcategory_id integer, datagroup_id integer, status_id integer, import_value text) RETURNS integer
-LANGUAGE sql
-AS $_$
-  insert into categories (short, long, description, comment, created_at, updated_at, datagroup_id, user_id, status_id)
-	(select short, long, description, comment, now() as created_at, now() as updated_at, $2 as datagroup_id, user_id, $3 as status_id
-		from categories where id = $1);
-
-  select id from categories where (short=$4 or long=$4) and datagroup_id = $2;$_$
 
     SQL
   end
