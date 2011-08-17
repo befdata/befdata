@@ -109,13 +109,6 @@ class Dataset < ActiveRecord::Base
     self.sheetcells.collect{|cell| cell.observation_id}.uniq
   end
 
-  # This is a virtual column to display the count of downloads of this
-  # dataset.  !! this column should be replaced by an own link tabel
-  # dataset_downloads
-  def download_counter
-    "Downloads: #{self.downloads}"
-  end
-
 
   # This method delete all necessary object which containts to this dataset
   # so its possible to upload a new datafile
