@@ -42,6 +42,15 @@ class DatasetsController < ApplicationController
     end
   end
 
+  def access_denied
+    if current_user then
+      flash[:notice] = 'Access denied. You do not have permission to download this file.'
+    else
+      flash[:notice] = 'Access denied. Maybe try to login first.'
+      redirect_to login_path
+    end
+  end
+
   def create
     datafile = Datafile.new(params[:datafile])
 
