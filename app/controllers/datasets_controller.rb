@@ -122,9 +122,7 @@ class DatasetsController < ApplicationController
 
     @projects = @dataset.projects.uniq
 
-    tmp = Datacolumn.find(:all, :conditions => [ "dataset_id = ?", params[:id] ],
-    :order => 'columnnr ASC')
-    @header = tmp.map{|d| d.columnheader }.uniq
+    @header = @dataset.headers
 
     @measmeths = {}
     @measurements = {}
