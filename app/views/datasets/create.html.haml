@@ -4,13 +4,19 @@
 .active-scaffold
   - if @step == 1
     - if @dataset.valid?
-      = select "person", "person_id", @people_list.map{|p| [p.to_label, |
-        p.id]}, {}, {:onchange => 'selectPeople(this)'}                 |
       - form_tag url_for(:controller => :datasets, :action => :upload) do
         = error_messages_for :datasets, :object_name => @dataset.class.human_name.downcase
         = hidden_field_tag 'step', '1'
         = hidden_field_tag 'dataset_id', @dataset.id
-        %ul
+        %h4 Dataset title
+        %dl
+          %dt= label_tag 'title', nil
+          %dd= text_field_tag 'title', @dataset.title, :class => 'text-input'
+        %h4 Provenance information
+        %dl
+          %dt= label_tag 'Select people', nil
+          %dd= select "person", "person_id", @people_list.map{|p| [p.to_label, p.id]}, {}, {:onchange => 'selectPeople(this)'}
+        %ul#people-list{:style => 'list-style: none;'}
           - @dataset.users.each do |user|
             %li{:onclick => "this.parentNode.removeChild(this);"}
               %input{:name => "people[]", :type => "hidden", :value => user.id}/
@@ -23,9 +29,7 @@
         %dl
           %dt= label_tag 'comment'
           %dd= text_area_tag 'comment', @dataset.comment, :size => '40x7', :class => 'text-input'
-        %dl
-          %dt= label_tag 'title', nil
-          %dd= text_field_tag 'title', @dataset.title, :class => 'text-input'
+        %h4 General Metadata 
         %dl
           %dt= label_tag 'projecttag_list', nil
           %dd= text_field_tag 'projecttag_list', @dataset.projecttag_list, :class => 'text-input'

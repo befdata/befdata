@@ -3,7 +3,7 @@
 
 function selectPeople(select) {
     var option = select.options[select.selectedIndex];
-    var ul = select.parentNode.getElementsByTagName('ul')[0];
+    var ul = document.getElementById('people-list');
     var choices = ul.getElementsByTagName('input');
     for (var i = 0; i < choices.length; i++) if (choices[i].value == option.value) return;
     var image = document.createElement('img');

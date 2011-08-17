@@ -4,7 +4,7 @@
     .span-3= label_tag 'people', 'People'
     .span-3.last
     = select "person", "person_id", @people_list.map{|p| [p.to_label, p.id]}, {}, {:onchange => 'selectPeople(this)'}
-    %ul{:style => 'list-style: none;'}
+    %ul#people-list{:style => 'list-style: none;'}
       - @ppl.each do |person|
         %li{:onclick => "this.parentNode.removeChild(this);"}
           %input{:name => "people[]", :type => "hidden", :value => person.id}/
