@@ -162,7 +162,7 @@ class DatacolumnsController < ApplicationController
     @data_column.update_attributes(params[:datacolumn])
 
     # Selecting a datatype means that imported values can now be safely moved to stored values.
-    @data_column.add_data_values
+    @data_column.add_data_values(current_user)
 
     # Update the datatype approval flag and save.
     @data_column.datatype_approved = true
@@ -204,7 +204,7 @@ class DatacolumnsController < ApplicationController
 
     # category
     cat = first_cell.category
-    cat.update_attributes(:status_id => Categorystatus::MANUALLY_APPROVED)
+    cat.update_attributes(:status_id => Categorystatus::MANUALLY_APPROVED, :user_id => current_user.id)
 
     same_entry_cells.each do |cell|
       old_cat = cell.category

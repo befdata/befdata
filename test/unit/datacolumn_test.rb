@@ -40,7 +40,7 @@ class DatacolumnTest < ActiveSupport::TestCase
 
   test "accept_text_datacolumn_values" do
     datacolumn = Datacolumn.find(41)
-    datacolumn.add_data_values()
+    datacolumn.add_data_values(User.find(1))
 
     datacolumn.sheetcells.each do |cell|
       assert(cell.import_value == cell.accepted_value)
@@ -50,7 +50,7 @@ class DatacolumnTest < ActiveSupport::TestCase
 
   test "accept_number_datacolumn_values" do
     datacolumn = Datacolumn.find(42)
-    datacolumn.add_data_values()
+    datacolumn.add_data_values(User.find(1))
 
     valid_numbers=0
     datacolumn.sheetcells.each do |cell|
@@ -71,7 +71,7 @@ class DatacolumnTest < ActiveSupport::TestCase
 
   test "accept_date_1_datacolumn_values" do
     datacolumn = Datacolumn.find(43)
-    datacolumn.add_data_values()
+    datacolumn.add_data_values(User.find(1))
 
     valid_dates=0
     datacolumn.sheetcells.each do |cell|
@@ -92,7 +92,7 @@ class DatacolumnTest < ActiveSupport::TestCase
 
   test "accept_year_datacolumn_values" do
     datacolumn = Datacolumn.find(44)
-    datacolumn.add_data_values()
+    datacolumn.add_data_values(User.find(1))
 
     valid_years=0
     datacolumn.sheetcells.each do |cell|
@@ -113,7 +113,7 @@ class DatacolumnTest < ActiveSupport::TestCase
 
   test "accept_sheet_match_category_datacolumn_values" do
     datacolumn = Datacolumn.find(45)
-    datacolumn.add_data_values()
+    datacolumn.add_data_values(User.find(1))
 
     sheet_match_count = 0
     invalid_count = 0
@@ -131,7 +131,7 @@ class DatacolumnTest < ActiveSupport::TestCase
 
   test "accept_category_datacolumn_values" do
     datacolumn = Datacolumn.find(46)
-    datacolumn.add_data_values()
+    datacolumn.add_data_values(User.find(1))
 
     sheet_match_count = 0
     invalid_count = 0
@@ -153,7 +153,7 @@ class DatacolumnTest < ActiveSupport::TestCase
 
   test "accept_date_2_datacolumn_values" do
     datacolumn = Datacolumn.find(47)
-    datacolumn.add_data_values()
+    datacolumn.add_data_values(User.find(1))
 
     valid_dates=0
     datacolumn.sheetcells.each do |cell|
@@ -174,7 +174,7 @@ class DatacolumnTest < ActiveSupport::TestCase
 
   test "accept_number_2_datacolumn_values" do
     datacolumn = Datacolumn.find(48)
-    datacolumn.add_data_values()
+    datacolumn.add_data_values(User.find(1))
 
     valid_numbers=0
     datacolumn.sheetcells.each do |cell|
