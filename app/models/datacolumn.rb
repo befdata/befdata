@@ -66,16 +66,12 @@ class Datacolumn < ActiveRecord::Base
 
   # returns the first 'count' number unique accepted values
   def accepted_values(count)
-    if(self.values_stored?)
-      values = self.sheetcells.find(:all, :limit => count,
-                                          :joins => "LEFT OUTER JOIN categories ON categories.id = sheetcells.category_id" ,
-                                          :select => "distinct case when sheetcells.category_id > 0 then categories.short else sheetcells.accepted_value end as accepted_value",
-                                          :order => "accepted_value")
+    values = self.sheetcells.find(:all, :limit => count,
+                                        :joins => "LEFT OUTER JOIN categories ON categories.id = sheetcells.category_id" ,
+                                        :select => "distinct case when sheetcells.category_id > 0 then categories.short else sheetcells.accepted_value end as accepted_value",
+                                        :order => "accepted_value")
 
-      return values
-    else
-      return "No values yet imported for this data column"
-    end
+    return values
   end
 
   # This method provides a nice look of MeasurementsMethodstep in admin views

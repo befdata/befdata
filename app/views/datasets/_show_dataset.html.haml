@@ -71,18 +71,17 @@
         %br
         %i Data group: #{column.datagroup.title}
         %br
-        - accepted_values = column.accepted_values(5)
-        - if accepted_values.kind_of?(String)
-          %img{:src => '/images/error.png'}
-          = accepted_values
-        - else
+        - if column.values_stored?
           %table.import_values
             %tr
-              %th.span-4.last
-                Value
-            - accepted_values.each do |sc|
+              %th.span-4.last= "Values"
+            - column.accepted_values(5).each do |sc|
               %tr
                 %td.span-4.last{:class => cycle('even', 'odd')} #{sc.accepted_value}
+        -else
+          %img{:src => '/images/error.png'}
+          = "No values yet imported for this data column"
+
         - u = column.users
         - unless u.blank?
           %i Responsible for this Data Column:
