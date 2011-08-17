@@ -33,22 +33,6 @@ class Datacolumn < ActiveRecord::Base
     return rownr_entry_hash
   end
 
-  # Sorts measurements along rownr (from Observation) and then returns
-  # a sorted array.
-  def measurements_sorted
-    # !! Zeitfresser ??
-    ms = Sheetcell.find_all_by_datacolumn_id(self.id, :include => :observation, :include => :category)
-    ms = ms.sort_by{|m| m.observation.rownr}
-    # ms = self.measurements.sort_by{bm| m.observation.rownr}
-    ms
-  end
-
-  # Are there categories associated to the measurements of this data column instance?
-  def categories_uploaded?
-    ms = self.sheetcells.find(:all, :conditions => ["category_id > 0"])
-    return !ms.empty?
-  end
-
   # Are there values associated to the measurements of this data column instance?
   def values_stored?
     ms = self.sheetcells.find(:all, :conditions => ["accepted_value IS NOT NULL OR accepted_value !='' OR category_id > 0"])
@@ -72,11 +56,6 @@ class Datacolumn < ActiveRecord::Base
                                         :order => "accepted_value")
 
     return values
-  end
-
-  # This method provides a nice look of MeasurementsMethodstep in admin views
-  def long_label
-    "(#{columnheader}, id: #{id}) #{definition}"
   end
 
   # saves the accepted values for each sheetcell in the column
@@ -151,10 +130,6 @@ class Datacolumn < ActiveRecord::Base
     return invalid_values_hash
   end
 
-  # returns all unique categories available in the portal or the sheet for this column
-  def available_categories
-
-  end
 
   def to_label
     columnheader
