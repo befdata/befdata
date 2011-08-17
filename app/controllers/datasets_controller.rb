@@ -630,7 +630,7 @@ class DatasetsController < ApplicationController
     if columns
       datacols = columns
     else
-      datacols = Datacolumn.find(:all, :conditions => ["dataset_id = ?", dataset.id], :order => "columnnr ASC")
+      datacols = Datacolumn.find(:all, :conditions => ["dataset_id = ?", dataset.id], :order => "columnnr ASC").uniq
     end
 
     column = 0
@@ -648,27 +648,17 @@ class DatasetsController < ApplicationController
       # Columnheader comes first
       sheet[0,column-1] = datacolumn.columnheader if datacolumn.columnheader
 
-      datacolumn.sheetcells.each do |m|
-        # Each Measurement is rendered in its proper cell
-        if m.value_type == "Datetimevalue"
-          if datacolumn.import_data_type == "year"
-            value = m.value.year
-          elsif datacolumn.import_data_type == "date(14.07.2009)"
-            value = m.value.date.to_date.to_s
-          elsif datacolumn.import_data_type == "date(2009-07-14)"
-            value = m.value.date.to_date.to_s
+      if datacolumn.datatype_approved then
+        datacolumn.sheetcells.each do |sheetcell|
+          if sheetcell.datatype.is_category?
+            value = sheetcell.category.short
+          elsif sheetcell.datatype.to_s.match /^date/
+            value = sheetcell.accepted_value.to_date.to_s
+          else
+            value = sheetcell.accepted_value
           end
-        else
-          value = case m.value_type
-          when "Categoricvalue" then m.value.short
-          when "Numericvalue" then m.value.number
-          when "Datetimevalue" then m.value.year
-          when "Textvalue" then m.value.text
-          when "Datafile" then m.file_file_name
-          end
+          sheet[sheetcell.observation.rownr-1,column-1] = value if value
         end
-
-        sheet[m.observation.rownr-1,column-1] = value if value
       end
     end
   end
