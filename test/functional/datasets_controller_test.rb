@@ -36,14 +36,11 @@ class DatasetsControllerTest < ActionController::TestCase
   # Freeformats
 
   test "download freeformat dataset should work" do
-#    TODO This test fails because the fixtures have a freeformat file name that wont exist on you disc.
-#    # Arrange
-#    login_nadrowski
-#    f = Dataset.all.select{|d| d.freeformats.count > 0}.first.freeformats.first
-#    # Act
-#    get :download_freeformat, :id => f.id
-#    #Assert
-#    assert :success
+    login_nadrowski
+
+    get :download_freeformat, :id => Freeformat.first
+
+    assert :success
   end
 
   test "freeformat download error message if inappropriate rights" do

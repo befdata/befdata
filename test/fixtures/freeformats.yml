@@ -2,11 +2,11 @@
 freeformats_001: 
   created_at: 2011-07-19 15:05:02.207372
   updated_at: 2011-07-19 15:05:02.761618
-  file_file_size: "88576"
+  file_file_size: "0"
   file_content_type: application/vnd.ms-excel
   dataset_id: "7"
   file_updated_at: 2011-07-19 15:05:02.163951
-  file_file_name: z1_CSP_Main_TreeAndShrubSpecies_synonyms_03 vm - Kopie.xls
+  file_file_name: a_simple_freeformat_empty_file_for_testing.xls
   id: "1"
   description: 
   paperproposal_id: 
