@@ -40,9 +40,8 @@
 class Dataset < ActiveRecord::Base
 
   acts_as_authorization_object :subject_class_name => 'User'
-  # acts_as_authorization_object :subject_class_name => 'Project'
 
-  is_taggable :projecttags   # deprecated
+  is_taggable :projecttags   # deprecated #TODO this is used in the download action -> but marked as deprecated
   is_taggable :tags, :languages
 
   belongs_to :upload_spreadsheet, :class_name => "Datafile",
@@ -68,23 +67,13 @@ class Dataset < ActiveRecord::Base
   # linked to values (eg Datetimevalue, Numericvalue, Categoricvalue,
   # Textvalue)
   def cells_linked_to_values?
-    #ms = self.sheetcells
-    
-    #test = false
-    #unless ms.blank?
-    #  vls = ms.collect{|m| m.accepted_value}.flatten.compact
-    #  test = ms.length== vls.length
-   # end
-   # test
-
-    ms = self.sheetcells.find(:all, :conditions => ["accepted_value IS NOT NULL OR accepted_value !='' OR category_id > 0"])
-    return !ms.empty?
+    sheetcells = self.sheetcells.all(:conditions => ["accepted_value IS NOT NULL OR accepted_value !='' OR category_id > 0"])
+    !sheetcells.empty?
   end
 
   # During the import routine, we step through each of the data
   # columns using their header.
   def headers
-    # should be sorted by columnnr
     self.datacolumns.collect{|dc| dc.columnheader}
   end
 
