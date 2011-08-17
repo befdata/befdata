@@ -140,8 +140,6 @@ class Dataworkbook
   end
 
   # The method that loads the Workbook into the database.
-  # This is a class method for a reason:
-  # To be called by a background worker like resque, this method can't be an instance method.  
   def import_data(dataset_id, user)
     # Since this is a class method, we have to instantiate an object first.
     book = Dataworkbook.new(Dataset.find(dataset_id).upload_spreadsheet)
