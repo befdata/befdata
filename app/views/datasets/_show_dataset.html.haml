@@ -64,26 +64,25 @@
 - if @datacolumns
   .span-12.last
     %p The following data columns are available in the raw data part of this data set:
-    - @datacolumns.each_with_index do |column, i|
-      .span-4.dataset_columns{:class => (i + 1) % 3 == 0 ? 'last' : 'border'}
+    - @datacolumns.each do |column|
+      .span-4.dataset_columns{:class => cycle('border', 'border', 'last', :name => 'display_in_columns')}
         .columnheader= column.columnheader
         = column.definition
         %br
         %i Data group: #{column.datagroup.title}
         %br
-        - av = column.accepted_values(5)
-        - if av.kind_of?(String)
+        - accepted_values = column.accepted_values(5)
+        - if accepted_values.kind_of?(String)
           %img{:src => '/images/error.png'}
-          = av
+          = accepted_values
         - else
           %table.import_values
             %tr
               %th.span-4.last
                 Value
-            - av.each_with_index do |sc, i|
-              - even = (i % 2 == 0)
+            - accepted_values.each do |sc|
               %tr
-                %td.span-4.last{:class => "#{even ? 'even' : 'odd'}"} #{sc.accepted_value}
+                %td.span-4.last{:class => cycle('even', 'odd')} #{sc.accepted_value}
         - u = column.users
         - unless u.blank?
           %i Responsible for this Data Column:
