@@ -5,7 +5,7 @@ class DatatypeTest < Test::Unit::TestCase
   # datatypes should be loaded at application start up
   test "datatype_count" do
     datatype_count = Datatypehelper::DATATYPE_COLLECTION.length
-    assert(datatype_count==6, "Datatype collection length is not 6")
+    assert(datatype_count==7, "Datatype collection length is not 7")
   end
 
   test "category_datatype_find_by_id" do

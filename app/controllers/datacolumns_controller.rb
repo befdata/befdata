@@ -204,11 +204,11 @@ class DatacolumnsController < ApplicationController
 
     # category
     cat = first_cell.category
-    cat.update_attributes(:comment => "manually approved")
+    cat.update_attributes(:status_id => Categorystatus::MANUALLY_APPROVED)
 
     same_entry_cells.each do |cell|
       old_cat = cell.category
-      cell.update_attributes(:category => cat, :comment => "valid", :status_id => Sheetcellstatus::PORTAL_MATCH)
+      cell.update_attributes(:category => cat, :status_id => Sheetcellstatus::VALID)
       old_cat.destroy
     end
 
