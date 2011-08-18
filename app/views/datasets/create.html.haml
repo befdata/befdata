@@ -29,10 +29,10 @@
         %dl
           %dt= label_tag 'comment'
           %dd= text_area_tag 'comment', @dataset.comment, :size => '40x7', :class => 'text-input'
-        %h4 General Metadata 
         %dl
           %dt= label_tag 'projecttag_list', nil
           %dd= text_field_tag 'projecttag_list', @dataset.projecttag_list, :class => 'text-input'
+        %h4 General Metadata
         %dl
           %dt= label_tag 'abstract'
           %dd= text_area_tag 'abstract', @dataset.abstract, :size => '40x7', :class => 'text-input'
