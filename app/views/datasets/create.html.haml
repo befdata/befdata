@@ -30,38 +30,38 @@
           %dt= label_tag 'comment'
           %dd= text_area_tag 'comment', @dataset.comment, :size => '40x7', :class => 'text-input'
         %dl
-          %dt= label_tag 'projecttag_list', nil
+          %dt= label_tag 'Project tag list', nil
           %dd= text_field_tag 'projecttag_list', @dataset.projecttag_list, :class => 'text-input'
         %h4 General Metadata
         %dl
           %dt= label_tag 'abstract'
           %dd= text_area_tag 'abstract', @dataset.abstract, :size => '40x7', :class => 'text-input'
         %dl
-          %dt= label_tag 'usagerights'
+          %dt= label_tag 'Usage rights'
           %dd= text_area_tag 'usagerights', @dataset.usagerights, :size => '40x7', :class => 'text-input'
         %dl
           %dt= label_tag 'published'
           %dd= text_area_tag 'published', @dataset.published, :size => '40x7', :class => 'text-input'
         %dl
-          %dt= label_tag 'spatialextent'
+          %dt= label_tag 'Spatial extent'
           %dd= text_area_tag 'spatialextent', @dataset.spatialextent, :size => '40x7', :class => 'text-input'
         %dl
-          %dt= label_tag 'datemin'
+          %dt= label_tag 'Date min'
           %dd= datetime_select 'date', 'min', :default => @dataset.datemin
         %dl
-          %dt= label_tag 'datemax'
+          %dt= label_tag 'Date max'
           %dd= datetime_select 'date', 'max', :default => @dataset.datemax
         %dl
-          %dt= label_tag 'temporalextent'
+          %dt= label_tag 'Temporal extent'
           %dd= text_area_tag 'temporalextent', @dataset.temporalextent, :size => '40x7', :class => 'text-input'
         %dl
-          %dt= label_tag 'taxonomicextent'
+          %dt= label_tag 'Taxonomic extent'
           %dd= text_area_tag 'taxonomicextent', @dataset.taxonomicextent, :size => '40x7', :class => 'text-input'
         %dl
           %dt= label_tag 'design'
           %dd= text_area_tag 'design', @dataset.design, :size => '40x7', :class => 'text-input'
         %dl
-          %dt= label_tag 'dataanalysis'
+          %dt= label_tag 'Data analysis'
           %dd= text_area_tag 'dataanalysis', @dataset.dataanalysis, :size => '40x7', :class => 'text-input'
         %dl
           %dt= label_tag 'circumstances'
