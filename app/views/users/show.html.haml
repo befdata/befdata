@@ -9,7 +9,8 @@
     = "#{t("address.email")}: #{@user.email}"
     %br/
   - unless @user.url.blank?
-    = "#{t("address.url")}: #{@user.url}"
+    = "#{t("address.url")}:"
+    = link_to @user.url
     %br/
   - unless @user.comment.blank?
     = @user.comment
