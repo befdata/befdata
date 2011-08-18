@@ -3,15 +3,15 @@
     - if current_user.has_role?(:owner, @dataset) || current_user.has_role?(:admin) || current_user.has_role?(:proposer, @dataset) || @dataset.free_for_members
       %li
         %img{:src => "/images/disk.png"}
-        #{link_to 'Download', {:controller => :datasets, :action => 'download', :id => @dataset.id, :t => 'vip'}}
-    - if current_user.has_role? :owner, @dataset
+        = link_to 'Download', {:controller => :datasets, :action => 'download', :id => @dataset.id, :t => 'vip'}
+    - if current_user.has_role?(:owner, @dataset) || current_user.has_role?(:admin)
       %li
         %img{:src => "/images/pencil.png"}
-        #{link_to 'Edit Dataset', edit_dataset_path(@dataset)}
-    - if current_user.has_role? :admin
+        = link_to 'Edit Dataset', edit_dataset_path(@dataset)
       %li
         %img{:src => "/images/table_edit.png"}
-        #{link_to 'Approve Data Columns', data_dataset_path(@dataset)}
+        = link_to 'Approve Data Columns', data_dataset_path(@dataset)
+    - if current_user.has_role?(:admin)
       %li
         %img{:src => "/images/cross.png"}
-        #{link_to 'Delete', destroy_dataset_path(@dataset), :confirm => "Do you really want to delete this dataset?"}
+        = link_to 'Delete', destroy_dataset_path(@dataset), :confirm => "Do you really want to delete this dataset?"
