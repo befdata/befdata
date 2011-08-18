@@ -10,7 +10,7 @@
     %br/
   - unless @user.url.blank?
     = "#{t("address.url")}:"
-    = link_to @user.url
+    = link_to @user.url, @user.url, :target => "_blank"
     %br/
   - unless @user.comment.blank?
     = @user.comment

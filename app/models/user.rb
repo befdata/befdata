@@ -29,7 +29,7 @@ class User < ActiveRecord::Base
       :large => "150x150#"
   }
 
-  before_save :change_avatar_file_name
+  before_save :change_avatar_file_name, :add_protocol_to_url
 
   def change_avatar_file_name
     if avatar_file_name
@@ -38,6 +38,10 @@ class User < ActiveRecord::Base
         self.avatar.instance_write(:file_name, new_name)
       end
     end
+  end
+
+  def add_protocol_to_url
+    /^http/.match(self.url) ? self.url : self.url = "http://#{url}"
   end
 
   def to_label
