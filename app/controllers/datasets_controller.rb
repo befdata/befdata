@@ -86,6 +86,9 @@ class DatasetsController < ApplicationController
       # Project Tag list
       @dataset.projecttag_list = book.tag_list unless book.tag_list.blank?
 
+      # the uploader should be owner, too
+      current_user.has_role! :owner, @dataset
+
       @dataset.save
 
       # Render the page that presents the general metadata for a
@@ -300,15 +303,17 @@ class DatasetsController < ApplicationController
       # is called is already existing.  Because of this, the upload
       # of a file is leaped over.  We are at step 1.
 
-      unless params[:people].blank?
+      if !params[:people].blank? then
         users = User.find(params[:people])
-  
-        # assigning provenance information: linking people to the data
-        # set
+        # assigning provenance information: linking people to the data set
         users.each do |pr|
           pr.has_role! :owner, @dataset
         end
+      else
+        # add at least the uploader
+        current_user.has_role! :owner, @dataset
       end
+
       
       @dataset.update_attributes( :title => params[:title],
       :abstract => params[:abstract],
