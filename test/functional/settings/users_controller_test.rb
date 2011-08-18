@@ -6,8 +6,8 @@ class Settings::UsersControllerTest < ActionController::TestCase
   # basic functionality
 
   test "normal users can see their list of details" do
-    non_admin_user = non_admin_users.first
-    login_user non_admin_user.login
+    u = User.find_by_login "Phdstudentproductivity"
+    login_user u.login
 
     get :index
     assert_response :success
@@ -15,7 +15,7 @@ class Settings::UsersControllerTest < ActionController::TestCase
   end
 
   test "normal users can show details in profile" do
-    non_admin_user = non_admin_users.first
+    non_admin_user = User.find_by_login "Phdstudentproductivity"
     login_user non_admin_user.login
 
     get :show, :id => non_admin_user.id
@@ -24,7 +24,7 @@ class Settings::UsersControllerTest < ActionController::TestCase
   end
 
   test "normal users can update details in profile" do
-    non_admin_user = non_admin_users.first
+    non_admin_user = User.find_by_login "Phdstudentproductivity"
     login_user non_admin_user.login
 
     get :edit, :id => non_admin_user.id
@@ -35,8 +35,9 @@ class Settings::UsersControllerTest < ActionController::TestCase
   # access control
 
   test "normal users may not delete their profile" do
-    non_admin_user = non_admin_users.first
-    login_user non_admin_user.login
+    u = User.find_by_login "Phdstudentproductivity"
+    login_user u.login
+
     assert_raise do
       get :destroy, :id => non_admin_user.id
     end
@@ -44,25 +45,26 @@ class Settings::UsersControllerTest < ActionController::TestCase
 
   test "public may not update someones profile details" do
     some_user = User.first
+
     assert_raise do
       get :edit, :id => some_user.id
     end
   end
 
   test "normal users may not edit other profile details" do
-    users = non_admin_users
-    one_user = users.first
-    other_user = (users - [one_user]).first
-
+    one_user = User.find_by_login "Phdstudentproductivity"
+    other_user = User.find_by_login "pinutrientcycling"
     login_user one_user.login
+
     assert_raise do
       get :edit, :id => other_user.id
     end
   end
 
   test "admins may edit other profile details" do
-    some_user = non_admin_users.first
+    some_user = User.find_by_login "Phdstudentproductivity"
     login_nadrowski
+
     get :edit, :id => some_user.id
     assert_response :success
     assert_template 'update_form'

@@ -23,8 +23,7 @@ class PagesControllerTest < ActionController::TestCase
 
   test "should not show datasets with destroy me true" do
     get :data
-    dataset = Dataset.where("destroy_me = true").first
-    assigned_datasets = assigns[:datasets]
-    assert !assigned_datasets.include?(dataset)
+    dataset = Dataset.find_by_title "Test species name import"
+    assert !assigns[:datasets].include?(dataset)
   end
 end

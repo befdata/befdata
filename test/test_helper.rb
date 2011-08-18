@@ -36,16 +36,4 @@ class ActiveSupport::TestCase
     @category = Category.find_by_long long
   end
 
-  def non_admin_users
-    User.all - User.joins(:role_objects).where("roles.name" => "admin")
-  end
-
-  def dataset_owners
-    User.joins(:role_objects).where("roles.authorizable_type" => :Dataset, "roles.name" => :owner).uniq
-  end
-
-  def find_user_datasets_with_role (user = dataset_owners.first, role_name = :owner)
-    Dataset.all.select {|d| d.accepts_role?(role_name, user)}
-  end
-
 end
