@@ -31,6 +31,9 @@ class DatacolumnsController < ApplicationController
         render :partial => 'approve_datagroup' and return
       end
   
+      # Extract the datatype of this column for correct preselection
+      @datatype = @book.datatype_for_columnheader(columnheader)
+      
       # Is the Data Type of this Data Column approved? If no, then render the Data Type approval partial.
       unless @data_column.datatype_approved?
         render :partial => 'approve_datatype' and return

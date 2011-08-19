@@ -256,6 +256,12 @@ class Dataworkbook
 
   end
 
+  # Extracts the datatype from the spreadsheet for a given columnheader
+  def datatype_for_columnheader(columnheader)
+    data_type_name = Array(data_description_sheet.column(9))[method_index_for_columnheader(columnheader)]
+    Datatypehelper.find_by_name(data_type_name)
+  end
+  
   # During the upload process we look several times back in the
   # spreadsheet.  In this case, we are looking for data group
   # information (Methodstep, MethodstepsController).  Data groups
