@@ -1,7 +1,7 @@
 -#TODO This hides all exceptions being thrown - see #4824
 :javascript
   $(function() {
-    $( "#datacolumn_tabs" ).tabs({ cookie : {path: '/'}});
+    $( "#datacolumn_tabs" ).tabs({ cookie : {path: '/'}, select : function(event, ui) { $( "#modal" ).remove(); }});
   });
 #datacolumn_tabs
   %ul
