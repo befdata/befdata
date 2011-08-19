@@ -2,6 +2,10 @@
 // This file is automatically included by javascript_include_tag :defaults
 
 function selectPeople(select) {
+	if (select.options[select.selectedIndex].value == "") {
+		// The prompt option has no value and thus can't be added. 
+		return;
+	}
     var option = select.options[select.selectedIndex];
     var ul = document.getElementById('people-list');
     var choices = ul.getElementsByTagName('input');

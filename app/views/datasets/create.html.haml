@@ -15,7 +15,7 @@
         %h4 Provenance information
         %dl
           %dt= label_tag 'Select people', nil
-          %dd= select "person", "person_id", @people_list.map{|p| [p.to_label, p.id]}, {}, {:onchange => 'selectPeople(this)'}
+          %dd= select "person", "person_id", @people_list.map{|p| [p.to_label, p.id]}, {:prompt => 'Select Member'}, {:onchange => 'selectPeople(this)'}
         %ul#people-list{:style => 'list-style: none;'}
           - @dataset.users.each do |user|
             %li{:onclick => "this.parentNode.removeChild(this);"}

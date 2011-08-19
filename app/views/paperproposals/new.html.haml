@@ -7,8 +7,8 @@
       Main Proponent List
       %p
         (Main proponents are those authors, that contribute major aspects to the analysis.)
-      = select "not_needed", "param", @all_persons.map{|person| [person.to_label, person.id]}, {}, {:onchange => 'selectPeople(this)'}
-      %ul
+      = select "not_needed", "param", @all_persons.map{|person| [person.to_label, person.id]}, {:prompt => 'Select Member'}, {:onchange => 'selectPeople(this)'}
+      %ul#people-list{:style => 'list-style: none;'}
         - f.fields_for :authors, @paperproposal.authors do |field|
           %li{:onclick => "this.parentNode.removeChild(this);"}
             %input{:name => "people[]", :type => "hidden", :value => field.object.id}

@@ -1,13 +1,4 @@
-.span-8.last
-  %h4 Edit Metadata
-  %p
-    Please hava a look on the metadata and the members involved with this Data Column.
-  = render :partial => 'form_for_metadata' 
-
-.span-8.last
-  %h4 Members involved
-  %p
-    Add members of the research unit by selecting them from the drop
-    down list below.  Delete people from the association to a data
-    column by clicking on their name in the bullet list below.
-  = render :partial => 'form_for_people'
+.span-7.last
+  = render :partial => 'approve_datagroup'
+  = render :partial => 'approve_datatype'
+  = render :partial => 'approve_metadata'

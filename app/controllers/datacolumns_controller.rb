@@ -4,7 +4,7 @@ class DatacolumnsController < ApplicationController
   skip_before_filter :deny_access_to_all
   access_control do
     actions :edit, :update_datagroup, :update_datatype, :update_people, :update_metadata,
-            :update_category, :create_category do
+    :update_category, :create_category do
       allow :admin
       allow :owner, :of => :dataset
       allow :proposer, :of => :dataset
@@ -17,45 +17,45 @@ class DatacolumnsController < ApplicationController
     begin
       # Get the central Data Column object from the database.
       @data_column ||= Datacolumn.find(params[:id])
-  
+
       # We're working with the Data Workbook, too. Thus, we have to load it.
       @book = Dataworkbook.new(@data_column.dataset.upload_spreadsheet)
-  
+
       # We extract the column header to determine the available Data Groups from the Data Workbook.
       columnheader = @data_column.columnheader
       data_group_title = @book.method_index_for_columnheader(columnheader).blank? ? columnheader : @book.data_group_title(columnheader)
       @data_groups_available = Datagroup.all.delete_if{|d| d == @data_column.datagroup}
-  
+
       # Is the Data Group of this Data Column approved? If no, then render the Data Group approval partial.
       unless @data_column.datagroup_approved?
         render :partial => 'approve_datagroup' and return
       end
-  
+
       # Extract the datatype of this column for correct preselection
       @datatype = @book.datatype_for_columnheader(columnheader)
-      
+
       # Is the Data Type of this Data Column approved? If no, then render the Data Type approval partial.
       unless @data_column.datatype_approved?
         render :partial => 'approve_datatype' and return
       end
-  
+
       @dataset = @data_column.dataset
       @cats_to_choose = @data_column.datagroup.datacell_categories
       @invalid_values_hash = @data_column.invalid_values
-  
+
       # User has to have a look on values that were marked as invalid
       unless @invalid_values_hash.blank?
         render :partial => 'approve_categories' and return
       end
       # Collect all methods for the select tag.
       @methods_short_list = Datagroup.find(:all, :order => "title").collect{|m| [m.title, m.id]}
-  
+
       # Gather the list of all Person Roles, sorted by their last name.
       @people_list = User.find(:all, :order => :lastname)
-  
+
       # Collect the already linked people.
       @ppl = @data_column.users
-  
+
       # Look into the spreadsheet, when there are no people linked.
       if @ppl.blank?
         # Look for people in the Data Workbook and link them to the Data Group.
@@ -65,6 +65,11 @@ class DatacolumnsController < ApplicationController
           user.has_role! :responsible, @data_column
         end
         @ppl = @data_column.users
+      end
+      
+      # Unfinished datacolumn means, the user must have at least one look on the metadata and members involved.
+      unless @data_column.finished
+        render :partial => 'approve_metadata' and return
       end
       render :layout => false
     rescue
@@ -125,35 +130,6 @@ class DatacolumnsController < ApplicationController
     end
   end
 
-  # This method is called whenever someone clicks on the 'Save People' Button
-  # in the Data Column approval process.
-  #
-  # The people submitted via form are assigned to the Data Column or their assignation is revoked.
-  def update_people
-    # Find the Data Column.
-    @data_column = Datacolumn.find(params[:id])
-
-    # Retrieve the new list of people from the form params.
-    new_people = params[:people] ||= []
-
-    # Check all currently responsible users whether they are also new people. If not, remove them.
-    @data_column.users.each{|u| u.has_no_role! :responsible, @data_column unless new_people.include?(u.id.to_s)}
-
-    # Check all new people whether they were responsible before. If not, add them.
-    new_people.each{|p| User.find(p).has_role! :responsible, @data_column unless @data_column.users.include?(User.find(p))}
-
-    # When the comment field was actually changed, we need to save this.
-    # TODO: Sophia and I agreed to rename this column, as 'comment' is a too generic name.
-    unless @data_column.comment == params[:comment]
-      @data_column.comment = params[:comment]
-      @data_column.save
-    end
-
-    # Create a nice success message and redirect back so we render the same view again.
-    flash[:notice] = "Members involved successfully saved."
-    redirect_to :back
-  end
-
   # This method is called whenever someone clicks on the 'Save Data Type' Button
   # in the Data Column approval process.
   #
@@ -175,22 +151,34 @@ class DatacolumnsController < ApplicationController
     redirect_to :back
   end
 
-  # This method is called whenever someone clicks on the 'Save Metadata' Button
-  # in the Data Column approval process.
+  # This method is called whenever someone clicks on the 'Save' Button
+  # in the last step of the Data Column approval process.
   #
-  # The meta data of this Data Column is saved.
+  # The meta data of this Data Column is saved. The people submitted via form are assigned
+  # to the Data Column or their assignation is revoked.
   def update_metadata
     # Find the called Data Column and update its metadata.
     @data_column = Datacolumn.find(params[:id])
 
-    if @data_column.update_attributes(params[:datacolumn])
-      # Create a nice success message when the updating was successful.
-      flash[:notice] = "Metadata successfully saved."
-    else
-      # Error message when updating failed.
-      flash[:error] = "#{@data_column.errors.to_a.first.capitalize}"
+    unless @data_column.update_attributes(params[:datacolumn])
+      # Error message when updating failed. Redirect to the last view anyway.
+      flash[:error] = "#{@data_column.errors.to_a.first.capitalize}"      
+      redirect_to :back
     end
-    # Redirect to the last view anyway.
+
+    # Retrieve the new list of people from the form params.
+    new_people = params[:people] ||= []
+
+    # Check all currently responsible users whether they are also new people. If not, remove them.
+    @data_column.users.each{|u| u.has_no_role! :responsible, @data_column unless new_people.include?(u.id.to_s)}
+
+    # Check all new people whether they were responsible before. If not, add them.
+    new_people.each{|p| User.find(p).has_role! :responsible, @data_column unless @data_column.users.include?(User.find(p))}
+
+    @data_column.update_attributes({:finished => true})
+
+    # Create a nice success message and redirect back so we render the same view again.
+    flash[:notice] = "Metadata and Members involved successfully saved."
     redirect_to :back
   end
 
@@ -198,7 +186,7 @@ class DatacolumnsController < ApplicationController
   # in the Data Column approval process.
   #
   # The category for the selected sheetcell is saved and other respective sheetcells
-  # are updated. 
+  # are updated.
   def update_category
     first_cell = Sheetcell.find(params[:sheetcell][:id])
     first_cell.update_attributes(params[:sheetcell])
