@@ -38,7 +38,7 @@
 
 
 - unless @user.datasets_with_responsible_datacolumns_not_owned.count==0
-  %b Responsible for data columns within the following datasets
+  %b Involved with data columns within the following datasets
   %ul
     - @user.datasets_with_responsible_datacolumns_not_owned.each do |ds|
       %li

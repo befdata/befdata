@@ -147,7 +147,7 @@ class DatacolumnsController < ApplicationController
     end
 
     # Create a nice success message and redirect back so we render the same view again.
-    flash[:notice] = "Responsible people successfully saved."
+    flash[:notice] = "Members involved successfully saved."
     redirect_to :back
   end
 

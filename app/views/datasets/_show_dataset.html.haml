@@ -84,5 +84,5 @@
 
         - u = column.users
         - unless u.blank?
-          %i Responsible for this Data Column:
+          %i Members involved with this Data Column:
           = u.map{|person| link_to person, user_path(person.path_name)}.to_sentence.html_safe
