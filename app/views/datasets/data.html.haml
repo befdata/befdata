@@ -1,18 +1,11 @@
-%h3.span-8{:style => 'padding-top: 20px;'}= @dataset.title
+%h3.span-8{:style => 'padding-top: 20px;'}= @dataset.title 
+.span-3.last.dataset_actions
+  %img{:src => "/images/page.png"}
+  = link_to "Dataset overview", dataset_path(@dataset)
 - if @book.columnheaders_unique?
   .span-8
-    - if @just_uploaded
-      %p
-        Your data set was registered and is now processed.
-        Please stay tuned. You may reload your browser to receive status updates.
-    - else
-      %p
-        We processed #{@dataset.finished_datacolumns.length} of #{@book.columnheaders_raw.length} data columns.
-  .span-8
     %p
-      Congratulations, your data columns have unique headers. Now you should go through each of the
-      data columns to load your data.
-    = render 'data_column_tabs'
+      = render 'data_column_tabs'
 - else
   .span-8
     %p
@@ -23,7 +16,4 @@
       unique, and reload.  You can download the current state of your
       workbook here:
       %b= link_to @dataset.title, {:controller => :datasets, :action => 'show', :id => @dataset.id}
-.sidenote
-  .head Please note
-  .content= #render "step_#{@step}"
     

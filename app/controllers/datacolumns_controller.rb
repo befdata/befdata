@@ -63,7 +63,6 @@ class DatacolumnsController < ApplicationController
         end
         @ppl = @data_column.users
       end
-      @step = 'five'
       render :layout => false
     rescue
       # The tabbed display prevent the usual error messages from being displayed.
