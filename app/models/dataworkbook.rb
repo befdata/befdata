@@ -111,8 +111,8 @@ class Dataworkbook
     rescue ArgumentError
       # When parse did not succeed, we have to guesstimate.
       # Is the string usable as year? If yes, use it. If no, fall back to the current year.
-      year = date.to_i > 2000 ? data.to_i : Date.today.year
-      
+      year = value.to_i > 2000 ? value.to_i : Date.today.year
+
       # Create a new date object from the guesstimated year.
       # Use the first of January as day and month values.
       date = Date.new(year, 1, 1)
@@ -130,7 +130,7 @@ class Dataworkbook
     rescue ArgumentError
       # When parse did not succeed, we have to guesstimate.
       # Is the string usable as year? If yes, use it. If no, fall back to the current year.
-      year = date.to_i > 2000 ? data.to_i : Date.today.year
+      year = value.to_i > 2000 ? value.to_i : Date.today.year
       
       # Create a new date object from the guesstimated year.
       # Use the last of December as day and month values.
