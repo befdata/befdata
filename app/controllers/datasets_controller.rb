@@ -159,7 +159,6 @@ class DatasetsController < ApplicationController
     return unless @book.columnheaders_unique?
   
     if @dataset.datacolumns.length == 0
-      @just_uploaded = true
       @book.import_data(@dataset.id, current_user)
       load_dataset #reload
     end

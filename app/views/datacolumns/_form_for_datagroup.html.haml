@@ -24,10 +24,11 @@
       .span-6
         %h4= datagroup.title
         %p= datagroup.description
-        %p
-          %b Previously assigned Data Columns
-          - datagroup.datacolumns.each do |datacolumn|
-            = datacolumn.columnheader
+        - unless datagroup.datacolumns.blank?
+          %p
+            %b Previously assigned Data Columns:
+            - datagroup.datacolumns.each do |datacolumn|
+              = datacolumn.columnheader
   %button{:name => "commit", :type => "submit"} Save Data Group
   %p.clear
     %a{:href => '#', :onclick => '$("#modal").dialog("open")'} You may as well create a new Data Group
