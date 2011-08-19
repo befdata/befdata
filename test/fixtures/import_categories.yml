@@ -7,6 +7,9 @@ ImportCategory_001:
   approved:
   created_at: 2011-06-01 13:55:20.252
   updated_at: 2011-06-01 13:55:20.252
+  short: "Toxicodendron sylvestre"
+  long: "Toxicodendron sylvestre"
+  description: "Toxicodendron sylvestre"
 ImportCategory_002:
   id: "36"
   datacolumn_id: "36"
@@ -15,6 +18,9 @@ ImportCategory_002:
   approved:
   created_at: 2011-06-01 13:55:20.756
   updated_at: 2011-06-01 13:55:20.756
+  short: "Mahonia bealei"
+  long: "Mahonia bealei"
+  description: "Mahonia bealei"
 ImportCategory_003:
   id: "37"
   datacolumn_id: "36"
@@ -23,6 +29,9 @@ ImportCategory_003:
   approved:
   created_at: 2011-06-01 13:55:20.763
   updated_at: 2011-06-01 13:55:20.763
+  short: "Betula luminifera"
+  long: "Betula luminifera"
+  description: "Betula luminifera"
 ImportCategory_004:
   id: "38"
   datacolumn_id: "36"
@@ -31,6 +40,9 @@ ImportCategory_004:
   approved:
   created_at: 2011-06-01 13:55:20.769
   updated_at: 2011-06-01 13:55:20.769
+  short: "Diospyros japonica"
+  long: "Diospyros japonica"
+  description: "Diospyros japonica"
 ImportCategory_005:
   id: "39"
   datacolumn_id: "40"
@@ -39,6 +51,9 @@ ImportCategory_005:
   approved:
   created_at: 2011-06-01 15:06:09.731
   updated_at: 2011-06-01 15:06:09.731
+  short: "Toxicodendron sylvestre"
+  long: "Toxicodendron sylvestre"
+  description: "Toxicodendron sylvestre"
 ImportCategory_006:
   id: "40"
   datacolumn_id: "40"
@@ -47,6 +62,9 @@ ImportCategory_006:
   approved:
   created_at: 2011-06-01 15:06:09.807
   updated_at: 2011-06-01 15:06:09.807
+  short: "Mahonia bealei"
+  long: "Mahonia bealei"
+  description: "Mahonia bealei"
 ImportCategory_041:
   id: "41"
   datacolumn_id: "45"
@@ -55,6 +73,9 @@ ImportCategory_041:
   approved:
   created_at: 2011-07-01 15:06:09.807
   updated_at: 2011-07-01 15:06:09.807
+  short: "AAA"
+  long: "AAA"
+  description: "AAA"
 ImportCategory_042:
   id: "42"
   datacolumn_id: "45"
@@ -63,6 +84,9 @@ ImportCategory_042:
   approved:
   created_at: 2011-07-01 15:06:09.807
   updated_at: 2011-07-01 15:06:09.807
+  short: "BBB"
+  long: "BBB"
+  description: "BBB"
 ImportCategory_043:
   id: "43"
   datacolumn_id: "45"
@@ -71,6 +95,9 @@ ImportCategory_043:
   approved:
   created_at: 2011-07-01 15:06:09.807
   updated_at: 2011-07-01 15:06:09.807
+  short: "CCC"
+  long: "CCC"
+  description: "CCC"
 ImportCategory_044:
   id: "44"
   datacolumn_id: "45"
@@ -79,6 +106,9 @@ ImportCategory_044:
   approved:
   created_at: 2011-07-01 15:06:09.807
   updated_at: 2011-07-01 15:06:09.807
+  short: "DDD"
+  long: "DDD"
+  description: "DDD"
 ImportCategory_045:
   id: "45"
   datacolumn_id: "45"
@@ -87,6 +117,9 @@ ImportCategory_045:
   approved:
   created_at: 2011-07-01 15:06:09.807
   updated_at: 2011-07-01 15:06:09.807
+  short: "EEE"
+  long: "EEE"
+  description: "EEE"
 ImportCategory_046:
   id: "46"
   datacolumn_id: "45"
@@ -95,3 +128,6 @@ ImportCategory_046:
   approved:
   created_at: 2011-07-01 15:06:09.807
   updated_at: 2011-07-01 15:06:09.807
+  short: "FFF"
+  long: "FFF"
+  description: "FFF"
