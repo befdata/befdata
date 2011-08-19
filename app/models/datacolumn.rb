@@ -142,4 +142,8 @@ class Datacolumn < ActiveRecord::Base
     stage = '3' if self.datagroup_approved && self.datatype_approved && self.invalid_values.blank?
     return stage
   end
+  
+  def untouched?
+    approval_stage == '0' && finished == false
+  end
 end

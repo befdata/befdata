@@ -1,9 +1,17 @@
-%h3.span-8{:style => 'padding-top: 20px;'}= @dataset.title 
+%h3.span-8{:style => 'padding-top: 20px; padding-bottom: 20px;'}= @dataset.title 
 .span-3.last.dataset_actions
   %img{:src => "/images/page.png"}
   = link_to "Dataset overview", dataset_path(@dataset)
 - if @book.columnheaders_unique?
   .span-8
+    - unless @predefined_columns.blank? 
+      %p
+        You may automatically improve the following #{pluralize(@predefined_columns.length, 'column')}:
+        = @predefined_columns.map{|c| c.columnheader}.join(', ')
+        = form_tag :action => 'approve_predefined', :controller => 'datasets' do |form|
+          = hidden_field_tag 'columns', @predefined_columns.map{|c| c.id}.join(',')
+          %button{:name => "commit", :type => "submit", :onclick => "return confirm('Do you really want to automatically improve the columns #{@predefined_columns.map{|c| c.columnheader}.join(', ')}?')"} Approve
+      %p.clear
     %p
       = render 'data_column_tabs'
 - else

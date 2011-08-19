@@ -28,6 +28,7 @@ Befchina::Application.routes.draw do
   match 'download' => 'datasets#download', :as => :download
   match 'datasets/:id/data' => 'datasets#data', :as => :data_dataset
   match 'datasets/:id/destroy' => 'datasets#destroy', :as => :destroy_dataset
+  match 'datasets/:id/approve_predefined' => 'datasets#approve_predefined'
 
   resources :tags
   #match 'tags/index' => 'tags#index'

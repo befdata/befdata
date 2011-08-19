@@ -18,7 +18,7 @@ class DatasetsController < ApplicationController
     # save freeformat associations: dataset through params[:dataset][:id]
     # save dataset freeformat association: dataset through params[:dataset][:id]
     actions :download, :edit, :data, :update_freeformat_associations, :save_freeformat_associations,
-    :download_freeformat, :save_dataset_freeformat_associations do
+    :download_freeformat, :save_dataset_freeformat_associations, :approve_predefined do
       allow :admin
       allow :owner, :of => :dataset
       allow :proposer, :of => :dataset
@@ -162,7 +162,36 @@ class DatasetsController < ApplicationController
       @book.import_data(@dataset.id, current_user)
       load_dataset #reload
     end
-
+    @predefined_columns = @dataset.predefined_columns
+  end
+  
+  def approve_predefined
+    @columns = Array.new
+    params[:columns].split(',').each{|c| @columns << Datacolumn.find(c)}
+    columns_with_invalid_values = Array.new
+    @columns.each do |column|
+      # Approve the datagroup
+      column.datagroup_approved = true
+      
+      # Approve the datatype and store the values
+      column.add_data_values(current_user)
+      column.datatype_approved = true
+      
+      # Check for invalid values
+      column.finished = true if column.invalid_values.blank?
+      columns_with_invalid_values << column unless column.invalid_values.blank?
+      
+      # Save the column
+      column.save      
+    end
+    
+    if columns_with_invalid_values.blank?
+      flash[:notice] = "All available columns were successfully approved."
+    else
+      flash[:error] = "The following columns had invalid values: #{columns_with_invalid_values.map{|c| c.columnheader}.join(', ')}"
+    end
+    #Redirect to where we came from
+    redirect_to :back
   end
   
   # Downloading one free format file from within the "show" view
