@@ -5,14 +5,13 @@ class Category < ActiveRecord::Base
   belongs_to :user, :class_name => "User", :foreign_key => "user_id"
   belongs_to :datagroup, :class_name => "Datagroup", :foreign_key => "datagroup_id"
   has_many :sheetcells
-  has_many :import_categories
 
   is_taggable :tags, :languages
 
   validates_presence_of :short, :long, :description
   before_validation :try_filling_missing_values
 
-  before_destroy :check_for_measurements, :check_for_import_categories
+  before_destroy :check_for_measurements
   after_destroy :destroy_taggings
 
 
@@ -37,16 +36,6 @@ class Category < ActiveRecord::Base
     unless cat.sheetcells.length == 0
       puts "measurements linked"
       errors.add_to_base "Cannot destroy categories with Data Cells associations"
-      false
-    end
-  end
-
-  def check_for_import_categories
-    puts "in check for import categories"
-    cat = self.reload
-    unless cat.import_categories.length == 0
-      puts "import categories linked"
-      errors.add_to_base "Cannot destroy categories with Import Categories associations"
       false
     end
   end

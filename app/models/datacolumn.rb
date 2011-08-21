@@ -65,8 +65,6 @@ class Datacolumn < ActiveRecord::Base
   # NB: all of the business logic is in functions within the database
   def add_data_values(user)
 
-    # store the sheet category match data group id as this makes the SQL faster since it's one less join
-    scm_datagroup_id = Datagroup.find_sheet_category_match().id
     # remove any previous accepted values so that we can keep a track of what has been updated
     sqlclean = "select clear_datacolumn_accepted_values(#{id})"
     # this bit will need to change once we change the column datatype to be an integer
@@ -97,7 +95,7 @@ class Datacolumn < ActiveRecord::Base
       unless dataset.nil?
         comment = dataset.title
       end
-      sql = "select accept_datacolumn_values(#{datatype.id}, #{id}, #{datagroup_id}, #{scm_datagroup_id}, #{user.id}, '#{comment}')"
+      sql = "select accept_datacolumn_values(#{datatype.id}, #{id}, #{datagroup_id}, #{user.id}, '#{comment}')"
     end
 
     begin

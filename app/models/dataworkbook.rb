@@ -140,7 +140,7 @@ class Dataworkbook
   end
 
   # The method that loads the Workbook into the database.
-  def import_data(dataset_id, user)
+  def import_data(dataset_id)
     # Since this is a class method, we have to instantiate an object first.
     book = Dataworkbook.new(Dataset.find(dataset_id).upload_spreadsheet)
 
@@ -155,7 +155,7 @@ class Dataworkbook
       unless all_cells_for_one_column.blank?
 
         save_all_cells_to_database(dataset_id, data_column_new, datatype, all_cells_for_one_column)
-        add_any_sheet_categories_included_for_this_column(columnheader, data_column_new, dataset_id, user)
+        add_any_sheet_categories_included_for_this_column(columnheader, data_column_new)
 
       end
       data_column_new.finished = true
@@ -199,32 +199,14 @@ class Dataworkbook
     Sheetcell.import(sheetcells_to_be_saved)
   end
 
-  def add_any_sheet_categories_included_for_this_column(columnheader, data_column_new, dataset_id, user)
+  def add_any_sheet_categories_included_for_this_column(columnheader, data_column_new)
     sheet_categories = sheet_categories_for_columnheader(columnheader)
     unless sheet_categories.blank?
-      dataset = Dataset.find(dataset_id)
-      comment = ""
-      unless dataset.nil?
-        comment = dataset.title
-      end
       sheet_categories.each do | cat |
-        # the category should be unique within the selected datagroup
-        scm_datagroup_id = Datagroup.sheet_category_match.first.id if !Datagroup.sheet_category_match.first.nil?
-        unique_cat = Category.find(:first, :conditions => ["short = ? and datagroup_id=?", cat[:short].to_s, scm_datagroup_id])
-        if(unique_cat.nil?)
-          import_cat = Category.create(:short => cat[:short],
-                                    :long => cat[:long],
-                                    :description => cat[:description],
-                                    :datagroup_id => scm_datagroup_id,
-                                    :user_id => user.id,
-                                    :comment => comment,
-                                    :status_id => Categorystatus::CATEGORY_SHEET)
-          if !import_cat.nil?
-            unique_cat = import_cat
-          end
-        end
-        ImportCategory.create(:category => unique_cat,
-                              :datacolumn => data_column_new)
+        ImportCategory.create(:datacolumn => data_column_new,
+                              :short => cat[:short],
+                              :long => cat[:long],
+                              :description => cat[:description])
       end
     end
   end

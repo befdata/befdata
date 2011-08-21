@@ -159,7 +159,7 @@ class DatasetsController < ApplicationController
     return unless @book.columnheaders_unique?
   
     if @dataset.datacolumns.length == 0
-      @book.import_data(@dataset.id, current_user)
+      @book.import_data(@dataset.id)
       load_dataset #reload
     end
     @predefined_columns = @dataset.predefined_columns
