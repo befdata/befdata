@@ -25,7 +25,6 @@ class Datagroup < ActiveRecord::Base
   after_destroy :destroy_taggings
   before_destroy :check_for_system_datagroup
 
-  scope :sheet_category_match, where(:type_id => Datagrouptype::SHEETCATEGORYMATCH)
   after_initialize :init
 
   # set the default value for system
