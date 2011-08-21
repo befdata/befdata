@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110821152816) do
+ActiveRecord::Schema.define(:version => 20110821162413) do
 
   create_table "author_paperproposals", :force => true do |t|
     t.integer  "paperproposal_id"
@@ -153,16 +153,6 @@ ActiveRecord::Schema.define(:version => 20110821152816) do
     t.string "format"
   end
 
-  create_table "datetimevalues", :force => true do |t|
-    t.datetime "date"
-    t.integer  "year"
-    t.integer  "month"
-    t.integer  "day"
-    t.text     "comment"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
   create_table "delayed_jobs", :force => true do |t|
     t.integer  "priority",   :default => 0
     t.integer  "attempts",   :default => 0
@@ -197,13 +187,6 @@ ActiveRecord::Schema.define(:version => 20110821152816) do
     t.string   "short"
     t.string   "long"
     t.text     "description"
-  end
-
-  create_table "numericvalues", :force => true do |t|
-    t.float    "number"
-    t.text     "comment"
-    t.datetime "created_at"
-    t.datetime "updated_at"
   end
 
   create_table "observation_sheetcells", :force => true do |t|
@@ -292,9 +275,6 @@ ActiveRecord::Schema.define(:version => 20110821152816) do
 
   create_table "sheetcells", :force => true do |t|
     t.integer  "datacolumn_id"
-    t.integer  "value_id"
-    t.string   "value_type",     :limit => 25
-    t.integer  "rownr"
     t.text     "comment"
     t.integer  "observation_id"
     t.string   "import_value"
@@ -321,13 +301,6 @@ ActiveRecord::Schema.define(:version => 20110821152816) do
   create_table "tags", :force => true do |t|
     t.string "name", :default => ""
     t.string "kind", :default => ""
-  end
-
-  create_table "textvalues", :force => true do |t|
-    t.string   "text"
-    t.text     "comment"
-    t.datetime "created_at"
-    t.datetime "updated_at"
   end
 
   create_table "users", :force => true do |t|
