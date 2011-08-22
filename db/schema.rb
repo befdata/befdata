@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110821162413) do
+ActiveRecord::Schema.define(:version => 20110822082912) do
 
   create_table "author_paperproposals", :force => true do |t|
     t.integer  "paperproposal_id"
@@ -49,7 +49,9 @@ ActiveRecord::Schema.define(:version => 20110821162413) do
     t.integer  "status_id"
   end
 
+  add_index "categories", ["datagroup_id"], :name => "index_categories_on_datagroup_id"
   add_index "categories", ["short"], :name => "index_categoricvalues_on_short"
+  add_index "categories", ["status_id"], :name => "index_categories_on_status_id"
 
   create_table "datacolumns", :force => true do |t|
     t.integer  "datagroup_id"
@@ -98,7 +100,7 @@ ActiveRecord::Schema.define(:version => 20110821162413) do
     t.integer  "type_id"
   end
 
-  add_index "datagroups", ["id"], :name => "index_datagroups_on_id"
+  add_index "datagroups", ["type_id"], :name => "index_datagroups_on_type_id"
 
   create_table "dataset_paperproposals", :force => true do |t|
     t.string   "aspect"
@@ -117,6 +119,8 @@ ActiveRecord::Schema.define(:version => 20110821162413) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  add_index "dataset_projects", ["dataset_id", "project_id"], :name => "index_dataset_projects_on_dataset_id_and_project_id"
 
   create_table "datasets", :force => true do |t|
     t.string   "title"
@@ -147,6 +151,8 @@ ActiveRecord::Schema.define(:version => 20110821162413) do
     t.boolean  "destroy_me",            :default => false
     t.date     "destroy_me_date"
   end
+
+  add_index "datasets", ["upload_spreadsheet_id"], :name => "index_datasets_on_upload_spreadsheet_id"
 
   create_table "datatypes", :force => true do |t|
     t.string "name"
@@ -180,6 +186,9 @@ ActiveRecord::Schema.define(:version => 20110821162413) do
     t.text     "description"
   end
 
+  add_index "freeformats", ["dataset_id"], :name => "index_freeformats_on_dataset_id"
+  add_index "freeformats", ["paperproposal_id"], :name => "index_freeformats_on_paperproposal_id"
+
   create_table "import_categories", :force => true do |t|
     t.integer  "datacolumn_id"
     t.datetime "created_at"
@@ -188,6 +197,8 @@ ActiveRecord::Schema.define(:version => 20110821162413) do
     t.string   "long"
     t.text     "description"
   end
+
+  add_index "import_categories", ["datacolumn_id"], :name => "index_import_categories_on_datacolumn_id"
 
   create_table "observation_sheetcells", :force => true do |t|
     t.integer  "observation_id"
@@ -286,6 +297,7 @@ ActiveRecord::Schema.define(:version => 20110821162413) do
     t.integer  "status_id"
   end
 
+  add_index "sheetcells", ["category_id", "status_id", "datacolumn_id"], :name => "index_sheetcells_on_category_id_and_status_id_and_datacolumn_id"
   add_index "sheetcells", ["datacolumn_id"], :name => "index_sheetcells_on_datacolumn_id"
   add_index "sheetcells", ["observation_id"], :name => "index_sheetcells_on_observation_id"
 
