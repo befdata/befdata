@@ -1,5 +1,7 @@
 Befchina::Application.routes.draw do
 
+  root :to => "pages#home"
+
   resource :user_session
   match 'login' => 'user_sessions#new', :as => :login
   match 'logout' => 'user_sessions#destroy', :as => :logout
@@ -7,11 +9,9 @@ Befchina::Application.routes.draw do
   resources :users
   match 'profile' => 'users#edit', :as => :profile
 
-  root :to => "pages#home"
   match 'imprint' => 'pages#imprint', :as => :imprint
   match 'help' => 'pages#help', :as => :help
   match 'data' => 'pages#data', :as => :data
-  match 'data/show_tags' => 'tags#index'
 
   resources :datasets do
     member do
@@ -31,29 +31,18 @@ Befchina::Application.routes.draw do
   match 'datasets/:id/approve_predefined' => 'datasets#approve_predefined'
 
   resources :tags
-  #match 'tags/index' => 'tags#index'
 
   resources :projects
   resources :datacolumns
   match 'datacolumns/update_datagroup' => 'datacolumns#update_datagroup'
   match 'datacolumns/update_datatype' => 'datacolumns#update_datatype'
-  match 'datacolumns/update_people' => 'datacolumns#update_people'
   match 'datacolumns/update_metadata' => 'datacolumns#update_metadata'
   match 'datacolumns/update_category' => 'datacolumns#update_category'
   match 'datacolumns/create_category' => 'datacolumns#create_category'
 
   match 'imports/create_dataset_freeformat' => 'imports#create_dataset_freeformat'
   match 'imports/update_dataset_freeformat_file' => 'imports#update_dataset_freeformat_file'
-  match 'imports/raw_data_overview' => 'imports#raw_data_overview'
   match 'imports/raw_data_per_header' => 'imports#raw_data_per_header'
-  match 'imports/update_data_header' => 'imports#update_data_header'
-  match 'imports/update_data_group' => 'imports#update_data_group'
-  match 'imports/update_people_for_data_header' => 'imports#update_people_for_data_header'
-  match 'imports/add_data_values' => 'imports#add_data_values'
-  match 'imports/data_column_categories' => 'imports#data_column_categories'
-  match 'imports/context_export_destroy' => 'imports#context_export_destroy'
-  match 'imports/cell_category_update' => 'imports#cell_category_update'
-  match 'imports/cell_category_create' => 'imports#cell_category_create'
   match 'imports/dataset_freeformat_overview' => 'imports#dataset_freeformat_overview'
   match 'imports/save_dataset_freeformat_tags' => 'imports#save_dataset_freeformat_tags'
 
@@ -63,8 +52,7 @@ Befchina::Application.routes.draw do
 
   namespace :admin do
     resources :datasets, :projects, :users, :datagroups, :tags,
-              :datacolumns, :categories, :freeformats, :user_avatars,
-              :paperproposals do
+              :datacolumns, :categories, :freeformats, :paperproposals do
       as_routes
     end
   end

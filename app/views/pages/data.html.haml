@@ -6,7 +6,7 @@
     = render 'dataset_freeformat_upload'
 
 %h3
-  = link_to "Tags", data_show_tags_path
+  = link_to "Tags", tags_path
 
 %div
   - tag_cloud @tags, %w(nube1 nube2 nube3 nube4 nube5) do |tag, css_class|
