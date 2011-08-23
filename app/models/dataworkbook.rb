@@ -329,7 +329,7 @@ class Dataworkbook
     return Array.new if available_people.blank?
 
     # there are often several people for one column in raw data;
-    # people can also be added automatically to the submethod
+    # people can also be added automatically to the data column
     people_rows = available_people.select{|k,v| v == columnheader}.keys # only the row index
     people_given = []
     people_sur   = []
