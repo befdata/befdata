@@ -125,31 +125,6 @@ class DatasetsController < ApplicationController
     @freeformats = @dataset.freeformats
     @datacolumns = @dataset.datacolumns
 
-    # The determination of Vip or Vop status only makes sense if the
-    # current user is logged in
-    #ToDo Was macht das?
-    # @submethod_list_user = []
-    #    if logged_in?
-    #      # This loop checks the Vip/Vop-status for every PersonRole, the
-    #      # current user plays.  If any status is found, the view renders
-    #      # a appropriate download link.
-    #      @vip = false
-    #      @vop = false
-    #
-    #      proles = @current_user.person_roles
-    #      proles.each do |r|
-    #        @vip = true if @context.vips.include?(r)
-    #        @vop = true if @context.vops.include?(r)
-    #      end
-    #
-    #      # list of submethods of this user
-    #      tmp = proles.collect{|pr| pr.measmeths_personroles}.flatten.uniq
-    #      @submethod_list_user = tmp.collect{|mp| mp.measurements_methodstep}.flatten.uniq
-    #    else # not logged_in
-    #      @submethod_list_user = []
-    #
-    #    end # if logged_in?
-
   end
 
 

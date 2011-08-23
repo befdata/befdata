@@ -3,7 +3,7 @@
     - if current_user.has_role?(:owner, @dataset) || current_user.has_role?(:admin) || current_user.has_role?(:proposer, @dataset) || @dataset.free_for_members
       %li
         %img{:src => "/images/disk.png"}
-        = link_to 'Download', {:controller => :datasets, :action => 'download', :id => @dataset.id, :t => 'vip'}
+        = link_to 'Download', {:controller => :datasets, :action => 'download', :id => @dataset.id}
     - if current_user.has_role?(:owner, @dataset) || current_user.has_role?(:admin)
       %li
         %img{:src => "/images/pencil.png"}
