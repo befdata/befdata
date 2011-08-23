@@ -6,8 +6,8 @@ class PagesControllerTest < ActionController::TestCase
     assert_response :success
   end
 
-  test "should get impressum" do
-    get :impressum
+  test "should get imprint" do
+    get :imprint
     assert_response :success
   end
 

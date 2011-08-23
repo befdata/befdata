@@ -8,7 +8,7 @@ Befchina::Application.routes.draw do
   match 'profile' => 'users#edit', :as => :profile
 
   root :to => "pages#home"
-  match 'impressum' => 'pages#impressum', :as => :impressum
+  match 'imprint' => 'pages#imprint', :as => :imprint
   match 'help' => 'pages#help', :as => :help
   match 'data' => 'pages#data', :as => :data
   match 'data/show_tags' => 'tags#index'

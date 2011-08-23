@@ -2,7 +2,7 @@ class PagesController < ApplicationController
 
   skip_before_filter :deny_access_to_all
   access_control do
-    actions :home, :impressum, :help, :data do
+    actions :home, :imprint, :help, :data do
       allow all
     end
   end
@@ -10,7 +10,7 @@ class PagesController < ApplicationController
   def home
   end
 
-  def impressum
+  def imprint
   end
 
   def help
