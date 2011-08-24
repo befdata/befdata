@@ -300,7 +300,7 @@ class Dataworkbook
   end
 
   # Returns a hash filled with all people for all columnheaders
-  def columnheader_people
+  def columnheader_people #TODO check if this is correct it seems to also return the column header (which is no person!)
     ## there may be several people associated to one columnheader
     people_for_columnheader = {}
     data_responsible_person_sheet.column(0).to_a.compact.each_with_index{|o, i| people_for_columnheader[i] = o}
