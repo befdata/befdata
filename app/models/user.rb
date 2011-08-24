@@ -41,7 +41,9 @@ class User < ActiveRecord::Base
   end
 
   def add_protocol_to_url
-    /^http/.match(self.url) ? self.url : self.url = "http://#{url}"
+    if self.url
+      /^http/.match(self.url) ? self.url : self.url = "http://#{url}"
+    end
   end
 
   def to_label
