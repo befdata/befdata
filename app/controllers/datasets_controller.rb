@@ -36,21 +36,20 @@ class DatasetsController < ApplicationController
   end
 
   def create
-    @dataset = Dataset.last
-    #datafile = Datafile.create(params[:datafile])
-    #@dataset = Dataset.new
-    #@dataset.upload_spreadsheet = datafile
-    #
-    #if datafile.valid? && @dataset.save
-    #  current_user.has_role! :owner, @dataset
-    #  @dataset.dataworkbook.portal_users_listed_as_responsible.each do |user|
-    #    user.has_role!(:owner, @dataset)
-    #  end
-    #else
-    #  flash[:error] = @dataset.errors.full_messages.to_sentence
-    #  flash[:error] << datafile.errors.full_messages.to_sentence
-    #  redirect_to :back
-    #end
+    datafile = Datafile.create(params[:datafile])
+    @dataset = Dataset.new
+    @dataset.upload_spreadsheet = datafile
+
+    if datafile.valid? && @dataset.save
+      current_user.has_role! :owner, @dataset
+      @dataset.dataworkbook.portal_users_listed_as_responsible.each do |user|
+        user.has_role!(:owner, @dataset)
+      end
+    else
+      flash[:error] = @dataset.errors.full_messages.to_sentence
+      flash[:error] << datafile.errors.full_messages.to_sentence
+      redirect_to :back
+    end
 
   end
 
