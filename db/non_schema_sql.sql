@@ -118,27 +118,10 @@ CREATE OR REPLACE FUNCTION accept_datacolumn_values(datatype_id integer, datacol
                   )
                 and sheetcells.category_id is null;
 
-                 -- regardless of the data type any sheetcells left over are invalid and categories created for them
-                -- this is a two step process to avoid duplicate categories being created
-
-                -- 1. add a category for each unique invalid value, as long as one doesn't already exist in the data group
-                insert into categories (short, long, description, datagroup_id, status_id, created_at, updated_at, user_id, comment)
-                    (select distinct sheetcells.import_value, sheetcells.import_value, sheetcells.import_value, $3 as datagroup_id, 3 as status_id, now() as created_at, now() as updated_at,
-                        $4 as user_id, $5 as comment
-                    from sheetcells
-                    where sheetcells.datacolumn_id=$2 and sheetcells.category_id is null
-                        and sheetcells.accepted_value is null and sheetcells.status_id = 1
-                        and not exists (select 1 from categories where (short = sheetcells.import_value or long = sheetcells.import_value) and datagroup_id = $3));
-
-
-                -- 2. update the sheet cells with the correct category
+                 -- regardless of the data type any sheetcells left over are flagged as invalid
                 update sheetcells
-                set category_id= c.id,
-                  updated_at = now(),
-                  datatype_id = 5, -- whatever the original data type this is now a category data type
-                  accepted_value = null,
-                  status_id = 5 -- it is an invalid category
-                from categories c
-                where (sheetcells.import_value=c.short or sheetcells.import_value=c.long)
-                and sheetcells.datacolumn_id=$2 and c.datagroup_id = $3 and sheetcells.category_id is null and sheetcells.accepted_value is null
+                set updated_at = now(),
+		            datatype_id = $1,
+                    status_id = 5 -- invalid
+                where sheetcells.datacolumn_id=$2 and sheetcells.category_id is null and sheetcells.accepted_value is null
       returning true$_$;
