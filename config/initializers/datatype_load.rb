@@ -10,6 +10,11 @@ class Datatypehelper
                          Datatype.new(8, "unknown", "")
                         ]
 
+  # This method returns all known datatypes (i.e. all datatypes except 'unknown').
+  def self.known
+    DATATYPE_COLLECTION.reject{|dt| dt.name == 'unknown'}
+  end
+  
   # A little helper method to extract a datatype from the collection by name
   def self.find_by_name(name)
     found = nil
