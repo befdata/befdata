@@ -50,46 +50,42 @@ class DatasetsController < ApplicationController
       redirect_to :back
     end
 
-    begin
-      book = Dataworkbook.new(datafile)
-      # after closing, the file can be destroyed if necessary, the
-      # information stays in the book object
+    book = Dataworkbook.new(datafile)
+    # after closing, the file can be destroyed if necessary, the
+    # information stays in the book object
 
-      # Start with the first sheet; if the page is reloaded, there
-      # may already be a context to this datafile
-      if datafile.dataset.blank?
-        @dataset = Dataset.new
-        @dataset.upload_spreadsheet = datafile
+    # Start with the first sheet; if the page is reloaded, there
+    # may already be a context to this datafile
+    if datafile.dataset.blank?
+      @dataset = Dataset.new
+      @dataset.upload_spreadsheet = datafile
 
-        # gather all the cell values that can just be copied into
-        # the new context
-        @dataset.update_attributes(book.general_metadata_hash)
+      # gather all the cell values that can just be copied into
+      # the new context
+      @dataset.update_attributes(book.general_metadata_hash)
 
-        # Calculate the start and end dates of field research
-        @dataset.datemin = book.datemin
-        @dataset.datemax = book.datemax
-        book.give_owner_rights_to_members_listed_as_responsible(@dataset)
-        
-      else # there already is context information for this file
-        @dataset = datafile.dataset
-      end
+      # Calculate the start and end dates of field research
+      @dataset.datemin = book.datemin
+      @dataset.datemax = book.datemax
+      book.give_owner_rights_to_members_listed_as_responsible(@dataset)
 
-      # Project Tag list
-      @dataset.projecttag_list = book.tag_list unless book.tag_list.blank?
-
-      # the uploader should be owner, too
-      current_user.has_role! :owner, @dataset
-
-      @dataset.save
-
-      # Render the page that presents the general metadata for a
-      # data set, for user interaction
-      @step = 1
-      @people_list = User.find(:all, :order => :lastname)
-    rescue Ole::Storage::FormatError
-      # Uploaded file was no valid Excel file
-      redirect_to data_path and return
+    else # there already is context information for this file
+      @dataset = datafile.dataset
     end
+
+    # Project Tag list
+    @dataset.projecttag_list = book.tag_list unless book.tag_list.blank?
+
+    # the uploader should be owner, too
+    current_user.has_role! :owner, @dataset
+
+    @dataset.save
+
+    # Render the page that presents the general metadata for a
+    # data set, for user interaction
+    @step = 1
+    @people_list = User.find(:all, :order => :lastname)
+    
   end
 
   # This action provides edit forms for the given context
