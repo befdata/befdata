@@ -140,16 +140,16 @@ class Dataworkbook
   # The method that loads the Workbook into the database.
   def import_data
     # generate data column instances
-    book.columnheaders_raw.each do |columnheader|
+    columnheaders_raw.each do |columnheader|
 
-      data_column_information = initialize_data_column_information(book, columnheader)
-      data_column_new = Datacolumn.create(data_column_information)
-      all_cells_for_one_column = book.data_for_columnheader(columnheader)[:data]
+      data_column_information = initialize_data_column_information(columnheader)
+      data_column_new = Datacolumn.create!(data_column_information)
+      all_cells_for_one_column = data_for_columnheader(columnheader)[:data]
       datatype = Datatypehelper.find_by_name(data_column_information[:import_data_type])
 
       unless all_cells_for_one_column.blank?
 
-        save_all_cells_to_database(book.datafile, data_column_new, datatype, all_cells_for_one_column)
+        save_all_cells_to_database(data_column_new, datatype, all_cells_for_one_column)
         add_any_sheet_categories_included_for_this_column(columnheader, data_column_new)
 
       end
@@ -157,11 +157,11 @@ class Dataworkbook
     end
   end
 
-  def initialize_data_column_information(book, columnheader)
-    data_group = get_or_create_data_group(book, columnheader)
+  def initialize_data_column_information(columnheader)
+    data_group = get_or_create_data_group(columnheader)
 
-    data_column_information = book.data_column_info_for_columnheader(columnheader)
-    data_column_information[:dataset_id] = book.datafile.id
+    data_column_information = data_column_info_for_columnheader(columnheader)
+    data_column_information[:dataset_id] = datafile.dataset.id
     data_column_information[:tag_list] = data_column_information[:comment] unless data_column_information[:comment].blank?
     data_column_information[:datagroup_id] = data_group.id
     data_column_information[:datagroup_approved] = false
@@ -171,15 +171,15 @@ class Dataworkbook
     data_column_information
   end
 
-  def get_or_create_data_group(book, columnheader)
-    data_group_ch = book.methodsheet_datagroup(columnheader)
+  def get_or_create_data_group(columnheader)
+    data_group_ch = methodsheet_datagroup(columnheader)
     data_group = Datagroup.find_by_title(data_group_ch[:title])
     data_group = Datagroup.create(data_group_ch) if data_group.blank?
 
     data_group
   end
 
-  def save_all_cells_to_database(datafile, data_column_new, datatype, all_cells)
+  def save_all_cells_to_database(data_column_new, datatype, all_cells)
     existing_observations = Dataset.find(datafile.id).rownr_observation_id_hash
     sheetcells_to_be_saved = []
 
