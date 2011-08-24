@@ -8,7 +8,7 @@
 
   %div
     Owner
-    = select("owner", "owner_id", @people_list.collect {|person| [person.to_label, person.id] },
+    = select("owner", "owner_id", User.all_users_names_and_ids_for_select,
                                   { :index => nil },
                                   {:default => ''})
     %br

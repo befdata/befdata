@@ -79,10 +79,6 @@ class DatasetsController < ApplicationController
 
     @dataset.save
 
-    # Render the page that presents the general metadata for a
-    # data set, for user interaction
-    @people_list = User.find(:all, :order => :lastname) #FIXME:MICHAEL should be a helper method
-    
   end
 
   # This action provides edit forms for the given context
@@ -246,7 +242,6 @@ class DatasetsController < ApplicationController
 
     begin
       # @dataset = Dataset.find(params[:dataset_id])  # before filter
-      @people_list = User.find(:all, :order => :lastname)
       @project_list = Project.find(:all, :order => :shortname)
 
     rescue ActiveRecord::RecordNotFound

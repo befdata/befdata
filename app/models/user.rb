@@ -167,6 +167,10 @@ class User < ActiveRecord::Base
     end
   end
 
+  def self.all_users_names_and_ids_for_select
+    User.all(:order => :lastname).collect {|person| [person.to_label, person.id]}
+  end
+
 end
 
 

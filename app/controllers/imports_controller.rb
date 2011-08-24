@@ -66,9 +66,6 @@ class ImportsController < ApplicationController
     # prepare a new data group instance to save it if needed
     @data_group_new = Datagroup.new(@book.methodsheet_datagroup(columnheader))
 
-    # list of all Person Roles, sorted
-    @people_list = User.find(:all, :order => :lastname)
-
     # Are there already people associated?
     @ppl = @data_column.users
 

@@ -18,7 +18,7 @@
     Research unit members to be acknowledged or otherwise involved. 
   .span-3= label_tag 'people', 'People'
   .span-3.last
-  = select "person", "person_id", @people_list.map{|p| [p.to_label, p.id]}, {:prompt => 'Select Member'}, {:onchange => 'selectPeople(this)'}
+  = select "person", "person_id", User.all_users_names_and_ids_for_select, {:prompt => 'Select Member'}, {:onchange => 'selectPeople(this)'}
   %ul#people-list{:style => 'list-style: none;'}
     - @ppl.each do |person|
       %li{:onclick => "this.parentNode.removeChild(this);"}

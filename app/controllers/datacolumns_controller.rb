@@ -50,9 +50,6 @@ class DatacolumnsController < ApplicationController
       # Collect all methods for the select tag.
       @methods_short_list = Datagroup.find(:all, :order => "title").collect{|m| [m.title, m.id]}
 
-      # Gather the list of all Person Roles, sorted by their last name.
-      @people_list = User.find(:all, :order => :lastname)
-
       # Collect the already linked people.
       @ppl = @data_column.users
 
