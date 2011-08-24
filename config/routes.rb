@@ -1,5 +1,7 @@
 Befchina::Application.routes.draw do
 
+  resources :test_models
+
   root :to => "pages#home"
 
   resource :user_session
@@ -19,7 +21,6 @@ Befchina::Application.routes.draw do
     end
   end
 
-  match 'upload' => 'datasets#upload', :as => :upload
   match 'create_dataset' => 'datasets#create', :as => :create_dataset  
   match 'upload_dataset_freeformat' => 'datasets#upload_dataset_freeformat', :as => :upload_dataset_freeformat
   match 'create_dataset_freeformat' => 'datasets#create_dataset_freeformat', :as => :create_dataset_freeformat

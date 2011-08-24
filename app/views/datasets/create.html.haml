@@ -2,7 +2,7 @@
 
 .active-scaffold
   .dataset-metadata-form
-    - form_for @dataset, :url => url_for(:controller => :datasets, :action => :upload, :id => @dataset.id) do |f|
+    - form_for @dataset do |f|
       = error_messages_for @dataset
       %h4 Dataset title
       %dl

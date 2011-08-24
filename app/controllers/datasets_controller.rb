@@ -1,6 +1,6 @@
 class DatasetsController < ApplicationController
 
-  before_filter :load_dataset, :only => [:download, :show, :edit, :upload, :data, :clean, :destroy]
+  before_filter :load_dataset, :only => [:download, :show, :edit, :update, :data, :clean, :destroy]
 
   before_filter :load_freeformat_dataset, :only => [:download_freeformat]
 
@@ -12,7 +12,7 @@ class DatasetsController < ApplicationController
   access_control do
     allow all, :to => [:show, :index, :load_context]
 
-    actions :download, :edit, :upload, :data, :update_freeformat_associations, :save_freeformat_associations,
+    actions :download, :edit, :update, :data, :update_freeformat_associations, :save_freeformat_associations,
             :download_freeformat, :save_dataset_freeformat_associations, :approve_predefined do
       allow :admin
       allow :owner, :of => :dataset
@@ -36,20 +36,21 @@ class DatasetsController < ApplicationController
   end
 
   def create
-    datafile = Datafile.create(params[:datafile])
-    @dataset = Dataset.new
-    @dataset.upload_spreadsheet = datafile
-
-    if datafile.valid? && @dataset.save
-      current_user.has_role! :owner, @dataset
-      @dataset.dataworkbook.portal_users_listed_as_responsible.each do |user|
-        user.has_role!(:owner, @dataset)
-      end
-    else
-      flash[:error] = @dataset.errors.full_messages.to_sentence
-      flash[:error] << datafile.errors.full_messages.to_sentence
-      redirect_to :back
-    end
+    @dataset = Dataset.last
+    #datafile = Datafile.create(params[:datafile])
+    #@dataset = Dataset.new
+    #@dataset.upload_spreadsheet = datafile
+    #
+    #if datafile.valid? && @dataset.save
+    #  current_user.has_role! :owner, @dataset
+    #  @dataset.dataworkbook.portal_users_listed_as_responsible.each do |user|
+    #    user.has_role!(:owner, @dataset)
+    #  end
+    #else
+    #  flash[:error] = @dataset.errors.full_messages.to_sentence
+    #  flash[:error] << datafile.errors.full_messages.to_sentence
+    #  redirect_to :back
+    #end
 
   end
 
@@ -230,17 +231,15 @@ class DatasetsController < ApplicationController
 
   end
 
-  def upload
+  def update
+    users_given_as_provenance = User.find(params[:people]) unless params[:people].blank?
+    users_given_as_provenance.each do |user|
+      user.has_role! :owner, @dataset
+    end
 
-      users_given_as_provenance = User.find(params[:people]) unless params[:people].blank?
-      users_given_as_provenance.each do |user|
-        user.has_role! :owner, @dataset
-      end
+    @dataset.update_attributes(params[:dataset])
 
-      @dataset.update_attributes(params[:dataset])
-
-      redirect_to data_dataset_path(@dataset) and return
-    
+    redirect_to data_dataset_path(@dataset) and return
   end
 
   def load_dataset
