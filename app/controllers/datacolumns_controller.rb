@@ -151,9 +151,7 @@ class DatacolumnsController < ApplicationController
     redirect_to :back
   end
 
-  # This method is called whenever someone clicks on the 'Save' Button
-  # in the last step of the Data Column approval process.
-  #
+
   # The meta data of this Data Column is saved. The people submitted via form are assigned
   # to the Data Column or their assignation is revoked.
   def update_metadata

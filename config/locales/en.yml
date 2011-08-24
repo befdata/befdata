@@ -50,8 +50,3 @@ expected conclusions and how will effect sizes or significances be quantified?)"
 
   context:
     upload: "Upload new context"
-    step1: "You may now check the correctness of the data you uploaded."
-    step2: ""
-    step3: ""
-    step4: ""
-    step5: "The validation process is finished. If everything's allright, set the finished flag to true. The context will then be searchable and available to other people."

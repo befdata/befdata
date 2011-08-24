@@ -2,93 +2,74 @@
   Dataset: #{@dataset.title}
 
 .active-scaffold
-  - if @step == 1
-    - if @dataset.valid?
-      - form_tag url_for(:controller => :datasets, :action => :upload) do
-        = error_messages_for :datasets, :object_name => @dataset.class.human_name.downcase
-        = hidden_field_tag 'step', '1'
-        = hidden_field_tag 'dataset_id', @dataset.id
-        %h4 Dataset title
-        %dl
-          %dt= label_tag 'title', nil
-          %dd= text_field_tag 'title', @dataset.title, :class => 'text-input'
-        %h4 Provenance information
-        %dl
-          %dt= label_tag 'Select people', nil
-          %dd= select "person", "person_id", @people_list.map{|p| [p.to_label, p.id]}, {:prompt => 'Select Member'}, {:onchange => 'selectPeople(this)'}
-        %ul#people-list{:style => 'list-style: none;'}
-          - @dataset.users.each do |user|
-            %li{:onclick => "this.parentNode.removeChild(this);"}
-              %input{:name => "people[]", :type => "hidden", :value => user.id}/
-              = user.to_label
-        %p
-          You can note external scientists in the comments of a dataset.
-          Please notify the project board if an external scientist has
-          signed our data sharing agreement and should be able to log into
-          our data portal.
-        %dl
-          %dt= label_tag 'comment'
-          %dd= text_area_tag 'comment', @dataset.comment, :size => '40x7', :class => 'text-input'
-        %dl
-          %dt= label_tag 'Project tag list', nil
-          %dd= text_field_tag 'projecttag_list', @dataset.projecttag_list, :class => 'text-input'
-        %h4 General Metadata
-        %dl
-          %dt= label_tag 'abstract'
-          %dd= text_area_tag 'abstract', @dataset.abstract, :size => '40x7', :class => 'text-input'
-        %dl
-          %dt= label_tag 'Usage rights'
-          %dd= text_area_tag 'usagerights', @dataset.usagerights, :size => '40x7', :class => 'text-input'
-        %dl
-          %dt= label_tag 'published'
-          %dd= text_area_tag 'published', @dataset.published, :size => '40x7', :class => 'text-input'
-        %dl
-          %dt= label_tag 'Spatial extent'
-          %dd= text_area_tag 'spatialextent', @dataset.spatialextent, :size => '40x7', :class => 'text-input'
-        %dl
-          %dt= label_tag 'Date min'
-          %dd= datetime_select 'date', 'min', :default => @dataset.datemin
-        %dl
-          %dt= label_tag 'Date max'
-          %dd= datetime_select 'date', 'max', :default => @dataset.datemax
-        %dl
-          %dt= label_tag 'Temporal extent'
-          %dd= text_area_tag 'temporalextent', @dataset.temporalextent, :size => '40x7', :class => 'text-input'
-        %dl
-          %dt= label_tag 'Taxonomic extent'
-          %dd= text_area_tag 'taxonomicextent', @dataset.taxonomicextent, :size => '40x7', :class => 'text-input'
-        %dl
-          %dt= label_tag 'design'
-          %dd= text_area_tag 'design', @dataset.design, :size => '40x7', :class => 'text-input'
-        %dl
-          %dt= label_tag 'Data analysis'
-          %dd= text_area_tag 'dataanalysis', @dataset.dataanalysis, :size => '40x7', :class => 'text-input'
-        %dl
-          %dt= label_tag 'circumstances'
-          %dd= text_area_tag 'circumstances', @dataset.circumstances, :size => '40x7', :class => 'text-input'
-        %dl
-          %dt
-          %dd= submit_tag 'Save Metadata'
-      / ending the form
-    - else
-      / context not valid
-      %p
-        There were problems with saving the meta data file for this
-        data set.
-    / ending question valid context
-    / ----------------------------------------------
-    / STEP 5: Final page
-    / ----------------------------------------------
-  - elsif @step == 5
+  - if @dataset.valid?
     - form_tag url_for(:controller => :datasets, :action => :upload) do
-      = hidden_field_tag 'step', '5'
+      = error_messages_for :datasets, :object_name => @dataset.class.human_name.downcase
       = hidden_field_tag 'dataset_id', @dataset.id
+      %h4 Dataset title
       %dl
-        %dt= label_tag 'finished', nil
-        %dd
-          = select_tag 'finished',
-            '<option value = "false">False</option> <option value = "true" selected = "selected">True</option>',
-            :class => 'text-input'
+        %dt= label_tag 'title', nil
+        %dd= text_field_tag 'title', @dataset.title, :class => 'text-input'
+      %h4 Provenance information
+      %dl
+        %dt= label_tag 'Select people', nil
+        %dd= select "person", "person_id", @people_list.map{|p| [p.to_label, p.id]}, {:prompt => 'Select Member'}, {:onchange => 'selectPeople(this)'}
+      %ul#people-list{:style => 'list-style: none;'}
+        - @dataset.users.each do |user|
+          %li{:onclick => "this.parentNode.removeChild(this);"}
+            %input{:name => "people[]", :type => "hidden", :value => user.id}/
+            = user.to_label
+      %p
+        You can note external scientists in the comments of a dataset.
+        Please notify the project board if an external scientist has
+        signed our data sharing agreement and should be able to log into
+        our data portal.
+      %dl
+        %dt= label_tag 'comment'
+        %dd= text_area_tag 'comment', @dataset.comment, :size => '40x7', :class => 'text-input'
+      %dl
+        %dt= label_tag 'Project tag list', nil
+        %dd= text_field_tag 'projecttag_list', @dataset.projecttag_list, :class => 'text-input'
+      %h4 General Metadata
+      %dl
+        %dt= label_tag 'abstract'
+        %dd= text_area_tag 'abstract', @dataset.abstract, :size => '40x7', :class => 'text-input'
+      %dl
+        %dt= label_tag 'Usage rights'
+        %dd= text_area_tag 'usagerights', @dataset.usagerights, :size => '40x7', :class => 'text-input'
+      %dl
+        %dt= label_tag 'published'
+        %dd= text_area_tag 'published', @dataset.published, :size => '40x7', :class => 'text-input'
+      %dl
+        %dt= label_tag 'Spatial extent'
+        %dd= text_area_tag 'spatialextent', @dataset.spatialextent, :size => '40x7', :class => 'text-input'
+      %dl
+        %dt= label_tag 'Date min'
+        %dd= datetime_select 'date', 'min', :default => @dataset.datemin
+      %dl
+        %dt= label_tag 'Date max'
+        %dd= datetime_select 'date', 'max', :default => @dataset.datemax
+      %dl
+        %dt= label_tag 'Temporal extent'
+        %dd= text_area_tag 'temporalextent', @dataset.temporalextent, :size => '40x7', :class => 'text-input'
+      %dl
+        %dt= label_tag 'Taxonomic extent'
+        %dd= text_area_tag 'taxonomicextent', @dataset.taxonomicextent, :size => '40x7', :class => 'text-input'
+      %dl
+        %dt= label_tag 'design'
+        %dd= text_area_tag 'design', @dataset.design, :size => '40x7', :class => 'text-input'
+      %dl
+        %dt= label_tag 'Data analysis'
+        %dd= text_area_tag 'dataanalysis', @dataset.dataanalysis, :size => '40x7', :class => 'text-input'
+      %dl
+        %dt= label_tag 'circumstances'
+        %dd= text_area_tag 'circumstances', @dataset.circumstances, :size => '40x7', :class => 'text-input'
       %dl
         %dt
-        %dd= submit_tag
+        %dd= submit_tag 'Save Metadata'
+    / ending the form
+  - else
+    / context not valid
+    %p
+      There were problems with saving the meta data file for this
+      data set.

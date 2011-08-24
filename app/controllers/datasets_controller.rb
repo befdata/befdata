@@ -51,8 +51,6 @@ class DatasetsController < ApplicationController
     end
 
     book = Dataworkbook.new(datafile)
-    # after closing, the file can be destroyed if necessary, the
-    # information stays in the book object
 
     # Start with the first sheet; if the page is reloaded, there
     # may already be a context to this datafile
@@ -83,15 +81,13 @@ class DatasetsController < ApplicationController
 
     # Render the page that presents the general metadata for a
     # data set, for user interaction
-    @step = 1
-    @people_list = User.find(:all, :order => :lastname)
+    @people_list = User.find(:all, :order => :lastname) #FIXME:MICHAEL should be a helper method
     
   end
 
   # This action provides edit forms for the given context
   def edit
     # Main auth determination happens in AdminBaseController
-    @step = 0
     @contacts = @dataset.users.select{|p| p.has_role?(:owner, @context)}
     @contact = @contacts.first
     @projects = []
@@ -281,13 +277,9 @@ class DatasetsController < ApplicationController
   end
 
   def upload
-    redirect_to data_path and return unless %w[1 5].include?(params[:step])
-
     @dataset = Dataset.find(params[:dataset_id])
     redirect_to data_path and return if @dataset.blank? # No dataset found
 
-    case params[:step]
-    when '1'
       # At this point, the parameter "filename" is given; there has
       # already an upload been done, the context for which "upload"
       # is called is already existing.  Because of this, the upload
@@ -319,19 +311,8 @@ class DatasetsController < ApplicationController
       :dataanalysis => params[:dataanalysis],
       :circumstances => params[:circumstances] )
 
-      # Finally, set the new step, so that the evaluation process
-      # moves forward
       redirect_to data_dataset_path(@dataset) and return
-    when '5'
-      @step = 5
 
-      # Upoading and evaluation finished
-      @dataset.finished = params[:finished]
-      @dataset.save
-
-      # If the dataset is finished, show it
-      redirect_to url_for :controller => :datasets, :action => :show, :id => @dataset.id and return if @dataset.finished
-    end
   end
 
   def load_dataset
