@@ -1,7 +1,7 @@
 %h2= "Dataset: #{@dataset.title}"
 
 .active-scaffold
-  - if @dataset.valid?
+  .dataset-metadata-form
     - form_for @dataset, :url => url_for(:controller => :datasets, :action => :upload, :id => @dataset.id) do |f|
       = error_messages_for @dataset
       %h4 Dataset title
@@ -24,23 +24,23 @@
         our data portal.
       %dl
         %dt= label_tag 'comment'
-        %dd= f.text_area :comment, :size => '40x7', :class => 'text-input'
+        %dd= f.text_area :comment
       %dl
         %dt= label_tag 'Project tag list', nil
         %dd= f.text_field :projecttag_list, :class => 'text-input'
       %h4 General Metadata
       %dl
         %dt= label_tag 'abstract'
-        %dd= f.text_area :abstract, :size => '40x7', :class => 'text-input'
+        %dd= f.text_area :abstract
       %dl
         %dt= label_tag 'Usage rights'
-        %dd= f.text_area :usagerights, :size => '40x7', :class => 'text-input'
+        %dd= f.text_area :usagerights
       %dl
         %dt= label_tag 'published'
-        %dd= f.text_area :published, :size => '40x7', :class => 'text-input'
+        %dd= f.text_area :published
       %dl
         %dt= label_tag 'Spatial extent'
-        %dd= f.text_area :spatialextent, :size => '40x7', :class => 'text-input'
+        %dd= f.text_area :spatialextent
       %dl
         %dt= label_tag 'Research start date'
         %dd= f.datetime_select :datemin, :default => @dataset.datemin
@@ -49,25 +49,19 @@
         %dd= f.datetime_select :datemax, :default => @dataset.datemax
       %dl
         %dt= label_tag 'Temporal extent'
-        %dd= f.text_area :temporalextent, :size => '40x7', :class => 'text-input'
+        %dd= f.text_area :temporalextent
       %dl
         %dt= label_tag 'Taxonomic extent'
-        %dd= f.text_area :taxonomicextent, :size => '40x7', :class => 'text-input'
+        %dd= f.text_area :taxonomicextent
       %dl
         %dt= label_tag 'design'
-        %dd= f.text_area :design, :size => '40x7', :class => 'text-input'
+        %dd= f.text_area :design
       %dl
         %dt= label_tag 'Data analysis'
-        %dd= f.text_area :dataanalysis, :size => '40x7', :class => 'text-input'
+        %dd= f.text_area :dataanalysis
       %dl
         %dt= label_tag 'circumstances'
-        %dd= f.text_area :circumstances, :size => '40x7', :class => 'text-input'
+        %dd= f.text_area :circumstances
       %dl
         %dt
         %dd= submit_tag 'Save Metadata'
-    / ending the form
-  - else
-    / context not valid
-    %p
-      There were problems with saving the meta data file for this
-      data set.
