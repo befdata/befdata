@@ -64,6 +64,7 @@ class Dataset < ActiveRecord::Base
 
 
   def load_metadata_from_spreadsheet
+    return if upload_spreadsheet.nil? #TODO remove as soon as Freeformats are no longer saved as Datasets see #4906
     book = dataworkbook
     self.attributes = book.general_metadata_hash
     self.set_start_and_end_dates_of_research(book)
