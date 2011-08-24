@@ -1,6 +1,6 @@
 class DatasetsController < ApplicationController
 
-  before_filter :load_dataset, :only => [:download, :show, :edit, :data, :clean, :destroy]
+  before_filter :load_dataset, :only => [:download, :show, :edit, :upload, :data, :clean, :destroy]
 
   before_filter :load_freeformat_dataset, :only => [:download_freeformat]
 
@@ -231,7 +231,7 @@ class DatasetsController < ApplicationController
   end
 
   def upload
-    @dataset = Dataset.find(params[:dataset_id])
+
     redirect_to data_path and return if @dataset.blank? # No dataset found
 
       # At this point, the parameter "filename" is given; there has
@@ -250,20 +250,7 @@ class DatasetsController < ApplicationController
         current_user.has_role! :owner, @dataset
       end
 
-      
-      @dataset.update_attributes( :title => params[:title],
-      :abstract => params[:abstract],
-      :comment => params[:comment],
-      :usagerights => params[:usagerights],
-      :published => params[:published],
-      :spatialextent => params[:spatialextent],
-      :datemin => DateTime.civil(params[:date][:"min(1i)"].to_i, params[:date][:"min(2i)"].to_i, params[:date][:"min(3i)"].to_i, params[:date][:"min(4i)"].to_i, params[:date][:"min(5i)"].to_i),
-      :datemax => DateTime.civil(params[:date][:"max(1i)"].to_i, params[:date][:"max(2i)"].to_i, params[:date][:"max(3i)"].to_i, params[:date][:"max(4i)"].to_i, params[:date][:"max(5i)"].to_i),
-      :temporalextent => params[:temporalextent],
-      :taxonomicextent => params[:taxonomicextent],
-      :design => params[:design],
-      :dataanalysis => params[:dataanalysis],
-      :circumstances => params[:circumstances] )
+      @dataset.update_attributes(params[:dataset])
 
       redirect_to data_dataset_path(@dataset) and return
 
