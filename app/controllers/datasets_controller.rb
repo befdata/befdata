@@ -12,13 +12,8 @@ class DatasetsController < ApplicationController
   access_control do
     allow all, :to => [:show, :index, :load_context]
 
-    # proponents should not be able to alter aspects of datasets they do not own
-    # update freeformat associations: dataset through params[:dataset_id]
-    # download freeformat: no dataset, freeformat through params[:id]
-    # save freeformat associations: dataset through params[:dataset][:id]
-    # save dataset freeformat association: dataset through params[:dataset][:id]
-    actions :download, :edit, :data, :update_freeformat_associations, :save_freeformat_associations,
-    :download_freeformat, :save_dataset_freeformat_associations, :approve_predefined do
+    actions :download, :edit, :upload, :data, :update_freeformat_associations, :save_freeformat_associations,
+            :download_freeformat, :save_dataset_freeformat_associations, :approve_predefined do
       allow :admin
       allow :owner, :of => :dataset
       allow :proposer, :of => :dataset
@@ -34,9 +29,7 @@ class DatasetsController < ApplicationController
       allow all, :if => :dataset_is_free_for_public
     end
 
-    # for the first upload of the file, before owners are associated, logged in users have the right
-    # to update freeformat associations
-    actions :create, :upload, :upload_freeformat, :upload_dataset_freeformat, :create_freeformat,
+    actions :create, :upload_freeformat, :upload_dataset_freeformat, :create_freeformat,
     :create_dataset_freeformat, :update_dataset_freeformat_associations do
       allow logged_in
     end
