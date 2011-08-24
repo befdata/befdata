@@ -232,28 +232,15 @@ class DatasetsController < ApplicationController
 
   def upload
 
-    redirect_to data_path and return if @dataset.blank? # No dataset found
-
-      # At this point, the parameter "filename" is given; there has
-      # already an upload been done, the context for which "upload"
-      # is called is already existing.  Because of this, the upload
-      # of a file is leaped over.  We are at step 1.
-
-      if !params[:people].blank? then
-        users = User.find(params[:people])
-        # assigning provenance information: linking people to the data set
-        users.each do |pr|
-          pr.has_role! :owner, @dataset
-        end
-      else
-        # add at least the uploader
-        current_user.has_role! :owner, @dataset
+      users_given_as_provenance = User.find(params[:people]) unless params[:people].blank?
+      users_given_as_provenance.each do |user|
+        user.has_role! :owner, @dataset
       end
 
       @dataset.update_attributes(params[:dataset])
 
       redirect_to data_dataset_path(@dataset) and return
-
+    
   end
 
   def load_dataset
