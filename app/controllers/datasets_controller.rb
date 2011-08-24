@@ -239,21 +239,12 @@ class DatasetsController < ApplicationController
 
 
   def update_dataset_freeformat_associations
-
-    begin
-      # @dataset = Dataset.find(params[:dataset_id])  # before filter
-      @project_list = Project.find(:all, :order => :shortname)
-
-    rescue ActiveRecord::RecordNotFound
-      # No context with this id exists
-      redirect_to data_path and return
-    end
-
+     @project_list = Project.find(:all, :order => :shortname)
   end
 
 
   def save_dataset_freeformat_associations
-    begin
+
       @dataset = Dataset.find(params[:dataset][:id])
       @owner = User.find(params[:owner][:owner_id])
       @project = Project.find(params[:project][:project_id])
@@ -265,10 +256,6 @@ class DatasetsController < ApplicationController
       :action => :dataset_freeformat_overview,
       :dataset_id => @dataset.id) and return
 
-    rescue ActiveRecord::RecordNotFound
-      # No context with this id exists
-      redirect_to data_path and return
-    end
   end
 
   def upload
