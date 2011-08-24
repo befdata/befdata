@@ -87,11 +87,12 @@ class Dataworkbook
     users_from_sheet
   end
 
-  def give_owner_rights_to_members_listed_as_responsible(dataset)
+  def portal_users_listed_as_responsible
+    portal_users = []
     members_listed_as_responsible.each do |member|
-      user_on_portal = User.find_by_firstname_and_lastname(member[0], member[1])
-      user_on_portal.has_role!(:owner, dataset) if user_on_portal
+      portal_users << User.find_by_firstname_and_lastname(member[0], member[1])
     end
+    portal_users.compact
   end
 
   # Returns an array of the tags that were in the respective cell.
@@ -180,7 +181,7 @@ class Dataworkbook
   end
 
   def save_all_cells_to_database(data_column_new, datatype, all_cells)
-    existing_observations = Dataset.find(datafile.id).rownr_observation_id_hash
+    existing_observations = Dataset.find(datafile.dataset.id).rownr_observation_id_hash
     sheetcells_to_be_saved = []
 
     all_cells.each do |row_number, cell_content|

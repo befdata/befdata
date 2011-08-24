@@ -43,41 +43,20 @@ class DatasetsController < ApplicationController
   end
 
   def create
-    datafile = Datafile.new(params[:datafile])
+    datafile = Datafile.create(params[:datafile])
+    @dataset = Dataset.new
+    @dataset.upload_spreadsheet = datafile
 
-    unless datafile.save
-      flash[:error] = "#{datafile.errors.to_a.first.capitalize}"
+    if datafile.valid? && @dataset.save
+      current_user.has_role! :owner, @dataset
+      @dataset.dataworkbook.portal_users_listed_as_responsible.each do |user|
+        user.has_role!(:owner, @dataset)
+      end
+    else
+      flash[:error] = @dataset.errors.full_messages.to_sentence
+      flash[:error] << datafile.errors.full_messages.to_sentence
       redirect_to :back
     end
-
-    book = Dataworkbook.new(datafile)
-
-    # Start with the first sheet; if the page is reloaded, there
-    # may already be a context to this datafile
-    if datafile.dataset.blank?
-      @dataset = Dataset.new
-      @dataset.upload_spreadsheet = datafile
-
-      # gather all the cell values that can just be copied into
-      # the new context
-      @dataset.update_attributes(book.general_metadata_hash)
-
-      # Calculate the start and end dates of field research
-      @dataset.datemin = book.datemin
-      @dataset.datemax = book.datemax
-      book.give_owner_rights_to_members_listed_as_responsible(@dataset)
-
-    else # there already is context information for this file
-      @dataset = datafile.dataset
-    end
-
-    # Project Tag list
-    @dataset.projecttag_list = book.tag_list unless book.tag_list.blank?
-
-    # the uploader should be owner, too
-    current_user.has_role! :owner, @dataset
-
-    @dataset.save
 
   end
 

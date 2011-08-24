@@ -59,8 +59,25 @@ class Dataset < ActiveRecord::Base
   validates_presence_of :title, :abstract, :filename
   validates_uniqueness_of :title, :filename
 
+  before_validation(:load_metadata_from_spreadsheet, :on => :create)
   before_destroy :delete_sheetcells
-  
+
+
+  def load_metadata_from_spreadsheet
+    book = dataworkbook
+    self.attributes = book.general_metadata_hash
+    self.set_start_and_end_dates_of_research(book)
+    self.projecttag_list = book.tag_list unless book.tag_list.blank?
+  end
+
+  def dataworkbook
+    Dataworkbook.new(upload_spreadsheet)
+  end
+
+  def set_start_and_end_dates_of_research(book)
+    self.datemin = book.datemin
+    self.datemax = book.datemax
+  end
 
   # Checks if all the cells (Measurement) saved during the upload of a
   # data sheet (ImportController) have been manually approved and
