@@ -93,7 +93,7 @@ class Dataset < ActiveRecord::Base
     # To be predefined, a column must have a datagroup and a datatype that is not 'unknown'.
     # The datagroup is created at import, so we only have to check for the datatype.
     # Furthermore, the datacolumn approval process must not have already started.
-    datacolumns.select{|dc| Datatypehelper.find_by_name(dc.import_data_type) != 'unknown' && dc.untouched?}
+    datacolumns.select{|dc| Datatypehelper.find_by_name(dc.import_data_type).name != 'unknown' && dc.untouched?}
   end
   
   # The class Observation stores all rows of the primary data sheets
