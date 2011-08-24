@@ -59,8 +59,8 @@ class Dataset < ActiveRecord::Base
   validates_presence_of :title, :abstract, :filename
   validates_uniqueness_of :title, :filename
 
-
-
+  before_destroy :delete_sheetcells
+  
 
   # Checks if all the cells (Measurement) saved during the upload of a
   # data sheet (ImportController) have been manually approved and
@@ -116,6 +116,11 @@ class Dataset < ActiveRecord::Base
     self.sheetcells.collect{|cell| cell.observation_id}.uniq
   end
 
+  def delete_sheetcells
+    datacolumns.each do |column|
+      column.sheetcells.delete_all
+    end
+  end
 
   # This method delete all necessary object which containts to this dataset
   # so its possible to upload a new datafile
