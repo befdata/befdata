@@ -53,6 +53,39 @@ class DatasetsController < ApplicationController
 
   end
 
+  def update
+    users_given_as_provenance = User.find(params[:people]) unless params[:people].blank?
+    users_given_as_provenance.each do |user|
+      user.has_role! :owner, @dataset
+    end
+
+    @dataset.update_attributes(params[:dataset])
+
+    redirect_to data_dataset_path(@dataset) and return
+  end
+
+  def data
+    @book = Dataworkbook.new(@dataset.upload_spreadsheet)
+
+    return unless @book.columnheaders_unique?
+
+    if @dataset.datacolumns.length == 0
+      @book.import_data
+      load_dataset #reload
+    end
+    @predefined_columns = @dataset.predefined_columns
+  end
+
+
+  def show
+
+    @contacts = @dataset.owners
+    @projects = @dataset.projects.uniq
+    @freeformats = @dataset.freeformats
+    @datacolumns = @dataset.datacolumns
+
+  end
+
   # This action provides edit forms for the given context
   def edit
     # Main auth determination happens in AdminBaseController
@@ -67,39 +100,6 @@ class DatasetsController < ApplicationController
     @project = @projects.first
   end
 
-  def clean
-    if @dataset && params[:datafile]
-      @dataset.clean
-      @dataset.upload_spreadsheet = Datafile.new(params[:datafile])
-      @dataset.save
-      redirect_to data_dataset_path(@dataset) and return
-    else
-      redirect_back_or_default root_url
-    end
-  end
-
-  def show
-
-    @contacts = @dataset.owners
-    @projects = @dataset.projects.uniq
-    @freeformats = @dataset.freeformats
-    @datacolumns = @dataset.datacolumns
-
-  end
-
-
-  def data
-    @book = Dataworkbook.new(@dataset.upload_spreadsheet)
-
-    return unless @book.columnheaders_unique?
-  
-    if @dataset.datacolumns.length == 0
-      @book.import_data
-      load_dataset #reload
-    end
-    @predefined_columns = @dataset.predefined_columns
-  end
-  
   def approve_predefined
     @columns = Array.new
     params[:columns].split(',').each{|c| @columns << Datacolumn.find(c)}
@@ -196,28 +196,15 @@ class DatasetsController < ApplicationController
 
   end
 
-  def update
-    users_given_as_provenance = User.find(params[:people]) unless params[:people].blank?
-    users_given_as_provenance.each do |user|
-      user.has_role! :owner, @dataset
+  def clean
+    if @dataset && params[:datafile]
+      @dataset.clean
+      @dataset.upload_spreadsheet = Datafile.new(params[:datafile])
+      @dataset.save
+      redirect_to data_dataset_path(@dataset) and return
+    else
+      redirect_back_or_default root_url
     end
-
-    @dataset.update_attributes(params[:dataset])
-
-    redirect_to data_dataset_path(@dataset) and return
-  end
-
-  def load_dataset
-    @dataset = Dataset.find(params[:id])
-  end
-
-  def load_freeformat_dataset
-    @freeformat = Freeformat.find(params[:id])
-    @dataset = @freeformat.dataset
-  end
-
-  def load_dataset_freeformat
-    @dataset = Dataset.find(params[:dataset_id])
   end
 
   def destroy
@@ -239,7 +226,18 @@ class DatasetsController < ApplicationController
     false
   end
 
+  def load_dataset
+    @dataset = Dataset.find(params[:id])
+  end
 
+  def load_freeformat_dataset
+    @freeformat = Freeformat.find(params[:id])
+    @dataset = @freeformat.dataset
+  end
+
+  def load_dataset_freeformat
+    @dataset = Dataset.find(params[:dataset_id])
+  end
 
   def access_denied
     if current_user
