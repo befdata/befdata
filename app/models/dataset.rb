@@ -183,5 +183,16 @@ class Dataset < ActiveRecord::Base
   def owners
     self.users.select{|u| u.has_role?(:owner, self)}
   end
+
+  def export_to_excel_as_stream
+    ExcelExport.new(self).data_buffer
+  end
+
+  def increment_download_counter
+    self.downloads = (self.downloads || 0) + 1
+    save
+  end
+
+ 
   
 end
