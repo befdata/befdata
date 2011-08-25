@@ -181,14 +181,11 @@ class Dataworkbook
   end
 
   def save_all_cells_to_database(data_column_new, datatype, all_cells)
-    existing_observations = Dataset.find(datafile.dataset.id).rownr_observation_id_hash
     sheetcells_to_be_saved = []
 
     all_cells.each do |row_number, cell_content|
-      observation_id = existing_observations[row_number] || Observation.create(:rownr => row_number).id
-
       sheetcells_to_be_saved << Sheetcell.new(:datacolumn => data_column_new,
-                                                :observation_id => observation_id,
+                                                :row_number => row_number,
                                                 :import_value => cell_content,
                                                 :datatype_id => datatype.id)
     end

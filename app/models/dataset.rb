@@ -139,25 +139,6 @@ class Dataset < ActiveRecord::Base
     @columns_with_invalid_values
   end
   
-  # The class Observation stores all rows of the primary data sheets
-  # uploaded to the data portal.  Here a hash is constructed that
-  # stores the observation ID as value and the rownr as key.
-  def rownr_observation_id_hash
-    o_ids = self.observation_ids
-    os = Observation.find(o_ids)
-    rownr_obs_id = Hash.new
-    os.each do |o|
-      rownr_obs_id[o.rownr] = o.id
-    end
-    return rownr_obs_id
-  end
-
-  # The class Observation stores all rows of the primary data sheets
-  # uploaded to the data portal.  This method collects all the unique
-  # IDs of observations linked to a context. !Zeitschlucker?!
-  def observation_ids
-    self.sheetcells.collect{|cell| cell.observation_id}.uniq
-  end
 
   def delete_sheetcells
     datacolumns.each do |column|

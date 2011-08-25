@@ -133,7 +133,6 @@ class ImportsController < ApplicationController
     # Check each entry loop
     cells.each do |cell|
       entry = cell.import_value
-      obs = cell.observation
 
       comment_cat_hash = suggest_category_for_entry(portal_cats, sheet_cats, entry)
 

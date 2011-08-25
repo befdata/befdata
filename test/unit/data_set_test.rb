@@ -96,14 +96,6 @@ class DataSetTest < ActiveSupport::TestCase
     #end
   end
 
-  test "clean a dataset should delete all observations" do
-    dataset = datasets("datasets_001")
-
-    assert_difference 'Observation.count', -4 do
-      dataset.clean
-    end
-  end
-
   test "clean a dataset should delete all freeformats" do
     dataset = datasets("datasets_001")
 

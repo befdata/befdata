@@ -21,18 +21,6 @@ class Datacolumn < ActiveRecord::Base
     self.taggings.destroy_all
   end
 
-  # Returns a hash of the imported entries as value and the rownumber
-  # from the Observation as key.
-  def rownr_entry_hash
-    ms = self.sheetcells
-    rownr_entry_hash = Hash.new
-    ms.each do |m|
-      rownr = m.observation.rownr
-      rownr_entry_hash[rownr] = m.import_value
-    end
-    return rownr_entry_hash
-  end
-
   # Are there values associated to the measurements of this data column instance?
   def values_stored?
     ms = self.sheetcells.find(:all, :conditions => ["accepted_value IS NOT NULL OR accepted_value !='' OR category_id > 0"])

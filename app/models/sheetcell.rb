@@ -1,16 +1,11 @@
-# Measurement entries are pointing at the raw data obtained from
+# Sheetcell entries are pointing at the raw data obtained from
 # measuring something.
 #
 # The accepted value of the data is stored in the accepted_value field unless
 # the data type is
-#
-# One measurement can link to more than one Observation entries
-# through the table ObservationsMeasurement. But in most of the cases,
-# one Measurement will belong to only one Observation.
 
 class Sheetcell < ActiveRecord::Base
 
-  belongs_to :observation, :dependent => :destroy
   belongs_to :datacolumn
   belongs_to :category
   after_initialize :init

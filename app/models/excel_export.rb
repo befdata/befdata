@@ -311,7 +311,7 @@ class ExcelExport
           else
             value = sheetcell.accepted_value
           end
-          sheet[sheetcell.observation.rownr-1,column-1] = value if value
+          sheet[sheetcell.row_number - 1, column - 1] = value if value
         end
       end
     end

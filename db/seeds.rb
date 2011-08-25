@@ -54,14 +54,6 @@ if Rails.env == "performance"
   dataset = Dataset.first
 
   i=0
-  p "Creating 8000 observations"
-  while i < 8000
-    observation = Observation.create(:rownr => i + 1)
-    i = i + 1
-  end
-  p "Finished creating observations"
-
-  i=0
   p "Creating 20 columns in the dataset"
   # get the tag list for the columns and data groups
   tags = Tag.find(:all, :order => :name)
@@ -101,13 +93,11 @@ if Rails.env == "performance"
     data_column.tag_list = taglist
     data_column.save
 
-    #create a sheet cell for each of the observations
+    #create a sheet cell for each line
     j=0
     while j < 8000
-      # find the observation
-      observation = Observation.find(j+1)
       sheet_cell = Sheetcell.create(:datacolumn => data_column,
-                                    :observation => observation,
+                                    :row_number => j+1,
                                     :import_value => importvalue)
 
       case i
