@@ -113,6 +113,31 @@ class Dataset < ActiveRecord::Base
     # Furthermore, the datacolumn approval process must not have already started.
     datacolumns.select{|dc| Datatypehelper.find_by_name(dc.import_data_type).name != 'unknown' && dc.untouched?}
   end
+
+  def approve_predefined_columns(approving_user)
+    @columns_with_invalid_values = []
+    predefined_columns.each do |column|
+      column.datagroup_approved = true
+
+      # Approve the datatype and store the values
+      column.add_data_values(approving_user)
+      column.datatype_approved = true
+
+      # Check for invalid values
+      column.finished = true if column.invalid_values.blank?
+      columns_with_invalid_values << column unless column.invalid_values.blank?
+
+      # Save the column
+      column.save
+    end
+        
+  end
+
+  def columns_with_invalid_values_after_approving_predefined
+    #TODO this should be a proper method without relying on the state of this object
+    raise "This method may be only called directly after executing 'approve_predefined_columns'" unless @columns_with_invalid_values
+    @columns_with_invalid_values
+  end
   
   # The class Observation stores all rows of the primary data sheets
   # uploaded to the data portal.  Here a hash is constructed that

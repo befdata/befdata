@@ -8,8 +8,7 @@
       %p
         You may automatically improve the following #{pluralize(@predefined_columns.length, 'column')}:
         = @predefined_columns.map{|c| c.columnheader}.join(', ')
-        = form_tag :action => 'approve_predefined', :controller => 'datasets' do |form|
-          = hidden_field_tag 'columns', @predefined_columns.map{|c| c.id}.join(',')
+        = form_tag :action => 'approve_predefined', :controller => 'datasets' , :id => @dataset.id do
           %button{:name => "commit", :type => "submit", :onclick => "return confirm('Do you really want to automatically improve the columns #{@predefined_columns.map{|c| c.columnheader}.join(', ')}?')"} Approve
       %p.clear
     %p

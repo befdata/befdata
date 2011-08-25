@@ -1,6 +1,6 @@
 class DatasetsController < ApplicationController
 
-  before_filter :load_dataset, :only => [:download, :show, :edit, :update, :data, :clean, :destroy]
+  before_filter :load_dataset, :only => [:download, :show, :edit, :update, :data, :approve_predefined, :clean, :destroy]
 
   before_filter :load_freeformat_dataset, :only => [:download_freeformat]
 
@@ -76,6 +76,19 @@ class DatasetsController < ApplicationController
     @predefined_columns = @dataset.predefined_columns
   end
 
+  
+  def approve_predefined
+    @dataset.approve_predefined_columns(current_user)
+
+    if @dataset.columns_with_invalid_values_after_approving_predefined.blank?
+      flash[:notice] = "All available columns were successfully approved."
+    else
+      flash[:error] = "The following columns had invalid values: #{columns_with_invalid_values.map{|c| c.columnheader}.join(', ')}"
+    end
+
+    redirect_to :back
+  end
+  
 
   def show
 
@@ -100,34 +113,7 @@ class DatasetsController < ApplicationController
     @project = @projects.first
   end
 
-  def approve_predefined
-    @columns = Array.new
-    params[:columns].split(',').each{|c| @columns << Datacolumn.find(c)}
-    columns_with_invalid_values = Array.new
-    @columns.each do |column|
-      # Approve the datagroup
-      column.datagroup_approved = true
-      
-      # Approve the datatype and store the values
-      column.add_data_values(current_user)
-      column.datatype_approved = true
-      
-      # Check for invalid values
-      column.finished = true if column.invalid_values.blank?
-      columns_with_invalid_values << column unless column.invalid_values.blank?
-      
-      # Save the column
-      column.save      
-    end
-    
-    if columns_with_invalid_values.blank?
-      flash[:notice] = "All available columns were successfully approved."
-    else
-      flash[:error] = "The following columns had invalid values: #{columns_with_invalid_values.map{|c| c.columnheader}.join(', ')}"
-    end
-    #Redirect to where we came from
-    redirect_to :back
-  end
+
   
   # Downloading one free format file from within the "show" view
   def download_freeformat
