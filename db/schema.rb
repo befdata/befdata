@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110825133533) do
+ActiveRecord::Schema.define(:version => 20110825140614) do
 
   create_table "author_paperproposals", :force => true do |t|
     t.integer  "paperproposal_id"
@@ -200,23 +200,6 @@ ActiveRecord::Schema.define(:version => 20110825133533) do
 
   add_index "import_categories", ["datacolumn_id"], :name => "index_import_categories_on_datacolumn_id"
 
-  create_table "observation_sheetcells", :force => true do |t|
-    t.integer  "observation_id"
-    t.integer  "sheetcell_id"
-    t.text     "comment"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "observation_sheetcells", ["observation_id", "sheetcell_id"], :name => "index_observation_sheetcells_on_observation_id_and_sheetcell_id"
-
-  create_table "observations", :force => true do |t|
-    t.text     "comment"
-    t.integer  "rownr"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
   create_table "paperproposal_votes", :force => true do |t|
     t.integer  "paperproposal_id"
     t.integer  "user_id"
@@ -287,7 +270,6 @@ ActiveRecord::Schema.define(:version => 20110825133533) do
   create_table "sheetcells", :force => true do |t|
     t.integer  "datacolumn_id"
     t.text     "comment"
-    t.integer  "observation_id"
     t.string   "import_value"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -300,7 +282,6 @@ ActiveRecord::Schema.define(:version => 20110825133533) do
 
   add_index "sheetcells", ["category_id", "status_id", "datacolumn_id"], :name => "index_sheetcells_on_category_id_and_status_id_and_datacolumn_id"
   add_index "sheetcells", ["datacolumn_id"], :name => "index_sheetcells_on_datacolumn_id"
-  add_index "sheetcells", ["observation_id"], :name => "index_sheetcells_on_observation_id"
 
   create_table "taggings", :force => true do |t|
     t.integer "tag_id"
