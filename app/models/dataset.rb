@@ -125,7 +125,7 @@ class Dataset < ActiveRecord::Base
 
       # Check for invalid values
       column.finished = true if column.invalid_values.blank?
-      columns_with_invalid_values << column unless column.invalid_values.blank?
+      @columns_with_invalid_values << column unless column.invalid_values.blank?
 
       # Save the column
       column.save

@@ -83,7 +83,8 @@ class DatasetsController < ApplicationController
     if @dataset.columns_with_invalid_values_after_approving_predefined.blank?
       flash[:notice] = "All available columns were successfully approved."
     else
-      flash[:error] = "The following columns had invalid values: #{columns_with_invalid_values.map{|c| c.columnheader}.join(', ')}"
+      flash[:error] = "The following columns had invalid values:
+          #{@dataset.columns_with_invalid_values_after_approving_predefined.map{|c| c.columnheader}.join(', ')}"
     end
 
     redirect_to :back
