@@ -21,9 +21,4 @@ class PagesControllerTest < ActionController::TestCase
     assert_response :success
   end
 
-  test "should not show datasets with destroy me true" do
-    get :data
-    dataset = Dataset.find_by_title "Test species name import"
-    assert !assigns[:datasets].include?(dataset)
-  end
 end

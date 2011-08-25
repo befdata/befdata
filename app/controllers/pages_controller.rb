@@ -23,8 +23,8 @@ class PagesController < ApplicationController
     @file = Datafile.new
     @freeformat = Freeformat.new
 
-    @tags = Tag.find(:all, :order => :name)
-    @datasets = Dataset.where(:destroy_me => false).order(:title)
+    @tags = Tag.order(:name)
+    @datasets = Dataset.order(:title)
     
   end
 

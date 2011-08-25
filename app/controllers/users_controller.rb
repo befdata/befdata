@@ -39,7 +39,7 @@ class UsersController < ApplicationController
     first, last = params[:id].split(/_/)
     @user = User.first( :conditions => ["firstname = ? and lastname = ?", first, last])
 
-    @user_datasets_owned = @user.datasets_owned.find_all{|d| !d.destroy_me}.sort_by {|d| d.title}
+    @user_datasets_owned = @user.datasets_owned.sort_by {|d| d.title}
 
     redirect_to(:action => "index", :status => :not_found) unless @user
   end

@@ -13,6 +13,6 @@ skip_before_filter :deny_access_to_all
 
   def show
     @project = Project.find(params[:id])
-    @project_datasets = @project.datasets.find_all{|d| !d.destroy_me}.sort_by {|d| d.title}.uniq
+    @project_datasets = @project.datasets.order(:title).uniq
   end
 end

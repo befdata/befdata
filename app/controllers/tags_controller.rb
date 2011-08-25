@@ -20,8 +20,7 @@ class TagsController < ApplicationController
     taggings_datacolumns = @tag.taggings.select{|ti| ti.taggable_type == "Datacolumn"}
     tag_dc_datasets = taggings_datacolumns.collect{|ti| ti.taggable.dataset}.uniq
     unique_datasets = (tag_datasets + tag_dc_datasets).uniq
-    non_destroy_datasets = unique_datasets.find_all{|d| !d.destroy_me}
-    @datasets = non_destroy_datasets.sort_by {|x| x.title}
+    @datasets = unique_datasets.sort_by {|x| x.title}
   end
 
 end

@@ -36,7 +36,7 @@ class DatasetsController < ApplicationController
   end
 
   def create
-    datafile = Datafile.create(params[:datafile])
+    datafile = Datafile.create!(params[:datafile])
     @dataset = Dataset.new
     @dataset.upload_spreadsheet = datafile
 

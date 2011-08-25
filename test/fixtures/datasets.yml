@@ -23,9 +23,7 @@ datasets_001:
   free_for_members: f
   filename: species first test.xls
   dataanalysis: ""
-  submission_at: 
-  destroy_me_date: 
-  destroy_me: t
+  submission_at:
   finished: f
   design: ""
 datasets_002: 
@@ -52,9 +50,7 @@ datasets_002:
   free_for_members: t
   filename: species second test.xls
   dataanalysis: ""
-  submission_at: 
-  destroy_me_date: 
-  destroy_me: f
+  submission_at:
   finished: f
   design: ""
 datasets_003:
@@ -82,7 +78,5 @@ datasets_003:
   filename: Unit test spreadsheet.xls
   dataanalysis: ""
   submission_at:
-  destroy_me_date:
-  destroy_me: f
   finished: f
   design: ""

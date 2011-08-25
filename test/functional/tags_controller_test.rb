@@ -11,11 +11,4 @@ class TagsControllerTest < ActionController::TestCase
     assert_response :success
   end
 
-  test "should not show datasets with destroy me true" do
-    get :show, :id => Tag.find_by_name("dwc/terms/scientificNameAuthorship").id
-    dataset = Dataset.find_by_title "Test species name import"
-    assigned_datasets = assigns[:datasets]
-    assert !assigned_datasets.include?(dataset)
-  end
-
 end
