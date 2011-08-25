@@ -25,6 +25,30 @@ function selectPeople(select) {
     ul.appendChild(li);
 }
 
+function selectProjects(select) {
+	if (select.options[select.selectedIndex].value == "") {
+		// The prompt option has no value and thus can't be added.
+		return;
+	}
+    var option = select.options[select.selectedIndex];
+    var ul = document.getElementById('projects-list');
+    var choices = ul.getElementsByTagName('input');
+    for (var i = 0; i < choices.length; i++) if (choices[i].value == option.value) return;
+    var image = document.createElement('img');
+    image.setAttribute('src', '/images/add.gif');
+    var li = document.createElement('li');
+    var input = document.createElement('input');
+    var text = document.createTextNode(option.firstChild.data);
+    input.type = 'hidden';
+    input.name = 'dataset[project_ids][]';
+    input.value = option.value;
+    li.appendChild(input);
+    li.appendChild(image);
+    li.appendChild(text);
+    li.setAttribute('onclick', 'this.parentNode.removeChild(this);');
+    ul.appendChild(li);
+}
+
 
 function clone_element_before(element) {
     var input = element.previousSibling.previousSibling;
