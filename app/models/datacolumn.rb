@@ -1,10 +1,10 @@
 class Datacolumn < ActiveRecord::Base
 
   is_taggable :tags, :languages
+  before_destroy :destory_normal_datagroups_solely_associated_to_this_column
   after_destroy :destroy_taggings
 
   acts_as_authorization_object :subject_class_name => 'User'
-
 
   belongs_to :datagroup
   belongs_to :dataset
@@ -15,6 +15,10 @@ class Datacolumn < ActiveRecord::Base
 
   validates_presence_of :datagroup_id, :dataset_id, :columnheader, :columnnr, :definition
   validates_uniqueness_of :columnheader, :columnnr, :scope => :dataset_id
+
+  def destory_normal_datagroups_solely_associated_to_this_column
+    datagroup.destroy if (datagroup.datacolumns.count == 1) && !datagroup.is_system_datagroup
+  end
 
   def destroy_taggings
     logger.debug "in destroy taggings"

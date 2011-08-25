@@ -11,7 +11,7 @@ class Category < ActiveRecord::Base
   validates_presence_of :short, :long, :description
   before_validation :try_filling_missing_values
 
-  before_destroy :check_for_measurements
+  before_destroy :check_for_sheetcells_associated
   after_destroy :destroy_taggings
 
 
@@ -30,19 +30,16 @@ class Category < ActiveRecord::Base
     "#{long} (#{short})"
   end
   
-  def check_for_measurements
-    puts "in check for measurements"
-    cat = self.reload
-    unless cat.sheetcells.length == 0
-      puts "measurements linked"
+  def check_for_sheetcells_associated
+    self.reload
+    unless self.sheetcells.empty?
       errors.add_to_base "Cannot destroy categories with Data Cells associations"
       false
     end
   end
 
   def destroy_taggings
-    logger.debug "in destroy taggings"
-    cds = self.taggings.destroy_all
+    self.taggings.destroy_all
   end
 
 end

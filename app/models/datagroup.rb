@@ -13,17 +13,16 @@
 class Datagroup < ActiveRecord::Base
 
   has_many :datacolumns
-
-  #TODO FERRET
-  #acts_as_ferret :fields => [:title, :description, :comment]
+  has_many :categories, :dependent => :destroy
 
   is_taggable :tags, :languages
 
   validates_presence_of :title, :description
   validates_uniqueness_of :title
 
-  after_destroy :destroy_taggings
   before_destroy :check_for_system_datagroup
+  after_destroy :destroy_taggings
+
 
   after_initialize :init
 
@@ -35,16 +34,16 @@ class Datagroup < ActiveRecord::Base
   end
 
   def destroy_taggings
-    logger.debug "in destroy taggings"
     self.taggings.destroy_all
   end
 
   def check_for_system_datagroup
-    datagroup = self.reload
-    if(datagroup.type_id != Datagrouptype::DEFAULT)
-      raise Exception, "Cannot destroy a system datagroup"
-      false
-    end
+      raise Exception, "Cannot destroy a system datagroup" if is_system_datagroup
+  end
+
+  def is_system_datagroup
+    self.reload
+    return (self.type_id != Datagrouptype::DEFAULT)
   end
 
   def datacell_categories
