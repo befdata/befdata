@@ -68,7 +68,17 @@ class Dataset < ActiveRecord::Base
     book = dataworkbook
     self.attributes = book.general_metadata_hash
     self.set_start_and_end_dates_of_research(book)
-    self.projecttag_list = book.tag_list unless book.tag_list.blank?
+    try_retrieving_projects_from_tag_list(book)
+  end
+
+  def try_retrieving_projects_from_tag_list(book)
+    return if book.tag_list.blank?
+
+    book.tag_list.split(",").each do |t|
+      Project.find_by_converting_to_tag(t).each do |p|
+        self.projects << p unless self.projects.include? p
+      end
+    end
   end
 
   def dataworkbook
@@ -98,7 +108,7 @@ class Dataset < ActiveRecord::Base
   def finished_datacolumns
     datacolumns.select{|dc| dc.finished == true}
   end
-  
+
   def datacolumns_with_approved_datagroup
     datacolumns.select{|dc| dc.datagroup_approved == true}
   end
@@ -106,7 +116,7 @@ class Dataset < ActiveRecord::Base
   def datacolumns_with_approved_datatype
     datacolumns.select{|dc| dc.datatype_approved == true}
   end
-  
+
   def predefined_columns
     # To be predefined, a column must have a datagroup and a datatype that is not 'unknown'.
     # The datagroup is created at import, so we only have to check for the datatype.
@@ -130,7 +140,7 @@ class Dataset < ActiveRecord::Base
       # Save the column
       column.save
     end
-        
+
   end
 
   def columns_with_invalid_values_after_approving_predefined
@@ -138,7 +148,7 @@ class Dataset < ActiveRecord::Base
     raise "This method may be only called directly after executing 'approve_predefined_columns'" unless @columns_with_invalid_values
     @columns_with_invalid_values
   end
-  
+
 
   def delete_sheetcells
     datacolumns.each do |column|
@@ -199,6 +209,4 @@ class Dataset < ActiveRecord::Base
     save
   end
 
- 
-  
 end

@@ -25,7 +25,17 @@ class Project < ActiveRecord::Base
   end
 
   def to_tag
-    self.to_label.gsub(/ /,"")[0..2].downcase
+    Project.create_tag self.to_label
+  end
+
+  def self.find_by_converting_to_tag (project_tag)
+    project_tag = Project.create_tag project_tag
+    Project.select {|p| p.to_tag == project_tag}
+  end
+
+  def self.create_tag (string)
+    # "P1 Europe productivity" becomes "p1e"
+    string.delete(' ')[0..2].downcase
   end
 
 end
