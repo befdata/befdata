@@ -20,5 +20,12 @@ class Project < ActiveRecord::Base
     to_label
   end
 
+  def self.all_projects_for_select
+    Project.all(:order => :shortname).collect{|p| [p.to_label, p.id]}
+  end
+
+  def to_tag
+    self.to_label.gsub(/ /,"")[0..2].downcase
+  end
 
 end
