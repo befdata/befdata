@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110824120309) do
+ActiveRecord::Schema.define(:version => 20110825133533) do
 
   create_table "author_paperproposals", :force => true do |t|
     t.integer  "paperproposal_id"
@@ -295,6 +295,7 @@ ActiveRecord::Schema.define(:version => 20110824120309) do
     t.string   "accepted_value", :limit => 250
     t.integer  "datatype_id"
     t.integer  "status_id"
+    t.integer  "row_number"
   end
 
   add_index "sheetcells", ["category_id", "status_id", "datacolumn_id"], :name => "index_sheetcells_on_category_id_and_status_id_and_datacolumn_id"
