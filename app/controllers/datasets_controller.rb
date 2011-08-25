@@ -99,6 +99,13 @@ class DatasetsController < ApplicationController
 
   end
 
+  def download
+    @dataset.increment_download_counter
+    send_data @dataset.export_to_excel_as_stream, :content_type => "application/xls",
+              :filename => "download_#{@dataset.downloads}_#{@dataset.filename}"
+  end
+
+  
   # This action provides edit forms for the given context
   def edit
     # Main auth determination happens in AdminBaseController
@@ -113,20 +120,28 @@ class DatasetsController < ApplicationController
     @project = @projects.first
   end
 
+  def clean
+    if @dataset && params[:datafile]
+      @dataset.clean
+      @dataset.upload_spreadsheet = Datafile.new(params[:datafile])
+      @dataset.save
+      redirect_to data_dataset_path(@dataset) and return
+    else
+      redirect_back_or_default root_url
+    end
+  end
 
+  def destroy
+    @dataset.destroy
   
-  # Downloading one free format file from within the "show" view
-  def download_freeformat
-    send_file @freeformat.file.path
+    flash[:notice] = "Dataset successfully deleted."
+    redirect_to data_path
   end
 
-  def download
 
-    @dataset.increment_download_counter
-    send_data @dataset.export_to_excel_as_stream, :content_type => "application/xls",
-              :filename => "download_#{@dataset.downloads}_#{@dataset.filename}"
-  end
-
+  # ----------------------------------------------------------
+  # Freeformat actions - TODO move to own controller
+  # ----------------------------------------------------------
 
   def upload_dataset_freeformat
     freeformat_id = params[:freeformat_id]
@@ -182,24 +197,11 @@ class DatasetsController < ApplicationController
 
   end
 
-  def clean
-    if @dataset && params[:datafile]
-      @dataset.clean
-      @dataset.upload_spreadsheet = Datafile.new(params[:datafile])
-      @dataset.save
-      redirect_to data_dataset_path(@dataset) and return
-    else
-      redirect_back_or_default root_url
-    end
+  def download_freeformat
+    send_file @freeformat.file.path
   end
 
-  def destroy
-    @dataset.destroy
-  
-    flash[:notice] = "Dataset successfully deleted."
-    redirect_to data_path
-  end
-  
+
   private
 
   def dataset_is_free_for_members
