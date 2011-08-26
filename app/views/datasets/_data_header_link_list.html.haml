@@ -1,9 +1,0 @@
-:javascript
-  $(function() {
-    $( "#datacolumn_tabs" ).tabs();
-  });
-#datacolumn_tabs
-  %ul
-    - @dataset.headers.each do |dh|
-      %li
-        = link_to dh, {:controller => :imports, :action => :raw_data_per_header, :dataset_id => @dataset.id, :data_header => dh}
