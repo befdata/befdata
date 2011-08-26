@@ -4,7 +4,7 @@ class DatacolumnsController < ApplicationController
   skip_before_filter :deny_access_to_all
   access_control do
     actions :edit, :update_datagroup, :update_datatype, :update_people, :update_metadata,
-    :update_category, :create_category do
+    :raw_data_per_header, :update_category, :create_category do
       allow :admin
       allow :owner, :of => :dataset
       allow :proposer, :of => :dataset

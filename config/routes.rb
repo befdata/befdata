@@ -22,15 +22,21 @@ Befchina::Application.routes.draw do
   end
 
   match 'create_dataset' => 'datasets#create', :as => :create_dataset  
-  match 'upload_dataset_freeformat' => 'datasets#upload_dataset_freeformat', :as => :upload_dataset_freeformat
-  match 'create_dataset_freeformat' => 'datasets#create_dataset_freeformat', :as => :create_dataset_freeformat
+
   match 'update_dataset_freeformat_associations' => 'datasets#update_dataset_freeformat_associations', :as => :update_dataset_freeformat_associations
-  match 'save_dataset_freeformat_associations' => 'datasets#save_dataset_freeformat_associations', :as => :save_dataset_freeformat_associations
   match 'download' => 'datasets#download', :as => :download
   match 'datasets/:id/data' => 'datasets#data', :as => :data_dataset
   match 'datasets/:id/destroy' => 'datasets#destroy', :as => :destroy_dataset
   match 'datasets/:id/approve_predefined' => 'datasets#approve_predefined'
 
+  #Freeformat logic
+  match 'datasets/:id/save_dataset_freeformat_tags' => 'datasets#save_dataset_freeformat_tags'
+  match 'datasets/update_dataset_freeformat_file' => 'datasets#update_dataset_freeformat_file'
+  match 'create_dataset_with_freeformat_file' => 'datasets#create_dataset_with_freeformat_file'
+  match 'update_dataset_with_only_freeformat_file' => 'datasets#update_dataset_with_only_freeformat_file'
+  match 'save_dataset_freeformat_associations' => 'datasets#save_dataset_freeformat_associations', :as => :save_dataset_freeformat_associations
+    
+  
   resources :tags
 
   resources :projects
@@ -40,12 +46,8 @@ Befchina::Application.routes.draw do
   match 'datacolumns/update_metadata' => 'datacolumns#update_metadata'
   match 'datacolumns/update_category' => 'datacolumns#update_category'
   match 'datacolumns/create_category' => 'datacolumns#create_category'
+  match 'datacolumns/raw_data_per_header' => 'datacolumns#raw_data_per_header'
 
-  match 'imports/create_dataset_freeformat' => 'imports#create_dataset_freeformat'
-  match 'imports/update_dataset_freeformat_file' => 'imports#update_dataset_freeformat_file'
-  match 'imports/raw_data_per_header' => 'imports#raw_data_per_header'
-  match 'imports/dataset_freeformat_overview' => 'imports#dataset_freeformat_overview'
-  match 'imports/save_dataset_freeformat_tags' => 'imports#save_dataset_freeformat_tags'
 
   resources :paperproposals
   match 'paperproposals/update_vote/:id' => 'paperproposals#update_vote', :as => :update_vote

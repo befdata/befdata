@@ -1,6 +1,8 @@
 class DatasetsController < ApplicationController
 
-  before_filter :load_dataset, :only => [:download, :show, :edit, :update, :data, :approve_predefined, :clean, :destroy]
+  before_filter :load_dataset, :only => [:download, :show, :edit, :update, :data, :approve_predefined, :clean, :destroy,
+                                        :update_dataset_with_only_freeformat_file, :save_dataset_freeformat_tags]
+
 
   before_filter :load_freeformat_dataset, :only => [:download_freeformat]
 
@@ -13,6 +15,7 @@ class DatasetsController < ApplicationController
     allow all, :to => [:show, :index, :load_context]
 
     actions :download, :edit, :update, :data, :update_freeformat_associations, :save_freeformat_associations,
+            :update_dataset_with_only_freeformat_file , :save_dataset_freeformat_tags,
             :download_freeformat, :save_dataset_freeformat_associations, :approve_predefined do
       allow :admin
       allow :owner, :of => :dataset
@@ -29,7 +32,7 @@ class DatasetsController < ApplicationController
       allow all, :if => :dataset_is_free_for_public
     end
 
-    actions :create, :upload_freeformat, :upload_dataset_freeformat, :create_freeformat,
+    actions :create, :upload_freeformat, :create_dataset_with_freeformat_file,
     :create_dataset_freeformat, :update_dataset_freeformat_associations do
       allow logged_in
     end
@@ -144,44 +147,31 @@ class DatasetsController < ApplicationController
   # Freeformat actions - TODO move to own controller
   # ----------------------------------------------------------
 
-  def upload_dataset_freeformat
-    freeformat_id = params[:freeformat_id]
-    if !freeformat_id.blank?
-      freeformat = Freeformat.find(params[:freeformat_id])
+  def create_dataset_with_freeformat_file
+      freeformat = Freeformat.create!(params[:freeformat])
       @filename = freeformat.file_file_name
       @dataset = Dataset.new
       @dataset.title = @filename
       @dataset.abstract = @filename
       @dataset.filename = @filename
       @dataset.freeformats << freeformat
+
       unless @dataset.save
         flash[:error] = "#{@dataset.errors.to_a.first.capitalize}"
         redirect_to data_path and return
       end
-    else
-      redirect_to data_path and return
-    end
   end
 
 
-  def create_dataset_freeformat
-    @dataset = Dataset.find(params[:dataset][:id])
+  def update_dataset_with_only_freeformat_file
 
     unless @dataset.update_attributes(params[:dataset])
       flash[:error] = "#{@dataset.errors.to_a.first.capitalize}"
       redirect_to data_path and return
-    else
-      redirect_to url_for(:controller => :datasets,
-      :action => :update_dataset_freeformat_associations,
-      :dataset_id => @dataset.id) and return
     end
+    @project_list = Project.order(:shortname)
+    render :update_dataset_freeformat_associations
   end
-
-
-  def update_dataset_freeformat_associations
-     @project_list = Project.find(:all, :order => :shortname)
-  end
-
 
   def save_dataset_freeformat_associations
 
@@ -192,10 +182,25 @@ class DatasetsController < ApplicationController
       @owner.has_role! :owner, @dataset
       @dataset.projects << @project
 
-      redirect_to url_for(:controller => :imports,
-      :action => :dataset_freeformat_overview,
-      :dataset_id => @dataset.id) and return
+      render :update_dataset_freeformat_tags
 
+  end
+  
+  def save_dataset_freeformat_tags
+    @dataset.update_attributes(params[:dataset])
+
+    redirect_to dataset_url @dataset
+  end
+
+  def update_dataset_freeformat_file
+    freeformat = Freeformat.find(params[:freeformat][:id])
+    freeformat.file = params[:freeformat][:file]
+    if freeformat.save
+      redirect_to :controller => :datasets, :action => :show, :id => freeformat.dataset.id
+    else
+      flash[:error] = "#{freeformat.errors.to_a.first.capitalize}"
+      redirect_to :back
+    end
   end
 
   def download_freeformat

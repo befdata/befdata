@@ -1,0 +1,5 @@
+%b Create Dataset with only a free format file and no research data:
+- form_for @freeformat, :url => {:controller => :datasets, :action => :create_dataset_with_freeformat_file}, :html => {:multipart => true} do |f|
+  = f.error_messages
+  = f.file_field :file
+  = f.submit 'File upload'

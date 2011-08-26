@@ -1,10 +1,12 @@
-- form_for @dataset, :url => { :action => "create_dataset_freeformat" }  do |ds|
+- form_for @dataset, :url => { :controller => :datasets, :action => "update_dataset_with_only_freeformat_file", :id => @dataset.id }  do |ds|
 
   %h2
     Dataset free-format file upload
   %h3
     = "(#{@filename})"
   %br
+  %p
+    Update the datasets meta information
 
   %div
     = ds.label :title

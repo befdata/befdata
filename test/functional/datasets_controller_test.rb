@@ -5,10 +5,9 @@ class DatasetsControllerTest < ActionController::TestCase
 
   test "after create freeformat file new dataset should be created" do
     login_nadrowski
-    freeformat_file = {:file => File.new(File.join(fixture_path, 'test_files_for_uploads', 'empty_test_file.txt'))}
-    freeformat = Freeformat.create(freeformat_file)
-
-    get(:upload_dataset_freeformat, :freeformat_id => freeformat.id)
+    file = {:file => File.new(File.join(fixture_path, 'test_files_for_uploads', 'empty_test_file.txt'))}
+    
+    get(:create_dataset_with_freeformat_file, :freeformat => file)
 
     assert_response :success
     assert_select 'div#content', /empty_test_file.txt/

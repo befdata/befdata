@@ -1,0 +1,11 @@
+%h2
+  Dataset free-format file upload
+%h3
+  Add keywords
+%br
+%p
+  Please add any keywords in a comma-delimited string
+  - form_for @dataset, :url => {:controller => :datasets, :action => :save_dataset_freeformat_tags, :id => @dataset.id}  do |ds|
+    = ds.text_area :tag_list, :cols => 80, :rows => 5
+    %br
+    = ds.submit "Save"
