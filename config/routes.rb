@@ -22,8 +22,6 @@ Befchina::Application.routes.draw do
   end
 
   match 'create_dataset' => 'datasets#create', :as => :create_dataset  
-
-  match 'update_dataset_freeformat_associations' => 'datasets#update_dataset_freeformat_associations', :as => :update_dataset_freeformat_associations
   match 'download' => 'datasets#download', :as => :download
   match 'datasets/:id/data' => 'datasets#data', :as => :data_dataset
   match 'datasets/:id/destroy' => 'datasets#destroy', :as => :destroy_dataset
@@ -31,9 +29,10 @@ Befchina::Application.routes.draw do
 
   #Freeformat logic
   match 'datasets/:id/save_dataset_freeformat_tags' => 'datasets#save_dataset_freeformat_tags'
-  match 'datasets/update_dataset_freeformat_file' => 'datasets#update_dataset_freeformat_file'
+  match 'datasets/:id/update_dataset_freeformat_file' => 'datasets#update_dataset_freeformat_file'
   match 'create_dataset_with_freeformat_file' => 'datasets#create_dataset_with_freeformat_file'
   match 'update_dataset_with_only_freeformat_file' => 'datasets#update_dataset_with_only_freeformat_file'
+  match 'update_dataset_freeformat_associations' => 'datasets#update_dataset_freeformat_associations', :as => :update_dataset_freeformat_associations
   match 'save_dataset_freeformat_associations' => 'datasets#save_dataset_freeformat_associations', :as => :save_dataset_freeformat_associations
     
   

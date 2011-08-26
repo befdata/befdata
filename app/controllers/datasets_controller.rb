@@ -15,7 +15,7 @@ class DatasetsController < ApplicationController
     allow all, :to => [:show, :index, :load_context]
 
     actions :download, :edit, :update, :data, :update_freeformat_associations, :save_freeformat_associations,
-            :update_dataset_with_only_freeformat_file , :save_dataset_freeformat_tags,
+            :update_dataset_with_only_freeformat_file , :save_dataset_freeformat_tags, :update_dataset_freeformat_file,
             :download_freeformat, :save_dataset_freeformat_associations, :approve_predefined do
       allow :admin
       allow :owner, :of => :dataset
