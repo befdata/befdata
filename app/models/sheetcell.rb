@@ -8,17 +8,10 @@ class Sheetcell < ActiveRecord::Base
 
   belongs_to :datacolumn
   belongs_to :category
-  after_initialize :init
+  after_initialize :set_default_status
 
-  # set the default value for status_id
-  def init
-    #if(!self.attributes["status_id"].nil?)
-    #  if(self.status_id.nil?)
-    #    self.status_id = Sheetcellstatus::UNPROCESSED
-    #  end
-    #end
-
-    if(@new_record)
+  def set_default_status
+    if @new_record
       self.status_id = Sheetcellstatus::UNPROCESSED
     end
   end

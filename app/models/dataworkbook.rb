@@ -181,15 +181,17 @@ class Dataworkbook
   end
 
   def save_all_cells_to_database(data_column_new, datatype, all_cells)
-    sheetcells_to_be_saved = []
+      sheetcells_to_be_saved = []
 
+    columns = [:datacolumn_id, :row_number, :import_value, :datatype_id, :status_id]
     all_cells.each do |row_number, cell_content|
-      sheetcells_to_be_saved << Sheetcell.new(:datacolumn => data_column_new,
-                                                :row_number => row_number,
-                                                :import_value => cell_content,
-                                                :datatype_id => datatype.id)
+      sheetcells_to_be_saved << [ data_column_new.id,
+                                                row_number,
+                                               cell_content,
+                                               datatype.id,
+                                               Sheetcellstatus::UNPROCESSED]
     end
-    Sheetcell.import(sheetcells_to_be_saved)
+    Sheetcell.import(columns, sheetcells_to_be_saved, :validate => false)
   end
 
   def add_any_sheet_categories_included_for_this_column(columnheader, data_column_new)
