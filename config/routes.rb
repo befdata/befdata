@@ -1,7 +1,5 @@
 Befchina::Application.routes.draw do
 
-  resources :test_models
-
   root :to => "pages#home"
 
   resource :user_session
@@ -18,14 +16,9 @@ Befchina::Application.routes.draw do
   resources :datasets do
     member do
       post :clean
+      get :download, :data, :approve_predefined
     end
   end
-
-  match 'create_dataset' => 'datasets#create', :as => :create_dataset  
-  match 'download' => 'datasets#download', :as => :download
-  match 'datasets/:id/data' => 'datasets#data', :as => :data_dataset
-  match 'datasets/:id/destroy' => 'datasets#destroy', :as => :destroy_dataset
-  match 'datasets/:id/approve_predefined' => 'datasets#approve_predefined'
 
   #Freeformat logic
   match 'datasets/:id/save_dataset_freeformat_tags' => 'datasets#save_dataset_freeformat_tags'
@@ -34,18 +27,17 @@ Befchina::Application.routes.draw do
   match 'update_dataset_with_only_freeformat_file' => 'datasets#update_dataset_with_only_freeformat_file'
   match 'update_dataset_freeformat_associations' => 'datasets#update_dataset_freeformat_associations', :as => :update_dataset_freeformat_associations
   match 'save_dataset_freeformat_associations' => 'datasets#save_dataset_freeformat_associations', :as => :save_dataset_freeformat_associations
-    
+  match 'files/freeformats/:id/download' => 'datasets#download_freeformat'
   
   resources :tags
 
   resources :projects
-  resources :datacolumns
-  match 'datacolumns/update_datagroup' => 'datacolumns#update_datagroup'
-  match 'datacolumns/update_datatype' => 'datacolumns#update_datatype'
-  match 'datacolumns/update_metadata' => 'datacolumns#update_metadata'
-  match 'datacolumns/update_category' => 'datacolumns#update_category'
-  match 'datacolumns/create_category' => 'datacolumns#create_category'
-  match 'datacolumns/raw_data_per_header' => 'datacolumns#raw_data_per_header'
+  resources :datacolumns do
+    member do
+      get :update_datagroup, :update_datatype, :update_metadata
+      get :update_category, :create_category
+    end
+  end
 
 
   resources :paperproposals
@@ -64,11 +56,6 @@ Befchina::Application.routes.draw do
       as_routes
     end
   end
-
-  
-  match 'files/freeformats/:id/download' => 'datasets#download_freeformat'
-  match 'files/:id/download' => 'datafiles#download'
-
 
   resources :carts
 
