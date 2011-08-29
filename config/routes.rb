@@ -15,8 +15,8 @@ Befchina::Application.routes.draw do
 
   resources :datasets do
     member do
-      post :clean
-      get :download, :data, :approve_predefined
+      post :clean, :approve_predefined
+      get :download, :data
     end
   end
 
@@ -34,8 +34,8 @@ Befchina::Application.routes.draw do
   resources :projects
   resources :datacolumns do
     member do
-      get :update_datagroup, :update_datatype, :update_metadata
-      get :update_category, :create_category
+      post :update_datagroup, :update_datatype, :update_metadata
+      post :update_category, :create_category
     end
   end
 
