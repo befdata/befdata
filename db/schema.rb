@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110825203753) do
+ActiveRecord::Schema.define(:version => 20110831163142) do
 
   create_table "author_paperproposals", :force => true do |t|
     t.integer  "paperproposal_id"

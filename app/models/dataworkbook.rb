@@ -399,8 +399,14 @@ class Dataworkbook
       elsif input.class == Spreadsheet::Excel::Error
         input = "Error in Excel Formula"
       end
-      input = input.to_i.to_s if Integer(input) rescue false
-    end
+      # we can't convert to an integer as it rounds any decimals
+      # the value must remain as a string
+      #input = input.to_i.to_s if Integer(input) rescue false
+      if(!input.blank?)
+        # this regex matches any string that ends with .0 and removes it
+        input = input.to_s.gsub(/(\.0)$/,'') if Integer(input) rescue false
+      end
+     end
 
     return input
   end

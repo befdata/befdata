@@ -46,23 +46,6 @@ class Datagroup < ActiveRecord::Base
     return (self.type_id != Datagrouptype::DEFAULT)
   end
 
-  def datacell_categories
-    Category.all(:conditions => ["datagroup_id = ?" , self.id])
-  end
-
-  def datacell_categories_sql
-    Category.all(:conditions => ["datagroup_id in (select sc.category_id
-      from public.datacolumns dc
-      inner join public.sheetcells sc
-      on dc.Id = sc.datacolumn_id
-      inner join public.categories c
-      on sc.category_id = c.Id
-      where dc.datagroup_id=" + self.id.to_s +
-      " order by c.short)"
-    ]
-    )
-  end
-
   def abbr_method
     text = "#{self.title}: #{self.description}"
     if text.length > 200
@@ -82,21 +65,6 @@ class Datagroup < ActiveRecord::Base
     end
 
     return helper
-  end
-
-  def self.find_sheet_category_match
-    match = Datagroup.find_by_type_id(Datagrouptype::SHEETCATEGORYMATCH)
-
-    unless match
-      #TODO check if this has to do with bug #4809
-      #@sophia this seems unnecessary why is it needed? As it is now there can not be two datagroups with the same title and therefor the creation silently fails!
-      #In one migration and the fixtures there exists a "Category sheet match" datagroup ... is this intentionally?
-      match = Datagroup.create!(:title => "Sheet category match",
-                                :description => "Sheet category match",
-                                :type_id => Datagrouptype::SHEETCATEGORYMATCH)
-    end
-
-    return match
   end
 
 end

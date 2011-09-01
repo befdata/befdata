@@ -1,82 +1,109 @@
 --- 
 datasets_001: 
-  comment: ""
-  created_at: 2011-06-01 13:47:09.016
-  upload_spreadsheet_id: "4"
-  visible_for_public: t
-  student_file: f
-  datemax: 2011-04-18 00:00:00
-  downloads: "0"
+  id: "8"
+  title: Comparative study plot information to be shared with all BEF-China scientists, with more problems
+  abstract: This research is designed to collect data on diversity in subtropical forest ecosystems and relate it to ecosystem services such as primary productivity, carbon storage, prevention of soil erosion, and invasion resistance to exotic plants. This data describes the Comparative Study Sites (CSPs), used to compare the planted diversity experiment with naturally grown forests. The plots have a size of 30x30m and are situated in the Gutianshan Nature reserve, Zhejiang Province, China. Data were collected in 2008. They comprise geographical locations, elevation, inclination, exposition of the plots, an estimated age of the plot, height and cover of two tree layers, the shrub layer and the herb layer, and cover of bare soil. This data set includes environmental measures on the CSPs that are of interest for all researchers. It additionally includes important aggregated data as for example diversity measures of tree, shrub and herb layer.
+  usagerights: BEF-China intern
+  spatialextent: "The Gutianshan National Nature Reserve (NNR) is located in the western part of Zhejiang Province (29\xC2\xBA8'18\" \xE2\x80\x93 29\xC2\xBA17'29\" N, 118\xC2\xBA2'14\" \xE2\x80\x93 118\xC2\xBA11'12\" E, Fig. 1).  The Gutianshan NNR has an area of approximately 81 km2 and was initially established as a National Forest Reserve in 1975 and became a National Nature Reserve in 2001. The NNR comprises a large portion of broad-leaved forests of advanced successional stages (Hu & Yu 2008), which have not been managed since the beginning of the 1990ies, as well as young successional stages and conifer plantations, mainly of Cunninghamia lanceolata and Pinus massoniana. --- The vegetation is composed of different types of subtropical evergreen and mixed broad-leaved forests (Yu et al. 2001). Most of the stands are secondary forests, evidenced by maximum tree ages of 180 years, by agricultural terraces in almost all plots and by the presence of charcoal in almost all soil profiles. Around the Gutianshan NRR extensive deforestation has occurred during the Great Leap Forward in the 1950s, as in most parts of Southeast China. However, due to prevailing steep slopes, the Gutianshan area was only marginally usable for agricultural activities, and thus an exceptionally intact forest cover has been preserved. --- The climate at Gutianshan NNR is warm and temperate with a short dry season in November and December and with warm summers (Fig. 2). The climatic conditions are characteristic for the subtropics with an annual average temperature of 15.1\xC2\xB0C, January minimum temperatures of -6.8\xC2\xB0C, July maximum temperatures of 38.1\xC2\xB0C and an accumulated temperature sum (\xE2\x89\xA5 5\xC2\xB0C) of 5221.5 degree days."
+  temporalextent: Most of the data were collected in 2008, while some additional data were also collected in 2009.
+  taxonomicextent: "The forest is representative for Chinese mixed broad-leaved forests (Wu 1980, Hu & Yu 2008, Legendre et al. 2009), with evergreen species dominating the forest in number of individuals (Yu et al. 2001) but with approximately similar proportions of deciduous species in terms of species number (Lou and Jin 2000). A total of 1426 seed plant species of 648 genera and of 149 families has been recorded as occurring naturally in the NNR. About 258 of the species are woody (Lou and Jin 2000). "
+  design: "The utilization of the forest until the 1990ies allowed us to employ a stratified sampling for establishing observational plots (in the following called Comparative Study Plots, CSPs) according to successional stages. Although most of the forest are belongs to intermediate or late successional stages, young stands are located in the peripheral buffer zone of the Gutianshan NNR, where logging has been performed until the present. Plots were assigned to five strata according to the average age of tree layer individuals (1: < 20 yrs, 2: < 40 yrs, 3: < 60 yrs, 4: < 80 yrs, 5: \xEF\x82\xB3 80 yrs). CSP locations within strata were selected randomly; however, due to inaccessibility and excessive slopes (> 50\xC2\xB0) of many locations, parts to the NNR had to be excluded from sampling, thus, resulting in an uneven distribution of some of the plots (Fig. 1). In total, 27 CSPs were established between May and July 2008. Species recording was performed between May and October 2008 with several visits per plot. Each CSP has a size of 30 m by 30 m, which approximates to the plot size (1 mu plot) in the BEF-Experiment at Xingangshan (Jiangxi, Fig. 1). The corners of every CSP were permanently marked with magnets and subareas of each CSP were set apart for measuring various ecosystem functioning variables, among them basic soil properties. Soil moisture was assessed on soil samples taken from five different layers of the mineral soil in 10 cm-intervals on three dates (summer and autumn 2008, spring 2009). We used mean values by averaging the soil water contents over all layers and all dates. Topsoil samples (0-5 cm) were taken in summer 2009 from four locations in each plot, pooled in a bulk sample per CSP, air-dried and then used to determine pH, both measured in H2O and 1 M KCl. A complete inventory of woody species and bamboo (Pleioblastus amarus) (> 1 m height) was carried out on the whole plot. All herbaceous species and tree recruits (i.e. seedlings and saplings \xE2\x89\xA4 1 m height) were recorded in a central subplot of 10 m x 10 m. All individuals were identified to the species level, making use of herbarium samples and comparisons with correctly identified individuals, and counted per species. The proportion of unidentifiable individuals in a CSP ranged between 0 % and 2.3 %. These individuals were not included in the subsequent data analysis."
   circumstances: ""
-  title: Test species name import
-  updated_at: 2011-06-01 13:47:41.86
-  published: ""
-  usagerights: ""
-  abstract: Synonyms list for tree reference names in the Comparative Study Plots (CSP) of the Biodiversity - Ecosystem Functioning Experiment (BEF-China) and the Main Experiment.  This file includes the synonyms of species found in the CSP during the field work 2008 / 2009, including the species used for planting the Main Experiment in Xingangshan. The listed synonyms of the species names refer to the "Flora of China" and the The International Plant Names Index (IPNI). The species reference can be found within the metasheet z1_CSP_Main_TreeAndShrubSpecies_reference list.xls
-  taxonomicextent: ""
-  temporalextent: ""
-  spatialextent: Gutianshan NNR has an area of approximately 81 km2 and was initially established as a National Forest Reserve in 1975 and became a National Nature Reserve in 2001. The NNR comprises a large portion of broad-leaved forests of advanced successional stages (Hu & Yu 2008), which have not been managed since the beginning of the 1990ies, as well as young successional stages and conifer plantations, mainly of Cunninghamia lanceolata and Pinus massoniana
-  id: "5"
-  datemin: 2011-04-18 00:00:00
-  free_within_projects: f
-  free_for_public: f
-  free_for_members: f
-  filename: species first test.xls
-  dataanalysis: ""
-  submission_at:
+  submission_at: 
+  filename: problem_spreadsheet 2.xls
+  comment: Mind that there are several other separate data sets, which contain more recent data, regarding successional stage, soil properties.  The most important data from this data set are the vegetation layer characteristics as well as the data on diversity and dimilarity of tree layer trees and recruitment trees.
+  dataanalysis: "To analyze the floristic composition of all woody species we employed non-metric multidimensional scaling (NMDS) using counts of individuals per CSP and Bray-Curtis dissimilarity. The statistics were computed with R (2008), using the vegan package (Dixon 2003, Oksanen et al. 2006). Rare species were not removed, thus all 148 species of adult trees and shrubs entered the analysis. Wisconsin double standardization was applied to square root transformed abundance data. Default options were used for scaling, so that one unit means halving of community similarity from replicate similarity. Centring of the origin to the average of the axes was performed and the plot was configured in a way to maximize the variance of points on the first dimension. Species scores were added to the final solution as weighted averages. In a subsequent multiple regression, the NMDS plot scores on axes 1 and 2 were related to two sets of variables describing plot characteristics (elevation, aspect, inclination, geographical coordinates, height and cover of the different layers, coverage of bare ground, soil moisture as well as assignment to the five successional stages as described above) and species richness (number of woody species [height > 1 m] in the 900 m2-plot as well as number of herb species, woody recruit species [seedlings, saplings], woody climber species and herb climber species in the 100 m2-subplot [only recorded if height \xE2\x89\xA4 1 m]). The significance of the correlations was assessed using permutation tests (n=999) and r2 is given as goodness of fit. Thus, structure and richness variables were treated as independent from the floristic composition and tested for relationships with the species composition in the CSPs. A detrended correspondence analysis was performed to determine the gradient lengths and to yield an estimate of \xCE\xB2-diversity (Jongman et                         al. 1995). --- All ordinary linear regressions were calculated with R (2008). Multiple regressions were used to test the dependence of species richness of adult trees and shrubs (individuals > 1 m height), on the one hand, on all variables describing plot characteristics and structure, and on the other hand, on variables related to species diversity (for a list of variables see Table 1). The input variables were standardized (i.e. z transformed) prior to analysis, resulting in a model with intercept = 0. Model fitting started with a full set of independent variables and was optimized using backward selection. Predictors were eliminated one by one from the model based on their F statistics until all the remaining variables were significant at the \xEF\x81\xA1 = 0.05 level. Partial correlation coefficients were calculated using type II sums of squares (SS), as SS/(SS+SSE), where SSE is the error sum of squares. The partial r2 gives the fraction of variance explained for each variable after the effect of all other variables in the model has been accounted for. Multiple regression analyses were performed with the SAS 9.1 package (proc reg, SAS Institute 2002). --- Rarefaction analysis was based on Hurlbert\xE2\x80\x99s (1971) formula, as implemented in the vegan package in R, using a fixed number of 100 individuals per plot. Rarity was assessed by ranking all species both in the group of adult trees and shrubs as well as in the group of seedlings and saplings in the order of their abundance across all plots. Species were considered \xE2\x80\x9Crare\xE2\x80\x9D or \xE2\x80\x9Ccommon\xE2\x80\x9D when they occurred in the lower or upper half of all ranks, respectively. --- To relate the number of recruits to the number of adults, the census from the central 10 m x 10 m subplot was extrapolated to the whole plot are by multiplying all counts of recruits by 9. As Wright (2002) pointed out the species\xE2\x80\x99 per capita recruitment rate cannot be plotted against the species\xE2\x80\x99 abundance, as this takes the form of y/x versus x. Thus, we directly regressed the number of recruits on the number of adult plants and tested for a log-log relationship after transforming both the count data of adults and recruits by log10(x+1). We then compared the observed and expected slope and identified outliers from this prediction by plotting confidence intervals using a tolerance of \xC2\xB1 two standard deviations. --- For each species, per capita recruitment rates were calculated by relating the number of recruits (multiplied with 9 as explained above) to the number of adult trees and shrubs. This was done on three levels, on the level of each plot, across all plots of one successional stage and for all 27 plots of the whole study. Plot-wise per capita recruitment rate was obtained by averaging the per capita recruitment rate of all species present in a plot. Using a mixed model with successional stage as fixed factor and species identity as random factor, we tested for the impact of successional stage on per capita recruitment rate (proc mixed, SAS 9.2). --- Species similarity between adults and recruits was calculated for each plot, both based on counts of individuals using Bray-Curtis similarity and on presence/absence using the S\xC3\xB8rensen index (S\xC3\xB8rensen 1948). In addition, we counted those species among the recruits that were not yet present in a plot among the adults (i.e. species in a plot exclusively found in the group of recruits, not among the adults)."
   finished: f
-  design: ""
+  downloads: "0"
+  datemin: 2007-12-31 23:00:00
+  datemax: 2009-12-30 23:00:00
+  published: submitted to Ecology in 2009
+  visible_for_public: t
+  upload_spreadsheet_id: "7"
+  created_at: 2011-09-01 09:02:29.276168
+  updated_at: 2011-09-01 09:02:32.684354
+  free_for_members: f
+  free_for_public: f
+  free_within_projects: f
+  student_file: f
 datasets_002: 
-  comment: ""
-  created_at: 2011-06-01 15:02:04.119
-  upload_spreadsheet_id: "5"
-  visible_for_public: t
-  student_file: f
-  datemax: 2011-04-18 00:00:00
-  downloads: "0"
-  circumstances: ""
-  title: Test species name import second version
-  updated_at: 2011-06-01 15:02:34.559
-  published: ""
-  usagerights: ""
+  id: "5"
+  title: Test species name import
   abstract: Synonyms list for tree reference names in the Comparative Study Plots (CSP) of the Biodiversity - Ecosystem Functioning Experiment (BEF-China) and the Main Experiment.  This file includes the synonyms of species found in the CSP during the field work 2008 / 2009, including the species used for planting the Main Experiment in Xingangshan. The listed synonyms of the species names refer to the "Flora of China" and the The International Plant Names Index (IPNI). The species reference can be found within the metasheet z1_CSP_Main_TreeAndShrubSpecies_reference list.xls
-  taxonomicextent: ""
-  temporalextent: ""
-  spatialextent: Gutianshan NNR has an area of approximately 81 km2 and was initially established as a National Forest Reserve in 1975 and became a National Nature Reserve in 2001. The NNR comprises a large portion of broad-leaved forests of advanced successional stages (Hu & Yu 2008), which have not been managed since the beginning of the 1990ies, as well as young successional stages and conifer plantations, mainly of Cunninghamia lanceolata and Pinus massoniana
-  id: "6"
-  datemin: 2011-04-18 00:00:00
-  free_within_projects: f
-  free_for_public: f
-  free_for_members: t
-  filename: species second test.xls
-  dataanalysis: ""
-  submission_at:
-  finished: f
-  design: ""
-datasets_003:
-  comment: ""
-  created_at: 2011-07-01 15:02:04.119
-  upload_spreadsheet_id: "6"
-  visible_for_public: t
-  student_file: f
-  datemax: 2011-04-18 00:00:00
-  downloads: "0"
-  circumstances: ""
-  title: Unit tests
-  updated_at: 2011-07-01 15:02:34.559
-  published: ""
   usagerights: ""
-  abstract: Unit tests
-  taxonomicextent: ""
+  spatialextent: Gutianshan NNR has an area of approximately 81 km2 and was initially established as a National Forest Reserve in 1975 and became a National Nature Reserve in 2001. The NNR comprises a large portion of broad-leaved forests of advanced successional stages (Hu & Yu 2008), which have not been managed since the beginning of the 1990ies, as well as young successional stages and conifer plantations, mainly of Cunninghamia lanceolata and Pinus massoniana
   temporalextent: ""
-  spatialextent: Unit tests
-  id: "7"
-  datemin: 2011-04-18 00:00:00
-  free_within_projects: f
-  free_for_public: f
-  free_for_members: f
-  filename: Unit test spreadsheet.xls
-  dataanalysis: ""
-  submission_at:
-  finished: f
+  taxonomicextent: ""
   design: ""
+  circumstances: ""
+  submission_at: 
+  filename: species first test.xls
+  comment: ""
+  dataanalysis: ""
+  finished: f
+  downloads: "0"
+  datemin: 2011-04-18 00:00:00
+  datemax: 2011-04-18 00:00:00
+  published: ""
+  visible_for_public: t
+  upload_spreadsheet_id: "4"
+  created_at: 2011-06-01 13:47:09.016
+  updated_at: 2011-06-01 13:47:41.86
+  free_for_members: f
+  free_for_public: f
+  free_within_projects: f
+  student_file: f
+datasets_003: 
+  id: "6"
+  title: Test species name import second version
+  abstract: Synonyms list for tree reference names in the Comparative Study Plots (CSP) of the Biodiversity - Ecosystem Functioning Experiment (BEF-China) and the Main Experiment.  This file includes the synonyms of species found in the CSP during the field work 2008 / 2009, including the species used for planting the Main Experiment in Xingangshan. The listed synonyms of the species names refer to the "Flora of China" and the The International Plant Names Index (IPNI). The species reference can be found within the metasheet z1_CSP_Main_TreeAndShrubSpecies_reference list.xls
+  usagerights: ""
+  spatialextent: Gutianshan NNR has an area of approximately 81 km2 and was initially established as a National Forest Reserve in 1975 and became a National Nature Reserve in 2001. The NNR comprises a large portion of broad-leaved forests of advanced successional stages (Hu & Yu 2008), which have not been managed since the beginning of the 1990ies, as well as young successional stages and conifer plantations, mainly of Cunninghamia lanceolata and Pinus massoniana
+  temporalextent: ""
+  taxonomicextent: ""
+  design: ""
+  circumstances: ""
+  submission_at: 
+  filename: species second test.xls
+  comment: ""
+  dataanalysis: ""
+  finished: f
+  downloads: "0"
+  datemin: 2011-04-18 00:00:00
+  datemax: 2011-04-18 00:00:00
+  published: ""
+  visible_for_public: t
+  upload_spreadsheet_id: "5"
+  created_at: 2011-06-01 15:02:04.119
+  updated_at: 2011-06-01 15:02:34.559
+  free_for_members: t
+  free_for_public: f
+  free_within_projects: f
+  student_file: f
+datasets_004: 
+  id: "7"
+  title: Unit tests
+  abstract: Unit tests
+  usagerights: ""
+  spatialextent: Unit tests
+  temporalextent: ""
+  taxonomicextent: ""
+  design: ""
+  circumstances: ""
+  submission_at: 
+  filename: Unit test spreadsheet.xls
+  comment: ""
+  dataanalysis: ""
+  finished: f
+  downloads: "0"
+  datemin: 2011-04-18 00:00:00
+  datemax: 2011-04-18 00:00:00
+  published: ""
+  visible_for_public: t
+  upload_spreadsheet_id: "6"
+  created_at: 2011-07-01 15:02:04.119
+  updated_at: 2011-07-01 15:02:34.559
+  free_for_members: f
+  free_for_public: f
+  free_within_projects: f
+  student_file: f

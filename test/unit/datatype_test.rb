@@ -18,5 +18,8 @@ class DatatypeTest < Test::Unit::TestCase
     assert(datatype.id==2, "Could not find year datatype by name")
   end
 
-
+  test "year_datatype_find_by_name2" do
+    datatype = Datatypehelper.find_by_name("category")
+    assert(datatype.id==5, "Could not find category datatype by name")
+  end
 end

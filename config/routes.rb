@@ -35,7 +35,7 @@ Befchina::Application.routes.draw do
   resources :datacolumns do
     member do
       post :update_datagroup, :update_datatype, :update_metadata
-      post :update_category, :create_category
+      post :update_invalid_values
     end
   end
 

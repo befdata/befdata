@@ -1,225 +1,460 @@
 --- 
-datacolumns_005: 
-  comment: species, dwc/terms/scientificName, dwc/terms/acceptedNameUsage
-  created_at: 2011-06-01 13:47:48.22
-  import_data_type: category
-  updated_at: 2011-06-01 13:47:48.22
-  dataset_id: "5"
-  id: "36"
-  unit: id
-  columnnr: "4"
-  columnheader: fullname
-  datagroup_id: "1"
-  definition: fullname consisting of genus and species epiteth; use this name for a given synonym
-  category_longshort: 
-  missingcode: 
-datacolumns_006: 
-  comment: dwc/terms/scientificNameAuthorship, datetime, year
-  created_at: 2011-06-01 13:47:48.031
-  import_data_type: year
-  updated_at: 2011-06-01 13:54:10.082
-  dataset_id: "5"
-  id: "35"
-  unit: year
-  columnnr: "3"
-  columnheader: Year
-  datagroup_id: "21"
-  definition: year of species description
-  category_longshort: 
-  missingcode: 
-datacolumns_007: 
-  comment: height, variable, response
-  created_at: 2011-06-01 15:02:39.401
-  import_data_type: number
-  updated_at: 2011-06-01 15:02:39.401
-  dataset_id: "6"
-  id: "37"
-  unit: 
-  columnnr: "1"
-  columnheader: height
-  datagroup_id: "19"
-  definition: height in m
-  category_longshort: 
-  missingcode: 
-datacolumns_008: 
-  comment: species author, dwc/terms/scientificNameAuthorship
-  created_at: 2011-06-01 15:02:40.346
-  import_data_type: text
-  updated_at: 2011-06-01 15:02:40.346
-  dataset_id: "6"
-  id: "38"
-  unit: id
-  columnnr: "2"
-  columnheader: fullauthor
-  datagroup_id: "20"
-  definition: Author name for species description
-  category_longshort: 
-  missingcode: 
 datacolumns_001: 
-  comment: species, dwc/terms/scientificName, dwc/terms/acceptedNameUsage
-  created_at: 2011-06-01 15:02:40.938
-  import_data_type: category
-  updated_at: 2011-06-01 15:02:40.938
-  dataset_id: "6"
-  id: "40"
-  unit: id
-  columnnr: "4"
-  columnheader: fullname
-  datagroup_id: "1"
-  definition: fullname consisting of genus and species epiteth; use this name for a given synonym
-  category_longshort: 
+  id: "57"
+  datagroup_id: "34"
+  dataset_id: "8"
+  columnheader: Coordinates_E
+  columnnr: "9"
+  definition: longitude, measured with geko 201, mind that some of the coordinates were not helpful in finding the plot. It is not clear, if they all refer to the south-west corner of the plot.
+  unit: "WGS 84, Dezimalgrad: hddd.ddddd degree"
   missingcode: 
+  comment: longitude
+  import_data_type: number
+  category_longshort: 
+  created_at: 2011-09-01 09:02:35.895537
+  updated_at: 2011-09-01 09:02:35.895537
+  datagroup_approved: f
+  finished: f
+  datatype_approved: f
 datacolumns_002: 
-  comment: dwc/terms/scientificNameAuthorship, datetime, year
-  created_at: 2011-06-01 15:02:40.78
-  import_data_type: year
-  updated_at: 2011-06-01 15:05:26.658
-  dataset_id: "6"
-  id: "39"
-  unit: year
-  columnnr: "3"
-  columnheader: Year
-  datagroup_id: "21"
-  definition: year of species description
-  category_longshort: 
+  id: "58"
+  datagroup_id: "6"
+  dataset_id: "8"
+  columnheader: Coordinates_ValueComment
+  columnnr: "10"
+  definition: comment to measured values in the columns coordinates
+  unit: text
   missingcode: 
+  comment: 
+  import_data_type: text
+  category_longshort: 
+  created_at: 2011-09-01 09:02:36.183554
+  updated_at: 2011-09-01 09:02:36.183554
+  datagroup_approved: f
+  finished: f
+  datatype_approved: f
 datacolumns_003: 
-  comment: height, variable, response
-  created_at: 2011-06-01 13:47:46.018
-  import_data_type: number
-  updated_at: 2011-06-01 13:47:46.018
-  dataset_id: "5"
-  id: "33"
+  id: "59"
+  datagroup_id: "35"
+  dataset_id: "8"
+  columnheader: test
+  columnnr: "11"
+  definition: test
   unit: 
-  columnnr: "1"
-  columnheader: height
-  datagroup_id: "19"
-  definition: height in m
-  category_longshort: 
   missingcode: 
-datacolumns_004: 
-  comment: species author, dwc/terms/scientificNameAuthorship
-  created_at: 2011-06-01 13:47:47.817
-  import_data_type: text
-  updated_at: 2011-06-01 13:47:47.817
-  dataset_id: "5"
-  id: "34"
-  unit: id
-  columnnr: "2"
-  columnheader: fullauthor
-  datagroup_id: "20"
-  definition: Author name for species description
+  comment: 
+  import_data_type: 
   category_longshort: 
-  missingcode:
-datacolumns_041:
-  comment:
-  created_at: 2011-07-01 15:02:40.346
-  import_data_type: text
-  updated_at: 2011-07-01 15:02:40.346
-  dataset_id: "7"
-  id: "41"
-  unit:
+  created_at: 2011-09-01 09:02:36.28756
+  updated_at: 2011-09-01 09:02:36.28756
+  datagroup_approved: f
+  finished: f
+  datatype_approved: f
+datacolumns_004: 
+  id: "49"
+  datagroup_id: "21"
+  dataset_id: "8"
+  columnheader: date
   columnnr: "1"
-  columnheader: Column_one
-  datagroup_id: "23"
-  definition: Column one
-  category_longshort:
-  missingcode:
-datacolumns_042:
-  comment:
-  created_at: 2011-07-01 15:02:40.346
-  import_data_type: number
-  updated_at: 2011-07-01 15:02:40.346
-  dataset_id: "7"
-  id: "42"
-  unit:
-  columnnr: "2"
-  columnheader: Column_two
-  datagroup_id: "24"
-  definition: Column two
-  category_longshort:
-  missingcode:
-datacolumns_043:
-  comment:
-  created_at: 2011-07-01 15:02:40.346
-  import_data_type: date(2009-07-14)
-  updated_at: 2011-07-01 15:02:40.346
-  dataset_id: "7"
-  id: "43"
-  unit:
-  columnnr: "3"
-  columnheader: Column_three
-  datagroup_id: "25"
-  definition: Column three
-  category_longshort:
-  missingcode:
-datacolumns_044:
-  comment:
-  created_at: 2011-07-01 15:02:40.346
+  definition: year of sampling
+  unit: year
+  missingcode: 
+  comment: 
   import_data_type: year
-  updated_at: 2011-07-01 15:02:40.346
-  dataset_id: "7"
-  id: "44"
-  unit:
-  columnnr: "4"
-  columnheader: Column_four
-  datagroup_id: "26"
-  definition: Column four
-  category_longshort:
-  missingcode:
-datacolumns_045:
-  comment:
-  created_at: 2011-07-01 15:02:40.346
-  import_data_type: category
-  updated_at: 2011-07-01 15:02:40.346
-  dataset_id: "7"
-  id: "45"
-  unit:
-  columnnr: "5"
-  columnheader: Column_five
-  datagroup_id: "27"
-  definition: Column five
-  category_longshort:
-  missingcode:
-datacolumns_046:
-  comment:
-  created_at: 2011-07-01 15:02:40.346
-  import_data_type: category
-  updated_at: 2011-07-01 15:02:40.346
-  dataset_id: "7"
-  id: "46"
-  unit:
+  category_longshort: 
+  created_at: 2011-09-01 09:02:33.4934
+  updated_at: 2011-09-01 09:48:26.010663
+  datagroup_approved: t
+  finished: f
+  datatype_approved: t
+datacolumns_005: 
+  id: "54"
+  datagroup_id: "6"
+  dataset_id: "8"
+  columnheader: Aspect_E
   columnnr: "6"
-  columnheader: Column_six
-  datagroup_id: "28"
-  definition: Column six
-  category_longshort:
-  missingcode:
-datacolumns_047:
-  comment:
-  created_at: 2011-07-01 15:02:40.346
-  import_data_type: date(14.07.2009)
-  updated_at: 2011-07-01 15:02:40.346
-  dataset_id: "7"
-  id: "47"
-  unit:
-  columnnr: "7"
-  columnheader: Column_seven
-  datagroup_id: "29"
-  definition: Column seven
-  category_longshort:
-  missingcode:
-datacolumns_048:
-  comment:
-  created_at: 2011-07-01 15:02:40.346
+  definition: eastness of plot aspect
+  unit: 
+  missingcode: 
+  comment: aspect
   import_data_type: number
-  updated_at: 2011-07-01 15:02:40.346
-  dataset_id: "7"
-  id: "48"
-  unit:
+  category_longshort: 
+  created_at: 2011-09-01 09:02:35.027488
+  updated_at: 2011-09-01 10:38:25.177842
+  datagroup_approved: t
+  finished: f
+  datatype_approved: t
+datacolumns_006: 
+  id: "56"
+  datagroup_id: "33"
+  dataset_id: "8"
+  columnheader: Coordinates_N
   columnnr: "8"
-  columnheader: Column_eight
+  definition: latitude, measured with geko 201, mind that some of the coordinates were not helpful in finding the plot. It is not clear, if they all refer to the south-west corner of the plot.
+  unit: "WGS 84, Dezimalgrad: hddd.ddddd degree"
+  missingcode: 
+  comment: latitude
+  import_data_type: number
+  category_longshort: 
+  created_at: 2011-09-01 09:02:35.603521
+  updated_at: 2011-09-01 10:39:58.427251
+  datagroup_approved: t
+  finished: f
+  datatype_approved: t
+datacolumns_007: 
+  id: "36"
+  datagroup_id: "1"
+  dataset_id: "5"
+  columnheader: fullname
+  columnnr: "4"
+  definition: fullname consisting of genus and species epiteth; use this name for a given synonym
+  unit: id
+  missingcode: 
+  comment: species, dwc/terms/scientificName, dwc/terms/acceptedNameUsage
+  import_data_type: category
+  category_longshort: 
+  created_at: 2011-06-01 13:47:48.22
+  updated_at: 2011-06-01 13:47:48.22
+  datagroup_approved: 
+  finished: 
+  datatype_approved: 
+datacolumns_008: 
+  id: "35"
+  datagroup_id: "21"
+  dataset_id: "5"
+  columnheader: Year
+  columnnr: "3"
+  definition: year of species description
+  unit: year
+  missingcode: 
+  comment: dwc/terms/scientificNameAuthorship, datetime, year
+  import_data_type: year
+  category_longshort: 
+  created_at: 2011-06-01 13:47:48.031
+  updated_at: 2011-06-01 13:54:10.082
+  datagroup_approved: 
+  finished: 
+  datatype_approved: 
+datacolumns_009: 
+  id: "37"
+  datagroup_id: "19"
+  dataset_id: "6"
+  columnheader: height
+  columnnr: "1"
+  definition: height in m
+  unit: 
+  missingcode: 
+  comment: height, variable, response
+  import_data_type: number
+  category_longshort: 
+  created_at: 2011-06-01 15:02:39.401
+  updated_at: 2011-06-01 15:02:39.401
+  datagroup_approved: 
+  finished: 
+  datatype_approved: 
+datacolumns_010: 
+  id: "38"
+  datagroup_id: "20"
+  dataset_id: "6"
+  columnheader: fullauthor
+  columnnr: "2"
+  definition: Author name for species description
+  unit: id
+  missingcode: 
+  comment: species author, dwc/terms/scientificNameAuthorship
+  import_data_type: text
+  category_longshort: 
+  created_at: 2011-06-01 15:02:40.346
+  updated_at: 2011-06-01 15:02:40.346
+  datagroup_approved: 
+  finished: 
+  datatype_approved: 
+datacolumns_011: 
+  id: "40"
+  datagroup_id: "1"
+  dataset_id: "6"
+  columnheader: fullname
+  columnnr: "4"
+  definition: fullname consisting of genus and species epiteth; use this name for a given synonym
+  unit: id
+  missingcode: 
+  comment: species, dwc/terms/scientificName, dwc/terms/acceptedNameUsage
+  import_data_type: category
+  category_longshort: 
+  created_at: 2011-06-01 15:02:40.938
+  updated_at: 2011-06-01 15:02:40.938
+  datagroup_approved: 
+  finished: 
+  datatype_approved: 
+datacolumns_012: 
+  id: "39"
+  datagroup_id: "21"
+  dataset_id: "6"
+  columnheader: Year
+  columnnr: "3"
+  definition: year of species description
+  unit: year
+  missingcode: 
+  comment: dwc/terms/scientificNameAuthorship, datetime, year
+  import_data_type: year
+  category_longshort: 
+  created_at: 2011-06-01 15:02:40.78
+  updated_at: 2011-06-01 15:05:26.658
+  datagroup_approved: 
+  finished: 
+  datatype_approved: 
+datacolumns_013: 
+  id: "33"
+  datagroup_id: "19"
+  dataset_id: "5"
+  columnheader: height
+  columnnr: "1"
+  definition: height in m
+  unit: 
+  missingcode: 
+  comment: height, variable, response
+  import_data_type: number
+  category_longshort: 
+  created_at: 2011-06-01 13:47:46.018
+  updated_at: 2011-06-01 13:47:46.018
+  datagroup_approved: 
+  finished: 
+  datatype_approved: 
+datacolumns_014: 
+  id: "34"
+  datagroup_id: "20"
+  dataset_id: "5"
+  columnheader: fullauthor
+  columnnr: "2"
+  definition: Author name for species description
+  unit: id
+  missingcode: 
+  comment: species author, dwc/terms/scientificNameAuthorship
+  import_data_type: text
+  category_longshort: 
+  created_at: 2011-06-01 13:47:47.817
+  updated_at: 2011-06-01 13:47:47.817
+  datagroup_approved: 
+  finished: 
+  datatype_approved: 
+datacolumns_015: 
+  id: "41"
+  datagroup_id: "23"
+  dataset_id: "7"
+  columnheader: Column_one
+  columnnr: "1"
+  definition: Column one
+  unit: 
+  missingcode: 
+  comment: 
+  import_data_type: text
+  category_longshort: 
+  created_at: 2011-07-01 15:02:40.346
+  updated_at: 2011-07-01 15:02:40.346
+  datagroup_approved: 
+  finished: 
+  datatype_approved: 
+datacolumns_016: 
+  id: "42"
   datagroup_id: "24"
+  dataset_id: "7"
+  columnheader: Column_two
+  columnnr: "2"
+  definition: Column two
+  unit: 
+  missingcode: 
+  comment: 
+  import_data_type: number
+  category_longshort: 
+  created_at: 2011-07-01 15:02:40.346
+  updated_at: 2011-07-01 15:02:40.346
+  datagroup_approved: 
+  finished: 
+  datatype_approved: 
+datacolumns_017: 
+  id: "43"
+  datagroup_id: "25"
+  dataset_id: "7"
+  columnheader: Column_three
+  columnnr: "3"
+  definition: Column three
+  unit: 
+  missingcode: 
+  comment: 
+  import_data_type: date(2009-07-14)
+  category_longshort: 
+  created_at: 2011-07-01 15:02:40.346
+  updated_at: 2011-07-01 15:02:40.346
+  datagroup_approved: 
+  finished: 
+  datatype_approved: 
+datacolumns_018: 
+  id: "44"
+  datagroup_id: "26"
+  dataset_id: "7"
+  columnheader: Column_four
+  columnnr: "4"
+  definition: Column four
+  unit: 
+  missingcode: 
+  comment: 
+  import_data_type: year
+  category_longshort: 
+  created_at: 2011-07-01 15:02:40.346
+  updated_at: 2011-07-01 15:02:40.346
+  datagroup_approved: 
+  finished: 
+  datatype_approved: 
+datacolumns_019: 
+  id: "45"
+  datagroup_id: "27"
+  dataset_id: "7"
+  columnheader: Column_five
+  columnnr: "5"
+  definition: Column five
+  unit: 
+  missingcode: 
+  comment: 
+  import_data_type: category
+  category_longshort: 
+  created_at: 2011-07-01 15:02:40.346
+  updated_at: 2011-07-01 15:02:40.346
+  datagroup_approved: 
+  finished: 
+  datatype_approved: 
+datacolumns_020: 
+  id: "46"
+  datagroup_id: "28"
+  dataset_id: "7"
+  columnheader: Column_six
+  columnnr: "6"
+  definition: Column six
+  unit: 
+  missingcode: 
+  comment: 
+  import_data_type: category
+  category_longshort: 
+  created_at: 2011-07-01 15:02:40.346
+  updated_at: 2011-07-01 15:02:40.346
+  datagroup_approved: 
+  finished: 
+  datatype_approved: 
+datacolumns_021: 
+  id: "47"
+  datagroup_id: "29"
+  dataset_id: "7"
+  columnheader: Column_seven
+  columnnr: "7"
+  definition: Column seven
+  unit: 
+  missingcode: 
+  comment: 
+  import_data_type: date(14.07.2009)
+  category_longshort: 
+  created_at: 2011-07-01 15:02:40.346
+  updated_at: 2011-07-01 15:02:40.346
+  datagroup_approved: 
+  finished: 
+  datatype_approved: 
+datacolumns_022: 
+  id: "48"
+  datagroup_id: "24"
+  dataset_id: "7"
+  columnheader: Column_eight
+  columnnr: "8"
   definition: Column eight
-  category_longshort: ""
+  unit: 
   missingcode: ""
+  comment: 
+  import_data_type: number
+  category_longshort: ""
+  created_at: 2011-07-01 15:02:40.346
+  updated_at: 2011-07-01 15:02:40.346
+  datagroup_approved: 
+  finished: 
+  datatype_approved: 
+datacolumns_023: 
+  id: "50"
+  datagroup_id: "5"
+  dataset_id: "8"
+  columnheader: plot
+  columnnr: "2"
+  definition: CSP name
+  unit: location id
+  missingcode: 
+  comment: CSP
+  import_data_type: category
+  category_longshort: 
+  created_at: 2011-09-01 09:02:33.83642
+  updated_at: 2011-09-01 09:02:33.83642
+  datagroup_approved: f
+  finished: f
+  datatype_approved: f
+datacolumns_024: 
+  id: "51"
+  datagroup_id: "31"
+  dataset_id: "8"
+  columnheader: Elevation
+  columnnr: "3"
+  definition: Elevation of the sampled plot, measured with geko201 GPS
+  unit: m asl
+  missingcode: 
+  comment: elevation
+  import_data_type: number
+  category_longshort: 
+  created_at: 2011-09-01 09:02:34.225442
+  updated_at: 2011-09-01 09:02:34.225442
+  datagroup_approved: f
+  finished: f
+  datatype_approved: f
+datacolumns_025: 
+  id: "52"
+  datagroup_id: "32"
+  dataset_id: "8"
+  columnheader: aspect
+  columnnr: "4"
+  definition: aspect of the sampled plot. Measured with compass. Mind that there have been ambiguous values related to aspect by different researchers. Measured with compass.
+  unit: degree
+  missingcode: 
+  comment: aspect
+  import_data_type: number
+  category_longshort: 
+  created_at: 2011-09-01 09:02:34.462455
+  updated_at: 2011-09-01 09:02:34.462455
+  datagroup_approved: f
+  finished: f
+  datatype_approved: f
+datacolumns_026: 
+  id: "53"
+  datagroup_id: "6"
+  dataset_id: "8"
+  columnheader: aspect_ValueComment
+  columnnr: "5"
+  definition: comment to measured values in the column aspect
+  unit: text
+  missingcode: 
+  comment: 
+  import_data_type: text
+  category_longshort: 
+  created_at: 2011-09-01 09:02:34.748472
+  updated_at: 2011-09-01 09:02:34.748472
+  datagroup_approved: f
+  finished: f
+  datatype_approved: f
+datacolumns_027: 
+  id: "55"
+  datagroup_id: "6"
+  dataset_id: "8"
+  columnheader: Aspect_N
+  columnnr: "7"
+  definition: northness of plot aspect
+  unit: 
+  missingcode: 
+  comment: aspect
+  import_data_type: number
+  category_longshort: 
+  created_at: 2011-09-01 09:02:35.312504
+  updated_at: 2011-09-01 10:37:15.85669
+  datagroup_approved: t
+  finished: f
+  datatype_approved: t

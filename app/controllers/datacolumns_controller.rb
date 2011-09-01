@@ -3,8 +3,7 @@ class DatacolumnsController < ApplicationController
   # ACL9 access block for the methods of this controller.
   skip_before_filter :deny_access_to_all
   access_control do
-    actions :edit, :update_datagroup, :update_datatype, :update_people, :update_metadata,
-    :raw_data_per_header, :update_category, :create_category do
+    actions :edit, :update_datagroup, :update_datatype, :update_metadata, :update_invalid_values do
       allow :admin
       allow :owner, :of => :dataset
       allow :proposer, :of => :dataset
@@ -31,8 +30,8 @@ class DatacolumnsController < ApplicationController
         render :partial => 'approve_datagroup' and return
       end
 
-      # Extract the datatype of this column for correct preselection
-      @datatype = @book.datatype_for_columnheader(columnheader)
+      # get the datatype of this column for correct preselection
+      @datatype = Datatypehelper.find_by_name(@data_column.import_data_type)
 
       # Is the Data Type of this Data Column approved? If no, then render the Data Type approval partial.
       unless @data_column.datatype_approved?
@@ -40,7 +39,7 @@ class DatacolumnsController < ApplicationController
       end
 
       @dataset = @data_column.dataset
-      @cats_to_choose = @data_column.datagroup.datacell_categories
+      @available_categories = @data_column.datagroup.categories.order(:short)
       @invalid_values_hash = @data_column.invalid_values
 
       # User has to have a look on values that were marked as invalid
@@ -73,6 +72,7 @@ class DatacolumnsController < ApplicationController
       # The tabbed display prevent the usual error messages from being displayed.
       # We therefore catch all exceptions and display a generic error message along with the exception itself.
       render :text => "Sorry, something went wrong! #{$!}"
+      #raise
     end
   end
 
@@ -177,55 +177,23 @@ class DatacolumnsController < ApplicationController
     redirect_to :back
   end
 
-  # This method is called whenever someone clicks on the 'Save Category' Button
-  # in the Data Column approval process.
-  #
-  # The category for the selected sheetcell is saved and other respective sheetcells
-  # are updated.
-  def update_category
-    first_cell = Sheetcell.find(params[:sheetcell][:id])
-    first_cell.update_attributes(params[:sheetcell])
-    same_entry_cells = first_cell.same_entry_cells
+  # creates categories for all invalid values completed in the form and assigns the category to the sheetcell
+  def update_invalid_values
+    @data_column = Datacolumn.find(params[:id])
+    if(!@data_column.nil?)
+      dataset = @data_column.dataset
+      @data_column.invalid_values.each do |value, i|
+        short = params["short_value_#{i}"].empty? ? nil : params["short_value_#{i}"]
+        long = params["long_value_#{i}"].empty? ? nil : params["long_value_#{i}"]
+        description = params["description_#{i}"].empty? ? nil : params["description_#{i}"]
 
-    # category
-    cat = first_cell.category
-    cat.update_attributes(:status_id => Categorystatus::MANUALLY_APPROVED, :user_id => current_user.id)
-
-    same_entry_cells.each do |cell|
-      old_cat = cell.category
-      cell.update_attributes(:category => cat, :status_id => Sheetcellstatus::VALID)
-      old_cat.destroy
-    end
-
-    # Create a nice success message and redirect back so we render the same view again.
-    flash[:notice] = "Category successfully validated."
-    redirect_to :back
-  end
-
-  # This method creates a new category whenever no category was avaiable in the
-  # Data Column approval process.
-  def create_category
-    first_cell = Sheetcell.find(params[:sheetcell][:id])
-    entry = first_cell.import_value
-    same_entry_cells = first_cell.same_entry_cells
-
-    # the new category; needs error handling
-    cat = Category.new(params[:category])
-    cat.comment = "manually approved"
-    cat.long = entry if cat.long.blank?
-    cat.description = cat.long if cat.description.blank?
-
-    if cat.save
-      same_entry_cells.each do |cell|
-        old_cat = cell.category
-        cell.update_attributes(:category => cat,
-        :comment => "valid")
-        old_cat.destroy # validates that it is not destroyed if
-        # linked to measurement or import category
+        if(!short.nil?)
+          @data_column.update_invalid_value(value, short, long, description, current_user, dataset)
+        end
       end
+      flash[:notice] = "The invalid values have been successfully approved"
       redirect_to :back
-    else
-      redirect_to data_path
     end
   end
+
 end

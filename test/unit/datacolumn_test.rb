@@ -70,6 +70,28 @@ class DatacolumnTest < ActiveSupport::TestCase
     assert(valid_numbers == 6)
   end
 
+  test "accept_numbers_with_decimals_datacolumn_values" do
+    datacolumn = Datacolumn.find(55)
+    datacolumn.add_data_values(User.find(1))
+
+    valid_numbers=0
+    datacolumn.sheetcells.each do |cell|
+      if cell.import_value == cell.accepted_value then
+        # check that the data type is still a number
+        assert(cell.datatype_id == 7)
+        assert(cell.status_id == Sheetcellstatus::VALID)
+        valid_numbers += 1
+      else
+        # check that it's an invalid number
+        assert(cell.datatype_id == 7)
+        assert(cell.accepted_value.nil?)
+        assert(cell.status_id == Sheetcellstatus::INVALID)
+      end
+    end
+    # there should be 26 valid numbers
+    assert(valid_numbers == 26)
+  end
+
   test "accept_date_1_datacolumn_values" do
     datacolumn = Datacolumn.find(43)
     datacolumn.add_data_values(User.find(1))
@@ -208,5 +230,33 @@ class DatacolumnTest < ActiveSupport::TestCase
     # there should be 6 valid numbers
     assert(valid_numbers == 6, "There are not 6 valid numbers")
     assert(datacolumn.invalid_values.count == invalid_count)
+  end
+
+  test "approve_invalid_values" do
+    datacolumn = Datacolumn.find(49)
+    user = User.find(1)
+    assert(datacolumn.invalid_values.count == 1)
+
+    datacolumn.invalid_values.each do |value, i|
+      datacolumn.update_invalid_value(value, "#{value}_short", "#{value}_long", "#{value}_description", user, datacolumn.dataset)
+      cat = Category.find_by_short("#{value}_short")
+      assert(!cat.nil?)
+      assert(cat.datagroup == datacolumn.datagroup)
+    end
+    assert(datacolumn.invalid_values.count == 0)
+  end
+
+  test "approve_invalid_values_2" do
+    datacolumn = Datacolumn.find(56)
+    user = User.find(1)
+    assert(datacolumn.invalid_values.count == 1)
+
+    datacolumn.invalid_values.each do |value, i|
+      datacolumn.update_invalid_value(value, "#{value}_short", "#{value}_long", "#{value}_description", user, datacolumn.dataset)
+      cat = Category.find_by_short("#{value}_short")
+      assert(!cat.nil?)
+      assert(cat.datagroup == datacolumn.datagroup)
+    end
+    assert(datacolumn.invalid_values.count == 0)
   end
 end

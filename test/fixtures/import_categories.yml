@@ -1,97 +1,297 @@
----
-ImportCategory_001:
+--- 
+import_categories_001: 
   id: "35"
   datacolumn_id: "36"
   created_at: 2011-06-01 13:55:20.252
   updated_at: 2011-06-01 13:55:20.252
-  short: "Toxicodendron sylvestre"
-  long: "Toxicodendron sylvestre"
-  description: "Toxicodendron sylvestre"
-ImportCategory_002:
+  short: Toxicodendron sylvestre
+  long: Toxicodendron sylvestre
+  description: Toxicodendron sylvestre
+import_categories_002: 
   id: "36"
   datacolumn_id: "36"
   created_at: 2011-06-01 13:55:20.756
   updated_at: 2011-06-01 13:55:20.756
-  short: "Mahonia bealei"
-  long: "Mahonia bealei"
-  description: "Mahonia bealei"
-ImportCategory_003:
+  short: Mahonia bealei
+  long: Mahonia bealei
+  description: Mahonia bealei
+import_categories_003: 
   id: "37"
   datacolumn_id: "36"
   created_at: 2011-06-01 13:55:20.763
   updated_at: 2011-06-01 13:55:20.763
-  short: "Betula luminifera"
-  long: "Betula luminifera"
-  description: "Betula luminifera"
-ImportCategory_004:
+  short: Betula luminifera
+  long: Betula luminifera
+  description: Betula luminifera
+import_categories_004: 
   id: "38"
   datacolumn_id: "36"
   created_at: 2011-06-01 13:55:20.769
   updated_at: 2011-06-01 13:55:20.769
-  short: "Diospyros japonica"
-  long: "Diospyros japonica"
-  description: "Diospyros japonica"
-ImportCategory_005:
+  short: Diospyros japonica
+  long: Diospyros japonica
+  description: Diospyros japonica
+import_categories_005: 
   id: "39"
   datacolumn_id: "40"
   created_at: 2011-06-01 15:06:09.731
   updated_at: 2011-06-01 15:06:09.731
-  short: "Toxicodendron sylvestre"
-  long: "Toxicodendron sylvestre"
-  description: "Toxicodendron sylvestre"
-ImportCategory_006:
+  short: Toxicodendron sylvestre
+  long: Toxicodendron sylvestre
+  description: Toxicodendron sylvestre
+import_categories_006: 
   id: "40"
   datacolumn_id: "40"
   created_at: 2011-06-01 15:06:09.807
   updated_at: 2011-06-01 15:06:09.807
-  short: "Mahonia bealei"
-  long: "Mahonia bealei"
-  description: "Mahonia bealei"
-ImportCategory_041:
+  short: Mahonia bealei
+  long: Mahonia bealei
+  description: Mahonia bealei
+import_categories_007: 
   id: "41"
   datacolumn_id: "45"
   created_at: 2011-07-01 15:06:09.807
   updated_at: 2011-07-01 15:06:09.807
-  short: "AAA"
-  long: "AAA"
-  description: "AAA"
-ImportCategory_042:
+  short: AAA
+  long: AAA
+  description: AAA
+import_categories_008: 
   id: "42"
   datacolumn_id: "45"
   created_at: 2011-07-01 15:06:09.807
   updated_at: 2011-07-01 15:06:09.807
-  short: "BBB"
-  long: "BBB"
-  description: "BBB"
-ImportCategory_043:
+  short: BBB
+  long: BBB
+  description: BBB
+import_categories_009: 
   id: "43"
   datacolumn_id: "45"
   created_at: 2011-07-01 15:06:09.807
   updated_at: 2011-07-01 15:06:09.807
-  short: "CCC"
-  long: "CCC"
-  description: "CCC"
-ImportCategory_044:
+  short: CCC
+  long: CCC
+  description: CCC
+import_categories_010: 
   id: "44"
   datacolumn_id: "45"
   created_at: 2011-07-01 15:06:09.807
   updated_at: 2011-07-01 15:06:09.807
-  short: "DDD"
-  long: "DDD"
-  description: "DDD"
-ImportCategory_045:
+  short: DDD
+  long: DDD
+  description: DDD
+import_categories_011: 
   id: "45"
   datacolumn_id: "45"
   created_at: 2011-07-01 15:06:09.807
   updated_at: 2011-07-01 15:06:09.807
-  short: "EEE"
-  long: "EEE"
-  description: "EEE"
-ImportCategory_046:
+  short: EEE
+  long: EEE
+  description: EEE
+import_categories_012: 
   id: "46"
   datacolumn_id: "45"
   created_at: 2011-07-01 15:06:09.807
   updated_at: 2011-07-01 15:06:09.807
-  short: "FFF"
-  long: "FFF"
-  description: "FFF"
+  short: FFF
+  long: FFF
+  description: FFF
+import_categories_013: 
+  id: "47"
+  datacolumn_id: "50"
+  created_at: 2011-09-01 09:02:33.913424
+  updated_at: 2011-09-01 09:02:33.913424
+  short: "1"
+  long: CSP01
+  description: CSP01
+import_categories_014: 
+  id: "48"
+  datacolumn_id: "50"
+  created_at: 2011-09-01 09:02:33.918424
+  updated_at: 2011-09-01 09:02:33.918424
+  short: "2"
+  long: CSP02
+  description: CSP02
+import_categories_015: 
+  id: "49"
+  datacolumn_id: "50"
+  created_at: 2011-09-01 09:02:33.920424
+  updated_at: 2011-09-01 09:02:33.920424
+  short: "3"
+  long: CSP03
+  description: CSP03
+import_categories_016: 
+  id: "50"
+  datacolumn_id: "50"
+  created_at: 2011-09-01 09:02:33.922424
+  updated_at: 2011-09-01 09:02:33.922424
+  short: "4"
+  long: CSP04
+  description: CSP04
+import_categories_017: 
+  id: "51"
+  datacolumn_id: "50"
+  created_at: 2011-09-01 09:02:33.924425
+  updated_at: 2011-09-01 09:02:33.924425
+  short: "5"
+  long: CSP05
+  description: CSP05
+import_categories_018: 
+  id: "52"
+  datacolumn_id: "50"
+  created_at: 2011-09-01 09:02:33.925425
+  updated_at: 2011-09-01 09:02:33.925425
+  short: "6"
+  long: CSP06
+  description: CSP06
+import_categories_019: 
+  id: "53"
+  datacolumn_id: "50"
+  created_at: 2011-09-01 09:02:33.927425
+  updated_at: 2011-09-01 09:02:33.927425
+  short: "7"
+  long: CSP07
+  description: CSP07
+import_categories_020: 
+  id: "54"
+  datacolumn_id: "50"
+  created_at: 2011-09-01 09:02:33.929425
+  updated_at: 2011-09-01 09:02:33.929425
+  short: "8"
+  long: CSP08
+  description: CSP08
+import_categories_021: 
+  id: "55"
+  datacolumn_id: "50"
+  created_at: 2011-09-01 09:02:33.931425
+  updated_at: 2011-09-01 09:02:33.931425
+  short: "9"
+  long: CSP09
+  description: CSP09
+import_categories_022: 
+  id: "56"
+  datacolumn_id: "50"
+  created_at: 2011-09-01 09:02:33.932425
+  updated_at: 2011-09-01 09:02:33.932425
+  short: "10"
+  long: CSP10
+  description: CSP10
+import_categories_023: 
+  id: "57"
+  datacolumn_id: "50"
+  created_at: 2011-09-01 09:02:33.934425
+  updated_at: 2011-09-01 09:02:33.934425
+  short: "11"
+  long: CSP11
+  description: CSP11
+import_categories_024: 
+  id: "58"
+  datacolumn_id: "50"
+  created_at: 2011-09-01 09:02:33.936425
+  updated_at: 2011-09-01 09:02:33.936425
+  short: "12"
+  long: CSP12
+  description: CSP12
+import_categories_025: 
+  id: "59"
+  datacolumn_id: "50"
+  created_at: 2011-09-01 09:02:33.937425
+  updated_at: 2011-09-01 09:02:33.937425
+  short: "13"
+  long: CSP13
+  description: CSP13
+import_categories_026: 
+  id: "60"
+  datacolumn_id: "50"
+  created_at: 2011-09-01 09:02:33.939425
+  updated_at: 2011-09-01 09:02:33.939425
+  short: "14"
+  long: CSP14
+  description: CSP14
+import_categories_027: 
+  id: "61"
+  datacolumn_id: "50"
+  created_at: 2011-09-01 09:02:33.941426
+  updated_at: 2011-09-01 09:02:33.941426
+  short: "15"
+  long: CSP15
+  description: CSP15
+import_categories_028: 
+  id: "62"
+  datacolumn_id: "50"
+  created_at: 2011-09-01 09:02:33.943426
+  updated_at: 2011-09-01 09:02:33.943426
+  short: "16"
+  long: CSP16
+  description: CSP16
+import_categories_029: 
+  id: "63"
+  datacolumn_id: "50"
+  created_at: 2011-09-01 09:02:33.944426
+  updated_at: 2011-09-01 09:02:33.944426
+  short: "17"
+  long: CSP17
+  description: CSP17
+import_categories_030: 
+  id: "64"
+  datacolumn_id: "50"
+  created_at: 2011-09-01 09:02:33.946426
+  updated_at: 2011-09-01 09:02:33.946426
+  short: "18"
+  long: CSP18
+  description: CSP18
+import_categories_031: 
+  id: "65"
+  datacolumn_id: "50"
+  created_at: 2011-09-01 09:02:33.948426
+  updated_at: 2011-09-01 09:02:33.948426
+  short: "19"
+  long: CSP19
+  description: CSP19
+import_categories_032: 
+  id: "66"
+  datacolumn_id: "50"
+  created_at: 2011-09-01 09:02:33.949426
+  updated_at: 2011-09-01 09:02:33.949426
+  short: "20"
+  long: CSP20
+  description: CSP20
+import_categories_033: 
+  id: "67"
+  datacolumn_id: "50"
+  created_at: 2011-09-01 09:02:33.951426
+  updated_at: 2011-09-01 09:02:33.951426
+  short: "21"
+  long: CSP21
+  description: CSP21
+import_categories_034: 
+  id: "68"
+  datacolumn_id: "50"
+  created_at: 2011-09-01 09:02:33.953426
+  updated_at: 2011-09-01 09:02:33.953426
+  short: "22"
+  long: CSP22
+  description: CSP22
+import_categories_035: 
+  id: "69"
+  datacolumn_id: "59"
+  created_at: 2011-09-01 09:02:36.330562
+  updated_at: 2011-09-01 09:02:36.330562
+  short: "1"
+  long: L
+  description: L
+import_categories_036: 
+  id: "70"
+  datacolumn_id: "59"
+  created_at: 2011-09-01 09:02:36.332562
+  updated_at: 2011-09-01 09:02:36.332562
+  short: "2"
+  long: M
+  description: M
+import_categories_037: 
+  id: "71"
+  datacolumn_id: "59"
+  created_at: 2011-09-01 09:02:36.334562
+  updated_at: 2011-09-01 09:02:36.334562
+  short: "3"
+  long: H
+  description: H

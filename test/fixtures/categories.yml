@@ -1,5 +1,5 @@
 --- 
-Categories_001: 
+categories_001: 
   id: "59"
   short: na
   long: na
@@ -7,9 +7,10 @@ Categories_001:
   comment: manually approved
   created_at: 2011-06-01 13:50:24.057
   updated_at: 2011-06-01 13:52:20.058
-  datagroup_id: 7
-  user_id: 1
-Categories_002: 
+  datagroup_id: "7"
+  user_id: "1"
+  status_id: 
+categories_002: 
   id: "60"
   short: Toxicodendron sylvestre
   long: Toxicodendron sylvestre
@@ -17,9 +18,10 @@ Categories_002:
   comment: "added from category sheet in dataset: Test species name import"
   created_at: 2011-06-01 13:55:19.488
   updated_at: 2011-06-01 13:55:19.488
-  datagroup_id: 1
-  user_id: 1
-Categories_003: 
+  datagroup_id: "1"
+  user_id: "1"
+  status_id: 
+categories_003: 
   id: "61"
   short: Mahonia bealei
   long: Mahonia bealei
@@ -27,9 +29,10 @@ Categories_003:
   comment: "added from category sheet in dataset: Test species name import"
   created_at: 2011-06-01 13:55:19.723
   updated_at: 2011-06-01 13:55:19.723
-  datagroup_id: 1
-  user_id: 1
-Categories_004: 
+  datagroup_id: "1"
+  user_id: "1"
+  status_id: 
+categories_004: 
   id: "62"
   short: Betula luminifera
   long: Betula luminifera
@@ -37,9 +40,10 @@ Categories_004:
   comment: "added from category sheet in dataset: Test species name import"
   created_at: 2011-06-01 13:55:19.743
   updated_at: 2011-06-01 13:55:19.743
-  datagroup_id: 1
-  user_id: 1
-Categories_005: 
+  datagroup_id: "1"
+  user_id: "1"
+  status_id: 
+categories_005: 
   id: "63"
   short: Diospyros japonica
   long: Diospyros japonica
@@ -47,9 +51,10 @@ Categories_005:
   comment: "added from category sheet in dataset: Test species name import"
   created_at: 2011-06-01 13:55:19.798
   updated_at: 2011-06-01 13:55:19.798
-  datagroup_id: 1
-  user_id: 1
-Categories_006: 
+  datagroup_id: "1"
+  user_id: "1"
+  status_id: 
+categories_006: 
   id: "64"
   short: <1
   long: <1
@@ -57,9 +62,10 @@ Categories_006:
   comment: manually approved
   created_at: 2011-06-01 15:03:35.858
   updated_at: 2011-06-01 15:03:52.819
-  datagroup_id: 7
-  user_id: 1
-Categories_007:
+  datagroup_id: "7"
+  user_id: "1"
+  status_id: 
+categories_007: 
   id: "65"
   short: Toxicodendron sylvestre
   long: Toxicodendron sylvestre
@@ -67,9 +73,10 @@ Categories_007:
   comment: "added from category sheet in dataset: Test species name import second version"
   created_at: 2011-06-01 15:06:09.098
   updated_at: 2011-06-01 15:06:09.098
-  datagroup_id: 1
-  user_id: 1
-Categories_008: 
+  datagroup_id: "1"
+  user_id: "1"
+  status_id: 
+categories_008: 
   id: "66"
   short: Mahonia bealei
   long: Mahonia bealei
@@ -77,71 +84,72 @@ Categories_008:
   comment: "added from category sheet in dataset: Test species name import second version"
   created_at: 2011-06-01 15:06:09.205
   updated_at: 2011-06-01 15:06:09.205
-  datagroup_id: 1
-  user_id: 1
-Categories_067:
+  datagroup_id: "1"
+  user_id: "1"
+  status_id: 
+categories_009: 
   id: "67"
   short: AAA
   long: AAA
   description: AAA
-  comment: "Unit test spreadsheet"
+  comment: Unit test spreadsheet
   created_at: 2011-07-01 15:06:09.205
   updated_at: 2011-07-01 15:06:09.205
-  datagroup_id: 22
-  user_id: 1
-  status_id: 1
-Categories_068:
+  datagroup_id: "22"
+  user_id: "1"
+  status_id: "1"
+categories_010: 
   id: "68"
   short: BBB
   long: BBB
   description: BBB
-  comment: "Unit test spreadsheet"
+  comment: Unit test spreadsheet
   created_at: 2011-07-01 15:06:09.205
   updated_at: 2011-07-01 15:06:09.205
-  datagroup_id: 22
-  user_id: 1
-  status_id: 1
-Categories_069:
+  datagroup_id: "22"
+  user_id: "1"
+  status_id: "1"
+categories_011: 
   id: "69"
   short: CCC
   long: CCC
   description: CCC
-  comment: "Unit test spreadsheet"
+  comment: Unit test spreadsheet
   created_at: 2011-07-01 15:06:09.205
   updated_at: 2011-07-01 15:06:09.205
-  datagroup_id: 22
-  user_id: 1
-  status_id: 1
-Categories_070:
+  datagroup_id: "22"
+  user_id: "1"
+  status_id: "1"
+categories_012: 
   id: "70"
   short: DDD
   long: DDD
   description: DDD
-  comment: "Unit test spreadsheet"
+  comment: Unit test spreadsheet
   created_at: 2011-07-01 15:06:09.205
   updated_at: 2011-07-01 15:06:09.205
-  datagroup_id: 22
-  user_id: 1
-  status_id: 1
-Categories_071:
+  datagroup_id: "22"
+  user_id: "1"
+  status_id: "1"
+categories_013: 
   id: "71"
   short: EEE
   long: EEE
   description: EEE
-  comment: "Unit test spreadsheet"
+  comment: Unit test spreadsheet
   created_at: 2011-07-01 15:06:09.205
   updated_at: 2011-07-01 15:06:09.205
-  datagroup_id: 22
-  user_id: 1
-  status_id: 1
-Categories_072:
+  datagroup_id: "22"
+  user_id: "1"
+  status_id: "1"
+categories_014: 
   id: "72"
   short: FFF
   long: FFF
   description: FFF
-  comment: "Unit test spreadsheet"
+  comment: Unit test spreadsheet
   created_at: 2011-07-01 15:06:09.205
   updated_at: 2011-07-01 15:06:09.205
-  datagroup_id: 22
-  user_id: 1
-  status_id: 1
+  datagroup_id: "22"
+  user_id: "1"
+  status_id: "1"

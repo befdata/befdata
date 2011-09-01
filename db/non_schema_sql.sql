@@ -63,7 +63,7 @@ CREATE OR REPLACE FUNCTION isinteger(year text) RETURNS boolean
 CREATE OR REPLACE FUNCTION isnumeric(text text) RETURNS boolean
     LANGUAGE sql
     AS $_$select $1 ~
-              '^[0-9]+.?[0-9]*$'$_$;
+              '^(?![<>])[-+]?[0-9]*\.?[0-9]+([eE][-+]?[0-9]+)?$'$_$;
 
 --
 -- Name: accept_datacolumn_values(integer, integer, integer, integer, text); Type: FUNCTION; Schema: public; Owner: -

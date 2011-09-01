@@ -104,22 +104,63 @@ class Datacolumn < ActiveRecord::Base
 
   end
 
-  # returns all the invalid uploaded sheetcells
+  # returns the unique invalid uploaded sheetcells
   def invalid_values
-    # Get all the invalid sheetcells of this data column from the database
-    invalid_sheetcells = self.sheetcells.find(:all, :conditions => ["status_id = ?", Sheetcellstatus::INVALID])
+    # get all the invalid sheetcells
+    invalid_sheetcells = self.sheetcells.find(:all, :order => "import_value",
+                                        :conditions => ["status_id = ?", Sheetcellstatus::INVALID],
+                                        :group => "import_value",
+                                        :select => "import_value")
       
     # No need to order the sheetcells if none were found
     return Hash.new if invalid_sheetcells.blank? 
     
-    # Create a new hash and preset the keys with empty arrays
-    invalid_values_hash = Hash.new {|h,k| h[k] = []}
-    
-    # Move all found sheetcell ids to the hash ordered by value
-    invalid_sheetcells.each{|sc| invalid_values_hash[sc.import_value] << sc.id}
-    return invalid_values_hash
+    # Create a new array
+    invalid_values = Hash.new
+    invalid_sheetcells.each_with_index{|sc, i|
+                        invalid_values[sc.import_value] = i
+                }
+    return invalid_values
   end
 
+  # returns any invalid sheetcells with the given value
+  def invalid_sheetcells_by_value(value)
+     return self.sheetcells.find(:all, :conditions => ["status_id = ? AND import_value=?",
+                                                       Sheetcellstatus::INVALID,
+                                                      value]
+                                )
+  end
+
+  # creates a category for the invalid value and assigns the category to all matching sheetcells
+  def update_invalid_value(original_value, short, long, description, user, dataset)
+    # firstly check that the category doesn't already exist in the datagroup
+    cat = Category.first(:conditions => ["datagroup_id = ? and short = ?",
+                                                   self.datagroup.id,
+                                                   short]
+                              )
+    if(cat.nil?)
+      cat = Category.create(:short => short,
+                          :long => long,
+                          :description => description,
+                          :status_id => Categorystatus::MANUALLY_APPROVED,
+                          :user_id => user.id,
+                          :datagroup => self.datagroup,
+                          :comment => dataset.title)
+    end
+    # update all invalid sheetcells with the same original value with the new category id
+    if(cat.valid?)
+      cells = invalid_sheetcells_by_value(original_value)
+      if(!cells.nil?)
+        cells.each do |cell|
+          cell.update_attributes(:category => cat,
+                                 :status_id => Sheetcellstatus::VALID,
+                                 :accepted_value => nil,
+                                 :datatype_id => Datatypehelper.find_by_name("category").id
+                                )
+        end
+      end
+    end
+  end
 
   def to_label
     columnheader
