@@ -15,7 +15,7 @@ Befchina::Application.routes.draw do
 
   resources :datasets do
     member do
-      post :clean, :approve_predefined
+      post :delete_imported_research_data_and_file, :approve_predefined
       get :download, :data
     end
   end

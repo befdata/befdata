@@ -24,29 +24,29 @@ class DataSetTest < ActiveSupport::TestCase
     assert !dataset.dataset_projects.nil?
   end
 
-  test "clean a dataset should delete all sheetcells" do
+  test "delete_imported_research_data_and_file should delete all sheetcells" do
     dataset = datasets("datasets_001")
     all_sheetcells_length = Sheetcell.count
     dataset_sheetcells_length = dataset.sheetcells.length
     sheetcells_expected_length = all_sheetcells_length - dataset_sheetcells_length
 
-    dataset.clean
+    dataset.delete_imported_research_data_and_file
 
     assert_equal(sheetcells_expected_length, Sheetcell.count)
   end
 
-  test "clean a dataset should delete all datacolumns" do
+  test "delete_imported_research_data_and_file should delete all datacolumns" do
     dataset = datasets("datasets_001")
     all_columns_length = Datacolumn.count
     datacolumns_length = dataset.datacolumns.length
     datacolumns_expected_length = all_columns_length - datacolumns_length
     
-    dataset.clean
+    dataset.delete_imported_research_data_and_file
     
     assert_equal(datacolumns_expected_length, Datacolumn.count)
   end
 
-  test "clean a dataset should delete not needed datagroups" do
+  test "delete_imported_research_data_and_file should delete not needed datagroups" do
     dataset = datasets("datasets_001")
     all_datagroups_length = Datagroup.count
 
@@ -62,28 +62,28 @@ class DataSetTest < ActiveSupport::TestCase
     assert_equal(datagroup_expected_length, Datagroup.count)
   end
 
-  test "clean a dataset should delete all import categoric values" do
+  test "delete_imported_research_data_and_file should delete all import categoric values" do
     dataset = datasets("datasets_001")
     all_import_values = ImportCategory.count
     import_categories_length = dataset.datacolumns.collect{|dc| dc.import_categories}.flatten.compact.length
     import_categories_expected_length = all_import_values - import_categories_length
 
-    dataset.clean
+    dataset.delete_imported_research_data_and_file
 
     assert_equal(import_categories_expected_length, ImportCategory.count)
   end
 
 
-  test "clean a dataset should delete categoric values" do
+  test "delete_imported_research_data_and_file should delete categoric values" do
     #TODO check if we still need this test (Categoricvalues do no longer exist) see #4772
     #dataset = datasets("datasets_001")
     #
     #assert_difference 'Categoricvalue.count', -2 do
-    #  dataset.clean
+    #  dataset.delete_imported_research_data_and_file
     #end
   end
 
-  test "clean a dataset should delete all values" do
+  test "delete_imported_research_data_and_file should delete all values" do
     #TODO check if we still need this test (Categoricvalues etc do no longer exist) see #4772
     #dataset = datasets("datasets_001")
     #all_values = Textvalue.count
@@ -92,51 +92,51 @@ class DataSetTest < ActiveSupport::TestCase
     #all_values += Categoricvalue.count
     #
     #assert_difference 'Textvalue.count + Numericvalue.count + Datetimevalue.count + Categoricvalue.count', -13 do
-    #  dataset.clean
+    #  dataset.delete_imported_research_data_and_file
     #end
   end
 
-  test "clean a dataset should delete all freeformats" do
+  test "delete_imported_research_data_and_file should delete all freeformats" do
     dataset = datasets("datasets_001")
 
     assert_difference 'Freeformat.count', 0 do
-      dataset.clean
+      dataset.delete_imported_research_data_and_file
     end
   end
 
-  test "clean a dataset should delete the datafile" do
+  test "delete_imported_research_data_and_file should delete the datafile" do
     dataset = datasets("datasets_001")
 
     assert_difference 'Datafile.count', -1 do
-      dataset.clean
+      dataset.delete_imported_research_data_and_file
     end
   end
 
-  test "clean a dataset should not delete the associated projects" do
+  test "delete_imported_research_data_and_file should not delete the associated projects" do
     dataset = datasets("datasets_001")
 
     assert_difference 'DatasetProject.count', 0 do
-      dataset.clean
+      dataset.delete_imported_research_data_and_file
     end
   end
 
-  test "clean a dataset should not delete the associated people" do
+  test "delete_imported_research_data_and_file should not delete the associated people" do
     dataset = datasets("datasets_001")
 
 
     assert_difference 'dataset.accepted_roles.count', 0 do
-      dataset.clean
+      dataset.delete_imported_research_data_and_file
     end
   end
 
-  test "clean a dataset should delete the associated people from datacolumns" do
+  test "delete_imported_research_data_and_file should delete the associated people from datacolumns" do
     dataset = datasets("datasets_001")
     associated_people = 0
     dataset.datacolumns do |datacolumn|
       associated_people_length += datacolumn.accepted_roles.length
     end
 
-    dataset.clean
+    dataset.delete_imported_research_data_and_file
 
     pending "not working"
   end

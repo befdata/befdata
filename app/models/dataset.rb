@@ -156,44 +156,10 @@ class Dataset < ActiveRecord::Base
     end
   end
 
-  # This method delete all necessary object which containts to this dataset
-  # so its possible to upload a new datafile
-  def clean
-    self.datacolumns.destroy_all
-    self.upload_spreadsheet.destroy
-
-    #TODO @daniel please check and remove if not needed anymore in #4772
-    #dataset_sheetcells = self.sheetcells
-    #sheetcells_with_cat_values = dataset_sheetcells.select{|sc| sc.datatype.name=="Category"}
-    #sheetcells_without_cat_values = dataset_sheetcells.select{|sc| sc.datatype.name!="Category"}
-    #uniq_categories = sheetcells_with_cat_values.collect{|sc| sc.value}.uniq
-    #uniq_values_without_catvals = sheetcells_without_cat_values.collect{|sc| sc.accepted_value}.uniq.compact
-    #
-    ## observations are destroyed with sheetcells
-    #
-    #dataset_sheetcells.each{|sc| sc.destroy}
-    #uniq_categories.each{|cat| cat.destroy}
-    #uniq_values_without_catvals.each{|value| value.destroy}
-    #
-    #datacolumns = self.datacolumns
-    #import_categories = datacolumns.collect{|dc| dc.import_categories}.flatten.compact
-    #uniq_categoricvalues = import_categories.collect{|ic| ic.category}.uniq.compact
-    #import_categories.each{|t| t.destroy}
-    #uniq_categoricvalues.each{|cat| cat.destroy}
-    #
-    #datacolumns.each do |datacolumn|
-    #  # accepted_roles are destroyed by acl9
-    #  datagroup = datacolumn.datagroup
-    #  if datagroup.datacolumns.length == 1
-    #    datagroup.destroy
-    #  end
-    #  datacolumn.destroy
-    #end
-    #
-    #datafile = self.upload_spreadsheet
-    #if datafile
-    #  datafile.destroy
-    #end
+  def delete_imported_research_data_and_file
+    delete_sheetcells
+    datacolumns.destroy_all
+    upload_spreadsheet.destroy
   end
 
   def owners

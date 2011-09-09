@@ -1,6 +1,7 @@
 class DatasetsController < ApplicationController
 
-  before_filter :load_dataset, :only => [:download, :show, :edit, :update, :data, :approve_predefined, :clean, :destroy,
+  before_filter :load_dataset, :only => [:download, :show, :edit, :update, :data, :approve_predefined,
+                                         :delete_imported_research_data_and_file, :destroy,
                                         :update_dataset_with_only_freeformat_file, :save_dataset_freeformat_tags]
 
 
@@ -22,7 +23,7 @@ class DatasetsController < ApplicationController
       allow :proposer, :of => :dataset
     end
 
-    actions :clean, :destroy do
+    actions :delete_imported_research_data_and_file, :destroy do
       allow :admin
       allow :owner, :of => :dataset
     end
@@ -124,14 +125,17 @@ class DatasetsController < ApplicationController
     @project = @projects.first
   end
 
-  def clean
-    if @dataset && params[:datafile]
-      @dataset.clean
-      @dataset.upload_spreadsheet = Datafile.new(params[:datafile])
+  def delete_imported_research_data_and_file
+    new_datafile = Datafile.new(params[:datafile])
+    if new_datafile.save
+      @dataset.delete_imported_research_data_and_file
+      @dataset.upload_spreadsheet = new_datafile
       @dataset.save
-      redirect_to data_dataset_path(@dataset) and return
+      flash[:notice] = "Research data has been replaced."
+      redirect_to data_dataset_path(@dataset)
     else
-      redirect_back_or_default root_url
+      flash[:error] = new_datafile.errors.full_messages.to_sentence
+      redirect_to edit_dataset_path(@dataset)
     end
   end
 

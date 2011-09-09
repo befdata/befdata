@@ -74,4 +74,19 @@ class DatasetsControllerTest < ActionController::TestCase
   test "destroy should delete a dataset" do
     pending "Implement me!"  
   end
+
+  test "replacing original research data with new file" do
+    login_nadrowski
+
+    @dataset = Dataset.first
+
+    post :delete_imported_research_data_and_file, :id => @dataset.id,
+          :datafile => {
+              :file => fixture_file_upload("test_files_for_uploads/SP5_TargetSpecies_CN_final_8_target_spec_kn_-_short.xls")
+          }
+
+    assert_redirected_to data_dataset_path(@dataset)
+
+    FileUtils.rm("#{Rails.root}/files/SP5_TargetSpecies_CN_final_8_target_spec_kn_-_short.xls")
+  end
 end

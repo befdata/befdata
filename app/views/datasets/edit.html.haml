@@ -19,7 +19,9 @@
   .comment
     %span{:style => "font-size: medium;"}
       If you want upload a new datafile, please confirm this message.
-      = form_for :datafile, :url => clean_dataset_path(@dataset), :html => {:multipart => true} do |f|
+      = form_for :datafile,
+                  :url => delete_imported_research_data_and_file_dataset_path(@dataset),
+                  :html => {:multipart => true} do |f|
         = f.error_messages
         = f.file_field :file
-        = f.submit 'Data set upload', :confirm => "The early uploaded Datafile is cleaned"
+        = f.submit 'Data set upload', :confirm => "All research data will be replaced by the content of this file!"
