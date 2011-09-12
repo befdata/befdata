@@ -2,8 +2,8 @@
   Dataset: #{@dataset.title}
 - unless @dataset.blank?
   %p
-    For more information, please contact #{link_to @contact, user_path(@contact.path_name)} of project
-    = link_to(@project.first.name, project_path(@project)) if @project
+    For more information, please contact #{link_to @contacts.first, user_path(@contacts.first)} of project
+    = link_to(@projects.first, project_path(@projects.first)) unless @projects.empty?
   .comment
     %span{:style => "font-size: medium;"} Edit meta data of this dataset
     = render :active_scaffold => "settings/datasets", :constraints => {:id => @dataset.id}

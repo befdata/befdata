@@ -98,7 +98,7 @@ class DatasetsController < ApplicationController
   def show
 
     @contacts = @dataset.owners
-    @projects = @dataset.projects.uniq
+    @projects = @dataset.projects
     @freeformats = @dataset.freeformats
     @datacolumns = @dataset.datacolumns
 
@@ -114,15 +114,8 @@ class DatasetsController < ApplicationController
   # This action provides edit forms for the given context
   def edit
     # Main auth determination happens in AdminBaseController
-    @contacts = @dataset.users.select{|p| p.has_role?(:owner, @context)}
-    @contact = @contacts.first
-    @projects = []
-    @contacts.each do |p|
-      projects = p.projects
-      projects = projects.uniq
-      @projects << projects
-    end
-    @project = @projects.first
+    @contacts = @dataset.owners
+    @projects = @dataset.projects
   end
 
   def delete_imported_research_data_and_file
