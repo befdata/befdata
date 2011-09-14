@@ -25,7 +25,7 @@ class Project < ActiveRecord::Base
   end
 
   def to_tag
-    Project.create_tag self.to_label
+    Project.create_tag self.shortname
   end
 
   def self.find_by_converting_to_tag (project_tag)
@@ -35,7 +35,8 @@ class Project < ActiveRecord::Base
 
   def self.create_tag (string)
     # "P1 Europe productivity" becomes "p1e"
-    string.delete(' ')[0..2].downcase
+    # downcase, erase non-numbers and non-letters, cut after first letter behind possible numbers
+    string.downcase.scan(/[^\W]/).join.slice(/^\D+\d*\D/)
   end
 
 end
