@@ -58,9 +58,19 @@ class DatasetsController < ApplicationController
   end
 
   def update
-    users_given_as_provenance = User.find(params[:people]) unless params[:people].blank?
-    users_given_as_provenance.each do |user|
-      user.has_role! :owner, @dataset
+    users_given_as_provenance = params[:people].blank? ? [] : User.find(params[:people])
+    users_with_current_ownership = User.all.select {|u| u.has_role? :owner, @dataset}
+
+    if !users_given_as_provenance.empty? then
+      users_with_current_ownership.each do |u|
+        u.has_no_role! :owner, @dataset
+      end
+      users_given_as_provenance.each do |u|
+        u.has_role! :owner, @dataset
+      end
+    # but at least keep current_user if there would be nobody
+    elsif users_with_current_ownership.empty? then
+      current_user.has_role! :owner, @dataset
     end
 
     @dataset.update_attributes(params[:dataset])
