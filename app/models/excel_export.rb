@@ -253,23 +253,19 @@ class ExcelExport
       cols = Datacolumn.find(:all, :conditions => ["dataset_id = ?", dataset.id], :order => "columnnr ASC")
     end
 
-    category_cols = cols.select{|c| (c.sheetcells.first != nil) && (c.sheetcells.first.datatype.is_category?) && (c.datatype_approved)}.uniq
+    approved_cols = cols.select{|c| c.datatype_approved?}
 
     row = 1
-    processed_categories = []
 
-    category_cols.each do |category_col|
-      category_col.sheetcells.sort{|a,b| a.category.short <=> b.category.short}.each do |sheetcell|
-        unless processed_categories.include?(sheetcell.category.long)
-          sheet.row(row).default_format = formats[:dataformat]
-          sheet[row,0] = category_col.columnheader
-          sheet[row,1] = sheetcell.category.short
-          sheet[row,2] = sheetcell.category.long
-          sheet[row,3] = sheetcell.category.description
-
-          processed_categories << sheetcell.category.long
-          row += 1
-        end
+    approved_cols.each do |c|
+      category_sheetcells = c.sheetcells.select{|s| s.category}.sort{|a,b| a.category.short <=> b.category.short}
+      category_sheetcells.each do |s|
+        sheet.row(row).default_format = formats[:dataformat]
+        sheet[row,0] = c.columnheader
+        sheet[row,1] = s.category.short
+        sheet[row,2] = s.category.long
+        sheet[row,3] = s.category.description
+        row += 1
       end
     end
   end
@@ -317,6 +313,4 @@ class ExcelExport
     end
   end
 
-
-  
 end
