@@ -258,7 +258,7 @@ class ExcelExport
     row = 1
 
     approved_cols.each do |c|
-      category_sheetcells = c.sheetcells.select{|s| s.category}.sort{|a,b| a.category.short <=> b.category.short}
+      category_sheetcells = c.sheetcells.select{|s| s.datatype.is_category?}.sort{|a,b| a.category.short <=> b.category.short}
       category_sheetcells.each do |s|
         sheet.row(row).default_format = formats[:dataformat]
         sheet[row,0] = c.columnheader
@@ -269,6 +269,7 @@ class ExcelExport
       end
     end
   end
+
 
   # Creates the last sheet of a context file, the one that contains the raw data.
   # If no Method are given, all people of the context will be listed.
