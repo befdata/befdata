@@ -36,8 +36,8 @@ class UsersController < ApplicationController
   def show
     redirect_to(:action => "index") and return if params[:id].blank?
 
-    first, last = params[:id].split(/_/)
-    @user = User.first( :conditions => ["firstname = ? and lastname = ?", first, last])
+    u_id = params[:id].split(/-/).first
+    @user = User.find u_id
 
     @user_datasets_owned = @user.datasets_owned.sort_by {|d| d.title}
 

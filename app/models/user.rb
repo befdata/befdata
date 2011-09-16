@@ -67,7 +67,7 @@ class User < ActiveRecord::Base
 
   # This method provides a nice look of Person on some pages
   def path_name
-    "#{firstname}_#{lastname}"
+    "#{id}-#{firstname}_#{lastname}".gsub(/[\s]/, '')
   end
 
   # This method provides a nice look of Person on some pages
