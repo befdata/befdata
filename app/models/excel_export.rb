@@ -257,14 +257,16 @@ class ExcelExport
 
     row = 1
 
-    approved_cols.each do |c|
-      category_sheetcells = c.sheetcells.select{|s| s.datatype.is_category?}.sort{|a,b| a.category.short <=> b.category.short}
-      category_sheetcells.each do |s|
+    approved_cols.each do |col|
+      cats = []
+      col.sheetcells.select{|s| s.datatype.is_category?}.each{|s| cats << s.category}
+      cats.sort!{|a,b| a.short <=> b.short}.uniq!
+      cats.each do |cat|
         sheet.row(row).default_format = formats[:dataformat]
-        sheet[row,0] = c.columnheader
-        sheet[row,1] = s.category.short
-        sheet[row,2] = s.category.long
-        sheet[row,3] = s.category.description
+        sheet[row,0] = col.columnheader
+        sheet[row,1] = cat.short
+        sheet[row,2] = cat.long
+        sheet[row,3] = cat.description
         row += 1
       end
     end
