@@ -49,7 +49,7 @@ class ExcelExport
 
     (11..18).each{|n| sheet.row(n).set_format(0, formats[:metaformat])}
     sheet[11,0] = I18n.t('metadata.project')
-    sheet[11,1] = dataset.projecttag_list
+    sheet[11,1] = dataset.projects.uniq.collect{|p| p.shortname}.sort.join(', ')
 
     sheet[13,0] = I18n.t('metadata.people')
     sheet[14,0] = I18n.t('metadata.givenname')
