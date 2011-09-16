@@ -260,8 +260,8 @@ class ExcelExport
     approved_cols.each do |col|
       cats = []
       col.sheetcells.select{|s| s.datatype.is_category?}.each{|s| cats << s.category}
-      cats.sort!{|a,b| a.short <=> b.short}.uniq!
-      cats.each do |cat|
+      clean_cats = cats.compact.uniq.sort{|a,b| a.short <=> b.short}
+      clean_cats.each do |cat|
         sheet.row(row).default_format = formats[:dataformat]
         sheet[row,0] = col.columnheader
         sheet[row,1] = cat.short
@@ -303,7 +303,7 @@ class ExcelExport
 
       if datacolumn.datatype_approved then
         datacolumn.sheetcells.each do |sheetcell|
-          if sheetcell.datatype.is_category?
+          if sheetcell.datatype.is_category? && sheetcell.category
             value = sheetcell.category.short
           elsif sheetcell.datatype.to_s.match /^date/
             value = sheetcell.accepted_value.to_date.to_s
