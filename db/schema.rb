@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110831163142) do
+ActiveRecord::Schema.define(:version => 20110919153937) do
 
   create_table "author_paperproposals", :force => true do |t|
     t.integer  "paperproposal_id"
@@ -135,7 +135,6 @@ ActiveRecord::Schema.define(:version => 20110831163142) do
     t.string   "filename"
     t.text     "comment"
     t.text     "dataanalysis"
-    t.boolean  "finished"
     t.integer  "downloads",             :default => 0
     t.datetime "datemin"
     t.datetime "datemax"

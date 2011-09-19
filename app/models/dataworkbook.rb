@@ -20,7 +20,6 @@ class Dataworkbook
     metadata = Hash.new
     metadata[:filename] = @datafile.file_file_name
     metadata[:downloads] = 0
-    metadata[:finished] = false
 
     metadata[:title] = general_metadata_column[3]
     metadata[:abstract] = general_metadata_column[6]
