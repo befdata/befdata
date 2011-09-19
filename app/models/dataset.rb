@@ -159,7 +159,7 @@ class Dataset < ActiveRecord::Base
   def delete_imported_research_data_and_file
     delete_sheetcells
     datacolumns.destroy_all
-    upload_spreadsheet.destroy
+    upload_spreadsheet.try(:destroy)
   end
 
   def owners
