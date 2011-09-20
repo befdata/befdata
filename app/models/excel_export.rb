@@ -9,6 +9,7 @@ class ExcelExport
     spreadsheet_formatting = {}
     spreadsheet_formatting[:dataformat] = Spreadsheet::Format.new :size => 11, :horizontal_align => :left, :italic => true
     spreadsheet_formatting[:metaformat] = Spreadsheet::Format.new :size => 11, :horizontal_align => :left, :color => 'brown'
+    spreadsheet_formatting[:unapprovedformat] = Spreadsheet::Format.new :size => 11, :horizontal_align => :left, :color => 'grey'
 
     create_metasheet(excel_workbook, dataset, spreadsheet_formatting)
     create_methodsheet(excel_workbook, dataset, spreadsheet_formatting)
@@ -279,6 +280,7 @@ class ExcelExport
     # This action canot be called externally.
 
     sheet = book.create_worksheet :name => 'Raw data'
+    sheet.row(0).default_format = formats[:metaformat]
 
     if columns
       datacols = columns
@@ -289,29 +291,30 @@ class ExcelExport
     column = 0
     datacols.each do |datacolumn|
       if columns
-        # If only some methods are rendered, each
-        # MeasurementsMethodstep is rendered from the beginning of the
-        # page
+        # If only some columns are rendered, each Column is rendered from the beginning of the page
         column += 1
       else
-        # Otherwise, if all methods are used, we can take the original columnnr
+        # Otherwise, if all columns are used, we can take the original columnnr
         column = datacolumn.columnnr
       end
 
       # Columnheader comes first
       sheet[0,column-1] = datacolumn.columnheader if datacolumn.columnheader
 
-      if datacolumn.datatype_approved then
-        datacolumn.sheetcells.each do |sheetcell|
-          if sheetcell.datatype.is_category? && sheetcell.category
-            value = sheetcell.category.short
-          elsif sheetcell.datatype.to_s.match /^date/
-            value = sheetcell.accepted_value.to_date.to_s
-          else
-            value = sheetcell.accepted_value
-          end
-          sheet[sheetcell.row_number - 1, column - 1] = value if value
+      # Go throuch each sheetcell of the columns
+      datacolumn.sheetcells.each do |sheetcell|
+        x = sheetcell.row_number
+        if sheetcell.datatype.is_category? && sheetcell.category
+          value = sheetcell.category.short
+        elsif sheetcell.datatype.name.match(/^date/) && sheetcell.accepted_value
+          value = sheetcell.accepted_value.to_date.to_s
+        elsif sheetcell.accepted_value
+          value = sheetcell.accepted_value
+        else
+          value = sheetcell.import_value
+          sheet.row(sheetcell.row_number - 1).set_format(column - 1, formats[:unapprovedformat])
         end
+        sheet[sheetcell.row_number - 1, column - 1] = value if value
       end
     end
   end
