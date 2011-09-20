@@ -36,6 +36,19 @@
           %li{:onclick => "this.parentNode.removeChild(this);"}
             %input{:name => "dataset[project_ids][]", :type => "hidden", :value => project.id}/
             = project.to_label
+      %h4 Access Rights
+      %dl
+        %dt= label_tag 'Visible for Public'
+        %dd= f.check_box :visible_for_public
+      %dl
+        %dt= label_tag 'Free for Public'
+        %dd= f.check_box :free_for_public
+      %dl
+        %dt= label_tag 'Free for Members'
+        %dd= f.check_box :free_for_members
+      %dl
+        %dt= label_tag 'Free within Projects'
+        %dd= f.check_box :free_within_projects
       %h4 General Metadata
       %dl
         %dt= label_tag 'abstract'
