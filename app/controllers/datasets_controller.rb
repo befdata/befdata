@@ -186,6 +186,11 @@ class DatasetsController < ApplicationController
       @owner = User.find(params[:owner][:owner_id])
       @project = Project.find(params[:project][:project_id])
 
+      unless @dataset.update_attributes(params[:dataset])
+        flash[:error] = "#{@dataset.errors.to_a.first.capitalize}"
+        redirect_to data_path and return
+      end
+
       @owner.has_role! :owner, @dataset
       @dataset.projects << @project
 

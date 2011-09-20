@@ -7,16 +7,29 @@
     = "#{@dataset.title} (#{@dataset.filename})"
 
   %div
-    Owner
+    %h4 Owner
     = select("owner", "owner_id", User.all_users_names_and_ids_for_select,
                                   { :index => nil },
                                   {:default => ''})
     %br
-    Project
+    %h4 Project
     = select("project", "project_id", @project_list.collect {|project| [project.shortname, project.id] },
                                       { :index => nil },
                                       {:default => ''})
-
+    %br
+    %h4 Access Rights
+    %dl
+      %dt= label_tag 'Visible for Public'
+      %dd= ds.check_box :visible_for_public
+    %dl
+      %dt= label_tag 'Free for Public'
+      %dd= ds.check_box :free_for_public
+    %dl
+      %dt= label_tag 'Free for Members'
+      %dd= ds.check_box :free_for_members
+    %dl
+      %dt= label_tag 'Free within Projects'
+      %dd= ds.check_box :free_within_projects
     %br
     = ds.hidden_field :id
     = ds.submit :"Next step"
