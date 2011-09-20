@@ -3,6 +3,8 @@ class Admin::UsersController < Admin::AdminController
   active_scaffold :user do |config|
     config.label = "Users"
 
+    config.delete.link.ignore_method = :has_associations?
+
     config.search.columns = [:firstname, :lastname]
 
     config.columns << :password
@@ -35,6 +37,12 @@ class Admin::UsersController < Admin::AdminController
     config.create.multipart = true
     config.update.multipart = true
     ActiveScaffold::Bridges::Paperclip::Lib::PaperclipBridgeHelpers.thumbnail_style=:small
+  end
+
+private
+
+  def has_associations? (record)
+    (record.paperproposal_votes.empty? && record.role_objects.empty?) ? false : true
   end
 
 end
