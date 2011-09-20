@@ -303,7 +303,6 @@ class ExcelExport
 
       # Go throuch each sheetcell of the columns
       datacolumn.sheetcells.each do |sheetcell|
-        x = sheetcell.row_number
         if sheetcell.datatype.is_category? && sheetcell.category
           value = sheetcell.category.short
         elsif sheetcell.datatype.name.match(/^date/) && sheetcell.accepted_value
