@@ -14,9 +14,12 @@ class Admin::DatagroupsController < Admin::AdminController
                              :methodvaluetype, :timelatency,
                              :timelatencyunit, :comment, :datacolumns]
 
-    config.subform.layout = :vertical
+    config.create.columns = [:title, :description, :instrumentation,
+                             :informationsource,
+                             :methodvaluetype, :timelatency,
+                             :timelatencyunit, :comment]
 
-    #config.action_links.add 'Delete'
+    config.subform.layout = :vertical
 
     config.delete.link.ignore_method = :has_datacolumns?
 
@@ -24,7 +27,7 @@ class Admin::DatagroupsController < Admin::AdminController
 
 private
 
-  # A workaround to not show delete links fur datagroups with linked datacolumns.
+  # A workaround to not show delete links for datagroups with linked datacolumns.
   # It would be cleaner to declare the following in the model:
   #   def authorized_for_delete?
   #     datacolumns.size > 0 ? true : false
