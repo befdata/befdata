@@ -52,7 +52,7 @@
       %li.noBullet
         = link_to ff.file_file_name, ff.file.url
         %i #{ff.description}
-        - show_to(:owner, :of =>ff.dataset) do
+        -if @dataset.owners.include?(current_user)
           %a.showr{:id => "freeformat_#{ff.id}"} change file
           .hidden{:id => "form_freeformat_#{ff.id}"}
             = render :partial => 'freeformats/edit', :locals => {:freeformat => ff}
