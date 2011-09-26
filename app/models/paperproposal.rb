@@ -38,6 +38,20 @@ class Paperproposal < ActiveRecord::Base
 #      end
 #    end
 
+    STATES = {
+      # for the sorting
+      'accepted' => 1,
+      'in review' => 2,
+      'manuscript avaible' => 3,
+      'in prep' => 4
+    }
+
+    def <=>(other)
+      # sort by state, then by title
+      x = STATES[self.state] <=> STATES[other.state]
+      x != 0 ? x : self.title.downcase <=> other.title.downcase
+    end
+
     def calc_board_state
       return "In Preparation, no data selected yet." if self.board_state == "prep" && self.datasets.length == 0
       return "still no aspects set" if self.board_state == "prep" && !check_aspects_for_contexts

@@ -25,7 +25,7 @@
 - unless @project.authored_paperproposals.empty?
   %b Paper proposal submissions
   %ul
-    - @project.authored_paperproposals.each do |pp|
+    - @project.authored_paperproposals.sort.each do |pp|
       %li
         = link_to pp.title, {:controller => :paperproposals,
                                          :action => :show,

@@ -140,9 +140,7 @@ class User < ActiveRecord::Base
 
   def paperproposal_author
     # return the paper proposals that this user is an author, senior author or corresponding author for
-    Paperproposal.find(:all,
-                       :conditions => ["author_id=? or corresponding_id=? or senior_author_id=?",
-                                       self.id, self.id, self.id])
+    Paperproposal.all(:conditions => ["author_id=? or corresponding_id=? or senior_author_id=?", self.id, self.id, self.id]).uniq.sort
   end
 
   def projectroles
