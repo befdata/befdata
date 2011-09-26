@@ -61,7 +61,13 @@ class Dataset < ActiveRecord::Base
 
   before_validation(:load_metadata_from_spreadsheet, :on => :create)
   before_destroy :delete_sheetcells
+  before_save :add_xls_extension_to_filename
 
+  def add_xls_extension_to_filename
+    if self.filename
+      /\.xls$/.match(self.filename) ? self.filename : self.filename = "#{self.filename}.xls"
+    end
+  end
 
   def load_metadata_from_spreadsheet
     return if upload_spreadsheet.nil? #TODO remove as soon as Freeformats are no longer saved as Datasets see #4906
