@@ -20,7 +20,7 @@
     = render :active_scaffold => "settings/datacolumns", :constraints => {:dataset_id => @dataset.id}
   .comment
     %span{:style => "font-size: medium;"}
-      If you want upload a new datafile, please confirm this message.
+      Exchange original data workbook
       = form_for :datafile,
                   :url => delete_imported_research_data_and_file_dataset_path(@dataset),
                   :html => {:multipart => true} do |f|
