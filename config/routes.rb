@@ -29,7 +29,7 @@ Befchina::Application.routes.draw do
   match 'save_dataset_freeformat_associations' => 'datasets#save_dataset_freeformat_associations', :as => :save_dataset_freeformat_associations
   match 'files/freeformats/:id/download' => 'datasets#download_freeformat'
   
-  resources :tags
+  resources :keywords, :controller => 'tags'
 
   resources :projects
   resources :datacolumns do
