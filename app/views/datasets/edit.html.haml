@@ -4,8 +4,9 @@
   %p
     For more information, please contact #{link_to @contacts.first, user_path(@contacts.first)} of project
     = link_to(@projects.first, project_path(@projects.first)) unless @projects.empty?
-  %h4 Comment
-  %p= @dataset.comment
+  - unless @dataset.comment.blank?
+    %h4 Comment
+    %p= @dataset.comment
   .comment
     %span{:style => "font-size: medium;"} Edit meta data of this dataset
     = render :active_scaffold => "settings/datasets", :constraints => {:id => @dataset.id}
