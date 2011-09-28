@@ -9,7 +9,7 @@ class ExcelExport
     spreadsheet_formatting = {}
     spreadsheet_formatting[:dataformat] = Spreadsheet::Format.new :size => 11, :horizontal_align => :left, :italic => true
     spreadsheet_formatting[:metaformat] = Spreadsheet::Format.new :size => 11, :horizontal_align => :left, :color => 'brown'
-    spreadsheet_formatting[:unapprovedformat] = Spreadsheet::Format.new :size => 11, :horizontal_align => :left, :color => 'grey'
+    spreadsheet_formatting[:unapprovedformat] = Spreadsheet::Format.new :size => 11, :horizontal_align => :left, :color => 'orange'
 
     create_metasheet(excel_workbook, dataset, spreadsheet_formatting)
     create_methodsheet(excel_workbook, dataset, spreadsheet_formatting)
@@ -259,8 +259,7 @@ class ExcelExport
     row = 1
 
     approved_cols.each do |col|
-      cats = []
-      col.sheetcells.select{|s| s.datatype.is_category?}.each{|s| cats << s.category}
+      cats = col.sheetcells.select{|s| s.datatype.is_category?}.collect{|s| s.category}
       clean_cats = cats.compact.uniq.sort{|a,b| a.short <=> b.short}
       clean_cats.each do |cat|
         sheet.row(row).default_format = formats[:dataformat]
@@ -268,6 +267,18 @@ class ExcelExport
         sheet[row,1] = cat.short
         sheet[row,2] = cat.long
         sheet[row,3] = cat.description
+        row += 1
+      end
+
+      download_time = Time.now.to_s
+      unaccepted_values = col.sheetcells.select{|s| s.accepted_value.blank? && !s.datatype.is_category?}.collect{|s| s.import_value}
+      clean_un_val = unaccepted_values.compact.uniq.sort
+      clean_un_val.each do |uv|
+        sheet.row(row).default_format = formats[:unapprovedformat]
+        sheet[row,0] = col.columnheader
+        sheet[row,1] = uv
+        sheet[row,2] = uv
+        sheet[row,3] = "#{uv}: automatically added during validation (#{download_time})"
         row += 1
       end
     end
