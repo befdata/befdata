@@ -27,15 +27,6 @@ datafiles_003:
   created_at: 2011-06-01 13:47:07.662
   updated_at: 2011-06-01 13:47:07.662
 datafiles_004: 
-  id: "5"
-  file_file_name: 8346952459374534species second test.xls
-  file_content_type: application/vnd.ms-excel
-  file_file_size: "23040"
-  file_updated_at: 2011-06-01 15:02:01.543
-  paperproposal_id: 
-  created_at: 2011-06-01 15:02:01.648
-  updated_at: 2011-06-01 15:02:01.648
-datafiles_005: 
   id: "6"
   file_file_name: Unit test spreadsheet.xls
   file_content_type: application/vnd.ms-excel
@@ -44,7 +35,7 @@ datafiles_005:
   paperproposal_id: 
   created_at: 2011-06-01 15:02:01.648
   updated_at: 2011-06-01 15:02:01.648
-datafiles_006: 
+datafiles_005: 
   id: "7"
   file_file_name: problem_spreadsheet 2.xls
   file_content_type: application/vnd.ms-excel
@@ -53,3 +44,12 @@ datafiles_006:
   paperproposal_id: 
   created_at: 2011-09-01 09:02:29.020153
   updated_at: 2011-09-01 09:02:29.020153
+datafiles_006: 
+  id: "8"
+  file_file_name: 8346952459374535species second test.xls
+  file_content_type: application/vnd.ms-excel
+  file_file_size: "23040"
+  file_updated_at: 2011-09-28 14:22:52.800443
+  paperproposal_id: 
+  created_at: 2011-09-28 14:22:52.836721
+  updated_at: 2011-09-28 14:22:52.836721

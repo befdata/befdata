@@ -52,32 +52,6 @@ datasets_002:
   free_within_projects: f
   student_file: f
 datasets_003: 
-  id: "6"
-  title: Test species name import second version
-  abstract: Synonyms list for tree reference names in the Comparative Study Plots (CSP) of the Biodiversity - Ecosystem Functioning Experiment (BEF-China) and the Main Experiment.  This file includes the synonyms of species found in the CSP during the field work 2008 / 2009, including the species used for planting the Main Experiment in Xingangshan. The listed synonyms of the species names refer to the "Flora of China" and the The International Plant Names Index (IPNI). The species reference can be found within the metasheet z1_CSP_Main_TreeAndShrubSpecies_reference list.xls
-  usagerights: ""
-  spatialextent: Gutianshan NNR has an area of approximately 81 km2 and was initially established as a National Forest Reserve in 1975 and became a National Nature Reserve in 2001. The NNR comprises a large portion of broad-leaved forests of advanced successional stages (Hu & Yu 2008), which have not been managed since the beginning of the 1990ies, as well as young successional stages and conifer plantations, mainly of Cunninghamia lanceolata and Pinus massoniana
-  temporalextent: ""
-  taxonomicextent: ""
-  design: ""
-  circumstances: ""
-  submission_at: 
-  filename: species second test.xls
-  comment: ""
-  dataanalysis: ""
-  downloads: "0"
-  datemin: 2011-04-18 00:00:00
-  datemax: 2011-04-18 00:00:00
-  published: ""
-  visible_for_public: t
-  upload_spreadsheet_id: "5"
-  created_at: 2011-06-01 15:02:04.119
-  updated_at: 2011-06-01 15:02:34.559
-  free_for_members: t
-  free_for_public: f
-  free_within_projects: f
-  student_file: f
-datasets_004: 
   id: "7"
   title: Unit tests
   abstract: Unit tests
@@ -100,6 +74,32 @@ datasets_004:
   created_at: 2011-07-01 15:02:04.119
   updated_at: 2011-07-01 15:02:34.559
   free_for_members: f
+  free_for_public: f
+  free_within_projects: f
+  student_file: f
+datasets_004: 
+  id: "6"
+  title: Test species name import second version
+  abstract: Synonyms list for tree reference names in the Comparative Study Plots (CSP) of the Biodiversity - Ecosystem Functioning Experiment (BEF-China) and the Main Experiment.  This file includes the synonyms of species found in the CSP during the field work 2008 / 2009, including the species used for planting the Main Experiment in Xingangshan. The listed synonyms of the species names refer to the "Flora of China" and the The International Plant Names Index (IPNI). The species reference can be found within the metasheet z1_CSP_Main_TreeAndShrubSpecies_reference list.xls
+  usagerights: ""
+  spatialextent: Gutianshan NNR has an area of approximately 81 km2 and was initially established as a National Forest Reserve in 1975 and became a National Nature Reserve in 2001. The NNR comprises a large portion of broad-leaved forests of advanced successional stages (Hu & Yu 2008), which have not been managed since the beginning of the 1990ies, as well as young successional stages and conifer plantations, mainly of Cunninghamia lanceolata and Pinus massoniana
+  temporalextent: ""
+  taxonomicextent: ""
+  design: ""
+  circumstances: ""
+  submission_at: 
+  filename: species second test.xls
+  comment: ""
+  dataanalysis: ""
+  downloads: "1"
+  datemin: 2011-04-18 00:00:00
+  datemax: 2011-04-18 00:00:00
+  published: ""
+  visible_for_public: t
+  upload_spreadsheet_id: "8"
+  created_at: 2011-06-01 15:02:04.119
+  updated_at: 2011-09-28 14:22:53.230053
+  free_for_members: t
   free_for_public: f
   free_within_projects: f
   student_file: f

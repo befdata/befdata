@@ -1,5 +1,21 @@
 --- 
 import_categories_001: 
+  id: "72"
+  datacolumn_id: "63"
+  created_at: 2011-09-28 14:22:54.134366
+  updated_at: 2011-09-28 14:22:54.134366
+  short: Toxicodendron sylvestre
+  long: Toxicodendron sylvestre
+  description: Toxicodendron sylvestre
+import_categories_002: 
+  id: "73"
+  datacolumn_id: "63"
+  created_at: 2011-09-28 14:22:54.148606
+  updated_at: 2011-09-28 14:22:54.148606
+  short: Mahonia bealei
+  long: Mahonia bealei
+  description: Mahonia bealei
+import_categories_003: 
   id: "35"
   datacolumn_id: "36"
   created_at: 2011-06-01 13:55:20.252
@@ -7,7 +23,7 @@ import_categories_001:
   short: Toxicodendron sylvestre
   long: Toxicodendron sylvestre
   description: Toxicodendron sylvestre
-import_categories_002: 
+import_categories_004: 
   id: "36"
   datacolumn_id: "36"
   created_at: 2011-06-01 13:55:20.756
@@ -15,7 +31,7 @@ import_categories_002:
   short: Mahonia bealei
   long: Mahonia bealei
   description: Mahonia bealei
-import_categories_003: 
+import_categories_005: 
   id: "37"
   datacolumn_id: "36"
   created_at: 2011-06-01 13:55:20.763
@@ -23,7 +39,7 @@ import_categories_003:
   short: Betula luminifera
   long: Betula luminifera
   description: Betula luminifera
-import_categories_004: 
+import_categories_006: 
   id: "38"
   datacolumn_id: "36"
   created_at: 2011-06-01 13:55:20.769
@@ -31,22 +47,6 @@ import_categories_004:
   short: Diospyros japonica
   long: Diospyros japonica
   description: Diospyros japonica
-import_categories_005: 
-  id: "39"
-  datacolumn_id: "40"
-  created_at: 2011-06-01 15:06:09.731
-  updated_at: 2011-06-01 15:06:09.731
-  short: Toxicodendron sylvestre
-  long: Toxicodendron sylvestre
-  description: Toxicodendron sylvestre
-import_categories_006: 
-  id: "40"
-  datacolumn_id: "40"
-  created_at: 2011-06-01 15:06:09.807
-  updated_at: 2011-06-01 15:06:09.807
-  short: Mahonia bealei
-  long: Mahonia bealei
-  description: Mahonia bealei
 import_categories_007: 
   id: "41"
   datacolumn_id: "45"

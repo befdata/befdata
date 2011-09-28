@@ -1,211 +1,211 @@
 --- 
-users_004: 
-  city: 
-  institution_fax: 
-  institution_phone: 
-  comment: 
-  avatar_file_size: 
-  avatar_file_name: 
-  created_at: 2011-03-28 11:24:10.315
-  last_request_at: 2011-07-19 15:21:01.27865
-  single_access_token: zwZOcS16s1lVlOaxYYcI
-  country: 
-  crypted_password: e60c076613d2691ec45cc9789ccb73b0ba58d389a4c2da21c19fc6a70237b3201e1f3f4b1b7ba92d1e936b7c069843c171e448cfea7378f67c595c7fbfcd783b
-  updated_at: 2011-07-19 15:21:01.279741
-  perishable_token: fFdogB2XdARlntqdsK7
-  url: 
-  salutation: 
-  street: 
-  lastname: Phdstudentproductivity
-  current_login_ip: 127.0.0.1
-  failed_login_count: "0"
-  id: "6"
-  avatar_content_type: 
-  current_login_at: 2011-07-19 15:17:27.042942
-  password_salt: cyBr6c8BW4xRbG474xsG
-  institution_name: 
-  firstname: Martin
-  login_count: "2"
-  persistence_token: b08f3f7db59baa8b7ae7c621a758dcc246e2de5510dac1e2a03bddec4fc82da61eb10f3804507299f14001f742007f392247f713e42f595543a6f92c6044f36e
-  institution_url: 
-  last_login_ip: 127.0.0.1
-  affiliation: 
-  last_login_at: 2011-07-19 15:07:40.005574
-  login: Phdstudentproductivity
-  middlenames: 
-  email: Phdstudentproductivity@test.de
-users_005: 
-  city: 
-  institution_fax: 
-  institution_phone: 
-  comment: 
-  avatar_file_size: 
-  avatar_file_name: 
-  created_at: 2011-03-28 11:22:11.119
-  last_request_at: 2011-07-19 15:13:32.406414
-  single_access_token: aRAYvHZzBc2qFZzPb8Ky
-  country: 
-  crypted_password: 8ec713be2338030c3a71f930f0a4e736783ac9bd20795b9c95a8b1b5e545c5736bf4a89bcad2d32cd6675c83268227a4dfb9787be47fae081c71b676d31a54e2
-  updated_at: 2011-07-19 15:13:32.407568
-  perishable_token: xB5THSFXIfkww4nZFzf
-  url: 
-  salutation: Prof.
-  street: 
-  lastname: Pinutrientcycling
-  current_login_ip: 127.0.0.1
-  failed_login_count: "0"
-  id: "3"
-  avatar_content_type: 
-  current_login_at: 2011-07-19 15:13:10.376097
-  password_salt: EicylHragnQQMMRBb1i
-  institution_name: 
-  firstname: Michael
-  login_count: "1"
-  persistence_token: b112208a66ec5c617aeae4d944b8d2b34829401674f2fd4f1a714055b096888d0ea4092e47a586107db656ea616645b641e2e8182af8df3ed2621aca98251b4c
-  institution_url: 
-  last_login_ip: 
-  affiliation: 
-  last_login_at: 
-  login: pinutrientcycling
-  middlenames: 
-  email: pinutrientcycling@botanik.uni-test.de
-users_006: 
-  city: 
-  institution_fax: 
-  institution_phone: 
-  comment: 
-  avatar_file_size: 
-  avatar_file_name: 
-  created_at: 2011-03-28 10:02:37.606
-  last_request_at: 2011-07-19 15:08:37.237847
-  single_access_token: ejHGU2BO5sCYBm3yIEBZ
-  country: 
-  crypted_password: 5d9fe1fd018c2a2a643d2ad4e9f751d62158af3f2318da7688d30f8fc43329a5813c7a2a29cd4961ff293915c592d73e266c15cab23e0d238f8a0a27b277856b
-  updated_at: 2011-07-19 15:08:37.239237
-  perishable_token: xWW4eSqLr9tuzdom1b0w
-  url: 
-  salutation: 
-  street: 
-  lastname: Pidata
-  current_login_ip: 127.0.0.1
-  failed_login_count: "0"
-  id: "2"
-  avatar_content_type: 
-  current_login_at: 2011-07-19 15:08:20.374933
-  password_salt: WKwBiVBrml7lLeqGULet
-  institution_name: 
-  firstname: Christian
-  login_count: "1"
-  persistence_token: 0e54849e87c10dcd7010519a00f51d0c6fc22b1a8c5734a27259267e83dbaa300a2b48ac32093d727d1b8e9d6bf98e56205acf83476b2e051ab2d69f6e20d5d9
-  institution_url: 
-  last_login_ip: 
-  affiliation: 
-  last_login_at: 
-  login: Pidata
-  middlenames: 
-  email: pidata@test.uni-town.de
 users_001: 
-  city: 
-  institution_fax: 
-  institution_phone: 
-  comment: 
-  avatar_file_size: 
-  avatar_file_name: 
-  created_at: 2011-03-28 11:22:52.921
-  last_request_at: 
-  single_access_token: 3DjX2wBbArZnCGLx3ScD
-  country: 
-  crypted_password: 5f35db90f0f9ffa29c1f72fe3eb5b84c79fc0e46b66a7149e971dc7fbb5327d48c833cb430e6891e6e03312e4c85239d3f72447594a90c5dd95a2c25cb25f7e3
-  updated_at: 2011-03-28 11:22:52.921
-  perishable_token: iGJ1Kzoigg9ovdJtzem
-  url: 
-  salutation: Prof.
-  street: 
-  lastname: Piproductivity
-  current_login_ip: 
-  failed_login_count: "0"
   id: "4"
-  avatar_content_type: 
-  current_login_at: 
-  password_salt: vhx3l2A8VfofRPbfSrp8
-  institution_name: 
-  firstname: Bernhard
-  login_count: "0"
-  persistence_token: 00a99647e45fa0dc5b4f43557244d04c50d4e4b93adbcdec9cb045f500088c88225e4f5bc6ac590b41a0ceae1a96820733be42949ffc5f8158b46a42b9890fea
-  institution_url: 
-  last_login_ip: 
-  affiliation: 
-  last_login_at: 
   login: Piproductivity
-  middlenames: 
   email: piproductivity@test.botanik.de
-users_002: 
-  city: 
-  institution_fax: 
-  institution_phone: 
-  comment: 
-  avatar_file_size: 
-  avatar_file_name: 
-  created_at: 2011-03-28 11:23:42.108
-  last_request_at: 2011-07-19 15:15:11.066285
-  single_access_token: MEwJ1XyaP0qX4B0ezkGv
-  country: 
-  crypted_password: a1227f05e2da3562289e2b2437bbba47f750b4b0b94679842015ef83e9b01b36077110397a14305a30af00f48cb47275c5b5415ca6696fad0a4ea5f5a742c672
-  updated_at: 2011-07-19 15:15:11.067611
-  perishable_token: UIt2wOUB3HPFDNSnrhz
-  url: 
-  salutation: 
-  street: 
-  lastname: Phdstudentnutrientcycling
-  current_login_ip: 127.0.0.1
+  crypted_password: 5f35db90f0f9ffa29c1f72fe3eb5b84c79fc0e46b66a7149e971dc7fbb5327d48c833cb430e6891e6e03312e4c85239d3f72447594a90c5dd95a2c25cb25f7e3
+  password_salt: vhx3l2A8VfofRPbfSrp8
+  persistence_token: 00a99647e45fa0dc5b4f43557244d04c50d4e4b93adbcdec9cb045f500088c88225e4f5bc6ac590b41a0ceae1a96820733be42949ffc5f8158b46a42b9890fea
+  single_access_token: 3DjX2wBbArZnCGLx3ScD
+  perishable_token: iGJ1Kzoigg9ovdJtzem
+  login_count: "0"
   failed_login_count: "0"
-  id: "5"
-  avatar_content_type: 
-  current_login_at: 2011-07-19 15:13:36.335682
-  password_salt: 2f6BCh1Tn36kFbBDb8U
-  institution_name: 
-  firstname: Stefan
-  login_count: "1"
-  persistence_token: b577108be9737aa1f0aaa973ad0c3b3da89be1b38a5003a8e4033098588b78c8c0348f1b5ae76eea144157cd93be53089bd393a17a1bf0abf1053d2fe97593f7
-  institution_url: 
-  last_login_ip: 
-  affiliation: 
+  last_request_at: 
+  current_login_at: 
   last_login_at: 
-  login: Phdstudentnutrientcycling
+  current_login_ip: 
+  last_login_ip: 
+  firstname: Bernhard
   middlenames: 
-  email: Phdstudentnutrientcycling@test.de
-users_003: 
-  city: 
-  institution_fax: 
-  institution_phone: 
+  lastname: Piproductivity
+  salutation: Prof.
   comment: 
-  avatar_file_size: 
-  avatar_file_name: 
-  created_at: 2011-03-28 09:52:22.797
-  last_request_at: 2011-07-19 15:17:21.960278
-  single_access_token: Yy2APsD87JiDbF9YBnU
-  country: 
-  crypted_password: 96fa4441629f3342910245c21157355a3220ab3ff091d86a5c1e1ef450dc0341762b9eb93b9b38cd3a23e0cd7d73785a1bede09800dcf03fa778e5e6959b36a5
-  updated_at: 2011-07-19 15:17:21.961595
-  perishable_token: kFT0qlJcKvVyGkkjQ
   url: 
-  salutation: 
-  street: 
-  lastname: Nadrowski
-  current_login_ip: 127.0.0.1
-  failed_login_count: "0"
-  id: "1"
-  avatar_content_type: 
-  current_login_at: 2011-07-19 15:15:14.7894
-  password_salt: ECABMJzgdGkmhrd2rkWV
   institution_name: 
-  firstname: Karin
-  login_count: "7"
-  persistence_token: 1a079b5a7955b18f32cba1d2d5a41f060e7974993f445fb0ee9e926bde6514c7ca5492e4e67786b40bb4bff80d97e7771d1b6a74da2e8969f90a5661659f1d1e
-  institution_url: 
-  last_login_ip: 127.0.0.1
   affiliation: 
-  last_login_at: 2011-07-19 15:08:42.220292
-  login: nadrowski
+  institution_url: 
+  institution_phone: 
+  institution_fax: 
+  street: 
+  city: 
+  country: 
+  created_at: 2011-03-28 11:22:52.921
+  updated_at: 2011-03-28 11:22:52.921
+  avatar_file_name: 
+  avatar_content_type: 
+  avatar_file_size: 
+users_002: 
+  id: "5"
+  login: Phdstudentnutrientcycling
+  email: Phdstudentnutrientcycling@test.de
+  crypted_password: a1227f05e2da3562289e2b2437bbba47f750b4b0b94679842015ef83e9b01b36077110397a14305a30af00f48cb47275c5b5415ca6696fad0a4ea5f5a742c672
+  password_salt: 2f6BCh1Tn36kFbBDb8U
+  persistence_token: b577108be9737aa1f0aaa973ad0c3b3da89be1b38a5003a8e4033098588b78c8c0348f1b5ae76eea144157cd93be53089bd393a17a1bf0abf1053d2fe97593f7
+  single_access_token: MEwJ1XyaP0qX4B0ezkGv
+  perishable_token: UIt2wOUB3HPFDNSnrhz
+  login_count: "1"
+  failed_login_count: "0"
+  last_request_at: 2011-07-19 15:15:11.066285
+  current_login_at: 2011-07-19 15:13:36.335682
+  last_login_at: 
+  current_login_ip: 127.0.0.1
+  last_login_ip: 
+  firstname: Stefan
   middlenames: 
+  lastname: Phdstudentnutrientcycling
+  salutation: 
+  comment: 
+  url: 
+  institution_name: 
+  affiliation: 
+  institution_url: 
+  institution_phone: 
+  institution_fax: 
+  street: 
+  city: 
+  country: 
+  created_at: 2011-03-28 11:23:42.108
+  updated_at: 2011-07-19 15:15:11.067611
+  avatar_file_name: 
+  avatar_content_type: 
+  avatar_file_size: 
+users_003: 
+  id: "6"
+  login: Phdstudentproductivity
+  email: Phdstudentproductivity@test.de
+  crypted_password: e60c076613d2691ec45cc9789ccb73b0ba58d389a4c2da21c19fc6a70237b3201e1f3f4b1b7ba92d1e936b7c069843c171e448cfea7378f67c595c7fbfcd783b
+  password_salt: cyBr6c8BW4xRbG474xsG
+  persistence_token: b08f3f7db59baa8b7ae7c621a758dcc246e2de5510dac1e2a03bddec4fc82da61eb10f3804507299f14001f742007f392247f713e42f595543a6f92c6044f36e
+  single_access_token: zwZOcS16s1lVlOaxYYcI
+  perishable_token: fFdogB2XdARlntqdsK7
+  login_count: "2"
+  failed_login_count: "0"
+  last_request_at: 2011-07-19 15:21:01.27865
+  current_login_at: 2011-07-19 15:17:27.042942
+  last_login_at: 2011-07-19 15:07:40.005574
+  current_login_ip: 127.0.0.1
+  last_login_ip: 127.0.0.1
+  firstname: Martin
+  middlenames: 
+  lastname: Phdstudentproductivity
+  salutation: 
+  comment: 
+  url: 
+  institution_name: 
+  affiliation: 
+  institution_url: 
+  institution_phone: 
+  institution_fax: 
+  street: 
+  city: 
+  country: 
+  created_at: 2011-03-28 11:24:10.315
+  updated_at: 2011-07-19 15:21:01.279741
+  avatar_file_name: 
+  avatar_content_type: 
+  avatar_file_size: 
+users_004: 
+  id: "3"
+  login: pinutrientcycling
+  email: pinutrientcycling@botanik.uni-test.de
+  crypted_password: 8ec713be2338030c3a71f930f0a4e736783ac9bd20795b9c95a8b1b5e545c5736bf4a89bcad2d32cd6675c83268227a4dfb9787be47fae081c71b676d31a54e2
+  password_salt: EicylHragnQQMMRBb1i
+  persistence_token: b112208a66ec5c617aeae4d944b8d2b34829401674f2fd4f1a714055b096888d0ea4092e47a586107db656ea616645b641e2e8182af8df3ed2621aca98251b4c
+  single_access_token: aRAYvHZzBc2qFZzPb8Ky
+  perishable_token: xB5THSFXIfkww4nZFzf
+  login_count: "1"
+  failed_login_count: "0"
+  last_request_at: 2011-07-19 15:13:32.406414
+  current_login_at: 2011-07-19 15:13:10.376097
+  last_login_at: 
+  current_login_ip: 127.0.0.1
+  last_login_ip: 
+  firstname: Michael
+  middlenames: 
+  lastname: Pinutrientcycling
+  salutation: Prof.
+  comment: 
+  url: 
+  institution_name: 
+  affiliation: 
+  institution_url: 
+  institution_phone: 
+  institution_fax: 
+  street: 
+  city: 
+  country: 
+  created_at: 2011-03-28 11:22:11.119
+  updated_at: 2011-07-19 15:13:32.407568
+  avatar_file_name: 
+  avatar_content_type: 
+  avatar_file_size: 
+users_005: 
+  id: "2"
+  login: Pidata
+  email: pidata@test.uni-town.de
+  crypted_password: 5d9fe1fd018c2a2a643d2ad4e9f751d62158af3f2318da7688d30f8fc43329a5813c7a2a29cd4961ff293915c592d73e266c15cab23e0d238f8a0a27b277856b
+  password_salt: WKwBiVBrml7lLeqGULet
+  persistence_token: 0e54849e87c10dcd7010519a00f51d0c6fc22b1a8c5734a27259267e83dbaa300a2b48ac32093d727d1b8e9d6bf98e56205acf83476b2e051ab2d69f6e20d5d9
+  single_access_token: ejHGU2BO5sCYBm3yIEBZ
+  perishable_token: xWW4eSqLr9tuzdom1b0w
+  login_count: "1"
+  failed_login_count: "0"
+  last_request_at: 2011-07-19 15:08:37.237847
+  current_login_at: 2011-07-19 15:08:20.374933
+  last_login_at: 
+  current_login_ip: 127.0.0.1
+  last_login_ip: 
+  firstname: Christian
+  middlenames: 
+  lastname: Pidata
+  salutation: 
+  comment: 
+  url: 
+  institution_name: 
+  affiliation: 
+  institution_url: 
+  institution_phone: 
+  institution_fax: 
+  street: 
+  city: 
+  country: 
+  created_at: 2011-03-28 10:02:37.606
+  updated_at: 2011-07-19 15:08:37.239237
+  avatar_file_name: 
+  avatar_content_type: 
+  avatar_file_size: 
+users_006: 
+  id: "1"
+  login: nadrowski
   email: nadrowski@uni-leipzig.de
+  crypted_password: 96fa4441629f3342910245c21157355a3220ab3ff091d86a5c1e1ef450dc0341762b9eb93b9b38cd3a23e0cd7d73785a1bede09800dcf03fa778e5e6959b36a5
+  password_salt: ECABMJzgdGkmhrd2rkWV
+  persistence_token: 1a079b5a7955b18f32cba1d2d5a41f060e7974993f445fb0ee9e926bde6514c7ca5492e4e67786b40bb4bff80d97e7771d1b6a74da2e8969f90a5661659f1d1e
+  single_access_token: Yy2APsD87JiDbF9YBnU
+  perishable_token: TTuVZeX0tuKXfaGBjGp
+  login_count: "8"
+  failed_login_count: "0"
+  last_request_at: 2011-09-28 14:24:35.250691
+  current_login_at: 2011-09-28 14:16:44.154215
+  last_login_at: 2011-07-19 15:15:14.7894
+  current_login_ip: 127.0.0.1
+  last_login_ip: 127.0.0.1
+  firstname: Karin
+  middlenames: 
+  lastname: Nadrowski
+  salutation: 
+  comment: 
+  url: 
+  institution_name: 
+  affiliation: 
+  institution_url: 
+  institution_phone: 
+  institution_fax: 
+  street: 
+  city: 
+  country: 
+  created_at: 2011-03-28 09:52:22.797
+  updated_at: 2011-09-28 14:24:35.251506
+  avatar_file_name: 
+  avatar_content_type: 
+  avatar_file_size: 

@@ -1,136 +1,136 @@
 --- 
-paperproposals_005: 
-  comment: 
-  initial_title: Nutrient cycling paper proposal
-  envisaged_journal: Gaya save the world
-  created_at: 2011-03-28 11:25:52.856
-  senior_author_id: "3"
-  title: Nutrient cycling and diversity in subtropical forests
-  project_id: "2"
-  updated_at: 2011-06-15 15:03:52.446143
-  rationale: Diversity enhancing nutrient cycling
-  lock: f
-  board_state: prep
+paperproposals_001: 
   id: "1"
-  expiry_date: 
-  envisaged_date: "2011-03-28"
-  corresponding_id: "5"
   author_id: "5"
-  external_data: ""
+  envisaged_journal: Gaya save the world
+  title: Nutrient cycling and diversity in subtropical forests
+  rationale: Diversity enhancing nutrient cycling
+  corresponding_id: "5"
+  envisaged_date: "2011-03-28"
   state: in prep
-paperproposals_006: 
-  comment: ""
-  initial_title: ""
+  expiry_date: 
+  board_state: prep
+  senior_author_id: "3"
+  external_data: ""
+  lock: f
+  created_at: 2011-03-28 11:25:52.856
+  updated_at: 2011-06-15 15:03:52.446143
+  initial_title: Nutrient cycling paper proposal
+  comment: 
+  project_id: "2"
+paperproposals_002: 
+  id: "3"
+  author_id: "1"
   envisaged_journal: ""
-  created_at: 2011-06-17 09:34:23.384091
-  senior_author_id: "2"
   title: Step 1 Paperproposal
-  project_id: 
-  updated_at: 2011-06-17 09:34:23.384091
   rationale: |-
     This is a Paperproposal only create with one main proponent (Martin)
     There is no dataset to this paperproposal and no file
-  lock: f
-  board_state: prep
-  id: "3"
-  expiry_date: 
+  corresponding_id: "1"
   envisaged_date: "2011-06-17"
-  corresponding_id: "1"
-  author_id: "1"
-  external_data: ""
   state: in prep
-paperproposals_007: 
-  comment: ""
-  initial_title: ""
-  envisaged_journal: ""
-  created_at: 2011-06-20 06:45:04.150229
-  senior_author_id: "3"
-  title: Step 2 Paperproposal
-  project_id: 
-  updated_at: 2011-06-20 06:45:23.432076
-  rationale: This is a Paperproposal with one Dataset. It could be send to board. It contains Michael.
-  lock: f
+  expiry_date: 
   board_state: prep
-  id: "4"
-  expiry_date: 
-  envisaged_date: "2011-06-20"
-  corresponding_id: "3"
-  author_id: "3"
-  external_data: ""
-  state: in prep
-paperproposals_001: 
-  comment: ""
-  initial_title: Final Paperproposal
-  envisaged_journal: Science
-  created_at: 2011-07-19 15:04:36.250126
   senior_author_id: "2"
-  title: "Final Paperproposal"
-  project_id: "2"
-  updated_at: 2011-07-19 15:20:40.758105
-  rationale: This is a final paperproposal, owned by Martin Phdstudentproductivity. With added datasets contains freeformat and datafile
+  external_data: ""
   lock: f
-  board_state: final
-  id: "7"
-  expiry_date: 
-  envisaged_date: "2011-07-19"
-  corresponding_id: "6"
-  author_id: "6"
-  external_data: ""
-  state: in prep
-paperproposals_002: 
-  comment: ""
+  created_at: 2011-06-17 09:34:23.384091
+  updated_at: 2011-06-17 09:34:23.384091
   initial_title: ""
-  envisaged_journal: ""
-  created_at: 2011-06-20 06:50:59.706176
-  senior_author_id: "3"
-  title: Step 3 Paperproposal
+  comment: ""
   project_id: 
-  updated_at: 2011-06-20 08:11:31.035363
-  rationale: This Paperproposal is send to Project Board, now the project board member could vote for this one.
-  lock: t
-  board_state: submit
-  id: "5"
-  expiry_date: 
-  envisaged_date: "2011-06-20"
-  corresponding_id: "5"
-  author_id: "5"
-  external_data: ""
-  state: in prep
 paperproposals_003: 
-  comment: ""
-  initial_title: ""
+  id: "4"
+  author_id: "3"
   envisaged_journal: ""
-  created_at: 2011-06-20 08:23:10.652495
-  senior_author_id: "2"
-  title: Step 3 Paperproposal rejected
-  project_id: 
-  updated_at: 2011-06-20 08:23:46.989276
-  rationale: This is a paperproposal which is rejected by project board, to make some changes.
-  lock: f
-  board_state: re_prep
-  id: "6"
-  expiry_date: 
+  title: Step 2 Paperproposal
+  rationale: This is a Paperproposal with one Dataset. It could be send to board. It contains Michael.
+  corresponding_id: "3"
   envisaged_date: "2011-06-20"
-  corresponding_id: "1"
-  author_id: "1"
-  external_data: ""
   state: in prep
-paperproposals_004: 
-  comment: ""
-  initial_title: Production paper proposal 1
-  envisaged_journal: Plant Growth
-  created_at: 2011-03-29 08:02:32.8672
-  senior_author_id: "4"
-  title: Production is enhanced by diversity
-  project_id: "3"
-  updated_at: 2011-06-15 15:03:52.441143
-  rationale: Production and diversity.
-  lock: f
-  board_state: prep
-  id: "2"
   expiry_date: 
-  envisaged_date: "2011-03-29"
-  corresponding_id: "6"
-  author_id: "6"
+  board_state: prep
+  senior_author_id: "3"
   external_data: ""
+  lock: f
+  created_at: 2011-06-20 06:45:04.150229
+  updated_at: 2011-06-20 06:45:23.432076
+  initial_title: ""
+  comment: ""
+  project_id: 
+paperproposals_004: 
+  id: "7"
+  author_id: "6"
+  envisaged_journal: Science
+  title: Final Paperproposal
+  rationale: This is a final paperproposal, owned by Martin Phdstudentproductivity. With added datasets contains freeformat and datafile
+  corresponding_id: "6"
+  envisaged_date: "2011-07-19"
   state: in prep
+  expiry_date: 
+  board_state: final
+  senior_author_id: "2"
+  external_data: ""
+  lock: f
+  created_at: 2011-07-19 15:04:36.250126
+  updated_at: 2011-07-19 15:20:40.758105
+  initial_title: Final Paperproposal
+  comment: ""
+  project_id: "2"
+paperproposals_005: 
+  id: "5"
+  author_id: "5"
+  envisaged_journal: ""
+  title: Step 3 Paperproposal
+  rationale: This Paperproposal is send to Project Board, now the project board member could vote for this one.
+  corresponding_id: "5"
+  envisaged_date: "2011-06-20"
+  state: in prep
+  expiry_date: 
+  board_state: submit
+  senior_author_id: "3"
+  external_data: ""
+  lock: t
+  created_at: 2011-06-20 06:50:59.706176
+  updated_at: 2011-06-20 08:11:31.035363
+  initial_title: ""
+  comment: ""
+  project_id: 
+paperproposals_006: 
+  id: "6"
+  author_id: "1"
+  envisaged_journal: ""
+  title: Step 3 Paperproposal rejected
+  rationale: This is a paperproposal which is rejected by project board, to make some changes.
+  corresponding_id: "1"
+  envisaged_date: "2011-06-20"
+  state: in prep
+  expiry_date: 
+  board_state: re_prep
+  senior_author_id: "2"
+  external_data: ""
+  lock: f
+  created_at: 2011-06-20 08:23:10.652495
+  updated_at: 2011-06-20 08:23:46.989276
+  initial_title: ""
+  comment: ""
+  project_id: 
+paperproposals_007: 
+  id: "2"
+  author_id: "6"
+  envisaged_journal: Plant Growth
+  title: Production is enhanced by diversity
+  rationale: Production and diversity.
+  corresponding_id: "6"
+  envisaged_date: "2011-03-29"
+  state: in prep
+  expiry_date: 
+  board_state: prep
+  senior_author_id: "4"
+  external_data: ""
+  lock: f
+  created_at: 2011-03-29 08:02:32.8672
+  updated_at: 2011-06-15 15:03:52.441143
+  initial_title: Production paper proposal 1
+  comment: ""
+  project_id: "3"

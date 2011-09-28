@@ -1,5 +1,27 @@
 --- 
 categories_001: 
+  id: "73"
+  short: <1
+  long: <1
+  description: <1
+  comment: Test species name import second version
+  created_at: 2011-09-28 14:24:18.544173
+  updated_at: 2011-09-28 14:24:18.544173
+  datagroup_id: "19"
+  user_id: "1"
+  status_id: "2"
+categories_002: 
+  id: "74"
+  short: na
+  long: na
+  description: na
+  comment: Test species name import second version
+  created_at: 2011-09-28 14:24:18.59244
+  updated_at: 2011-09-28 14:24:18.59244
+  datagroup_id: "19"
+  user_id: "1"
+  status_id: "2"
+categories_003: 
   id: "59"
   short: na
   long: na
@@ -10,7 +32,7 @@ categories_001:
   datagroup_id: "7"
   user_id: "1"
   status_id: 
-categories_002: 
+categories_004: 
   id: "60"
   short: Toxicodendron sylvestre
   long: Toxicodendron sylvestre
@@ -21,7 +43,7 @@ categories_002:
   datagroup_id: "1"
   user_id: "1"
   status_id: 
-categories_003: 
+categories_005: 
   id: "61"
   short: Mahonia bealei
   long: Mahonia bealei
@@ -32,7 +54,7 @@ categories_003:
   datagroup_id: "1"
   user_id: "1"
   status_id: 
-categories_004: 
+categories_006: 
   id: "62"
   short: Betula luminifera
   long: Betula luminifera
@@ -43,7 +65,7 @@ categories_004:
   datagroup_id: "1"
   user_id: "1"
   status_id: 
-categories_005: 
+categories_007: 
   id: "63"
   short: Diospyros japonica
   long: Diospyros japonica
@@ -54,7 +76,7 @@ categories_005:
   datagroup_id: "1"
   user_id: "1"
   status_id: 
-categories_006: 
+categories_008: 
   id: "64"
   short: <1
   long: <1
@@ -65,7 +87,7 @@ categories_006:
   datagroup_id: "7"
   user_id: "1"
   status_id: 
-categories_007: 
+categories_009: 
   id: "65"
   short: Toxicodendron sylvestre
   long: Toxicodendron sylvestre
@@ -76,7 +98,7 @@ categories_007:
   datagroup_id: "1"
   user_id: "1"
   status_id: 
-categories_008: 
+categories_010: 
   id: "66"
   short: Mahonia bealei
   long: Mahonia bealei
@@ -87,7 +109,7 @@ categories_008:
   datagroup_id: "1"
   user_id: "1"
   status_id: 
-categories_009: 
+categories_011: 
   id: "67"
   short: AAA
   long: AAA
@@ -98,7 +120,7 @@ categories_009:
   datagroup_id: "22"
   user_id: "1"
   status_id: "1"
-categories_010: 
+categories_012: 
   id: "68"
   short: BBB
   long: BBB
@@ -109,7 +131,7 @@ categories_010:
   datagroup_id: "22"
   user_id: "1"
   status_id: "1"
-categories_011: 
+categories_013: 
   id: "69"
   short: CCC
   long: CCC
@@ -120,7 +142,7 @@ categories_011:
   datagroup_id: "22"
   user_id: "1"
   status_id: "1"
-categories_012: 
+categories_014: 
   id: "70"
   short: DDD
   long: DDD
@@ -131,7 +153,7 @@ categories_012:
   datagroup_id: "22"
   user_id: "1"
   status_id: "1"
-categories_013: 
+categories_015: 
   id: "71"
   short: EEE
   long: EEE
@@ -142,7 +164,7 @@ categories_013:
   datagroup_id: "22"
   user_id: "1"
   status_id: "1"
-categories_014: 
+categories_016: 
   id: "72"
   short: FFF
   long: FFF
