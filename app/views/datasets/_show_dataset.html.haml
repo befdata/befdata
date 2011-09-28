@@ -1,8 +1,46 @@
+.span-8.append-1
+  - unless @dataset.usagerights.blank?
+    %h4 Usage Rights
+    %p= @dataset.usagerights
+  - unless @dataset.abstract.blank?
+    %h4 Dataset Abstract
+    %p= @dataset.abstract
+  - unless @dataset.design.blank?
+    %h4 Dataset Design
+    %p= @dataset.design
+  - unless @dataset.spatialextent.blank?
+    %h4 Spatial Extent
+    %p= @dataset.spatialextent
+  - unless @dataset.published.blank?
+    %h4 Published
+    %p= @dataset.published
+  - unless @dataset.temporalextent.blank?
+    %h4 Temporal Extent
+    %p= @dataset.temporalextent
+  - unless @dataset.taxonomicextent.blank?
+    %h4 Taxonomic Extent
+    %p= @dataset.taxonomicextent
+  - unless @dataset.circumstances.blank?
+    %h4 Measurement Circumstances
+    %p= @dataset.circumstances
+
+  - unless @freeformats.blank?
+    %p
+      There are #{@freeformats.length} free format files available for this data set.
+    %ul
+      - @freeformats.each do |ff|
+        %li.noBullet
+          = link_to ff.file_file_name, ff.file.url
+          %i #{ff.description}
+          -if @dataset.owners.include?(current_user)
+            %a.showr{:id => "freeformat_#{ff.id}"} change file
+            .hidden{:id => "form_freeformat_#{ff.id}"}
+              = render :partial => 'freeformats/edit', :locals => {:freeformat => ff}
+
 .span-3.last
   = render :partial => 'edit_download_destroy_links'
 
-- unless @contacts.blank?
-  .span-3.last{:style => 'float:right;'}
+  - unless @contacts.blank?
     For more information, please contact
     - @contacts.each do |c|
       = render c
@@ -11,51 +49,6 @@
       %br
       #{link_to p, project_path(p.id)}
 
-- unless @dataset.usagerights.blank?
-  .span-8.append-1
-    %h4 Usage Rights
-    %p= @dataset.usagerights
-- unless @dataset.abstract.blank?
-  .span-8.append-1
-    %h4 Dataset Abstract
-    %p= @dataset.abstract
-- unless @dataset.design.blank?
-  .span-8.append-1
-    %h4 Dataset Design
-    %p= @dataset.design
-- unless @dataset.spatialextent.blank?
-  .span-8.append-1
-    %h4 Spatial Extent
-    %p= @dataset.spatialextent
-- unless @dataset.published.blank?
-  .span-8.append-1
-    %h4 Published
-    %p= @dataset.published
-- unless @dataset.temporalextent.blank?
-  .span-8.append-1
-    %h4 Temporal Extent
-    %p= @dataset.temporalextent
-- unless @dataset.taxonomicextent.blank?
-  .span-8.append-1
-    %h4 Taxonomic Extent
-    %p= @dataset.taxonomicextent
-- unless @dataset.circumstances.blank?
-  .span-8.append-1
-    %h4 Measurement Circumstances
-    %p= @dataset.circumstances
-
-- unless @freeformats.blank?
-  %p
-    There are #{@freeformats.length} free format files available for this data set.
-  %ul
-    - @freeformats.each do |ff|
-      %li.noBullet
-        = link_to ff.file_file_name, ff.file.url
-        %i #{ff.description}
-        - show_to(:owner, :of =>ff.dataset) do
-          %a.showr{:id => "freeformat_#{ff.id}"} change file
-          .hidden{:id => "form_freeformat_#{ff.id}"}
-            = render :partial => 'freeformats/edit', :locals => {:freeformat => ff}
 
 - if @datacolumns
   .span-12.last

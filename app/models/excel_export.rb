@@ -97,11 +97,11 @@ class ExcelExport
 
     sheet[30,0] = I18n.t('metadata.temporalextent')
     sheet[31,0] = I18n.t('metadata.datemin')
-    sheet[32,0] = dataset.datemin.to_date.to_s ||= ""
+    sheet[32,0] = dataset.datemin ? dataset.datemin.to_date.to_s : ""
     sheet.row(32).set_format(0, formats[:dataformat])
 
     sheet[33,0] = I18n.t('metadata.datemax')
-    sheet[34,0] = dataset.datemax.to_date.to_s ||= ""
+    sheet[34,0] = dataset.datemax ? dataset.datemax.to_date.to_s : ""
     sheet.row(34).set_format(0, formats[:dataformat])
 
     sheet[35,0] = I18n.t('metadata.datedescription')

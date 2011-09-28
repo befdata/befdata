@@ -1,4 +1,4 @@
-%h3.span-8.append-1{:style => 'padding-top: 20px;'}= @dataset.title
+%h3{:style => 'padding-top: 20px;'}= @dataset.title
 - if current_user || @dataset.visible_for_public
   = render :partial => "show_dataset"
 - else
