@@ -4415,3 +4415,99 @@ sheetcells_368:
   datatype_id: "3"
   status_id: "1"
   row_number: 
+sheetcells_369:
+  id: "3034"
+  datacolumn_id: "64"
+  comment: Unit test data set
+  import_value: "11"
+  created_at: 2011-07-01 15:02:41.074
+  updated_at: 2011-07-01 15:06:46.832
+  category_id:
+  accepted_value:
+  datatype_id: "7"
+  status_id: "1"
+  row_number: "1"
+sheetcells_370:
+  id: "3035"
+  datacolumn_id: "64"
+  comment: Unit test data set
+  import_value: "1.03"
+  created_at: 2011-07-01 15:02:41.074
+  updated_at: 2011-07-01 15:06:46.832
+  category_id:
+  accepted_value:
+  datatype_id: "7"
+  status_id: "1"
+  row_number: "2"
+sheetcells_371:
+  id: "3036"
+  datacolumn_id: "64"
+  comment: Unit test data set
+  import_value: "NA"
+  created_at: 2011-07-01 15:02:41.074
+  updated_at: 2011-07-01 15:06:46.832
+  category_id:
+  accepted_value:
+  datatype_id: "7"
+  status_id: "5"
+  row_number: "3"
+sheetcells_372:
+  id: "3037"
+  datacolumn_id: "64"
+  comment: Unit test data set
+  import_value: "<1"
+  created_at: 2011-07-01 15:02:41.074
+  updated_at: 2011-07-01 15:06:46.832
+  category_id:
+  accepted_value:
+  datatype_id: "7"
+  status_id: "5"
+  row_number: "4"
+sheetcells_373:
+  id: "3038"
+  datacolumn_id: "64"
+  comment: Unit test data set
+  import_value: "<2.5"
+  created_at: 2011-07-01 15:02:41.074
+  updated_at: 2011-07-01 15:06:46.832
+  category_id:
+  accepted_value:
+  datatype_id: "7"
+  status_id: "5"
+  row_number: "5"
+sheetcells_374:
+  id: "3039"
+  datacolumn_id: "64"
+  comment: Unit test data set
+  import_value: "9"
+  created_at: 2011-07-01 15:02:41.074
+  updated_at: 2011-07-01 15:06:46.832
+  category_id:
+  accepted_value:
+  datatype_id: "7"
+  status_id: "1"
+  row_number: "6"
+sheetcells_375:
+  id: "3040"
+  datacolumn_id: "64"
+  comment: Unit test data set
+  import_value: "13"
+  created_at: 2011-07-01 15:02:41.074
+  updated_at: 2011-07-01 15:06:46.832
+  category_id:
+  accepted_value:
+  datatype_id: "7"
+  status_id: "1"
+  row_number: "7"
+sheetcells_376:
+  id: "3041"
+  datacolumn_id: "64"
+  comment: Unit test data set
+  import_value: "110"
+  created_at: 2011-07-01 15:02:41.074
+  updated_at: 2011-07-01 15:06:46.832
+  category_id:
+  accepted_value:
+  datatype_id: "7"
+  status_id: "1"
+  row_number: "8"

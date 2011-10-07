@@ -159,6 +159,27 @@ class Datacolumn < ActiveRecord::Base
                                 )
         end
       end
+
+      #TODO not sure if this should really go here - Sophia
+      # update any other invalid values for columns with the same datagroup as they may contain the same values
+      columns = Datacolumn.find(:all, :conditions => ["datagroup_id = ? and dataset_id = ?",
+                                               self.datagroup.id,
+                                               self.dataset.id]
+                              )
+      if(!columns.nil?)
+        columns.each do |col|
+          cells = col.invalid_sheetcells_by_value(original_value)
+          if(!cells.nil?)
+            cells.each do |cell|
+              cell.update_attributes(:category => cat,
+                                 :status_id => Sheetcellstatus::VALID,
+                                 :accepted_value => nil,
+                                 :datatype_id => Datatypehelper.find_by_name("category").id
+                                )
+            end
+          end
+        end
+      end
     end
   end
 

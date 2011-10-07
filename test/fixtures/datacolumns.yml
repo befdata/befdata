@@ -458,3 +458,20 @@ datacolumns_027:
   datagroup_approved: t
   finished: f
   datatype_approved: t
+datacolumns_028:
+  id: "64"
+  datagroup_id: "24"
+  dataset_id: "7"
+  columnheader: Column_nine
+  columnnr: "9"
+  definition: Column nine
+  unit:
+  missingcode:
+  comment:
+  import_data_type: number
+  category_longshort:
+  created_at: 2011-10-07 15:02:40.346
+  updated_at: 2011-10-07 15:02:40.346
+  datagroup_approved: t
+  finished: f
+  datatype_approved: t
