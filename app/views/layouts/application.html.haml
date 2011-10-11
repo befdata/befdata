@@ -44,7 +44,13 @@
         - if flash[:notice]
           #notice
             = flash[:notice]
-        = yield
+        - if content_for? :sidebar then
+          .span-8.append-1
+            = yield
+          .span-3.last
+            = yield :sidebar
+        - else
+          = yield
     #footer
       %p
         %a{:href => "http://www.dfg.de/jahresbericht/detail_3_2_BIO_891.htm"}= image_tag 'dfglogo.png'
