@@ -55,9 +55,13 @@ class Dataset < ActiveRecord::Base
   has_many :dataset_projects
   has_many :projects, :through => :dataset_projects
 
+  with_options :unless => "new_record?" do |x|
+    x.validates_presence_of :title
+    x.validates_uniqueness_of :title
+  end
 
-  validates_presence_of :title, :abstract, :filename
-  validates_uniqueness_of :title, :filename
+  validates_uniqueness_of :filename, :allow_blank => true
+  validates_associated :upload_spreadsheet
 
   before_validation(:load_metadata_from_spreadsheet, :on => :create)
   before_destroy :delete_sheetcells
@@ -79,7 +83,6 @@ class Dataset < ActiveRecord::Base
 
   def try_retrieving_projects_from_tag_list(book)
     return if book.tag_list.blank?
-
     book.tag_list.split(",").each do |t|
       Project.find_by_converting_to_tag(t).each do |p|
         self.projects << p unless self.projects.include? p
