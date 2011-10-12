@@ -11,9 +11,8 @@ class DatasetsController < ApplicationController
   access_control do
     allow all, :to => [:show, :index, :load_context]
 
-    actions :download, :edit, :update, :data, :update_freeformat_associations, :save_freeformat_associations,
-            :update_dataset_with_only_freeformat_file , :save_dataset_freeformat_tags, :update_dataset_freeformat_file,
-            :download_freeformat, :save_dataset_freeformat_associations, :approve_predefined do
+    actions :download, :edit, :update, :data, :approve_predefined,
+            :update_dataset_freeformat_file, :add_dataset_freeformat_file, :download_freeformat do
       allow :admin
       allow :owner, :of => :dataset
       allow :proposer, :of => :dataset
@@ -29,8 +28,7 @@ class DatasetsController < ApplicationController
       allow all, :if => :dataset_is_free_for_public
     end
 
-    actions :create, :upload_freeformat, :create_dataset_with_freeformat_file,
-    :create_dataset_freeformat, :update_dataset_freeformat_associations do
+    actions :create do
       allow logged_in
     end
   end
@@ -113,7 +111,7 @@ class DatasetsController < ApplicationController
   def show
     @contacts = @dataset.owners
     @projects = @dataset.projects
-    @freeformats = @dataset.freeformats
+    @freeformats = @dataset.freeformats.sort{|a,b| a.file_file_name <=> b.file_file_name}
     @datacolumns = @dataset.datacolumns
   end
 
@@ -123,11 +121,8 @@ class DatasetsController < ApplicationController
               :filename => "download_#{@dataset.downloads}_#{@dataset.filename}"
   end
 
-  # This action provides edit forms for the given context
   def edit
-    # Main auth determination happens in AdminBaseController
-    @contacts = @dataset.owners
-    @projects = @dataset.projects
+    @new_freeformat = Freeformat.new
   end
 
   def delete_imported_research_data_and_file
@@ -158,6 +153,17 @@ class DatasetsController < ApplicationController
   def update_dataset_freeformat_file
     freeformat = Freeformat.find(params[:freeformat][:id])
     freeformat.file = params[:freeformat][:file]
+    if freeformat.save
+      redirect_to :back
+    else
+      flash[:error] = "#{freeformat.errors.to_a.first.capitalize}"
+      redirect_to :back
+    end
+  end
+
+  def add_dataset_freeformat_file
+    freeformat = Freeformat.create (params[:freeformat])
+    freeformat.dataset = Dataset.find params[:id]
     if freeformat.save
       redirect_to :back
     else

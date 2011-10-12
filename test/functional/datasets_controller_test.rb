@@ -3,17 +3,6 @@ require 'test_helper'
 class DatasetsControllerTest < ActionController::TestCase
   setup :activate_authlogic
 
-  test "add freeformat to dataset" do
-    pending "this was earlier for creating dataset out of freeformat"
-    #login_nadrowski
-    #file = {:file => File.new(File.join(fixture_path, 'test_files_for_uploads', 'empty_test_file.txt'))}
-    #
-    #get(:create_dataset_with_freeformat_file, :freeformat => file)
-    #
-    #assert_response :success
-    #assert_select 'div#content', /empty_test_file.txt/
-  end
-
   test "should get show dataset" do
     get :show, {:id => Dataset.first.id}
     assert_response :success
@@ -39,8 +28,31 @@ class DatasetsControllerTest < ActionController::TestCase
   end
 
   # Freeformats
+  test "add freeformat to dataset and change it" do
+    login_nadrowski
+    dataset = Dataset.first
+    f = File.new(File.join(fixture_path, 'test_files_for_uploads', 'empty_test_file.txt'))
+    file = {:file => f}
 
-  test "download freeformat dataset should work" do
+    request.env["HTTP_REFERER"] = edit_dataset_path dataset
+    get(:add_dataset_freeformat_file, :id => dataset.id, :freeformat => file)
+
+    get(:edit, :id => dataset.id)
+    assert_select 'div#content', /empty_test_file.txt/
+
+    #and now change it...
+    freeformat = Freeformat.all.select{|ff| ff.file_file_name.match(/empty_test_file.txt/) && ff.dataset == dataset}.first
+    f =  File.new(File.join(fixture_path, 'test_files_for_uploads', 'empty_freeformat_file.ppt'))
+    new_file = {:file => f, :id => freeformat.id}
+
+    get(:update_dataset_freeformat_file, :id => dataset.id, :freeformat => new_file)
+
+    get(:edit, :id => dataset.id)
+    assert_select 'div#content', /empty_freeformat_file.ppt/
+    assert_select 'div#content', {:text => /empty_test_file.txt/, :count => 0}, "empty test file not gone"
+  end
+
+  test "download freeformat file should work" do
     login_nadrowski
 
     get :download_freeformat, :id => Freeformat.first

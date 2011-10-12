@@ -1,0 +1,8 @@
+- form_for freeformat, :url => {:controller => :datasets,
+:action => :add_dataset_freeformat_file, :id => @dataset.id}, :html => {:multipart => true} do |f|
+  = f.error_messages
+  = f.hidden_field :id
+  = f.file_field :file
+  %br
+  = f.text_area :description, :size => "40x4"
+  = f.submit 'File upload'

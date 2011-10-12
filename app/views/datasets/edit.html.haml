@@ -3,8 +3,8 @@
   = link_to @dataset.title, @dataset
 - unless @dataset.blank?
   %p
-    For more information, please contact #{link_to @contacts.first, user_path(@contacts.first)} of project
-    = link_to(@projects.first, project_path(@projects.first)) unless @projects.empty?
+    For more information, please contact #{link_to @dataset.owners.first, user_path(@dataset.owners.first)} of project
+    = link_to(@dataset.projects.first, project_path(@dataset.projects.first)) unless @dataset.projects.empty?
   - unless @dataset.comment.blank?
     %h4 Comment
     %p= @dataset.comment
@@ -31,7 +31,7 @@
       = f.submit 'Data set upload', :confirm => "All research data will be replaced by the content of this file!"
   %h3
     Change Freeformat files
-  - @dataset.freeformats.each do |ff|
+  - @dataset.freeformats.sort{|a,b| a.file_file_name <=> b.file_file_name}.each do |ff|
     %p
       %li.noBullet
         = link_to ff.file_file_name, ff.file.url
@@ -43,5 +43,6 @@
   %h3
     Add freeformat File
     %p
+      = render :partial => 'freeformats/create', :locals => {:freeformat => @new_freeformat}
 
 

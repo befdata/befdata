@@ -21,12 +21,8 @@ Befchina::Application.routes.draw do
   end
 
   #Freeformat logic
-  match 'datasets/:id/save_dataset_freeformat_tags' => 'datasets#save_dataset_freeformat_tags'
   match 'datasets/:id/update_dataset_freeformat_file' => 'datasets#update_dataset_freeformat_file'
-  match 'create_dataset_with_freeformat_file' => 'datasets#create_dataset_with_freeformat_file'
-  match 'update_dataset_with_only_freeformat_file' => 'datasets#update_dataset_with_only_freeformat_file'
-  match 'update_dataset_freeformat_associations' => 'datasets#update_dataset_freeformat_associations', :as => :update_dataset_freeformat_associations
-  match 'save_dataset_freeformat_associations' => 'datasets#save_dataset_freeformat_associations', :as => :save_dataset_freeformat_associations
+  match 'datasets/:id/add_dataset_freeformat_file' => 'datasets#add_dataset_freeformat_file'
   match 'files/freeformats/:id/download' => 'datasets#download_freeformat'
   
   resources :keywords, :controller => 'tags'
