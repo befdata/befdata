@@ -8,7 +8,7 @@
       %li
         %img{:src => "/images/pencil.png"}
         = link_to 'Edit Dataset', edit_dataset_path(@dataset)
-    - if @dataset.upload_spreadsheet && (current_user.has_role?(:owner, @dataset) || current_user.has_role?(:admin))
+    - if @dataset.has_research_data? && (current_user.has_role?(:owner, @dataset) || current_user.has_role?(:admin))
       %li
         %img{:src => "/images/table_edit.png"}
         = link_to 'Approve Data Columns', data_dataset_path(@dataset)

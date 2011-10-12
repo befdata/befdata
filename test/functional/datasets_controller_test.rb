@@ -3,14 +3,15 @@ require 'test_helper'
 class DatasetsControllerTest < ActionController::TestCase
   setup :activate_authlogic
 
-  test "after create freeformat file new dataset should be created" do
-    login_nadrowski
-    file = {:file => File.new(File.join(fixture_path, 'test_files_for_uploads', 'empty_test_file.txt'))}
-    
-    get(:create_dataset_with_freeformat_file, :freeformat => file)
-
-    assert_response :success
-    assert_select 'div#content', /empty_test_file.txt/
+  test "add freeformat to dataset" do
+    pending "this was earlier for creating dataset out of freeformat"
+    #login_nadrowski
+    #file = {:file => File.new(File.join(fixture_path, 'test_files_for_uploads', 'empty_test_file.txt'))}
+    #
+    #get(:create_dataset_with_freeformat_file, :freeformat => file)
+    #
+    #assert_response :success
+    #assert_select 'div#content', /empty_test_file.txt/
   end
 
   test "should get show dataset" do

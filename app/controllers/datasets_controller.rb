@@ -1,13 +1,9 @@
 class DatasetsController < ApplicationController
 
   before_filter :load_dataset, :only => [:download, :show, :edit, :update, :data, :approve_predefined,
-                                         :delete_imported_research_data_and_file, :destroy,
-                                        :update_dataset_with_only_freeformat_file, :save_dataset_freeformat_tags]
-
+                                         :delete_imported_research_data_and_file, :destroy]
 
   before_filter :load_freeformat_dataset, :only => [:download_freeformat]
-
-  before_filter :load_dataset_freeformat, :only => [:update_dataset_freeformat_associations]
 
   rescue_from 'Acl9::AccessDenied', :with => :access_denied
 
@@ -78,7 +74,11 @@ class DatasetsController < ApplicationController
 
     if @dataset.update_attributes(params[:dataset]) then
       #redirect_to data_dataset_path(@dataset)
-      redirect_to dataset_path
+      if @dataset.has_research_data?
+        redirect_to data_dataset_path(@dataset)
+      else
+        redirect_to dataset_path
+      end
     else
       flash[:error] = @dataset.errors.full_messages.to_sentence
       render :create
@@ -109,7 +109,6 @@ class DatasetsController < ApplicationController
     end
     redirect_to :back
   end
-  
 
   def show
     @contacts = @dataset.owners
@@ -124,7 +123,6 @@ class DatasetsController < ApplicationController
               :filename => "download_#{@dataset.downloads}_#{@dataset.filename}"
   end
 
-  
   # This action provides edit forms for the given context
   def edit
     # Main auth determination happens in AdminBaseController
@@ -133,6 +131,10 @@ class DatasetsController < ApplicationController
   end
 
   def delete_imported_research_data_and_file
+    if !params[:datafile] then
+      flash[:error] = "No filename given"
+      redirect_to :back and return
+    end
     new_datafile = Datafile.new(params[:datafile])
     if new_datafile.save
       @dataset.delete_imported_research_data_and_file
@@ -152,67 +154,12 @@ class DatasetsController < ApplicationController
     flash[:notice] = "Dataset successfully deleted."
     redirect_to data_path
   end
-
-
-  # ----------------------------------------------------------
-  # Freeformat actions - TODO move to own controller
-  # ----------------------------------------------------------
-
-  def create_dataset_with_freeformat_file
-      freeformat = Freeformat.create!(params[:freeformat])
-      @filename = freeformat.file_file_name
-      @dataset = Dataset.new
-      @dataset.title = @filename
-      @dataset.abstract = @filename
-      @dataset.filename = @filename
-      @dataset.freeformats << freeformat
-
-      unless @dataset.save
-        flash[:error] = "#{@dataset.errors.to_a.first.capitalize}"
-        redirect_to data_path and return
-      end
-  end
-
-
-  def update_dataset_with_only_freeformat_file
-
-    unless @dataset.update_attributes(params[:dataset])
-      flash[:error] = "#{@dataset.errors.to_a.first.capitalize}"
-      redirect_to data_path and return
-    end
-    @project_list = Project.order(:shortname)
-    render :update_dataset_freeformat_associations
-  end
-
-  def save_dataset_freeformat_associations
-
-      @dataset = Dataset.find(params[:dataset][:id])
-      @owner = User.find(params[:owner][:owner_id])
-      @project = Project.find(params[:project][:project_id])
-
-      unless @dataset.update_attributes(params[:dataset])
-        flash[:error] = "#{@dataset.errors.to_a.first.capitalize}"
-        redirect_to data_path and return
-      end
-
-      @owner.has_role! :owner, @dataset
-      @dataset.projects << @project
-
-      render :update_dataset_freeformat_tags
-
-  end
   
-  def save_dataset_freeformat_tags
-    @dataset.update_attributes(params[:dataset])
-
-    redirect_to dataset_url @dataset
-  end
-
   def update_dataset_freeformat_file
     freeformat = Freeformat.find(params[:freeformat][:id])
     freeformat.file = params[:freeformat][:file]
     if freeformat.save
-      redirect_to :controller => :datasets, :action => :show, :id => freeformat.dataset.id
+      redirect_to :back
     else
       flash[:error] = "#{freeformat.errors.to_a.first.capitalize}"
       redirect_to :back
@@ -222,7 +169,6 @@ class DatasetsController < ApplicationController
   def download_freeformat
     send_file @freeformat.file.path
   end
-
 
   private
 

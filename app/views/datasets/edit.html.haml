@@ -1,5 +1,6 @@
-%span{:style => "font-size: large;"}
-  Dataset: #{@dataset.title}
+%h2
+  = "Dataset:"
+  = link_to @dataset.title, @dataset
 - unless @dataset.blank?
   %p
     For more information, please contact #{link_to @contacts.first, user_path(@contacts.first)} of project
@@ -7,24 +8,40 @@
   - unless @dataset.comment.blank?
     %h4 Comment
     %p= @dataset.comment
-  .comment
-    %span{:style => "font-size: medium;"} Edit meta data of this dataset
+  %h3
+    Edit meta data of this dataset
+  %p
     = render :active_scaffold => "settings/datasets", :constraints => {:id => @dataset.id}
-  .comment
-    %span{:style => "font-size: medium;"}
-      Edit method descriptions of this
-      context
-    %p
-      At the time of writing, it is only possible to add, but not to
-      delete methods or personroles to a given columnheader (=
-      measurements_methodstep)
+  %h3
+    Edit method descriptions of this context
+  %p
+    At the time of writing, it is only possible to add, but not to
+    delete methods or personroles to a given columnheader (=
+    measurements_methodstep)
+  %p
     = render :active_scaffold => "settings/datacolumns", :constraints => {:dataset_id => @dataset.id}
-  .comment
-    %span{:style => "font-size: medium;"}
-      Exchange original data workbook
-      = form_for :datafile,
-                  :url => delete_imported_research_data_and_file_dataset_path(@dataset),
-                  :html => {:multipart => true} do |f|
-        = f.error_messages
-        = f.file_field :file
-        = f.submit 'Data set upload', :confirm => "All research data will be replaced by the content of this file!"
+  %h3
+    Exchange original data workbook
+  %p
+    = form_for :datafile,
+              :url => delete_imported_research_data_and_file_dataset_path(@dataset),
+              :html => {:multipart => true} do |f|
+      = f.error_messages
+      = f.file_field :file
+      = f.submit 'Data set upload', :confirm => "All research data will be replaced by the content of this file!"
+  %h3
+    Change Freeformat files
+  - @dataset.freeformats.each do |ff|
+    %p
+      %li.noBullet
+        = link_to ff.file_file_name, ff.file.url
+        %i #{ff.description}
+        -if @dataset.owners.include?(current_user) || current_user.has_role?(:admin)
+          %a.showr{:id => "freeformat_#{ff.id}"} change file
+          .hidden{:id => "form_freeformat_#{ff.id}"}
+            = render :partial => 'freeformats/edit', :locals => {:freeformat => ff}
+  %h3
+    Add freeformat File
+    %p
+
+

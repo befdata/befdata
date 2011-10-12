@@ -1,8 +1,0 @@
-- unless @measurements[key].empty?
-  - if @measurements[key][0].value_type == "Datafile"
-    %table
-      %tr
-      - @measurements[key].each do |mm|
-        %tr
-          -#%td= link_to mm.datafile.file_file_name, "../#{mm.datafile.file.url}"
-          %td= link_to mm.datafile.file_file_name, mm.datafile.file.url

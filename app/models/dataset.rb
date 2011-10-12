@@ -90,6 +90,10 @@ class Dataset < ActiveRecord::Base
     end
   end
 
+  def has_research_data?
+    !upload_spreadsheet.blank?
+  end
+
   def dataworkbook
     Dataworkbook.new(upload_spreadsheet)
   end
