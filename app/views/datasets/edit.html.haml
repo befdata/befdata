@@ -29,17 +29,22 @@
       = f.error_messages
       = f.file_field :file
       = f.submit 'Data set upload', :confirm => "All research data will be replaced by the content of this file!"
-  %h3
-    Change Freeformat files
-  - @dataset.freeformats.sort{|a,b| a.file_file_name <=> b.file_file_name}.each do |ff|
-    %p
-      %li.noBullet
-        = link_to ff.file_file_name, ff.file.url
-        %i #{ff.description}
-        -if @dataset.owners.include?(current_user) || current_user.has_role?(:admin)
-          %a.showr{:id => "freeformat_#{ff.id}"} change file
-          .hidden{:id => "form_freeformat_#{ff.id}"}
-            = render :partial => 'freeformats/edit', :locals => {:freeformat => ff}
+
+  - if @dataset.freeformats.count > 0
+    %h3
+      Change Freeformat files
+    - @dataset.freeformats.sort{|a,b| a.file_file_name <=> b.file_file_name}.each do |ff|
+      %p
+        %li.noBullet
+          = link_to ff.file_file_name, ff.file.url
+          %i #{ff.description}
+          -if @dataset.owners.include?(current_user) || current_user.has_role?(:admin)
+            %a.showr{:id => "freeformat_change_#{ff.id}"} Change
+            .hidden{:id => "form_freeformat_change_#{ff.id}"}
+              = render :partial => 'freeformats/edit', :locals => {:freeformat => ff}
+            = link_to 'Delete', :controller => :datasets, :action => :delete_dataset_freeformat_file, :id => ff,
+              :confirm => "Are you sure you want to delete #{ff.file_file_name}?", :method => :delete
+
   %h3
     Add freeformat File
     %p

@@ -23,6 +23,7 @@ Befchina::Application.routes.draw do
   #Freeformat logic
   match 'datasets/:id/update_dataset_freeformat_file' => 'datasets#update_dataset_freeformat_file'
   match 'datasets/:id/add_dataset_freeformat_file' => 'datasets#add_dataset_freeformat_file'
+  match 'datasets/:id/delete_dataset_freeformat_file' => 'datasets#delete_dataset_freeformat_file'
   match 'files/freeformats/:id/download' => 'datasets#download_freeformat'
   
   resources :keywords, :controller => 'tags'

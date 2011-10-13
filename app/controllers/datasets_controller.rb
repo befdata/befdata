@@ -11,8 +11,8 @@ class DatasetsController < ApplicationController
   access_control do
     allow all, :to => [:show, :index, :load_context]
 
-    actions :download, :edit, :update, :data, :approve_predefined,
-            :update_dataset_freeformat_file, :add_dataset_freeformat_file, :download_freeformat do
+    actions :download, :download_freeformat, :edit, :update, :data, :approve_predefined,
+            :update_dataset_freeformat_file, :add_dataset_freeformat_file, :delete_dataset_freeformat_file do
       allow :admin
       allow :owner, :of => :dataset
       allow :proposer, :of => :dataset
@@ -149,10 +149,12 @@ class DatasetsController < ApplicationController
     flash[:notice] = "Dataset successfully deleted."
     redirect_to data_path
   end
-  
-  def update_dataset_freeformat_file
-    freeformat = Freeformat.find(params[:freeformat][:id])
-    freeformat.file = params[:freeformat][:file]
+
+  # freeformat handling
+
+  def add_dataset_freeformat_file
+    freeformat = Freeformat.create (params[:freeformat])
+    freeformat.dataset = Dataset.find params[:id]
     if freeformat.save
       redirect_to :back
     else
@@ -161,10 +163,21 @@ class DatasetsController < ApplicationController
     end
   end
 
-  def add_dataset_freeformat_file
-    freeformat = Freeformat.create (params[:freeformat])
-    freeformat.dataset = Dataset.find params[:id]
-    if freeformat.save
+  def update_dataset_freeformat_file
+    freeformat = Freeformat.find(params[:freeformat][:id])
+    freeformat.file = params[:freeformat][:file]
+    if freeformat.save then
+      redirect_to :back
+    else
+      flash[:error] = "#{freeformat.errors.to_a.first.capitalize}"
+      redirect_to :back
+    end
+  end
+
+  def delete_dataset_freeformat_file
+    freeformat = Freeformat.find(params[:id])
+    freeformat.destroy
+    if freeformat.destroyed?
       redirect_to :back
     else
       flash[:error] = "#{freeformat.errors.to_a.first.capitalize}"
