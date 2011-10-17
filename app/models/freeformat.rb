@@ -18,5 +18,4 @@ class Freeformat < ActiveRecord::Base
     self.file_file_name.to_s
   end
 
-
 end

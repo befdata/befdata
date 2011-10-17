@@ -3,16 +3,13 @@ class DatasetsController < ApplicationController
   before_filter :load_dataset, :only => [:download, :show, :edit, :update, :data, :approve_predefined,
                                          :delete_imported_research_data_and_file, :destroy]
 
-  before_filter :load_freeformat_dataset, :only => [:download_freeformat]
-
   rescue_from 'Acl9::AccessDenied', :with => :access_denied
 
   skip_before_filter :deny_access_to_all
   access_control do
     allow all, :to => [:show, :index, :load_context]
 
-    actions :download, :download_freeformat, :edit, :update, :data, :approve_predefined,
-            :update_dataset_freeformat_file, :add_dataset_freeformat_file, :delete_dataset_freeformat_file do
+    actions :download, :edit, :update, :data, :approve_predefined  do
       allow :admin
       allow :owner, :of => :dataset
       allow :proposer, :of => :dataset
@@ -23,7 +20,7 @@ class DatasetsController < ApplicationController
       allow :owner, :of => :dataset
     end
 
-    action :download_freeformat, :download do
+    action :download do
       allow logged_in, :if => :dataset_is_free_for_members
       allow all, :if => :dataset_is_free_for_public
     end
@@ -150,47 +147,6 @@ class DatasetsController < ApplicationController
     redirect_to data_path
   end
 
-  # freeformat handling
-
-  def add_dataset_freeformat_file
-    freeformat = Freeformat.create (params[:freeformat])
-    freeformat.dataset = Dataset.find params[:id]
-    if freeformat.save
-      redirect_to :back
-    else
-      flash[:error] = "#{freeformat.errors.to_a.first.capitalize}"
-      redirect_to :back
-    end
-  end
-
-  def update_dataset_freeformat_file
-    freeformat = Freeformat.find(params[:freeformat][:id])
-    freeformat.file = params[:freeformat][:file]
-    if freeformat.save then
-      redirect_to :back
-    else
-      flash[:error] = "#{freeformat.errors.to_a.first.capitalize}"
-      redirect_to :back
-    end
-  end
-
-  def delete_dataset_freeformat_file
-    freeformat = Freeformat.find(params[:id])
-    freeformat.destroy
-    if freeformat.destroyed?
-      redirect_to :back
-    else
-      flash[:error] = "#{freeformat.errors.to_a.first.capitalize}"
-      redirect_to :back
-    end
-  end
-
-  def download_freeformat
-    send_file @freeformat.file.path
-  end
-
-  private
-
   def dataset_is_free_for_members
     return true if @dataset.free_for_members  unless @dataset.blank?
     false
@@ -201,17 +157,10 @@ class DatasetsController < ApplicationController
     false
   end
 
+  private
+
   def load_dataset
     @dataset = Dataset.find(params[:id])
-  end
-
-  def load_freeformat_dataset
-    @freeformat = Freeformat.find(params[:id])
-    @dataset = @freeformat.dataset
-  end
-
-  def load_dataset_freeformat
-    @dataset = Dataset.find(params[:dataset_id])
   end
 
   def access_denied

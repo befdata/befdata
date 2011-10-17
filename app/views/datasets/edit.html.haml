@@ -38,16 +38,15 @@
         %li.noBullet
           = link_to ff.file_file_name, ff.file.url
           %i #{ff.description}
-          -if @dataset.owners.include?(current_user) || current_user.has_role?(:admin)
-            %a.showr{:id => "freeformat_change_#{ff.id}"} Change
-            .hidden{:id => "form_freeformat_change_#{ff.id}"}
-              = render :partial => 'freeformats/edit', :locals => {:freeformat => ff}
-            = link_to 'Delete', :controller => :datasets, :action => :delete_dataset_freeformat_file, :id => ff,
-              :confirm => "Are you sure you want to delete #{ff.file_file_name}?", :method => :delete
+          %a.showr{:id => "freeformat_change_#{ff.id}"} Change
+          .hidden{:id => "form_freeformat_change_#{ff.id}"}
+            = render :partial => 'freeformats/edit', :locals => {:freeformat => ff, :dataset => @dataset}
+          = link_to 'Delete', :controller => :freeformats, :action => :destroy, :id => ff.id,
+            :confirm => "Are you sure you want to delete #{ff.file_file_name}?", :method => :delete
 
   %h3
     Add freeformat File
     %p
-      = render :partial => 'freeformats/create', :locals => {:freeformat => @new_freeformat}
+      = render :partial => 'freeformats/new', :locals => {:freeformat => @new_freeformat, :dataset => @dataset}
 
 

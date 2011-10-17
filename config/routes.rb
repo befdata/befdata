@@ -20,12 +20,12 @@ Befchina::Application.routes.draw do
     end
   end
 
-  #Freeformat logic
-  match 'datasets/:id/update_dataset_freeformat_file' => 'datasets#update_dataset_freeformat_file'
-  match 'datasets/:id/add_dataset_freeformat_file' => 'datasets#add_dataset_freeformat_file'
-  match 'datasets/:id/delete_dataset_freeformat_file' => 'datasets#delete_dataset_freeformat_file'
-  match 'files/freeformats/:id/download' => 'datasets#download_freeformat'
-  
+  resources :freeformats
+  match 'files/freeformats/:id/download' => 'freeformats#download'
+  match 'files/freeformats/:id/destroy' => 'freeformats#destroy'
+  match 'files/freeformats/create' => 'freeformats#create'
+  match 'files/freeformats/:id/update' => 'freeformats#update'
+
   resources :keywords, :controller => 'tags'
 
   resources :projects
