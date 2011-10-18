@@ -15,31 +15,27 @@ class FreeformatsControllerTest < ActionController::TestCase
     login_nadrowski
     dataset = Dataset.first
     f = File.new(File.join(fixture_path, 'test_files_for_uploads', 'empty_test_file.txt'))
-    file_hash = {:file => f}
-
     request.env["HTTP_REFERER"] = edit_dataset_path dataset
-    post(:create, :dataset_id => dataset.id, :freeformat => file_hash)
+
+    post :create, :dataset_id => dataset.id, :freeformat => {:file => f}
 
     assert !dataset.freeformats.select{|ff| ff.file_file_name == 'empty_test_file.txt'}.empty?
 
     #and now change it...
     freeformat = dataset.freeformats.select{|ff| ff.file_file_name == 'empty_test_file.txt'}.first
     f =  File.new(File.join(fixture_path, 'test_files_for_uploads', 'empty_freeformat_file.ppt'))
-    file_hash = {:file => f}
 
-    get(:update, :id => freeformat.id, :freeformat => file_hash)
+    put :update, :id => freeformat.id, :freeformat => {:file => f}
 
-    assert !dataset.freeformats.select{|ff| ff.file_file_name == 'empty_freeformat_file.ppt'}.empty?
-    assert dataset.freeformats.select{|ff| ff.file_file_name == 'empty_test_file.txt'}.empty?
+    assert Freeformat.find(freeformat.id).file_file_name == 'empty_freeformat_file.ppt'
+    assert_empty Freeformat.select{|ff| ff.file_file_name =='empty_test_file.txt'}
 
     #now delete it
-    get(:destroy, :id => freeformat.id)
+    get :destroy, :id => freeformat.id
 
-    assert dataset.freeformats.select{|ff| ff.file_file_name == 'empty_freeformat_file.ppt'}.empty?
-    assert dataset.freeformats.select{|ff| ff.file_file_name == 'empty_test_file.txt'}.empty?
+    assert !Freeformat.exists?(freeformat.id)
   end
 
-    # Freeformats
   test "freeformat download error message if inappropriate rights" do
     ds = Dataset.find_by_title "Unit tests"
     f = ds.freeformats.first
@@ -51,14 +47,14 @@ class FreeformatsControllerTest < ActionController::TestCase
     assert ds.freeformats.count > 0
     assert !user.has_roles_for?(ds) && !user.has_role?(:admin)
 
-    get :download_freeformat, :id => f.id
+    get :download, :id => f.id
     assert_match /.*Access denied.*/, flash[:error]
   end
 
   test "freeformat download redirect to login if not for public" do
     ds = Dataset.find_by_title "Unit tests"
     f = ds.freeformats.first
-    get :download_freeformat, :id => f.id
+    get :download, :id => f.id
 
     assert_redirected_to login_url
     assert_match /.*Access denied.*/, flash[:error]

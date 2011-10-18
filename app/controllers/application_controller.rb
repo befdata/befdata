@@ -7,6 +7,27 @@ class ::ApplicationController < ActionController::Base
     deny all
   end
 
+  def access_denied
+    if current_user
+      flash[:error] = 'Access denied. You do not have the appropriate rights to perform this operation.'
+      redirect_to :back
+    else
+      flash[:error] = 'Access denied. Try to log in first.'
+      session[:return_to] = request.env['HTTP_REFERER']
+      redirect_to login_path
+    end
+  end
+
+  def dataset_is_free_for_members
+    return true if @dataset.free_for_members unless @dataset.blank?
+    false
+  end
+
+  def dataset_is_free_for_public
+    return true if @dataset.free_for_public unless @dataset.blank?
+    false
+  end
+
 
 protected
 

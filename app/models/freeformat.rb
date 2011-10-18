@@ -4,6 +4,7 @@ class Freeformat < ActiveRecord::Base
   belongs_to :dataset
 
   validates_presence_of :file_file_name, :message => "You have to select a file to be uploaded."
+  validates_presence_of :dataset, :message => "Freeformat must belong to a Dataset"
 
   has_attached_file :file,
   :basename => "basename",

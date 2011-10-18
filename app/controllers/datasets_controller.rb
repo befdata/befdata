@@ -6,6 +6,7 @@ class DatasetsController < ApplicationController
   rescue_from 'Acl9::AccessDenied', :with => :access_denied
 
   skip_before_filter :deny_access_to_all
+
   access_control do
     allow all, :to => [:show, :index, :load_context]
 
@@ -142,36 +143,14 @@ class DatasetsController < ApplicationController
 
   def destroy
     @dataset.destroy
-  
     flash[:notice] = "Dataset successfully deleted."
     redirect_to data_path
-  end
-
-  def dataset_is_free_for_members
-    return true if @dataset.free_for_members  unless @dataset.blank?
-    false
-  end
-
-  def dataset_is_free_for_public
-    return true if @dataset.free_for_public unless @dataset.blank?
-    false
   end
 
   private
 
   def load_dataset
     @dataset = Dataset.find(params[:id])
-  end
-
-  def access_denied
-    if current_user
-      flash[:error] = 'Access denied. You do not have the appropriate rights to perform this operation.'
-      redirect_to :back
-    else
-      flash[:error] = 'Access denied. Try to log in first.'
-      session[:return_to] = request.env['HTTP_REFERER']
-      redirect_to login_path
-    end
   end
 
 end

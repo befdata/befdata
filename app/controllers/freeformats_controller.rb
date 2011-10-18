@@ -3,6 +3,7 @@ class FreeformatsController < ApplicationController
   before_filter :load_freeformat_and_dataset, :except => :create
   before_filter :load_dataset_from_params, :only => :create
 
+  rescue_from 'Acl9::AccessDenied', :with => :access_denied
   skip_before_filter :deny_access_to_all
 
   access_control do
@@ -11,7 +12,6 @@ class FreeformatsController < ApplicationController
       allow :owner, :of => :dataset
       allow :proposer, :of => :dataset
     end
-
     actions :download do
       allow logged_in, :if => :dataset_is_free_for_members
       allow all, :if => :dataset_is_free_for_public
@@ -52,7 +52,7 @@ class FreeformatsController < ApplicationController
     send_file @freeformat.file.path
   end
 
-  private
+private
 
   def load_freeformat_and_dataset
     @freeformat = Freeformat.find params[:id]
