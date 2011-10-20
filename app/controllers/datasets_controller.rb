@@ -37,9 +37,14 @@ class DatasetsController < ApplicationController
 
   def create
     @dataset = Dataset.new
+
     if params[:datafile] then
-      datafile = Datafile.create!(params[:datafile])
+      datafile = Datafile.new(params[:datafile])
       @dataset.upload_spreadsheet = datafile
+      if !datafile.save
+        flash[:error] = datafile.errors.full_messages.to_sentence
+        redirect_to(:back) and return
+      end
     end
 
     if @dataset.save
