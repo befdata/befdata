@@ -30,10 +30,10 @@
       = f.file_field :file
       = f.submit 'Data set upload', :confirm => "All research data will be replaced by the content of this file!"
 
-  - if @dataset.freeformats.count > 0
+  - unless @freeformats.empty?
     %h3
       Change Freeformat files
-    - @dataset.freeformats.sort{|a,b| a.file_file_name <=> b.file_file_name}.each do |ff|
+    - @freeformats.each do |ff|
       %p
         %li.noBullet
           = link_to ff.file_file_name, ff.file.url

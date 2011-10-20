@@ -1,12 +1,8 @@
 - content_for :sidebar do
-  %ul.dataset_actions
-    %li
-      Create new Dataset
-
-%div
-- if current_user
-  %div
-    = render 'dataset_upload'
+  - if current_user
+    %ul.dataset_actions
+      %li
+        = link_to "Create new Dataset", new_dataset_path
 
 %h3
   = link_to "Keywords", keywords_path

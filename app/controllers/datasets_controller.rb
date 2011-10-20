@@ -26,9 +26,13 @@ class DatasetsController < ApplicationController
       allow all, :if => :dataset_is_free_for_public
     end
 
-    actions :create do
+    actions :new, :create do
       allow logged_in
     end
+  end
+
+  def new
+    @file = Datafile.new
   end
 
   def create
@@ -69,7 +73,6 @@ class DatasetsController < ApplicationController
     end
 
     if @dataset.update_attributes(params[:dataset]) then
-      #redirect_to data_dataset_path(@dataset)
       if @dataset.has_research_data?
         redirect_to data_dataset_path(@dataset)
       else
@@ -109,7 +112,7 @@ class DatasetsController < ApplicationController
   def show
     @contacts = @dataset.owners
     @projects = @dataset.projects
-    @freeformats = @dataset.freeformats.sort{|a,b| a.file_file_name <=> b.file_file_name}
+    @freeformats = @dataset.freeformats :order => :file_file_name
     @datacolumns = @dataset.datacolumns
   end
 
@@ -121,6 +124,7 @@ class DatasetsController < ApplicationController
 
   def edit
     @new_freeformat = Freeformat.new
+    @freeformats = @dataset.freeformats :order => :file_file_name
   end
 
   def delete_imported_research_data_and_file
