@@ -1,5 +1,5 @@
-## Categories are values that can be reused by sheetcells.  They enable the construction of a
-## controlled vocabulary within the portal.
+## Categories store naming conventions that are reused by "Sheetcell".  The import process during
+## workbook upload ("Dataworkbook") ensures that within one "Datagroup" categories remain unique.
 class Category < ActiveRecord::Base
 
   belongs_to :user, :class_name => "User", :foreign_key => "user_id"
