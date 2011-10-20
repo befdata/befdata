@@ -1,3 +1,19 @@
+## The Dataworkbook class functions as wrapper for the BEFdata Workbook, an MS Excel 2003 file containing
+## the raw data array in one sheet and four separate sheets providing metadata.  The "General Metadata" sheet
+## provides information on the context of the data set (general_metadata_sheet, general_metadata_column, general_metadata_hash),
+## while the "Technical description" (data_desciption_sheet, data_column_info_for_columnheader),
+## "Acknowledgments" (data_responsible_person_sheet, columnheader_people), and
+## "Categories" (data_categories_sheet, sheet_categories_for_columnheader) sheets provide information
+## on each single column of data from the "Raw data" sheet.
+##
+## The column headers in the raw data sheet of the BEFdata Workbook function as foreign IDs connecting metadata
+## to the raw data columns.  It is thus essential that the column headers in the raw data sheet are
+## unique (columnheaders_unique?).
+##
+## Information provided on the general metadata sheet and on the acknowledgement sheet manages provenance in
+## relation to Project and User classes.  Information on the technical description sheet directs the import workflow
+## of raw data entries to the Datacolumn, Datagroup, and Sheetcell classes.  For the validation process of
+## raw data values the Datatype and Sheetcellstatus classes are used.
 class Dataworkbook
   
   attr_reader :datafile, :book
