@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111027123716) do
+ActiveRecord::Schema.define(:version => 20111027124617) do
 
   create_table "author_paperproposals", :force => true do |t|
     t.integer  "paperproposal_id"
@@ -149,11 +149,6 @@ ActiveRecord::Schema.define(:version => 20111027123716) do
   end
 
   add_index "datasets", ["upload_spreadsheet_id"], :name => "index_datasets_on_upload_spreadsheet_id"
-
-  create_table "datatypes", :force => true do |t|
-    t.string "name"
-    t.string "format"
-  end
 
   create_table "delayed_jobs", :force => true do |t|
     t.integer  "priority",   :default => 0

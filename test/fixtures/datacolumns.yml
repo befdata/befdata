@@ -10,7 +10,6 @@ datacolumns_001:
   missingcode: 
   comment: height, variable, response
   import_data_type: number
-  category_longshort: 
   created_at: 2011-09-28 14:22:53.819732
   updated_at: 2011-09-28 14:23:00.543847
   datagroup_approved: t
@@ -27,7 +26,6 @@ datacolumns_002:
   missingcode: 
   comment: species author, dwc/terms/scientificNameAuthorship
   import_data_type: text
-  category_longshort: 
   created_at: 2011-09-28 14:22:53.916028
   updated_at: 2011-09-28 14:23:00.591735
   datagroup_approved: t
@@ -44,7 +42,6 @@ datacolumns_003:
   missingcode: 
   comment: species, dwc/terms/scientificName, dwc/terms/acceptedNameUsage
   import_data_type: category
-  category_longshort: 
   created_at: 2011-09-28 14:22:54.02125
   updated_at: 2011-09-28 14:23:00.616379
   datagroup_approved: t
@@ -61,7 +58,6 @@ datacolumns_004:
   missingcode: 
   comment: dwc/terms/scientificNameAuthorship, datetime, year
   import_data_type: year
-  category_longshort: 
   created_at: 2011-09-28 14:22:53.961781
   updated_at: 2011-09-28 14:24:34.336925
   datagroup_approved: t
@@ -78,7 +74,6 @@ datacolumns_005:
   missingcode: 
   comment: longitude
   import_data_type: number
-  category_longshort: 
   created_at: 2011-09-01 09:02:35.895537
   updated_at: 2011-09-01 09:02:35.895537
   datagroup_approved: f
@@ -95,7 +90,6 @@ datacolumns_006:
   missingcode: 
   comment: 
   import_data_type: text
-  category_longshort: 
   created_at: 2011-09-01 09:02:36.183554
   updated_at: 2011-09-01 09:02:36.183554
   datagroup_approved: f
@@ -112,7 +106,6 @@ datacolumns_007:
   missingcode: 
   comment: 
   import_data_type: 
-  category_longshort: 
   created_at: 2011-09-01 09:02:36.28756
   updated_at: 2011-09-01 09:02:36.28756
   datagroup_approved: f
@@ -129,7 +122,6 @@ datacolumns_008:
   missingcode: 
   comment: 
   import_data_type: year
-  category_longshort: 
   created_at: 2011-09-01 09:02:33.4934
   updated_at: 2011-09-01 09:48:26.010663
   datagroup_approved: t
@@ -146,7 +138,6 @@ datacolumns_009:
   missingcode: 
   comment: aspect
   import_data_type: number
-  category_longshort: 
   created_at: 2011-09-01 09:02:35.027488
   updated_at: 2011-09-01 10:38:25.177842
   datagroup_approved: t
@@ -163,7 +154,6 @@ datacolumns_010:
   missingcode: 
   comment: latitude
   import_data_type: number
-  category_longshort: 
   created_at: 2011-09-01 09:02:35.603521
   updated_at: 2011-09-01 10:39:58.427251
   datagroup_approved: t
@@ -180,7 +170,6 @@ datacolumns_011:
   missingcode: 
   comment: species, dwc/terms/scientificName, dwc/terms/acceptedNameUsage
   import_data_type: category
-  category_longshort: 
   created_at: 2011-06-01 13:47:48.22
   updated_at: 2011-06-01 13:47:48.22
   datagroup_approved: 
@@ -197,7 +186,6 @@ datacolumns_012:
   missingcode: 
   comment: dwc/terms/scientificNameAuthorship, datetime, year
   import_data_type: year
-  category_longshort: 
   created_at: 2011-06-01 13:47:48.031
   updated_at: 2011-06-01 13:54:10.082
   datagroup_approved: 
@@ -214,7 +202,6 @@ datacolumns_013:
   missingcode: 
   comment: height, variable, response
   import_data_type: number
-  category_longshort: 
   created_at: 2011-06-01 13:47:46.018
   updated_at: 2011-06-01 13:47:46.018
   datagroup_approved: 
@@ -231,7 +218,6 @@ datacolumns_014:
   missingcode: 
   comment: species author, dwc/terms/scientificNameAuthorship
   import_data_type: text
-  category_longshort: 
   created_at: 2011-06-01 13:47:47.817
   updated_at: 2011-06-01 13:47:47.817
   datagroup_approved: 
@@ -248,7 +234,6 @@ datacolumns_015:
   missingcode: 
   comment: 
   import_data_type: text
-  category_longshort: 
   created_at: 2011-07-01 15:02:40.346
   updated_at: 2011-07-01 15:02:40.346
   datagroup_approved: 
@@ -265,7 +250,6 @@ datacolumns_016:
   missingcode: 
   comment: 
   import_data_type: number
-  category_longshort: 
   created_at: 2011-07-01 15:02:40.346
   updated_at: 2011-07-01 15:02:40.346
   datagroup_approved: 
@@ -282,7 +266,6 @@ datacolumns_017:
   missingcode: 
   comment: 
   import_data_type: date(2009-07-14)
-  category_longshort: 
   created_at: 2011-07-01 15:02:40.346
   updated_at: 2011-07-01 15:02:40.346
   datagroup_approved: 
@@ -299,7 +282,6 @@ datacolumns_018:
   missingcode: 
   comment: 
   import_data_type: year
-  category_longshort: 
   created_at: 2011-07-01 15:02:40.346
   updated_at: 2011-07-01 15:02:40.346
   datagroup_approved: 
@@ -316,7 +298,6 @@ datacolumns_019:
   missingcode: 
   comment: 
   import_data_type: category
-  category_longshort: 
   created_at: 2011-07-01 15:02:40.346
   updated_at: 2011-07-01 15:02:40.346
   datagroup_approved: 
@@ -333,7 +314,6 @@ datacolumns_020:
   missingcode: 
   comment: 
   import_data_type: category
-  category_longshort: 
   created_at: 2011-07-01 15:02:40.346
   updated_at: 2011-07-01 15:02:40.346
   datagroup_approved: 
@@ -350,7 +330,6 @@ datacolumns_021:
   missingcode: 
   comment: 
   import_data_type: date(14.07.2009)
-  category_longshort: 
   created_at: 2011-07-01 15:02:40.346
   updated_at: 2011-07-01 15:02:40.346
   datagroup_approved: 
@@ -367,7 +346,6 @@ datacolumns_022:
   missingcode: ""
   comment: 
   import_data_type: number
-  category_longshort: ""
   created_at: 2011-07-01 15:02:40.346
   updated_at: 2011-07-01 15:02:40.346
   datagroup_approved: 
@@ -384,7 +362,6 @@ datacolumns_023:
   missingcode: 
   comment: CSP
   import_data_type: category
-  category_longshort: 
   created_at: 2011-09-01 09:02:33.83642
   updated_at: 2011-09-01 09:02:33.83642
   datagroup_approved: f
@@ -401,7 +378,6 @@ datacolumns_024:
   missingcode: 
   comment: elevation
   import_data_type: number
-  category_longshort: 
   created_at: 2011-09-01 09:02:34.225442
   updated_at: 2011-09-01 09:02:34.225442
   datagroup_approved: f
@@ -418,7 +394,6 @@ datacolumns_025:
   missingcode: 
   comment: aspect
   import_data_type: number
-  category_longshort: 
   created_at: 2011-09-01 09:02:34.462455
   updated_at: 2011-09-01 09:02:34.462455
   datagroup_approved: f
@@ -435,7 +410,6 @@ datacolumns_026:
   missingcode: 
   comment: 
   import_data_type: text
-  category_longshort: 
   created_at: 2011-09-01 09:02:34.748472
   updated_at: 2011-09-01 09:02:34.748472
   datagroup_approved: f
@@ -452,7 +426,6 @@ datacolumns_027:
   missingcode: 
   comment: aspect
   import_data_type: number
-  category_longshort: 
   created_at: 2011-09-01 09:02:35.312504
   updated_at: 2011-09-01 10:37:15.85669
   datagroup_approved: t
@@ -469,7 +442,6 @@ datacolumns_028:
   missingcode:
   comment:
   import_data_type: number
-  category_longshort:
   created_at: 2011-10-07 15:02:40.346
   updated_at: 2011-10-07 15:02:40.346
   datagroup_approved: t
