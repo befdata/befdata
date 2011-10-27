@@ -1,14 +1,9 @@
-# Methodstep describes the method used in a particular measurement. It
-# is a more general table than MeasurementsMethodstep and is called
-# by the latter table. Thus, Methodstep can be reused, for example
-# when the same method is used, but only the unit of measurement is
-# changed. It contains information on
-# * a source of information, like a literature citation or other manuals
-# * the type of the value, which can be text, real, angle, category
-# * title and lengthy description of the method
-# * time latency, for which period of time is a measured value valid?
-#
-# Methodstep may have many MeasurementsMethodstep entries.
+## The Datagroup class represents the Datagroup table.
+##
+## Datagroups define the type of data that has been recorded in terms of what was measured and how it was measured.
+##
+## Datagroups can be used across "Dataset"s. A "Datacolumn" can only have one "Datagroup", whilst a "Datagroup" can contain one or more "Datatype"s.
+## A "Category" must belong to a "Datagroup".
 
 class Datagroup < ActiveRecord::Base
 
@@ -23,10 +18,9 @@ class Datagroup < ActiveRecord::Base
   before_destroy :check_for_system_datagroup
   after_destroy :destroy_taggings
 
-
   after_initialize :init
 
-  # set the default value for system
+  # set the default value for datagroup
   def init
     if(@new_record)
       self.type_id = Datagrouptype::DEFAULT

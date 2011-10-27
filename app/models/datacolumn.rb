@@ -50,7 +50,7 @@ class Datacolumn < ActiveRecord::Base
     return values
   end
 
-  # saves the accepted values for each sheetcell in the column
+  # saves the accepted values for each Sheetcell in the column
   # first looking for a match in existing categories
   # then looking for a match in categories from the datasheet
   # if there are no category matches then the import value is used as the accepted value

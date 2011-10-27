@@ -2,7 +2,7 @@
 # measuring something.
 #
 # The accepted value of the data is stored in the accepted_value field unless
-# the data type is
+# the "Datatype" is a "Category" where the category id is stored instead.
 
 class Sheetcell < ActiveRecord::Base
 
