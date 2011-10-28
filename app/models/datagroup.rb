@@ -1,9 +1,11 @@
-## The Datagroup class represents the Datagroup table.
+## The Datagroup class models the Datagroup table.
 ##
-## Datagroups define the type of data that has been recorded in terms of what was measured and how it was measured.
+## Datagroups define the type of data that has been recorded in terms of what was measured, how it was measured and any information source or reference used.
+## They can be reused across multiple "Datacolumn"s and "Dataset"s.
+## A Helper (system) "Datagroup" is the default "Datagroup" when no specific measurement information is included in the "Dataworkbook".
 ##
-## Datagroups can be used across "Dataset"s. A "Datacolumn" can only have one "Datagroup", whilst a "Datagroup" can contain one or more "Datatype"s.
-## A "Category" must belong to a "Datagroup".
+## A "Datagroup" can contain one or more "Datatype"s.
+## A "Category" must belong to a "Datagroup" and will be unique within that "Datagroup".
 
 class Datagroup < ActiveRecord::Base
 

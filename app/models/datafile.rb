@@ -19,7 +19,7 @@ class Datafile < ActiveRecord::Base
     begin
       Dataworkbook.new self
     rescue
-      errors.add :file, "is no valid worksheet"
+      errors.add :file, "is not a valid worksheet"
     end
   end
 

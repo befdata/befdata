@@ -1,3 +1,18 @@
+## The Datacolumn class models the Datacolumn table.
+##
+## A Datacolumn manages all the observations for a particular measurement which are stored in the the "Sheetcell" table.
+##
+## There are two particularly important methods on the Datacolumn class:
+## 1. "add_data_values" validates the imported data value (import_value column in the "Sheetcell" table)
+## and saves the validated value to the accepted_value column of the "Sheetcell" table in the case on non-"Category" "Datatype"s.
+## If the data is of type "Category" then the validated "Category" Id is saved the in the CategoryId column of the "Sheetcell" table.
+## Any unvalidated "Sheetcell" values are flagged as INVALID in the StatusId column of the "Sheetcell" table and their original uploaded
+## data value remains in the import_value column "Sheetcell" table.
+##
+## 2. "update_invalid_value" creates a "Category" instance for the invalid value and assigns the "Category" to all "Sheetcell" instances
+## that have the same invalid value in the "DataColumn". Regardless of the "Datatype" a "Category" is created for each invalid value and the
+## "Datatype" of the "Sheetcell" updated to "Category". This results in Datacolumns consisting of more than one "Datatype".
+
 class Datacolumn < ActiveRecord::Base
 
   is_taggable :tags, :languages
@@ -10,7 +25,6 @@ class Datacolumn < ActiveRecord::Base
   belongs_to :dataset
 
   has_many :sheetcells, :dependent => :destroy
-
   has_many :import_categories, :dependent => :destroy
 
   validates_presence_of :datagroup_id, :dataset_id, :columnheader, :columnnr, :definition
@@ -25,7 +39,7 @@ class Datacolumn < ActiveRecord::Base
     self.taggings.destroy_all
   end
 
-  # Are there values associated to the measurements of this data column instance?
+  # Are there data values associated to the measurements of this data column instance?
   def values_stored?
     ms = self.sheetcells.find(:all, :conditions => ["accepted_value IS NOT NULL OR accepted_value !='' OR category_id > 0"])
     return !ms.empty?
@@ -50,10 +64,10 @@ class Datacolumn < ActiveRecord::Base
     return values
   end
 
-  # saves the accepted values for each Sheetcell in the column
+  # saves the accepted values for each "Sheetcell" in the column
   # first looking for a match in existing categories
-  # then looking for a match in categories from the datasheet
-  # if there are no category matches then the import value is used as the accepted value
+  # then looking for a match in categories from the "Dataworkbook"
+  # if there are no "Category" matches then the import value is used as the accepted value
   # NB: all of the business logic is in functions within the database
   def add_data_values(user)
 

@@ -1,5 +1,6 @@
-## Categories store naming conventions that are reused by "Sheetcell".  The import process during
-## workbook upload ("Dataworkbook") ensures that within one "Datagroup" categories remain unique.
+## Categories store naming conventions that are referenced by an instance of a "Sheetcell".
+##
+## Categories are linked to "Datagroup"s. The validation process ensures that Categories are unique within a "Datagroup".
 class Category < ActiveRecord::Base
 
   belongs_to :user, :class_name => "User", :foreign_key => "user_id"
