@@ -174,9 +174,27 @@ class Dataworkbook
   end
 
   def initialize_data_column_information(columnheader)
-    data_group = get_or_create_data_group(columnheader)
+    data_group_ch = methodsheet_datagroup(columnheader)
+    data_group = Datagroup.find_by_title(data_group_ch[:title])
+    if data_group.blank?
+      data_group = Datagroup.create(data_group_ch)
+    else
+      # if the datagroup exists check that the Method step description, Instrumentation and Identification source
+      # fields are the same. If they aren't then append them to the column definition.
+      column_description = ""
+      if data_group.description != data_group_ch[:description]
+        column_description = data_group_ch[:description]
+      end
+      if data_group.instrumentation != data_group_ch[:instrumentation]
+        column_description = "; #{column_description}; #{data_group_ch[:instrumentation]}"
+      end
+      if data_group.informationsource != data_group_ch[:informationsource]
+        column_description = "; #{column_description}; #{data_group_ch[:informationsource]}"
+      end
+    end
 
     data_column_information = data_column_info_for_columnheader(columnheader)
+    data_column_information[:definition] << column_description
     data_column_information[:dataset_id] = datafile.dataset.id
     data_column_information[:tag_list] = data_column_information[:comment] unless data_column_information[:comment].blank?
     data_column_information[:datagroup_id] = data_group.id
@@ -185,14 +203,6 @@ class Dataworkbook
     data_column_information[:finished] = false
 
     data_column_information
-  end
-
-  def get_or_create_data_group(columnheader)
-    data_group_ch = methodsheet_datagroup(columnheader)
-    data_group = Datagroup.find_by_title(data_group_ch[:title])
-    data_group = Datagroup.create(data_group_ch) if data_group.blank?
-
-    data_group
   end
 
   def save_all_cells_to_database(data_column_new, datatype, all_cells)

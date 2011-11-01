@@ -1,3 +1,4 @@
+## A Datafile references the uploaded "Dataworkboook" that the primary research data within a "Dataset" is derived from.
 class Datafile < ActiveRecord::Base
 
   has_one :dataset, :foreign_key => :upload_spreadsheet_id

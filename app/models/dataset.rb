@@ -1,41 +1,19 @@
-# This file contains the Context model, which maps the data base table
-# contexts for the application.  Contexts contain the general meta
-# data of a data set and link to data values as well as to provenance
-# tables.
-
-
-# Information in Context specify the general metadata for a data set
-# available on the data portal.  This includes meta data such as title
-# and abstract.  Additionally, instances of Context are linked to the
-# originators of the data set (see ContextPersonRole, PersonRole,
-# Person).
-#
-# Primary research data as well as custom format files are linked to
-# contexts.  Primary research data is given in a flat file format,
-# consisting of rows and columns.  Columns store similar data, for
-# example tree height or detailed information on location (see
-# MeasurementsMethodstep, Admin::MeasurementsMethodstepsController).
-#
-# Members of the research unit can request data from contexts by
-# submitting a DataRequest (see also DataRequestsController).  After
-# having successfully submitted a data request, people are listed in
-# ContextFreeperson (see also ContextFreepeopleController).
-#
-# !! not yet implemented: Downloads of contexts are stored in a
-# !! separate table (ContextDownload, see also
-# !! ContextDownloadsController).
-#
-# Contexs, as well as the models Methodstep, MeasurementsMethodstep,
-# and Categoricvalue are taggable, that is, they can be linked to an
-# entry in the tags table.  This uses the is_taggable rails gem.
-#
-# To use full text search on contexts, we currently use the
-# acts_as_ferret rails gem.
-#
-# Contexts, as ActiveRecord Objects, map the data base table
-# "contexts" so that it can be used in the web application.  With it,
-# all fieldnames of the data base table become accessible as
-# attributes of a context.
+## This file contains the Dataset model, which maps the database table Datasets for the application. The Dataset title must be unique.
+##
+## Datasets contain the general metadata of a dataset. In addition, a dataset can contain:
+## 1. Primary research data, as uploaded data values from a "Dataworkbook", where the measurement information is stored in the "Datacolumn"
+## and the data values in "Sheetcell"s. The original "Dataworkbook" is stored as a "Datafile" which is referenced by the Dataset, in the "upload_spreadsheet_id" field.
+## 2. one or more asset ("Freeformat") files.
+##
+## Datasets are taggable, that is, they can be linked to entries in the Tags table. This uses the is_taggable
+## rails gem.
+##
+## Dataset provenance is managed using the ACL9 rails gem. "User"s can be given different roles in relation to a Dataset
+## and access to the Dataset is controlled via the "Role".
+##
+## Datasets can belong to one or more "Project"s. They are linked through the "DatasetProject" class.
+##
+## "Paperproposal"s contain one or more Datasets. They are linked through the "DatasetPaperProposal" class.
 
 class Dataset < ActiveRecord::Base
 
@@ -104,10 +82,6 @@ class Dataset < ActiveRecord::Base
     self.datemax = book.datemax
   end
 
-  # Checks if all the cells (Measurement) saved during the upload of a
-  # data sheet (ImportController) have been manually approved and
-  # linked to values (eg Datetimevalue, Numericvalue, Categoricvalue,
-  # Textvalue)
   def cells_linked_to_values?
     sheetcells = self.sheetcells.all(:conditions => ["accepted_value IS NOT NULL OR accepted_value !='' OR category_id > 0"])
     !sheetcells.empty?
