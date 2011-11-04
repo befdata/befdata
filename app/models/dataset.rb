@@ -14,6 +14,10 @@
 ## Datasets can belong to one or more "Project"s. They are linked through the "DatasetProject" class.
 ##
 ## "Paperproposal"s contain one or more Datasets. They are linked through the "DatasetPaperProposal" class.
+##
+## Highlighted methods:
+## 1. "approve_predefined_columns": after the initial upload of data a user can bulk approve columns, without reviewing each
+## column individually. The Datacolumn must be corrected described, in that it must have a datagroup and a datatype.
 
 class Dataset < ActiveRecord::Base
 
