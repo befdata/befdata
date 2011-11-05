@@ -17,10 +17,22 @@ class Datafile < ActiveRecord::Base
   end
 
   def is_valid_worksheet
+    if self.file.queued_for_write[:original]
+      file_path = self.file.queued_for_write[:original].path
+    else
+      file_path = self.file.path
+    end
+
     begin
-      Dataworkbook.new self
+      ss = Spreadsheet.open(file_path)
+      ss.io.close
     rescue
-      errors.add :file, "is not a valid worksheet"
+      errors.add :file, "can not be read"
+      return
+    end
+
+    unless ss && !ss.worksheet(4).nil? && ss.worksheet(5).nil?
+      errors.add :file, "is not according to worksheet specifications"
     end
   end
 

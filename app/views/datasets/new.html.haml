@@ -3,7 +3,7 @@
 
 You can upload a research data file. If you leave the field empty you can always upload it later.
 
-- form_for @file, :url => {:controller => :datasets, :action => :create}, :html => {:multipart => true} do |f|
+= form_for @file, :url => {:controller => :datasets, :action => :create}, :html => {:multipart => true} do |f|
   = f.error_messages
   = f.file_field :file
   %br
