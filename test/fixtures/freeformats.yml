@@ -5,8 +5,30 @@ freeformats_001:
   file_content_type: application/vnd.ms-excel
   file_file_size: "0"
   file_updated_at: 2011-07-19 15:05:02.163951
-  paperproposal_id: 
-  dataset_id: "7"
   created_at: 2011-07-19 15:05:02.207372
-  updated_at: 2011-07-19 15:05:02.761618
+  updated_at: 2011-11-07 18:06:35.226033
   description: 
+  freeformattable_id: "7"
+  freeformattable_type: Dataset
+freeformats_002: 
+  id: "2"
+  file_file_name: 8346952459374534ppNutrientCyclingtest.doc
+  file_content_type: application/msword
+  file_file_size: "26112"
+  file_updated_at: 2011-11-07 18:06:35.416921
+  created_at: 2011-11-07 18:06:35.419133
+  updated_at: 2011-11-07 18:06:35.618074
+  description: 
+  freeformattable_id: "1"
+  freeformattable_type: Paperproposal
+freeformats_003: 
+  id: "3"
+  file_file_name: 8346952459374534ppProduction.doc
+  file_content_type: application/msword
+  file_file_size: "26112"
+  file_updated_at: 2011-11-07 18:06:35.798091
+  created_at: 2011-11-07 18:06:35.836099
+  updated_at: 2011-11-07 18:06:35.86373
+  description: 
+  freeformattable_id: "2"
+  freeformattable_type: Paperproposal

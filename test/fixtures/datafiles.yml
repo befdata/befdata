@@ -1,55 +1,33 @@
 --- 
 datafiles_001: 
-  id: "1"
-  file_file_name: 8346952459374534ppNutrientCyclingtest.doc
-  file_content_type: application/msword
-  file_file_size: "57856"
-  file_updated_at: 2011-03-28 12:35:15.764
-  paperproposal_id: "1"
-  created_at: 2011-03-28 12:35:15.824
-  updated_at: 2011-03-28 12:35:15.824
-datafiles_002: 
-  id: "3"
-  file_file_name: 8346952459374534ppProduction.doc
-  file_content_type: application/msword
-  file_file_size: "57856"
-  file_updated_at: 2011-03-29 08:03:05.4432
-  paperproposal_id: "2"
-  created_at: 2011-03-29 08:03:05.5242
-  updated_at: 2011-03-29 08:03:05.5242
-datafiles_003: 
   id: "4"
   file_file_name: 8346952459374534species first test.xls
   file_content_type: application/vnd.ms-excel
   file_file_size: "24576"
   file_updated_at: 2011-06-01 13:47:07.55
-  paperproposal_id: 
   created_at: 2011-06-01 13:47:07.662
   updated_at: 2011-06-01 13:47:07.662
-datafiles_004: 
+datafiles_002: 
   id: "6"
   file_file_name: Unit test spreadsheet.xls
   file_content_type: application/vnd.ms-excel
   file_file_size: "33280"
   file_updated_at: 2011-07-01 15:02:01.543
-  paperproposal_id: 
   created_at: 2011-06-01 15:02:01.648
   updated_at: 2011-06-01 15:02:01.648
-datafiles_005: 
+datafiles_003: 
   id: "7"
   file_file_name: problem_spreadsheet 2.xls
   file_content_type: application/vnd.ms-excel
   file_file_size: "100864"
   file_updated_at: 2011-09-01 09:02:29.009153
-  paperproposal_id: 
   created_at: 2011-09-01 09:02:29.020153
   updated_at: 2011-09-01 09:02:29.020153
-datafiles_006: 
+datafiles_004: 
   id: "8"
   file_file_name: 8346952459374535species second test.xls
   file_content_type: application/vnd.ms-excel
   file_file_size: "23040"
   file_updated_at: 2011-09-28 14:22:52.800443
-  paperproposal_id: 
   created_at: 2011-09-28 14:22:52.836721
   updated_at: 2011-09-28 14:22:52.836721
