@@ -1,8 +1,4 @@
 %h2
-  %a{:href =>"#", :onclick=>"alert('Hello world!'); return false;"}
-    Click Here for a Javascript test
-
-%h2
   = "Dataset:"
   = link_to @dataset.title, @dataset
 - unless @dataset.blank?
@@ -44,13 +40,13 @@
           %i #{ff.description}
           %a.showr{:id => "freeformat_change_#{ff.id}"} Change
           .hidden{:id => "form_freeformat_change_#{ff.id}"}
-            = render :partial => 'freeformats/edit', :locals => {:freeformat => ff, :dataset => @dataset}
+            = render :partial => 'freeformats/edit', :locals => {:freeformat => ff, :freeformattable => @dataset}
           = link_to 'Delete', {:controller => :freeformats, :action => :destroy, :id => ff.id},
             {:confirm => "Are you sure you want to delete #{ff.file_file_name}?", :method => :delete}
 
   %h3
     Add freeformat File
     %p
-      = render :partial => 'freeformats/new', :locals => {:freeformat => @new_freeformat, :dataset => @dataset}
+      = render :partial => 'freeformats/new', :locals => {:freeformat => @new_freeformat, :freeformattable => @dataset}
 
 

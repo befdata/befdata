@@ -1,7 +1,7 @@
 class FreeformatsController < ApplicationController
 
-  before_filter :load_freeformat_and_dataset, :except => :create
-  before_filter :load_dataset_from_params, :only => :create
+  before_filter :load_freeformat_and_freeformattable, :except => :create
+  before_filter :load_freeformattable, :only => :create
 
   rescue_from 'Acl9::AccessDenied', :with => :access_denied
   skip_before_filter :deny_access_to_all
@@ -19,8 +19,7 @@ class FreeformatsController < ApplicationController
   end
 
   def create
-    freeformat = Freeformat.create (params[:freeformat])
-    freeformat.dataset = @dataset
+    freeformat = @freeformattable.freeformats.build (params[:freeformat])
     if freeformat.save
       redirect_to :back
     else
@@ -53,14 +52,20 @@ class FreeformatsController < ApplicationController
   end
 
 private
-
-  def load_freeformat_and_dataset
-    @freeformat = Freeformat.find params[:id]
-    @dataset = @freeformat.dataset
+  def load_freeformattable
+    @freeformattable = params[:freeformattable_type].classify.constantize.find(params[:freeformattable_id])
+    load_type_of_freeformattable
   end
 
-  def load_dataset_from_params
-    @dataset = Dataset.find params[:dataset_id]
+  def load_freeformat_and_freeformattable
+    @freeformat = Freeformat.find params[:id]
+    @freeformattable = @freeformat.freeformattable
+    load_type_of_freeformattable
+  end
+
+  def load_type_of_freeformattable
+    @dataset = @freeformattable if @freeformattable.kind_of? Dataset
+    @paperproposal = @freeformattable if @freeformattable.kind_of? Paperproposal
   end
 
 end

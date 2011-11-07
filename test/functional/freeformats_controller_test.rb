@@ -17,7 +17,7 @@ class FreeformatsControllerTest < ActionController::TestCase
     f = File.new(File.join(fixture_path, 'test_files_for_uploads', 'empty_test_file.txt'))
     request.env["HTTP_REFERER"] = edit_dataset_path dataset
 
-    post :create, :dataset_id => dataset.id, :freeformat => {:file => f}
+    post :create, :freeformat => {:file => f}, :freeformattable_id => dataset.id, :freeformattable_type => dataset.class.to_s
 
     assert !dataset.freeformats.select{|ff| ff.file_file_name == 'empty_test_file.txt'}.empty?
 

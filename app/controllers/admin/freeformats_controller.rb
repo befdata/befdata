@@ -3,13 +3,13 @@ class Admin::FreeformatsController < Admin::AdminController
     config.label = "Freeformats"
 
     config.show.columns = [:id, :file_file_name, :description, :created_at, :updated_at,
-                           :dataset_id, :paperproposal_id]
+                           :freeformattable]
 
-    config.list.columns = [:id, :created_at, :file_file_name, :dataset_id, :paperproposal_id]
+    config.list.columns = [:id, :created_at, :file_file_name, :freeformattable]
     config.list.sorting = {:id => :asc }
 
     [config.update, config.create].each do |c|
-      c.columns = [:file, :description, :dataset_id, :paperproposal_id]
+      c.columns = [:file, :description, :freeformattable_type, :freeformattable_id]
     end
   end
 end

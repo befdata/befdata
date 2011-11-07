@@ -9,11 +9,15 @@ class Admin::DatasetsController < Admin::AdminController
 
     config.list.columns = [:id, :title, :filename, :downloads]
 
-    config.update.columns = [:title, :visible_for_public, :free_for_public, :free_for_members, :free_within_projects,
-                             :filename,
-                             :abstract, :comment, :usagerights,
-                             :published, :spatialextent, :datemin, :datemax,
-                             :temporalextent, :taxonomicextent, :design,
-                             :dataanalysis, :circumstances]
+    [config.update, config.show].each do |c|
+      c.columns =  [:title, :visible_for_public, :free_for_public, :free_for_members, :free_within_projects,
+                   :filename,
+                   :abstract, :comment, :usagerights,
+                   :published, :spatialextent, :datemin, :datemax,
+                   :temporalextent, :taxonomicextent, :design,
+                   :dataanalysis, :circumstances]
+    end
+    config.show.columns << :freeformats
+
   end
 end

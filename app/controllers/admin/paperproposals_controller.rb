@@ -1,11 +1,10 @@
 class Admin::PaperproposalsController < Admin::AdminController
   active_scaffold :paperproposal do |config|
-    config.show.columns = [:created_at]
 
-    config.columns = [:id, :title, :created_at]
-
-    [config.update].each do |c|
-      c.columns = [:title, :created_at]
+    [config.list, config.show].each do |c|
+      c.columns = [:id, :title, :created_at]
     end
+    config.show.columns << :freeformats
+    config.update.columns = [:title]
   end
 end
