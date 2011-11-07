@@ -2,7 +2,6 @@
 class Datafile < ActiveRecord::Base
 
   has_one :dataset, :foreign_key => :upload_spreadsheet_id
-  belongs_to :paperproposal
 
   validates_uniqueness_of :file_file_name
   validate :is_valid_worksheet

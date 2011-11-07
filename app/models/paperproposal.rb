@@ -24,9 +24,9 @@ class Paperproposal < ActiveRecord::Base
 
     has_many :dataset_paperproposals, :dependent => :destroy
     has_many :datasets, :through => :dataset_paperproposals
-    has_many :datafiles, :dependent => :destroy
 
-    accepts_nested_attributes_for :datafiles, :allow_destroy => true
+    has_many :freeformats, :as => :freeformattable, :dependent => :destroy
+
     accepts_nested_attributes_for :authors
 
     validates_presence_of :title, :rationale
