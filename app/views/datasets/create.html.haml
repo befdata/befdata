@@ -1,88 +1,87 @@
-%h2= "Dataset: #{@dataset.title}"
+%h2 Dataset: #{@dataset.title}
 
-.active-scaffold
-  .dataset-metadata-form
-    - form_for @dataset do |f|
-      = error_messages_for @dataset
-      %h4 Dataset title
-      %dl
-        %dt= label_tag 'title'
-        %dd= f.text_field :title, :class => 'text-input'
-      %h4 Provenance information
-      %dl
-        %dt= label_tag 'Select people', nil
-        %dd= select "person", "person_id", User.all_users_names_and_ids_for_select, {:prompt => 'Select Member'}, {:onchange => 'selectPeople(this)'}
-      %ul#people-list{:style => 'list-style: none;'}
-        - @dataset.users.each do |user|
-          %li{:onclick => "this.parentNode.removeChild(this);"}
-            %input{:name => "people[]", :type => "hidden", :value => user.id}/
-            = user.to_label
-      %p
-        You can note external scientists in the comments of a dataset.
-        Please notify the project board if an external scientist has
-        signed our data sharing agreement and should be able to log into
-        our data portal.
-      %dl
-        %dt= label_tag 'comment'
-        %dd= f.text_area :comment
-      -#%dl
-      -#  %dt= label_tag 'Project tag list', nil
-      -#  %dd= f.text_field :projecttag_list, :class => 'text-input'
-      %dl
-        %dt= label_tag 'Select projects', nil
-        %dd= select "project", "project_id", Project.all_projects_for_select, {:prompt => 'Select Project'}, {:onchange => 'selectProjects(this)'}
-      %ul#projects-list{:style => 'list-style: none;'}
-        - @dataset.projects.each do |project|
-          %li{:onclick => "this.parentNode.removeChild(this);"}
-            %input{:name => "dataset[project_ids][]", :type => "hidden", :value => project.id}/
-            = project.to_label
-      %h4 Access Rights
-      %dl
-        %dt= label_tag 'Visible for Public'
-        %dd= f.check_box :visible_for_public
-      %dl
-        %dt= label_tag 'Free for Public'
-        %dd= f.check_box :free_for_public
-      %dl
-        %dt= label_tag 'Free for Members'
-        %dd= f.check_box :free_for_members
-      %dl
-        %dt= label_tag 'Free within Projects'
-        %dd= f.check_box :free_within_projects
-      %h4 General Metadata
-      %dl
-        %dt= label_tag 'abstract'
-        %dd= f.text_area :abstract
-      %dl
-        %dt= label_tag 'Usage rights'
-        %dd= f.text_area :usagerights
-      %dl
-        %dt= label_tag 'published'
-        %dd= f.text_area :published
-      %dl
-        %dt= label_tag 'Spatial extent'
-        %dd= f.text_area :spatialextent
-      %dl
-        %dt= label_tag 'Research start date'
-        %dd= f.datetime_select :datemin, :default => @dataset.datemin
-      %dl
-        %dt= label_tag 'Research end date'
-        %dd= f.datetime_select :datemax, :default => @dataset.datemax
-      %dl
-        %dt= label_tag 'Temporal extent'
-        %dd= f.text_area :temporalextent
-      %dl
-        %dt= label_tag 'Taxonomic extent'
-        %dd= f.text_area :taxonomicextent
-      %dl
-        %dt= label_tag 'design'
-        %dd= f.text_area :design
-      %dl
-        %dt= label_tag 'Data analysis'
-        %dd= f.text_area :dataanalysis
-      %dl
-        %dt= label_tag 'circumstances'
-        %dd= f.text_area :circumstances
-      %dl
-        %dt
-        %dd= submit_tag 'Save Metadata'
+- form_for @dataset do |f|
+  = error_messages_for @dataset
+
+  %h4 Dataset title
+  %dl
+    %dt= label_tag 'title'
+    %dd= f.text_field :title, :class => 'text-input'
+
+  %h4 Provenance information
+  %dl
+    %dt= label_tag 'Select people', nil
+    %dd= select "person", "person_id", User.all_users_names_and_ids_for_select, {:prompt => 'Select Member'}, {:onchange => 'selectPeople(this)'}
+  %ul#people-list{:style => 'list-style: none;'}
+    - @dataset.users.each do |user|
+      %li{:onclick => "this.parentNode.removeChild(this);"}
+        %input{:name => "people[]", :type => "hidden", :value => user.id}/
+        = user.to_label
+  %p
+    You can note external scientists in the comments of a dataset.
+    Please notify the project board if an external scientist has
+    signed our data sharing agreement and should be able to log into
+    our data portal.
+  %dl
+    %dt= label_tag 'comment'
+    %dd= f.text_area :comment
+  %dl
+    %dt= label_tag 'Select projects', nil
+    %dd= select "project", "project_id", Project.all_projects_for_select, {:prompt => 'Select Project'}, {:onchange => 'selectProjects(this)'}
+  %ul#projects-list{:style => 'list-style: none;'}
+    - @dataset.projects.each do |project|
+      %li{:onclick => "this.parentNode.removeChild(this);"}
+        %input{:name => "dataset[project_ids][]", :type => "hidden", :value => project.id}/
+        = project.to_label
+
+  %h4 Access Rights
+  %dl
+    %dt= label_tag 'Visible for Public'
+    %dd= f.check_box :visible_for_public
+  %dl
+    %dt= label_tag 'Free for Public'
+    %dd= f.check_box :free_for_public
+  %dl
+    %dt= label_tag 'Free for Members'
+    %dd= f.check_box :free_for_members
+  %dl
+    %dt= label_tag 'Free within Projects'
+    %dd= f.check_box :free_within_projects
+
+  %h4 General Metadata
+  %dl
+    %dt= label_tag 'abstract'
+    %dd= f.text_area :abstract
+  %dl
+    %dt= label_tag 'Usage rights'
+    %dd= f.text_area :usagerights
+  %dl
+    %dt= label_tag 'published'
+    %dd= f.text_area :published
+  %dl
+    %dt= label_tag 'Spatial extent'
+    %dd= f.text_area :spatialextent
+  %dl
+    %dt= label_tag 'Research start date'
+    %dd= f.datetime_select :datemin, :default => @dataset.datemin
+  %dl
+    %dt= label_tag 'Research end date'
+    %dd= f.datetime_select :datemax, :default => @dataset.datemax
+  %dl
+    %dt= label_tag 'Temporal extent'
+    %dd= f.text_area :temporalextent
+  %dl
+    %dt= label_tag 'Taxonomic extent'
+    %dd= f.text_area :taxonomicextent
+  %dl
+    %dt= label_tag 'design'
+    %dd= f.text_area :design
+  %dl
+    %dt= label_tag 'Data analysis'
+    %dd= f.text_area :dataanalysis
+  %dl
+    %dt= label_tag 'circumstances'
+    %dd= f.text_area :circumstances
+  %dl
+    %dt
+    %dd= submit_tag 'Save Metadata'

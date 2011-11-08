@@ -1,26 +1,25 @@
-%h3.span-8{:style => 'padding-top: 20px; padding-bottom: 20px;'}= @dataset.title 
-.span-3.last.dataset_actions
+- content_for :actions do
   %img{:src => "/images/page.png"}
   = link_to "Dataset overview", dataset_path(@dataset)
+
+%h2= @dataset.title
 - if @book.columnheaders_unique?
-  .span-8
-    - unless @predefined_columns.blank? 
-      %p
-        You may automatically improve the following #{pluralize(@predefined_columns.length, 'column')}:
-        = @predefined_columns.map{|c| c.columnheader}.join(', ')
-        = form_tag :action => 'approve_predefined', :controller => 'datasets' , :id => @dataset.id do
-          %button{:name => "commit", :type => "submit", :onclick => "return confirm('Do you really want to automatically improve the columns #{@predefined_columns.map{|c| c.columnheader}.join(', ')}?')"} Approve
-      %p.clear
+  - unless @predefined_columns.blank?
     %p
-      = render 'data_column_tabs'
+      You may automatically improve the following #{pluralize(@predefined_columns.length, 'column')}:
+      = @predefined_columns.map{|c| c.columnheader}.join(', ')
+      = form_tag :action => 'approve_predefined', :controller => 'datasets' , :id => @dataset.id do
+        %button{:name => "commit", :type => "submit", :onclick => "return confirm('Do you really want to automatically improve the columns #{@predefined_columns.map{|c| c.columnheader}.join(', ')}?')"} Approve
+    %p.clear
+  %p
+    = render 'data_column_tabs'
 - else
-  .span-8
-    %p
-      Sorry, we cannot proceed.  The headers in the data columns have
-      to be unique, otherwise we cannot use the information in the
-      people, methods, or category sheets.  Please delete this context,
-      make sure your data column headers in the raw data sheet are
-      unique, and reload.  You can download the current state of your
-      workbook here:
-      %b= link_to @dataset.title, {:controller => :datasets, :action => 'show', :id => @dataset.id}
+  %p
+    Sorry, we cannot proceed.  The headers in the data columns have
+    to be unique, otherwise we cannot use the information in the
+    people, methods, or category sheets.  Please delete this context,
+    make sure your data column headers in the raw data sheet are
+    unique, and reload.  You can download the current state of your
+    workbook here:
+    %b= link_to @dataset.title, {:controller => :datasets, :action => 'show', :id => @dataset.id}
     

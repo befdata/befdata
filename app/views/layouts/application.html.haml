@@ -44,11 +44,14 @@
         - if flash[:notice]
           #notice
             = flash[:notice]
-        - if content_for? :sidebar then
+        - if content_for?(:actions) || content_for?(:info) then
           .span-8.append-1
             = yield
           .span-3.last
-            = yield :sidebar
+            .actions
+              = yield :actions
+            .info
+              = yield :info
         - else
           = yield
     #footer

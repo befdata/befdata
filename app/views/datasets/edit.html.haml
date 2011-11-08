@@ -5,7 +5,7 @@
     For more information, please contact #{link_to @dataset.owners.first, user_path(@dataset.owners.first)} of project
     = link_to(@dataset.projects.first, project_path(@dataset.projects.first)) unless @dataset.projects.empty?
   - unless @dataset.comment.blank?
-    %h4 Comment
+    %h3 Comment
     %p= @dataset.comment
 
   %h3 Edit meta data of this dataset

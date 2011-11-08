@@ -1,5 +1,5 @@
 - if current_user
-  %ul.dataset_actions
+  %ul
     - if @dataset.upload_spreadsheet && (current_user.has_role?(:owner, @dataset) || current_user.has_role?(:admin) || current_user.has_role?(:proposer, @dataset) || @dataset.free_for_members)
       %li
         %img{:src => "/images/disk.png"}
