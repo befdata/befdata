@@ -1,7 +1,7 @@
 %h2
-  = @project.name
-  (#{@project.shortname})
-= h @project.description
+  = "#{@project.name} (#{@project.shortname})"
+%p
+  = @project.description
 
 %ul
   - @project.users.each do |person|
@@ -9,25 +9,20 @@
       = render person
       = "(#{person.roles_for(@project).map{|e| t("role."+e.name)}.join(",")})"
 
-
 - unless @project_datasets.empty?
-  %b Datasets
+  %h3 Datasets
   %ul
     - @project_datasets.each do |ds|
       %li
-        = link_to ds.title, {:controller => :datasets,
-                                         :action => :show,
-                                         :id => ds.id }
+        = link_to ds.title, dataset_path(ds)
         - if current_user
           = link_to image_tag("/images/cart_put.png"), create_cart_context_path(:dataset_id => ds.id), :method => :post
 
 
 - unless @project.authored_paperproposals.empty?
-  %b Paper proposal submissions
+  %h3 Paper proposal submissions
   %ul
     - @project.authored_paperproposals.sort.each do |pp|
       %li
-        = link_to pp.title, {:controller => :paperproposals,
-                                         :action => :show,
-                                         :id => pp.id }
+        = link_to pp.title, paperproposal_path(pp)
 

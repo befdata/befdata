@@ -1,24 +1,18 @@
-- content_for :sidebar do
+- content_for :actions do
   - if current_user
     %ul.dataset_actions
       %li
         = link_to "Create new Dataset", new_dataset_path
 
-%h3
-  = link_to "Keywords", keywords_path
-
-%div
+- content_for :info do
+  %h3
+    = link_to "Keywords", keywords_path
   - tag_cloud @tags, %w(nube1 nube2 nube3 nube4 nube5) do |tag, css_class|
-    = link_to tag.name, {:controller => :tags, :action => :show, :id => tag.id},
-                      :class => css_class
-    = "--"
-  
-%br
-%br
-%h3 Data sets
+    = link_to tag.name, {:controller => :tags, :action => :show, :id => tag.id}, :class => css_class
+    = "  "
+
+%h2 Data sets
 %ul
   - @datasets.each do |ds|
     %li
-      = link_to ds.title, {:controller => :datasets, :action => :show, :id => ds.id}
-      - if current_user
-        = link_to image_tag("/images/cart_put.png"), create_cart_context_path(:dataset_id => ds.id), :method => :post
+      = link_to ds.title, dataset_path(ds)
