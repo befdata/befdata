@@ -1,4 +1,3 @@
-%h2{:style => "font-size: large;"} BEF Staff
-.users_index
-  - for person in @users
-    = render :partial => person
+%h2 BEF Staff
+- for person in @users
+  = render :partial => person

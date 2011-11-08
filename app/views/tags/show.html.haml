@@ -1,11 +1,5 @@
-%h1
-  = @tag.name
-
+%h2= @tag.name
 %ul
 - @datasets.each do |dataset|
   %li
-    = link_to dataset.title, {:controller => :datasets,
-                                               :action => :show,
-                                               :id => dataset.id }
-    -#= "( #{tagging.taggable.long_label} )"
-
+    = link_to dataset.title, dataset_path(dataset)

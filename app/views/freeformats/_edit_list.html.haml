@@ -1,6 +1,6 @@
 %ul
   - @freeformats.each do |ff|
-    %li.noBullet
+    %li
       = link_to ff.file_file_name, ff.file.url
       %i #{ff.description}
 

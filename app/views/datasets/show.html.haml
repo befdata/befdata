@@ -10,13 +10,14 @@
   - content_for :info do
     - unless @contacts.blank?
       For more information, please contact
-      - @contacts.each do |c|
-        = render c
+      %ul
+        - @contacts.each do |c|
+          %li= render c
     - unless @projects.blank?
       The following projects were involved:
-      - @projects.each do |p|
-        %br
-        #{link_to p, project_path(p.id)}
+      %ul
+        - @projects.each do |p|
+          %li= link_to p, project_path(p.id)
 
   - unless @dataset.usagerights.blank?
     %h4 Usage Rights

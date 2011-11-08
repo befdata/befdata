@@ -1,4 +1,4 @@
 %ul
   - @freeformats.each do |ff|
-    %li.noBullet
+    %li
       = render :partial => 'freeformats/show', :locals => {:freeformat => ff}
