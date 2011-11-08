@@ -1,26 +1,20 @@
 class PaperproposalsController < ApplicationController
 
-
   before_filter :require_user, :only => [:index, :new, :create, :destroy, :update, :show, :update_state, :update_vote, :edit]
   before_filter :load_proposal, :only => [:show, :edit, :update, :destroy]
 
   skip_before_filter :deny_access_to_all
   access_control do
      actions :index, :new, :create, :destroy, :update, :show, :update_state, :update_vote, :edit do
-       allow logged_in
+       allow logged_in # ToDo this is not enough, isn't it?'
      end
   end
 
-  #####################################
-  # Show Part, Prepare for some views
-  #####################################
 
-  #show list of data requests
   def index
     @paperproposals = Paperproposal.all.sort
   end
 
-  #prepare for new data request
   def new
     @paperproposal = Paperproposal.new
     @paperproposal.author = current_user
@@ -35,12 +29,9 @@ class PaperproposalsController < ApplicationController
     end
   end
 
-  # prepare for show
   def show
-
   end
 
-  #prepare for edit data request
   def edit
     @all_persons = User.all
     @used_persons = @paperproposal.authors
@@ -49,11 +40,6 @@ class PaperproposalsController < ApplicationController
     @freeformats = @paperproposal.freeformats
   end
 
-  #######################################
-  # Update Part, Get/Post Part for forms
-  #######################################
-
-  #create new data request
   def create
     @paperproposal = Paperproposal.new(params[:paperproposal])
     @paperproposal.initial_title = @paperproposal.title
@@ -142,11 +128,6 @@ class PaperproposalsController < ApplicationController
     redirect_to :profile
   end
 
-  ######################
-  # Destroy Part
-  #####################
-
-  # destroy action
   # ToDo Perhapse dont destroy a data request when he is final?!
   def destroy
     @paperproposal.destroy
@@ -209,9 +190,4 @@ private
   def load_proposal
     @paperproposal = Paperproposal.find(params[:id])
   end
-
-
-
-
-
 end

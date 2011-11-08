@@ -11,6 +11,7 @@ class FreeformatsController < ApplicationController
       allow :admin
       allow :owner, :of => :dataset
       allow :proposer, :of => :dataset
+      allow logged_in, :if => :freeformattable_is_paperproposal #this is not enough, like in paperproposal controller!
     end
     actions :download do
       allow logged_in, :if => :dataset_is_free_for_members
@@ -68,4 +69,8 @@ private
     @paperproposal = @freeformattable if @freeformattable.kind_of? Paperproposal
   end
 
+  def freeformattable_is_paperproposal
+    return true if @paperproposal
+    false
+  end
 end
