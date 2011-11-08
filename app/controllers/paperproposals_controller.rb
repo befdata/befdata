@@ -44,10 +44,9 @@ class PaperproposalsController < ApplicationController
   def edit
     @all_persons = User.all
     @used_persons = @paperproposal.authors
-    @datasets = Dataset.find(:all, :order => 'title')
+    @datasets = Dataset.all :order => 'title'
     @current_cart = current_cart
-
-    1.times {@paperproposal.datafiles.build}
+    @freeformats = @paperproposal.freeformats
   end
 
   #######################################

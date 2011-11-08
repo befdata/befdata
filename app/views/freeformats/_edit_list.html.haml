@@ -1,0 +1,12 @@
+%ul
+  - @freeformats.each do |ff|
+    %li.noBullet
+      = link_to ff.file_file_name, ff.file.url
+      %i #{ff.description}
+
+      %a.showr{:id => "freeformat_change_#{ff.id}"} Change
+      .hidden{:id => "form_freeformat_change_#{ff.id}"}
+        = render :partial => 'freeformats/edit', :locals => {:freeformat => ff}
+
+      = link_to 'Delete', {:controller => :freeformats, :action => :destroy, :id => ff.id},
+      {:confirm => "Are you sure you want to delete #{ff.file_file_name}?", :method => :delete}

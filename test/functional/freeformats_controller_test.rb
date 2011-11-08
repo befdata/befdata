@@ -14,16 +14,17 @@ class FreeformatsControllerTest < ActionController::TestCase
   test "add freeformat to dataset and change it and delete it" do
     login_nadrowski
     dataset = Dataset.first
-    f = File.new(File.join(fixture_path, 'test_files_for_uploads', 'empty_test_file.txt'))
+    f = test_file_for_upload 'empty_test_file.txt'
     request.env["HTTP_REFERER"] = edit_dataset_path dataset
 
     post :create, :freeformat => {:file => f}, :freeformattable_id => dataset.id, :freeformattable_type => dataset.class.to_s
 
-    assert !dataset.freeformats.select{|ff| ff.file_file_name == 'empty_test_file.txt'}.empty?
+    freeformat = dataset.freeformats.select{|ff| ff.file_file_name == 'empty_test_file.txt'}.first
+    assert_not_nil freeformat
+    assert_equal freeformat.freeformattable, dataset
 
     #and now change it...
-    freeformat = dataset.freeformats.select{|ff| ff.file_file_name == 'empty_test_file.txt'}.first
-    f =  File.new(File.join(fixture_path, 'test_files_for_uploads', 'empty_freeformat_file.ppt'))
+    f = test_file_for_upload 'empty_freeformat_file.ppt'
 
     put :update, :id => freeformat.id, :freeformat => {:file => f}
 
@@ -31,6 +32,23 @@ class FreeformatsControllerTest < ActionController::TestCase
     assert_empty Freeformat.select{|ff| ff.file_file_name =='empty_test_file.txt'}
 
     #now delete it
+    get :destroy, :id => freeformat.id
+
+    assert !Freeformat.exists?(freeformat.id)
+  end
+
+  test "adding and deleting file on paperproposal" do
+    login_and_load_paperproposal "nadrowski", "Step 1 Paperproposal"
+    request.env["HTTP_REFERER"] = edit_paperproposal_path(@paperproposal)
+    f = test_file_for_upload 'empty_test_file.txt'
+
+    post :create, :freeformat => {:file => f},
+         :freeformattable_id => @paperproposal.id, :freeformattable_type => @paperproposal.class.to_s
+    freeformat = @paperproposal.freeformats.select{|ff| ff.file_file_name == 'empty_test_file.txt'}.first
+
+    assert_redirected_to edit_paperproposal_path(@paperproposal)
+    assert_equal freeformat.freeformattable, @paperproposal
+
     get :destroy, :id => freeformat.id
 
     assert !Freeformat.exists?(freeformat.id)

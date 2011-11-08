@@ -128,7 +128,6 @@ class DatasetsController < ApplicationController
   end
 
   def edit
-    @new_freeformat = Freeformat.new
     @freeformats = @dataset.freeformats :order => :file_file_name
   end
 

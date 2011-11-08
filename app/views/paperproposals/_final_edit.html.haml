@@ -6,7 +6,13 @@
       = f.label :state
       = f.select :state, ["in prep", "manuscript avaible", "in review", "accepted"]
 
-  = render :partial => 'additional_files'
+  %div.box
+    %h3 Freeformat files
+    - unless @freeformats.blank?
+      %h4 Change freeformat files
+      = render :partial => 'freeformats/edit_list'
+    %h4 Add freeformat file
+    = render :partial => 'freeformats/new', :locals => {:freeformattable => @paperproposal}
 
   %div.box
     %h3 State of Data Request

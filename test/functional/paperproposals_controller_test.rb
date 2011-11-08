@@ -45,21 +45,6 @@ class PaperproposalsControllerTest < ActionController::TestCase
     assert_select "div#author-list li#potential ul", {:text=> /Michael/}
   end
 
-
-  
-  test "should add file to paperproposal should work" do
-    login_and_load_paperproposal "nadrowski", "Step 1 Paperproposal"
-    paperproposal_file = {:file => File.new(File.join(fixture_path, 'test_files_for_uploads', 'empty_test_file.txt'))}
-
-
-    put :update, :id => @paperproposal.id, :paperproposal => {:datafiles_attributes => {"0" => paperproposal_file}}
-
-    assert_redirected_to edit_paperproposal_path(@paperproposal)
-
-    get :edit, :id => @paperproposal.id
-    assert_select "div#files", {:text=> /empty_test_file/}
-  end
-
   test "should not send to board if no dataset is set" do
     login_and_load_paperproposal "nadrowski", "Step 1 Paperproposal"
 

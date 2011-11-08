@@ -25,13 +25,8 @@
     %p= @dataset.circumstances
 
   - unless @freeformats.blank?
-    %p
-      There are #{@freeformats.length} free format files available for this data set.
-    %ul
-      - @freeformats.each do |ff|
-        %li.noBullet
-          = link_to ff.file_file_name, ff.file.url
-          %i #{ff.description}
+    %h4 Freeformat files (#{@freeformats.length})
+    = render :partial => 'freeformats/index'
 
 .span-3.last
   = render :partial => 'edit_download_destroy_links'

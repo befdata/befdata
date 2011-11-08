@@ -19,7 +19,6 @@ class PaperproposalTest < ActiveSupport::TestCase
     assert paperproposal.calc_authorship(senior) == "Senior author"
     assert paperproposal.calc_authorship(corresponding) != "Corresponding author"
     assert paperproposal.calc_authorship(paperproposal_stranger) == nil
-
   end
 
 end

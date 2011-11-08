@@ -27,7 +27,7 @@ class ActiveSupport::TestCase
     UserSession.create(user)
   end
 
-  def sample_avatar(filename = "test-avatar.png")
+  def test_file_for_upload(filename = "test-avatar.png")
     File.new(File.join(fixture_path, 'test_files_for_uploads', filename))
   end
 

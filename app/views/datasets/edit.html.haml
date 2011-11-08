@@ -1,6 +1,5 @@
-%h2
-  = "Dataset:"
-  = link_to @dataset.title, @dataset
+%h2 Dataset #{link_to @dataset.title, @dataset}
+
 - unless @dataset.blank?
   %p
     For more information, please contact #{link_to @dataset.owners.first, user_path(@dataset.owners.first)} of project
@@ -8,20 +7,20 @@
   - unless @dataset.comment.blank?
     %h4 Comment
     %p= @dataset.comment
-  %h3
-    Edit meta data of this dataset
+
+  %h3 Edit meta data of this dataset
   %p
     = render :active_scaffold => "settings/datasets", :constraints => {:id => @dataset.id}
-  %h3
-    Edit method descriptions of this context
+
+  %h3 Edit method descriptions of this context
   %p
     At the time of writing, it is only possible to add, but not to
     delete methods or personroles to a given columnheader (=
     measurements_methodstep)
   %p
     = render :active_scaffold => "settings/datacolumns", :constraints => {:dataset_id => @dataset.id}
-  %h3
-    Exchange original data workbook
+
+  %h3 Exchange original data workbook
   %p
     = form_for :datafile,
               :url => delete_imported_research_data_and_file_dataset_path(@dataset),
@@ -31,22 +30,12 @@
       = f.submit 'Data set upload', :confirm => "All research data will be replaced by the content of this file!"
 
   - unless @freeformats.empty?
-    %h3
-      Change Freeformat files
-    - @freeformats.each do |ff|
-      %p
-        %li.noBullet
-          = link_to ff.file_file_name, ff.file.url
-          %i #{ff.description}
-          %a.showr{:id => "freeformat_change_#{ff.id}"} Change
-          .hidden{:id => "form_freeformat_change_#{ff.id}"}
-            = render :partial => 'freeformats/edit', :locals => {:freeformat => ff, :freeformattable => @dataset}
-          = link_to 'Delete', {:controller => :freeformats, :action => :destroy, :id => ff.id},
-            {:confirm => "Are you sure you want to delete #{ff.file_file_name}?", :method => :delete}
-
-  %h3
-    Add freeformat File
+    %h3 Change freeformat files
     %p
-      = render :partial => 'freeformats/new', :locals => {:freeformat => @new_freeformat, :freeformattable => @dataset}
+      = render :partial => 'freeformats/edit_list'
+
+  %h3 Add freeformat file
+  %p
+    = render :partial => 'freeformats/new', :locals => {:freeformattable => @dataset}
 
 
