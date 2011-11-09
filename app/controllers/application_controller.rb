@@ -32,13 +32,7 @@ class ::ApplicationController < ActionController::Base
 protected
 
   def layout_from_config
-    layout = ActiveRecord::Base.configurations[::Rails.env]["layout"]
-    case layout
-      when "fundiv" then
-        "fundiv"
-      else
-        "application"
-    end
+    LayoutHelper::BEF_LAYOUT
   end
 
 
