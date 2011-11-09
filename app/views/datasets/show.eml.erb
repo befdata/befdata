@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<eml:eml
+packageId="eml.1.1"
+xmlns:eml="eml://ecoinformatics.org/eml-2.1.0"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:schemaLocation="eml://ecoinformatics.org/eml-2.1.0 http://rs.gbif.org/schema/eml-gbif-profile/1.0.1/eml-gbif-profile.xsd">
+
+<dataset id="<%= @dataset.id %>">
+<!-- The eml-dataset object is the highest hierarchical level of EML. Any information is wrapped into an eml-dataset.
+Since they can contain files (flat files or other types of files), a BEFdata dataset instance can be seen as
+eml-dataset instance containing an eml-dataTable or asset files as eml-otherEntity. -->
+
+<alternateIdentifier><%= dataset_url(@dataset) %></alternateIdentifier>
+<!-- Permanent identifier of the dataset. Initial title. -->
+
+<title><%= @dataset.title %></title>
+
+<!-- First of the owners - maybe we should have a super owner?? -->
+<% @dataset.owners.each do |creator| %>
+    <creator id="<%= creator.login %>">
+      <individualName>
+        <givenName><%= creator.firstname %></givenName>
+        <surName><%= creator.lastname %></surName>
+      </individualName>
+      <organizationName><%= creator.institution_name %></organizationName>
+      <!--<positionName>ECAT Programme Officer</positionName>-->
+      <address>
+        <deliveryPoint><%= creator.street %></deliveryPoint>
+        <city><%= creator.city %></city>
+        <!--<administrativeArea>Sjaelland</administrativeArea>-->
+        <!--<postalCode>2100</postalCode>-->
+        <country><%= creator.country %></country>
+      </address>
+      <phone><%= creator.institution_phone %></phone>
+      <electronicMailAddress><%= creator.email %></electronicMailAddress>
+      <!--<onlineUrl>http://www.gbif.org</onlineUrl>-->
+    </creator>
+<% end %>
+
+<pubDate><%= @dataset.created_at.to_date.to_formatted_s(:db) %></pubDate>
+
+<language>en_US</language>
+
+<abstract>
+  <para><%= @dataset.abstract %></para>
+  <para><%= @dataset.circumstances %></para>
+</abstract>
+
+<keywordSet>
+  <%- @dataset.tags.each do |tag| %>
+      <keyword><%= tag.name %></keyword>
+  <% end %>
+  <keywordThesaurus> Portal Tags </keywordThesaurus>
+</keywordSet>
+<keywordSet>
+  <%- @dataset.datacolumns.each do |datacolumn| %>
+      <keyword><%= datacolumn.columnheader %></keyword>
+  <% end %>
+  <keywordThesaurus> Dataset Data Columns </keywordThesaurus>
+</keywordSet>
+
+<!-- Creative commons licence to the owners of the data set (this is as soon as the dataset is set free for
+public). As long as the dataset is not free for public, users may not give the data to any other person. -->
+<intellectualRights>
+  <para><%= @dataset.usagerights %></para>
+</intellectualRights>
+
+<distribution scope="document">
+  <online>
+    <url function="information">
+      <%= dataset_url @dataset %>
+    </url>
+  </online>
+</distribution>
+
+<!-- 3 types of coverage are supported with example repetition -->
+<coverage>
+  <geographicCoverage>
+    <geographicDescription><%= @dataset.spatialextent %></geographicDescription>
+  </geographicCoverage>
+  <temporalCoverage>
+    <singleDateTime>
+      <calendarDate><%= @dataset.temporalextent %></calendarDate>
+    </singleDateTime>
+  </temporalCoverage>
+  <taxonomicCoverage>
+    <generalTaxonomicCoverage><%= @dataset.taxonomicextent %></generalTaxonomicCoverage>
+  </taxonomicCoverage>
+</coverage>
+
+
+<!-- This is mandatory in EML
+In terms of the IPT, propose this be the same as the and should be the same as the <creator/>
+Therefore, it can be ignored in Parsing, but needs to be created in the output rendering
+-->
+<contact>
+  <% @dataset.owners.each do |contact| %>
+      <references><%= contact.login %></references>
+  <% end %>
+</contact>
+
+
+<dataTable>
+<entityName><%= dataset_url(@dataset)+'.txt' %></entityName>
+<entityDescription><%= @dataset.title %></entityDescription>
+<physical>
+  <objectName><%= dataset_path(@dataset)+'.txt' %></objectName>
+  <!--<size unit="bytes">1245</size>-->
+  <characterEncoding>ASCII</characterEncoding>
+  <dataFormat>
+    <textFormat>
+      <numHeaderLines>1</numHeaderLines>
+      <attributeOrientation>column</attributeOrientation>
+      <simpleDelimited>
+        <fieldDelimiter>\t</fieldDelimiter>
+      </simpleDelimited>
+    </textFormat>
+  </dataFormat>
+  <distribution>
+    <online>
+      <url><%= dataset_url(@dataset)+'.txt' %></url>
+    </online>
+  </distribution>
+</physical>
+
+<attributeList>
+<% @dataset.datacolumns.each do |column| %>
+ <attribute id="<%= column.columnheader %>">
+   <attributeName><%= column.columnheader %></attributeName>
+   <attributeLabel><%= column.columnheader %></attributeLabel>
+   <attributeDefinition><%= column.definition %></attributeDefinition>
+ </attribute>
+<% end %>
+</attributeList>
+
+</dataTable>
+
+
+</dataset>
+
+</eml:eml>
