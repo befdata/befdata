@@ -7,16 +7,12 @@ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 xsi:schemaLocation="eml://ecoinformatics.org/eml-2.1.0 http://rs.gbif.org/schema/eml-gbif-profile/1.0.1/eml-gbif-profile.xsd">
 
 <dataset id="<%= @dataset.id %>">
-<!-- The eml-dataset object is the highest hierarchical level of EML. Any information is wrapped into an eml-dataset.
-Since they can contain files (flat files or other types of files), a BEFdata dataset instance can be seen as
-eml-dataset instance containing an eml-dataTable or asset files as eml-otherEntity. -->
 
 <alternateIdentifier><%= dataset_url(@dataset) %></alternateIdentifier>
-<!-- Permanent identifier of the dataset. Initial title. -->
+<!-- Should be Permanent identifier of the dataset. Initial title ... but where do we store this? -->
 
 <title><%= @dataset.title %></title>
 
-<!-- First of the owners - maybe we should have a super owner?? -->
 <% @dataset.owners.each do |creator| %>
     <creator id="<%= creator.login %>">
       <individualName>
@@ -24,17 +20,17 @@ eml-dataset instance containing an eml-dataTable or asset files as eml-otherEnti
         <surName><%= creator.lastname %></surName>
       </individualName>
       <organizationName><%= creator.institution_name %></organizationName>
-      <!--<positionName>ECAT Programme Officer</positionName>-->
+      <!--<positionName>unknown in the portal</positionName>-->
       <address>
         <deliveryPoint><%= creator.street %></deliveryPoint>
         <city><%= creator.city %></city>
-        <!--<administrativeArea>Sjaelland</administrativeArea>-->
-        <!--<postalCode>2100</postalCode>-->
+        <!--<administrativeArea>unknown in the portal</administrativeArea>-->
+        <!--<postalCode>unknown in the portal</postalCode>-->
         <country><%= creator.country %></country>
       </address>
       <phone><%= creator.institution_phone %></phone>
       <electronicMailAddress><%= creator.email %></electronicMailAddress>
-      <!--<onlineUrl>http://www.gbif.org</onlineUrl>-->
+      <!--<onlineUrl>unknown in the portal</onlineUrl>-->
     </creator>
 <% end %>
 
@@ -108,7 +104,7 @@ Therefore, it can be ignored in Parsing, but needs to be created in the output r
 
 <physical>
   <objectName><%= dataset_path(@dataset)+'.txt' %></objectName>
-  <!--<size unit="bytes">1245</size>-->
+  <!--TODO<size unit="bytes">1245</size>-->
   <characterEncoding>ASCII</characterEncoding>
   <dataFormat>
     <textFormat>
