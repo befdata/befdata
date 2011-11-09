@@ -168,4 +168,10 @@ class Dataset < ActiveRecord::Base
     save
   end
 
+  def number_of_observations
+    #TODO use sql query finding max rownumber
+    return 0 if datacolumns.empty?
+    return datacolumns.first.sheetcells.count
+  end
+
 end

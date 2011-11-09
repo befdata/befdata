@@ -74,7 +74,6 @@ public). As long as the dataset is not free for public, users may not give the d
   </online>
 </distribution>
 
-<!-- 3 types of coverage are supported with example repetition -->
 <coverage>
   <geographicCoverage>
     <geographicDescription><%= @dataset.spatialextent %></geographicDescription>
@@ -104,6 +103,9 @@ Therefore, it can be ignored in Parsing, but needs to be created in the output r
 <dataTable>
 <entityName><%= dataset_url(@dataset)+'.txt' %></entityName>
 <entityDescription><%= @dataset.title %></entityDescription>
+<caseSensitive> yes </caseSensitive>
+<numberOfRecords><%= @dataset.number_of_observations %></numberOfRecords>
+
 <physical>
   <objectName><%= dataset_path(@dataset)+'.txt' %></objectName>
   <!--<size unit="bytes">1245</size>-->
@@ -127,9 +129,36 @@ Therefore, it can be ignored in Parsing, but needs to be created in the output r
 <attributeList>
 <% @dataset.datacolumns.each do |column| %>
  <attribute id="<%= column.columnheader %>">
-   <attributeName><%= column.columnheader %></attributeName>
+   <attributeName><%= "#{column.datagroup.title} (#{column.columnheader})" %></attributeName>
    <attributeLabel><%= column.columnheader %></attributeLabel>
-   <attributeDefinition><%= column.definition %></attributeDefinition>
+   <attributeDefinition><%= "#{column.datagroup.description} (#{column.columnheader}: #{column.definition})" %></attributeDefinition>
+   <accuracy><%= "#{column.datagroup.timelatency} #{column.datagroup.timelatencyunit}" %></accuracy>
+   <measurementScale>
+       <% case column.datagroup.methodvaluetype %>
+       <% when 'number'%>
+            <ratio>
+              <unit>
+                <standardUnit>dimensionless</standardUnit>
+              </unit>
+              <numericDomain>
+                <numberType>real</numberType>
+              </numericDomain>
+            </ratio>
+       <% when 'datetime' %>
+            <dateTime>
+              <formatString>YYYY</formatString>
+            </dateTime>
+       <% else %>
+            <nominal>
+              <nonNumericDomain>
+                <textDomain>
+                  <definition><%= column.datagroup.description %></definition>
+                </textDomain>
+              </nonNumericDomain>
+            </nominal>
+       <% end %>
+   </measurementScale>
+
  </attribute>
 <% end %>
 </attributeList>
