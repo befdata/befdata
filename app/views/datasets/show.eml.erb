@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <eml:eml
-packageId="eml.1.1"
+packageId="eml.1.1" system="knb"
 xmlns:eml="eml://ecoinformatics.org/eml-2.1.0"
 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-xsi:schemaLocation="eml://ecoinformatics.org/eml-2.1.0 http://rs.gbif.org/schema/eml-gbif-profile/1.0.1/eml-gbif-profile.xsd">
+xsi:schemaLocation="eml://ecoinformatics.org/eml-2.1.0 eml.xsd">
 
 <dataset id="<%= @dataset.id %>">
 
@@ -12,6 +12,7 @@ xsi:schemaLocation="eml://ecoinformatics.org/eml-2.1.0 http://rs.gbif.org/schema
 <!-- Should be Permanent identifier of the dataset. Initial title ... but where do we store this? -->
 
 <title><%= @dataset.title %></title>
+<!--<shortname></shortname> We do not have a shortname for datasets-->
 
 <% @dataset.owners.each do |creator| %>
     <creator id="<%= creator.login %>">
@@ -161,6 +162,27 @@ Therefore, it can be ignored in Parsing, but needs to be created in the output r
 
 </dataTable>
 
+<% @dataset.freeformats.each do |freeformat| %>
+<otherEntity>
+  <alternateIdentifier><%= freeformat_url freeformat %></alternateIdentifier>
+  <entityName><%= freeformat.file_file_name %></entityName>
+  <entityDescription><%= freeformat.description %></entityDescription>
+  <entityType>File Asset</entityType>
+
+  <physical>
+  <objectName><%= freeformat.file_file_name %></objectName>
+      <dataFormat>
+        <externallyDefinedFormat>
+          <formatName><%= freeformat.file_content_type%></formatName>
+        </externallyDefinedFormat>
+      </dataFormat>
+      <distribution>
+        <online>
+          <url><%= freeformat.file.url %></url>
+        </online>
+      </distribution>
+    </physical>
+</otherEntity>
 
 </dataset>
 
