@@ -20,16 +20,18 @@ xsi:schemaLocation="eml://ecoinformatics.org/eml-2.1.0 eml.xsd">
         <givenName><%= creator.firstname %></givenName>
         <surName><%= creator.lastname %></surName>
       </individualName>
-      <organizationName><%= creator.institution_name %></organizationName>
+      <%= content_tag_unless_blank :organizationName, creator.institution_name %>
       <!--<positionName>unknown in the portal</positionName>-->
+      <% if creator.street || creator.city %>
       <address>
-        <deliveryPoint><%= creator.street %></deliveryPoint>
-        <city><%= creator.city %></city>
+        <%= content_tag_unless_blank :deliveryPoint, creator.street %>
+        <%= content_tag_unless_blank :city, creator.city %>
         <!--<administrativeArea>unknown in the portal</administrativeArea>-->
         <!--<postalCode>unknown in the portal</postalCode>-->
-        <country><%= creator.country %></country>
+        <%= content_tag_unless_blank :country, creator.country %>
       </address>
-      <phone><%= creator.institution_phone %></phone>
+      <% end %>
+      <%= content_tag_unless_blank :phone, creator.institution_phone %>
       <electronicMailAddress><%= creator.email %></electronicMailAddress>
       <!--<onlineUrl>unknown in the portal</onlineUrl>-->
     </creator>
@@ -39,29 +41,37 @@ xsi:schemaLocation="eml://ecoinformatics.org/eml-2.1.0 eml.xsd">
 
 <language>en_US</language>
 
+<% if @dataset.abstract || @dataset.circumstances %>
 <abstract>
-  <para><%= @dataset.abstract %></para>
-  <para><%= @dataset.circumstances %></para>
+  <%= content_tag_unless_blank :para, @dataset.abstract %>
+  <%= content_tag_unless_blank :para, @dataset.circumstances %>
 </abstract>
+<% end %>
 
+<% unless @dataset.tags.empty? %>
 <keywordSet>
   <%- @dataset.tags.each do |tag| %>
       <keyword><%= tag.name %></keyword>
   <% end %>
   <keywordThesaurus> Portal Tags </keywordThesaurus>
 </keywordSet>
+<% end %>
+<% unless @dataset.datacolumns.empty? %>
 <keywordSet>
   <%- @dataset.datacolumns.each do |datacolumn| %>
       <keyword><%= datacolumn.columnheader %></keyword>
   <% end %>
   <keywordThesaurus> Dataset Data Columns </keywordThesaurus>
 </keywordSet>
+<% end %>
 
 <!-- Creative commons licence to the owners of the data set (this is as soon as the dataset is set free for
 public). As long as the dataset is not free for public, users may not give the data to any other person. -->
+<% unless @dataset.usagerights.blank? %>
 <intellectualRights>
   <para><%= @dataset.usagerights %></para>
 </intellectualRights>
+<% end %>
 
 <distribution scope="document">
   <online>
@@ -71,19 +81,33 @@ public). As long as the dataset is not free for public, users may not give the d
   </online>
 </distribution>
 
+<% unless @dataset.spatialextent.blank? && @dataset.temporalextent.blank? && @dataset.taxonomicextent.blank? %>
 <coverage>
+  <% if @dataset.spatialextent %>
   <geographicCoverage>
     <geographicDescription><%= @dataset.spatialextent %></geographicDescription>
+    <boundingCoordinates>
+        <westBoundingCoordinate>-180.0</westBoundingCoordinate>
+        <eastBoundingCoordinate>180.0</eastBoundingCoordinate>
+        <northBoundingCoordinate>+90</northBoundingCoordinate>
+        <southBoundingCoordinate>-90</southBoundingCoordinate>
+    </boundingCoordinates>
   </geographicCoverage>
+  <% end %>
+  <% unless @dataset.temporalextent.blank? %>
   <temporalCoverage>
     <singleDateTime>
       <calendarDate><%= @dataset.temporalextent %></calendarDate>
     </singleDateTime>
   </temporalCoverage>
+  <% end %>
+  <% unless @dataset.taxonomicextent.blank? %>
   <taxonomicCoverage>
     <generalTaxonomicCoverage><%= @dataset.taxonomicextent %></generalTaxonomicCoverage>
   </taxonomicCoverage>
+  <% end %>
 </coverage>
+<% end %>
 
 
 <!-- This is mandatory in EML
@@ -99,10 +123,7 @@ Therefore, it can be ignored in Parsing, but needs to be created in the output r
 
 <dataTable>
     <entityName><%= dataset_url(@dataset)+'.txt' %></entityName>
-    <alternateIdentifier><%= dataset_url(@dataset)+'-data'%></alternateIdentifier> <!-- #TODO this is not needed and not okay-->
     <entityDescription><%= @dataset.title %></entityDescription>
-    <caseSensitive> yes </caseSensitive>
-    <numberOfRecords><%= @dataset.number_of_observations %></numberOfRecords>
     <physical>
       <objectName><%= dataset_path(@dataset)+'.txt' %></objectName>
       <!--TODO<size unit="bytes">1245</size>-->
@@ -129,7 +150,9 @@ Therefore, it can be ignored in Parsing, but needs to be created in the output r
        <attributeName><%= "#{column.datagroup.title} (#{column.columnheader})" %></attributeName>
        <attributeLabel><%= column.columnheader %></attributeLabel>
        <attributeDefinition><%= "#{column.datagroup.description} (#{column.columnheader}: #{column.definition})" %></attributeDefinition>
+       <% unless column.datagroup.timelatency.blank? || column.datagroup.timelatencyunit.blank? %>
        <accuracy><%= "#{column.datagroup.timelatency} #{column.datagroup.timelatencyunit}" %></accuracy>
+       <% end %>
        <measurementScale>
            <% case column.datagroup.methodvaluetype %>
            <% when 'number'%>
@@ -158,29 +181,31 @@ Therefore, it can be ignored in Parsing, but needs to be created in the output r
        <methods>
          <methodStep>
            <description>
-             <para><%= column.datagroup.title %></para>
-             <para><%= column.datagroup.description %></para>
-             <para><%= column.definition %></para>
+             <%= content_tag_unless_blank :para, column.datagroup.title %>
+             <%= content_tag_unless_blank :para, column.datagroup.description %>
+             <%= content_tag_unless_blank :para, column.definition %>
            </description>
-           <instrumentation><%= column.datagroup.instrumentation %></instrumentation>
-           <citation><%= column.datagroup.informationsource %></citation>
+           <%= content_tag_unless_blank :instrumentation, column.datagroup.instrumentation %>
+           <%= content_tag_unless_blank :citation, column.datagroup.informationsource %>
          </methodStep>
        </methods>
      </attribute>
     <% end %>
     </attributeList>
+
+    <caseSensitive>yes</caseSensitive>
+    <numberOfRecords><%= @dataset.number_of_observations %></numberOfRecords>
   
 </dataTable>
 
 <% @dataset.freeformats.each do |freeformat| %>
-<otherEntity>
+<otherEntity id="<%= freeformat.id %>">
   <alternateIdentifier><%= freeformat.file.url %></alternateIdentifier>
   <entityName><%= freeformat.file_file_name %></entityName>
-  <entityDescription><%= freeformat.description %></entityDescription>
-  <entityType>File Asset</entityType>
+  <%= content_tag_unless_blank :entityDescription, freeformat.description %>
 
   <physical>
-  <objectName><%= freeformat.file_file_name %></objectName>
+    <objectName><%= freeformat.file_file_name %></objectName>
       <dataFormat>
         <externallyDefinedFormat>
           <formatName><%= freeformat.file_content_type%></formatName>
@@ -191,7 +216,8 @@ Therefore, it can be ignored in Parsing, but needs to be created in the output r
           <url><%= freeformat.file.url %></url>
         </online>
       </distribution>
-    </physical>
+  </physical>
+  <entityType>"File Asset"</entityType>
 </otherEntity>
 <% end %>
 
