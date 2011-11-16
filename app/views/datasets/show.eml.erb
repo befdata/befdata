@@ -98,73 +98,83 @@ Therefore, it can be ignored in Parsing, but needs to be created in the output r
 
 
 <dataTable>
-<entityName><%= dataset_url(@dataset)+'.txt' %></entityName>
-<entityDescription><%= @dataset.title %></entityDescription>
-<caseSensitive> yes </caseSensitive>
-<numberOfRecords><%= @dataset.number_of_observations %></numberOfRecords>
+    <entityName><%= dataset_url(@dataset)+'.txt' %></entityName>
+    <alternateIdentifier><%= dataset_url(@dataset)+'-data'%></alternateIdentifier> <!-- #TODO this is not needed and not okay-->
+    <entityDescription><%= @dataset.title %></entityDescription>
+    <caseSensitive> yes </caseSensitive>
+    <numberOfRecords><%= @dataset.number_of_observations %></numberOfRecords>
+    <physical>
+      <objectName><%= dataset_path(@dataset)+'.txt' %></objectName>
+      <!--TODO<size unit="bytes">1245</size>-->
+      <characterEncoding>ASCII</characterEncoding>
+      <dataFormat>
+        <textFormat>
+          <numHeaderLines>1</numHeaderLines>
+          <attributeOrientation>column</attributeOrientation>
+          <simpleDelimited>
+            <fieldDelimiter>\t</fieldDelimiter>
+          </simpleDelimited>
+        </textFormat>
+      </dataFormat>
+      <distribution>
+        <online>
+          <url><%= dataset_url(@dataset)+'.txt' %></url>
+        </online>
+      </distribution>
+    </physical>
 
-<physical>
-  <objectName><%= dataset_path(@dataset)+'.txt' %></objectName>
-  <!--TODO<size unit="bytes">1245</size>-->
-  <characterEncoding>ASCII</characterEncoding>
-  <dataFormat>
-    <textFormat>
-      <numHeaderLines>1</numHeaderLines>
-      <attributeOrientation>column</attributeOrientation>
-      <simpleDelimited>
-        <fieldDelimiter>\t</fieldDelimiter>
-      </simpleDelimited>
-    </textFormat>
-  </dataFormat>
-  <distribution>
-    <online>
-      <url><%= dataset_url(@dataset)+'.txt' %></url>
-    </online>
-  </distribution>
-</physical>
-
-<attributeList>
-<% @dataset.datacolumns.each do |column| %>
- <attribute id="<%= column.columnheader %>">
-   <attributeName><%= "#{column.datagroup.title} (#{column.columnheader})" %></attributeName>
-   <attributeLabel><%= column.columnheader %></attributeLabel>
-   <attributeDefinition><%= "#{column.datagroup.description} (#{column.columnheader}: #{column.definition})" %></attributeDefinition>
-   <accuracy><%= "#{column.datagroup.timelatency} #{column.datagroup.timelatencyunit}" %></accuracy>
-   <measurementScale>
-       <% case column.datagroup.methodvaluetype %>
-       <% when 'number'%>
-            <ratio>
-              <unit>
-                <standardUnit>dimensionless</standardUnit>
-              </unit>
-              <numericDomain>
-                <numberType>real</numberType>
-              </numericDomain>
-            </ratio>
-       <% when 'datetime' %>
-            <dateTime>
-              <formatString>YYYY</formatString>
-            </dateTime>
-       <% else %>
-            <nominal>
-              <nonNumericDomain>
-                <textDomain>
-                  <definition><%= column.datagroup.description %></definition>
-                </textDomain>
-              </nonNumericDomain>
-            </nominal>
-       <% end %>
-   </measurementScale>
-
- </attribute>
-<% end %>
-</attributeList>
-
+    <attributeList>
+    <% @dataset.datacolumns.each do |column| %>
+     <attribute id="<%= column.columnheader %>">
+       <attributeName><%= "#{column.datagroup.title} (#{column.columnheader})" %></attributeName>
+       <attributeLabel><%= column.columnheader %></attributeLabel>
+       <attributeDefinition><%= "#{column.datagroup.description} (#{column.columnheader}: #{column.definition})" %></attributeDefinition>
+       <accuracy><%= "#{column.datagroup.timelatency} #{column.datagroup.timelatencyunit}" %></accuracy>
+       <measurementScale>
+           <% case column.datagroup.methodvaluetype %>
+           <% when 'number'%>
+                <ratio>
+                  <unit>
+                    <standardUnit>dimensionless</standardUnit>
+                  </unit>
+                  <numericDomain>
+                    <numberType>real</numberType>
+                  </numericDomain>
+                </ratio>
+           <% when 'datetime' %>
+                <dateTime>
+                  <formatString>YYYY</formatString>
+                </dateTime>
+           <% else %>
+                <nominal>
+                  <nonNumericDomain>
+                    <textDomain>
+                      <definition><%= column.datagroup.description %></definition>
+                    </textDomain>
+                  </nonNumericDomain>
+                </nominal>
+           <% end %>
+       </measurementScale>
+       <methods>
+         <methodStep>
+           <description>
+             <para><%= column.datagroup.title %></para>
+             <para><%= column.datagroup.description %></para>
+             <para><%= column.definition %></para>
+           </description>
+           <instrumentation><%= column.datagroup.instrumentation %></instrumentation>
+           <citation><%= column.datagroup.informationsource %></citation>
+         </methodStep>
+       </methods>
+     </attribute>
+    <% end %>
+    </attributeList>
+  
 </dataTable>
 
 <% @dataset.freeformats.each do |freeformat| %>
 <otherEntity>
-  <alternateIdentifier><%= freeformat_url freeformat %></alternateIdentifier>
+  <alternateIdentifier><%= freeformat.file.url %></alternateIdentifier>
   <entityName><%= freeformat.file_file_name %></entityName>
   <entityDescription><%= freeformat.description %></entityDescription>
   <entityType>File Asset</entityType>
@@ -183,6 +193,7 @@ Therefore, it can be ignored in Parsing, but needs to be created in the output r
       </distribution>
     </physical>
 </otherEntity>
+<% end %>
 
 </dataset>
 
