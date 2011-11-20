@@ -2,21 +2,27 @@
   %ul
     - if current_user
       %li
-        = link_to image_tag("/images/cart_put.png")
-        = link_to 'Add to Cart', create_cart_context_path(:dataset_id => @dataset.id), :method => :post
+        = link_to create_cart_context_path(:dataset_id => @dataset.id), :method => :post do
+          = image_tag("/images/cart_put.png")
+          Add to Cart
     - if @dataset.upload_spreadsheet && (current_user.has_role?(:owner, @dataset) || current_user.has_role?(:admin) || current_user.has_role?(:proposer, @dataset) || @dataset.free_for_members)
       %li
-        = image_tag("/images/disk.png")
-        = link_to 'Download', {:controller => :datasets, :action => 'download', :id => @dataset.id}
+        = link_to :controller => :datasets, :action => 'download', :id => @dataset.id do
+          = image_tag("/images/disk.png")
+          Download
     - if current_user.has_role?(:owner, @dataset) || current_user.has_role?(:admin)
       %li
-        = image_tag("/images/pencil.png")
-        = link_to 'Edit Dataset', edit_dataset_path(@dataset)
+        = link_to edit_dataset_path(@dataset) do
+          = image_tag("/images/pencil.png")
+          Edit Dataset
     - if @dataset.has_research_data? && (current_user.has_role?(:owner, @dataset) || current_user.has_role?(:admin))
       %li
-        = image_tag("/images/table_edit.png")
-        = link_to 'Approve Data Columns', data_dataset_path(@dataset)
+        = link_to data_dataset_path(@dataset) do
+          = image_tag("/images/table_edit.png")
+          Approve Data Columns
     - if current_user.has_role?(:admin)
       %li
-        = image_tag("/images/cross.png")
-        = link_to 'Delete', dataset_path(@dataset), :method => :delete, :confirm => "Do you really want to delete this dataset?"
+        = link_to dataset_path(@dataset), :method => :delete, :confirm => "Do you really want to delete this dataset?" do
+          = image_tag("/images/cross.png")
+          Delete
+

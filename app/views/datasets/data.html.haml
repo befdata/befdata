@@ -1,6 +1,7 @@
 - content_for :actions do
-  %img{:src => "/images/page.png"}
-  = link_to "Dataset overview", dataset_path(@dataset)
+  = link_to dataset_path(@dataset) do
+    %img{:src => "/images/page.png"}
+    Dataset overview
 
 %h2= @dataset.title
 - if @book.columnheaders_unique?

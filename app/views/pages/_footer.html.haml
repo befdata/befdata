@@ -1,0 +1,8 @@
+%ul#foot-menu
+  %li= link_to 'Help', help_path
+  %li= link_to 'Imprint', imprint_path
+%ul#page-associates
+  - img_heigt = '50px'
+  %li= link_to image_tag('dfglogo.png', :height => img_heigt), "http://www.dfg.de/jahresbericht/detail_3_2_BIO_891.htm"
+  %li= link_to image_tag('obglogo.png', :height => img_heigt), "http://www.bgc-jena.mpg.de/bgc-organisms/"
+  %li= link_to image_tag('beflogo.png', :height => img_heigt), "http://www.bef-china.de/"

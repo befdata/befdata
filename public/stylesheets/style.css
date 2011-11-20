@@ -169,208 +169,322 @@ div.colborder {
 .clearfix, .container {display:block;}
 .clear {clear:both;}
 
-/* -------------------------------------------------------------- 
-Custom Layout
+/* =============================================================
+                  C U S T O M   L A Y O U T
+============================================================= */
+
+/* --- R E M O V E - M E ! --------------------------------------
+     Colors to use:
+        #000    : black
+        #8a8a8a : dark grey
+        #cdcdcd : light grey
+        #18921e : green
+        #fff    : white
 -------------------------------------------------------------- */
 
 body {
-	background: url(../images/bg03.jpg) no-repeat center top;
-	font: 13px Arial, Helvetica, sans-serif;
-	color: #212121;
+	font-size: 13px;
+    font-family: "Trebuchet MS", Helvetica, Arial, sans-serif;
+    line-height: 1.8em;
+	color: #000;
+    background: url(../images/bg-stripes-grey-grey.png) repeat;
 }
 
-h1, h2, h3 {
-	margin-top: 0px;
+input, textarea, select {
+    font-family: "Trebuchet MS", Helvetica, Arial, sans-serif;
 }
+
+div.container {
+    background-color: #fff;
+    border-color: #fff;
+    border-width: 0 25px 25px 25px;
+    border-style: solid;
+}
+
+/* --- Typo ------------------------------------------------- */
 
 h1 {
-	font-size: 2.4em;
+	font-size: 2em;
+}
+
+h2, h3, h4 {
+	margin-top: 0;
+    margin-bottom: 1em;
+    font-weight: bold;
 }
 
 h2 {
-	font-size: 1.8em;
+	font-size: 1.7em;
 }
 
 h3 {
-	font-size: 1.4em;
+	font-size: 1.2em;
+}
+
+h4 {
+    text-transform: uppercase;
+    letter-spacing: 1px;
 }
 
 p, ol, ul, input, select, textarea {
-	margin-bottom: 1.8em;
-	line-height: 130%;
+	margin-bottom: 1em;
+}
+
+ul {
+    list-style: none;
 }
 
 a {
-	color: #175500;
+	color: #18921e;
+    text-decoration: none;
+}
+
+a:visited {
+    color: #18921e;
 }
 
 a:hover {
-	text-decoration: none;
-	color: #FF0000;
+	text-decoration: underline;
+    color: #18921e;
 }
 
 a img {
 	border: none;
 }
 
-/* Header */
+/* --- Forms -------------------------------------------------- */
+
+input, textarea, select {
+    background-color: #fff;
+    outline: 1px solid #cdcdcd;
+    border: none;
+    padding: 2px;
+}
+
+input:focus, textarea:focus, select:focus {
+    outline: 1px solid #18921e;
+}
+
+input[type=checkbox], input[type=file] {
+    outline: none;
+}
+
+input[type=file] {
+    border: 1px solid #cdcdcd;
+}
+
+
+input[type=button], input[type=submit], button {
+    background-color: #e8e8e8;
+    outline: 1px solid #8a8a8a;
+    border:  none;
+    color: #18921e;
+    font-weight: bold;
+    padding: 3px;
+}
+
+input[type=button]:hover, input[type=submit]:hover, button:hover, input[type=button]:focus, input[type=submit]:focus, button:focus {
+    outline-color: #18921e;
+    background-color: #eee;
+}
+
+/* --- Header ------------------------------------------------- */
 
 #header {
-	width: 900px;
-	height: 130px;
-	margin: 0px auto;
+    margin-bottom: 20px;
 }
 
-/* Logo */
+#header li {
+    display: inline;
+}
+
+#header li * {
+    vertical-align: middle;
+}
+
+#header a {
+    padding: 4px 10px;
+    text-decoration: none;
+}
+
+#header a:hover {
+    color: #000;
+    background-color: #cdcdcd;
+}
 
 #logo {
-	float: left;
-	width: 780px;
-	background: url(../images/beflogo.png) no-repeat left top;
-	margin: 5px 0;
-	height: 130px;
-	padding: 0 0 0 120px;
+	background: url(../images/bg-neu1_03.png) no-repeat left top;
+    width: 928px;
+    height: 43px;
+    margin-top: 30px;
+    margin-bottom: 10px;
 }
-
-#logo h1, #logo p {
-	margin: 0px;
-	line-height: normal;
-	font-weight: normal;
-	background: url(../images/pixel0.5.png) repeat top left;
-}
-
-#logo p {
-	font-weight: bold;
-	padding: 0 0 5px 10px;
-	height: 16px;
-}
-
-#logo h1 {
-	color: #243F12 !important;
-	padding: 5px 0 0 10px;
-	height: 36px;
-}
-
-/* Menu */
 
 #menu {
-	float: right;
-	background: #243F12;
-	border-top: 2px #9BC56F solid;
-	margin: 29px 0 0 0;
+    float: left;
 }
 
-/* Page */
-
-#page {
-	width: 900px;
-	margin: 0px auto;
-	padding: 30px 0px;
+#login {
+    float: right;
+    font-size: 0.9em;
 }
 
-/* Content */
+#login label {
+    color: #8a8a8a;
+}
 
-#content {
-	float: left;
-	width: 100%;
+#login form * {
+    vertical-align: middle;
+}
+
+#login ul, #login input {
+    margin-bottom: 0;
+}
+
+input#user_session_login {
+    background: url("../images/login-user-1.png") left center no-repeat;
+    padding-left: 14px;
+}
+
+input#user_session_password {
+    background: url("../images/login-pwd-1.png") left center no-repeat;
+    padding-left: 14px;
+}
+
+#remember_me {
+    margin-left: 4px;
+    margin-right: 4px;
+}
+
+#remember_me * {
+    vertical-align: middle;
+}
+
+#remember_me img {
+    margin-right: -3px;
+}
+
+#user_session_submit {
+    padding: 2px;
+    height: 18px;
+}
+
+/* --- Flashes ----------------------------------------------- */
+
+#notice {
+	border: 2px solid #18921e;
+    clear: both;
+    padding: 10px;
+    margin-bottom: 10px;
+    font-weight: bold;
 }
 
 #error {
-	border: 1px solid #f00;
-	padding: 10px;
-	margin: 10px 0px;
-	width: 100%;
+	border: 2px solid #f00;
+    clear: both;
+    padding: 10px;
+    margin-bottom: 10px;
+    font-weight: bold;
 }
 
-#notice {
-	border: 1px solid #699c4d;
-	padding: 10px;
-	margin: 10px 0px;
-	width: 100%;
+div#errorExplanation {
+    background: #cdcdcd;
+    padding: 10px;
+    margin-bottom: 1em;
 }
 
-.post {
-	margin: 0px 0px 30px 0px;
+#errorExplanation * {
+    margin-bottom: 0;
 }
 
-.post .title {
-	margin: 0px;
-	padding: 0px 0px 5px 0px;
-	border-bottom: #BFC9AE solid 1px;
-	color: #232F01;
+#errorExplanation h2 {
+    line-height: 1.2em;
+    font-size: 1.2em;
+    margin-bottom: 0.5em;
 }
 
-.post .title a {
-	color: #232F01;
+#errorExplanation ul {
+    list-style-type: square;
+    padding-left: 20px;
 }
 
-.post .entry {
+/* --- Sidebar ----------------------------------------------- */
+
+div#sidebar {
+    margin-left: -24px;
+    border-left: #cdcdcd solid 2px;
+    padding-left: 10px;
+
+    padding-top: 10px;
+    border-top: #cdcdcd solid 20px;
+
+    border-right: #cdcdcd solid 2px;
+    padding-right: 10px;
+
+    border-bottom: #cdcdcd solid 2px;
+    padding-bottom: 10px;
 }
 
-.post .meta {
-	font-weight: bold;
+div#actions + div#info {
+    margin-top: 10px;
+    border-top: 1px solid #cdcdcd;
+    padding-top: 14px;
 }
 
-.post .byline {
-	margin: 0px;
+#actions a {
+    display: block;
+    color: #8a8a8a;
+    padding: 3px;
 }
 
-.comment {
-	padding: 10px 20px;	
+#actions a:hover {
+    color: #000;
+    background-color: #cdcdcd;
+    text-decoration: none;
 }
 
-.comment p {
-	margin: 0;
+#info {
+    font-size: 0.9em;
 }
 
-/* Sidebar */
+/* --- Footer ------------------------------------------------ */
 
-#sidebar {
-	float: right;
-	width: 300px;
+#footer {
+    background: url("../images/bg-footer.png") repeat-x top left;
+	clear: both;
+    margin-top: 20px;
+    padding-top: 28px;
+    font-size: 0.9em;
+    line-height: 0.9em;
 }
 
-#sidebar-bgtop {
-	height: 3px;
+#footer * {
+    margin: 0;
+    padding: 0;
+    border: none;
 }
 
-#sidebar-bgbtm {
-	height: 3px;
+#footer li {
+    display: inline;
 }
 
-#sidebar-content {
-	padding: 20px;
+ul#foot-menu {
+    float:right;
 }
 
-#sidebar ul {
-	margin: 0px;
-	padding: 0px;
-	list-style: none;
+#foot-menu li{
+    margin-left: 6px;
 }
 
-#sidebar li ul {
-	margin-bottom: 1.8em;
-	padding-left: 20px;
-	list-style: none;
+ul#page-associates {
+    float: left;
 }
 
-#sidebar h2 {
-	padding: 4px 20px;
-	background: #699C4D;
-	font-size: 1.2em;
-	color: #FFFFFF;
+#page-associates img {
+	margin-right: 10px;
 }
 
-#sidebar a {
-	text-decoration: none;
-	color: #232F01;
-}
-
-#sidebar a:hover {
-	text-decoration: underline;
-}
-
-/* Search */
+/* --- Search ------------------------------------------------- */
 
 #search {
 }
@@ -390,34 +504,7 @@ a img {
 	width: 160px;
 }
 
-/* Footer */
-
-#footer {
-	clear: both;
-	height: 100px;
-	margin: 0px auto 30px auto;
-	color: #FFFFFF;
-	background: #699C4D;
-	border-top: 30px solid #fff;
-}
-
-#footer p {
-	margin: 0px;
-	padding: 19px 0px 0px 0px;
-	text-align: center;
-	line-height: normal;
-	font-size: smaller;
-}
-
-#footer a {
-	color: #FFFFFF;
-}
-
-#footer img {
-	margin: 0 50px 0 50px;
-}
-
-/* Admin interface styles */
+/* --- Admin interface styles ---------------------------------- */
 
 .admin_body {
   margin: 0;
@@ -477,8 +564,7 @@ a img {
   width: 12em;
 }
 
-
-/* Form Style with two columns */
+/* --- Form Style with two columns ------------------------------------------------- */
 
 #left_box {
     border-right: 1px dashed #000;
@@ -582,10 +668,8 @@ a img {
     display:block;
 }
 
-
 .box h5 {
    margin-bottom: 3px;
-
 }
 
 .noBullet {
@@ -595,7 +679,6 @@ a img {
 .hidden {
     display: none;
 }
-
 
 .nube1 {font-size: 1.0em;}
 .nube2 {font-size: 1.2em;}
@@ -646,7 +729,7 @@ a.button, button {
   padding:5px 10px 5px 7px;   /* Links */
   border:1px solid #9bc56f;
   background-color:#243f12;
-  font-family:"Lucida Grande", Tahoma, Arial, Verdana, sans-serif;
+  font-family:"Trebuchet MS",Helvetica,Arial,sans-serif;
   font-size:100%;
   line-height:130%;
   text-decoration:none;

@@ -14,30 +14,16 @@
     = csrf_meta_tag
   %body
     - unless Rails.env == 'production'
-      #rails_env_notice{:style => 'background-color: #fafad2'}= "You are currently working under #{Rails.env} environment."
-    #header
-      #logo
-        %h1 BEF – China Project Database
-        %p Biodiversity Ecosystem Functioning
-        #menu
-          %ul#sf-menu.sf-menu.superfish
-            %li.first= link_to 'Home', root_path
-            %li= link_to 'Projects', projects_path
-            %li= link_to 'Staff', users_path
-            %li= link_to 'Data', data_path
-            %li= link_to 'Help', help_path
-            %li= link_to 'Imprint', imprint_path
-            - if current_user
-              %li= link_to image_tag("/images/page.png", :title => 'Paperproposal'), :paperproposals
-              %li= link_to image_tag("/images/user_edit.png", :title => 'Profile'), profile_path
-              %li= link_to image_tag("/images/cart.png", :title => 'Cart'), current_cart_url
-              - if current_user.has_role?(:admin)
-                %li= link_to image_tag("/images/admin.png", :title => "Admin"), admin_datasets_path
-              %li= link_to image_tag("/images/logout.png", :title => "Logout"), logout_path
-            - else
-              %li= link_to 'Login', login_path
+      -##rails_env_notice{:style => 'background-color: #fafad2'}= "You are currently working under #{Rails.env} environment."
+      -# UNCOMMENT THE LINE ABOVE! THIS IS JUST USED FOR REDESIGN!
     .container
-      #content.span-12
+      #header.span-12
+        #logo
+        #menu
+          = render :partial => 'pages/menu'
+        #login
+          = render :partial => 'user_sessions/login'
+      #content
         - if flash[:error]
           #error
             = flash[:error]
@@ -45,17 +31,17 @@
           #notice
             = flash[:notice]
         - if content_for?(:actions) || content_for?(:info) then
-          .span-8.append-1
+          #main.span-8.append-1
             = yield
-          .span-3.last
-            .actions
-              = yield :actions
-            .info
+          #sidebar.span-3.last
+            - if content_for?(:actions)
+              #actions
+                = yield :actions
+            - if content_for?(:info)
+              #info
               = yield :info
         - else
-          = yield
-    #footer
-      %p
-        %a{:href => "http://www.dfg.de/jahresbericht/detail_3_2_BIO_891.htm"}= image_tag 'dfglogo.png'
-        %a{:href => "http://www.bgc-jena.mpg.de/bgc-organisms/"}= image_tag 'obglogo.png'
-        %a{:href => "http://www.bef-china.de/"}= image_tag 'beflogo.png', :height => '70px'
+          #main.span-12
+            = yield
+      #footer.span-12
+        = render :partial => 'pages/footer'

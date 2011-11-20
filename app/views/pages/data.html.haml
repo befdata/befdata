@@ -1,8 +1,6 @@
-- content_for :actions do
-  - if current_user
-    %ul.dataset_actions
-      %li
-        = link_to "Create new Dataset", new_dataset_path
+- if current_user
+  - content_for :actions do
+    = link_to "Create new Dataset", new_dataset_path
 
 - content_for :info do
   %h3

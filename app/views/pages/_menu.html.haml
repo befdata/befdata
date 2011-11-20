@@ -1,0 +1,10 @@
+%ul
+  %li.first= link_to 'Home', root_path
+  %li= link_to 'Projects', projects_path
+  %li= link_to 'Staff', users_path
+  %li= link_to 'Data', data_path
+  - if current_user
+    %li= link_to 'Papers', :paperproposals
+    %li= link_to 'Cart', current_cart_url
+    - if current_user.has_role?(:admin)
+      %li= link_to 'Admin', admin_datasets_path

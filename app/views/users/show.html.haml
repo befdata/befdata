@@ -3,7 +3,7 @@
 
 %p
   - unless @user.institution_phone.blank?
-    = "#{t("address.phone")}: @user.institution_phone}"
+    = "#{t("address.phone")}: #{@user.institution_phone}"
     %br
   - unless @user.email.blank?
     = "#{t("address.email")}: #{@user.email}"
