@@ -24,3 +24,5 @@ glob:*DO_NOT_EDIT
 .rvmrc
 test/fixtures_dump
 glob:.bundle/config
+
+*.DS_Store
