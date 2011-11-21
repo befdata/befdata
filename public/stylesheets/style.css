@@ -234,6 +234,15 @@ ul {
     list-style: none;
 }
 
+ul > *{
+    line-height: 1.2em;
+    margin-top: 1em;
+}
+
+ul > *:first-child{
+    margin-top: 0;
+}
+
 a {
 	color: #18921e;
     text-decoration: none;
@@ -411,18 +420,9 @@ div#errorExplanation {
 /* --- Sidebar ----------------------------------------------- */
 
 div#sidebar {
+    border: #cdcdcd solid 2px;
+    padding: 10px;
     margin-left: -24px;
-    border-left: #cdcdcd solid 2px;
-    padding-left: 10px;
-
-    padding-top: 10px;
-    border-top: #cdcdcd solid 20px;
-
-    border-right: #cdcdcd solid 2px;
-    padding-right: 10px;
-
-    border-bottom: #cdcdcd solid 2px;
-    padding-bottom: 10px;
 }
 
 div#actions + div#info {
@@ -431,10 +431,18 @@ div#actions + div#info {
     padding-top: 14px;
 }
 
+#actions li {
+    margin: 0;
+}
+
 #actions a {
     display: block;
     color: #8a8a8a;
-    padding: 3px;
+    padding: 5px;
+}
+
+#actions a img{
+    margin-right: 2px;
 }
 
 #actions a:hover {

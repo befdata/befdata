@@ -1,15 +1,15 @@
 - if current_user
   %ul
-    - if current_user
-      %li
-        = link_to create_cart_context_path(:dataset_id => @dataset.id), :method => :post do
-          = image_tag("/images/cart_put.png")
-          Add to Cart
     - if @dataset.upload_spreadsheet && (current_user.has_role?(:owner, @dataset) || current_user.has_role?(:admin) || current_user.has_role?(:proposer, @dataset) || @dataset.free_for_members)
       %li
         = link_to :controller => :datasets, :action => 'download', :id => @dataset.id do
           = image_tag("/images/disk.png")
           Download
+    - if current_user
+      %li
+        = link_to create_cart_context_path(:dataset_id => @dataset.id), :method => :post do
+          = image_tag("/images/cart_put.png")
+          Add to Cart
     - if current_user.has_role?(:owner, @dataset) || current_user.has_role?(:admin)
       %li
         = link_to edit_dataset_path(@dataset) do
