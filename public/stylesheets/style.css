@@ -447,6 +447,10 @@ div#actions + div#info {
     font-size: 0.9em;
 }
 
+#info ul {
+    margin-bottom: 0;
+}
+
 /* --- Footer ------------------------------------------------ */
 
 #footer {

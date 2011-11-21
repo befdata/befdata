@@ -48,7 +48,7 @@
     %h4 Freeformat files (#{@freeformats.length})
     = render :partial => 'freeformats/index'
 
-  - if @datacolumns
+  - unless @datacolumns.empty?
     .span-12.last
       %h3 Data columns available in the raw data part of this dataset
       - @datacolumns.each do |column|
