@@ -14,8 +14,7 @@
     = csrf_meta_tag
   %body
     - unless Rails.env == 'production'
-      -##rails_env_notice{:style => 'background-color: #fafad2'}= "You are currently working under #{Rails.env} environment."
-      -# UNCOMMENT THE LINE ABOVE! THIS IS JUST USED FOR REDESIGN!
+      #rails_env_notice{:style => 'background-color: #fafad2'}= "You are currently working under #{Rails.env} environment."
     .container
       #header.span-12
         #logo

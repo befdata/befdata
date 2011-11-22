@@ -10,12 +10,14 @@
 
   - content_for :info do
     - unless @contacts.blank?
-      For more information, please contact
+      %h3
+        Contact persons
       %ul
         - @contacts.each do |c|
           %li= render c
     - unless @projects.blank?
-      The following projects were involved:
+      %h3
+        Projects involved
       %ul
         - @projects.each do |p|
           %li= link_to p, project_path(p.id)
@@ -49,27 +51,26 @@
     = render :partial => 'freeformats/index'
 
   - unless @datacolumns.empty?
-    .span-12.last
-      %h3 Data columns available in the raw data part of this dataset
-      - @datacolumns.each do |column|
-        .span-4.dataset_columns{:class => cycle('border', 'border', 'last', :name => 'display_in_columns')}
-          .columnheader= column.columnheader
-          = column.definition
-          %br
-          %i Data group: #{column.datagroup.title}
-          %br
-          - if column.values_stored?
-            %table.import_values
+    %h3 Data columns available in the raw data part of this dataset
+    - @datacolumns.each do |column|
+      .span-4.dataset_columns{:class => cycle('border', 'last', :name => 'display_in_columns')}
+        .columnheader= column.columnheader
+        = column.definition
+        %br
+        %i Data group: #{column.datagroup.title}
+        %br
+        - if column.values_stored?
+          %table.import_values
+            %tr
+              %th.span-4.last= "Values"
+            - column.accepted_values(5).each do |sc|
               %tr
-                %th.span-4.last= "Values"
-              - column.accepted_values(5).each do |sc|
-                %tr
-                  %td.span-4.last{:class => cycle('even', 'odd')} #{sc.accepted_value}
-          - else
-            %img{:src => '/images/error.png'}
-            = "No values yet imported for this data column"
+                %td.span-4.last{:class => cycle('even', 'odd')} #{sc.accepted_value}
+        - else
+          %img{:src => '/images/error.png'}
+          = "No values yet imported for this data column"
 
-          - u = column.users
-          - unless u.blank?
-            %i Members involved with this Data Column:
-            = u.map{|person| link_to person, user_path(person.path_name)}.to_sentence.html_safe
+        - u = column.users
+        - unless u.blank?
+          %i Members involved with this Data Column:
+          = u.map{|person| link_to person, user_path(person.path_name)}.to_sentence.html_safe

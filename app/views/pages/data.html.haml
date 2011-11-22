@@ -10,7 +10,7 @@
     = "  "
 
 %h2 Data sets
-%ul
+%ul.datasets
   - @datasets.each do |ds|
-    %li
-      = link_to ds.title, dataset_path(ds)
+    %li.dataset
+      = link_to ds.title, dataset_path(ds), :class => :dataset

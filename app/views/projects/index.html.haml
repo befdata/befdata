@@ -1,5 +1,5 @@
 %h2 Projects
-%ul
+%ul.projects
   - @projects.each do |project|
-    %li
+    %li.project
       = link_to project.name, project_path(project)

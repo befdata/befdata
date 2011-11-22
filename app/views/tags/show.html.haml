@@ -1,5 +1,5 @@
 %h2= @tag.name
 %ul
-- @datasets.each do |dataset|
-  %li
-    = link_to dataset.title, dataset_path(dataset)
+  - @datasets.each do |dataset|
+    %li
+      = link_to dataset.title, dataset_path(dataset)

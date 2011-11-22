@@ -1,13 +1,13 @@
+= content_for :info do
+  %ul
+    - @project.users.each do |person|
+      %li
+        = render :partial => person, :locals => {:extra => "(#{person.roles_for(@project).map{|e| t("role."+e.name)}.join(",")})"}
+
 %h2
   = "#{@project.name} (#{@project.shortname})"
 %p
   = @project.description
-
-%ul
-  - @project.users.each do |person|
-    %li
-      = render person
-      = "(#{person.roles_for(@project).map{|e| t("role."+e.name)}.join(",")})"
 
 - unless @project_datasets.empty?
   %h3 Datasets

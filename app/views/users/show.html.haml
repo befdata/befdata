@@ -1,3 +1,12 @@
+- unless @user.projects.blank?
+  = content_for :info do
+    %h3 Projects
+    %ul
+      - @user.projectroles.each do |role|
+        %li
+          = link_to role.authorizable, project_path(role.authorizable.id)
+          ="(#{t("role."+role.name)})"
+
 %h2
   = render :partial => @user, :locals => {:avatar => :large}
 
@@ -14,16 +23,6 @@
     %br
   - unless @user.comment.blank?
     = @user.comment
-
-
-- unless @user.projects.count==0
-  %h3 Projects
-  %ul
-    - @user.projectroles.each do |role|
-      %li
-        = link_to role.authorizable, project_path(role.authorizable.id)
-        ="(#{t("role."+role.name)})"
-
 
 - unless @user_datasets_owned.empty?
   %h3 Datasets

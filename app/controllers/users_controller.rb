@@ -49,5 +49,4 @@ class UsersController < ApplicationController
     redirect_to(:action => "index", :status => :not_found) unless @user
   end
 
-
 end

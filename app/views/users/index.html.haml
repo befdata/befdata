@@ -1,3 +1,4 @@
 %h2 BEF Staff
 - for person in @users
-  = render :partial => person
+  .span-4#user-index{:class => cycle('noborder', 'noborder', 'last', :name => 'display_in_columns')}
+    = render :partial => person

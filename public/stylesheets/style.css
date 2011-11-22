@@ -173,14 +173,14 @@ div.colborder {
                   C U S T O M   L A Y O U T
 ============================================================= */
 
-/* --- R E M O V E - M E ! --------------------------------------
+/* --- R E M O V E - M E ! ---------------------------------TODO
      Colors to use:
         #000    : black
         #8a8a8a : dark grey
         #cdcdcd : light grey
         #18921e : green
         #fff    : white
--------------------------------------------------------------- */
+------------------------------------------------------------- */
 
 body {
 	font-size: 13px;
@@ -417,11 +417,64 @@ div#errorExplanation {
     padding-left: 20px;
 }
 
+/* --- Main Content ------------------------------------------- */
+
+ul.datasets a, ul.projects a, .user a{
+    color: #000;
+}
+
+ul.datasets a:hover, ul.projects a:hover, .user a:hover {
+    text-decoration: none;
+    color: #18921e;
+}
+
+#user-index {
+    margin-bottom: 2em;
+}
+
+.user {
+    display: block;
+    clear: both;
+}
+
+.user:after {
+    content: ".";
+    display: block;
+    height: 0;
+    clear: both;
+    visibility: hidden;
+}
+
+.user a {
+    display: block;
+    vertical-align: top;
+}
+
+.user a img {
+    float: left;
+    margin-right: 0.5em;
+}
+
+.user .username {
+    vertical-align: top;
+}
+
+.dataset_columns { margin-bottom: 1em; }
+.dataset_columns .columnheader { font-weight: bold; color: #18921e }
+
+table.import_values {margin: 1em 0 1em 0; border: none; }
+table.import_values th { padding: 5px; border-bottom: 1px solid #8a8a8a; background: #cdcdcd; font-weight: bold;}
+table.import_values th.centercolumn { text-align: center; }
+table.import_values td { padding: 5px; border-bottom: 1px solid #8a8a8a; }
+table.import_values td.centercolumn { text-align: center; }
+table.import_values td.even { background: #fff; }
+table.import_values td.odd { background: #f6f6f6; }
+
 /* --- Sidebar ----------------------------------------------- */
 
 div#sidebar {
     border: #cdcdcd solid 2px;
-    padding: 10px;
+    padding: 10px 10px 14px 10px;
     margin-left: -24px;
 }
 
@@ -457,6 +510,14 @@ div#actions + div#info {
 
 #info ul {
     margin-bottom: 0;
+}
+
+#info h3 {
+    margin-top: 1em;
+}
+
+#info h3:first-child {
+    margin-top: 0;
 }
 
 /* --- Footer ------------------------------------------------ */
@@ -701,8 +762,6 @@ ul#page-associates {
 
 .dataset_actions { padding: 1em 0; }
 .dataset_actions li { list-style-type: none; }
-.dataset_columns { margin-bottom: 1em; }
-.dataset_columns .columnheader { font-weight: bold; text-decoration: underline; }
 
 .approved_0, .approved_0 a { color: #f00 !important; }
 .approved_0.ui-tabs-selected { color: #f00 !important; border: 3px solid #f00 !important; }
@@ -716,15 +775,6 @@ ul#page-associates {
 .sidenote { float:right; width: 208px; margin: 10px 20px; border: 2px solid #9bc56f; border-radius: 4px; }
 .sidenote .head { background: #243f12; margin: 0; padding: 3px; color: #fff; }
 .sidenote .content {padding: 10px;}
-
-table.import_values { margin: 20px 0px; border: 1px solid #243f12; }
-table.import_values th { padding: 5px; border: 1px solid #9bc56f; background: #ccc; }
-table.import_values th.centercolumn { text-align: center; }
-table.import_values td { padding: 5px; border: 1px solid #9bc56f; }
-table.import_values td.centercolumn { text-align: center; }
-table.import_values td.even { background: #fff; }
-table.import_values td.odd { background: #f6f6f6; }
-
 
 /* --------------------------------------------------------------  
    Blueprint Buttons
