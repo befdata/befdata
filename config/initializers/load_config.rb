@@ -1,0 +1,1 @@
+EML_CONFIG = YAML.load_file("#{Rails.root}/config/config.yml")['eml'].with_indifferent_access

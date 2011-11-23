@@ -4,7 +4,7 @@
 packageId="eml.1.1" system="knb"
 xmlns:eml="eml://ecoinformatics.org/eml-2.1.0"
 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-xsi:schemaLocation="eml://ecoinformatics.org/eml-2.1.0 eml.xsd">
+xsi:schemaLocation="eml://ecoinformatics.org/eml-2.1.0 eml-2.1.0/eml.xsd"> CONTINUE putting xsd files on server!
 
 <dataset id="<%= @dataset.id %>">
 
@@ -87,10 +87,10 @@ public). As long as the dataset is not free for public, users may not give the d
   <geographicCoverage>
     <geographicDescription><%= @dataset.spatialextent %></geographicDescription>
     <boundingCoordinates>
-        <westBoundingCoordinate>-180.0</westBoundingCoordinate>
-        <eastBoundingCoordinate>180.0</eastBoundingCoordinate>
-        <northBoundingCoordinate>+90</northBoundingCoordinate>
-        <southBoundingCoordinate>-90</southBoundingCoordinate>
+        <westBoundingCoordinate><%= EML_CONFIG[:bounding_coordinates_for_geographic_coverage][:west_bounding_coordinate] %></westBoundingCoordinate>
+        <eastBoundingCoordinate><%= EML_CONFIG[:bounding_coordinates_for_geographic_coverage][:east_bounding_coordinate] %></eastBoundingCoordinate>
+        <northBoundingCoordinate><%= EML_CONFIG[:bounding_coordinates_for_geographic_coverage][:north_bounding_coordinate] %></northBoundingCoordinate>
+        <southBoundingCoordinate><%= EML_CONFIG[:bounding_coordinates_for_geographic_coverage][:south_bounding_coordinate] %></southBoundingCoordinate>
     </boundingCoordinates>
   </geographicCoverage>
   <% end %>
@@ -158,7 +158,7 @@ Therefore, it can be ignored in Parsing, but needs to be created in the output r
            <% when 'number'%>
                 <ratio>
                   <unit>
-                    <standardUnit>dimensionless</standardUnit>
+                    <standardUnit><%= eml_unit_for_column(column) %></standardUnit>
                   </unit>
                   <numericDomain>
                     <numberType>real</numberType>

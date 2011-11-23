@@ -8,6 +8,11 @@ class DatasetsControllerTest < ActionController::TestCase
     assert_response :success
   end
 
+  test "should show eml metadata as xml" do
+    get :show, {:id => Dataset.first.id, :format => :eml}
+    assert_response :success
+  end
+
   test "dataset can be downloaded" do
     login_nadrowski
     ds = Dataset.find_by_title "Test species name import second version"

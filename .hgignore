@@ -1,7 +1,6 @@
 syntax: glob
 *~
 index/*
-config/config.yml
 *.svn*
 *tuneup*
 

@@ -1,0 +1,6 @@
+eml:
+  bounding_coordinates_for_geographic_coverage:
+    west_bounding_coordinate: 117.89978
+    east_bounding_coordinate: 118.148346
+    north_bounding_coordinate: 29.285201
+    south_bounding_coordinate: 29.101777
