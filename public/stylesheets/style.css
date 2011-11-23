@@ -252,7 +252,7 @@ a:visited {
     color: #18921e;
 }
 
-a:hover {
+a:hover, a:focus {
 	text-decoration: underline;
     color: #18921e;
 }
@@ -282,7 +282,6 @@ input[type=file] {
     border: 1px solid #cdcdcd;
 }
 
-
 input[type=button], input[type=submit], button {
     background-color: #e8e8e8;
     outline: 1px solid #8a8a8a;
@@ -301,6 +300,8 @@ input[type=button]:hover, input[type=submit]:hover, button:hover, input[type=but
 
 #header {
     margin-bottom: 20px;
+    margin-top: 10px;
+    position: relative;
 }
 
 #header li {
@@ -316,13 +317,22 @@ input[type=button]:hover, input[type=submit]:hover, button:hover, input[type=but
     text-decoration: none;
 }
 
-#header a:hover {
+#header a:hover, #header a:focus {
     color: #000;
     background-color: #cdcdcd;
 }
 
+#header input[type=submit] {
+    padding: 2px;
+    height: 18px;
+}
+
+#header input[type=text], #header input[type=password] {
+    padding-left: 14px;
+}
+
 #logo {
-	background: url(../images/bg-neu1_03.png) no-repeat left top;
+	background: url(../images/bg-neu2.png) no-repeat left top;
     width: 928px;
     height: 43px;
     margin-top: 30px;
@@ -336,28 +346,27 @@ input[type=button]:hover, input[type=submit]:hover, button:hover, input[type=but
 #login {
     float: right;
     font-size: 0.9em;
+    margin-top: -12px;
 }
 
 #login label {
     color: #8a8a8a;
 }
 
-#login form * {
+#header form * {
     vertical-align: middle;
 }
 
-#login ul, #login input {
+#header ul, #header input {
     margin-bottom: 0;
 }
 
 input#user_session_login {
     background: url("../images/login-user-1.png") left center no-repeat;
-    padding-left: 14px;
 }
 
 input#user_session_password {
     background: url("../images/login-pwd-1.png") left center no-repeat;
-    padding-left: 14px;
 }
 
 #remember_me {
@@ -371,11 +380,22 @@ input#user_session_password {
 
 #remember_me img {
     margin-right: -3px;
+    padding-bottom: 2px;
 }
 
-#user_session_submit {
-    padding: 2px;
-    height: 18px;
+#remember_me input {
+    margin-bottom: 3px;
+}
+
+#header div#search {
+    position: absolute;
+    right: 0;
+    top: 10px;
+}
+
+input#search_term {
+    background: url("../images/search-1.png") left center no-repeat;
+    margin-right: 4px;
 }
 
 /* --- Flashes ----------------------------------------------- */
@@ -423,7 +443,7 @@ ul.datasets a, ul.projects a, .user a{
     color: #000;
 }
 
-ul.datasets a:hover, ul.projects a:hover, .user a:hover {
+ul.datasets a:hover, ul.projects a:hover, .user a:hover, ul.datasets a:focus, ul.projects a:focus, .user a:focus {
     text-decoration: none;
     color: #18921e;
 }
@@ -498,7 +518,7 @@ div#actions + div#info {
     margin-right: 2px;
 }
 
-#actions a:hover {
+#actions a:hover, #actions a:focus {
     color: #000;
     background-color: #cdcdcd;
     text-decoration: none;
@@ -555,26 +575,6 @@ ul#page-associates {
 
 #page-associates img {
 	margin-right: 10px;
-}
-
-/* --- Search ------------------------------------------------- */
-
-#search {
-}
-
-#search form {
-	margin-bottom: 1.8em;
-	padding: 0px;
-}
-
-#search fieldset {
-	margin: 0px;
-	padding: 0px;
-	border: none;
-}
-
-#search #s {
-	width: 160px;
 }
 
 /* --- Admin interface styles ---------------------------------- */
