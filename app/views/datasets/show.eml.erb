@@ -4,7 +4,7 @@
 packageId="eml.1.1" system="knb"
 xmlns:eml="eml://ecoinformatics.org/eml-2.1.0"
 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-xsi:schemaLocation="eml://ecoinformatics.org/eml-2.1.0 eml-2.1.0/eml.xsd"> CONTINUE putting xsd files on server!
+xsi:schemaLocation="eml://ecoinformatics.org/eml-2.1.0 eml-2.1.0/eml.xsd">
 
 <dataset id="<%= @dataset.id %>">
 
@@ -121,6 +121,21 @@ Therefore, it can be ignored in Parsing, but needs to be created in the output r
 </contact>
 
 
+<methods>
+ <methodStep>
+   <description>
+     <%= content_tag_unless_blank :para, @dataset.title %>
+     <%= content_tag_unless_blank :para, @dataset.abstract %>
+   </description>
+ </methodStep>
+ <sampling>
+   <studyExtent>
+     <description>all date information (min, max, range), spatial, and taxonomic</description>
+   </studyExtent>
+   <samplingDescription>sampling description and data analysis</samplingDescription>
+ </sampling>
+</methods>
+
 <dataTable>
     <entityName><%= dataset_url(@dataset)+'.txt' %></entityName>
     <entityDescription><%= @dataset.title %></entityDescription>
@@ -150,9 +165,6 @@ Therefore, it can be ignored in Parsing, but needs to be created in the output r
        <attributeName><%= "#{column.datagroup.title} (#{column.columnheader})" %></attributeName>
        <attributeLabel><%= column.columnheader %></attributeLabel>
        <attributeDefinition><%= "#{column.datagroup.description} (#{column.columnheader}: #{column.definition})" %></attributeDefinition>
-       <% unless column.datagroup.timelatency.blank? || column.datagroup.timelatencyunit.blank? %>
-       <accuracy><%= "#{column.datagroup.timelatency} #{column.datagroup.timelatencyunit}" %></accuracy>
-       <% end %>
        <measurementScale>
            <% case column.datagroup.methodvaluetype %>
            <% when 'number'%>
@@ -178,6 +190,13 @@ Therefore, it can be ignored in Parsing, but needs to be created in the output r
                 </nominal>
            <% end %>
        </measurementScale>
+       <% unless column.datagroup.timelatency.blank? || column.datagroup.timelatencyunit.blank? %>
+       <accuracy>
+         <attributeAccuracyReport>
+           <%= "#{column.datagroup.timelatency} #{column.datagroup.timelatencyunit}" %>
+         </attributeAccuracyReport>
+       </accuracy>
+       <% end %>
        <methods>
          <methodStep>
            <description>
@@ -186,7 +205,8 @@ Therefore, it can be ignored in Parsing, but needs to be created in the output r
              <%= content_tag_unless_blank :para, column.definition %>
            </description>
            <%= content_tag_unless_blank :instrumentation, column.datagroup.instrumentation %>
-           <%= content_tag_unless_blank :citation, column.datagroup.informationsource %>
+           <!--<%= content_tag_unless_blank :citation, column.datagroup.informationsource %>TODO: This does not work-->
+           <!--see http://knb.ecoinformatics.org/software/eml/eml-2.0.1/eml-literature.html#CitationType -->
          </methodStep>
        </methods>
      </attribute>
