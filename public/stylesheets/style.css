@@ -332,7 +332,7 @@ input[type=button]:hover, input[type=submit]:hover, button:hover, input[type=but
 }
 
 #logo {
-	background: url(../images/bg-neu2.png) no-repeat left top;
+	background: url(../images/header-logo-neu2.png) no-repeat left top;
     width: 928px;
     height: 43px;
     margin-top: 30px;
