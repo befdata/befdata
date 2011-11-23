@@ -130,9 +130,17 @@ Therefore, it can be ignored in Parsing, but needs to be created in the output r
  </methodStep>
  <sampling>
    <studyExtent>
-     <description>all date information (min, max, range), spatial, and taxonomic</description>
+     <description>
+       <%= content_tag_unless_blank :para, "#{@dataset.datemin} - #{@dataset.datemax}" %>
+       <%= content_tag_unless_blank :para, @dataset.temporalextent %>
+       <%= content_tag_unless_blank :para, @dataset.spatialextent %>
+       <%= content_tag_unless_blank :para, @dataset.taxonomicextent %>
+     </description>
    </studyExtent>
-   <samplingDescription>sampling description and data analysis</samplingDescription>
+   <samplingDescription>
+     <%= content_tag_unless_blank :para, @dataset.design %>
+     <%= content_tag_unless_blank :para, @dataset.dataanalysis %>
+   </samplingDescription>
  </sampling>
 </methods>
 
