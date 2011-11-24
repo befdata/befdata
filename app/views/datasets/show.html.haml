@@ -67,7 +67,7 @@
               %tr
                 %td.span-4.last{:class => cycle('even', 'odd')} #{sc.accepted_value}
         - else
-          %img{:src => '/images/error.png'}
+          = image_tag 'alert.png'
           = "No values yet imported for this data column"
 
         - u = column.users

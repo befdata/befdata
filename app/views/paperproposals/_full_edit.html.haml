@@ -5,7 +5,6 @@
       = render :partial => "paperproposal_attributes", :locals => {:f => f}
       = f.submit
 
-
   %div.box#datasets
     %h3 Collect and show Datasets
     - form_for @paperproposal do |f|
@@ -26,7 +25,7 @@
 
       = f.submit :add
       - if is_warning
-        = image_tag("/images/error.png", :title => "Warning")
+        = image_tag("alert.png", :title => "Warning")
         Warning! There are data columns from cart not added to this data proposal
 
   %div.box#author-list

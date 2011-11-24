@@ -1,6 +1,6 @@
 - content_for :actions do
   = link_to dataset_path(@dataset) do
-    %img{:src => "/images/page.png"}
+    = image_tag "file.png"
     Dataset overview
 
 %h2= @dataset.title

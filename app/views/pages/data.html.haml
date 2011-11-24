@@ -1,6 +1,8 @@
 - if current_user
   - content_for :actions do
-    = link_to "Create new Dataset", new_dataset_path
+    = link_to new_dataset_path do
+      = image_tag "file-upload.png"
+      Create new Dataset
 
 - content_for :info do
   %h3

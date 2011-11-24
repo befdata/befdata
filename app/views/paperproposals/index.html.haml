@@ -1,16 +1,22 @@
-%h2 Paper Proposals #{link_to(image_tag("add.gif"), :new_paperproposal)}
+= content_for :actions do
+  %p
+    = link_to :new_paperproposal do
+      = image_tag("document.png")
+      Create new Paperproposal
+
+%h2 Paper Proposals #{}
 
 - @paperproposals.each do |pp|
   %div.box
     %h3
       = pp.title
-      = link_to image_tag("page_go.png"), paperproposal_path(pp)
+      = link_to (image_tag "arrow-right.png", :title => 'Show'), paperproposal_path(pp)
       - if pp.lock
-        = image_tag("lock.png")
+        = image_tag "lock-closed.png"
       - else
-        = link_to image_tag("pencil.png"), edit_paperproposal_path(pp)
-        = image_tag("lock_open.png")
-      = link_to image_tag("cross.png"), pp,
+        = link_to (image_tag "edit.png", :title => 'Edit'), edit_paperproposal_path(pp)
+        = image_tag("lock-open.png")
+      = link_to (image_tag "trash.png", :title => 'Delete'), pp,
                                       :confirm => "Are you sure you want delete this data proposal?",
                                       :method => :delete
 

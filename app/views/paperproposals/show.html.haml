@@ -2,10 +2,10 @@
   %h3
     = @paperproposal.title
     - unless @paperproposal.lock
-      = link_to image_tag("pencil.png"), edit_paperproposal_path(@paperproposal)
-      = image_tag("lock_open.png")
+      = link_to image_tag("edit.png"), edit_paperproposal_path(@paperproposal)
+      = image_tag("lock-open.png")
     - else
-      = image_tag("lock.png")
+      = image_tag("lock-closed.png")
   %h4 Rational
   %p= @paperproposal.rationale
 

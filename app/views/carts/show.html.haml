@@ -6,9 +6,9 @@
     - @cart.cart_datasets.each do |cart_object|
       %p.cart
         %span.left= cart_object.dataset.title
-        %span.right= link_to image_tag("/images/cart_remove.png", :title => "Remove from your cart."),
+        %span.right= link_to image_tag("delete.png", :title => "Remove from your cart."),
           delete_cart_context_path(cart_object), :method => :delete, :confirm => "Are you sure you want delete this dataset from cart?"
   - content_for :actions do
     = link_to :new_paperproposal do
-      = image_tag "/images/page_add.png"
+      = image_tag "document.png"
       Create new paper proposal from cart

@@ -11,7 +11,7 @@ function selectPeople(select) {
     var choices = ul.getElementsByTagName('input');
     for (var i = 0; i < choices.length; i++) if (choices[i].value == option.value) return;
     var image = document.createElement('img');
-    image.setAttribute('src', '/images/add.gif');
+    image.setAttribute('src', '/images/cancel.png');
     var li = document.createElement('li');
     var input = document.createElement('input');
     var text = document.createTextNode(option.firstChild.data);
@@ -35,7 +35,7 @@ function selectProjects(select) {
     var choices = ul.getElementsByTagName('input');
     for (var i = 0; i < choices.length; i++) if (choices[i].value == option.value) return;
     var image = document.createElement('img');
-    image.setAttribute('src', '/images/add.gif');
+    image.setAttribute('src', '/images/cancel.png');
     var li = document.createElement('li');
     var input = document.createElement('input');
     var text = document.createTextNode(option.firstChild.data);

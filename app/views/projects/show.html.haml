@@ -16,7 +16,7 @@
       %li
         = link_to ds.title, dataset_path(ds)
         - if current_user
-          = link_to image_tag("/images/cart_put.png"), create_cart_context_path(:dataset_id => ds.id), :method => :post
+          = link_to image_tag("cart.png"), create_cart_context_path(:dataset_id => ds.id), :method => :post
 
 
 - unless @project.authored_paperproposals.empty?

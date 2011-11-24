@@ -12,10 +12,11 @@
   %dl
     %dt= label_tag 'Select people', nil
     %dd= select "person", "person_id", User.all_users_names_and_ids_for_select, {:prompt => 'Select Member'}, {:onchange => 'selectPeople(this)'}
-  %ul#people-list{:style => 'list-style: none;'}
+  %ul#people-list
     - @dataset.users.each do |user|
       %li{:onclick => "this.parentNode.removeChild(this);"}
         %input{:name => "people[]", :type => "hidden", :value => user.id}/
+        = image_tag 'cancel.png'
         = user.to_label
   %p
     You can note external scientists in the comments of a dataset.
@@ -32,6 +33,7 @@
     - @dataset.projects.each do |project|
       %li{:onclick => "this.parentNode.removeChild(this);"}
         %input{:name => "dataset[project_ids][]", :type => "hidden", :value => project.id}/
+        = image_tag 'cancel.png'
         = project.to_label
 
   %h4 Access Rights
