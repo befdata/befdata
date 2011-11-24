@@ -11,7 +11,7 @@ module DatasetsHelper
         "millimeter"
       when 'gram' || 'g'
         "gram"
-      when 'gramsPerSquareMeter' || 'g/m^2' || 'g/m²'
+      #when 'gramsPerSquareMeter' || 'g/m^2' || 'g/m²'
       else
         "dimensionless"
     end
