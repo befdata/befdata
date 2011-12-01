@@ -46,6 +46,10 @@
   - unless @dataset.circumstances.blank?
     %h4 Measurement Circumstances
     %p= @dataset.circumstances
+  - unless @dataset.dataanalysis.blank?
+    %h4 Data Analysis
+    %p= @dataset.dataanalysis
+
   - unless @freeformats.blank?
     %h4 Freeformat files (#{@freeformats.length})
     = render :partial => 'freeformats/index'
