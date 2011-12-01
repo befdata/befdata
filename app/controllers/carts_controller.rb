@@ -22,7 +22,7 @@ class CartsController < ApplicationController
   end
 
   def delete_cart_context
-    @cart_dataset =  CartDataset.find(params[:cart_dataset_id])
+    @cart_dataset =  CartDataset.find(params[:dataset_id])
     @cart_dataset.destroy
     redirect_to :back
   end
