@@ -82,6 +82,13 @@ class Dataset < ActiveRecord::Base
     Dataworkbook.new(upload_spreadsheet)
   end
 
+  def abstract_with_freeformats
+    f_strings = self.freeformats.collect do |f|
+      "File asset " + f.file_file_name + (f.description.blank? ? "" : (": " + f.description))
+    end
+    self.abstract + " " + f_strings.join(" --- ")
+  end
+
   def set_start_and_end_dates_of_research(book)
     self.datemin = book.datemin
     self.datemax = book.datemax
