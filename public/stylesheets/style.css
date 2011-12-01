@@ -298,6 +298,13 @@ input[type=button]:hover, input[type=submit]:hover, button:hover, input[type=but
 
 /* --- Header ------------------------------------------------- */
 
+#rails_env_notice {
+    background-color: #cdcdcd;
+    padding: 5px 10px;
+    font-size:  0.9em;
+    line-height: 0.9em;
+}
+
 #header {
     margin-bottom: 20px;
     margin-top: 10px;

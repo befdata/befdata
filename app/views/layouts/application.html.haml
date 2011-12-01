@@ -2,9 +2,9 @@
 %html{:xmlns => "http://www.w3.org/1999/xhtml"}
   %head
     %meta{:content => "text/html; charset=utf-8", "http-equiv" => "Content-Type"}
-    %title Biodiversity
     = stylesheet_link_tag 'ui-lightness/jquery-ui'
-    = stylesheet_link_tag :all
+    = stylesheet_link_tag 'superfish'
+    = stylesheet_link_tag 'style'
     = javascript_include_tag 'jquery'
     = javascript_include_tag 'jquery-ui'
     = javascript_include_tag 'jquery-cookie'
@@ -12,9 +12,10 @@
     = javascript_include_tag 'application'
     = active_scaffold_includes
     = csrf_meta_tag
+    = render :partial => "pages/#{LayoutHelper::BEF_LAYOUT}/head"
   %body
     - unless Rails.env == 'production'
-      #rails_env_notice{:style => 'background-color: #fafad2'}= "You are currently working under #{Rails.env} environment."
+      #rails_env_notice= "You are currently working under #{Rails.env} environment."
     .container
       #header.span-12
         #logo
@@ -45,4 +46,4 @@
           #main.span-12
             = yield
       #footer.span-12
-        = render :partial => 'pages/footer'
+        = render :partial => "pages/#{LayoutHelper::BEF_LAYOUT}/footer"
