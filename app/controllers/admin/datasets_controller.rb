@@ -7,7 +7,7 @@ class Admin::DatasetsController < Admin::AdminController
     config.create.link = false
     config.update.link.label = "Edit Data set"
 
-    config.list.columns = [:id, :title, :filename, :downloads]
+    config.list.columns = [:id, :title, :filename, :downloads, :last_update]
 
     [config.update, config.show].each do |c|
       c.columns =  [:title, :visible_for_public, :free_for_public, :free_for_members, :free_within_projects,

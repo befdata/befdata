@@ -9,6 +9,11 @@
       = render :partial => 'edit_download_destroy_links'
 
   - content_for :info do
+    %h3
+      Last update
+    %p
+      = @dataset.last_update.strftime "%Y-%m-%d %H:%M"
+
     - unless @contacts.blank?
       %h3
         Contact persons

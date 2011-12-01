@@ -174,4 +174,13 @@ class Dataset < ActiveRecord::Base
     return datacolumns.first.sheetcells.count
   end
 
+  def last_update
+    dates = Array.new
+      dates << self.updated_at
+    dates << self.upload_spreadsheet.updated_at unless self.upload_spreadsheet.nil?
+    dates += self.freeformats.collect {|x| x.updated_at}
+    dates += self.datacolumns.collect {|x| x.updated_at}
+    dates.max
+  end
+
 end
