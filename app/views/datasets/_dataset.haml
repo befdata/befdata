@@ -1,0 +1,9 @@
+- with_cart ||= false
+- with_comment ||= false
+
+= link_to dataset.title, dataset_path(dataset)
+- if with_cart && current_user
+  = link_to image_tag("cart.png", :title =>"Add to cart"), create_cart_context_path(:dataset_id => dataset.id), :method => :post
+- if with_comment && may_see_comment?(dataset)
+  %span.dataset-comment
+    = dataset.comment

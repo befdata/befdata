@@ -29,10 +29,7 @@
   %ul
     - @user_datasets_owned.each do |ds|
       %li
-        = link_to ds.title, dataset_path(ds)
-        - if current_user
-          = link_to image_tag("cart.png"), create_cart_context_path(:dataset_id => ds.id), :method => :post
-
+        = render :partial => ds, :locals => {:with_cart => true, :with_comment => true}
 
 - unless @user.datasets_with_responsible_datacolumns_not_owned.count==0
   %h3 Involved with data columns within the following datasets

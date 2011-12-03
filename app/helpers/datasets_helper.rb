@@ -16,4 +16,13 @@ module DatasetsHelper
         "dimensionless"
     end
   end
+
+  def may_see_comment? (dataset = @dataset)
+    return false unless current_user
+    return true if current_user.has_role? :admin
+    return true if current_user.has_role? :project_board
+    return true if dataset.accepts_role? :owner, current_user
+    false
+  end
+
 end

@@ -486,6 +486,11 @@ ul.datasets a:hover, ul.projects a:hover, .user a:hover, ul.datasets a:focus, ul
     vertical-align: top;
 }
 
+span.dataset-comment {
+    color: #8a8a8a;
+    display: block;
+}
+
 .dataset_columns { margin-bottom: 1em; }
 .dataset_columns .columnheader { font-weight: bold; color: #18921e }
 
@@ -501,8 +506,6 @@ table.import_values td.odd { background: #f6f6f6; }
     margin-top: 30px;
     font-size: 0.8em;
 }
-
-
 
 /* --- Sidebar ----------------------------------------------- */
 
@@ -672,8 +675,8 @@ ul#page-associates {
 
 #left_box input {
     text-align: right;
-    margin-right: 0px;
-    padding-right: 0px;
+    margin-right: 0;
+    padding-right: 0;
 }
 
 #right_box {
@@ -871,7 +874,7 @@ Custom JQuery Tweaking
 .ui-tabs-nav .approved_false a { color: #f00; }
 .ui-tabs-nav .approved_medium a { color: #eb8f00; }
 .ui-tabs-nav .approved_true a { color: #9bc56f; }
-.ui-corner-all, .ui-corner-top, .ui-corner-left, .ui-corner-tl { border-bottom-right-radius: 0px; border-bottom-left-radius: 0px; border-top-right-radius: 0px; border-top-left-radius: 0px; }
+.ui-corner-all, .ui-corner-top, .ui-corner-left, .ui-corner-tl { border-bottom-right-radius: 0; border-bottom-left-radius: 0; border-top-right-radius: 0px; border-top-left-radius: 0px; }
 
 /* --------------------------------------------------------------
 Some Form layout
