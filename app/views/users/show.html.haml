@@ -40,15 +40,12 @@
         - if current_user
           = link_to image_tag("cart.png"), create_cart_context_path(:dataset_id => ds.id), :method => :post
 
-
 - unless @user.paperproposal_author.blank?
   %h3 Paper proposal submissions
   %ul
     - @user.paperproposal_author.each do |pp|
       %li
-        = link_to pp.title, {:controller => :paperproposals,
-                                         :action => :show,
-                                         :id => pp.id }
+        = link_to pp.title, {:controller => :paperproposals, :action => :show, :id => pp.id }
         = "(#{pp.calc_authorship(@user)})"
 
 -#- unless @user.users_roles.blank?

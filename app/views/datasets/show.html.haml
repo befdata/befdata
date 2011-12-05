@@ -11,8 +11,12 @@
   - content_for :info do
     %h3
       Last update
-    %p
-      = @dataset.last_update.strftime "%Y-%m-%d %H:%M"
+    %p= @dataset.last_update.strftime "%Y-%m-%d %H:%M"
+
+    - if !@dataset.comment.blank? && may_see_comment?(@dataset)
+      %h3
+        Comment
+      %p= @dataset.comment
 
     - unless @contacts.blank?
       %h3
