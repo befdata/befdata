@@ -1,5 +1,7 @@
-class ExcelExport
+require "dataworkbook_format"
 
+class ExcelExport
+  include DataworkbookFormat
 
   def initialize(dataset)
 
@@ -7,12 +9,12 @@ class ExcelExport
     excel_workbook = Spreadsheet::Workbook.new
 
     spreadsheet_formatting = {}
-    spreadsheet_formatting[:dataformat] = Spreadsheet::Format.new :size => 11, :horizontal_align => :left, :italic => true
-    spreadsheet_formatting[:metaformat] = Spreadsheet::Format.new :size => 11, :horizontal_align => :left, :color => 'brown'
-    spreadsheet_formatting[:unapprovedformat] = Spreadsheet::Format.new :size => 11, :horizontal_align => :left, :color => 'orange'
+    spreadsheet_formatting[:dataformat] = WBF[:data_format]
+    spreadsheet_formatting[:metaformat] = WBF[:meta_format]
+    spreadsheet_formatting[:unapprovedformat] = WBF[:unapproved_format]
 
     create_metasheet(excel_workbook, dataset, spreadsheet_formatting)
-    create_methodsheet(excel_workbook, dataset, spreadsheet_formatting)
+    create_columnsheet(excel_workbook, dataset, spreadsheet_formatting)
     create_peoplesheet(excel_workbook, dataset, spreadsheet_formatting)
     create_categorysheet(excel_workbook, dataset, spreadsheet_formatting)
     create_datasheet(excel_workbook, dataset, spreadsheet_formatting)
@@ -38,19 +40,24 @@ class ExcelExport
     sheet[0,0] = I18n.t('metadata.head')
     sheet[2,0] = I18n.t('metadata.title')
     sheet.row(3).set_format(0, formats[:dataformat])
-    sheet[3,0] = dataset.title ||= ""
+
+    sheet[*WBF[:meta_title_pos]] = dataset.title ||= ""
 
     sheet[5,0] = I18n.t('metadata.abstract')
-    sheet[6,0] = dataset.abstract ||= ""
+
+    sheet[*WBF[:meta_abstract_pos]] = dataset.abstract ||= ""
+
     sheet.row(6).set_format(0, formats[:dataformat])
 
     sheet[8,0] = I18n.t('metadata.comments')
-    sheet[9,0] = dataset.comment ||= ""
+
+    sheet[*WBF[:meta_comment_pos]] = dataset.comment ||= ""
+
     sheet.row(9).set_format(0, formats[:dataformat])
 
     (11..18).each{|n| sheet.row(n).set_format(0, formats[:metaformat])}
     sheet[11,0] = I18n.t('metadata.project')
-    sheet[11,1] = dataset.projects.uniq.collect{|p| p.shortname}.sort.join(', ')
+    sheet[*WBF[:meta_projects_pos]] = dataset.projects.uniq.collect{|p| p.shortname}.sort.join(', ')
 
     sheet[13,0] = I18n.t('metadata.people')
     sheet[14,0] = I18n.t('metadata.givenname')
@@ -130,7 +137,7 @@ class ExcelExport
   # Creates the second sheet of a context file, the one with the
   # method descriptions.  If no methods are given, all methods of the
   # context will be used.
-  def create_methodsheet (book, dataset, formats, methods = nil)
+  def create_columnsheet (book, dataset, formats, methods = nil)
     # This action canot be called externally.
 
     #Create the sheet and fill in the headers
