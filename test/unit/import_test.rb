@@ -59,4 +59,16 @@ class ImportTest < ActiveSupport::TestCase
     assert(uniquelist2.count==3, "There are not 3 unique categories in the datagroup")
   end
 
+  test "cleanstring_several_spaces" do
+    input = "     testing spaces "
+    cleanstring = input.gsub(/^[\s]+|[\s]+$/,"")
+    assert(cleanstring=="testing spaces")
+  end
+
+  test "cleanstring_no_spaces" do
+    input = "testing spaces"
+    cleanstring = input.gsub(/^[\s]+|[\s]+$/,"")
+    assert(cleanstring=="testing spaces")
+  end
+
 end

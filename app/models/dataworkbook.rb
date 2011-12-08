@@ -79,12 +79,16 @@ class Dataworkbook
 
   # Wraps the general metadata column into an array.
   def general_metadata_column
-    Array(general_metadata_sheet.column(0))
+    metadata = Array(general_metadata_sheet.column(0))
+    metadata = metadata.collect!{ |md| clean_string(md) } unless metadata.nil?
+    metadata
   end
 
   # Provides an array with the headers of all raw data columns.
   def columnheaders_raw
-    Array(raw_data_sheet.row(0)).compact
+    columns = Array(raw_data_sheet.row(0)).compact
+    columns = columns.collect!{ |col| clean_string(col) } unless columns.nil?
+    columns
   end
 
   # Checks whether the raw data headers are unique.
@@ -105,12 +109,12 @@ class Dataworkbook
   def portal_users_listed_as_responsible
     portal_users = []
     members_listed_as_responsible.each do |member|
-      portal_users << User.find_by_firstname_and_lastname(member[0], member[1])
+      portal_users << User.find_by_firstname_and_lastname(clean_string(member[0]), clean_string(member[1]))
     end
     portal_users.compact
   end
 
-  # Returns an array of the tags that were in the respective cell.
+  # Returns the tags that were in the respective cell.
   def tag_list
     Array(general_metadata_sheet.column(1))[11]
   end
@@ -233,7 +237,8 @@ class Dataworkbook
 
   # Reverse lookup for column headers. Returns the index for any provided columnheader.
   def method_index_for_columnheader(columnheader)
-    data_description_sheet.column(0).to_a.index(columnheader)
+    columnheaders = Array(data_description_sheet.column(0))
+    columnheaders.collect!{|col| clean_string(col)}.index(columnheader)
   end
 
   # Returns a hash filled with all informations regarding a given columnheader.
@@ -242,16 +247,16 @@ class Dataworkbook
 
     data_header_ch = {}
     data_header_ch[:columnheader] = columnheader
-    data_header_ch[:columnnr] = 1 + Array(raw_data_sheet.row(0)).index(columnheader)
+    data_header_ch[:columnnr] = 1 + columnheaders_raw.index(columnheader)
 
     if method_index.nil? # columnheader does not appear in the method sheet
       data_header_ch[:definition] = columnheader
     else
-      data_header_ch[:definition] = Array(data_description_sheet.column(1))[method_index].blank? ? columnheader : Array(data_description_sheet.column(1))[method_index]
-      data_header_ch[:unit] = Array(data_description_sheet.column(2))[method_index]
-      data_header_ch[:missingcode] = Array(data_description_sheet.column(3))[method_index]
-      data_header_ch[:comment] = Array(data_description_sheet.column(4))[method_index]
-      data_header_ch[:import_data_type] = Array(data_description_sheet.column(9))[method_index]
+      data_header_ch[:definition] = Array(data_description_sheet.column(1))[method_index].blank? ? columnheader : clean_string(Array(data_description_sheet.column(1))[method_index])
+      data_header_ch[:unit] = clean_string(Array(data_description_sheet.column(2))[method_index])
+      data_header_ch[:missingcode] = clean_string(Array(data_description_sheet.column(3))[method_index])
+      data_header_ch[:comment] = clean_string(Array(data_description_sheet.column(4))[method_index])
+      data_header_ch[:import_data_type] = clean_string(Array(data_description_sheet.column(9))[method_index])
     end
 
     return data_header_ch
@@ -260,7 +265,7 @@ class Dataworkbook
 
   # Extracts the datatype from the spreadsheet for a given columnheader
   def datatype_for_columnheader(columnheader)
-    data_type_name = Array(data_description_sheet.column(9))[method_index_for_columnheader(columnheader)]
+    data_type_name = clean_string(Array(data_description_sheet.column(9))[method_index_for_columnheader(columnheader)])
     Datatypehelper.find_by_name(data_type_name)
   end
   
@@ -285,14 +290,14 @@ class Dataworkbook
       data_group[:description] = columnheader
     else
       row = data_description_sheet.row(method_index)
-      data_group[:title] = row[5].blank? ? row[1] : row[5]
+      data_group[:title] = row[5].blank? ? clean_string(row[1]) : clean_string(row[5])
       data_group[:title] ||= columnheader
-      data_group[:description] = row[6].blank? ? data_group[:title] : row[6]
-      data_group[:instrumentation] = row[7]
-      data_group[:informationsource] = row[8]
-      data_group[:methodvaluetype] = row[9]
-      data_group[:timelatency] = row[10]
-      data_group[:timelatencyunit] = row[11]
+      data_group[:description] = row[6].blank? ? clean_string(data_group[:title]) : clean_string(row[6])
+      data_group[:instrumentation] = clean_string(row[7])
+      data_group[:informationsource] = clean_string(row[8])
+      data_group[:methodvaluetype] = clean_string(row[9])
+      data_group[:timelatency] = clean_string(row[10])
+      data_group[:timelatencyunit] = clean_string(row[11])
     end
 
     return data_group
@@ -302,7 +307,8 @@ class Dataworkbook
   # Return the complete column from the raw data sheet for a given columnheader,
   # including the header again.
   def data_with_head(columnheader)
-    Array(raw_data_sheet.column(raw_data_sheet.row(0).to_a.index(columnheader)))
+
+    Array(raw_data_sheet.column(columnheaders_raw.index(columnheader)))
   end
 
   # Returns a hash with al the raw data for a given columnheader.
@@ -357,10 +363,10 @@ class Dataworkbook
     people_role  = []
     people = []
     people_rows.each do |r|
-      people_given << data_responsible_person_sheet.row(r)[1]
-      people_sur << data_responsible_person_sheet.row(r)[2]
-      people_proj << data_responsible_person_sheet.row(r)[3]
-      people_role << data_responsible_person_sheet.row(r)[4]
+      people_given << clean_string(data_responsible_person_sheet.row(r)[1])
+      people_sur << clean_string(data_responsible_person_sheet.row(r)[2])
+      people_proj << clean_string(data_responsible_person_sheet.row(r)[3])
+      people_role << clean_string(data_responsible_person_sheet.row(r)[4])
       people += User.find_all_by_lastname(people_sur)
     end
     people = people.uniq
@@ -379,13 +385,14 @@ class Dataworkbook
     i=0
     for i in 0 .. header.length-1 do
       unless header[i].nil?
-        if header[i] == columnheader
+        if clean_string(header[i]) == columnheader
           d = convert_to_string(short[i])
+          d = clean_string(d)
           short_text = d unless d.nil?
           #short_text = short_text.to_i.to_s if integer?(short_text)
           provided_hash = {:short => short_text,
-                            :long => long[i],
-                            :description => description[i]
+                            :long => clean_string(long[i]),
+                            :description => clean_string(description[i])
                           }
           provided_hash_array << provided_hash
         end
@@ -407,6 +414,7 @@ class Dataworkbook
     data_hash = {}
     data_array.each_index do |x|
       d = convert_to_string(data_array[x])
+      d = clean_string(d)
       row = x + 1
       data_hash[row] = d unless d.nil?
     end
@@ -433,6 +441,14 @@ class Dataworkbook
       end
      end
 
+    return input
+  end
+
+  ## clean_string removes any leading and trailing spaces from the input
+  def clean_string(input)
+    unless input.nil?
+      input = input.to_s.gsub(/^[\s]+|[\s]+$/, "")
+    end
     return input
   end
 
