@@ -16,7 +16,7 @@ module DataworkbookFormat
     :data_sheet     => 4,
 
     # Metadata sheet
-    :meta_version_pos      => [0,4],
+    :meta_version_pos      => [0,2],
     :meta_title_pos        => [3,0],
     :meta_abstract_pos     => [6,0],
     :meta_comment_pos      => [9,0],
