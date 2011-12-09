@@ -133,7 +133,7 @@ private
       unaccepted_values = col.sheetcells.select{|s| s.accepted_value.blank? && !s.datatype.is_category?}.collect{|s| s.import_value}
       clean_un_val = unaccepted_values.compact.uniq.sort
       clean_un_val.each do |uv|
-        sheet.row(row).default_format = formats[:unapproved_format]
+        sheet.row(row).default_format = WBF[:unapproved_format]
         sheet[row,WBF[:category_columnheader_col]] = col.columnheader
         sheet[row,WBF[:category_short_col]] = uv
         sheet[row,WBF[:category_long_col]] = uv
@@ -167,7 +167,7 @@ private
           value = sheetcell.accepted_value
         else
           value = sheetcell.import_value
-          sheet.row(sheetcell.row_number - 1).set_format(col - 1, formats[:unapproved_format])
+          sheet.row(sheetcell.row_number - 1).set_format(col - 1, WBF[:unapproved_format])
         end
         sheet[sheetcell.row_numbe - 1, col - 1] = value if value
       end
