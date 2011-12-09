@@ -1,3 +1,7 @@
+site:
+  #set layout to use one different than standard befdata
+  #layout: 'fundiv'
+
 eml:
   bounding_coordinates_for_geographic_coverage:
     west_bounding_coordinate: 117.89978
