@@ -169,7 +169,7 @@ private
           value = sheetcell.import_value
           sheet.row(sheetcell.row_number - 1).set_format(col - 1, WBF[:unapproved_format])
         end
-        sheet[sheetcell.row_numbe - 1, col - 1] = value if value
+        sheet[sheetcell.row_number - 1, col - 1] = value if value
       end
     end
   end
