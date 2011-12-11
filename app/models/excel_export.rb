@@ -81,18 +81,15 @@ private
       sheet[row,WBF[:column_header_col]] = datacolumn.columnheader if datacolumn.columnheader
       sheet[row,WBF[:column_definition_col]] = datacolumn.definition if datacolumn.definition
       sheet[row,WBF[:column_unit_col]] = datacolumn.unit if datacolumn.unit
-      sheet[row,WBF[:column_missingcode_col]] = datacolumn.missingcode if datacolumn.missingcode
 
-      comment = datacolumn.tag_list.join(", ")
-      sheet[row,WBF[:column_comment_col]] = comment if comment
+      keywords = datacolumn.tag_list.join(", ")
+      sheet[row,WBF[:column_keywords_col]] = keywords unless keywords.blank?
 
       sheet[row,WBF[:group_title_col]] = datacolumn.datagroup.title if datacolumn.datagroup.title
       sheet[row,WBF[:group_description_col]] = datacolumn.datagroup.description if datacolumn.datagroup.description
       sheet[row,WBF[:group_instrumentation_col]] = datacolumn.datagroup.instrumentation if datacolumn.datagroup.instrumentation
       sheet[row,WBF[:group_informationsource_col]] = datacolumn.datagroup.informationsource if datacolumn.datagroup.informationsource
       sheet[row,WBF[:group_methodvaluetype_col]] = datacolumn.datagroup.methodvaluetype if datacolumn.datagroup.methodvaluetype
-      sheet[row,WBF[:group_timelatency_col]] = datacolumn.datagroup.timelatency if datacolumn.datagroup.timelatency
-      sheet[row,WBF[:group_timelatencyunit_col]] = datacolumn.datagroup.timelatencyunit if datacolumn.datagroup.timelatencyunit
     end
   end
 

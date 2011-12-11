@@ -1,7 +1,7 @@
 module DataworkbookFormat
   WBF = {
     # Version of File Format - Change when making changes here
-    :wb_format_version => "0.0.0",
+    :wb_format_version => "on the way to 0.1.1",
 
     # Spreadsheet formats
     :data_format    => Spreadsheet::Format.new(:size => 11, :horizontal_align => :left, :italic => true),
@@ -36,19 +36,17 @@ module DataworkbookFormat
     :meta_circumstances_pos   => [48,0],
 
     # Columns sheet
-    :column_header_col      => 0,
-    :column_definition_col  => 1,
-    :column_unit_col        => 2,
-    :column_missingcode_col => 3,
-    :column_comment_col     => 4,
+    :column_header_col           => 0,
+    :column_definition_col       => 1,
+    :group_methodvaluetype_col   => 2,
+    :column_unit_col             => 3,
+    :group_instrumentation_col   => 4,
+    :group_informationsource_col => 5,
+    :column_keywords_col         => 6,
+    :group_title_col             => 7,
+    :group_description_col       => 8,
 
-    :group_title_col             => 5,
-    :group_description_col       => 6,
-    :group_instrumentation_col   => 7,
-    :group_informationsource_col => 8,
-    :group_methodvaluetype_col   => 9,
-    :group_timelatency_col       => 10,
-    :group_timelatencyunit_col   => 11,
+    :column_comment_col          => 9, # not used, how much has this to do with keywords
 
     # People sheet
     :people_columnheader_col  => 0,
