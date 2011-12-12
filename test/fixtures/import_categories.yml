@@ -295,3 +295,35 @@ import_categories_037:
   short: "3"
   long: H
   description: H
+import_categories_038: 
+  id: "74"
+  datacolumn_id: "65"
+  created_at: 2011-12-12 13:35:20.742851
+  updated_at: 2011-12-12 13:35:20.742851
+  short: COL_1_CAT_1
+  long: COL_1_CAT_1_LONG
+  description: COL_1_CAT_1_DESCRIPTION
+import_categories_039: 
+  id: "75"
+  datacolumn_id: "65"
+  created_at: 2011-12-12 13:35:20.754033
+  updated_at: 2011-12-12 13:35:20.754033
+  short: COL_1_CAT_2
+  long: COL_1_CAT_2_LONG
+  description: COL_1_CAT_2_DESCRIPTION
+import_categories_040: 
+  id: "76"
+  datacolumn_id: "65"
+  created_at: 2011-12-12 13:35:20.762811
+  updated_at: 2011-12-12 13:35:20.762811
+  short: COL_1_CAT_3
+  long: COL_1_CAT_3_LONG
+  description: COL_1_CAT_3_DESCRIPTION
+import_categories_041: 
+  id: "77"
+  datacolumn_id: "65"
+  created_at: 2011-12-12 13:35:20.770868
+  updated_at: 2011-12-12 13:35:20.770868
+  short: COL_1_CAT_4
+  long: COL_1_CAT_4_LONG
+  description: COL_1_CAT_4_DESCRIPTION

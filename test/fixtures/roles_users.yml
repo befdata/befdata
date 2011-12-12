@@ -44,3 +44,15 @@ roles_users_014:
 roles_users_015: 
   user_id: "2"
   role_id: "3"
+roles_users_016: 
+  user_id: "2"
+  role_id: "22"
+roles_users_017: 
+  user_id: "1"
+  role_id: "22"
+roles_users_018: 
+  user_id: "2"
+  role_id: "23"
+roles_users_019: 
+  user_id: "3"
+  role_id: "24"

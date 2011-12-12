@@ -104,3 +104,24 @@ roles_015:
   authorizable_id: "5"
   created_at: 2011-06-01 13:47:09.313
   updated_at: 2011-06-01 13:47:09.313
+roles_016: 
+  id: "22"
+  name: owner
+  authorizable_type: Dataset
+  authorizable_id: "9"
+  created_at: 2011-12-12 13:35:19.814522
+  updated_at: 2011-12-12 13:35:19.814522
+roles_017: 
+  id: "23"
+  name: responsible
+  authorizable_type: Datacolumn
+  authorizable_id: "65"
+  created_at: 2011-12-12 13:53:40.882023
+  updated_at: 2011-12-12 13:53:40.882023
+roles_018: 
+  id: "24"
+  name: responsible
+  authorizable_type: Datacolumn
+  authorizable_id: "66"
+  created_at: 2011-12-12 13:54:00.835004
+  updated_at: 2011-12-12 13:54:00.835004

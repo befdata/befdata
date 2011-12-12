@@ -431,19 +431,51 @@ datacolumns_027:
   datagroup_approved: t
   finished: f
   datatype_approved: t
-datacolumns_028:
+datacolumns_028: 
   id: "64"
   datagroup_id: "24"
   dataset_id: "7"
   columnheader: Column_nine
   columnnr: "9"
   definition: Column nine
-  unit:
-  missingcode:
-  comment:
+  unit: 
+  missingcode: 
+  comment: 
   import_data_type: number
   created_at: 2011-10-07 15:02:40.346
   updated_at: 2011-10-07 15:02:40.346
   datagroup_approved: t
   finished: f
+  datatype_approved: t
+datacolumns_029: 
+  id: "65"
+  datagroup_id: "36"
+  dataset_id: "9"
+  columnheader: COLUMN_1_HEADER
+  columnnr: "1"
+  definition: COLUMN_1_DEFINITION
+  unit: COLUMN_1_UNIT
+  missingcode: COLUMN_MISS_VAL_1
+  comment: COLUMN_1_COMMENT
+  import_data_type: category
+  created_at: 2011-12-12 13:35:20.601526
+  updated_at: 2011-12-12 13:54:08.449683
+  datagroup_approved: t
+  finished: t
+  datatype_approved: t
+datacolumns_030: 
+  id: "66"
+  datagroup_id: "37"
+  dataset_id: "9"
+  columnheader: COLUMN_2_HEADER
+  columnnr: "2"
+  definition: COLUMN_2_DEFINITION
+  unit: COLUMN_2_UNIT
+  missingcode: COLUMN_MISS_VAL_2
+  comment: COLUMN_2_COMMENT
+  import_data_type: number
+  created_at: 2011-12-12 13:35:20.812003
+  updated_at: 2011-12-12 13:54:12.982948
+  datagroup_approved: t
+  finished: t
   datatype_approved: t

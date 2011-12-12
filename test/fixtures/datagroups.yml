@@ -441,3 +441,29 @@ datagroups_034:
   created_at: 2011-07-01 11:46:40.633028
   updated_at: 2011-07-01 11:46:40.633028
   type_id: "1"
+datagroups_035: 
+  id: "36"
+  informationsource: DG_INFORMATION_SOURCE_1
+  methodvaluetype: DG_METHODVALUETYPE_1
+  title: DG_TITLE_1
+  description: DG_DESCRIPTION_1
+  instrumentation: DG_INSTRUMENTATION_1
+  timelatency: "0"
+  timelatencyunit: DG_TIMELATENCYUNIT_1
+  comment: DG_COMMENT_1
+  created_at: 2011-12-12 13:35:20.454189
+  updated_at: 2011-12-12 13:35:20.454189
+  type_id: "1"
+datagroups_036: 
+  id: "37"
+  informationsource: DG_INFORMATION_SOURCE_2
+  methodvaluetype: DG_METHODVALUETYPE_2
+  title: DG_TITLE_2
+  description: DG_DESCRIPTION_2
+  instrumentation: DG_INSTRUMENTATION_2
+  timelatency: "0"
+  timelatencyunit: DG_TIMELATENCYUNIT_2
+  comment: DG_COMMENT_2
+  created_at: 2011-12-12 13:35:20.784521
+  updated_at: 2011-12-12 13:35:20.784521
+  type_id: "1"

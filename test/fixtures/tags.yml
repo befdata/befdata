@@ -175,3 +175,15 @@ tags_044:
   id: "33"
   name: bcomplex:Solar radiation
   kind: tag
+tags_045: 
+  id: "45"
+  name: KEY_1
+  kind: tag
+tags_046: 
+  id: "46"
+  name: WORD
+  kind: tag
+tags_047: 
+  id: "47"
+  name: KEY_2
+  kind: tag

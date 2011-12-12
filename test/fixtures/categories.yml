@@ -175,3 +175,69 @@ categories_016:
   datagroup_id: "22"
   user_id: "1"
   status_id: "1"
+categories_017: 
+  id: "75"
+  short: COL_1_CAT_4
+  long: COL_1_CAT_4_LONG
+  description: COL_1_CAT_4_DESCRIPTION
+  comment: "TITLE: use for visual testing of export"
+  created_at: 2011-12-12 13:46:59.514894
+  updated_at: 2011-12-12 13:46:59.514894
+  datagroup_id: "36"
+  user_id: "1"
+  status_id: "1"
+categories_018: 
+  id: "76"
+  short: COL_1_CAT_1
+  long: COL_1_CAT_1_LONG
+  description: COL_1_CAT_1_DESCRIPTION
+  comment: "TITLE: use for visual testing of export"
+  created_at: 2011-12-12 13:46:59.514894
+  updated_at: 2011-12-12 13:46:59.514894
+  datagroup_id: "36"
+  user_id: "1"
+  status_id: "1"
+categories_019: 
+  id: "77"
+  short: COL_1_CAT_2
+  long: COL_1_CAT_2_LONG
+  description: COL_1_CAT_2_DESCRIPTION
+  comment: "TITLE: use for visual testing of export"
+  created_at: 2011-12-12 13:46:59.514894
+  updated_at: 2011-12-12 13:46:59.514894
+  datagroup_id: "36"
+  user_id: "1"
+  status_id: "1"
+categories_020: 
+  id: "78"
+  short: COL_1_CAT_3
+  long: COL_1_CAT_3_LONG
+  description: COL_1_CAT_3_DESCRIPTION
+  comment: "TITLE: use for visual testing of export"
+  created_at: 2011-12-12 13:46:59.514894
+  updated_at: 2011-12-12 13:46:59.514894
+  datagroup_id: "36"
+  user_id: "1"
+  status_id: "1"
+categories_021: 
+  id: "79"
+  short: COL_1_UNKNOWN_CAT
+  long: COL_1_UNKNOWN_CAT
+  description: COL_1_UNKNOWN_CAT
+  comment: "TITLE: use for visual testing of export"
+  created_at: 2011-12-12 13:53:39.56293
+  updated_at: 2011-12-12 13:53:39.56293
+  datagroup_id: "36"
+  user_id: "1"
+  status_id: "2"
+categories_022: 
+  id: "80"
+  short: COL_2_UNKNOWN_CAT
+  long: COL_2_UNKNOWN_CAT
+  description: COL_2_UNKNOWN_CAT
+  comment: "TITLE: use for visual testing of export"
+  created_at: 2011-12-12 13:53:59.500803
+  updated_at: 2011-12-12 13:53:59.500803
+  datagroup_id: "37"
+  user_id: "1"
+  status_id: "2"

@@ -109,3 +109,23 @@ taggings_022:
   tag_id: "40"
   taggable_type: Datacolumn
   taggable_id: "34"
+taggings_023: 
+  id: "147"
+  tag_id: "45"
+  taggable_type: Datacolumn
+  taggable_id: "65"
+taggings_024: 
+  id: "148"
+  tag_id: "46"
+  taggable_type: Datacolumn
+  taggable_id: "65"
+taggings_025: 
+  id: "149"
+  tag_id: "47"
+  taggable_type: Datacolumn
+  taggable_id: "66"
+taggings_026: 
+  id: "150"
+  tag_id: "46"
+  taggable_type: Datacolumn
+  taggable_id: "66"
