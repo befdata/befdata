@@ -75,6 +75,12 @@ class User < ActiveRecord::Base
     "#{lastname}, #{firstname} - #{salutation}"
   end
 
+  # nice strings for citations etc.
+  def short_name
+    firstnames_short = firstname.split(" ").collect{|fn| "#{fn[0]}."}.join(", ")
+    "#{lastname}, #{firstnames_short}"
+  end
+
   def admin
     self.has_role? :admin
   end

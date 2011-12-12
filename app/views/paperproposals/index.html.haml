@@ -4,31 +4,25 @@
       = image_tag("document.png")
       Create new Paperproposal
 
-%h2 Paper Proposals #{}
+%h2 Paper Proposals
 
-- @paperproposals.each do |pp|
-  %div.box
-    %h3
-      = pp.title
-      = link_to (image_tag "arrow-right.png", :title => 'Show'), paperproposal_path(pp)
-      - if pp.lock
-        = image_tag "lock-closed.png"
-      - else
-        = link_to (image_tag "edit.png", :title => 'Edit'), edit_paperproposal_path(pp)
-        = image_tag("lock-open.png")
-      = link_to (image_tag "trash.png", :title => 'Delete'), pp,
-                                      :confirm => "Are you sure you want delete this data proposal?",
-                                      :method => :delete
+- pp_select = @paperproposals.select{|p| p.state == 'accepted'}
+- unless pp_select.blank?
+  %h3 Published
+  = render :partial => 'list', :locals => {:paperproposals => pp_select, :with_lock => true}
 
-    %h4= "#{pp.author} created at: #{pp.created_at.strftime("%Y-%m-%d")}"
-    %ul
-      - pp.author_list[:author_list].each do |a|
-        %li= a.to_s
-    Rationale:
-    %p
-      = pp.rationale
+- pp_select = @paperproposals.select{|p| p.state == 'in review'}
+- unless pp_select.blank?
+  %h3 In review
+  = render :partial => 'list', :locals => {:paperproposals => pp_select, :with_lock => true}
 
-    - unless pp.freeformats.blank?
-      - @freeformats = pp.freeformats
-      = render :partial => 'freeformats/index'
+- pp_select = @paperproposals.select{|p| p.state == 'manuscript avaible'}
+- unless pp_select.blank?
+  %h3 Manuscript avaible
+  = render :partial => 'list', :locals => {:paperproposals => pp_select, :with_lock => true}
+
+- pp_select = @paperproposals.select{|p| p.state == 'in prep'}
+- unless pp_select.blank?
+  %h3 In preparation
+  = render :partial => 'list', :locals => {:paperproposals => pp_select, :with_lock => true}
 

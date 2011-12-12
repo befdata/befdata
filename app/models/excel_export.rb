@@ -178,5 +178,4 @@ private
       Datacolumn.all(:conditions => ["dataset_id = ?", dataset.id], :order => "columnnr ASC").uniq
     end
   end
-
 end

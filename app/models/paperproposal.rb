@@ -47,9 +47,11 @@ class Paperproposal < ActiveRecord::Base
   }
 
   def <=>(other)
-    # sort by state, then by title
+    # sort by state, then by year, then title
     x = STATES[self.state] <=> STATES[other.state]
-    x != 0 ? x : self.title.downcase <=> other.title.downcase
+    x = (x != 0 ? x : self.envisaged_date.year <=> other.envisaged_date.year) if self.state == 'accepted'
+    x = x != 0 ? x : self.title.downcase <=> other.title.downcase
+    x
   end
 
   def calc_board_state
@@ -84,7 +86,7 @@ class Paperproposal < ActiveRecord::Base
     ack = ack.sort{|a,b| a.lastname <=> b.lastname}
 
     hash = {:author_list => author_list, :corresponding => self.corresponding, :ack => ack}
-    return hash
+    hash
   end
 
   def calc_authorship(user)
@@ -99,6 +101,14 @@ class Paperproposal < ActiveRecord::Base
          end
        end
      end
+  end
+
+  def beautiful_title
+    # gives back a nice string to display, like: Kraft, N. J., Comita, L. S. (2011): DisentanglingAlong Latitudinal and Elevational Gradients. Science, 333(6050).
+    authors = self.author_list[:author_list].collect{|a| a.short_name}.sort.join(", ")
+    year = self.state != 'accepted' ? "" : " (#{self.envisaged_date.year})"
+    publication = self.envisaged_journal.blank? ? "" : " #{envisaged_journal}."
+    "#{authors}#{year}: #{self.title}. #{publication}"
   end
 
   private
