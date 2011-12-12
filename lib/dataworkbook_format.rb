@@ -3,9 +3,7 @@ module DataworkbookFormat
     # Version of File Format - Change when making changes here
     :wb_format_version => "on the way to 0.1.1",
 
-    # Spreadsheet formats
-    :data_format    => Spreadsheet::Format.new(:size => 11, :horizontal_align => :left, :italic => true),
-    :meta_format    => Spreadsheet::Format.new(:size => 11, :horizontal_align => :left, :color => 'brown'),
+    # Spreadsheet export formats
     :unapproved_format => Spreadsheet::Format.new(:size => 11, :horizontal_align => :left, :color => 'orange'),
 
     # Sheet numbers
