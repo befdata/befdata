@@ -3,10 +3,11 @@
 %ul.paperproposals
   - paperproposals.each do |pp|
     %li.paperproposal
-      = link_to pp.beautiful_title, paperproposal_path(pp)
       - if with_lock
         .paperproposal-lock
           = pp.lock ? image_tag("lock-closed.png") :image_tag("lock-open.png")
+      = link_to pp.beautiful_title, paperproposal_path(pp)
+
 
 
 

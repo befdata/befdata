@@ -487,6 +487,11 @@ ul.datasets a:focus, ul.projects a:focus, .user a:focus, ul.paperproposals a:foc
     vertical-align: top;
 }
 
+div.paperproposal-lock {
+    float: left;
+    margin-right: 8px;
+}
+
 span.dataset-comment {
     color: #8a8a8a;
     display: block;
