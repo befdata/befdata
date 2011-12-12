@@ -47,10 +47,11 @@ class Paperproposal < ActiveRecord::Base
   }
 
   def <=>(other)
-    # sort by state, then by year, then title
+    # sort by state, then by year if published, then title
     x = STATES[self.state] <=> STATES[other.state]
     x = (x != 0 ? x : self.envisaged_date.year <=> other.envisaged_date.year) if self.state == 'accepted'
-    x = x != 0 ? x : self.title.downcase <=> other.title.downcase
+    x = (x != 0 ? x : self.beautiful_title(true) <=> other.beautiful_title(true))
+    x = (x != 0 ? x : self.title.downcase <=> other.title.downcase)
     x
   end
 
@@ -103,9 +104,11 @@ class Paperproposal < ActiveRecord::Base
      end
   end
 
-  def beautiful_title
+  def beautiful_title (only_authors = false)
     # gives back a nice string to display, like: Kraft, N. J., Comita, L. S. (2011): DisentanglingAlong Latitudinal and Elevational Gradients. Science, 333(6050).
     authors = self.author_list[:author_list].collect{|a| a.short_name}.sort.join(", ")
+    return authors if only_authors
+
     year = self.state != 'accepted' ? "" : " (#{self.envisaged_date.year})"
     publication = self.envisaged_journal.blank? ? "" : " #{envisaged_journal}."
     "#{authors}#{year}: #{self.title}. #{publication}"

@@ -12,7 +12,7 @@ class PaperproposalsController < ApplicationController
 
 
   def index
-    @paperproposals = Paperproposal.all.sort
+    @paperproposals = Paperproposal.all
   end
 
   def new
