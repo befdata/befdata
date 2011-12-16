@@ -17,9 +17,5 @@
         = render :partial => ds, :locals => {:with_cart => true, :with_comment => true}
 
 - unless @project.authored_paperproposals.empty?
-  %h3 Paper proposal submissions
-  %ul
-    - @project.authored_paperproposals.sort.each do |pp|
-      %li
-        = link_to pp.title, paperproposal_path(pp)
+  = render :partial => 'paperproposals/associated_paperproposals', :locals => {:paperproposals => @project.authored_paperproposals}
 

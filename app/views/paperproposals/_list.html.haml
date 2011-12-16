@@ -1,5 +1,6 @@
 - paperproposals ||= @paperproposals
 - with_lock ||= false
+- authorship_user ||= false
 %ul.paperproposals
   - paperproposals.each do |pp|
     %li.paperproposal
@@ -7,6 +8,8 @@
         .paperproposal-lock
           = pp.lock ? image_tag("lock-closed.png") :image_tag("lock-open.png")
       = link_to pp.beautiful_title, paperproposal_path(pp)
+      - if authorship_user
+        = "(#{pp.calc_authorship(@user)})"
 
 
 
