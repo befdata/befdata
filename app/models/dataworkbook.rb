@@ -14,8 +14,11 @@
 ## relation to Project and User classes.  Information on the technical description sheet directs the import workflow
 ## of raw data entries to the Datacolumn, Datagroup, and Sheetcell classes.  For the validation process of
 ## raw data values the Datatype and Sheetcellstatus classes are used.
+
+require "dataworkbook_format"
 class Dataworkbook
-  
+  include DataworkbookFormat
+
   attr_reader :datafile, :book
 
   def initialize(datafile)
@@ -37,51 +40,43 @@ class Dataworkbook
     metadata[:filename] = @datafile.file_file_name
     metadata[:downloads] = 0
 
-    metadata[:title] = general_metadata_column[3]
-    metadata[:abstract] = general_metadata_column[6]
-    metadata[:comment] = general_metadata_column[9]
-    metadata[:usagerights] = general_metadata_column[22]
-    metadata[:published] = general_metadata_column[24]
-    metadata[:spatialextent] = general_metadata_column[28]
-    metadata[:temporalextent] = general_metadata_column[36]
-    metadata[:taxonomicextent] = general_metadata_column[39]
-    metadata[:design] = general_metadata_column[42]
-    metadata[:dataanalysis] = general_metadata_column[45]
-    metadata[:circumstances] = general_metadata_column[48]
+    metadata[:title] = clean_string(general_metadata_sheet[*WBF[:meta_title_pos]])
+    metadata[:abstract] = clean_string(general_metadata_sheet[*WBF[:meta_abstract_pos]])
+    metadata[:comment] = clean_string(general_metadata_sheet[*WBF[:meta_comment_pos]])
+    metadata[:usagerights] = clean_string(general_metadata_sheet[*WBF[:meta_usagerights_pos]])
+    metadata[:published] = clean_string(general_metadata_sheet[*WBF[:meta_published_pos]])
+    metadata[:spatialextent] = clean_string(general_metadata_sheet[*WBF[:meta_spatial_extent_pos]])
+    metadata[:temporalextent] = clean_string(general_metadata_sheet[*WBF[:meta_temporalextent_pos]])
+    metadata[:taxonomicextent] = clean_string(general_metadata_sheet[*WBF[:meta_taxonomicextent_pos]])
+    metadata[:design] = clean_string(general_metadata_sheet[*WBF[:meta_design_pos]])
+    metadata[:dataanalysis] = clean_string(general_metadata_sheet[*WBF[:meta_dataanalysis_pos]])
+    metadata[:circumstances] = clean_string(general_metadata_sheet[*WBF[:meta_circumstances_pos]])
     return metadata
   end
 
-  # Returns the object representing the first (the general metadata) sheet.
+  # Returns the object representing the general metadata sheet.
   def general_metadata_sheet
-    @book.worksheet(0)
+    @book.worksheet(WBF[:metadata_sheet])
   end
 
-  # Returns the object representing the second (the data description) sheet.
-  # Formerly called 'methodsheet'. 
+  # Returns the object representing the second data description sheet.
   def data_description_sheet 
-    @book.worksheet(1)
+    @book.worksheet(WBF[:columns_sheet])
   end
 
-  # Returns the object representing the third (the responsible people) sheet.
+  # Returns the object representing the responsible people sheet.
   def data_responsible_person_sheet
-    @book.worksheet(2)
+    @book.worksheet(WBF[:people_sheet])
   end
 
-  # Returns the object representing the fourth (the categories) sheet.
+  # Returns the object representing the categories sheet.
   def data_categories_sheet
-    @book.worksheet(3)
+    @book.worksheet(WBF[:category_sheet])
   end
 
-  # Returns the object representing the fifth (the raw data) sheet.
+  # Returns the object representing the raw data sheet.
   def raw_data_sheet
-    @book.worksheet(4)
-  end
-
-  # Wraps the general metadata column into an array.
-  def general_metadata_column
-    metadata = Array(general_metadata_sheet.column(0))
-    metadata = metadata.collect!{ |md| clean_string(md) } unless metadata.nil?
-    metadata
+    @book.worksheet(WBF[:data_sheet])
   end
 
   # Provides an array with the headers of all raw data columns.
@@ -97,9 +92,9 @@ class Dataworkbook
   end
 
   def members_listed_as_responsible
-    given_names = general_metadata_sheet.row(14)
-    surnames  = general_metadata_sheet.row(15)
-    emails = general_metadata_sheet.row(16)
+    given_names = general_metadata_sheet.row(*WBF[:meta_owners_start_row])
+    surnames  = general_metadata_sheet.row(*WBF[:meta_owners_start_row]+1)
+    emails = general_metadata_sheet.row(*WBF[:meta_owners_start_row]+2)
 
     users_from_sheet_with_row_header = given_names.zip surnames, emails
     users_from_sheet = users_from_sheet_with_row_header.drop(1)
@@ -122,7 +117,7 @@ class Dataworkbook
   # Helper method to determine the correct minimal date value from the string given in the Workbook.
   def datemin
     # Retrieve the value from the Workbook.
-    value = general_metadata_column[32].to_s
+    value = general_metadata_sheet[*WBF[:meta_datemin_pos]].to_s
     begin
       # Try to parse it as a date.
       date = Date.parse(value)
@@ -141,7 +136,7 @@ class Dataworkbook
 # Helper method to determine the correct maximal date value from the string given in the Workbook.
   def datemax
     # Retrieve the value from the Workbook.
-    value = general_metadata_column[34].to_s
+    value = general_metadata_sheet[*WBF[:meta_datemax_pos]].to_s
     begin
       # Try to parse it as a date.
       date = Date.parse(value)
@@ -252,11 +247,10 @@ class Dataworkbook
     if method_index.nil? # columnheader does not appear in the method sheet
       data_header_ch[:definition] = columnheader
     else
-      data_header_ch[:definition] = Array(data_description_sheet.column(1))[method_index].blank? ? columnheader : clean_string(Array(data_description_sheet.column(1))[method_index])
-      data_header_ch[:unit] = clean_string(Array(data_description_sheet.column(2))[method_index])
-      data_header_ch[:missingcode] = clean_string(Array(data_description_sheet.column(3))[method_index])
-      data_header_ch[:comment] = clean_string(Array(data_description_sheet.column(4))[method_index])
-      data_header_ch[:import_data_type] = clean_string(Array(data_description_sheet.column(9))[method_index])
+      data_header_ch[:definition] = Array(data_description_sheet.column(*WBF[:column_definition_col]))[method_index].blank? ? columnheader : clean_string(Array(data_description_sheet.column(*WBF[:column_definition_col]))[method_index])
+      data_header_ch[:unit] = clean_string(Array(data_description_sheet.column(*WBF[:column_unit_col]))[method_index])
+      data_header_ch[:comment] = clean_string(Array(data_description_sheet.column(*WBF[:column_comment_col]))[method_index])
+      data_header_ch[:import_data_type] = clean_string(Array(data_description_sheet.column(*WBF[:group_methodvaluetype_col]))[method_index])
     end
 
     return data_header_ch
@@ -265,7 +259,7 @@ class Dataworkbook
 
   # Extracts the datatype from the spreadsheet for a given columnheader
   def datatype_for_columnheader(columnheader)
-    data_type_name = clean_string(Array(data_description_sheet.column(9))[method_index_for_columnheader(columnheader)])
+    data_type_name = clean_string(Array(data_description_sheet.column(*WBF[:group_methodvaluetype_col]))[method_index_for_columnheader(columnheader)])
     Datatypehelper.find_by_name(data_type_name)
   end
   
@@ -290,14 +284,12 @@ class Dataworkbook
       data_group[:description] = columnheader
     else
       row = data_description_sheet.row(method_index)
-      data_group[:title] = row[5].blank? ? clean_string(row[1]) : clean_string(row[5])
+      data_group[:title] = row[*WBF[:group_title_col]].blank? ? clean_string(row[*WBF[:column_definition_col]]) : clean_string(row[*WBF[:group_title_col]])
       data_group[:title] ||= columnheader
-      data_group[:description] = row[6].blank? ? clean_string(data_group[:title]) : clean_string(row[6])
-      data_group[:instrumentation] = clean_string(row[7])
-      data_group[:informationsource] = clean_string(row[8])
-      data_group[:methodvaluetype] = clean_string(row[9])
-      data_group[:timelatency] = clean_string(row[10])
-      data_group[:timelatencyunit] = clean_string(row[11])
+      data_group[:description] = row[*WBF[:group_description_col]].blank? ? clean_string(data_group[:title]) : clean_string(row[*WBF[:group_description_col]])
+      data_group[:instrumentation] = clean_string(row[*WBF[:group_instrumentation_col]])
+      data_group[:informationsource] = clean_string(row[*WBF[:group_informationsource_col]])
+      data_group[:methodvaluetype] = clean_string(row[*WBF[:group_methodvaluetype_col]])
     end
 
     return data_group
@@ -307,7 +299,6 @@ class Dataworkbook
   # Return the complete column from the raw data sheet for a given columnheader,
   # including the header again.
   def data_with_head(columnheader)
-
     Array(raw_data_sheet.column(columnheaders_raw.index(columnheader)))
   end
 
@@ -327,14 +318,14 @@ class Dataworkbook
 
   # Returns the string that represents the Data Group title for any given columnheader from the Workbook.
   def data_group_title(columnheader)
-    Array(data_description_sheet.column(5))[method_index_for_columnheader(columnheader)]
+    Array(data_description_sheet.column(*WBF[:group_title_col]))[method_index_for_columnheader(columnheader)]
   end
 
   # Returns a hash filled with all people for all columnheaders
   def columnheader_people #TODO check if this is correct it seems to also return the column header (which is no person!)
     ## there may be several people associated to one columnheader
     people_for_columnheader = {}
-    data_responsible_person_sheet.column(0).to_a.compact.each_with_index{|o, i| people_for_columnheader[i] = o}
+    data_responsible_person_sheet.column(*WBF[:people_columnheader_col]).to_a.compact.each_with_index{|o, i| people_for_columnheader[i] = o}
     return people_for_columnheader
   end
 
@@ -363,10 +354,10 @@ class Dataworkbook
     people_role  = []
     people = []
     people_rows.each do |r|
-      people_given << clean_string(data_responsible_person_sheet.row(r)[1])
-      people_sur << clean_string(data_responsible_person_sheet.row(r)[2])
-      people_proj << clean_string(data_responsible_person_sheet.row(r)[3])
-      people_role << clean_string(data_responsible_person_sheet.row(r)[4])
+      people_given << clean_string(data_responsible_person_sheet.row(r)*WBF[:people_firstname_col])
+      people_sur << clean_string(data_responsible_person_sheet.row(r)*WBF[:people_lastname_col])
+      people_proj << clean_string(data_responsible_person_sheet.row(r)*WBF[:people_projects_col])
+      people_role << clean_string(data_responsible_person_sheet.row(r)*WBF[:people_roles_col])
       people += User.find_all_by_lastname(people_sur)
     end
     people = people.uniq
@@ -376,10 +367,10 @@ class Dataworkbook
   # Returns the category information from the Workbook for a given columnheader.
   def sheet_categories_for_columnheader(columnheader)
 
-    header = Array(data_categories_sheet.column(0))
-    short = Array(data_categories_sheet.column(1))
-    long = Array(data_categories_sheet.column(2))
-    description = Array(data_categories_sheet.column(3))
+    header = Array(data_categories_sheet.column(*WBF[:category_columnheader_col]))
+    short = Array(data_categories_sheet.column(*WBF[:category_short_col]))
+    long = Array(data_categories_sheet.column(*WBF[:category_long_col]))
+    description = Array(data_categories_sheet.column(*WBF[:category_description_col]))
     ## collecting the relevant rows
     provided_hash_array = []
     i=0

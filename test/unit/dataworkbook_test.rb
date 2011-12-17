@@ -47,11 +47,6 @@ class DataworkbookTest < ActiveSupport::TestCase
     assert_match /Comparative Study Plots/,  @book.general_metadata_hash[:abstract]
     assert_match /National Forest Reserve/, @book.general_metadata_hash[:spatialextent]
   end
-  
-  test "array of metadata column is correct" do
-    assert_equal @book.general_metadata_column.first, 'General Metadata'
-    assert_equal @book.general_metadata_column.length, 49
-  end
 
   test "hash of people named in the workbook is correct" do
     assert_equal 2, @book.members_listed_as_responsible.length
@@ -64,12 +59,12 @@ class DataworkbookTest < ActiveSupport::TestCase
   end
   
   test "column info for columnheader is correct" do
-    assert_equal 7, @book.data_column_info_for_columnheader('height').keys.length
+    assert_equal 6, @book.data_column_info_for_columnheader('height').keys.length
     assert_equal 'height in m', @book.data_column_info_for_columnheader('height')[:definition]
   end
   
   test "datagroup information for columnheader is correct" do
-    assert_equal 7, @book.methodsheet_datagroup('height').keys.length
+    assert_equal 5, @book.methodsheet_datagroup('height').keys.length
     assert_equal 'number', @book.methodsheet_datagroup('height')[:methodvaluetype]
   end
   
