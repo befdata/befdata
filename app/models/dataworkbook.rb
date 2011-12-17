@@ -111,7 +111,7 @@ class Dataworkbook
 
   # Returns the tags that were in the respective cell.
   def tag_list
-    Array(general_metadata_sheet.column(1))[11]
+    clean_string(general_metadata_sheet[*WBF[:meta_projects_pos]])
   end
 
   # Helper method to determine the correct minimal date value from the string given in the Workbook.
