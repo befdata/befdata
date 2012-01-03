@@ -11,6 +11,7 @@ public/images/user_avatars/*
 log/*
 xls/*
 config/database.yml
+config/configuration.yml
 .idea/*
 tmp/*
 index/*
