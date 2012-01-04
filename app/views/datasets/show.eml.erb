@@ -32,7 +32,7 @@ xsi:schemaLocation="eml://ecoinformatics.org/eml-2.1.0 eml-2.1.0/eml.xsd">
       </address>
       <% end %>
       <%= content_tag_unless_blank :phone, creator.institution_phone %>
-      <electronicMailAddress><%= creator.email %></electronicMailAddress>
+      <electronicMailAddress><%= mail_to creator.email, nil, :replace_at => '_at_' %></electronicMailAddress>
       <!--<onlineUrl>unknown in the portal</onlineUrl>-->
     </creator>
 <% end %>

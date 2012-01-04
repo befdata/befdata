@@ -15,7 +15,8 @@
     = "#{t("address.phone")}: #{@user.institution_phone}"
     %br
   - unless @user.email.blank?
-    = "#{t("address.email")}: #{@user.email}"
+    Email:
+    = mail_to(@user.email, nil, :encode => :javascript)
     %br
   - unless @user.url.blank?
     = "#{t("address.url")}:"
