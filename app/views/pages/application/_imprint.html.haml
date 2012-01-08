@@ -33,12 +33,14 @@
   %br
   Telefax: +49 341 9738549
   %br
-  E-Mail: cwirth@uni-leipzig.de
+  E-Mail:
+  = mail_to("cwirth@uni-leipzig.de", nil, :encode => :javascript)
 %p
   %strong
     = link_to "Karin Nadrowski", {:controller => :users, :action => :show, :id => karin_id}
   %br
-  E-Mail: nadrowski@uni-leipzig.de
+  E-Mail:
+  = mail_to("nadrowski@uni-leipzig.de", nil, :encode => :javascript)
 %p#copyright-remarks
   The following sources were used to create this page:
   = link_to "Iconset DefaultIcon", "http://www.interactivemania.com"
