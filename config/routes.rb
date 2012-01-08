@@ -35,7 +35,6 @@ Befchina::Application.routes.draw do
     end
   end
 
-
   resources :paperproposals
   match 'paperproposals/update_vote/:id' => 'paperproposals#update_vote', :as => :update_vote
   match 'paperproposals/update_state/:id' => 'paperproposals#update_state', :as => :paperproposal_update_state
@@ -54,11 +53,11 @@ Befchina::Application.routes.draw do
   end
 
   resources :carts
-
   match 'create_cart_context/:dataset_id' => 'carts#create_cart_context', :as => :create_cart_context
   match 'delete_cart_context/:dataset_id' => 'carts#delete_cart_context', :as => :delete_cart_context
   match 'cart' => 'carts#show', :as => 'current_cart'
 
+  resources :datagroups
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

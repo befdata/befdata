@@ -1,0 +1,9 @@
+%ul
+  - @datagroups.each do |dg|
+    %li
+      %strong= dg.title
+      - unless dg.methodvaluetype.blank?
+        = "- #{dg.methodvaluetype}"
+      - unless dg.description.blank?
+        %br
+        %i= dg.description
