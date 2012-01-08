@@ -1,7 +1,7 @@
 module DataworkbookFormat
   WBF = {
     # Version of File Format - Change when making changes here
-    :wb_format_version => "on the way to 0.1.1",
+    :wb_format_version => "0.1.2",
 
     # Spreadsheet export formats # by now not working for modifying existing spreadsheets
     :unapproved_format => Spreadsheet::Format.new(:size => 11, :horizontal_align => :left, :color => 'orange'),
