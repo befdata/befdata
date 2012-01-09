@@ -348,19 +348,13 @@ class Dataworkbook
     # there are often several people for one column in raw data;
     # people can also be added automatically to the data column
     people_rows = available_people.select{|k,v| v == columnheader}.keys # only the row index
-    people_given = []
     people_sur   = []
-    people_proj  = []
-    people_role  = []
     people = []
     people_rows.each do |r|
-      people_given << clean_string(data_responsible_person_sheet.row(r)*WBF[:people_firstname_col])
-      people_sur << clean_string(data_responsible_person_sheet.row(r)*WBF[:people_lastname_col])
-      people_proj << clean_string(data_responsible_person_sheet.row(r)*WBF[:people_projects_col])
-      people_role << clean_string(data_responsible_person_sheet.row(r)*WBF[:people_roles_col])
+      people_sur << clean_string(data_responsible_person_sheet.row(r)[WBF[:people_lastname_col]])
       people += User.find_all_by_lastname(people_sur)
     end
-    people = people.uniq
+    people = people.flatten.uniq
     return people
   end
 

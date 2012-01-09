@@ -60,6 +60,7 @@ class DatacolumnsController < ApplicationController
         ppl.each do |user|
           user.has_role! :responsible, @data_column
         end
+        @data_column.reload
         @ppl = @data_column.users
       end
       
