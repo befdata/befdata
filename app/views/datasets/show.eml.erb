@@ -198,13 +198,6 @@ Therefore, it can be ignored in Parsing, but needs to be created in the output r
                 </nominal>
            <% end %>
        </measurementScale>
-       <% unless column.datagroup.timelatency.blank? || column.datagroup.timelatencyunit.blank? %>
-       <accuracy>
-         <attributeAccuracyReport>
-           <%= "#{column.datagroup.timelatency} #{column.datagroup.timelatencyunit}" %>
-         </attributeAccuracyReport>
-       </accuracy>
-       <% end %>
        <methods>
          <methodStep>
            <description>

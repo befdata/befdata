@@ -6,8 +6,6 @@ datagroups_001:
   title: Elevation
   description: "\xE2\x80\xA6"
   instrumentation: 
-  timelatency: 
-  timelatencyunit: 
   comment: 
   created_at: 2011-09-01 09:02:33.993429
   updated_at: 2011-09-01 09:02:33.993429
@@ -19,8 +17,6 @@ datagroups_002:
   title: Aspect
   description: "\xE2\x80\xA6"
   instrumentation: 
-  timelatency: 
-  timelatencyunit: 
   comment: 
   created_at: 2011-09-01 09:02:34.303446
   updated_at: 2011-09-01 09:02:34.303446
@@ -32,8 +28,6 @@ datagroups_003:
   title: Latitude
   description: "\xE2\x80\xA6"
   instrumentation: 
-  timelatency: 
-  timelatencyunit: 
   comment: 
   created_at: 2011-09-01 09:02:35.388508
   updated_at: 2011-09-01 09:02:35.388508
@@ -45,8 +39,6 @@ datagroups_004:
   title: Longitude
   description: "\xE2\x80\xA6"
   instrumentation: 
-  timelatency: 
-  timelatencyunit: 
   comment: 
   created_at: 2011-09-01 09:02:35.679525
   updated_at: 2011-09-01 09:02:35.679525
@@ -58,8 +50,6 @@ datagroups_005:
   title: test
   description: test
   instrumentation: 
-  timelatency: 
-  timelatencyunit: 
   comment: 
   created_at: 2011-09-01 09:02:36.255558
   updated_at: 2011-09-01 09:02:36.255558
@@ -71,8 +61,6 @@ datagroups_006:
   title: Scientific plant species name
   description: The scientific species fullnames are based on the "Flora of China" identified by Teng Fang and verified by Helge Bruelheide (trees) and Alexandra Efmeier (herbs). Scientific species names consist of epithet and genus. For identification, the Author name and the year of the publications of the description are required.
   instrumentation: 
-  timelatency: "10"
-  timelatencyunit: years
   comment: 
   created_at: 2011-03-28 13:59:34.1444
   updated_at: 2011-03-28 13:59:34.1444
@@ -84,8 +72,6 @@ datagroups_007:
   title: height
   description: height in m
   instrumentation: 
-  timelatency: 
-  timelatencyunit: 
   comment: 
   created_at: 2011-06-01 13:47:45.502
   updated_at: 2011-06-01 13:47:45.502
@@ -97,8 +83,6 @@ datagroups_008:
   title: Carbon
   description: Carbon
   instrumentation: 
-  timelatency: 
-  timelatencyunit: 
   comment: 
   created_at: 2011-03-28 13:59:35.8384
   updated_at: 2011-03-28 13:59:35.8384
@@ -110,8 +94,6 @@ datagroups_009:
   title: solar radiation
   description: solar radiation
   instrumentation: 
-  timelatency: 
-  timelatencyunit: 
   comment: 
   created_at: 2011-05-01 11:46:46.622642
   updated_at: 2011-05-01 11:46:46.622642
@@ -123,8 +105,6 @@ datagroups_010:
   title: Metal Tag Numbers in the CSPs
   description: "The stems were marked with a metal tag with a code compound of a number of six positions. The tag was attached to each individual by attaching it with a wire sorrounding one stem, taking care to leave it long enough to allow the grow of the stem. Normally the wire was attached between 1 and 1.8m over the ground. If the individual had many stems, such as often seen in shrubs, only one of the stems was tagged. "
   instrumentation: letters are attached if the same number was used for different tree individuals. This occurred a few times. Numbers are unique only within CSPs
-  timelatency: "30"
-  timelatencyunit: year
   comment: 
   created_at: 2011-03-28 13:59:35.4144
   updated_at: 2011-03-28 13:59:35.4144
@@ -136,8 +116,6 @@ datagroups_011:
   title: Extinction series type within main experiment.
   description: The acronym corresponds to the species pool of the random scenario (A, B, C), the directed extinction scenarios (R for rarity, S for SLA), the economic species (E), and  free succession plots (F).  In site B there is another treatment for genetic variation (G).
   instrumentation: 
-  timelatency: 
-  timelatencyunit: 
   comment: 
   created_at: 2011-05-01 11:46:34.738593
   updated_at: 2011-05-01 11:46:34.738593
@@ -149,8 +127,6 @@ datagroups_012:
   title: "BEF members: group pictures with names 2010"
   description: Slide showing mostly European members of the BEF China project including names and projects.
   instrumentation: 
-  timelatency: 
-  timelatencyunit: 
   comment: 
   created_at: 2011-05-01 12:51:22.491656
   updated_at: 2011-05-01 12:51:22.491656
@@ -162,8 +138,6 @@ datagroups_013:
   title: Date time information
   description: Date time information, given as year or as date or as date time.
   instrumentation: 
-  timelatency: "1000"
-  timelatencyunit: years
   comment: 
   created_at: 2011-03-28 13:59:35.0964
   updated_at: 2011-03-28 13:59:35.0964
@@ -175,8 +149,6 @@ datagroups_014:
   title: longitude
   description: longitude
   instrumentation: 
-  timelatency: 
-  timelatencyunit: 
   comment: 
   created_at: 2011-05-01 11:46:37.573884
   updated_at: 2011-05-01 11:46:37.573884
@@ -188,8 +160,6 @@ datagroups_015:
   title: Author name for species description
   description: Author name for species description
   instrumentation: 
-  timelatency: 
-  timelatencyunit: 
   comment: 
   created_at: 2011-06-01 13:47:47.767
   updated_at: 2011-06-01 13:47:47.767
@@ -201,8 +171,6 @@ datagroups_016:
   title: Plant organ sampled
   description: "Leaf samples were taken with telescope pruning shears (lenght: up to 6.5m)  from the lower outer and preferentially sun exposed canopy when possible. Leaves of shrub species were sampled in upper canopy.  One year old twigs, and roots which a diameter between 1 and 3mm were taken."
   instrumentation: 
-  timelatency: "1000"
-  timelatencyunit: year
   comment: 
   created_at: 2011-03-28 13:59:35.2564
   updated_at: 2011-03-28 13:59:35.2564
@@ -214,8 +182,6 @@ datagroups_017:
   title: BEF research plot name
   description: "Reasearch plots of the Biodiversity - Ecosystem functioning experiment (BEF-China). There are three main sites for research plots in the BEF Experiment: Comparative Study Plots (CSP) in the  Gutianshan Nature Reserve, having a size of 30x30m^2, measured on the ground. Main Experiment plots have a size of 1 mu, which is about 25x25m^2 in horizontal projection. Pilot Study Plots have a size of 1x1 m^2."
   instrumentation: 
-  timelatency: "500"
-  timelatencyunit: year
   comment: 
   created_at: 2011-03-28 13:59:35.5574
   updated_at: 2011-03-28 13:59:35.5574
@@ -227,8 +193,6 @@ datagroups_018:
   title: Diversity based on taxon
   description: Taxon diversity can be given as species richness, or other diversity indices.  We also use rarefied species richness, shannon diversity index, and phylogenetic diversity indices.
   instrumentation: 
-  timelatency: 
-  timelatencyunit: 
   comment: 
   created_at: 2011-05-01 11:46:33.176676
   updated_at: 2011-05-01 11:46:33.176676
@@ -240,8 +204,6 @@ datagroups_019:
   title: latitude
   description: latitude
   instrumentation: 
-  timelatency: 
-  timelatencyunit: 
   comment: 
   created_at: 2011-05-01 11:46:39.105733
   updated_at: 2011-05-01 11:46:39.105733
@@ -253,8 +215,6 @@ datagroups_020:
   title: aspect
   description: aspect
   instrumentation: 
-  timelatency: 
-  timelatencyunit: 
   comment: 
   created_at: 2011-05-01 11:46:42.218239
   updated_at: 2011-05-01 11:46:42.218239
@@ -266,8 +226,6 @@ datagroups_021:
   title: Date time value
   description: Date time value
   instrumentation: 
-  timelatency: 
-  timelatencyunit: 
   comment: 
   created_at: 2011-06-01 13:47:47.992
   updated_at: 2011-06-01 13:47:47.992
@@ -279,8 +237,6 @@ datagroups_022:
   title: Helper
   description: Helper column give further information on other columns or summarize several columns
   instrumentation: 
-  timelatency: 
-  timelatencyunit: 
   comment: 
   created_at: 2011-03-28 13:59:35.7254
   updated_at: 2011-03-28 13:59:35.7254
@@ -292,8 +248,6 @@ datagroups_023:
   title: slope
   description: slope
   instrumentation: 
-  timelatency: 
-  timelatencyunit: 
   comment: 
   created_at: 2011-05-01 11:46:45.072263
   updated_at: 2011-05-01 11:46:45.072263
@@ -305,8 +259,6 @@ datagroups_024:
   title: helper
   description: helper
   instrumentation: 
-  timelatency: 
-  timelatencyunit: 
   comment: 
   created_at: 2011-05-01 11:46:36.272046
   updated_at: 2011-05-01 11:46:36.272046
@@ -318,8 +270,6 @@ datagroups_025:
   title: Site B plot acronym according to design spreadsheet.
   description: Site B plot number according to design spreadsheet. Plots are named according to their location on the original spreadsheet used for treatment design. This has letters from West to East and numbers from North to south. Some plots were moved half a gridcell (1 mu) so be suitable for planting (grid cell loctype)
   instrumentation: 
-  timelatency: 
-  timelatencyunit: 
   comment: 
   created_at: 2011-05-01 11:46:31.881328
   updated_at: 2011-05-01 11:46:31.881328
@@ -331,8 +281,6 @@ datagroups_026:
   title: elevation
   description: elevation
   instrumentation: 
-  timelatency: 
-  timelatencyunit: 
   comment: 
   created_at: 2011-05-01 11:46:40.633028
   updated_at: 2011-05-01 11:46:40.633028
@@ -344,8 +292,6 @@ datagroups_027:
   title: Sheet category match
   description: Sheet category match
   instrumentation: 
-  timelatency: 
-  timelatencyunit: 
   comment: 
   created_at: 2011-06-29 11:46:40.633028
   updated_at: 2011-06-29 11:46:40.633028
@@ -357,8 +303,6 @@ datagroups_028:
   title: datagroup one
   description: datagroup one
   instrumentation: 
-  timelatency: 
-  timelatencyunit: 
   comment: 
   created_at: 2011-07-01 11:46:40.633028
   updated_at: 2011-07-01 11:46:40.633028
@@ -370,8 +314,6 @@ datagroups_029:
   title: datagroup two
   description: datagroup two
   instrumentation: 
-  timelatency: 
-  timelatencyunit: 
   comment: 
   created_at: 2011-07-01 11:46:40.633028
   updated_at: 2011-07-01 11:46:40.633028
@@ -383,8 +325,6 @@ datagroups_030:
   title: datagroup three
   description: datagroup three
   instrumentation: 
-  timelatency: 
-  timelatencyunit: 
   comment: 
   created_at: 2011-07-01 11:46:40.633028
   updated_at: 2011-07-01 11:46:40.633028
@@ -396,8 +336,6 @@ datagroups_031:
   title: datagroup four
   description: datagroup four
   instrumentation: 
-  timelatency: 
-  timelatencyunit: 
   comment: 
   created_at: 2011-07-01 11:46:40.633028
   updated_at: 2011-07-01 11:46:40.633028
@@ -409,8 +347,6 @@ datagroups_032:
   title: datagroup five
   description: datagroup five
   instrumentation: 
-  timelatency: 
-  timelatencyunit: 
   comment: 
   created_at: 2011-07-01 11:46:40.633028
   updated_at: 2011-07-01 11:46:40.633028
@@ -422,8 +358,6 @@ datagroups_033:
   title: datagroup six
   description: datagroup six
   instrumentation: 
-  timelatency: 
-  timelatencyunit: 
   comment: 
   created_at: 2011-07-01 11:46:40.633028
   updated_at: 2011-07-01 11:46:40.633028
@@ -435,8 +369,6 @@ datagroups_034:
   title: datagroup seven
   description: datagroup seven
   instrumentation: 
-  timelatency: 
-  timelatencyunit: 
   comment: 
   created_at: 2011-07-01 11:46:40.633028
   updated_at: 2011-07-01 11:46:40.633028
@@ -448,8 +380,6 @@ datagroups_035:
   title: DG_TITLE_1
   description: DG_DESCRIPTION_1
   instrumentation: DG_INSTRUMENTATION_1
-  timelatency: "0"
-  timelatencyunit: DG_TIMELATENCYUNIT_1
   comment: DG_COMMENT_1
   created_at: 2011-12-12 13:35:20.454189
   updated_at: 2011-12-12 13:35:20.454189
@@ -461,8 +391,6 @@ datagroups_036:
   title: DG_TITLE_2
   description: DG_DESCRIPTION_2
   instrumentation: DG_INSTRUMENTATION_2
-  timelatency: "0"
-  timelatencyunit: DG_TIMELATENCYUNIT_2
   comment: DG_COMMENT_2
   created_at: 2011-12-12 13:35:20.784521
   updated_at: 2011-12-12 13:35:20.784521

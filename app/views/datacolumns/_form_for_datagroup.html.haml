@@ -47,9 +47,5 @@
       .span-3.last= text_field_tag 'new_datagroup[informationsource]', @data_column.datagroup.informationsource
       .span-3= label_tag 'new_datagroup[methodvaluetype]', 'Method value type'
       .span-3.last= text_field_tag'new_datagroup[methodvaluetype]', @data_column.datagroup.methodvaluetype
-      .span-3= label_tag 'new_datagroup[timelatency]', 'Time latency'
-      .span-3.last= text_field_tag 'new_datagroup[timelatency]', @data_column.datagroup.timelatency
-      .span-3= label_tag 'new_datagroup[timelatencyunit]', 'Time latency unit'
-      .span-3.last= text_field_tag 'new_datagroup[timelatencyunit]', @data_column.datagroup.timelatencyunit
     %button{:name => "commit", :type => "submit"} Create Data Group
       

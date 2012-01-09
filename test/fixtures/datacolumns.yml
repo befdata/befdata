@@ -7,7 +7,6 @@ datacolumns_001:
   columnnr: "1"
   definition: height in m
   unit: 
-  missingcode: 
   comment: height, variable, response
   import_data_type: number
   created_at: 2011-09-28 14:22:53.819732
@@ -23,7 +22,6 @@ datacolumns_002:
   columnnr: "2"
   definition: Author name for species description
   unit: id
-  missingcode: 
   comment: species author, dwc/terms/scientificNameAuthorship
   import_data_type: text
   created_at: 2011-09-28 14:22:53.916028
@@ -39,7 +37,6 @@ datacolumns_003:
   columnnr: "4"
   definition: fullname consisting of genus and species epiteth; use this name for a given synonym
   unit: id
-  missingcode: 
   comment: species, dwc/terms/scientificName, dwc/terms/acceptedNameUsage
   import_data_type: category
   created_at: 2011-09-28 14:22:54.02125
@@ -55,7 +52,6 @@ datacolumns_004:
   columnnr: "3"
   definition: year of species description
   unit: year
-  missingcode: 
   comment: dwc/terms/scientificNameAuthorship, datetime, year
   import_data_type: year
   created_at: 2011-09-28 14:22:53.961781
@@ -71,7 +67,6 @@ datacolumns_005:
   columnnr: "9"
   definition: longitude, measured with geko 201, mind that some of the coordinates were not helpful in finding the plot. It is not clear, if they all refer to the south-west corner of the plot.
   unit: "WGS 84, Dezimalgrad: hddd.ddddd degree"
-  missingcode: 
   comment: longitude
   import_data_type: number
   created_at: 2011-09-01 09:02:35.895537
@@ -87,7 +82,6 @@ datacolumns_006:
   columnnr: "10"
   definition: comment to measured values in the columns coordinates
   unit: text
-  missingcode: 
   comment: 
   import_data_type: text
   created_at: 2011-09-01 09:02:36.183554
@@ -103,7 +97,6 @@ datacolumns_007:
   columnnr: "11"
   definition: test
   unit: 
-  missingcode: 
   comment: 
   import_data_type: 
   created_at: 2011-09-01 09:02:36.28756
@@ -119,7 +112,6 @@ datacolumns_008:
   columnnr: "1"
   definition: year of sampling
   unit: year
-  missingcode: 
   comment: 
   import_data_type: year
   created_at: 2011-09-01 09:02:33.4934
@@ -135,7 +127,6 @@ datacolumns_009:
   columnnr: "6"
   definition: eastness of plot aspect
   unit: 
-  missingcode: 
   comment: aspect
   import_data_type: number
   created_at: 2011-09-01 09:02:35.027488
@@ -151,7 +142,6 @@ datacolumns_010:
   columnnr: "8"
   definition: latitude, measured with geko 201, mind that some of the coordinates were not helpful in finding the plot. It is not clear, if they all refer to the south-west corner of the plot.
   unit: "WGS 84, Dezimalgrad: hddd.ddddd degree"
-  missingcode: 
   comment: latitude
   import_data_type: number
   created_at: 2011-09-01 09:02:35.603521
@@ -167,7 +157,6 @@ datacolumns_011:
   columnnr: "4"
   definition: fullname consisting of genus and species epiteth; use this name for a given synonym
   unit: id
-  missingcode: 
   comment: species, dwc/terms/scientificName, dwc/terms/acceptedNameUsage
   import_data_type: category
   created_at: 2011-06-01 13:47:48.22
@@ -183,7 +172,6 @@ datacolumns_012:
   columnnr: "3"
   definition: year of species description
   unit: year
-  missingcode: 
   comment: dwc/terms/scientificNameAuthorship, datetime, year
   import_data_type: year
   created_at: 2011-06-01 13:47:48.031
@@ -199,7 +187,6 @@ datacolumns_013:
   columnnr: "1"
   definition: height in m
   unit: 
-  missingcode: 
   comment: height, variable, response
   import_data_type: number
   created_at: 2011-06-01 13:47:46.018
@@ -215,7 +202,6 @@ datacolumns_014:
   columnnr: "2"
   definition: Author name for species description
   unit: id
-  missingcode: 
   comment: species author, dwc/terms/scientificNameAuthorship
   import_data_type: text
   created_at: 2011-06-01 13:47:47.817
@@ -231,7 +217,6 @@ datacolumns_015:
   columnnr: "1"
   definition: Column one
   unit: 
-  missingcode: 
   comment: 
   import_data_type: text
   created_at: 2011-07-01 15:02:40.346
@@ -247,7 +232,6 @@ datacolumns_016:
   columnnr: "2"
   definition: Column two
   unit: 
-  missingcode: 
   comment: 
   import_data_type: number
   created_at: 2011-07-01 15:02:40.346
@@ -263,7 +247,6 @@ datacolumns_017:
   columnnr: "3"
   definition: Column three
   unit: 
-  missingcode: 
   comment: 
   import_data_type: date(2009-07-14)
   created_at: 2011-07-01 15:02:40.346
@@ -279,7 +262,6 @@ datacolumns_018:
   columnnr: "4"
   definition: Column four
   unit: 
-  missingcode: 
   comment: 
   import_data_type: year
   created_at: 2011-07-01 15:02:40.346
@@ -295,7 +277,6 @@ datacolumns_019:
   columnnr: "5"
   definition: Column five
   unit: 
-  missingcode: 
   comment: 
   import_data_type: category
   created_at: 2011-07-01 15:02:40.346
@@ -311,7 +292,6 @@ datacolumns_020:
   columnnr: "6"
   definition: Column six
   unit: 
-  missingcode: 
   comment: 
   import_data_type: category
   created_at: 2011-07-01 15:02:40.346
@@ -327,7 +307,6 @@ datacolumns_021:
   columnnr: "7"
   definition: Column seven
   unit: 
-  missingcode: 
   comment: 
   import_data_type: date(14.07.2009)
   created_at: 2011-07-01 15:02:40.346
@@ -343,7 +322,6 @@ datacolumns_022:
   columnnr: "8"
   definition: Column eight
   unit: 
-  missingcode: ""
   comment: 
   import_data_type: number
   created_at: 2011-07-01 15:02:40.346
@@ -359,7 +337,6 @@ datacolumns_023:
   columnnr: "2"
   definition: CSP name
   unit: location id
-  missingcode: 
   comment: CSP
   import_data_type: category
   created_at: 2011-09-01 09:02:33.83642
@@ -375,7 +352,6 @@ datacolumns_024:
   columnnr: "3"
   definition: Elevation of the sampled plot, measured with geko201 GPS
   unit: m asl
-  missingcode: 
   comment: elevation
   import_data_type: number
   created_at: 2011-09-01 09:02:34.225442
@@ -391,7 +367,6 @@ datacolumns_025:
   columnnr: "4"
   definition: aspect of the sampled plot. Measured with compass. Mind that there have been ambiguous values related to aspect by different researchers. Measured with compass.
   unit: degree
-  missingcode: 
   comment: aspect
   import_data_type: number
   created_at: 2011-09-01 09:02:34.462455
@@ -407,7 +382,6 @@ datacolumns_026:
   columnnr: "5"
   definition: comment to measured values in the column aspect
   unit: text
-  missingcode: 
   comment: 
   import_data_type: text
   created_at: 2011-09-01 09:02:34.748472
@@ -423,7 +397,6 @@ datacolumns_027:
   columnnr: "7"
   definition: northness of plot aspect
   unit: 
-  missingcode: 
   comment: aspect
   import_data_type: number
   created_at: 2011-09-01 09:02:35.312504
@@ -439,7 +412,6 @@ datacolumns_028:
   columnnr: "9"
   definition: Column nine
   unit: 
-  missingcode: 
   comment: 
   import_data_type: number
   created_at: 2011-10-07 15:02:40.346
@@ -455,7 +427,6 @@ datacolumns_029:
   columnnr: "1"
   definition: COLUMN_1_DEFINITION
   unit: COLUMN_1_UNIT
-  missingcode: COLUMN_MISS_VAL_1
   comment: COLUMN_1_COMMENT
   import_data_type: category
   created_at: 2011-12-12 13:35:20.601526
@@ -471,7 +442,6 @@ datacolumns_030:
   columnnr: "2"
   definition: COLUMN_2_DEFINITION
   unit: COLUMN_2_UNIT
-  missingcode: COLUMN_MISS_VAL_2
   comment: COLUMN_2_COMMENT
   import_data_type: number
   created_at: 2011-12-12 13:35:20.812003

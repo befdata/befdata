@@ -1,3 +1,4 @@
+# encoding: UTF-8
 # This file is auto-generated from the current state of the database. Instead
 # of editing this file, please use the migrations feature of Active Record to
 # incrementally modify your database, and then regenerate this schema definition.
@@ -10,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111106181044) do
+ActiveRecord::Schema.define(:version => 20120109170006) do
 
   create_table "author_paperproposals", :force => true do |t|
     t.integer  "paperproposal_id"
@@ -60,7 +61,6 @@ ActiveRecord::Schema.define(:version => 20111106181044) do
     t.integer  "columnnr"
     t.text     "definition"
     t.string   "unit"
-    t.string   "missingcode"
     t.text     "comment"
     t.string   "import_data_type"
     t.datetime "created_at"
@@ -88,8 +88,6 @@ ActiveRecord::Schema.define(:version => 20111106181044) do
     t.string   "title"
     t.text     "description"
     t.string   "instrumentation"
-    t.float    "timelatency"
-    t.string   "timelatencyunit"
     t.text     "comment"
     t.datetime "created_at"
     t.datetime "updated_at"

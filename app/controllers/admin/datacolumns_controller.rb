@@ -14,7 +14,7 @@ class Admin::DatacolumnsController < Admin::AdminController
     config.list.sorting = { :columnnr => :asc }
 
     config.update.columns = [:columnheader, :definition, :columnnr,
-                             :unit, :missingcode, :comment,
+                             :unit, :comment,
                              :datagroup_id, :dataset_id]
 
   end

@@ -9,4 +9,10 @@ class Admin::DatacolumnsControllerTest < ActionController::TestCase
     assert_response :success
   end
 
+  test "show edit" do
+    login_nadrowski
+    get :edit, :id => Datacolumn.first.id
+    assert_response :success
+  end
+
 end

@@ -10,14 +10,11 @@ class Admin::DatagroupsController < Admin::AdminController
     config.list.per_page = 1000
 
     config.update.columns = [:id, :title, :description, :instrumentation,
-                             :informationsource,
-                             :methodvaluetype, :timelatency,
-                             :timelatencyunit, :comment, :datacolumns]
+                             :informationsource, :methodvaluetype,
+                             :comment, :datacolumns]
 
     config.create.columns = [:title, :description, :instrumentation,
-                             :informationsource,
-                             :methodvaluetype, :timelatency,
-                             :timelatencyunit, :comment]
+                             :informationsource, :methodvaluetype, :comment]
 
     config.subform.layout = :vertical
 
