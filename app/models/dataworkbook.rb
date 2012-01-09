@@ -354,8 +354,7 @@ class Dataworkbook
       people_sur << clean_string(data_responsible_person_sheet.row(r)[WBF[:people_lastname_col]])
       people += User.find_all_by_lastname(people_sur)
     end
-    people = people.flatten.uniq
-    return people
+    people.flatten.uniq
   end
 
   # Returns the category information from the Workbook for a given columnheader.

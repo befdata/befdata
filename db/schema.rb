@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120109170006) do
+ActiveRecord::Schema.define(:version => 20120109203246) do
 
   create_table "author_paperproposals", :force => true do |t|
     t.integer  "paperproposal_id"
@@ -68,6 +68,8 @@ ActiveRecord::Schema.define(:version => 20120109170006) do
     t.boolean  "datagroup_approved"
     t.boolean  "finished"
     t.boolean  "datatype_approved"
+    t.string   "informationsource"
+    t.string   "instrumentation"
   end
 
   add_index "datacolumns", ["datagroup_id", "dataset_id"], :name => "index_datacolumns_on_datagroup_id_and_dataset_id"
