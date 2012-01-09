@@ -77,7 +77,6 @@ private
       else
         row = datacolumn.columnnr
       end
-
       sheet[row,WBF[:column_header_col]] = datacolumn.columnheader if datacolumn.columnheader
       sheet[row,WBF[:column_definition_col]] = datacolumn.definition if datacolumn.definition
       sheet[row,WBF[:column_unit_col]] = datacolumn.unit if datacolumn.unit
@@ -87,9 +86,10 @@ private
 
       sheet[row,WBF[:group_title_col]] = datacolumn.datagroup.title if datacolumn.datagroup.title
       sheet[row,WBF[:group_description_col]] = datacolumn.datagroup.description if datacolumn.datagroup.description
-      sheet[row,WBF[:group_instrumentation_col]] = datacolumn.datagroup.instrumentation if datacolumn.datagroup.instrumentation
-      sheet[row,WBF[:group_informationsource_col]] = datacolumn.datagroup.informationsource if datacolumn.datagroup.informationsource
       sheet[row,WBF[:group_methodvaluetype_col]] = datacolumn.datagroup.methodvaluetype if datacolumn.datagroup.methodvaluetype
+
+      sheet[row,WBF[:group_instrumentation_col]] = datacolumn.instrumentation || datacolumn.datagroup.instrumentation
+      sheet[row,WBF[:group_informationsource_col]] = datacolumn.informationsource || datacolumn.datagroup.informationsource
     end
   end
 
