@@ -88,8 +88,13 @@ private
       sheet[row,WBF[:group_description_col]] = datacolumn.datagroup.description if datacolumn.datagroup.description
       sheet[row,WBF[:group_methodvaluetype_col]] = datacolumn.datagroup.methodvaluetype if datacolumn.datagroup.methodvaluetype
 
-      sheet[row,WBF[:group_instrumentation_col]] = datacolumn.instrumentation || datacolumn.datagroup.instrumentation
-      sheet[row,WBF[:group_informationsource_col]] = datacolumn.informationsource || datacolumn.datagroup.informationsource
+      instrumentation = datacolumn.instrumentation || datacolumn.datagroup.instrumentation
+      instrumentation << " (derived from datagroup)" if !datacolumn.instrumentation && !instrumentation.blank?
+      sheet[row,WBF[:group_instrumentation_col]] = instrumentation
+
+      informationsource = datacolumn.informationsource || datacolumn.datagroup.informationsource
+      informationsource << " (derived from datagroup)" if !datacolumn.informationsource && !informationsource.blank?
+      sheet[row,WBF[:group_informationsource_col]] = informationsource
     end
   end
 

@@ -15,6 +15,7 @@ class Admin::DatacolumnsController < Admin::AdminController
 
     config.update.columns = [:columnheader, :definition, :columnnr,
                              :unit, :comment,
+                             :instrumentation, :informationsource,
                              :datagroup_id, :dataset_id]
 
   end
