@@ -8,7 +8,9 @@
           ="(#{t("role."+role.name)})"
 
 %h2
-  = render :partial => @user, :locals => {:avatar => :large}
+  .user
+    = image_tag(@user.avatar.url(:large))
+    %span.username= @user
 
 %p
   - unless @user.institution_phone.blank?

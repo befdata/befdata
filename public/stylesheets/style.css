@@ -173,7 +173,7 @@ div.colborder {
                   C U S T O M   L A Y O U T
 ============================================================= */
 
-/* --- R E M O V E - M E ! ---------------------------------TODO
+/* --- BASIC COLORS ---------------------------------------------
      Colors to use:
         #000    : black
         #8a8a8a : dark grey
@@ -181,6 +181,12 @@ div.colborder {
         #18921e : green
         #fff    : white
 ------------------------------------------------------------- */
+
+html, body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+}
 
 body {
 	font-size: 13px;
@@ -196,9 +202,14 @@ input, textarea, select {
 
 div.container {
     background-color: #fff;
-    border-color: #fff;
-    border-width: 0 25px 25px 25px;
-    border-style: solid;
+    padding: 0 25px;
+    min-height: 100%;
+    position: relative;
+}
+
+div#content {
+    padding-bottom: 100px;
+    display: inline-block;
 }
 
 /* --- Typo ------------------------------------------------- */
@@ -398,6 +409,7 @@ input#user_session_password {
     position: absolute;
     right: 0;
     top: 10px;
+    visibility: hidden;
 }
 
 input#search_term {
@@ -572,10 +584,14 @@ div#actions + div#info {
 #footer {
     background: url("../images/bg-footer.png") repeat-x top left;
 	clear: both;
+    display: block;
     margin-top: 20px;
     padding-top: 28px;
     font-size: 0.9em;
     line-height: 0.9em;
+    height: 70px;
+    position: absolute;
+    bottom: 0;
 }
 
 #footer * {
