@@ -9,10 +9,8 @@ xsi:schemaLocation="eml://ecoinformatics.org/eml-2.1.0 eml-2.1.0/eml.xsd">
 <dataset id="<%= @dataset.id %>">
 
 <alternateIdentifier><%= dataset_url(@dataset) %></alternateIdentifier>
-<!-- Should be Permanent identifier of the dataset. Initial title ... but where do we store this? -->
 
 <title><%= @dataset.title %></title>
-<!--<shortname></shortname> We do not have a shortname for datasets-->
 
 <% @dataset.owners.each do |creator| %>
     <creator id="<%= creator.login %>">
@@ -21,19 +19,15 @@ xsi:schemaLocation="eml://ecoinformatics.org/eml-2.1.0 eml-2.1.0/eml.xsd">
         <surName><%= creator.lastname %></surName>
       </individualName>
       <%= content_tag_unless_blank :organizationName, creator.institution_name %>
-      <!--<positionName>unknown in the portal</positionName>-->
       <% if creator.street || creator.city %>
       <address>
         <%= content_tag_unless_blank :deliveryPoint, creator.street %>
         <%= content_tag_unless_blank :city, creator.city %>
-        <!--<administrativeArea>unknown in the portal</administrativeArea>-->
-        <!--<postalCode>unknown in the portal</postalCode>-->
         <%= content_tag_unless_blank :country, creator.country %>
       </address>
       <% end %>
       <%= content_tag_unless_blank :phone, creator.institution_phone %>
       <electronicMailAddress><%= mail_to creator.email, nil, :replace_at => '_at_' %></electronicMailAddress>
-      <!--<onlineUrl>unknown in the portal</onlineUrl>-->
     </creator>
 <% end %>
 
@@ -65,8 +59,6 @@ xsi:schemaLocation="eml://ecoinformatics.org/eml-2.1.0 eml-2.1.0/eml.xsd">
 </keywordSet>
 <% end %>
 
-<!-- Creative commons licence to the owners of the data set (this is as soon as the dataset is set free for
-public). As long as the dataset is not free for public, users may not give the data to any other person. -->
 <% unless @dataset.usagerights.blank? %>
 <intellectualRights>
   <para><%= @dataset.usagerights %></para>
@@ -110,10 +102,6 @@ public). As long as the dataset is not free for public, users may not give the d
 <% end %>
 
 
-<!-- This is mandatory in EML
-In terms of the IPT, propose this be the same as the and should be the same as the <creator/>
-Therefore, it can be ignored in Parsing, but needs to be created in the output rendering
--->
 <contact>
   <% @dataset.owners.each do |contact| %>
       <references><%= contact.login %></references>
@@ -206,8 +194,6 @@ Therefore, it can be ignored in Parsing, but needs to be created in the output r
              <%= content_tag_unless_blank :para, column.definition %>
            </description>
            <%= content_tag_unless_blank :instrumentation, column.datagroup.instrumentation %>
-           <!--<%= content_tag_unless_blank :citation, column.datagroup.informationsource %>TODO: This does not work-->
-           <!--see http://knb.ecoinformatics.org/software/eml/eml-2.0.1/eml-literature.html#CitationType -->
          </methodStep>
        </methods>
      </attribute>
