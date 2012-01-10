@@ -24,7 +24,7 @@ class PaperproposalsController < ApplicationController
 
     project = current_user.roles_for(Project).first.try(:authorizable)
     if project
-      senior = project.accepted_roles.find_by_name("pi").users.first
+      senior = project.accepted_roles.find_by_name("pi").try(:users).try(:first)
       @paperproposal.senior_author = senior
     end
   end
