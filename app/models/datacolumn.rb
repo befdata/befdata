@@ -15,7 +15,7 @@
 
 class Datacolumn < ActiveRecord::Base
 
-  is_taggable :tags, :languages
+  is_taggable :tags
   before_destroy :destory_normal_datagroups_solely_associated_to_this_column
   after_destroy :destroy_taggings
 

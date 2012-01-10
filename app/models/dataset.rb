@@ -23,8 +23,7 @@ class Dataset < ActiveRecord::Base
 
   acts_as_authorization_object :subject_class_name => 'User'
 
-  is_taggable :projecttags   # deprecated #TODO this is used in the download action -> but marked as deprecated
-  is_taggable :tags, :languages
+  is_taggable :tags
 
   belongs_to :upload_spreadsheet, :class_name => "Datafile",
                                   :foreign_key => "upload_spreadsheet_id",
