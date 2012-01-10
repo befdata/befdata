@@ -11,7 +11,7 @@
 ## Dataset provenance is managed using the ACL9 rails gem. "User"s can be given different roles in relation to a Dataset
 ## and access to the Dataset is controlled via the "Role".
 ##
-## Datasets can belong to one or more "Project"s. They are linked through the "DatasetProject" class.
+## Datasets can belong to one or more "Project"s
 ##
 ## "Paperproposal"s contain one or more Datasets. They are linked through the "DatasetPaperProposal" class.
 ##
@@ -35,8 +35,6 @@ class Dataset < ActiveRecord::Base
 
   has_many :freeformats, :as => :freeformattable, :dependent => :destroy
 
-  #has_many :dataset_projects
-  #has_many :projects, :through => :dataset_projects
   has_and_belongs_to_many :projects
 
   with_options :unless => "new_record?" do |x|
