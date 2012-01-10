@@ -35,7 +35,7 @@ text-decoration: none;
 color: #999;
 }
 
-.active-scaffold a:hover, .active-scaffold div.hover {
+.active-scaffold a:hover, .active-scaffold div.hover, .active-scaffold td span.hover {
 background-color: #ff8;
 }
 
@@ -99,6 +99,15 @@ background-position: 1px 50%;
 background-repeat: no-repeat;
 }
 
+.active-scaffold-header div.actions a {
+padding: 5px 5px;
+margin-left: 0px;
+}
+
+.active-scaffold .active-scaffold .active-scaffold-header div.actions > a {
+padding: 1px 5px;
+}
+
 .active-scaffold-header div.actions div.action_group {
 display: inline;
 float: right;
@@ -112,6 +121,10 @@ margin: 0;
 
 .active-scaffold-header div.actions .action_group ul {
 line-height: 130%;
+top: 19px;
+}
+
+.active-scaffold .active-scaffold .active-scaffold-header div.actions .action_group ul {
 top: 14px;
 }
 
@@ -141,6 +154,17 @@ opacity: 0.5;
 .active-scaffold-header div.actions a.show_config_list,
 .active-scaffold-header div.actions div.action_group div {
 margin:0;  
+padding: 5px 5px 5px 25px;
+background-position: 5px 50%;
+background-repeat: no-repeat;
+}
+
+.active-scaffold .active-scaffold .active-scaffold-header div.actions > a.new,
+.active-scaffold .active-scaffold .active-scaffold-header div.actions > a.new_existing,
+.active-scaffold .active-scaffold .active-scaffold-header div.actions > a.show_search,
+.active-scaffold .active-scaffold .active-scaffold-header div.actions > a.show_config_list,
+.active-scaffold .active-scaffold .active-scaffold-header div.actions div.action_group > div {
+margin:0;
 padding: 1px 5px 1px 20px;
 background-position: 1px 50%;
 background-repeat: no-repeat;
@@ -234,6 +258,10 @@ background: #333 url(../../../images/active_scaffold/default/indicator-small.gif
 
 .active-scaffold th .mark_heading {
 margin-left: 5px;
+}
+
+.active-scaffold th.hidden, .active-scaffold td.hidden {
+display: none;
 }
 
 /* Table :: Record Rows
@@ -755,6 +783,7 @@ padding: 6px 0;
 float: left;
 }
 
+.active-scaffold li.form-element dd p,
 .active-scaffold li.form-element dd input[type="checkbox"] {
 margin-top: 6px;
 }
@@ -793,8 +822,11 @@ padding: 2px;
 }
 
 .active-scaffold .fieldWithErrors input,
+.active-scaffold .field_with_errors input,
 .active-scaffold .fieldWithErrors textarea,
-.active-scaffold .fieldWithErrors select {
+.active-scaffold .field_with_errors textarea,
+.active-scaffold .fieldWithErrors select,
+.active-scaffold .field_with_errors select {
 border: solid 1px #f00;
 }
 
@@ -967,4 +999,95 @@ font-size: 100%;
 
 .active-scaffold-found {
   float:left;
+}
+
+
+.active-scaffold-component > .active-scaffold-header h2 {
+border: none;
+}
+.active-scaffold-component > .active-scaffold-header h2 a,
+.active-scaffold-component > .active-scaffold-header h2 a:active,
+.active-scaffold-component > .active-scaffold-header h2 a:visited {
+text-decoration: none;
+color: inherit;
+}
+
+
+.as_touch a.inline-adapter-close {
+width: 25px;
+height: 27px;
+background: url(../../../images/active_scaffold/default/close_touch.png) 0 0 no-repeat;
+}
+
+.as_touch .as_paginate {
+font-size: 20px;
+padding: 3px 10px;
+}
+
+.as_touch .active-scaffold-header div.actions a {
+padding: 7px 5px;
+}
+
+.as_touch .active-scaffold .active-scaffold-header div.actions a {
+padding: 7px 5px;
+}
+
+.as_touch .active-scaffold-header div.actions .action_group ul {
+line-height: 130%;
+top: 23px;
+}
+
+.as_touch .active-scaffold .active-scaffold-header div.actions .action_group ul {
+top: 23px;
+}
+
+.as_touch .active-scaffold-header div.actions a.new,
+.as_touch .active-scaffold-header div.actions a.new_existing,
+.as_touch .active-scaffold-header div.actions a.show_search,
+.as_touch .active-scaffold-header div.actions a.show_config_list,
+.as_touch .active-scaffold-header div.actions div.action_group div {
+padding: 7px 5px 7px 25px;
+}
+
+.as_touch .active-scaffold .active-scaffold-header div.actions > a.new,
+.as_touch .active-scaffold .active-scaffold-header div.actions > a.new_existing,
+.as_touch .active-scaffold .active-scaffold-header div.actions > a.show_search,
+.as_touch .active-scaffold .active-scaffold-header div.actions > a.show_config_list,
+.as_touch .active-scaffold .active-scaffold-header div.actions div.action_group > div {
+padding: 7px 5px 7px 25px;
+background-position: 5px 50%;
+}
+
+.as_touch .actions .action_group ul li div {
+padding: 7px 5px 7px 25px;
+}
+
+.as_touch .actions .action_group ul li a {
+padding: 7px 5px 7px 25px;
+}
+
+.as_touch .active-scaffold-header h2 {
+padding: 4px 0px;
+}
+
+.as_touch .active-scaffold .active-scaffold-header div.actions a,
+.as_touch .active-scaffold .active-scaffold-header div.actions div {
+  font: bold 14px arial;
+}
+
+.as_touch .active-scaffold .active-scaffold-header div.actions {
+  right: 15px;
+}
+
+.as_touch tr.record {
+line-height: 130%;
+}
+
+.as_touch th a, .as_touch th a:visited {
+color: #fff;
+padding: 5px 2px 5px 5px;
+}
+
+.as_touch tr.record td {
+padding: 5px 10px;
 }
