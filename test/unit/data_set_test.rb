@@ -19,11 +19,6 @@ class DataSetTest < ActiveSupport::TestCase
     assert p_datasets
   end
 
-  test "datasets are associated to dataset projects" do
-    dataset = datasets("datasets_001")
-    assert !dataset.dataset_projects.nil?
-  end
-
   test "delete_imported_research_data_and_file should delete all sheetcells" do
     dataset = datasets("datasets_001")
     all_sheetcells_length = Sheetcell.count
@@ -114,10 +109,11 @@ class DataSetTest < ActiveSupport::TestCase
 
   test "delete_imported_research_data_and_file should not delete the associated projects" do
     dataset = datasets("datasets_001")
+    previous_associated_projects = dataset.projects
 
-    assert_difference 'DatasetProject.count', 0 do
-      dataset.delete_imported_research_data_and_file
-    end
+    dataset.delete_imported_research_data_and_file
+
+    assert_equal previous_associated_projects, dataset.projects
   end
 
   test "delete_imported_research_data_and_file should not delete the associated people" do

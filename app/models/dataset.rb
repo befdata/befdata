@@ -35,8 +35,9 @@ class Dataset < ActiveRecord::Base
 
   has_many :freeformats, :as => :freeformattable, :dependent => :destroy
 
-  has_many :dataset_projects
-  has_many :projects, :through => :dataset_projects
+  #has_many :dataset_projects
+  #has_many :projects, :through => :dataset_projects
+  has_and_belongs_to_many :projects
 
   with_options :unless => "new_record?" do |x|
     x.validates_presence_of :title

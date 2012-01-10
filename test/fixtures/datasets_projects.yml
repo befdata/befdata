@@ -1,29 +1,21 @@
 --- 
 dataset_projects_001: 
-  id: "1"
   dataset_id: "7"
   project_id: "3"
-  comment: 
   created_at: 2011-07-04 12:45:31.254884
   updated_at: 2011-07-04 12:45:31.254884
-dataset_projects_002: 
-  id: "2"
+dataset_projects_002:
   dataset_id: "8"
   project_id: "3"
-  comment: 
   created_at: 2011-07-08 10:13:09.260388
   updated_at: 2011-07-08 10:13:09.260388
-dataset_projects_003: 
-  id: "3"
+dataset_projects_003:
   dataset_id: "9"
   project_id: "3"
-  comment: 
   created_at: 2011-12-12 13:33:55.129304
   updated_at: 2011-12-12 13:33:55.129304
-dataset_projects_004: 
-  id: "4"
+dataset_projects_004:
   dataset_id: "9"
   project_id: "1"
-  comment: 
   created_at: 2011-12-12 13:33:55.134693
   updated_at: 2011-12-12 13:33:55.134693

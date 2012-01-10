@@ -9,7 +9,7 @@ class TransactionalDatasetTest < ActiveSupport::TestCase
   test "creating and approving dataset then destroying should not leave any remains in the database" do
 
     models ="AuthorPaperproposal Cart CartDataset Category Datacolumn Datafile Datagroup
-              Dataset DatasetPaperproposal DatasetProject Freeformat ImportCategory Paperproposal
+              Dataset DatasetPaperproposal Freeformat ImportCategory Paperproposal
               PaperproposalVote Project Role Sheetcell Tag Tagging User".split(" ")
     before = {}
     models.each do |model|
@@ -26,8 +26,6 @@ class TransactionalDatasetTest < ActiveSupport::TestCase
     book = Dataworkbook.new(dataset.upload_spreadsheet)
     book.import_data
     dataset.approve_predefined_columns(users(:users_003))
-    #TODO in the clean example but with inconsistent fixtures it needed a dataset.delete_sheetcells before the
-    #destroy -> will have to check if this remains a problem.
     dataset.destroy
 
     after = {}

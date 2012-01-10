@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120109203246) do
+ActiveRecord::Schema.define(:version => 20111106181044) do
 
   create_table "author_paperproposals", :force => true do |t|
     t.integer  "paperproposal_id"
@@ -108,16 +108,6 @@ ActiveRecord::Schema.define(:version => 20120109203246) do
 
   add_index "dataset_paperproposals", ["dataset_id", "paperproposal_id"], :name => "index_dataset_paperproposals_on_dataset_id_and_paperproposal_id"
 
-  create_table "dataset_projects", :force => true do |t|
-    t.integer  "dataset_id"
-    t.integer  "project_id"
-    t.text     "comment"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "dataset_projects", ["dataset_id", "project_id"], :name => "index_dataset_projects_on_dataset_id_and_project_id"
-
   create_table "datasets", :force => true do |t|
     t.string   "title"
     t.text     "abstract"
@@ -146,6 +136,20 @@ ActiveRecord::Schema.define(:version => 20120109203246) do
   end
 
   add_index "datasets", ["upload_spreadsheet_id"], :name => "index_datasets_on_upload_spreadsheet_id"
+
+  create_table "datasets_projects", :id => false, :force => true do |t|
+    t.integer  "dataset_id"
+    t.integer  "project_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "datasets_projects", ["dataset_id", "project_id"], :name => "index_dataset_projects_on_dataset_id_and_project_id"
+
+  create_table "datatypes", :force => true do |t|
+    t.string "name"
+    t.string "format"
+  end
 
   create_table "delayed_jobs", :force => true do |t|
     t.integer  "priority",   :default => 0

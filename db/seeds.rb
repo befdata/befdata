@@ -6,6 +6,10 @@
 #   cities = City.create([{ :name => 'Chicago' }, { :name => 'Copenhagen' }])
 #   Mayor.create(:name => 'Daley', :city => cities.first)
 
+#Create default roles:
+# 'pi', ...
+
+
 
 #From here working in sheetcell branch
 if Rails.env == "performance"

@@ -20,7 +20,7 @@ class FreeformatsController < ApplicationController
   end
 
   def create
-    freeformat = @freeformattable.freeformats.build (params[:freeformat])
+    freeformat = @freeformattable.freeformats.build(params[:freeformat])
     if freeformat.save
       redirect_to :back
     else
@@ -30,7 +30,7 @@ class FreeformatsController < ApplicationController
   end
 
   def update
-    if @freeformat.update_attributes (params[:freeformat]) then
+    if @freeformat.update_attributes(params[:freeformat]) then
       redirect_to :back
     else
       flash[:error] = "#{@freeformat.errors.to_a.first.capitalize}"
