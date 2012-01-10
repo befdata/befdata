@@ -23,7 +23,7 @@ class Dataset < ActiveRecord::Base
 
   acts_as_authorization_object :subject_class_name => 'User'
 
-  is_taggable :tags
+  acts_as_taggable
 
   belongs_to :upload_spreadsheet, :class_name => "Datafile",
                                   :foreign_key => "upload_spreadsheet_id",

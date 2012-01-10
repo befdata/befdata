@@ -12,7 +12,7 @@ class Datagroup < ActiveRecord::Base
   has_many :datacolumns
   has_many :categories, :dependent => :destroy
 
-  is_taggable :tags
+  acts_as_taggable
 
   validates_presence_of :title, :description
   validates_uniqueness_of :title
