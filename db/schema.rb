@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120110203318) do
+ActiveRecord::Schema.define(:version => 20120110211231) do
 
   create_table "author_paperproposals", :force => true do |t|
     t.integer  "paperproposal_id"
@@ -187,17 +187,6 @@ ActiveRecord::Schema.define(:version => 20120110203318) do
   end
 
   add_index "import_categories", ["datacolumn_id"], :name => "index_import_categories_on_datacolumn_id"
-
-  create_table "old_taggings", :force => true do |t|
-    t.integer "tag_id"
-    t.string  "taggable_type", :limit => 25, :default => ""
-    t.integer "taggable_id"
-  end
-
-  create_table "old_tags", :force => true do |t|
-    t.string "name", :default => ""
-    t.string "kind", :default => ""
-  end
 
   create_table "paperproposal_votes", :force => true do |t|
     t.integer  "paperproposal_id"
