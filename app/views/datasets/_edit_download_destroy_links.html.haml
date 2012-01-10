@@ -7,6 +7,10 @@
           Download
     - if current_user
       %li
+        = link_to dataset_path(:id => @dataset, :format => :eml) do
+          = image_tag("save.png")
+          Download Eml
+      %li
         = link_to create_cart_context_path(:dataset_id => @dataset.id), :method => :post do
           = image_tag("cart.png")
           Add to Cart
