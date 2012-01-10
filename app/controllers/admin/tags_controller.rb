@@ -1,12 +1,12 @@
 class Admin::TagsController < Admin::AdminController
-    active_scaffold :tag do |config|
+    active_scaffold 'ActsAsTaggableOn::Tag' do |config|
       config.label = "Tags"
       config.show.link = false
 
-      config.list.columns = [:id, :name, :kind, :taggings]
+      config.list.columns = [:id, :name, :taggings]
 
       [config.update, config.create].each do |c|
-          c.columns = [:name, :kind]
+          c.columns = [:name]
       end
     end
 end

@@ -1,189 +1,145 @@
 --- 
-tags_001: 
-  id: "2"
-  name: object identifier
-  kind: tag
-tags_002: 
-  id: "40"
-  name: dwc/terms/scientificNameAuthorship
-  kind: tag
-tags_003: 
-  id: "6"
-  name: C
-  kind: tag
-tags_004: 
-  id: "11"
-  name: species richness
-  kind: tag
-tags_005: 
-  id: "7"
-  name: variable
-  kind: tag
-tags_006: 
-  id: "34"
-  name: gemet:solar radiation
-  kind: tag
-tags_007: 
-  id: "18"
-  name: longitude
-  kind: tag
-tags_008: 
-  id: "37"
-  name: height
-  kind: tag
-tags_009: 
-  id: "4"
-  name: plant organ
-  kind: tag
-tags_010: 
-  id: "31"
-  name: slope
-  kind: tag
-tags_011: 
-  id: "14"
-  name: bcomplex:Plant diversity
-  kind: tag
-tags_012: 
-  id: "20"
-  name: latitude
-  kind: tag
-tags_013: 
-  id: "24"
-  name: environmental variable
-  kind: tag
-tags_014: 
-  id: "8"
-  name: carbon
-  kind: tag
-tags_015: 
-  id: "26"
-  name: gemet:altitude
-  kind: tag
-tags_016: 
-  id: "41"
-  name: datetime
-  kind: tag
-tags_017: 
-  id: "27"
-  name: dwc/terms/maximumElevationInMeters
-  kind: tag
-tags_018: 
-  id: "13"
-  name: gemet:biodiversity
-  kind: tag
-tags_019: 
-  id: "39"
-  name: species author
-  kind: tag
-tags_020: 
-  id: "9"
-  name: dwc/terms/locationID
-  kind: tag
-tags_021: 
-  id: "38"
-  name: response
-  kind: tag
-tags_022: 
-  id: "36"
-  name: BEF China projects
-  kind: tag
-tags_023: 
-  id: "28"
-  name: dwc/terms/minimumDepthInMeters
-  kind: tag
-tags_024: 
-  id: "25"
-  name: bcomplex:Altitude
-  kind: tag
-tags_025: 
-  id: "30"
-  name: exposition
-  kind: tag
-tags_026: 
-  id: "10"
-  name: experimental treatment
-  kind: tag
-tags_027: 
-  id: "19"
-  name: dwc/terms/decimalLongitude
-  kind: tag
-tags_028: 
-  id: "3"
-  name: date
-  kind: tag
-tags_029: 
-  id: "29"
-  name: aspect
-  kind: tag
-tags_030: 
-  id: "22"
-  name: co variable
-  kind: tag
-tags_031: 
-  id: "44"
-  name: dwc/terms/acceptedNameUsage
-  kind: tag
-tags_032: 
-  id: "12"
-  name: explanatory variable
-  kind: tag
-tags_033: 
-  id: "43"
-  name: dwc/terms/scientificName
-  kind: tag
-tags_034: 
-  id: "1"
-  name: species
-  kind: tag
-tags_035: 
-  id: "16"
-  name: bcomplex:Species extinction
-  kind: tag
-tags_036: 
-  id: "23"
-  name: elevation
-  kind: tag
-tags_037: 
-  id: "5"
-  name: location
-  kind: tag
-tags_038: 
-  id: "32"
-  name: solar radiation
-  kind: tag
-tags_039: 
-  id: "15"
-  name: extinction series
-  kind: tag
-tags_040: 
-  id: "21"
-  name: dwc/terms/decimalLatitude
-  kind: tag
 tags_041: 
-  id: "17"
-  name: gemet:extinction (ecological)
-  kind: tag
-tags_042: 
-  id: "42"
-  name: year
-  kind: tag
-tags_043: 
-  id: "35"
-  name: BEF China members
-  kind: tag
-tags_044: 
+  name: extinction series
+  id: "44"
+tags_030: 
+  name: exposition
   id: "33"
-  name: bcomplex:Solar radiation
-  kind: tag
-tags_045: 
+tags_019: 
+  name: species
+  id: "22"
+tags_008: 
+  name: dwc/terms/locationID
+  id: "11"
+tags_042: 
+  name: date
   id: "45"
-  name: KEY_1
-  kind: tag
-tags_046: 
+tags_031: 
+  name: carbon
+  id: "34"
+tags_020: 
+  name: dwc/terms/minimumDepthInMeters
+  id: "23"
+tags_009: 
+  name: plant organ
+  id: "12"
+tags_043: 
+  name: dwc/terms/maximumElevationInMeters
   id: "46"
-  name: WORD
-  kind: tag
-tags_047: 
+tags_032: 
+  name: C
+  id: "35"
+tags_021: 
+  name: latitude
+  id: "24"
+tags_010: 
+  name: BEF China members
+  id: "13"
+tags_044: 
+  name: gemet:solar radiation
   id: "47"
+tags_033: 
+  name: location
+  id: "36"
+tags_022: 
+  name: object identifier
+  id: "25"
+tags_011: 
+  name: explanatory variable
+  id: "14"
+tags_045: 
+  name: dwc/terms/decimalLatitude
+  id: "48"
+tags_034: 
+  name: experimental treatment
+  id: "37"
+tags_023: 
+  name: WORD
+  id: "26"
+tags_012: 
+  name: response
+  id: "15"
+tags_001: 
+  name: old_tag.name
+  id: "1"
+tags_046: 
+  name: aspect
+  id: "49"
+tags_035: 
+  name: gemet:altitude
+  id: "38"
+tags_024: 
+  name: bcomplex:Species extinction
+  id: "27"
+tags_013: 
+  name: slope
+  id: "16"
+tags_002: 
+  name: gemet:extinction (ecological)
+  id: "5"
+tags_047: 
+  name: gemet:biodiversity
+  id: "50"
+tags_036: 
+  name: species richness
+  id: "39"
+tags_025: 
+  name: bcomplex:Altitude
+  id: "28"
+tags_014: 
+  name: bcomplex:Solar radiation
+  id: "17"
+tags_003: 
+  name: co variable
+  id: "6"
+tags_048: 
+  name: longitude
+  id: "51"
+tags_037: 
+  name: solar radiation
+  id: "40"
+tags_026: 
+  name: environmental variable
+  id: "29"
+tags_015: 
+  name: dwc/terms/scientificName
+  id: "18"
+tags_004: 
+  name: species author
+  id: "7"
+tags_038: 
+  name: dwc/terms/decimalLongitude
+  id: "41"
+tags_027: 
+  name: dwc/terms/scientificNameAuthorship
+  id: "30"
+tags_016: 
+  name: BEF China projects
+  id: "19"
+tags_005: 
+  name: height
+  id: "8"
+tags_039: 
+  name: datetime
+  id: "42"
+tags_028: 
   name: KEY_2
-  kind: tag
+  id: "31"
+tags_017: 
+  name: bcomplex:Plant diversity
+  id: "20"
+tags_006: 
+  name: year
+  id: "9"
+tags_040: 
+  name: variable
+  id: "43"
+tags_029: 
+  name: elevation
+  id: "32"
+tags_018: 
+  name: KEY_1
+  id: "21"
+tags_007: 
+  name: dwc/terms/acceptedNameUsage
+  id: "10"

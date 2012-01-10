@@ -62,7 +62,7 @@ class PolymorphicTest < ActionDispatch::PerformanceTest
   end
 
   def test_collect_all_entities_by_tag
-    tag = Tag.first(:conditions => ["id = 501"], :include => :taggings)
+    tag = ActsAsTaggableOn::Tag.first(:conditions => ["id = 501"], :include => :taggings)
 
   end
 end

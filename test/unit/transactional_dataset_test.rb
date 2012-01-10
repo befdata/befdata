@@ -10,7 +10,7 @@ class TransactionalDatasetTest < ActiveSupport::TestCase
 
     models ="AuthorPaperproposal Cart CartDataset Category Datacolumn Datafile Datagroup
               Dataset DatasetPaperproposal Freeformat ImportCategory Paperproposal
-              PaperproposalVote Project Role Sheetcell Tag Tagging User".split(" ")
+              PaperproposalVote Project Role Sheetcell User".split(" ")
     before = {}
     models.each do |model|
       before[model] = eval("#{model}.count")
