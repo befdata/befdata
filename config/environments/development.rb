@@ -22,7 +22,7 @@ Befchina::Application.configure do
   # Only use best-standards-support built into browsers
   config.action_dispatch.best_standards_support = :builtin
 
-  # For the use of Paperclip Image Manipulation
+  # For the use of Paperclip Image Manipulation - the path to ImageMagic executables
   Paperclip.options[:command_path] = "/usr/bin/"
 
 end
