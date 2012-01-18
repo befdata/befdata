@@ -84,7 +84,7 @@ class Dataset < ActiveRecord::Base
     f_strings = self.freeformats.collect do |f|
       "File asset " + f.file_file_name + (f.description.blank? ? "" : (": " + f.description))
     end
-    self.abstract + " " + f_strings.join(" --- ")
+    self.abstract + (f_strings.empty? ? "" : (" - " + f_strings.join(" - ")))
   end
 
   def set_start_and_end_dates_of_research(book)

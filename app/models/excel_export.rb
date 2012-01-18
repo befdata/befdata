@@ -39,7 +39,7 @@ private
     sheet[*WBF[:meta_version_pos]] = WBF[:wb_format_version]
 
     sheet[*WBF[:meta_title_pos]] = dataset.title ||= ""
-    sheet[*WBF[:meta_abstract_pos]] = dataset.abstract ||= ""
+    sheet[*WBF[:meta_abstract_pos]] = dataset.abstract_with_freeformats ||= ""
     sheet[*WBF[:meta_comment_pos]] = dataset.comment ||= ""
     sheet[*WBF[:meta_usagerights_pos]] = dataset.usagerights ||= ""
     sheet[*WBF[:meta_published_pos]] = dataset.published ||= ""
