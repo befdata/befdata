@@ -86,15 +86,10 @@ private
 
       sheet[row,WBF[:group_title_col]] = datacolumn.datagroup.title if datacolumn.datagroup.title
       sheet[row,WBF[:group_description_col]] = datacolumn.datagroup.description if datacolumn.datagroup.description
-      sheet[row,WBF[:group_methodvaluetype_col]] = datacolumn.datagroup.methodvaluetype if datacolumn.datagroup.methodvaluetype
 
-      instrumentation = datacolumn.instrumentation || datacolumn.datagroup.instrumentation
-      instrumentation << " (derived from datagroup)" if !datacolumn.instrumentation && !instrumentation.blank?
-      sheet[row,WBF[:group_instrumentation_col]] = instrumentation
-
-      informationsource = datacolumn.informationsource || datacolumn.datagroup.informationsource
-      informationsource << " (derived from datagroup)" if !datacolumn.informationsource && !informationsource.blank?
-      sheet[row,WBF[:group_informationsource_col]] = informationsource
+      sheet[row,WBF[:group_methodvaluetype_col]] = datacolumn_datagroup_fallback(datacolumn, :import_data_type, :methodvaluetype)
+      sheet[row,WBF[:group_instrumentation_col]] = datacolumn_datagroup_fallback(datacolumn, :instrumentation)
+      sheet[row,WBF[:group_informationsource_col]] = datacolumn_datagroup_fallback(datacolumn, :informationsource)
     end
   end
 
@@ -175,6 +170,19 @@ private
       end
     end
   end
+
+private
+
+  def datacolumn_datagroup_fallback(datacolumn = nil, datacolumn_attribute = nil, datagroup_attribute = nil)
+    datagroup_attribute ||= datacolumn_attribute
+
+    if !datacolumn.read_attribute(datacolumn_attribute).blank?
+      datacolumn.read_attribute(datacolumn_attribute)
+    elsif !datacolumn.datagroup.read_attribute(datagroup_attribute).blank?
+      datacolumn.datagroup.read_attribute(datagroup_attribute) + " (derived from datagroup)"
+    end
+  end
+
 
   def query_datacolumns(dataset = nil, column_selection = nil)
     if column_selection
