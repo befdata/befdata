@@ -1,12 +1,15 @@
 module DataworkbookFormat
+
   WBF = {
     # Version of File Format - Change when making changes here
+    # major.minor.textual_changes - changes of the last number will need no changes of import and export
     :wb_format_version => "0.1.2",
 
     # Spreadsheet export formats # by now not working for modifying existing spreadsheets
     :unapproved_format => Spreadsheet::Format.new(:size => 11, :horizontal_align => :left, :color => 'orange'),
 
     # Sheet numbers
+    :sheet_count    => 5,
     :metadata_sheet => 0,
     :people_sheet   => 1,
     :columns_sheet  => 2,
