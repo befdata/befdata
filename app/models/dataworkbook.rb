@@ -343,18 +343,19 @@ class Dataworkbook
   # MeasurementsMethodstepsController).
   def lookup_data_header_people(columnheader)
     available_people = columnheader_people
-    return Array.new if available_people.blank?
+    return Hash.new if available_people.blank?
 
     # there are often several people for one column in raw data;
     # people can also be added automatically to the data column
     people_rows = available_people.select{|k,v| v == columnheader}.keys # only the row index
-    people_sur   = []
-    people = []
+    portal_matches = []
+    no_match = []
     people_rows.each do |r|
-      people_sur << clean_string(data_responsible_person_sheet.row(r)[WBF[:people_lastname_col]])
-      people += User.find_all_by_lastname(people_sur)
+      people_sur = clean_string(data_responsible_person_sheet.row(r)[WBF[:people_lastname_col]])
+      users = User.find_all_by_lastname(people_sur)
+      users.blank? ? no_match << people_sur : portal_matches << users
     end
-    people.flatten.uniq
+    {:portal_matches => portal_matches.flatten.compact.uniq, :no_portal_matches => no_match.flatten.compact.uniq}
   end
 
   # Returns the category information from the Workbook for a given columnheader.

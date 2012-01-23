@@ -55,13 +55,14 @@ class DatacolumnsController < ApplicationController
       # Look into the spreadsheet, when there are no people linked.
       if @ppl.blank?
         # Look for people in the Data Workbook and link them to the Data Group.
-        ppl = @book.lookup_data_header_people(columnheader)
-        ppl = ppl.flatten.uniq
+        users = @book.lookup_data_header_people(columnheader)
+        ppl = users[:portal_matches]
         ppl.each do |user|
           user.has_role! :responsible, @data_column
         end
         @data_column.reload
         @ppl = @data_column.users
+        @ppl_not_found = users[:no_portal_matches]
       end
       
       # Unfinished datacolumn means, the user must have at least one look on the metadata and members involved.

@@ -13,7 +13,11 @@
   .span-3= label_tag 'datacolumn[unit]', 'Unit'
   .span-3.last= text_field_tag 'datacolumn[unit]', @data_column.unit
   %p.clear
-    Research unit members to be acknowledged or otherwise involved. 
+    Research unit members to be acknowledged or otherwise involved.
+  - unless @ppl_not_found.blank?
+    %p
+      The following persons could not be matched automatically:
+      = @ppl_not_found.join(",")
   .span-3= label_tag 'people', 'People'
   .span-3.last
   = select "person", "person_id", User.all_users_names_and_ids_for_select, {:prompt => 'Select Member'}, {:onchange => 'selectPeople(this)'}
