@@ -7,7 +7,10 @@
       - if with_lock
         .paperproposal-lock
           = pp.lock ? image_tag("lock-closed.png") :image_tag("lock-open.png")
-      = link_to pp.beautiful_title, paperproposal_path(pp)
+      - if current_user
+        = link_to pp.beautiful_title, paperproposal_path(pp)
+      - else
+        = pp.beautiful_title
       - if authorship_user
         = "(#{pp.calc_authorship(@user)})"
 

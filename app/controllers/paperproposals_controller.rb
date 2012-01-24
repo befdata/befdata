@@ -1,13 +1,17 @@
 class PaperproposalsController < ApplicationController
 
-  before_filter :require_user, :only => [:index, :new, :create, :destroy, :update, :show, :update_state, :update_vote, :edit]
   before_filter :load_proposal, :only => [:show, :edit, :update, :destroy]
 
   skip_before_filter :deny_access_to_all
+  rescue_from 'Acl9::AccessDenied', :with => :access_denied
+
   access_control do
-     actions :index, :new, :create, :destroy, :update, :show, :update_state, :update_vote, :edit do
-       allow logged_in # ToDo this is not enough, isn't it?'
-     end
+    actions :index do
+      allow all
+    end
+    actions :show, :new, :create, :destroy, :update, :update_state, :update_vote, :edit do
+      allow logged_in # ToDo this is not enough, isn't it?'
+    end
   end
 
 

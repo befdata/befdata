@@ -14,7 +14,7 @@ class ::ApplicationController < ActionController::Base
     else
       flash[:error] = 'Access denied. Try to log in first.'
       session[:return_to] = request.env['HTTP_REFERER']
-      redirect_to login_path
+      redirect_to :back
     end
   end
 

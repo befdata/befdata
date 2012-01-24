@@ -1,8 +1,9 @@
-= content_for :actions do
-  %p
-    = link_to :new_paperproposal do
-      = image_tag("document.png")
-      Create new Paperproposal
+- if current_user
+  = content_for :actions do
+    %p
+      = link_to :new_paperproposal do
+        = image_tag("document.png")
+        Create new Paperproposal
 
 %h2 Paper Proposals
 
