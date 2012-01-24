@@ -2,4 +2,4 @@
 %ul
   - @datasets.each do |dataset|
     %li
-      = link_to dataset.title, dataset_path(dataset)
+      = render :partial => dataset, :locals => {:with_cart => true, :with_comment => false}
