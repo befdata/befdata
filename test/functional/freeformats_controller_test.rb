@@ -69,12 +69,12 @@ class FreeformatsControllerTest < ActionController::TestCase
     assert_match /.*Access denied.*/, flash[:error]
   end
 
-  test "freeformat download redirect to login if dataset not for public" do
+  test "freeformat download failure if dataset not for public" do
+    @request.env['HTTP_REFERER'] = login_url
     ds = Dataset.find_by_title "Unit tests"
     f = ds.freeformats.first
     get :download, :id => f.id
 
-    assert_redirected_to login_url
     assert_match /.*Access denied.*/, flash[:error]
   end
 
@@ -90,11 +90,11 @@ class FreeformatsControllerTest < ActionController::TestCase
 
   # ToDo: this has to be changed with better acl9 for paperproposal
   test "only logged may download freeformat from paperproposal" do
+    @request.env['HTTP_REFERER'] = login_url
     f = Freeformat.find_by_file_file_name "8346952459374534ppNutrientCyclingtest.doc"
 
     get :download, :id => f.id
 
-    assert_redirected_to login_url
     assert_match /.*Access denied.*/, flash[:error]
 
     login_user "Phdstudentnutrientcycling"
