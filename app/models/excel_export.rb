@@ -134,7 +134,7 @@ private
         sheet[row,WBF[:category_columnheader_col]] = col.columnheader
         sheet[row,WBF[:category_short_col]] = uv
         sheet[row,WBF[:category_long_col]] = uv
-        sheet[row,WBF[:category_description_col]] = "#{uv}: automatically added during validation (#{download_time})"
+        sheet[row,WBF[:category_description_col]] = "#{uv}: automatically added during validation, as of #{download_time}"
         row += 1
       end
     end
