@@ -66,28 +66,21 @@ class Paperproposal < ActiveRecord::Base
   end
 
   def author_list
-    author_list = []
-    author_list << self.author
-
     middle_block = self.author_paperproposals.reject{|e| e.kind == "ack"}.map{|e| e.user}.uniq
-    ack = self.author_paperproposals.select{|e| e.kind == "ack"}.map{|e| e.user}.uniq
     middle_block << self.corresponding
+    middle_block.reject!{|e| e == self.senior_author || e == self.author}
+    middle_block.uniq!
+    middle_block.sort!{|a,b| a.lastname <=> b.lastname}
 
-    middle_block = middle_block.sort{|a,b| a.lastname <=> b.lastname}
-    middle_block.reject!{|e| e == self.senior_author}
-    middle_block.reject!{|e| e == self.author}
-    middle_block.each{|e| author_list << e}
+    author_list = [self.author, middle_block, self.senior_author]
+    author_list.flatten!
+    author_list.uniq!
 
-    author_list << self.senior_author
-
-    ack.reject!{|e| middle_block.include?(e) ||
-                    e == self.senior_author ||
-                    e == self.author}
-
+    ack = self.author_paperproposals.select{|e| e.kind == "ack"}.map{|e| e.user}.uniq
+    ack.reject!{|e| author_list.include?(e) }
     ack = ack.sort{|a,b| a.lastname <=> b.lastname}
 
-    hash = {:author_list => author_list, :corresponding => self.corresponding, :ack => ack}
-    hash
+    {:author_list => author_list, :corresponding => self.corresponding, :ack => ack}
   end
 
   def calc_authorship(user)
@@ -106,7 +99,7 @@ class Paperproposal < ActiveRecord::Base
 
   def beautiful_title (only_authors = false)
     # gives back a nice string to display, like: Kraft, N. J., Comita, L. S. (2011): DisentanglingAlong Latitudinal and Elevational Gradients. Science, 333(6050).
-    authors = self.author_list[:author_list].collect{|a| a.short_name}.sort.join(", ")
+    authors = self.author_list[:author_list].collect{|a| a.short_name}.join(", ")
     return authors if only_authors
 
     year = self.state != 'accepted' ? "" : " (#{self.envisaged_date.year})"
