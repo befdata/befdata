@@ -9,20 +9,20 @@ development:
   host: localhost
   port: 5432
   encoding: unicode
-  database: befchina
+  database: befdata-dev
   pool: 5
   username:
   password:
 
-production:
-  adapter: postgresql
-  host:
-  port: 5432
-  encoding: unicode
-  database:
-  pool: 5
-  username:
-  password:
+#production:
+#  adapter: postgresql
+#  host:
+#  port: 5432
+#  encoding: unicode
+#  database:
+#  pool: 5
+#  username:
+#  password:
 
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".
@@ -33,18 +33,9 @@ test:
   host: localhost
   port: 5432
   encoding: unicode
-  database: befchina-test
+  database: befdata-test
   pool: 5
   username:
   password:
 
-performance:
-adapter: postgresql
-host: localhost
-port: 5432
-encoding: unicode
-database: befchina-benchmark
-pool: 5
-username: 
-password:
 
