@@ -17,12 +17,3 @@ namespace :db do
     end
   end
 end
-
-#This adds loading non_schema_sql when test are executed
-namespace :db do
-  namespace :test do
-    task :prepare => :environment do
-      Rake::Task["db:load_non_schema_sql"].invoke
-    end
-  end
-end

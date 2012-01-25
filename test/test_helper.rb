@@ -10,6 +10,9 @@ class ActiveSupport::TestCase
   # -- they do not yet inherit this setting
   fixtures :all
 
+  # make_sure_pg_functions_are_in_db this is needed for teamcity to have non_schema_sql
+  %x[rake db:load_non_schema_sql]
+
   # Add more helper methods to be used by all tests here...
 
   def login_nadrowski
