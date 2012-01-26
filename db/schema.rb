@@ -1,3 +1,4 @@
+# encoding: UTF-8
 # This file is auto-generated from the current state of the database. Instead
 # of editing this file, please use the migrations feature of Active Record to
 # incrementally modify your database, and then regenerate this schema definition.
@@ -10,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120110211231) do
+ActiveRecord::Schema.define(:version => 20120126130824) do
 
   create_table "author_paperproposals", :force => true do |t|
     t.integer  "paperproposal_id"
@@ -145,11 +146,6 @@ ActiveRecord::Schema.define(:version => 20120110211231) do
 
   add_index "datasets_projects", ["dataset_id", "project_id"], :name => "index_dataset_projects_on_dataset_id_and_project_id"
 
-  create_table "datatypes", :force => true do |t|
-    t.string "name"
-    t.string "format"
-  end
-
   create_table "delayed_jobs", :force => true do |t|
     t.integer  "priority",   :default => 0
     t.integer  "attempts",   :default => 0
@@ -262,7 +258,7 @@ ActiveRecord::Schema.define(:version => 20120110211231) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "category_id"
-    t.string   "accepted_value", :limit => 250
+    t.string   "accepted_value"
     t.integer  "datatype_id"
     t.integer  "status_id"
     t.integer  "row_number"

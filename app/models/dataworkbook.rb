@@ -433,6 +433,9 @@ class Dataworkbook
   def clean_string(input)
     unless input.nil?
       input = input.to_s.gsub(/^[\s]+|[\s]+$/, "")
+      if(input.length>255)
+        input = input.slice(1..255)
+      end
     end
     return input
   end
