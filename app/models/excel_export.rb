@@ -112,14 +112,20 @@ private
     sheet = book.worksheet WBF[:category_sheet]
     datacolumns = query_datacolumns(dataset, column_selection)
 
-    approved_cols = datacolumns.select{|c| c.datatype_approved?}
+    approved_cols_ids = datacolumns.select{|col| col.datatype_approved?}.collect{|col| col.id}
 
     row = 1
-    approved_cols.each do |col|
-      cats = col.sheetcells.select{|s| s.datatype.is_category?}.collect{|s| s.category}
-      clean_cats = cats.compact.uniq.sort{|a,b| a.short <=> b.short}
+    approved_cols_ids.each do |col_id|
+      col_loop = Datacolumn.find(col_id)
+      #cats = col.sheetcells.select{|s| s.datatype.is_category?}.collect{|s| s.category}
+      #clean_cats = cats.compact.uniq.sort{|a,b| a.short <=> b.short}
+      clean_cats = col_loop.sheetcells.find(:all, :conditions => ["sheetcells.datatype_id = ?", Datatypehelper.find_by_name("category").id],
+                                  :joins => "JOIN categories ON categories.id = sheetcells.category_id" ,
+                                  :select => "distinct categories.short, categories.long, categories.description",
+                                  :order => "categories.short")
+
       clean_cats.each do |cat|
-        sheet[row,WBF[:category_columnheader_col]] = col.columnheader
+        sheet[row,WBF[:category_columnheader_col]] = col_loop.columnheader
         sheet[row,WBF[:category_short_col]] = cat.short
         sheet[row,WBF[:category_long_col]] = cat.long
         sheet[row,WBF[:category_description_col]] = cat.description
@@ -127,16 +133,21 @@ private
       end
 
       download_time = Time.now.to_s
-      unaccepted_values = col.sheetcells.select{|s| s.accepted_value.blank? && !s.datatype.is_category?}.collect{|s| s.import_value}
-      clean_un_val = unaccepted_values.compact.uniq.sort
+      #unaccepted_values = col.sheetcells.select{|s| s.accepted_value.blank? && !s.datatype.is_category?}.collect{|s| s.import_value}
+      #clean_un_val = unaccepted_values.compact.uniq.sort
+      clean_un_val = col_loop.sheetcells.find(:all, :conditions => ["status_id = ?", Sheetcellstatus::INVALID],
+                                        :select => "distinct import_value",
+                                        :order => "import_value")
+
       clean_un_val.each do |uv|
         sheet.row(row).default_format = WBF[:unapproved_format]
-        sheet[row,WBF[:category_columnheader_col]] = col.columnheader
-        sheet[row,WBF[:category_short_col]] = uv
-        sheet[row,WBF[:category_long_col]] = uv
-        sheet[row,WBF[:category_description_col]] = "#{uv}: automatically added during validation, as of #{download_time}"
+        sheet[row,WBF[:category_columnheader_col]] = col_loop.columnheader
+        sheet[row,WBF[:category_short_col]] = uv.import_value
+        sheet[row,WBF[:category_long_col]] = uv.import_value
+        sheet[row,WBF[:category_description_col]] = "#{uv.import_value}: automatically added during validation, as of #{download_time}"
         row += 1
       end
+      col_loop = nil
     end
   end
 
