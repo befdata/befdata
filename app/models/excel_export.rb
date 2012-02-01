@@ -166,6 +166,21 @@ private
 
       sheet[0,col-1] = datacolumn.columnheader if datacolumn.columnheader
 
+      #sheet_values = datacolumn.sheetcells.find(:all,
+      #                                          :select => "sheetcells.status_id, sheetcells.datatype_id, sheetcells.row_number,
+       #                                                     case when categories.short > '' then categories.short when accepted_value > '' then accepted_value
+       #                                                     else sheetcells.import_value end as accepted_value",
+      #                                          :joins => "left outer join categories on sheetcells.category_id=categories.id",
+      #                                          :order => "sheetcells.row_number")
+
+      #sheet_values.each do |sheet_val|
+      #  if(sheet_val.datatype_id==3 or sheet_val.datatype_id==4)
+      #    val = sheet_val.accepted_value.to_date.to_s
+      #  else
+      #    val = sheet_val.accepted_value
+      #  end
+      #  sheet[sheet_val.row_number - 1, col - 1] = val if val
+      #end
       datacolumn.sheetcells.each do |sheetcell|
         if sheetcell.datatype.is_category? && sheetcell.category
           value = sheetcell.category.short
