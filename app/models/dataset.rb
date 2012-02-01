@@ -46,7 +46,7 @@ class Dataset < ActiveRecord::Base
   validates_associated :upload_spreadsheet
 
   before_validation(:load_metadata_from_spreadsheet, :on => :create)
-  before_destroy :delete_sheetcells
+
   before_save :add_xls_extension_to_filename
 
   def add_xls_extension_to_filename
@@ -151,7 +151,7 @@ class Dataset < ActiveRecord::Base
 
   def delete_sheetcells
     datacolumns.each do |column|
-      column.sheetcells.delete_all
+      Sheetcell.delete_all(["datacolumn_id = ?", column.id])
     end
   end
 
