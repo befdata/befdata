@@ -155,6 +155,7 @@ class DatasetsController < ApplicationController
   end
 
   def destroy
+    @dataset.delete_sheetcells
     @dataset.destroy
     flash[:notice] = "Dataset successfully deleted."
     redirect_to data_path
