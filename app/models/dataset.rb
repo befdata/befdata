@@ -147,15 +147,7 @@ class Dataset < ActiveRecord::Base
     @columns_with_invalid_values
   end
 
-
-  def delete_sheetcells
-    datacolumns.each do |column|
-      Sheetcell.delete_all(["datacolumn_id = ?", column.id])
-    end
-  end
-
   def delete_imported_research_data_and_file
-    delete_sheetcells
     datacolumns.destroy_all
     upload_spreadsheet.try(:destroy)
   end
