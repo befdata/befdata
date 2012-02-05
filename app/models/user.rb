@@ -5,9 +5,12 @@ class User < ActiveRecord::Base
   validates_presence_of :lastname, :firstname
   validates_uniqueness_of   :login
 
+  has_many :paperproposals, :through => :author_paperproposals
+  has_many :author_paperproposals, :dependent => :destroy, :include => [:paperproposal]
+  alias :paperproposals_author_table :paperproposals
 
-  #Todo really dependent destroy?
-  has_many :paperproposal_votes, :dependent => :destroy
+  has_many :paperproposal_votes, :dependent => :destroy  #Todo really dependent destroy?
+
   has_many :project_board_votes, :class_name => "PaperproposalVote",
            :source => :paperproposal_votes, :conditions => {:project_board_vote => true }
   has_many :for_paperproposal_votes, :class_name => "PaperproposalVote",
@@ -144,9 +147,9 @@ class User < ActiveRecord::Base
     end
   end
 
-  def paperproposal_author
-    # return the paper proposals that this user is an author, senior author or corresponding author for
-    Paperproposal.all(:conditions => ["author_id=? or corresponding_id=? or senior_author_id=?", self.id, self.id, self.id]).uniq.sort
+  def paperproposals
+    from_paperproposals = Paperproposal.all(:conditions => ["author_id=? or corresponding_id=? or senior_author_id=?", self.id, self.id, self.id])
+    (paperproposals_author_table + from_paperproposals).uniq.sort
   end
 
   def projectroles
