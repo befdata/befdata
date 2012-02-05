@@ -12,18 +12,19 @@
   %h3 Published
   = render :partial => 'list', :locals => {:paperproposals => pp_select, :with_lock => true}
 
-- pp_select = @paperproposals.select{|p| p.state == 'in review'}.sort
-- unless pp_select.blank?
-  %h3 In review
-  = render :partial => 'list', :locals => {:paperproposals => pp_select, :with_lock => true}
+- if current_user
+  - pp_select = @paperproposals.select{|p| p.state == 'in review'}.sort
+  - unless pp_select.blank?
+    %h3 In review
+    = render :partial => 'list', :locals => {:paperproposals => pp_select, :with_lock => true}
 
-- pp_select = @paperproposals.select{|p| p.state == 'manuscript avaible'}.sort
-- unless pp_select.blank?
-  %h3 Manuscript avaible
-  = render :partial => 'list', :locals => {:paperproposals => pp_select, :with_lock => true}
+  - pp_select = @paperproposals.select{|p| p.state == 'manuscript avaible'}.sort
+  - unless pp_select.blank?
+    %h3 Manuscript avaible
+    = render :partial => 'list', :locals => {:paperproposals => pp_select, :with_lock => true}
 
-- pp_select = @paperproposals.select{|p| p.state == 'in prep'}.sort
-- unless pp_select.blank?
-  %h3 In preparation
-  = render :partial => 'list', :locals => {:paperproposals => pp_select, :with_lock => true}
+  - pp_select = @paperproposals.select{|p| p.state == 'in prep'}.sort
+  - unless pp_select.blank?
+    %h3 In preparation
+    = render :partial => 'list', :locals => {:paperproposals => pp_select, :with_lock => true}
 
