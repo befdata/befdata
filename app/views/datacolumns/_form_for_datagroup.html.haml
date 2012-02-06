@@ -4,7 +4,7 @@
     width: 500,
     modal: true,
     autoOpen: false,
-    title: "Create new Data Group"
+    title: "Create new data group"
   });
 / This partial is only rendered when the Data Group is unapproved.
 .span-8.last
@@ -31,7 +31,7 @@
               = datacolumn.columnheader
   %button{:name => "commit", :type => "submit"} Save Data Group
   %p.clear
-    %a{:href => '#', :onclick => '$("#modal").dialog("open")'} You may as well create a new Data Group
+    %a{:href => '#', :onclick => '$("#modal").dialog("open")'} Create a new data group
 #modal
   = form_tag :action => 'update_datagroup', :controller => 'datacolumns' do |form|
     .span-6

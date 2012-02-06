@@ -92,7 +92,10 @@ class DatasetsController < ApplicationController
   def data
     @book = Dataworkbook.new(@dataset.upload_spreadsheet)
 
-    return unless @book.columnheaders_unique?
+    if @dataset.datacolumns.length == 0
+      @book.load_data_file
+      return unless @book.columnheaders_unique?
+    end
 
     if @dataset.datacolumns.length == 0
       @book.import_data
@@ -155,6 +158,7 @@ class DatasetsController < ApplicationController
   end
 
   def destroy
+    @dataset.delete_sheetcells
     @dataset.destroy
     flash[:notice] = "Dataset successfully deleted."
     redirect_to data_path

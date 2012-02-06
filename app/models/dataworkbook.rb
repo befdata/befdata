@@ -7,7 +7,7 @@
 ## on each single column of data from the "Raw data" sheet.
 ##
 ## The column headers in the raw data sheet of the BEFdata Workbook function as foreign IDs connecting metadata
-## to the raw data columns.  It is thus essential that the column headers in the raw data sheet are
+## to the raw data columns. It is thus essential that the column headers in the raw data sheet are
 ## unique (columnheaders_unique?).
 ##
 ## Information provided on the general metadata sheet and on the acknowledgement sheet manages provenance in
@@ -23,6 +23,9 @@ class Dataworkbook
 
   def initialize(datafile)
     @datafile = datafile
+  end
+
+  def load_datafile
     open_datafile_from_disk
   end
 
@@ -154,6 +157,8 @@ class Dataworkbook
 
   # The method that loads the Workbook into the database.
   def import_data
+    # load the spreadsheet into memory
+    open_datafile_from_disk
     # generate data column instances
     columnheaders_raw.each do |columnheader|
 
@@ -163,10 +168,9 @@ class Dataworkbook
       datatype = Datatypehelper.find_by_name(data_column_information[:import_data_type])
 
       unless all_cells_for_one_column.blank?
-
         save_all_cells_to_database(data_column_new, datatype, all_cells_for_one_column)
         add_any_sheet_categories_included_for_this_column(columnheader, data_column_new)
-
+        add_acknowledged_people(columnheader, data_column_new)
       end
       data_column_new.finished = true
     end
@@ -227,6 +231,14 @@ class Dataworkbook
                               :long => cat[:long],
                               :description => cat[:description])
       end
+    end
+  end
+
+  def add_acknowledged_people(columnheader, data_column_new)
+    ppl = lookup_data_header_people(columnheader)
+    ppl = ppl.flatten.uniq
+    ppl.each do |user|
+      user.has_role! :responsible, data_column_new
     end
   end
 
@@ -343,19 +355,18 @@ class Dataworkbook
   # MeasurementsMethodstepsController).
   def lookup_data_header_people(columnheader)
     available_people = columnheader_people
-    return Hash.new if available_people.blank?
+    return Array.new if available_people.blank?
 
     # there are often several people for one column in raw data;
     # people can also be added automatically to the data column
     people_rows = available_people.select{|k,v| v == columnheader}.keys # only the row index
-    portal_matches = []
-    no_match = []
+    people_sur   = []
+    people = []
     people_rows.each do |r|
-      people_sur = clean_string(data_responsible_person_sheet.row(r)[WBF[:people_lastname_col]])
-      users = User.find_all_by_lastname(people_sur)
-      users.blank? ? no_match << people_sur : portal_matches << users
+      people_sur << clean_string(data_responsible_person_sheet.row(r)[WBF[:people_lastname_col]])
+      people += User.find_all_by_lastname(people_sur)
     end
-    {:portal_matches => portal_matches.flatten.compact.uniq, :no_portal_matches => no_match.flatten.compact.uniq}
+    people.flatten.uniq
   end
 
   # Returns the category information from the Workbook for a given columnheader.
@@ -433,9 +444,6 @@ class Dataworkbook
   def clean_string(input)
     unless input.nil?
       input = input.to_s.gsub(/^[\s]+|[\s]+$/, "")
-      if(input.length>255)
-        input = input.slice(1..255)
-      end
     end
     return input
   end

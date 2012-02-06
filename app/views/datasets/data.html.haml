@@ -4,7 +4,7 @@
     Dataset overview
 
 %h2= @dataset.title
-- if @book.columnheaders_unique?
+- if @dataset.datacolumns.length > 0
   - unless @predefined_columns.blank?
     %p
       You may automatically improve the following #{pluralize(@predefined_columns.length, 'column')}:

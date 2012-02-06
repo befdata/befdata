@@ -22,7 +22,7 @@ class DatacolumnsController < ApplicationController
 
       # We extract the column header to determine the available Data Groups from the Data Workbook.
       columnheader = @data_column.columnheader
-      data_group_title = @book.method_index_for_columnheader(columnheader).blank? ? columnheader : @book.data_group_title(columnheader)
+      data_group_title = @data_column.datagroup.title
       @data_groups_available = Datagroup.all.delete_if{|d| d == @data_column.datagroup}
 
       # Is the Data Group of this Data Column approved? If no, then render the Data Group approval partial.
@@ -52,19 +52,6 @@ class DatacolumnsController < ApplicationController
       # Collect the already linked people.
       @ppl = @data_column.users
 
-      # Look into the spreadsheet, when there are no people linked.
-      if @ppl.blank?
-        # Look for people in the Data Workbook and link them to the Data Group.
-        users = @book.lookup_data_header_people(columnheader)
-        ppl = users[:portal_matches]
-        ppl.each do |user|
-          user.has_role! :responsible, @data_column
-        end
-        @data_column.reload
-        @ppl = @data_column.users
-        @ppl_not_found = users[:no_portal_matches]
-      end
-      
       # Unfinished datacolumn means, the user must have at least one look on the metadata and members involved.
       unless @data_column.finished
         render :partial => 'approve_metadata' and return

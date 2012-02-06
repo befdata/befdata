@@ -58,6 +58,7 @@ class Dataset < ActiveRecord::Base
     return if upload_spreadsheet.nil?
 
     book = dataworkbook
+    book.load_datafile
     self.attributes = book.general_metadata_hash
     self.set_start_and_end_dates_of_research(book)
     try_retrieving_projects_from_tag_list(book)
