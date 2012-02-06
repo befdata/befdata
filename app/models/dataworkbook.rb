@@ -106,6 +106,9 @@ class Dataworkbook
 
   def portal_users_listed_as_responsible
     portal_users = []
+    if @book.nil?
+      load_datafile
+    end
     members_listed_as_responsible.each do |member|
       portal_users << User.find_by_firstname_and_lastname(clean_string(member[0]), clean_string(member[1]))
     end
@@ -337,7 +340,7 @@ class Dataworkbook
   def columnheader_people #TODO check if this is correct it seems to also return the column header (which is no person!)
     ## there may be several people associated to one columnheader
     people_for_columnheader = {}
-    data_responsible_person_sheet.column(*WBF[:people_columnheader_col]).to_a.compact.each_with_index{|o, i| people_for_columnheader[i] = o}
+    data_responsible_person_sheet.column(*WBF[:people_columnheader_col]).to_a.compact.each_with_index{|o, i| people_for_columnheader[i] = o if i >0}
     return people_for_columnheader
   end
 

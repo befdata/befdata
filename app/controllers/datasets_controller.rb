@@ -93,7 +93,7 @@ class DatasetsController < ApplicationController
     @book = Dataworkbook.new(@dataset.upload_spreadsheet)
 
     if @dataset.datacolumns.length == 0
-      @book.load_data_file
+      @book.load_datafile
       return unless @book.columnheaders_unique?
     end
 
