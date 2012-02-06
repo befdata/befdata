@@ -19,7 +19,7 @@ class User < ActiveRecord::Base
   belongs_to :project
 
   # setting up avatar-image
-  validates_attachment_content_type :avatar, :content_type => ['image/jpeg','image/png']
+  validates_attachment_content_type :avatar, :content_type => ['image/jpeg','image/png'], :if => :avatar_file_name_changed?
 
   has_attached_file :avatar,
     :url => "/images/user_avatars/:basename_:style.:extension",
