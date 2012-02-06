@@ -7,7 +7,7 @@ class Admin::CategoriesController < Admin::AdminController
       config.update.link.label = "Edit Category"
 
       config.list.columns = [:id, :description, :long,
-                             :short, :comment, :tags]
+                             :short, :comment, :tags, :datagroup]
 
       config.list.per_page = 1000
 
