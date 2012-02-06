@@ -10,11 +10,10 @@ class ::ApplicationController < ActionController::Base
   def access_denied
     if current_user
       flash[:error] = 'Access denied. You do not have the appropriate rights to perform this operation.'
-      redirect_to :back
+      redirect_back_or_default root_url
     else
       flash[:error] = 'Access denied. Try to log in first.'
-      session[:return_to] = request.env['HTTP_REFERER']
-      redirect_to :back
+      redirect_back_or_default root_url
     end
   end
 
@@ -71,8 +70,12 @@ private
   end
 
   def redirect_back_or_default (default)
-    redirect_to(session[:return_to] || default)
-    session[:return_to] = nil
+    unless request.env['HTTP_REFERER'].blank?
+      session[:return_to] = request.env['HTTP_REFERER']
+      redirect_to :back
+    else
+      redirect_to default
+    end
   end
 
   def current_cart

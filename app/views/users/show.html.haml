@@ -41,5 +41,4 @@
       %li
         = render :partial => ds, :locals => {:with_cart => true, :with_comment => false}
 
-- unless @user.paperproposal_author.blank?
-  = render :partial => 'paperproposals/associated_paperproposals', :locals => {:paperproposals => @user.paperproposal_author, :authorship_user => @user}
+= render :partial => 'paperproposals/associated_paperproposals', :locals => {:paperproposals => @user.paperproposals, :authorship_user => @user}

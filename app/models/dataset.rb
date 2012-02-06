@@ -45,7 +45,7 @@ class Dataset < ActiveRecord::Base
   validates_associated :upload_spreadsheet, :if => "upload_spreadsheet_id_changed?"
 
   before_validation(:load_metadata_from_spreadsheet, :on => :create)
-  before_destroy :delete_sheetcells
+
   before_save :add_xls_extension_to_filename
 
   def add_xls_extension_to_filename
@@ -148,15 +148,7 @@ class Dataset < ActiveRecord::Base
     @columns_with_invalid_values
   end
 
-
-  def delete_sheetcells
-    datacolumns.each do |column|
-      column.sheetcells.delete_all
-    end
-  end
-
   def delete_imported_research_data_and_file
-    delete_sheetcells
     datacolumns.destroy_all
     upload_spreadsheet.try(:destroy)
   end

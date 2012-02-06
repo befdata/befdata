@@ -16,6 +16,5 @@
       %li
         = render :partial => ds, :locals => {:with_cart => true, :with_comment => true}
 
-- unless @project.authored_paperproposals.empty?
-  = render :partial => 'paperproposals/associated_paperproposals', :locals => {:paperproposals => @project.authored_paperproposals}
+= render :partial => 'paperproposals/associated_paperproposals', :locals => {:paperproposals => @project.authored_paperproposals}
 

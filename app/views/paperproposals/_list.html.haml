@@ -12,8 +12,5 @@
       - else
         = pp.beautiful_title
       - if authorship_user
-        = "(#{pp.calc_authorship(@user)})"
-
-
-
+        = "(#{pp.calc_authorship(@user)})" unless pp.calc_authorship(@user).blank?
 

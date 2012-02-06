@@ -24,7 +24,7 @@ class Datacolumn < ActiveRecord::Base
   belongs_to :datagroup
   belongs_to :dataset
 
-  has_many :sheetcells, :dependent => :destroy
+  has_many :sheetcells, :dependent => :delete_all
   has_many :import_categories, :dependent => :destroy
 
   validates_presence_of :datagroup_id, :dataset_id, :columnheader, :columnnr, :definition
