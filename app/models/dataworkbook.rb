@@ -23,6 +23,7 @@ class Dataworkbook
 
   def initialize(datafile)
     @datafile = datafile
+    @dataset = Dataset.find_by_filename(datafile.file_file_name)
   end
 
   def load_datafile
@@ -201,7 +202,7 @@ class Dataworkbook
 
     data_column_information = data_column_info_for_columnheader(columnheader)
     data_column_information[:definition] << column_description unless column_description.blank?
-    data_column_information[:dataset_id] = datafile.dataset.id
+    data_column_information[:dataset_id] = @dataset.id
     data_column_information[:tag_list] = data_column_information[:comment] unless data_column_information[:comment].blank?
     data_column_information[:datagroup_id] = data_group.id
     data_column_information[:datagroup_approved] = false

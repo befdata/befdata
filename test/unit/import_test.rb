@@ -1,12 +1,13 @@
 require 'test_helper'
 
 class ImportTest < ActiveSupport::TestCase
+self.use_transactional_fixtures = false
 
   test "import_categorysheet_values" do
     datafile = Datafile.create(:file => File.new(File.join(fixture_path, 'test_files_for_uploads',
-                                                           'UnitTestSpreadsheetForUpload.xls')))
+                                                           'UnitTestSpreadsheetForUpload_new.xls')))
     datafile.save
-    dataset = Dataset.new(:title => "Unit test spreadsheet")
+    dataset = Dataset.new
     dataset.upload_spreadsheet = datafile
     dataset.save
     book = Dataworkbook.new(dataset.upload_spreadsheet)
@@ -31,7 +32,7 @@ class ImportTest < ActiveSupport::TestCase
     assert(!datacolumn.nil?)
     importcats = datacolumn.import_categories
     assert(!importcats.nil?)
-    assert(importcats.count==22, "There are not 22 import categories for this column")
+    assert(importcats.count==18, "There are not 18 import categories for this column")
 
     importcats.each do |cat|
       # test that it still has it's decimal point
