@@ -6,7 +6,7 @@ class ImportTest < ActiveSupport::TestCase
     datafile = Datafile.create(:file => File.new(File.join(fixture_path, 'test_files_for_uploads',
                                                            'UnitTestSpreadsheetForUpload.xls')))
     datafile.save
-    dataset = Dataset.new(:title => "Unit test")
+    dataset = Dataset.new(:title => "Unit test spreadsheet")
     dataset.upload_spreadsheet = datafile
     dataset.save
     book = Dataworkbook.new(dataset.upload_spreadsheet)

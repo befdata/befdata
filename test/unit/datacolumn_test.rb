@@ -204,7 +204,7 @@ class DatacolumnTest < ActiveSupport::TestCase
       end
     end
     # there should be 7 valid dates
-    assert(valid_dates == 7, "There are not 6 valid dates")
+    assert(valid_dates == 7, "There are not 7 valid dates")
     assert(datacolumn.invalid_values.count == invalid_count)
   end
 
