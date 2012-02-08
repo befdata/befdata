@@ -1,5 +1,4 @@
 .span-8.last
-  %h4 Data Values
 - unless @portal_cats.blank?
   %p
     Categories available on the portal for this data group: #{@portal_cats.inspect}
@@ -7,7 +6,7 @@
   %p
   Categories provided in the category sheet of the spreadsheet: #{@sheet_cats.inspect}
 - if @data_column.values_stored?
-  %p The following is an overview of the accepted values for this Data Column.
+  %p The following is an overview of the accepted values for this data column.
   %table.import_values
     %tr
       %th.span-4.last
@@ -17,7 +16,7 @@
       %tr
         %td.span-4.last{:class => "#{even ? 'even' : 'odd'}"} #{sc.accepted_value}
 - else
-  %p The following is an overview of the originally imported values for this Data Column.
+  %p The following is an overview of the uploaded values for this data column.
   %table.import_values
     %tr
       %th.span-4.last
@@ -30,5 +29,5 @@
   = hidden_field_tag :id, @data_column.id
   .span-3= label_tag 'datacolumn[import_data_type]', "Which type of data is this?"
   .span-3.last= select('datacolumn', 'import_data_type', options_for_select(Datatypehelper.known.map{|dt| dt.name}, @datatype.name), {:prompt => "Select please"})
-  %button{:name => 'commit', :type => 'submit'} Save Data Type
+  %button{:name => 'commit', :type => 'submit'} Save datatype
   %p.clear

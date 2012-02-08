@@ -7,18 +7,17 @@
 - if @dataset.datacolumns.length > 0
   - unless @predefined_columns.blank?
     %p
-      You may automatically approve the following #{pluralize(@predefined_columns.length, 'column')}:
+      We have sufficient information to automatically approve the following #{pluralize(@predefined_columns.length, 'column')}:
       = @predefined_columns.map{|c| c.columnheader}.join(', ')
       = form_tag :action => 'approve_predefined', :controller => 'datasets' , :id => @dataset.id do
-        %button{:name => "commit", :type => "submit", :onclick => "return confirm('Do you really want to automatically approve the columns #{@predefined_columns.map{|c| c.columnheader}.join(', ')}?')"} Approve
+        %button{:name => "commit", :type => "submit", :onclick => "return confirm('Are you sure you want to approve the columns?"} Approve all
     %p.clear
   %p
+    Click on the column name below to approve the column attributes.
     = render 'data_column_tabs'
 - else
   %p
-    Sorry, we cannot proceed.  The headers in the data columns have
-    to be unique, otherwise we cannot use the information in the
-    people, methods, or category sheets.  Please delete this context,
+    Sorry, we cannot proceed.  The data column headers must be unique otherwise we cannot match the data between the sheets in the workbook.  Please delete this context,
     make sure your data column headers in the raw data sheet are
     unique, and reload.  You can download the current state of your
     workbook here:

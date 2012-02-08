@@ -16,14 +16,9 @@ class DatacolumnsController < ApplicationController
     begin
       # Get the central Data Column object from the database.
       @data_column ||= Datacolumn.find(params[:id])
-
-      # We're working with the Data Workbook, too. Thus, we have to load it.
-      @book = Dataworkbook.new(@data_column.dataset.upload_spreadsheet)
-
-      # We extract the column header to determine the available Data Groups from the Data Workbook.
-      columnheader = @data_column.columnheader
-      data_group_title = @data_column.datagroup.title
-      @data_groups_available = Datagroup.all.delete_if{|d| d == @data_column.datagroup}
+      @data_groups_available = Datagroup.find(:all,
+                                              :order => "title",
+                                              :conditions => ["id <> ?", @data_column.datagroup.id])
 
       # Is the Data Group of this Data Column approved? If no, then render the Data Group approval partial.
       unless @data_column.datagroup_approved?
@@ -60,7 +55,7 @@ class DatacolumnsController < ApplicationController
     rescue
       # The tabbed display prevent the usual error messages from being displayed.
       # We therefore catch all exceptions and display a generic error message along with the exception itself.
-      render :text => "Sorry, something went wrong! #{$!}"
+      render :text => "Sorry, there is a problem loading the page. Error: #{$!}"
       #raise
     end
   end
@@ -162,7 +157,7 @@ class DatacolumnsController < ApplicationController
     @data_column.update_attributes({:finished => true})
 
     # Create a nice success message and redirect back so we render the same view again.
-    flash[:notice] = "Metadata and Members involved successfully saved."
+    flash[:notice] = "Metadata and acknowledgements successfully saved."
     redirect_to :back
   end
 

@@ -99,6 +99,8 @@ class DatasetsController < ApplicationController
 
     if @dataset.datacolumns.length == 0
       @book.import_data
+      #pid = spawn(@book.import_data, :err=>:out)
+      #Process.detach(pid)
       load_dataset #reload
     end
     @predefined_columns = @dataset.predefined_columns
@@ -111,7 +113,7 @@ class DatasetsController < ApplicationController
     if @dataset.columns_with_invalid_values_after_approving_predefined.blank?
       flash[:notice] = "All available columns were successfully approved."
     else
-      flash[:error] = "Unfortunately we could not validate entries of the following raw data columns:
+      flash[:error] = "Unfortunately we could not validate entries in the following data columns:
           #{@dataset.columns_with_invalid_values_after_approving_predefined.map{|c| c.columnheader}.join(', ')}"
     end
     redirect_to :back
@@ -160,7 +162,7 @@ class DatasetsController < ApplicationController
   def destroy
     @dataset.delete_sheetcells
     @dataset.destroy
-    flash[:notice] = "Dataset successfully deleted."
+    flash[:notice] = "The dataset was successfully deleted."
     redirect_to data_path
   end
 

@@ -1,11 +1,3 @@
-:javascript
-  $( "#modal" ).dialog({
-    height: 600,
-    width: 500,
-    modal: true,
-    autoOpen: false,
-    title: "Create new data group"
-  });
 / This partial is only rendered when the Data Group is unapproved.
 .span-8.last
 = form_tag :action => 'update_datagroup', :controller => 'datacolumns' do |form|
@@ -26,26 +18,9 @@
         %p= datagroup.description
         - unless datagroup.datacolumns.blank?
           %p
-            %b Previously assigned Data Columns:
+            %b Previously assigned data columns:
             - datagroup.datacolumns.each do |datacolumn|
               = datacolumn.columnheader
-  %button{:name => "commit", :type => "submit"} Save Data Group
-  %p.clear
-    %a{:href => '#', :onclick => '$("#modal").dialog("open")'} Create a new data group
-#modal
-  = form_tag :action => 'update_datagroup', :controller => 'datacolumns' do |form|
-    .span-6
-      = hidden_field_tag 'datagroup', '-1'
-      = hidden_field_tag :id, @data_column.id
-      .span-3= label_tag 'new_datagroup[title]', 'Title'
-      .span-3.last= text_field_tag 'new_datagroup[title]', @data_column.datagroup.title
-      .span-3= label_tag 'new_datagroup[description]', 'Description'
-      .span-3.last= text_area_tag 'new_datagroup[description]', @data_column.datagroup.description
-      .span-3= label_tag 'new_datagroup[instrumentation]', 'Instrumentation'
-      .span-3.last= text_field_tag 'new_datagroup[instrumentation]', @data_column.datagroup.instrumentation
-      .span-3= label_tag 'new_datagroup[informationsource]', 'Source of information'
-      .span-3.last= text_field_tag 'new_datagroup[informationsource]', @data_column.datagroup.informationsource
-      .span-3= label_tag 'new_datagroup[methodvaluetype]', 'Method value type'
-      .span-3.last= text_field_tag'new_datagroup[methodvaluetype]', @data_column.datagroup.methodvaluetype
-    %button{:name => "commit", :type => "submit"} Create Data Group
+  %button{:name => "commit", :type => "submit"} Save data group
+
       
