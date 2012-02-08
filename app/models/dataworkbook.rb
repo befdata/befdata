@@ -337,14 +337,6 @@ class Dataworkbook
     Array(data_description_sheet.column(*WBF[:group_title_col]))[method_index_for_columnheader(columnheader)]
   end
 
-  # Returns a hash filled with all people for all columnheaders
-  def columnheader_people #TODO check if this is correct it seems to also return the column header (which is no person!)
-    ## there may be several people associated to one columnheader
-    people_for_columnheader = {}
-    data_responsible_person_sheet.column(*WBF[:people_columnheader_col]).to_a.compact.each_with_index{|o, i| people_for_columnheader[i] = o if i >0}
-    return people_for_columnheader
-  end
-
   # The third sheet of the data workbook lists people which have
   # collected data found in the raw data sheet of the workbook.  These
   # people are associated to subprojects and have roles within their
@@ -358,17 +350,17 @@ class Dataworkbook
   # associated to a data header (see MeasurementsMethodstep,
   # MeasurementsMethodstepsController).
   def lookup_data_header_people(columnheader)
-    available_people = columnheader_people
-    return Array.new if available_people.blank?
-
-    # there are often several people for one column in raw data;
-    # people can also be added automatically to the data column
-    people_rows = available_people.select{|k,v| v == columnheader}.keys # only the row index
-    people_sur   = []
+    header = Array(data_responsible_person_sheet.column(*WBF[:people_columnheader_col]))
+    lastname = Array(data_responsible_person_sheet.column(*WBF[:people_lastname_col]))
+    ## collecting the relevant rows
     people = []
-    people_rows.each do |r|
-      people_sur << clean_string(data_responsible_person_sheet.row(r)[WBF[:people_lastname_col]])
-      people += User.find_all_by_lastname(people_sur)
+    i=0
+    for i in 0 .. header.length-1 do
+      unless header[i].nil?
+        if clean_string(header[i]) == columnheader
+          people += User.find_all_by_lastname(clean_string(lastname[i]))
+        end
+      end
     end
     people.flatten.uniq
   end
