@@ -23,6 +23,7 @@ class DatasetsController < ApplicationController
 
     action :download do
       allow logged_in, :if => :dataset_is_free_for_members
+      allow logged_in, :if => :dataset_is_free_for_project_of_user
       allow all, :if => :dataset_is_free_for_public
     end
 

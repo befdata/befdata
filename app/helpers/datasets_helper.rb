@@ -17,7 +17,18 @@ module DatasetsHelper
     end
   end
 
-  def may_see_comment? (dataset = @dataset)
+  def may_download_dataset?(dataset = @dataset)
+    return false unless dataset.upload_spreadsheet
+
+    return true if dataset.free_for_public
+    return false unless current_user
+
+    return true if dataset.free_for_members || current_user.has_role?(:admin) || current_user.has_role?(:owner, dataset)
+    return true if dataset.free_within_projects && !(current_user.projects & dataset.projects).empty?
+    false
+  end
+
+  def may_see_comment?(dataset = @dataset)
     return false unless current_user
     return true if current_user.has_role? :admin
     return true if current_user.has_role? :project_board

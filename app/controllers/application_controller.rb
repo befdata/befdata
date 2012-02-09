@@ -27,6 +27,11 @@ class ::ApplicationController < ActionController::Base
     false
   end
 
+  def dataset_is_free_for_project_of_user (user = current_user)
+    return true if @dataset.free_within_projects && !(user.projects & @dataset.projects).empty?
+    false
+  end
+
 
 protected
 
