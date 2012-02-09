@@ -1,4 +1,4 @@
-class DatagroupsController < ApplicationController
+class CategoriesController < ApplicationController
 
   skip_before_filter :deny_access_to_all
   access_control do
@@ -8,11 +8,11 @@ class DatagroupsController < ApplicationController
   end
 
   def index
-    @datagroups = Datagroup.order(:title)
+    @categories = Category.order(:short)
   end
 
   def show
-    @datagroup = Datagroup.find params[:id]
+    @category = Category.find params[:id]
   end
 
 end

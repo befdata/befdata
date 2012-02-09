@@ -1,9 +1,17 @@
-%ul
+- content_for :actions do
+  = link_to categories_path do
+    = image_tag "list-ordered.png"
+    List Categories
+
+%h2
+  Datagroups
+%table.import_values
+  %tr
+    %th Title
+    %th Type
+    %th Description
   - @datagroups.each do |dg|
-    %li
-      %strong= dg.title
-      - unless dg.methodvaluetype.blank?
-        = "- #{dg.methodvaluetype}"
-      - unless dg.description.blank?
-        %br
-        %i= dg.description
+    %tr
+      %td= link_to dg.title, dg
+      %td= dg.methodvaluetype
+      %td= dg.description

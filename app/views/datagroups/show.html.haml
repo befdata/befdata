@@ -1,0 +1,31 @@
+- content_for :actions do
+  = link_to datagroups_path do
+    = image_tag "list-ordered.png"
+    List Datagroups
+  = link_to categories_path do
+    = image_tag "list-ordered.png"
+    List Categories
+
+%h2= "Datagroup: #{@datagroup.title}"
+
+- unless @datagroup.methodvaluetype.blank?
+  %h4 Type
+  %p= @datagroup.methodvaluetype
+
+- unless @datagroup.description.blank?
+  %h4 Description
+  %p= @datagroup.description
+
+- unless @datagroup.datacolumns.empty?
+  %h3 Datasets
+  %ul
+    - @datagroup.datacolumns.collect{|dc| dc.dataset}.uniq.sort_by(&:title).each do |ds|
+      %li
+        = render :partial => ds, :locals => {:with_cart => true, :with_comment => false}
+
+- unless @datagroup.categories.empty?
+  %h3 Categories
+  %ul
+    - @datagroup.categories.sort_by(&:short).each do |cat|
+      %li
+        = link_to cat.short, cat

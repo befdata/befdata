@@ -59,6 +59,8 @@ Befchina::Application.routes.draw do
 
   resources :datagroups
 
+  resources :categories
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
