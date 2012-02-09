@@ -41,8 +41,8 @@ class Datacolumn < ActiveRecord::Base
 
   # Are there data values associated to the measurements of this data column instance?
   def values_stored?
-    ms = self.sheetcells.find(:all, :conditions => ["accepted_value IS NOT NULL OR accepted_value !='' OR category_id > 0"])
-    return !ms.empty?
+    sheetcell = self.sheetcells.first(:conditions => ["accepted_value IS NOT NULL OR accepted_value !='' OR category_id > 0"])
+    return sheetcell
   end
 
   # returns the first 'count' number unique imported values
