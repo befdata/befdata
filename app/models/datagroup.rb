@@ -91,6 +91,10 @@ class Datagroup < ActiveRecord::Base
   end
 
   def validate_and_reduce_categories_csv? (csv_lines)
+    if csv_lines[0].nil?
+      errors.add :csv, 'seems to be empty' and return false
+    end
+
     unless csv_lines[0][0] == 'ID'
       errors.add :csv, 'header does not match' and return false
     end
