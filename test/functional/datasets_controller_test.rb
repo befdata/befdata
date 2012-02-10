@@ -58,4 +58,9 @@ class DatasetsControllerTest < ActionController::TestCase
 
     FileUtils.rm("#{Rails.root}/files/SP5_TargetSpecies_CN_final_8_target_spec_kn_-_short.xls")
   end
+
+  test "should show new dataset page" do
+    login_nadrowski
+    get :new
+  end
 end
