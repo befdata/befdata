@@ -3,6 +3,10 @@
     = link_to datagroup_path(:id => @datagroup, :format => :csv) do
       = image_tag("save.png")
       Download Categories as CSV
+    - if current_user.has_role?(:admin)
+      = link_to upload_categories_datagroup_path do
+        = image_tag("save.png")
+        Upload Categories as CSV
   = link_to datagroups_path do
     = image_tag "list-ordered.png"
     List Datagroups
@@ -29,4 +33,21 @@
 
 - unless @datagroup.categories.empty?
   %h3 Categories
-  = render :partial => 'categories/categories_table', :object => @datagroup.categories, :locals => {:with_datagroups => false}
+
+  %table.import_values
+    %thead
+      %tr
+        %th Short
+        %th Long
+        %th Description
+        - if @changes
+          %th Changed
+    #tbody
+      - @datagroup.categories.sort_by(&:short).each do |cat|
+        %tr
+          %td= link_to cat.short, cat
+          %td= cat.long
+          %td= cat.description
+          - if @changes
+            %td
+              = @changes.include?(cat.id) ? 'x' : ''

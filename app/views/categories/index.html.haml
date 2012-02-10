@@ -5,4 +5,18 @@
 
 %h2
   Categories
-= render :partial => 'categories_table', :object => @categories, :locals => {:with_datagroups => true}
+
+%table.import_values
+  %thead
+    %tr
+      %th Short
+      %th Long
+      %th Description
+      %th Datagroup
+  #tbody
+    - @categories.sort_by(&:short).each do |cat|
+      %tr
+        %td= link_to cat.short, cat
+        %td= cat.long
+        %td= cat.description
+        %td= link_to cat.datagroup.title, cat.datagroup

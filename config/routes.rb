@@ -57,7 +57,12 @@ Befchina::Application.routes.draw do
   match 'delete_cart_context/:dataset_id' => 'carts#delete_cart_context', :as => :delete_cart_context
   match 'cart' => 'carts#show', :as => 'current_cart'
 
-  resources :datagroups
+  resources :datagroups do
+    member do
+      get :upload_categories
+      post :update_categories
+    end
+  end
 
   resources :categories
 

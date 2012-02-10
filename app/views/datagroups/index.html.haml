@@ -11,8 +11,8 @@
       %th Title
       %th Type
       %th Description
-  - @datagroups.each do |dg|
-    %tbody
+  %tbody
+    - @datagroups.each do |dg|
       %tr
         %td= link_to dg.title, dg
         %td= dg.methodvaluetype
