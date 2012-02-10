@@ -25,10 +25,7 @@ class Sheetcell < ActiveRecord::Base
   end
 
   def same_entry_cells
-    all_cells = self.datacolumn.sheetcells
-    same_entry_cells = all_cells.
-      select{|cell| cell.import_value == self.import_value}.flatten
-    return same_entry_cells
+    self.datacolumn.sheetcells.where(["import_value = ?", self.import_value])
   end
 
   # returns the accepted data for the sheet cell

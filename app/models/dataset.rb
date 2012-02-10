@@ -100,8 +100,7 @@ class Dataset < ActiveRecord::Base
   end
 
   def cells_linked_to_values?
-    sheetcells = self.sheetcells.all(:conditions => ["accepted_value IS NOT NULL OR accepted_value !='' OR category_id > 0"])
-    !sheetcells.empty?
+    self.sheetcells.exists?(["accepted_value IS NOT NULL OR accepted_value !='' OR category_id > 0"])
   end
 
   # During the import routine, we step through each of the data

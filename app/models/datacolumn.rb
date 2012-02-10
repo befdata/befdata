@@ -41,8 +41,7 @@ class Datacolumn < ActiveRecord::Base
 
   # Are there data values associated to the measurements of this data column instance?
   def values_stored?
-    sheetcell = self.sheetcells.first(:conditions => ["accepted_value IS NOT NULL OR accepted_value !='' OR category_id > 0"])
-    return sheetcell
+    self.sheetcells.exists?(["accepted_value IS NOT NULL OR accepted_value !='' OR category_id > 0"])
   end
 
   # returns the first 'count' number unique imported values
@@ -120,6 +119,7 @@ class Datacolumn < ActiveRecord::Base
 
   # returns the unique invalid uploaded sheetcells
   def invalid_values
+    #TODO check for memory consumption
     # get all the invalid sheetcells
     invalid_sheetcells = self.sheetcells.find(:all, :order => "import_value",
                                         :conditions => ["status_id = ?", Sheetcellstatus::INVALID],
@@ -139,6 +139,7 @@ class Datacolumn < ActiveRecord::Base
 
   # returns any invalid sheetcells with the given value
   def invalid_sheetcells_by_value(value)
+    #Todo check for memory consumption
      return self.sheetcells.find(:all, :conditions => ["status_id = ? AND import_value=?",
                                                        Sheetcellstatus::INVALID,
                                                       value]
