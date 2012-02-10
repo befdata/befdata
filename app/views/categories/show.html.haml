@@ -13,3 +13,10 @@
 - unless @category.datagroup.blank?
   %h4 Datagroup
   %p= link_to @category.datagroup.title, @category.datagroup
+
+- unless @datasets.blank?
+  %h3 Datasets
+  %ul
+    - @datasets.each do |ds|
+      %li
+        = render :partial => ds, :locals => {:with_cart => true, :with_comment => false}

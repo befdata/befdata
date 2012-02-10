@@ -5,7 +5,7 @@
       Download Categories as CSV
     - if current_user.has_role?(:admin)
       = link_to upload_categories_datagroup_path do
-        = image_tag("save.png")
+        = image_tag("file-upload.png")
         Upload Categories as CSV
   = link_to datagroups_path do
     = image_tag "list-ordered.png"
@@ -28,7 +28,9 @@
       %li
         = render :partial => ds, :locals => {:with_cart => true, :with_comment => false}
 
-- unless @datagroup.categories.empty?
+- if @datagroup.categories.empty?
+  %h3 Datagroup has no categories yet
+- else
   %h3 Categories
 
   %table.import_values
