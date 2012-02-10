@@ -6,12 +6,14 @@
 %h2
   Datagroups
 %table.import_values
-  %tr
-    %th Title
-    %th Type
-    %th Description
-  - @datagroups.each do |dg|
+  %thead
     %tr
-      %td= link_to dg.title, dg
-      %td= dg.methodvaluetype
-      %td= dg.description
+      %th Title
+      %th Type
+      %th Description
+  - @datagroups.each do |dg|
+    %tbody
+      %tr
+        %td= link_to dg.title, dg
+        %td= dg.methodvaluetype
+        %td= dg.description
