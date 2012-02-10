@@ -1,7 +1,8 @@
 - content_for :actions do
-  = link_to datagroup_path(:id => @datagroup, :format => :csv) do
-    = image_tag("save.png")
-    Download Categories as CSV
+  - unless @datagroup.categories.empty?
+    = link_to datagroup_path(:id => @datagroup, :format => :csv) do
+      = image_tag("save.png")
+      Download Categories as CSV
   = link_to datagroups_path do
     = image_tag "list-ordered.png"
     List Datagroups
@@ -28,7 +29,4 @@
 
 - unless @datagroup.categories.empty?
   %h3 Categories
-  %ul
-    - @datagroup.categories.sort_by(&:short).each do |cat|
-      %li
-        = link_to cat.short, cat
+  = render :partial => 'categories/categories_table', :object => @datagroup.categories, :locals => {:with_datagroups => false}

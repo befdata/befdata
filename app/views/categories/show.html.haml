@@ -17,18 +17,3 @@
 - unless @category.datagroup.blank?
   %h4 Datagroup
   %p= link_to @category.datagroup.title, @category.datagroup
-
-
--#- unless categories.datacolumn.empty?
--#  %h3 Datasets
--#  %ul
--#    - @datagroup.datacolumns.collect{|dc| dc.dataset}.uniq.sort_by(&:title).each do |ds|
--#      %li
--#        = render :partial => ds, :locals => {:with_cart => true, :with_comment => false}
-
--#- unless @datagroup.categories.empty?
--#  %h3 Categories
--#  %ul
--#    - @datagroup.categories.sort_by(&:short).each do |cat|
--#      %li
--#        = link_to cat.short, cat
