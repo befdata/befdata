@@ -182,7 +182,6 @@ private
       #  sheet[sheet_val.row_number - 1, col - 1] = val if val
       #end
 
-
       #find_each -> 1000 at a time
       datacolumn.sheetcells.find_each do |sheetcell|
         if sheetcell.datatype.is_category? && sheetcell.category
