@@ -8,7 +8,6 @@ class DataworkbookTest < ActiveSupport::TestCase
     @spreadsheet = Spreadsheet.open @dataset.upload_spreadsheet.file.path
     @spreadsheet.io.close
     @book = Dataworkbook.new(@dataset.upload_spreadsheet)
-    @book.load_datafile
   end
 
   test "workbook was loaded correctly" do

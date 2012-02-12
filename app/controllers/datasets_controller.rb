@@ -91,17 +91,14 @@ class DatasetsController < ApplicationController
   end
 
   def data
-    @book = Dataworkbook.new(@dataset.upload_spreadsheet)
-
     if @dataset.datacolumns.length == 0
-      @book.load_datafile
+     @book = Dataworkbook.new(@dataset.upload_spreadsheet)
+
       return unless @book.columnheaders_unique?
     end
 
     if @dataset.datacolumns.length == 0
       @book.import_data
-      #pid = spawn(@book.import_data, :err=>:out)
-      #Process.detach(pid)
       load_dataset #reload
     end
     @predefined_columns = @dataset.predefined_columns

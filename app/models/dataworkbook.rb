@@ -24,9 +24,6 @@ class Dataworkbook
   def initialize(datafile)
     @datafile = datafile
     @dataset = Dataset.find_by_filename(datafile.file_file_name)
-  end
-
-  def load_datafile
     open_datafile_from_disk
   end
 
@@ -161,8 +158,6 @@ class Dataworkbook
 
   # The method that loads the Workbook into the database.
   def import_data
-    # load the spreadsheet into memory
-    open_datafile_from_disk
     # generate data column instances
     columnheaders_raw.each do |columnheader|
 

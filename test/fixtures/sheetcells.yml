@@ -615,7 +615,7 @@ sheetcells_052:
   id: "330"
   datacolumn_id: "47"
   comment: Unit test data set
-  import_value: 17.11.09
+  import_value: 06.11.2009
   created_at: 2011-07-01 15:02:41.074
   updated_at: 2011-07-01 15:06:46.832
   category_id: 
@@ -627,7 +627,7 @@ sheetcells_053:
   id: "331"
   datacolumn_id: "47"
   comment: Unit test data set
-  import_value: 16.11.09
+  import_value: 01.11.09
   created_at: 2011-07-01 15:02:41.074
   updated_at: 2011-07-01 15:06:46.832
   category_id: 
@@ -639,7 +639,7 @@ sheetcells_054:
   id: "332"
   datacolumn_id: "47"
   comment: Unit test data set
-  import_value: 15.11.09
+  import_value: 05.11.09
   created_at: 2011-07-01 15:02:41.074
   updated_at: 2011-07-01 15:06:46.832
   category_id: 
@@ -651,7 +651,7 @@ sheetcells_055:
   id: "333"
   datacolumn_id: "47"
   comment: Unit test data set
-  import_value: 14.11.09
+  import_value: 04.11.09
   created_at: 2011-07-01 15:02:41.074
   updated_at: 2011-07-01 15:06:46.832
   category_id: 
@@ -663,7 +663,7 @@ sheetcells_056:
   id: "334"
   datacolumn_id: "47"
   comment: Unit test data set
-  import_value: 13.11.09
+  import_value: 09.11.09
   created_at: 2011-07-01 15:02:41.074
   updated_at: 2011-07-01 15:06:46.832
   category_id: 
