@@ -31,7 +31,16 @@ class ActiveSupport::TestCase
   end
 
   def test_file_for_upload(filename = "test-avatar.png")
-    File.new(File.join(fixture_path, 'test_files_for_uploads', filename))
+    f = File.new(File.join(fixture_path, 'test_files_for_uploads', filename))
+
+    # to simulate an uploaded file which has this method
+    class << f
+      def tempfile
+        self
+      end
+    end
+
+    f
   end
 
   def login_and_load_category (user = "nadrowski", long = "Mahonia bealei")
