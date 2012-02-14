@@ -63,7 +63,7 @@ class Datagroup < ActiveRecord::Base
     helper
   end
 
-  def update_categories_with_csv (file)
+  def update_categories_with_csv (file, user)
     begin
       lines = CSV.read file
     rescue
@@ -73,21 +73,27 @@ class Datagroup < ActiveRecord::Base
     return if !lines || !errors.blank?
 
     cats = Category.find lines.collect{|l| l[0]}
-    comment_string = "Updated via CVS #{Time.now.to_s}."
+    comment_string = "Updated via CVS by #{user.lastname}, #{Time.now.to_s}."
     changes = []
 
     lines.each do |l|
       c = cats.detect{|c| c.id == l[0].to_i}
       if c.short != l[1] || c.long != l[2] || c.description != l[3]
-        changes << c.id
+        changes << c
         c.short = l[1]
         c.long = l[2]
         c.description = l[3]
         c.comment = "#{c.comment} #{comment_string}".strip
-        c.save
       end
     end
-    changes
+
+    unless categories_remain_unique?(changes)
+      errors.add :categories, 'need to remain unique for datagroup' and return false
+    end
+
+    changes.each {|c| c.save}
+
+    changes.collect{|c| c.id}
   end
 
   def validate_and_reduce_categories_csv? (csv_lines)
@@ -135,4 +141,9 @@ class Datagroup < ActiveRecord::Base
     csv_lines
   end
 
+  def categories_remain_unique? (changed_categories)
+    unchanged_categories = self.categories.select(:short).where("id NOT IN (?)", changed_categories.collect{|c| c.id})
+    all_shorts = unchanged_categories.collect{|c| c.short} + changed_categories.collect{|c| c.short}
+    all_shorts.uniq! == nil ? true : false
+  end
 end

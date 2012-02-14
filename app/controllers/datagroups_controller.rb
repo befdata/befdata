@@ -39,7 +39,7 @@ class DatagroupsController < ApplicationController
     end
     f = params[:csvfile][:file].tempfile
 
-    @changes = @datagroup.update_categories_with_csv(f)
+    @changes = @datagroup.update_categories_with_csv(f, current_user)
 
     unless @datagroup.errors.empty?
       flash[:error] = @datagroup.errors.full_messages.to_sentence
