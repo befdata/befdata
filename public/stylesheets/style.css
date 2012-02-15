@@ -272,6 +272,57 @@ a img {
 	border: none;
 }
 
+/* --- Tables ------------------------------------------------ */
+
+table {
+    margin: 1em 0 1em 0;
+    border: none;
+}
+
+table th {
+    padding: 5px;
+    border-bottom: 1px solid #8a8a8a;
+    background: #cdcdcd;
+    font-weight: bold;
+}
+
+table th.centercolumn {
+    text-align: center;
+}
+
+table td {
+    padding: 5px;
+    border-bottom: 1px solid #8a8a8a;
+}
+
+table td.centercolumn {
+    text-align: center;
+}
+
+table td.even {
+    background: #fff;
+}
+
+table td.odd {
+    background: #f6f6f6;
+}
+
+table.tablesorter .header {
+	background-image: url(../images/tablesorter/bg.gif);
+	background-repeat: no-repeat;
+    background-position: center right;
+}
+
+table.tablesorter .headerSortUp {
+	background-image: url(../images/tablesorter/asc.gif);
+	background-repeat: no-repeat;
+}
+
+table.tablesorter .headerSortDown {
+	background-image: url(../images/tablesorter/desc.gif);
+	background-repeat: no-repeat;
+}
+
 /* --- Forms -------------------------------------------------- */
 
 input, textarea, select {
@@ -511,14 +562,6 @@ span.dataset-comment {
 
 .dataset_columns { margin-bottom: 1em; }
 .dataset_columns .columnheader { font-weight: bold; color: #18921e }
-
-table.import_values {margin: 1em 0 1em 0; border: none; }
-table.import_values th { padding: 5px; border-bottom: 1px solid #8a8a8a; background: #cdcdcd; font-weight: bold;}
-table.import_values th.centercolumn { text-align: center; }
-table.import_values td { padding: 5px; border-bottom: 1px solid #8a8a8a; }
-table.import_values td.centercolumn { text-align: center; }
-table.import_values td.even { background: #fff; }
-table.import_values td.odd { background: #f6f6f6; }
 
 #copyright-remarks {
     margin-top: 30px;
