@@ -14,9 +14,30 @@
   %h4 Datagroup
   %p= link_to @category.datagroup.title, @category.datagroup
 
-- unless @datasets.blank?
-  %h3 Datasets
-  %ul
-    - @datasets.each do |ds|
-      %li
-        = render :partial => ds, :locals => {:with_cart => true, :with_comment => false}
+- if @category.sheetcells.empty?
+  %h3 No Occurrences found
+- else
+  %h3 Occurrences
+  %table#category-occurrences-table.tablesorter
+    %thead
+      %tr
+        %th ID
+        %th Import Value
+        %th Columnheader
+        %th Dataset
+    %tbody
+      - @category.sheetcells(:include => [{:datacolumn => :dataset}]).each do |sc|
+        %tr
+          %td= sc.id
+          %td= sc.import_value
+          %td= sc.datacolumn.columnheader
+          %td= render :partial => sc.datacolumn.dataset, :locals => {:with_cart => true, :with_comment => false}
+
+
+  :javascript
+    $(document).ready(function()
+      {
+          $("#category-occurrences-table").tablesorter( {sortList: [[3,0], [2,0], [1,0], [0,0]]} );
+      }
+    );
+

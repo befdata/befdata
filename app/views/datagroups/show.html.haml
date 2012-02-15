@@ -29,11 +29,11 @@
         = render :partial => ds, :locals => {:with_cart => true, :with_comment => false}
 
 - if @datagroup.categories.empty?
-  %h3 Datagroup has no categories yet
+  %h3 Datagroup has no categories
 - else
   %h3 Categories
 
-  %table.import_values
+  %table#categories-table.tablesorter
     %thead
       %tr
         %th Short
@@ -41,7 +41,7 @@
         %th Description
         - if @changes
           %th Changed
-    #tbody
+    %tbody
       - @datagroup.categories.sort_by(&:short).each do |cat|
         %tr
           %td= link_to cat.short, cat
@@ -50,3 +50,10 @@
           - if @changes
             %td
               = @changes.include?(cat.id) ? 'x' : ''
+
+  :javascript
+    $(document).ready(function()
+      {
+          $("#categories-table").tablesorter();
+      }
+    );

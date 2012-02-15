@@ -43,11 +43,4 @@ class Category < ActiveRecord::Base
     self.taggings.destroy_all
   end
 
-  def datasets
-    Dataset.all(:conditions => ["id IN
-      (SELECT DISTINCT dataset_id FROM datacolumns WHERE id IN
-      (SELECT DISTINCT datacolumn_id FROM sheetcells WHERE category_id = #{self.id}
-      ))"], :order => :title)
-  end
-
 end
