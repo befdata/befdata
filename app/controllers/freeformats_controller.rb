@@ -50,7 +50,7 @@ class FreeformatsController < ApplicationController
   end
 
   def download
-    send_file @freeformat.file.path
+    send_file @freeformat.file.path, :filename=>@freeformat.to_label, :disposition => 'attachment'
   end
 
 private
