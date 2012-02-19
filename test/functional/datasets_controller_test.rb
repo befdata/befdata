@@ -56,7 +56,8 @@ class DatasetsControllerTest < ActionController::TestCase
 
     assert_redirected_to data_dataset_path(@dataset)
 
-    FileUtils.rm("#{Rails.root}/files/SP5_TargetSpecies_CN_final_8_target_spec_kn_-_short.xls")
+    @dataset.reload
+    @dataset.upload_spreadsheet.destroy
   end
 
   test "should show new dataset page" do

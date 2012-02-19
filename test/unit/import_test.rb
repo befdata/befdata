@@ -6,7 +6,8 @@ self.use_transactional_fixtures = false
   test "import_categorysheet_values" do
     datafile = Datafile.create(:file => File.new(File.join(fixture_path, 'test_files_for_uploads',
                                                            'UnitTestSpreadsheetForUpload_new.xls')))
-    datafile.save
+    assert_true datafile.save, datafile.errors
+
     dataset = Dataset.new
     dataset.upload_spreadsheet = datafile
     dataset.save
@@ -58,6 +59,9 @@ self.use_transactional_fixtures = false
     assert(cats.count==3, "There are not 3 categories in the datagroup")
     uniquelist2 = cats.map{ |c|c.short }.uniq
     assert(uniquelist2.count==3, "There are not 3 unique categories in the datagroup")
+
+    #clean up
+    dataset.upload_spreadsheet.destroy
   end
 
   test "cleanstring_several_spaces" do

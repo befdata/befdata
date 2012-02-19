@@ -41,7 +41,6 @@ class Dataset < ActiveRecord::Base
     x.validates_uniqueness_of :title
   end
 
-  validates_uniqueness_of :filename, :allow_blank => true
   validates_associated :upload_spreadsheet, :if => "upload_spreadsheet_id_changed?"
 
   before_validation(:load_metadata_from_spreadsheet, :on => :create)

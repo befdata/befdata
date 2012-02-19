@@ -6,12 +6,11 @@ class Datafile < ActiveRecord::Base
 
   has_one :dataset, :foreign_key => :upload_spreadsheet_id
 
-  validates_uniqueness_of :file_file_name
   validate :is_valid_worksheet
 
   has_attached_file :file,
   :basename => "basename",
-  :path => ":rails_root/files/:filename",
+  :path => ":rails_root/files/:id_:filename",
   :url => "/files/:id/download"
   
   def basename
@@ -48,6 +47,6 @@ class Datafile < ActiveRecord::Base
     if wb_version.scan(/\A\d+\.\d+\./).first != Dataworkbook::WBF[:wb_format_version].scan(/\A\d+\.\d+\./).first
       errors.add :file, "workbook version not matching (#{wb_version} < #{Dataworkbook::WBF[:wb_format_version]})"
     end
-
   end
+
 end

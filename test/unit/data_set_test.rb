@@ -3,13 +3,13 @@ require 'test_helper'
 class DataSetTest < ActiveSupport::TestCase
 
   def setup
-    FileUtils.copy("#{Rails.root}/files/8346952459374534species first test.xls",
-              "#{Rails.root}/files/8346952459374534species first test.xls.tmp")
+    FileUtils.copy("#{Rails.root}/files/4_8346952459374534species first test.xls",
+              "#{Rails.root}/files/4_8346952459374534species first test.xls.tmp")
   end
 
   def teardown
-    FileUtils.move("#{Rails.root}/files/8346952459374534species first test.xls.tmp",
-              "#{Rails.root}/files/8346952459374534species first test.xls",
+    FileUtils.move("#{Rails.root}/files/4_8346952459374534species first test.xls.tmp",
+              "#{Rails.root}/files/4_8346952459374534species first test.xls",
               :force => true)
   end
 

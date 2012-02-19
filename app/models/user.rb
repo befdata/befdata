@@ -3,7 +3,7 @@ class User < ActiveRecord::Base
   acts_as_authorization_subject
 
   validates_presence_of :lastname, :firstname
-  validates_uniqueness_of   :login
+  validates_uniqueness_of :login
 
   has_many :paperproposals, :through => :author_paperproposals
   has_many :author_paperproposals, :dependent => :destroy, :include => [:paperproposal]
