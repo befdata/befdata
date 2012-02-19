@@ -146,6 +146,11 @@ ActiveRecord::Schema.define(:version => 20120219164201) do
 
   add_index "datasets_projects", ["dataset_id", "project_id"], :name => "index_dataset_projects_on_dataset_id_and_project_id"
 
+  create_table "datatypes", :force => true do |t|
+    t.string "name"
+    t.string "format"
+  end
+
   create_table "delayed_jobs", :force => true do |t|
     t.integer  "priority",   :default => 0
     t.integer  "attempts",   :default => 0

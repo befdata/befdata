@@ -3,6 +3,11 @@ class PrependDatafileFilenamesWithDatafileId < ActiveRecord::Migration
     filepath = File.join(Rails.root, 'files')
 
     Datafile.all.each do |df|
+      if df.file_file_name.nil?
+        puts "File_file_name is nil for datafile with id #{df.id}"
+        next
+      end
+
       f_old = File.join filepath, df.file_file_name
       f_new = File.join filepath, "#{df.id}_#{df.file_file_name}"
 
