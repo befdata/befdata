@@ -1,9 +1,4 @@
-- content_for :actions do
-  = link_to dataset_path(@dataset) do
-    = image_tag "file.png"
-    Dataset overview
-
-%h2= @dataset.title
+%h2 Approve #{link_to @dataset.title, @dataset}
 - if @dataset.datacolumns.length > 0
   - unless @predefined_columns.blank?
     %p
