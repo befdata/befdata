@@ -1,1 +1,20 @@
 = render :partial => "pages/#{LayoutHelper::BEF_LAYOUT}/imprint"
+
+#copyright-remarks
+  %p
+    This Software is written in
+    = link_to 'Ruby', 'http://www.ruby-lang.org/', :target => '_blank'
+    and using
+    - @external_usages[0 .. -3].each do |eu|
+      #{link_to eu[0], eu[1], :target => '_blank'},
+    #{link_to @external_usages[-2][0], @external_usages[-2][1], :target => '_blank'} and
+    #{link_to @external_usages[-1][0], @external_usages[-1][1], :target => '_blank'}.
+    Icons derived from
+    #{link_to 'Dortmund', 'http://pc.de/icons/', :target => '_blank'} (c) pc.de used under a
+    #{link_to 'CC BY 3.0', 'http://creativecommons.org/licenses/by/3.0/', :target => '_blank'} license.
+    Icons derived from
+    #{link_to 'Sanscons', 'http://www.somerandomdude.com/work/sanscons/', :target => '_blank'} (c) P.J. Onori used under a
+    #{link_to 'CC BY-SA 3.0', 'http://creativecommons.org/licenses/by-sa/3.0/us/', :target => '_blank'} license,
+    the derivatives are licensed under the same
+    #{link_to 'CC BY-SA 3.0', 'http://creativecommons.org/licenses/by-sa/3.0/us/', :target => '_blank'} license.
+
