@@ -23,7 +23,7 @@ class Dataworkbook
 
   def initialize(datafile)
     @datafile = datafile
-    @dataset = Dataset.find_by_filename(datafile.file_file_name)
+    @dataset = @datafile.dataset
     open_datafile_from_disk
   end
 
