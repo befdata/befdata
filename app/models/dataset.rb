@@ -184,4 +184,11 @@ class Dataset < ActiveRecord::Base
     dates.max
   end
 
+  def import_data
+    self.update_attribute(:import_status, 'started importing')
+    book = Dataworkbook.new(upload_spreadsheet)
+    book.import_data
+    self.update_attribute(:import_status, 'finished')
+  end
+
 end

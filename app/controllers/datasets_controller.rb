@@ -1,7 +1,7 @@
 class DatasetsController < ApplicationController
 
   before_filter :load_dataset, :only => [:download, :show, :edit, :update, :data, :approve_predefined,
-                                         :delete_imported_research_data_and_file, :destroy]
+                                         :delete_imported_research_data_and_file, :destroy, :importing]
 
   rescue_from 'Acl9::AccessDenied', :with => :access_denied
 
@@ -16,7 +16,7 @@ class DatasetsController < ApplicationController
       allow :proposer, :of => :dataset
     end
 
-    actions :delete_imported_research_data_and_file, :destroy do
+    actions :delete_imported_research_data_and_file, :destroy, :importing do
       allow :admin
       allow :owner, :of => :dataset
     end
@@ -37,6 +37,7 @@ class DatasetsController < ApplicationController
   end
 
   def create
+    
     @dataset = Dataset.new
 
     if params[:datafile] then
@@ -98,10 +99,19 @@ class DatasetsController < ApplicationController
     end
 
     if @dataset.datacolumns.length == 0
-      @book.import_data
-      load_dataset #reload
+
+      @dataset.import_status = 'enqued'
+      @dataset.delay.import_data
+      @dataset.save
+
+      #load_dataset #reload
+      redirect_to :action => 'importing'
     end
     @predefined_columns = @dataset.predefined_columns
+  end
+
+  def importing
+    redirect_to :action => 'data' if @dataset.import_status == 'finished'
   end
 
   
