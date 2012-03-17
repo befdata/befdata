@@ -1,0 +1,9 @@
+---
+datafiles_001:
+  id: '1'
+  file_file_name: befdata_workbook_howto.xls
+  file_content_type: application/vnd.ms-excel
+  file_file_size: '28672'
+  file_updated_at: '2012-03-17 20:45:07.094609'
+  created_at: '2012-03-17 20:45:07.167841'
+  updated_at: '2012-03-17 20:45:07.167841'

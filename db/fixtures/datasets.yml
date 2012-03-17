@@ -1,0 +1,49 @@
+---
+datasets_001:
+  id: '1'
+  title: How to fill a BEFdata Workbook
+  abstract: The BEFdata portal allows to import research data directly from an Excel
+    2003 workbook. To get most out of the workbook, it's good to know that the "General
+    Metadata" sheet saves dataset ownership, as well as general information of where,
+    how, and why data was sampled. The data can belong to a project and will then
+    be displayed on this project's data set list. It can belong to members of the
+    portal, then these will be asked if someone requests this file for analysis.
+  usagerights: Here you can specify the intended usage. But during upload you still
+    have the choice to open the dataset to members of the project, members of the
+    portal, or to the public.
+  spatialextent: This is for the location where all the data comes from
+  temporalextent: Often, date is not provided in the data itself. So here you can
+    describe when the data was derived. This applies to analysis performed with your
+    data. So individual height of a tree will change from year to year, so it is good
+    to know, when the measurement was taken.
+  taxonomicextent: You can list your organism taxa or state that no organisms were
+    used. You can also specify the column in raw data where the organisms are named.
+  design: Describe, what was the design of your campaign. How many objects in what
+    groups did you sample? Did you sample along gradients like diversity or successional
+    age? Did you place your samples randomly, selected trees at random or in a stratified
+    random design?
+  circumstances: Are there circumstances that explain the precision of your measurements?
+    Could it be that a sandstorm destroyed part of the plots in a given year?
+  submission_at: 
+  filename: befdata_workbook_howto.xls
+  comment: Comments on the file will be displayed to the owners, to the administrators,
+    and to members of the Project board. You will then see the comments alongside
+    the title in each list displaying the title of the data set
+  dataanalysis: Here you can tell the reader, which columns were the response and
+    which columns in the raw data were explanatory variables. You can also indicate,
+    what the main response means in term of ecosystem functioning. The main response
+    column may be the abundance of tree species, the size of trees derived from dbh
+    and height, or the kinetic energy of raindrops passing through forest canopy.
+  downloads: '0'
+  datemin: '2011-10-08 22:00:00'
+  datemax: '2011-12-30 23:00:00'
+  published: If your data has been published already, you can give citation and doi
+    here.
+  visible_for_public: t
+  upload_spreadsheet_id: '1'
+  created_at: '2012-03-17 20:45:07.27112'
+  updated_at: '2012-03-17 20:45:07.27112'
+  free_for_members: f
+  free_for_public: f
+  free_within_projects: f
+  student_file: f

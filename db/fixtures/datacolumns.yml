@@ -1,0 +1,75 @@
+---
+datacolumns_001:
+  id: '1'
+  datagroup_id: '1'
+  dataset_id: '1'
+  columnheader: cat
+  columnnr: '1'
+  definition: example of a category data column
+  unit: 
+  comment: 
+  import_data_type: category
+  created_at: '2012-03-17 20:45:15.762444'
+  updated_at: '2012-03-17 20:45:18.142018'
+  datagroup_approved: t
+  finished: t
+  datatype_approved: t
+  informationsource: 
+  instrumentation: 
+datacolumns_002:
+  id: '2'
+  datagroup_id: '1'
+  dataset_id: '1'
+  columnheader: num
+  columnnr: '2'
+  definition: this is a column storing numbers. You can use the definition field to
+    give as much information as is needed to understand, what has been done.
+  unit: 
+  comment: 
+  import_data_type: number
+  created_at: '2012-03-17 20:45:15.92053'
+  updated_at: '2012-03-17 20:45:18.165676'
+  datagroup_approved: t
+  finished: t
+  datatype_approved: t
+  informationsource: 
+  instrumentation: 
+datacolumns_003:
+  id: '3'
+  datagroup_id: '1'
+  dataset_id: '1'
+  columnheader: txt
+  columnnr: '3'
+  definition: this is a text column; Especially if the Data groups are used for a
+    broad range of measurements, it makes sense to provide additional information
+    in the column definition
+  unit: 
+  comment: 
+  import_data_type: text
+  created_at: '2012-03-17 20:45:15.995201'
+  updated_at: '2012-03-17 20:45:18.189722'
+  datagroup_approved: t
+  finished: t
+  datatype_approved: t
+  informationsource: 
+  instrumentation: 
+datacolumns_004:
+  id: '4'
+  datagroup_id: '1'
+  dataset_id: '1'
+  columnheader: date
+  columnnr: '4'
+  definition: ! 'this is a date column; We provide three different types of dates:
+    dates recognized in Excel are given to other software usually in the form "date(2009-07-14)",
+    but you can also use the form  "date(14.07.2009)" or just a 4 digit year, then
+    specifying "year" in Data type'
+  unit: 
+  comment: 
+  import_data_type: date(2009-07-14)
+  created_at: '2012-03-17 20:45:16.055742'
+  updated_at: '2012-03-17 20:45:18.222002'
+  datagroup_approved: t
+  finished: t
+  datatype_approved: t
+  informationsource: 
+  instrumentation: 

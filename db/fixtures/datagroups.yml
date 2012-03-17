@@ -1,0 +1,21 @@
+---
+datagroups_001:
+  id: '1'
+  informationsource: 
+  methodvaluetype: category
+  title: Data group
+  description: The Data Group allows to link different data columns to one group.
+    This means that data between files and within files can be linked. If the data
+    type specified is "category", every entry in the datacolumn will be validated
+    against a list of names specific to this data group. If the data type specified
+    is "text", the entry will not be validated but saved as is. All the other data
+    types are validated according to rules. Numbers are checked if they can be converted
+    to numbers. If not, they will be treated as categories. Same for date entries.
+    This allows to specify different missing value types. If you have a number column  for
+    the data group "altitude", you can specify that "-9999" means that this point
+    is outside the range, while "NA" means, that it was not measured.
+  instrumentation: 
+  comment: 
+  created_at: '2012-03-17 20:45:15.723376'
+  updated_at: '2012-03-17 20:45:15.723376'
+  type_id: '1'

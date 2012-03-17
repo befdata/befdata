@@ -1,0 +1,40 @@
+---
+categories_001:
+  id: '1'
+  short: '2'
+  long: two
+  description: The "short" entry will be displayed in the raw data; the "long" entry
+    is a human readable shortcut for the entry; the "description" can tell a whole
+    story about the entry
+  comment: How to fill a BEFdata Workbook
+  created_at: '2012-03-17 20:45:18.11186'
+  updated_at: '2012-03-17 20:45:18.11186'
+  datagroup_id: '1'
+  user_id: '1'
+  status_id: '1'
+categories_002:
+  id: '2'
+  short: '1'
+  long: one
+  description: If a category is not found on the portal, the entries of this sheet
+    will be used. If the entry in a category column can still not be found, you have
+    to validate the entry during the upload process through the browser.
+  comment: How to fill a BEFdata Workbook
+  created_at: '2012-03-17 20:45:18.11186'
+  updated_at: '2012-03-17 20:45:18.11186'
+  datagroup_id: '1'
+  user_id: '1'
+  status_id: '1'
+categories_003:
+  id: '3'
+  short: '3'
+  long: three
+  description: Mind that you have to give the column header from the raw data for
+    each entry you are describing. If '3' is defined as category, any number of '3'
+    in a column classified as number in the same Data Group will be seen as this category.
+  comment: How to fill a BEFdata Workbook
+  created_at: '2012-03-17 20:45:18.11186'
+  updated_at: '2012-03-17 20:45:18.11186'
+  datagroup_id: '1'
+  user_id: '1'
+  status_id: '1'
