@@ -8,9 +8,11 @@ self.use_transactional_fixtures = false
                                                            'UnitTestSpreadsheetForUpload_new.xls')))
     assert_true datafile.save, datafile.errors
 
-    dataset = Dataset.new
+    dataset = Dataset.create(:title => "just4testing")
     dataset.upload_spreadsheet = datafile
-    dataset.save
+
+    assert_true dataset.save, dataset.errors
+
     book = Dataworkbook.new(dataset.upload_spreadsheet)
     book.import_data
 

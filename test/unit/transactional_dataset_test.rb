@@ -20,7 +20,7 @@ class TransactionalDatasetTest < ActiveSupport::TestCase
     datafile = Datafile.create(:file => File.new(File.join(fixture_path, 'test_files_for_uploads',
                                                            'z2_SiteB_PLOTS 1mGIS meta_kn_for  testing.xls')))
     datafile.save
-    dataset = Dataset.new
+    dataset = Dataset.create(:title => 'just4testing')
     dataset.upload_spreadsheet = datafile
     dataset.save
     book = Dataworkbook.new(dataset.upload_spreadsheet)
