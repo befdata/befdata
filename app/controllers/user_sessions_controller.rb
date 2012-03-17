@@ -23,7 +23,8 @@ class UserSessionsController < ApplicationController
       flash[:notice] = "Login successful!"
       redirect_back_or_default root_url
     else
-      render :action => :new
+      flash[:error] = @user_session.errors.full_messages.to_sentence
+      redirect_back_or_default root_url
     end
   end
   

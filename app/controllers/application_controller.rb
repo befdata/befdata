@@ -56,7 +56,7 @@ private
     unless current_user
       store_location
       flash[:error] = "You must be logged in to access this page"
-      redirect_to :login
+      redirect_back_or_default root_url
       return false
     end
   end
@@ -65,7 +65,7 @@ private
     if current_user
       store_location
       flash[:error] = "You must be logged out to access this page"
-      redirect_to account_url
+      redirect_back_or_default root_url
       return false
     end
   end
@@ -74,7 +74,7 @@ private
     session[:return_to] = request.request_uri
   end
 
-  def redirect_back_or_default (default)
+  def redirect_back_or_default (default = root_url)
     unless request.env['HTTP_REFERER'].blank?
       session[:return_to] = request.env['HTTP_REFERER']
       redirect_to :back
