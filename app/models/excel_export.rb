@@ -184,9 +184,9 @@ private
 
       #find_each -> 1000 at a time
       datacolumn.sheetcells.find_each do |sheetcell|
-        if sheetcell.datatype.is_category? && sheetcell.category
+        if sheetcell.datatype && sheetcell.datatype.is_category? && sheetcell.category
           value = sheetcell.category.short
-        elsif sheetcell.datatype.name.match(/^date/) && sheetcell.accepted_value
+        elsif sheetcell.datatype && sheetcell.datatype.name.match(/^date/) && sheetcell.accepted_value
           value = sheetcell.accepted_value.to_date.to_s
         elsif sheetcell.accepted_value
           value = sheetcell.accepted_value

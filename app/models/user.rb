@@ -110,7 +110,7 @@ class User < ActiveRecord::Base
     end
 
   def datasets_owned
-    Dataset.all.select { |ds| ds.accepts_role?(:owner, self)}
+    Dataset.all.select{|ds| ds.accepts_role?(:owner, self)}
   end
 
   def datasets_with_responsible_datacolumns_not_owned
