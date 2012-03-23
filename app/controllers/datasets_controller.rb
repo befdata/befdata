@@ -148,6 +148,7 @@ class DatasetsController < ApplicationController
     if new_datafile.save
       @dataset.delete_imported_research_data_and_file
       @dataset.upload_spreadsheet = new_datafile
+      @dataset.filename = new_datafile.file_file_name
       @dataset.save
       flash[:notice] = "Research data has been replaced."
       redirect_to data_dataset_path(@dataset)
