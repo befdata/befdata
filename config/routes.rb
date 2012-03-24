@@ -20,6 +20,8 @@ Befchina::Application.routes.draw do
     end
   end
 
+  match 'download_excel_template' => 'datasets#download_excel_template'
+
   match 'files/freeformats/:id/download' => 'freeformats#download'
   match 'files/freeformats/:id/destroy' => 'freeformats#destroy'
   match 'files/freeformats/create' => 'freeformats#create'

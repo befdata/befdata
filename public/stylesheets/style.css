@@ -572,6 +572,15 @@ span.dataset-comment {
     font-size: 0.8em;
 }
 
+.dataset-create-form textarea {
+    width: 70%;
+    height: 200px;
+}
+
+.dataset-create-form p {
+    width: 70%;
+}
+
 /* --- Sidebar ----------------------------------------------- */
 
 div#sidebar {

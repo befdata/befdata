@@ -36,10 +36,8 @@ class Dataset < ActiveRecord::Base
 
   has_and_belongs_to_many :projects
 
-  with_options :unless => "new_record?" do |x|
-    x.validates_presence_of :title
-    x.validates_uniqueness_of :title
-  end
+  validates_presence_of :title
+  validates_uniqueness_of :title
 
   validates_associated :upload_spreadsheet, :if => "upload_spreadsheet_id_changed?"
 

@@ -8,7 +8,7 @@ class DatasetsController < ApplicationController
   skip_before_filter :deny_access_to_all
 
   access_control do
-    allow all, :to => [:show, :index, :load_context]
+    allow all, :to => [:show, :index, :load_context, :download_excel_template]
 
     actions :download, :edit, :update, :data, :approve_predefined  do
       allow :admin
@@ -32,20 +32,30 @@ class DatasetsController < ApplicationController
     end
   end
 
-  def new
-    @file = Datafile.new
-  end
+
 
   def create
+    # submitting neither title or datafile
+    if !params[:dataset] && !params[:datafile]
+      flash[:error] = "No workbook given for upload"
+      redirect_to :back and return
+    end
+
     @dataset = Dataset.new
 
-    if params[:datafile] then
+    # Upload option A - from workbook
+    if params[:datafile]
       datafile = Datafile.new(params[:datafile])
       @dataset.upload_spreadsheet = datafile
-      if !datafile.save
+      unless datafile.save
         flash[:error] = datafile.errors.full_messages.to_sentence
         redirect_to(:back) and return
       end
+    end
+
+    # Upload option B - empty, only given title
+    if params[:dataset] && !params[:datafile]
+      @dataset.title = params[:dataset][:title]
     end
 
     if @dataset.save
@@ -133,6 +143,12 @@ class DatasetsController < ApplicationController
     @dataset.increment_download_counter
     send_data @dataset.export_to_excel_as_stream, :content_type => "application/xls",
               :filename => "download_#{@dataset.downloads}_#{@dataset.filename}"
+  end
+
+  def download_excel_template
+    send_file Rails.root.join('files', 'template','befdata_workbook_empty.xls'),
+        :filename=>'emtpy_excel_template.xls',
+        :disposition => 'attachment'
   end
 
   def edit

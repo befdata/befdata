@@ -1,9 +1,41 @@
 %h2
-  Create new dataset
-%p
-  You can upload a research data file. If you leave the field empty you can always upload it later.
-= form_for @file, :url => {:controller => :datasets, :action => :create}, :html => {:multipart => true} do |f|
-  = f.error_messages
-  = f.file_field :file
-  %br
-  = f.submit 'Create new dataset'
+  Create a new dataset
+
+.dataset-create-option.span-6
+  %h3 Option A: Create from Excel workbook
+  %p
+    All data and metadata is imported automatically from the workbook.
+    Details including metadata and the underlying Excel workbook can be changed later.
+    You will also be able to attach other files (called freeformat files) to the dataset.
+  %p
+    %strong
+      Need Help?
+    - if SITE_CONFIG[:example_dataset_id]
+      Here you can hava a look at and download an
+      #{link_to "explaining example dataset", dataset_path(SITE_CONFIG[:example_dataset_id])}.
+    If you want to create your own workbook for upload from scratch you can download the
+    #{link_to "empty excel template file", download_excel_template_url}.
+
+
+  = form_for Datafile.new, :url => {:controller => :datasets, :action => :create}, :html => {:multipart => true} do |f|
+    %h4
+      Excel workbook
+    = f.error_messages
+    = f.file_field :file
+    %br
+    = f.submit "Submit"
+
+.dataset-create-option.span-6.last
+  %h3 Option B: Create an empty dataset
+  %p
+    This will create an empty dataset, it only needs to get a unique title.
+    Of course you can upload an Excel workbook later.
+    Choose this option if your workbook is not prepared right now or you only want to attach files in other formats.
+  = form_for Dataset.new, :url => {:controller => :datasets, :action => :create} do |f|
+    %h4
+      Dataset title
+    = f.error_messages
+    = f.text_field :title
+    %br
+    = f.submit "Submit"
+

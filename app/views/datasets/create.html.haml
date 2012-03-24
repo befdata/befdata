@@ -1,6 +1,6 @@
 %h2 Create new dataset
 
-- form_for @dataset do |f|
+- form_for @dataset, :html => {:class => 'dataset-create-form'} do |f|
   = error_messages_for @dataset
 
   %h4 Dataset title
@@ -54,36 +54,42 @@
   %dl
     %dt= label_tag 'abstract'
     %dd= f.text_area :abstract
-  %dl
-    %dt= label_tag 'Usage rights'
-    %dd= f.text_area :usagerights
-  %dl
-    %dt= label_tag 'published'
-    %dd= f.text_area :published
-  %dl
-    %dt= label_tag 'Spatial extent'
-    %dd= f.text_area :spatialextent
-  %dl
-    %dt= label_tag 'Research start date'
-    %dd= f.datetime_select :datemin, :default => @dataset.datemin
-  %dl
-    %dt= label_tag 'Research end date'
-    %dd= f.datetime_select :datemax, :default => @dataset.datemax
-  %dl
-    %dt= label_tag 'Temporal extent'
-    %dd= f.text_area :temporalextent
-  %dl
-    %dt= label_tag 'Taxonomic extent'
-    %dd= f.text_area :taxonomicextent
-  %dl
-    %dt= label_tag 'design'
-    %dd= f.text_area :design
-  %dl
-    %dt= label_tag 'Data analysis'
-    %dd= f.text_area :dataanalysis
-  %dl
-    %dt= label_tag 'circumstances'
-    %dd= f.text_area :circumstances
+
+  - if @dataset.upload_spreadsheet
+    %dl
+      %dt= label_tag 'Usage rights'
+      %dd= f.text_area :usagerights
+    %dl
+      %dt= label_tag 'published'
+      %dd= f.text_area :published
+    %dl
+      %dt= label_tag 'Spatial extent'
+      %dd= f.text_area :spatialextent
+    %dl
+      %dt= label_tag 'Research start date'
+      %dd= f.datetime_select :datemin, :default => @dataset.datemin
+    %dl
+      %dt= label_tag 'Research end date'
+      %dd= f.datetime_select :datemax, :default => @dataset.datemax
+    %dl
+      %dt= label_tag 'Temporal extent'
+      %dd= f.text_area :temporalextent
+    %dl
+      %dt= label_tag 'Taxonomic extent'
+      %dd= f.text_area :taxonomicextent
+    %dl
+      %dt= label_tag 'design'
+      %dd= f.text_area :design
+    %dl
+      %dt= label_tag 'Data analysis'
+      %dd= f.text_area :dataanalysis
+    %dl
+      %dt= label_tag 'circumstances'
+      %dd= f.text_area :circumstances
+  - else
+    %p
+      More details about this dataset can be entered later by editing it.
+
   %dl
     %dt
     %dd= submit_tag 'Save Metadata'
