@@ -159,7 +159,11 @@ class Dataworkbook
   # The method that loads the Workbook into the database.
   def import_data
     # generate data column instances
+    number_of_columns = columnheaders_raw.count
+    processing_column = 1
     columnheaders_raw.each do |columnheader|
+
+      @dataset.update_attribute(:import_status, "processing column #{processing_column} of #{number_of_columns}")
 
       data_column_information = initialize_data_column_information(columnheader)
       data_column_new = Datacolumn.create!(data_column_information)
@@ -172,6 +176,8 @@ class Dataworkbook
         add_acknowledged_people(columnheader, data_column_new)
       end
       data_column_new.finished = true
+
+      processing_column += 1
     end
   end
 
