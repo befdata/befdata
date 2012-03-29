@@ -54,7 +54,7 @@ class DatasetsControllerTest < ActionController::TestCase
               :file => fixture_file_upload("test_files_for_uploads/SP5_TargetSpecies_CN_final_8_target_spec_kn_-_short.xls")
           }
 
-    assert_redirected_to data_dataset_path(@dataset)
+    assert_redirected_to dataset_path(@dataset)
 
     @dataset.reload
     @dataset.upload_spreadsheet.destroy

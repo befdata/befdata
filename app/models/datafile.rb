@@ -46,7 +46,11 @@ class Datafile < ActiveRecord::Base
     # check if first two numbers of version information match
     if wb_version.scan(/\A\d+\.\d+\./).first != Dataworkbook::WBF[:wb_format_version].scan(/\A\d+\.\d+\./).first
       errors.add :file, "workbook version not matching (#{wb_version} < #{Dataworkbook::WBF[:wb_format_version]})"
+      return
     end
+
+    # TODO heck for unique column headers
+    # errors.add :file, "column headers in the raw data sheet must be unique"
   end
 
 end

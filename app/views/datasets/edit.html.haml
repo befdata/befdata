@@ -1,41 +1,24 @@
-%h2 Edit #{link_to @dataset.title, @dataset}
+%h2 Edit properties of #{link_to @dataset.title, @dataset}
 
-- unless @dataset.blank?
-  %p
-    For more information, please contact #{link_to @dataset.owners.first, user_path(@dataset.owners.first)} of project
-    = link_to(@dataset.projects.first, project_path(@dataset.projects.first)) unless @dataset.projects.empty?
-  - unless @dataset.comment.blank?
-    %h3 Comment
-    %p= @dataset.comment
+%p
+  For more information, please contact #{link_to @dataset.owners.first, user_path(@dataset.owners.first)} of project
+  = link_to(@dataset.projects.first, project_path(@dataset.projects.first)) unless @dataset.projects.empty?
+- unless @dataset.comment.blank?
+  %h3 Comment
+  %p= @dataset.comment
 
-  %h3 Edit meta data of this dataset
-  %p
-    = render :active_scaffold => "settings/datasets", :constraints => {:id => @dataset.id}
+%h3 Edit meta data of this dataset
+%p
+  = render :active_scaffold => "settings/datasets", :constraints => {:id => @dataset.id}
 
-  %h3 Edit method descriptions of this context
-  %p
-    At the time of writing, it is only possible to add, but not to
-    delete methods or personroles to a given columnheader (=
-    measurements_methodstep)
-  %p
-    = render :active_scaffold => "settings/datacolumns", :constraints => {:dataset_id => @dataset.id}
+%h3 Edit method descriptions of this context
+%p
+  At the time of writing, it is only possible to add, but not to
+  delete methods or personroles to a given columnheader (=
+  measurements_methodstep)
+%p
+  = render :active_scaffold => "settings/datacolumns", :constraints => {:dataset_id => @dataset.id}
 
-  %h3 Exchange original data workbook
-  %p
-    = form_for :datafile,
-              :url => delete_imported_research_data_and_file_dataset_path(@dataset),
-              :html => {:multipart => true} do |f|
-      = f.error_messages
-      = f.file_field :file
-      = f.submit 'Data set upload', :confirm => "All research data will be replaced by the content of this file!"
 
-  - unless @freeformats.empty?
-    %h3 Change freeformat files
-    %p
-      = render :partial => 'freeformats/edit_list'
-
-  %h3 Add freeformat file
-  %p
-    = render :partial => 'freeformats/new', :locals => {:freeformattable => @dataset}
 
 

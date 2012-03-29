@@ -183,10 +183,20 @@ class Dataset < ActiveRecord::Base
   end
 
   def import_data
-    self.update_attribute(:import_status, 'started importing')
-    book = Dataworkbook.new(upload_spreadsheet)
-    book.import_data
-    self.update_attribute(:import_status, 'finished')
+    begin
+      self.update_attribute(:import_status, 'started importing')
+      book = Dataworkbook.new(upload_spreadsheet)
+      book.import_data
+      self.update_attribute(:import_status, 'finished')
+    rescue Exception => e
+      error_string = 'error / MESSAGE: ' + e.message + ' / TRACE: ' + e.backtrace
+      self.update_attribute(:import_status, error_string)
+      raise
+    end
+  end
+
+  def finished_import?
+    self.import_status.to_s.start_with?('finished','error') || !self.has_research_data?
   end
 
 end
