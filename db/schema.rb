@@ -1,4 +1,3 @@
-# encoding: UTF-8
 # This file is auto-generated from the current state of the database. Instead
 # of editing this file, please use the migrations feature of Active Record to
 # incrementally modify your database, and then regenerate this schema definition.
@@ -11,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120221113319) do
+ActiveRecord::Schema.define(:version => 20120320103524) do
 
   create_table "author_paperproposals", :force => true do |t|
     t.integer  "paperproposal_id"
@@ -21,6 +20,7 @@ ActiveRecord::Schema.define(:version => 20120221113319) do
     t.datetime "updated_at"
   end
 
+  add_index "author_paperproposals", ["paperproposal_id"], :name => "index_author_paperproposals_on_paperproposal_id"
   add_index "author_paperproposals", ["user_id", "paperproposal_id"], :name => "index_author_paperproposals_on_user_id_and_paperproposal_id"
 
   create_table "cart_datasets", :force => true do |t|
@@ -72,8 +72,8 @@ ActiveRecord::Schema.define(:version => 20120221113319) do
     t.string   "instrumentation"
   end
 
-  add_index "datacolumns", ["datagroup_id", "dataset_id"], :name => "index_datacolumns_on_datagroup_id_and_dataset_id"
   add_index "datacolumns", ["datagroup_id"], :name => "index_datacolumns_on_datagroup_id"
+  add_index "datacolumns", ["dataset_id"], :name => "index_datacolumns_on_dataset_id"
 
   create_table "datafiles", :force => true do |t|
     t.string   "file_file_name"
@@ -96,6 +96,7 @@ ActiveRecord::Schema.define(:version => 20120221113319) do
     t.integer  "type_id"
   end
 
+  add_index "datagroups", ["title"], :name => "index_datagroups_on_title"
   add_index "datagroups", ["type_id"], :name => "index_datagroups_on_type_id"
 
   create_table "dataset_paperproposals", :force => true do |t|
@@ -135,6 +136,7 @@ ActiveRecord::Schema.define(:version => 20120221113319) do
     t.boolean  "student_file",          :default => false
   end
 
+  add_index "datasets", ["filename"], :name => "index_datasets_on_filename"
   add_index "datasets", ["upload_spreadsheet_id"], :name => "index_datasets_on_upload_spreadsheet_id"
 
   create_table "datasets_projects", :id => false, :force => true do |t|
@@ -145,11 +147,6 @@ ActiveRecord::Schema.define(:version => 20120221113319) do
   end
 
   add_index "datasets_projects", ["dataset_id", "project_id"], :name => "index_dataset_projects_on_dataset_id_and_project_id"
-
-  create_table "datatypes", :force => true do |t|
-    t.string "name"
-    t.string "format"
-  end
 
   create_table "delayed_jobs", :force => true do |t|
     t.integer  "priority",   :default => 0
@@ -178,6 +175,8 @@ ActiveRecord::Schema.define(:version => 20120221113319) do
     t.integer  "freeformattable_id"
     t.string   "freeformattable_type"
   end
+
+  add_index "freeformats", ["freeformattable_type", "freeformattable_id"], :name => "idx_freeformats_type_id"
 
   create_table "import_categories", :force => true do |t|
     t.integer  "datacolumn_id"
@@ -225,6 +224,8 @@ ActiveRecord::Schema.define(:version => 20120221113319) do
 
   add_index "paperproposals", ["author_id"], :name => "index_paperproposals_on_author_id"
   add_index "paperproposals", ["corresponding_id"], :name => "index_paperproposals_on_corresponding_id"
+  add_index "paperproposals", ["project_id"], :name => "index_paperproposals_on_project_id"
+  add_index "paperproposals", ["senior_author_id"], :name => "index_paperproposals_on_senior_author_id"
 
   create_table "projects", :force => true do |t|
     t.string   "shortname"
@@ -242,6 +243,8 @@ ActiveRecord::Schema.define(:version => 20120221113319) do
     t.datetime "updated_at"
   end
 
+  add_index "projects_roles", ["project_id", "role_id"], :name => "index_projects_roles_on_project_id_and_role_id"
+
   create_table "roles", :force => true do |t|
     t.string   "name",              :limit => 40
     t.string   "authorizable_type", :limit => 25
@@ -257,6 +260,8 @@ ActiveRecord::Schema.define(:version => 20120221113319) do
     t.integer "role_id"
   end
 
+  add_index "roles_users", ["user_id", "role_id"], :name => "index_roles_users_on_user_id_and_role_id"
+
   create_table "sheetcells", :force => true do |t|
     t.integer  "datacolumn_id"
     t.text     "comment"
@@ -270,8 +275,10 @@ ActiveRecord::Schema.define(:version => 20120221113319) do
     t.integer  "row_number"
   end
 
-  add_index "sheetcells", ["category_id", "status_id", "datacolumn_id"], :name => "index_sheetcells_on_category_id_and_status_id_and_datacolumn_id"
+  add_index "sheetcells", ["category_id"], :name => "index_sheetcells_on_category_id"
   add_index "sheetcells", ["datacolumn_id"], :name => "index_sheetcells_on_datacolumn_id"
+  add_index "sheetcells", ["row_number"], :name => "index_sheetcells_on_row_number"
+  add_index "sheetcells", ["status_id", "datacolumn_id"], :name => "index_sheetcells_on_status_id_and_datacolumn_id"
 
   create_table "taggings", :force => true do |t|
     t.integer  "tag_id"
