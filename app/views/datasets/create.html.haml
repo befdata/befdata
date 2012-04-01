@@ -1,16 +1,15 @@
-%h2 Create new dataset
+%h2 Create data / document page
 
 - form_for @dataset, :html => {:class => 'dataset-create-form'} do |f|
   = error_messages_for @dataset
 
-  %h4 Dataset title
+  %h4 Title
   %dl
-    %dt= label_tag 'title'
     %dd= f.text_field :title, :class => 'text-input'
 
-  %h4 Provenance information
+  %h4 Ownership information
   %dl
-    %dt= label_tag 'Select people', nil
+    %dt= label_tag 'Owners', nil
     %dd= select "person", "person_id", User.all_users_names_and_ids_for_select, {:prompt => 'Select Member'}, {:onchange => 'selectPeople(this)'}
   %ul#people-list
     - @dataset.users.each do |user|
@@ -18,14 +17,6 @@
         %input{:name => "people[]", :type => "hidden", :value => user.id}/
         = image_tag 'cancel.png'
         = user.to_label
-  %p
-    You can note external scientists in the comments of a dataset.
-    Please notify the project board if an external scientist has
-    signed our data sharing agreement and should be able to log into
-    our data portal.
-  %dl
-    %dt= label_tag 'comment'
-    %dd= f.text_area :comment
   %dl
     %dt= label_tag 'Select projects', nil
     %dd= select "project", "project_id", Project.all_projects_for_select, {:prompt => 'Select Project'}, {:onchange => 'selectProjects(this)'}
@@ -37,15 +28,21 @@
         = project.to_label
 
   %h4 Access Rights
-  %dl
-    %dt= label_tag 'Visible for Public'
-    %dd= f.check_box :visible_for_public
+  %p
+    Check the box below to enable all visitors of the site (logged in members or other interested readers of the page)
+    to download the metadata, data (if applicable), and attached files of your dataset.
   %dl
     %dt= label_tag 'Free for Public'
     %dd= f.check_box :free_for_public
+  %p
+    Check the box below to allow logged in members of the portal
+    to download the metadata, data (if applicable), and attached files of your dataset.
   %dl
     %dt= label_tag 'Free for Members'
     %dd= f.check_box :free_for_members
+  %p
+    Check the box below to allow logged in members of projects with which the dataset is linked
+    to download the metadata, data (if applicable), and attached files of your dataset.
   %dl
     %dt= label_tag 'Free within Projects'
     %dd= f.check_box :free_within_projects
@@ -55,7 +52,7 @@
     %dt= label_tag 'abstract'
     %dd= f.text_area :abstract
 
-  - if @dataset.upload_spreadsheet
+  - if @dataset.has_research_data?
     %dl
       %dt= label_tag 'Usage rights'
       %dd= f.text_area :usagerights
@@ -84,9 +81,18 @@
       %dt= label_tag 'Data analysis'
       %dd= f.text_area :dataanalysis
     %dl
-      %dt= label_tag 'circumstances'
+      %dt= label_tag 'circumstances during data aquisition'
       %dd= f.text_area :circumstances
-  - else
+
+  %p
+    If you have any comments which you only want to share with administrators and members of the project board use this
+    field. This special comment field can not be seen by any other members of the project. However, project board
+    members administrators and you will see the comment on listing pages such as the project or staff pages.
+    %dl
+      %dt= label_tag 'comment'
+      %dd= f.text_area :comment
+
+  - unless @dataset.has_research_data?
     %p
       More details about this dataset can be entered later by editing it.
 

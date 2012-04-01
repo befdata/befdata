@@ -1,12 +1,12 @@
 %h2
-  Create a new dataset
+  Create a new dataset page
 
 .dataset-create-option.span-6
   %h3 Option A: Create from Excel workbook
   %p
     All data and metadata is imported automatically from the workbook.
     Details including metadata and the underlying Excel workbook can be changed later.
-    You will also be able to attach other files (called freeformat files) to the dataset.
+    You will also be able to attach other files to the dataset.
   %p
     %strong
       Need Help?
@@ -26,14 +26,14 @@
     = f.submit "Submit"
 
 .dataset-create-option.span-6.last
-  %h3 Option B: Create an empty dataset
+  %h3 Option B: Create a document page without data
   %p
-    This will create an empty dataset, it only needs to get a unique title.
+    This will create a dataset page with metadata, but no data.
     Of course you can upload an Excel workbook later.
     Choose this option if your workbook is not prepared right now or you only want to attach files in other formats.
   = form_for Dataset.new, :url => {:controller => :datasets, :action => :create} do |f|
     %h4
-      Dataset title
+      Title
     = f.error_messages
     = f.text_field :title
     %br
