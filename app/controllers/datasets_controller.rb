@@ -13,7 +13,6 @@ class DatasetsController < ApplicationController
     actions :download, :edit, :update, :data, :approve_predefined  do
       allow :admin
       allow :owner, :of => :dataset
-      allow :proposer, :of => :dataset
     end
 
     actions :delete_imported_research_data_and_file, :destroy do
@@ -22,6 +21,7 @@ class DatasetsController < ApplicationController
     end
 
     action :download do
+      allow :proposer, :of => :dataset
       allow logged_in, :if => :dataset_is_free_for_members
       allow logged_in, :if => :dataset_is_free_for_project_of_user
       allow all, :if => :dataset_is_free_for_public
@@ -31,7 +31,6 @@ class DatasetsController < ApplicationController
       allow logged_in
     end
   end
-
 
 
   def create
