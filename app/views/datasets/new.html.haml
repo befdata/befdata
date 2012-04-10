@@ -10,11 +10,10 @@
   %p
     %strong
       Need Help?
-    - if SITE_CONFIG[:example_dataset_id]
-      Here you can hava a look at and download an
-      #{link_to "explaining example dataset", dataset_path(SITE_CONFIG[:example_dataset_id])}.
     If you want to create your own workbook for upload from scratch you can download the
     #{link_to "empty excel template file", download_excel_template_url}.
+    Documentation and examples can be found
+    #{link_to "here", help_url}.
 
 
   = form_for Datafile.new, :url => {:controller => :datasets, :action => :create}, :html => {:multipart => true} do |f|
