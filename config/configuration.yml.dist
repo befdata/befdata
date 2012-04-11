@@ -2,6 +2,9 @@ site:
   #set layout to use one different than standard befdata
   #layout: 'fundiv'
 
+  #Add your google analytics account here if you wish to use analytics.
+  #google_analytics_account: 'UA-0000000-1'
+
 eml:
   bounding_coordinates_for_geographic_coverage:
     west_bounding_coordinate: 117.89978

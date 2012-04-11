@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120126130824) do
+ActiveRecord::Schema.define(:version => 20120223100657) do
 
   create_table "author_paperproposals", :force => true do |t|
     t.integer  "paperproposal_id"
@@ -133,6 +133,7 @@ ActiveRecord::Schema.define(:version => 20120126130824) do
     t.boolean  "free_for_public",       :default => false
     t.boolean  "free_within_projects",  :default => false
     t.boolean  "student_file",          :default => false
+    t.string   "import_status"
   end
 
   add_index "datasets", ["upload_spreadsheet_id"], :name => "index_datasets_on_upload_spreadsheet_id"
@@ -146,6 +147,11 @@ ActiveRecord::Schema.define(:version => 20120126130824) do
 
   add_index "datasets_projects", ["dataset_id", "project_id"], :name => "index_dataset_projects_on_dataset_id_and_project_id"
 
+  create_table "datatypes", :force => true do |t|
+    t.string "name"
+    t.string "format"
+  end
+
   create_table "delayed_jobs", :force => true do |t|
     t.integer  "priority",   :default => 0
     t.integer  "attempts",   :default => 0
@@ -157,6 +163,7 @@ ActiveRecord::Schema.define(:version => 20120126130824) do
     t.string   "locked_by"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "queue"
   end
 
   add_index "delayed_jobs", ["priority", "run_at"], :name => "delayed_jobs_priority"
