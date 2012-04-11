@@ -182,4 +182,21 @@ class Dataset < ActiveRecord::Base
     dates.max
   end
 
+  def import_data
+    begin
+      self.update_attribute(:import_status, 'started importing')
+      book = Dataworkbook.new(upload_spreadsheet)
+      book.import_data
+      self.update_attribute(:import_status, 'finished')
+    rescue Exception => e
+      Rails.logger.error e.message
+      Rails.logger.error e.backtrace.join("\n")
+      self.update_attribute(:import_status, "error: #{e.message}")
+    end
+  end
+
+  def finished_import?
+    self.import_status.to_s == 'finished' || !self.has_research_data?
+  end
+
 end

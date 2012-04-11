@@ -1,0 +1,65 @@
+- is_error = @dataset.import_status.starts_with?('error')
+- may_edit = (current_user.has_role?(:owner, @dataset) || current_user.has_role?(:admin))
+
+#dataset-import
+  %h3#import-head
+    - if is_error
+      Import Error
+    -else
+      Importing Data
+  - unless is_error
+    %p#import-animation
+      = image_tag 'ajax-loader.gif'
+  %p#import-status
+    = @dataset.import_status
+  - if may_edit
+    %p#import-error-hint{:class => !is_error && 'hidden'}
+      - link_to edit_files_dataset_path(@dataset) do
+        = image_tag("edit.png")
+        Exchange the workbook
+  %noscript
+    %p
+      Javascript is disabled - Reload the page to see updates.
+
+- unless is_error
+  :javascript
+    var statusElement = $("#import-status");
+    var hideAfterFinishElement = $("#dataset-import");
+    var showAfterFinishElement = $("#dataset-menu");
+    var changeAfterErrorElement = $("#import-head");
+    var hideAfterErrorElement = $("#import-animation");
+    var showAfterErrorElement = $("#import-error-hint");
+
+    var intervalTime = 5000;
+
+    $.ajaxSetup({
+      url: "#{importing_dataset_url @dataset.id}",
+      dataType: "text",
+      contentType: "text/plain",
+      success: function(data) {
+        updateStatus(data);
+      }
+    });
+
+    var intervalId = setInterval(function() {
+      $.ajax({
+        error: function() {
+          statusElement.text("Retrieving import status failed.");
+          clearInterval(intervalId);
+        }
+      });
+    }, intervalTime);
+
+    function updateStatus(data) {
+      statusElement.text(data);
+      if(data == "finished") {
+        clearInterval(intervalId);
+        hideAfterFinishElement.addClass('hidden');
+        showAfterFinishElement.removeClass('hidden');
+      }
+      if(data.slice(0,5) == 'error') {  //String starts with 'error'
+        changeAfterErrorElement.text("Import Error");
+        hideAfterErrorElement.addClass('hidden');
+        showAfterErrorElement.removeClass('hidden');
+      }
+    }

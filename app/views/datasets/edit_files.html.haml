@@ -1,0 +1,19 @@
+%h2 Edit files of #{link_to @dataset.title, @dataset}
+
+%h3 Exchange original data workbook
+%p
+  = form_for :datafile,
+            :url => delete_imported_research_data_and_file_dataset_path(@dataset),
+            :html => {:multipart => true} do |f|
+    = f.error_messages
+    = f.file_field :file
+    = f.submit 'Data set upload', :confirm => "All research data will be replaced by the content of this file!"
+
+- unless @freeformats.empty?
+  %h3 Change freeformat files
+  %p
+    = render :partial => 'freeformats/edit_list'
+
+%h3 Add freeformat file
+%p
+  = render :partial => 'freeformats/new', :locals => {:freeformattable => @dataset}

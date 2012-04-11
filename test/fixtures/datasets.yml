@@ -25,6 +25,7 @@ datasets_001:
   free_for_public: f
   free_within_projects: f
   student_file: f
+  import_status: "finished"
 datasets_002: 
   id: "5"
   title: Test species name import
@@ -51,6 +52,7 @@ datasets_002:
   free_for_public: f
   free_within_projects: f
   student_file: f
+  import_status: "finished"
 datasets_003: 
   id: "7"
   title: Unit tests
@@ -77,6 +79,7 @@ datasets_003:
   free_for_public: f
   free_within_projects: f
   student_file: f
+  import_status: "finished"
 datasets_004: 
   id: "6"
   title: Test species name import second version
@@ -103,6 +106,7 @@ datasets_004:
   free_for_public: f
   free_within_projects: f
   student_file: f
+  import_status: "finished"
 datasets_005: 
   id: "9"
   title: "TITLE: use for visual testing of export"
@@ -129,3 +133,4 @@ datasets_005:
   free_for_public: t
   free_within_projects: t
   student_file: f
+  import_status: "finished"
