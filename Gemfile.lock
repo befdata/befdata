@@ -58,6 +58,7 @@ GEM
       mime-types (~> 1.16)
       treetop (~> 1.4.8)
     mime-types (1.17.2)
+    newrelic_rpm (3.3.3)
     paperclip (2.4.5)
       activerecord (>= 2.3.0)
       activesupport (>= 2.3.2)
@@ -118,6 +119,7 @@ DEPENDENCIES
   delayed_job
   dynamic_form
   haml
+  newrelic_rpm
   paperclip
   pg
   rails (= 3.0.11)

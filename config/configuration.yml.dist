@@ -5,6 +5,9 @@ site:
   #Add your google analytics account here if you wish to use analytics.
   #google_analytics_account: 'UA-0000000-1'
 
+  #To use new-relic for monitoring your app you have to copy newrelic.yml.dist to newrelic.yml and enter your
+  #license key and details.
+
 eml:
   bounding_coordinates_for_geographic_coverage:
     west_bounding_coordinate: 117.89978
