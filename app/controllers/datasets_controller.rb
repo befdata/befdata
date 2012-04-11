@@ -3,8 +3,7 @@ class DatasetsController < ApplicationController
   before_filter :load_dataset, :only => [:download, :show, :edit, :edit_files, :update, :data, :approve_predefined,
                                          :delete_imported_research_data_and_file, :destroy]
 
-  before_filter :redirect_if_unimported, :only => [:download, :edit, :data, :approve_predefined,
-                                                   :destroy]
+  before_filter :redirect_if_unimported, :only => [:download, :edit, :data, :approve_predefined, :destroy]
 
   rescue_from 'Acl9::AccessDenied', :with => :access_denied
 
@@ -152,7 +151,7 @@ class DatasetsController < ApplicationController
   end
 
   def edit_files
-    unless @dataset.finished_import?
+    unless @dataset.import_status.starts_with?('finished','error')
       redirect_to(:action => 'show') and return
     end
     @freeformats = @dataset.freeformats :order => :file_file_name
