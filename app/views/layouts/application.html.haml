@@ -53,7 +53,7 @@
     - if SITE_CONFIG[:google_analytics_account]
       :javascript
         var _gaq = _gaq || [];
-        _gaq.push(['_setAccount', SITE_CONFIG[:google_analytics_account]']);
+        _gaq.push(['_setAccount', "#{SITE_CONFIG[:google_analytics_account]}"]);
         _gaq.push(['_trackPageview']);
         (function() {
         var ga = document.createElement('script');
