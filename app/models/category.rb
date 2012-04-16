@@ -14,7 +14,7 @@ class Category < ActiveRecord::Base
 
   before_destroy :check_for_sheetcells_associated
   after_destroy :destroy_taggings
-
+  after_update :update_dataset
 
   def try_filling_missing_values
     if self.short then
@@ -41,6 +41,13 @@ class Category < ActiveRecord::Base
 
   def destroy_taggings
     self.taggings.destroy_all
+  end
+
+  # find and update the updated_at date for all datasets that share this category
+  def update_dataset
+    sql = "select update_date_category_datasets(#{id})"
+    connection = ActiveRecord::Base.connection()
+    connection.execute(sql)
   end
 
 end

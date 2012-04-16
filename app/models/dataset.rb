@@ -163,8 +163,16 @@ class Dataset < ActiveRecord::Base
   end
 
   def increment_download_counter
+    # temporarily turn off timestamp update otherwise the update date is updated everytime someone downloads the dataset
+    class << self
+      def record_timestamps; false; end
+    end
     self.downloads = (self.downloads || 0) + 1
     save
+    # turn on the timestamp update
+    class << self
+      def record_timestamps; true; end
+    end
   end
 
   def number_of_observations
@@ -178,7 +186,6 @@ class Dataset < ActiveRecord::Base
       dates << self.updated_at
     dates << self.upload_spreadsheet.updated_at unless self.upload_spreadsheet.nil?
     dates += self.freeformats.collect {|x| x.updated_at}
-    dates += self.datacolumns.collect {|x| x.updated_at}
     dates.max
   end
 

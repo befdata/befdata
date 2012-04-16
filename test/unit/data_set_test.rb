@@ -1,7 +1,7 @@
 require 'test_helper'
 
 class DataSetTest < ActiveSupport::TestCase
-
+  self.use_transactional_fixtures = false
   def setup
     FileUtils.copy("#{Rails.root}/files/4_8346952459374534species first test.xls",
               "#{Rails.root}/files/4_8346952459374534species first test.xls.tmp")
@@ -136,5 +136,30 @@ class DataSetTest < ActiveSupport::TestCase
 
     pending "not working"
   end
+
+  test "update_column_should_update_dataset_updated_at" do
+      datacolumn = Datacolumn.find(33)
+      updated_at = datacolumn.dataset.updated_at
+      datacolumn.columnheader += "_test"
+      datacolumn.save
+
+      assert_not_equal updated_at, datacolumn.dataset.updated_at
+    end
+
+    test "validate_datagroup_should_update_dataset_updated_at" do
+      datacolumn = Datacolumn.find(48)
+      updated_at = datacolumn.dataset.updated_at
+      datacolumn.approve_datagroup(datacolumn.datagroup)
+
+      assert_not_equal updated_at, datacolumn.dataset.updated_at
+    end
+
+    test "validate_datatype_should_update_dataset_updated_at" do
+      datacolumn = Datacolumn.find(48)
+      updated_at = datacolumn.dataset.updated_at
+      datacolumn.approve_datatype("number", User.find(1))
+
+      assert_not_equal updated_at, datacolumn.dataset.updated_at
+    end
 
 end

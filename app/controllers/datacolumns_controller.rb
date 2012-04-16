@@ -71,14 +71,10 @@ class DatacolumnsController < ApplicationController
     unless params[:datagroup] == '-1'
       # The datagroup parameter is not '-1'. Go find it in the Database and assign it to this Data Column.
       @data_group = Datagroup.find(params[:datagroup])
-      @data_column.datagroup = @data_group
-
-      # Update the datagroup approval flag and save.
-      @data_column.datagroup_approved = true
-      @data_column.save
+      @data_column.approve_datagroup(@data_group)
 
       # Create a nice success message and redirect back so we render the same view again.
-      flash[:notice] = "Data Group successfully saved."
+      flash[:notice] = "Data group successfully saved."
       redirect_to :back
     else
       # The datagroup parameter was '-1', hence we need to create a new Data Group.
@@ -88,13 +84,9 @@ class DatacolumnsController < ApplicationController
         Datacolumn.transaction do
           if @data_group.save
             # When properly saved, assign the new Data Group to this Data Column,
-            # update the approval flag and save.
-            @data_column.datagroup = @data_group
-            @data_column.datagroup_approved = true
-            @data_column.save
-
+            @data_column.approve_datagroup(@data_group)
             # Generate a nice success message and redirect back so we render the same view again.
-            flash[:notice] = "Data Group successfully saved."
+            flash[:notice] = "Data group successfully saved."
             redirect_to :back
           else
             # When saving went wrong, generate a failure message and redirect back anyway.
@@ -118,17 +110,10 @@ class DatacolumnsController < ApplicationController
   def update_datatype
     # Find the called Data Column and update its datatype attribute.
     @data_column = Datacolumn.find(params[:id])
-    @data_column.update_attributes(params[:datacolumn])
-
-    # Selecting a datatype means that imported values can now be safely moved to stored values.
-    @data_column.add_data_values(current_user)
-
-    # Update the datatype approval flag and save.
-    @data_column.datatype_approved = true
-    @data_column.save
+    @data_column.approve_datatype(params[:datacolumn], current_user)
 
     # Create a nice success message and redirect back so we render the same view again.
-    flash[:notice] = "Data Type successfully saved."
+    flash[:notice] = "Data type successfully saved."
     redirect_to :back
   end
 
@@ -141,7 +126,7 @@ class DatacolumnsController < ApplicationController
 
     unless @data_column.update_attributes(params[:datacolumn])
       # Error message when updating failed. Redirect to the last view anyway.
-      flash[:error] = "#{@data_column.errors.to_a.first.capitalize}"      
+      flash[:error] = "#{@data_column.errors.to_a.first.capitalize}"
       redirect_to :back
     end
 
@@ -175,6 +160,7 @@ class DatacolumnsController < ApplicationController
           @data_column.update_invalid_value(value, short, long, description, current_user, dataset)
         end
       end
+      @data_column.update_attribute(:updated_at, Time.now)
       flash[:notice] = "The invalid values have been successfully approved"
       redirect_to :back
     end

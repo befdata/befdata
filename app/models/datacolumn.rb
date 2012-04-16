@@ -18,6 +18,7 @@ class Datacolumn < ActiveRecord::Base
   acts_as_taggable
   before_destroy :destory_normal_datagroups_solely_associated_to_this_column
   after_destroy :destroy_taggings
+  after_save :update_dataset
 
   acts_as_authorization_object :subject_class_name => 'User'
 
@@ -117,6 +118,22 @@ class Datacolumn < ActiveRecord::Base
 
   end
 
+  def approve_datagroup(datagroup)
+    self.datagroup = datagroup
+    self.datagroup_approved = true
+    self.save
+  end
+
+  def approve_datatype(datatype, user)
+    # selecting a datatype means that the imported values can validated against the datatype.
+    self.import_data_type = datatype
+    self.add_data_values(user)
+
+    # update the datatype approval flag and save.
+    self.datatype_approved = true
+    self.save
+  end
+
   # returns the unique invalid uploaded sheetcells
   def invalid_values
     #TODO check for memory consumption
@@ -212,5 +229,9 @@ class Datacolumn < ActiveRecord::Base
   
   def untouched?
     approval_stage == '0' && finished == false
+  end
+
+  def update_dataset
+    self.dataset.update_attribute(:updated_at, Time.now)
   end
 end
