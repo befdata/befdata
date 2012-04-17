@@ -15,6 +15,7 @@ gem 'yaml_db'
 gem 'active_scaffold'
 gem 'delayed_job_active_record'
 gem 'activerecord-import'
+gem 'newrelic_rpm'
 
 group :test, :development do
   gem "test-unit"

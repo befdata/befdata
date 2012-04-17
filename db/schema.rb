@@ -1,3 +1,4 @@
+# encoding: UTF-8
 # This file is auto-generated from the current state of the database. Instead
 # of editing this file, please use the migrations feature of Active Record to
 # incrementally modify your database, and then regenerate this schema definition.
@@ -134,6 +135,7 @@ ActiveRecord::Schema.define(:version => 20120320103524) do
     t.boolean  "free_for_public",       :default => false
     t.boolean  "free_within_projects",  :default => false
     t.boolean  "student_file",          :default => false
+    t.string   "import_status"
   end
 
   add_index "datasets", ["filename"], :name => "index_datasets_on_filename"
@@ -147,6 +149,11 @@ ActiveRecord::Schema.define(:version => 20120320103524) do
   end
 
   add_index "datasets_projects", ["dataset_id", "project_id"], :name => "index_dataset_projects_on_dataset_id_and_project_id"
+
+  create_table "datatypes", :force => true do |t|
+    t.string "name"
+    t.string "format"
+  end
 
   create_table "delayed_jobs", :force => true do |t|
     t.integer  "priority",   :default => 0
