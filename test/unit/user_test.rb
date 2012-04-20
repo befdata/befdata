@@ -10,7 +10,8 @@ class UserTest < ActiveSupport::TestCase
   test "add avatar to user" do
     @user = User.find_by_login 'nadrowski'
     @user.avatar = test_file_for_upload "test-avatar.png"
-    @user.save
+
+    assert @user.save!, "Avatar could not even be uploaded"
 
     expected_avatar_file_name = "#{@user.id}_#{@user.lastname}#{File.extname(@user.avatar.path).downcase}"
     error_hint = "Could not add avatar-image to user. Maybe Paperclip/ImageMagick is not correctly set up."

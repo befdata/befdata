@@ -1,0 +1,57 @@
+== Welcome to BEFdata, Datasharing for Biodiversity - ecological functioning research units
+
+
+The Chinese-European DFG Research Unit “BEF China” (FOR 891) has started a new forest Biodiversity and Ecosystem Functioning (BEF) experiment in subtropical forests in China. Within “Central project Z2: Data management” a data portal specifically tailored to reflect the main scientific questions and the experimental design of the experiment is developed. The Portal shall shall not only be applyable to the befchina experiment but to other similar experiments as well.
+
+
+
+== Getting Started
+
+1. Prerequisites
+
+ * Ruby 1.9.3
+ * PostgreSql Database with plpgsql language
+ * ImageMagick
+
+2. Create config-files in project config folder
+
+   You can use the provided template files and simply copy or rename them as following
+    configuration.yml.dist -> configuration.yml
+    database.yml.dist -> database.yml
+
+3. Set up the database-connection
+
+   In config/database.yml set the username and password
+
+4. Configure ImageMagick
+
+   Check ImageMagick path by running
+    which convert
+   Check if the path in config/environments/development.rb (or production.rb etc.) is corresponding to the one of convert
+    Paperclip.options[:command_path] = "/usr/bin/"
+
+5. Setup the database
+
+    rake db:setup
+    load fixtures
+    rake db:fixtures:load
+
+6. Fire up development server
+
+    rails server
+
+   And pointing your browser to localhost:3000 you should see your very own befdata instance.
+
+
+
+== License
+
+Befdata is released under the MIT License (MIT):
+
+Copyright (c) 2012 Department of Special Botany, University of Leipzig, represented by Christian Wirth, The BEF-China Research Unit of the German Research Foundation (DFG), represented by Helge Bruelheide, as well as Karin Nadrowski and Sophia Ratcliffe
+
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.

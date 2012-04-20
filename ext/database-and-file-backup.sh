@@ -1,13 +1,13 @@
 #!/bin/bash
 
-ROOT=/var/www/production/china
+ROOT=/var/www/china
 BACKUP_FOLDER=$ROOT/../backups
 
 export RAILS_ENV=production
 
 SUFFIX=`date +%Y%m%d-%H%M`
-DB_USER=befdata-prod
-DB_NAME=production_befchina
+DB_USER=passenger
+DB_NAME=befdata_china_production
 
 echo "PostgreSQl Version  = `psql --version`"
 echo "PostgreSQL Dumper Version = `pg_dump --version`"
