@@ -34,7 +34,7 @@ class Category < ActiveRecord::Base
   def check_for_sheetcells_associated
     self.reload
     unless self.sheetcells.empty?
-      errors.add_to_base "Cannot destroy categories with Data Cells associations"
+      errors[:base] << "Cannot destroy categories with Data Cells associations"
       false
     end
   end
