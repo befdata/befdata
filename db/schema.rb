@@ -152,6 +152,11 @@ ActiveRecord::Schema.define(:version => 20120416143105) do
 
   add_index "datasets_projects", ["dataset_id", "project_id"], :name => "index_dataset_projects_on_dataset_id_and_project_id"
 
+  create_table "datatypes", :force => true do |t|
+    t.string "name"
+    t.string "format"
+  end
+
   create_table "delayed_jobs", :force => true do |t|
     t.integer  "priority",   :default => 0
     t.integer  "attempts",   :default => 0
@@ -163,6 +168,7 @@ ActiveRecord::Schema.define(:version => 20120416143105) do
     t.string   "locked_by"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "queue"
   end
 
   add_index "delayed_jobs", ["priority", "run_at"], :name => "delayed_jobs_priority"
