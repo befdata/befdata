@@ -78,4 +78,36 @@ self.use_transactional_fixtures = false
     assert(cleanstring=="testing spaces")
   end
 
+  test "import_duplicate_datagroups_with_different_descriptions" do
+    datafile1 = Datafile.create(:file => File.new(File.join(fixture_path, 'test_files_for_uploads',
+                                                           'UnitTestSpreadsheetForUpload_new.xls')))
+    datafile2 = Datafile.create(:file => File.new(File.join(fixture_path, 'test_files_for_uploads',
+                                                               'UnitTestSpreadsheetForUpload_Datagroups.xls')))
+    dataset1 = Dataset.create(:title => "just4testing_datagroups_1")
+    dataset1.upload_spreadsheet = datafile1
+
+    assert_true dataset1.save, dataset1.errors
+
+    book1 = Dataworkbook.new(dataset1.upload_spreadsheet)
+    book1.import_data
+
+    #count number of datagroups
+    datagroup_count = Datagroup.all.count
+
+    dataset2 = Dataset.create(:title => "just4testing_datagroups_2")
+    dataset2.upload_spreadsheet = datafile2
+
+    assert_true dataset2.save, dataset2.errors
+
+    book2 = Dataworkbook.new(dataset2.upload_spreadsheet)
+    book2.import_data
+
+    #check that no more datagroups were added
+    assert(datagroup_count = Datagroup.all.count,"Data groups were added during the second import")
+
+    assert_equal(dataset1.datacolumns[0].definition, dataset2.datacolumns[0].definition, "The datacolumn descriptions don't contain the same text")
+    assert_not_equal(dataset1.datacolumns[1].definition, dataset2.datacolumns[1].definition, "The datacolumn descriptions contain the same text")
+    assert_not_equal(dataset1.datacolumns[6].definition, dataset2.datacolumns[6].definition, "The datacolumn descriptions contain the same text")
+  end
+
 end
