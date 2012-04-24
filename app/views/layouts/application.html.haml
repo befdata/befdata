@@ -5,6 +5,12 @@
     = stylesheet_link_tag 'ui-lightness/jquery-ui'
     = stylesheet_link_tag 'superfish'
     = stylesheet_link_tag 'style'
+    = javascript_include_tag 'jquery'
+    = javascript_include_tag 'jquery-ui'
+    = javascript_include_tag 'jquery-cookie'
+    = javascript_include_tag 'jquery.tablesorter.min'
+    = javascript_include_tag 'rails'
+    = javascript_include_tag 'application'
     = active_scaffold_includes
     = csrf_meta_tag
     = render :partial => "pages/#{LayoutHelper::BEF_LAYOUT}/head"
@@ -43,13 +49,6 @@
       #footer.span-12
         = render :partial => "pages/#{LayoutHelper::BEF_LAYOUT}/footer"
 
-    / Placed at the end of the document so the pages load faster
-    = javascript_include_tag 'jquery'
-    = javascript_include_tag 'jquery-ui'
-    = javascript_include_tag 'jquery-cookie'
-    = javascript_include_tag 'jquery.tablesorter.min'
-    = javascript_include_tag 'rails'
-    = javascript_include_tag 'application'
     - if SITE_CONFIG[:google_analytics_account]
       :javascript
         var _gaq = _gaq || [];
