@@ -125,3 +125,15 @@ CREATE OR REPLACE FUNCTION accept_datacolumn_values(datatype_id integer, datacol
                     status_id = 5 -- invalid
                 where sheetcells.datacolumn_id=$2 and sheetcells.category_id is null and sheetcells.accepted_value is null
       returning true$_$;
+
+      --
+      -- Name: update_date_category_datasets(integer); Type: FUNCTION; Schema: public; Owner: -
+      --
+
+      CREATE OR REPLACE FUNCTION update_date_category_datasets(category_id integer) RETURNS boolean
+            LANGUAGE sql AS
+              $_$update datasets
+                 set updated_at = now()
+                from sheetcells sc inner join datacolumns dc on sc.datacolumn_id = dc.id
+                where category_id = $1 and datasets.id = dc.dataset_id
+            returning true$_$;
