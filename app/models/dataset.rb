@@ -25,6 +25,10 @@ class Dataset < ActiveRecord::Base
 
   acts_as_taggable
 
+
+  has_attached_file :generated_spreadsheet,
+                    :path => ":rails_root/files/:id_generated-download.xls"
+
   belongs_to :upload_spreadsheet, :class_name => "Datafile",
                                   :foreign_key => "upload_spreadsheet_id",
                                   :dependent => :destroy
@@ -159,7 +163,7 @@ class Dataset < ActiveRecord::Base
   end
 
   def export_to_excel_as_stream
-    ExcelExport.new(self).data_buffer
+    ExcelExport.new(self).data_buffer.to_s
   end
 
   def increment_download_counter
@@ -195,6 +199,7 @@ class Dataset < ActiveRecord::Base
       book = Dataworkbook.new(upload_spreadsheet)
       book.import_data
       self.update_attribute(:import_status, 'finished')
+      self.enqueue_to_generate_download(:high)
     rescue Exception => e
       Rails.logger.error e.message
       Rails.logger.error e.backtrace.join("\n")
@@ -204,6 +209,28 @@ class Dataset < ActiveRecord::Base
 
   def finished_import?
     self.import_status.to_s == 'finished' || !self.has_research_data?
+  end
+
+  def enqueue_to_generate_download(priority = :low)
+    priority = 10 if priority.eql?(:low)
+    priority = 0 if priority.eql?(:high)
+    self.reload
+    return if download_generation_status.eql?('enqueued')
+    self.update_attribute(:download_generation_status, 'enqueued')
+    self.delay(:priority => priority).generate_download
+  end
+
+  def generate_download
+    self.update_attribute(:download_generation_status, 'started')
+
+    self.generated_spreadsheet_file_name = title.gsub(/[^\w]/, '-')
+    self.generated_spreadsheet = ExcelExport.new(self).data_buffer
+    self.generated_spreadsheet_content_type = "application/xls"
+    self.download_generated_at = Time.now + 1.second
+    self.download_generation_status = 'finished'
+    puts "=== Download generated for Dataset id: #{id} at #{Time.now}"
+    save
+
   end
 
 end

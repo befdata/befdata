@@ -14,6 +14,7 @@ gem 'spreadsheet'
 gem 'yaml_db'
 gem 'active_scaffold'
 gem 'delayed_job_active_record'
+gem 'rufus-scheduler'
 gem 'activerecord-import'
 gem 'newrelic_rpm'
 

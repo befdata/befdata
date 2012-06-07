@@ -140,8 +140,8 @@ class DatasetsController < ApplicationController
 
   def download
     @dataset.increment_download_counter
-    send_data @dataset.export_to_excel_as_stream, :content_type => "application/xls",
-              :filename => "download_#{@dataset.downloads}_#{@dataset.filename}"
+    send_file(@dataset.generated_spreadsheet.path,
+              :filename => "download_#{@dataset.downloads}_#{@dataset.filename}")
   end
 
   def download_excel_template

@@ -13,7 +13,7 @@ require 'active_record/fixtures'
 
 if Rails.env != 'performance'
   puts '-- Loading seed fixtures'
-  seed_fixtures_path = (Rails.root.to_s + '/db/fixtures').to_s
+  seed_fixtures_path = (Rails.root.to_s + '/db/seed_fixtures').to_s
   Dir.glob(seed_fixtures_path + '/*.yml').each do |file|
     Fixtures.create_fixtures(seed_fixtures_path, File.basename(file, '.*'))
   end

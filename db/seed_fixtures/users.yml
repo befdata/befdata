@@ -3,11 +3,11 @@ users_001:
   id: '1'
   login: admin
   email: em@i.ls
-  crypted_password: 34ad4d01bcadc8987ad4617fda84f67364ad0c6bd2326db99bd865fd7ff6c4d90292562c852aeab20118502779dcca0bbf74b22ddf15f7f8bea3c9a22b6e7466
-  password_salt: Iwz8uuNh6tR6gGR0IZ7a
-  persistence_token: f45cda89312c5c5d5cf2eebcbee858cf0b9df7cdfa7e7a6bf4ca07754217ccdc5d5c666e992b12e602880db28b73fca1e8df7641964e36d9588f5267f182b74d
-  single_access_token: CelMrPKCd1mHfDifSqlD
-  perishable_token: MfwErylxG5h38WzE02A
+  password_salt: <%= salt = Authlogic::Random.hex_token %>
+  crypted_password: <%= Authlogic::CryptoProviders::Sha512.encrypt("test" + salt) %>
+  persistence_token: persistence_token: <%= Authlogic::Random.hex_token %>
+  single_access_token: <%= Authlogic::Random.friendly_token %>
+  perishable_token: <%= Authlogic::Random.friendly_token %>
   login_count: '1'
   failed_login_count: '0'
   last_request_at: '2012-03-17 20:45:42.099489'

@@ -98,6 +98,8 @@ GEM
       railties (~> 3.0.0)
     ruby-ole (1.2.11.3)
     ruby-prof (0.11.2)
+    rufus-scheduler (2.0.16)
+      tzinfo (>= 0.3.23)
     spreadsheet (0.7.1)
       ruby-ole (>= 1.0)
     test-unit (2.4.8)
@@ -129,6 +131,7 @@ DEPENDENCIES
   rails (= 3.0.13)
   rake
   ruby-prof
+  rufus-scheduler
   spreadsheet
   test-unit (= 2.4.8)
   yaml_db

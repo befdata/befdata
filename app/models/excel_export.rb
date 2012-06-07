@@ -19,7 +19,7 @@ class ExcelExport
   end
 
   def data_buffer
-    return @data_buffer.string
+    @data_buffer
   end
 
 private

@@ -3,7 +3,7 @@
     %li
       = link_to :controller => :datasets, :action => 'download', :id => @dataset.id do
         = image_tag("save.png")
-        Download
+        = "Download status: #{@dataset.download_generation_status}"
   - if current_user
     %li
       = link_to dataset_path(:id => @dataset, :format => :eml) do

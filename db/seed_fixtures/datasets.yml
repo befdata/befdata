@@ -47,3 +47,5 @@ datasets_001:
   free_for_public: f
   free_within_projects: f
   student_file: f
+  import_status: finished
+

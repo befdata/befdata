@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120416143105) do
+ActiveRecord::Schema.define(:version => 20120606142705) do
 
   create_table "author_paperproposals", :force => true do |t|
     t.integer  "paperproposal_id"
@@ -123,21 +123,25 @@ ActiveRecord::Schema.define(:version => 20120416143105) do
     t.string   "filename"
     t.text     "comment"
     t.text     "dataanalysis"
-    t.integer  "downloads",                  :default => 0
+    t.integer  "downloads",                          :default => 0
     t.datetime "datemin"
     t.datetime "datemax"
     t.text     "published"
-    t.boolean  "visible_for_public",         :default => true
+    t.boolean  "visible_for_public",                 :default => true
     t.integer  "upload_spreadsheet_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean  "free_for_members",           :default => false
-    t.boolean  "free_for_public",            :default => false
-    t.boolean  "free_within_projects",       :default => false
-    t.boolean  "student_file",               :default => false
+    t.boolean  "free_for_members",                   :default => false
+    t.boolean  "free_for_public",                    :default => false
+    t.boolean  "free_within_projects",               :default => false
+    t.boolean  "student_file",                       :default => false
     t.string   "import_status"
     t.datetime "download_generated_at"
-    t.integer  "download_generation_status"
+    t.string   "download_generation_status"
+    t.string   "generated_spreadsheet_file_name"
+    t.string   "generated_spreadsheet_content_type"
+    t.integer  "generated_spreadsheet_file_size"
+    t.datetime "generated_spreadsheet_updated_at"
   end
 
   add_index "datasets", ["filename"], :name => "index_datasets_on_filename"
