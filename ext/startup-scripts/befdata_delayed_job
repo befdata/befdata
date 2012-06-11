@@ -1,0 +1,44 @@
+# Setting up autostart of background services for befdata on ubuntu system (10.04)
+
+#create and edit file
+#   sudo vi /etc/init.d/befdata_delayed_job (or use nano or whatever you feel comfortable with)
+
+#(adjust RAILS_ENV and BEFDATA_PATH and paste the lines below BEGIN into the file and save it...):
+
+# For autostart make the init script file executable
+#   sudo chmod a+x /etc/init.d/befdata_delayed_job
+
+# configure befdata_delayed_job_backgroundworker for autostart on ubuntu boot
+#  sudo update-rc.d befdata_delayed_job defaults
+
+# BEGIN init file (only stuff below here belongs into the init file!)
+
+
+#! /bin/sh
+
+BEFDATA_PATH=/home/teamcity/webdir/befdata
+RAILS_ENV=development
+RUBY_AND_GEMSET=1.9.3@dev_befdata
+USER=teamcity
+
+
+case "$1" in
+start)
+echo "starting befdata_delayed_job_backgroundworker from $BEFDATA_PATH"
+sudo su - $USER /home/teamcity/.rvm/bin/rvm $RUBY_AND_GEMSET do $BEFDATA_PATH/script/delayed_job start
+;;
+restart)
+$0 stop
+$0 start
+;;
+stop)
+echo "stopping befdata_delayed_job_backgroundworker from $BEFDATA_PATH"
+sudo su - $USER /home/teamcity/.rvm/bin/rvm $RUBY_AND_GEMSET do $BEFDATA_PATH/script/delayed_job start
+exit
+;;
+*)
+echo $"usage: $0 {start|stop|restart}"
+exit 3
+;;
+esac
+:
