@@ -16,6 +16,7 @@ log/*
 xls/*
 config/database.yml
 config/configuration.yml
+config/newrelic.yml
 .idea/*
 tmp/*
 index/*
