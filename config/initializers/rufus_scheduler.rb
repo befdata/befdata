@@ -4,15 +4,19 @@ scheduler = Rufus::Scheduler.start_new
 
 
 
-scheduler.every '20s' do
-   datasets_to_regenerate_download = Dataset.where("updated_at >= '#{(Time.now - 2.hours - 10.minutes).to_s(:db)}'
-                                                    AND updated_at >= download_generated_at
-                                                    AND download_generation_status = 'finished'")
+scheduler.cron '* * * * *' do  #once a minute
 
-   #datasets = Dataset.where("download_generation_status = 'finished OR download_generation_status = ''")
+  #generation of download only every ten minutes -> download_generated_at < Time.now - 10.minutes
+  #generation if updates since last generation -> updated_at >= download_generated_at
+  #only for downloads which are not currently being processed -> status = nil or finished
+  only_every_ten_minutes = "download_generated_at <= '#{(Time.now.utc - 10.minutes).to_s(:db)}' "
+  if_updated_after_last_generation = "AND updated_at >= download_generated_at "
+  if_download_generation_is_not_in_progress = "AND download_generation_status = 'finished'"
+  datasets = Dataset.where(only_every_ten_minutes +
+                                if_updated_after_last_generation +
+                                if_download_generation_is_not_in_progress)
 
-
-  datasets_to_regenerate_download.each do |dataset|
+  datasets.each do |dataset|
     dataset.enqueue_to_generate_download
     puts "enqueed dataset #{dataset.id}"
   end
