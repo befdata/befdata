@@ -16,7 +16,7 @@ Befchina::Application.routes.draw do
   resources :datasets do
     member do
       post :delete_imported_research_data_and_file, :approve_predefined
-      get :download, :data, :edit_files, :importing
+      get :download, :data, :edit_files, :importing, :regenerate_download
     end
   end
 

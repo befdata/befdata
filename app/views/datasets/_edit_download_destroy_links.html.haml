@@ -3,7 +3,12 @@
     %li
       = link_to :controller => :datasets, :action => 'download', :id => @dataset.id do
         = image_tag("save.png")
-        = "Download status: #{@dataset.download_generation_status}"
+        = "Download (state: #{@dataset.download_generation_status})"
+    -if (current_user.has_role?(:owner, @dataset) || current_user.has_role?(:admin))
+      %li
+        = link_to :controller => :datasets, :action => 'regenerate_download', :id => @dataset.id do
+          = image_tag("checkbox.png")
+          = "Regenerate Download"
   - if current_user
     %li
       = link_to dataset_path(:id => @dataset, :format => :eml) do

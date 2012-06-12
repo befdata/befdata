@@ -1,7 +1,7 @@
 class DatasetsController < ApplicationController
 
   before_filter :load_dataset, :only => [:download, :show, :edit, :edit_files, :update, :data, :approve_predefined,
-                                         :delete_imported_research_data_and_file, :destroy]
+                                         :delete_imported_research_data_and_file, :destroy, :regenerate_download]
 
   before_filter :redirect_if_unimported, :only => [:download, :edit, :data, :approve_predefined, :destroy]
 
@@ -12,7 +12,7 @@ class DatasetsController < ApplicationController
   access_control do
     allow all, :to => [:show, :index, :load_context, :download_excel_template, :importing]
 
-    actions :download, :edit, :edit_files, :update, :data, :approve_predefined  do
+    actions :download, :regenerate_download, :edit, :edit_files, :update, :data, :approve_predefined  do
       allow :admin
       allow :owner, :of => :dataset
     end
@@ -142,6 +142,11 @@ class DatasetsController < ApplicationController
     @dataset.increment_download_counter
     send_file(@dataset.generated_spreadsheet.path,
               :filename => "download_#{@dataset.downloads}_#{@dataset.filename}")
+  end
+
+  def regenerate_download
+    @dataset.enqueue_to_generate_download(:high)
+    redirect_to :action => :show
   end
 
   def download_excel_template
