@@ -162,10 +162,6 @@ class Dataset < ActiveRecord::Base
     self.users.select{|u| u.has_role?(:owner, self)}
   end
 
-  def export_to_excel_as_stream
-    ExcelExport.new(self).data_buffer.to_s
-  end
-
   def increment_download_counter
     # temporarily turn off timestamp update otherwise the update date is updated everytime someone downloads the dataset
     class << self
@@ -215,6 +211,7 @@ class Dataset < ActiveRecord::Base
     priority = 10 if priority.eql?(:low)
     priority = 0 if priority.eql?(:high)
     self.reload
+    return unless finished_import?
     return if download_generation_status.eql?('enqueued')
     self.update_attribute(:download_generation_status, 'enqueued')
     self.delay(:priority => priority).generate_download
