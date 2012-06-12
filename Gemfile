@@ -15,7 +15,7 @@ gem 'yaml_db'
 gem 'active_scaffold'
 gem 'delayed_job_active_record'
 gem 'daemons'
-gem 'rufus-scheduler'
+gem 'whenever', :require => false
 gem 'activerecord-import'
 gem 'newrelic_rpm'
 

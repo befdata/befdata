@@ -45,6 +45,7 @@ GEM
       activesupport (>= 3.0.0)
       activesupport (>= 3.0.7)
     builder (2.1.2)
+    chronic (0.6.7)
     cocaine (0.2.1)
     daemons (1.1.8)
     delayed_job (3.0.3)
@@ -99,8 +100,6 @@ GEM
       railties (~> 3.0.0)
     ruby-ole (1.2.11.3)
     ruby-prof (0.11.2)
-    rufus-scheduler (2.0.16)
-      tzinfo (>= 0.3.23)
     spreadsheet (0.7.1)
       ruby-ole (>= 1.0)
     test-unit (2.4.8)
@@ -112,6 +111,9 @@ GEM
     verification (1.0.1)
       actionpack (~> 3.0.0)
       activesupport (~> 3.0.0)
+    whenever (0.7.3)
+      activesupport (>= 2.3.4)
+      chronic (~> 0.6.3)
     yaml_db (0.2.3)
 
 PLATFORMS
@@ -133,7 +135,7 @@ DEPENDENCIES
   rails (= 3.0.13)
   rake
   ruby-prof
-  rufus-scheduler
   spreadsheet
   test-unit (= 2.4.8)
+  whenever
   yaml_db
