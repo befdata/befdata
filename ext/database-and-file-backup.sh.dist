@@ -5,17 +5,17 @@
 # This file is basicly used to deploy an automatic regular backups. 
 
 # Before using this file, you need remove the ".dist" suffix and make it executable
-#			mv database-and-file-backup.sh.dist database-and-file-backup.sh
-# 		chmod u+x database-and-file-backup.sh
+#	mv database-and-file-backup.sh.dist database-and-file-backup.sh
+# 	chmod u+x database-and-file-backup.sh
 # You may need to mv this .sh file to somewhere else to exclude it from the versioning system
 
 # To run this script regularly, ex. 00:00 on Sunday of every week, you can run: 
-# 	 crontab -e
+#	crontab -e
 # This will open a file to edit. add the following line to the file:
 # 	0 0 * * 0 /path/to/database-and-file-backup.sh
 
 ##### Settings you need to change to adapt to your ###
-##### own BEF instance													   ###
+##### own BEF instance				   ###
 
 ## database settings
 
