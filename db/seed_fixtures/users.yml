@@ -5,7 +5,7 @@ users_001:
   email: em@i.ls
   password_salt: <%= salt = Authlogic::Random.hex_token %>
   crypted_password: <%= Authlogic::CryptoProviders::Sha512.encrypt("test" + salt) %>
-  persistence_token: persistence_token: <%= Authlogic::Random.hex_token %>
+  persistence_token: <%= Authlogic::Random.hex_token %>"
   single_access_token: <%= Authlogic::Random.friendly_token %>
   perishable_token: <%= Authlogic::Random.friendly_token %>
   login_count: '1'
