@@ -52,7 +52,7 @@
 
     function updateStatus(data) {
       statusElement.text(data);
-      if(data == "finished") {
+      if(data == "finished" || data == "unknown") {
         clearInterval(intervalId);
         hideAfterFinishElement.addClass('hidden');
         showAfterFinishElement.removeClass('hidden');
