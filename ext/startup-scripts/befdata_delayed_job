@@ -14,6 +14,7 @@
 # =BEGIN= /etc/init.d/befdata_delayed_job (only stuff below here belongs into the init file!)
 #! /bin/sh
 
+#User to run background process
 USER=teamcity
 BEFDATA_PATH=/home/teamcity/webdir/befdata
 PATH_TO_RUBY="/home/teamcity/.rvm/bin/rvm 1.9.3@dev_befdata"
