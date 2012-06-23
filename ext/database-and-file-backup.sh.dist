@@ -1,0 +1,49 @@
+#!/bin/bash
+
+##### Usage of this file ######
+
+# This file is basicly used to deploy an automatic regular backups. 
+
+# Before using this file, you need remove the ".dist" suffix and make it executable
+#	mv database-and-file-backup.sh.dist database-and-file-backup.sh
+# 	chmod u+x database-and-file-backup.sh
+# You may need to mv this .sh file to somewhere else to exclude it from the versioning system
+
+# To run this script regularly, ex. 00:00 on Sunday of every week, you can run: 
+#	crontab -e
+# This will open a file to edit. add the following line to the file:
+# 	0 0 * * 0 /path/to/database-and-file-backup.sh
+
+##### Settings you need to change to adapt to your ###
+##### own BEF instance				   ###
+
+## database settings
+
+# App Root where "config.ru" resides
+ROOT=/var/www/china
+
+export RAILS_ENV=production
+
+# database username
+DB_USER=passenger
+
+## backup folder and filename settings
+
+BACKUP_FOLDER=$ROOT/../backups
+SUFFIX=`date +%Y%m%d-%H%M`
+DB_NAME=befdata_china_production
+
+##################
+
+echo "PostgreSQl Version  = `psql --version`"
+echo "PostgreSQL Dumper Version = `pg_dump --version`"
+
+pushd $ROOT
+  if [ ! -d $BACKUP_FOLDER ]; then mkdir $BACKUP_FOLDER; fi
+  echo "Backup database"
+  pg_dump -U ${DB_USER} ${DB_NAME} > $BACKUP_FOLDER/${DB_NAME}-${SUFFIX}.sql
+  echo "Backup files"
+  cd $ROOT
+  tar -czf $BACKUP_FOLDER/${DB_NAME}-${SUFFIX}-files.tgz files/* public/images/user_avatars/* 
+
+popd
