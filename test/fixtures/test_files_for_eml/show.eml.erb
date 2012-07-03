@@ -1,0 +1,248 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<eml:eml
+packageId="eml.1.1" system="knb"
+xmlns:eml="eml://ecoinformatics.org/eml-2.1.0"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:schemaLocation="eml://ecoinformatics.org/eml-2.1.0 eml-2.1.0/eml.xsd">
+
+<dataset id="<%= @dataset.id %>">
+
+<alternateIdentifier><%= dataset_url(@dataset) %></alternateIdentifier>
+
+<title><%= @dataset.title %></title>
+
+<% @dataset.owners.each do |creator| %>
+    <creator id="<%= creator.login %>">
+      <individualName>
+        <givenName><%= creator.firstname %></givenName>
+        <surName><%= creator.lastname %></surName>
+      </individualName>
+      <%= content_tag_unless_blank :organizationName, creator.institution_name %>
+      <% if creator.street || creator.city %>
+          <address>
+            <%= content_tag_unless_blank :deliveryPoint, creator.street %>
+            <%= content_tag_unless_blank :city, creator.city %>
+            <%= content_tag_unless_blank :country, creator.country %>
+          </address>
+      <% end %>
+      <%= content_tag_unless_blank :phone, creator.institution_phone %>
+      <electronicMailAddress><%= creator.email %></electronicMailAddress>
+    </creator>
+<% end %>
+
+<pubDate><%= @dataset.created_at.to_date.to_formatted_s(:db) %></pubDate>
+
+<language>en_US</language>
+
+<% if @dataset.abstract || @dataset.circumstances %>
+    <abstract>
+      <%= content_tag_unless_blank :para, @dataset.abstract %>
+      <%= content_tag_unless_blank :para, @dataset.circumstances %>
+    </abstract>
+<% end %>
+
+<% unless @dataset.tags.empty? %>
+    <keywordSet>
+      <%- @dataset.tags.each do |tag| %>
+          <keyword><%= tag.name %></keyword>
+      <% end %>
+      <keywordThesaurus> Portal Tags </keywordThesaurus>
+    </keywordSet>
+<% end %>
+<% unless @dataset.datacolumns.empty? %>
+    <keywordSet>
+      <%- @dataset.datacolumns.each do |datacolumn| %>
+          <keyword><%= datacolumn.columnheader %></keyword>
+      <% end %>
+      <keywordThesaurus> Dataset Data Columns </keywordThesaurus>
+    </keywordSet>
+<% end %>
+
+<% unless @dataset.usagerights.blank? %>
+    <intellectualRights>
+      <para><%= @dataset.usagerights %></para>
+    </intellectualRights>
+<% end %>
+
+<distribution scope="document">
+  <online>
+    <url function="information">
+      <%= dataset_url @dataset %>
+    </url>
+  </online>
+</distribution>
+
+<% unless @dataset.spatialextent.blank? && @dataset.taxonomicextent.blank? %>
+    <coverage>
+      <% if @dataset.spatialextent %>
+          <geographicCoverage>
+            <geographicDescription><%= @dataset.spatialextent %></geographicDescription>
+            <boundingCoordinates>
+              <westBoundingCoordinate><%= EML_CONFIG[:bounding_coordinates_for_geographic_coverage][:west_bounding_coordinate] %></westBoundingCoordinate>
+              <eastBoundingCoordinate><%= EML_CONFIG[:bounding_coordinates_for_geographic_coverage][:east_bounding_coordinate] %></eastBoundingCoordinate>
+              <northBoundingCoordinate><%= EML_CONFIG[:bounding_coordinates_for_geographic_coverage][:north_bounding_coordinate] %></northBoundingCoordinate>
+              <southBoundingCoordinate><%= EML_CONFIG[:bounding_coordinates_for_geographic_coverage][:south_bounding_coordinate] %></southBoundingCoordinate>
+            </boundingCoordinates>
+          </geographicCoverage>
+      <% end %>
+      <% unless @dataset.datemin.blank? && @dataset.datemax.blank?%>
+          <temporalCoverage>
+            <rangeOfDates>
+              <beginDate>
+                <calendarDate>
+                  <%= @dataset.datemin.to_s.split[0] %>
+                </calendarDate>
+              </beginDate>
+              <endDate>
+                <calendarDate>
+                  <%= @dataset.datemax.to_s.split[0] %>
+                </calendarDate>
+              </endDate>
+            </rangeOfDates>
+          </temporalCoverage>
+      <% end %>
+
+      <% unless @dataset.taxonomicextent.blank? %>
+          <%# Here the workbook is not precise enough to fill "taxonRankName, taxonValue, commonName %>
+          <taxonomicCoverage>
+            <generalTaxonomicCoverage><%= @dataset.taxonomicextent %></generalTaxonomicCoverage>
+            <taxonomicClassification>
+              <commonName>
+                <%= @dataset.taxonomicextent %>
+              </commonName>
+            </taxonomicClassification>
+          </taxonomicCoverage>
+      <% end %>
+    </coverage>
+<% end %>
+
+
+<% @dataset.owners.each do |contact| %>
+    <contact>
+      <references><%= contact.login %></references>
+    </contact>
+<% end %>
+
+<methods>
+  <methodStep>
+    <description>
+      <%= content_tag_unless_blank :para, @dataset.title %>
+      <%= content_tag_unless_blank :para, @dataset.abstract %>
+    </description>
+  </methodStep>
+  <sampling>
+    <studyExtent>
+      <description>
+        <%= content_tag_unless_blank :para, "#{@dataset.datemin} - #{@dataset.datemax}" %>
+        <%= content_tag_unless_blank :para, @dataset.temporalextent %>
+        <%= content_tag_unless_blank :para, @dataset.spatialextent %>
+        <%= content_tag_unless_blank :para, @dataset.taxonomicextent %>
+      </description>
+    </studyExtent>
+    <samplingDescription>
+      <%= content_tag_unless_blank :para, @dataset.design %>
+      <%= content_tag_unless_blank :para, @dataset.dataanalysis %>
+    </samplingDescription>
+  </sampling>
+</methods>
+
+<dataTable>
+  <entityName><%= dataset_url(@dataset)+'.txt' %></entityName>
+  <entityDescription><%= @dataset.title %></entityDescription>
+  <physical>
+    <objectName><%= dataset_path(@dataset)+'.txt' %></objectName>
+    <!--TODO<size unit="bytes">1245</size>-->
+    <characterEncoding>ASCII</characterEncoding>
+    <dataFormat>
+      <textFormat>
+        <numHeaderLines>1</numHeaderLines>
+        <attributeOrientation>column</attributeOrientation>
+        <simpleDelimited>
+          <fieldDelimiter>\t</fieldDelimiter>
+        </simpleDelimited>
+      </textFormat>
+    </dataFormat>
+    <distribution>
+      <online>
+        <url><%= dataset_url(@dataset)+'.txt' %></url>
+      </online>
+    </distribution>
+  </physical>
+
+  <attributeList>
+    <% @dataset.datacolumns.each do |column| %>
+        <attribute id="<%= column.columnheader %>">
+          <attributeName><%= "#{column.datagroup.title} (#{column.columnheader})" %></attributeName>
+          <attributeLabel><%= column.columnheader %></attributeLabel>
+          <attributeDefinition><%= "#{column.datagroup.description} (#{column.columnheader}: #{column.definition})" %></attributeDefinition>
+          <measurementScale>
+            <% case column.datagroup.methodvaluetype %>
+            <% when 'number'%>
+                <ratio>
+                  <unit>
+                    <standardUnit><%= eml_unit_for_column(column) %></standardUnit>
+                  </unit>
+                  <numericDomain>
+                    <numberType>real</numberType>
+                  </numericDomain>
+                </ratio>
+            <% when 'datetime' %>
+                <dateTime>
+                  <formatString>YYYY</formatString>
+                </dateTime>
+            <% else %>
+                <nominal>
+                  <nonNumericDomain>
+                    <textDomain>
+                      <definition><%= column.datagroup.description %></definition>
+                    </textDomain>
+                  </nonNumericDomain>
+                </nominal>
+            <% end %>
+          </measurementScale>
+          <methods>
+            <methodStep>
+              <description>
+                <%= content_tag_unless_blank :para, column.datagroup.title %>
+                <%= content_tag_unless_blank :para, column.datagroup.description %>
+                <%= content_tag_unless_blank :para, column.definition %>
+              </description>
+              <%= content_tag_unless_blank :instrumentation, column.datagroup.instrumentation %>
+            </methodStep>
+          </methods>
+        </attribute>
+    <% end %>
+  </attributeList>
+
+  <caseSensitive>yes</caseSensitive>
+  <numberOfRecords><%= @dataset.number_of_observations %></numberOfRecords>
+
+</dataTable>
+
+<% @dataset.freeformats.each do |freeformat| %>
+    <otherEntity id="<%= freeformat.id %>">
+      <alternateIdentifier><%= freeformat.file.url %></alternateIdentifier>
+      <entityName><%= freeformat.file_file_name %></entityName>
+      <%= content_tag_unless_blank :entityDescription, freeformat.description %>
+
+      <physical>
+        <objectName><%= freeformat.file_file_name %></objectName>
+        <dataFormat>
+          <externallyDefinedFormat>
+            <formatName><%= freeformat.file_content_type%></formatName>
+          </externallyDefinedFormat>
+        </dataFormat>
+        <distribution>
+          <online>
+            <url><%= freeformat.file.url %></url>
+          </online>
+        </distribution>
+      </physical>
+      <entityType>"File Asset"</entityType>
+    </otherEntity>
+<% end %>
+
+</dataset>
+
+</eml:eml>
