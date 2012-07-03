@@ -1,4 +1,5 @@
 require 'test_helper'
+require 'fileutils'
 
 class DatasetsControllerTest < ActionController::TestCase
   setup :activate_authlogic
@@ -12,6 +13,11 @@ class DatasetsControllerTest < ActionController::TestCase
     get :show, {:id => Dataset.first.id, :format => :eml}
     assert_response :success
   end
+
+	test "eml file structure should be like the standard" do
+    assert_equal true,
+      FileUtils.compare_file("app/views/datasets/show.eml.erb", "test/fixtures/test_files_for_eml/show.eml.erb")
+	end
 
   test "dataset can be downloaded" do
     login_nadrowski
