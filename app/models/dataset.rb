@@ -220,8 +220,8 @@ class Dataset < ActiveRecord::Base
   def generate_download
     self.update_attribute(:download_generation_status, 'started')
 
+    self.generated_spreadsheet = ExcelExport.new(self).excel_temp_file
     self.generated_spreadsheet_file_name = title.gsub(/[^\w]/, '-')
-    self.generated_spreadsheet = ExcelExport.new(self).data_buffer
     self.generated_spreadsheet_content_type = "application/xls"
     self.download_generated_at = Time.now + 1.second
     self.download_generation_status = 'finished'

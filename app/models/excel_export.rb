@@ -13,13 +13,15 @@ class ExcelExport
     create_categorysheet(excel_workbook, dataset)
     create_datasheet(excel_workbook, dataset)
 
-    @data_buffer = StringIO.new
     workaround_for_readable_xls(excel_workbook)
-    excel_workbook.write(@data_buffer)
+
+    tf = Tempfile.new("ds-temp")
+    excel_workbook.write(tf)
+    @excel_temp_file = tf
   end
 
-  def data_buffer
-    @data_buffer
+  def excel_temp_file
+    @excel_temp_file
   end
 
 private
