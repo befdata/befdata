@@ -22,7 +22,7 @@ class DatagroupsController < ApplicationController
     respond_to do |format|
       format.html
       format.csv do
-        send_data render_categories_csv, :type => "text/plain", :filename=>"#{@datagroup.title}_categories.csv", :disposition => 'attachment'
+        send_data render_categories_csv, :type => "text/csv", :filename=>"#{@datagroup.title}_categories.csv", :disposition => 'attachment'
       end
     end
   end
