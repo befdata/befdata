@@ -108,7 +108,19 @@ class User < ActiveRecord::Base
       else
         self.has_no_role! :project_board
       end
+  end
+
+  def data_admin
+    self.has_role? :data_admin
+  end
+
+  def data_admin=(string_boolean)
+    if string_boolean == "1"
+      self.has_role! :data_admin
+    else
+      self.has_no_role! :data_admin
     end
+  end
 
   def datasets_owned
     Dataset.all.select{|ds| ds.accepts_role?(:owner, self)}

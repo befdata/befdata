@@ -28,7 +28,7 @@ class Admin::UsersController < Admin::AdminController
         :institution_name, :institution_url,
         :institution_phone, :institution_fax,
         :street, :city, :country,
-        :admin, :project_board, :avatar]
+        :admin, :project_board, :data_admin, :avatar]
     end
 
     config.subform.layout = :vertical

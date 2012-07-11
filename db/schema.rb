@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120614145137) do
+ActiveRecord::Schema.define(:version => 20120711144049) do
 
   create_table "author_paperproposals", :force => true do |t|
     t.integer  "paperproposal_id"

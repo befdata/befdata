@@ -14,6 +14,7 @@ class DatasetsController < ApplicationController
 
     actions :download, :regenerate_download, :edit, :edit_files, :update, :data, :approve_predefined  do
       allow :admin
+      allow :data_admin
       allow :owner, :of => :dataset
     end
 
