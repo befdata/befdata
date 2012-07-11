@@ -201,7 +201,7 @@ class DatasetsController < ApplicationController
       @book = Dataworkbook.new(@dataset.upload_spreadsheet)
       return unless @book.columnheaders_unique?
 
-      @dataset.import_status = 'enqued'
+      @dataset.import_status = 'queued'
       @dataset.save
       @dataset.delay.import_data
     end
