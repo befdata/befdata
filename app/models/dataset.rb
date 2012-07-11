@@ -212,8 +212,8 @@ class Dataset < ActiveRecord::Base
     priority = 0 if priority.eql?(:high)
     self.reload
     return unless finished_import?
-    return if download_generation_status.eql?('enqueued')
-    self.update_attribute(:download_generation_status, 'enqueued')
+    return if download_generation_status.eql?('queued')
+    self.update_attribute(:download_generation_status, 'queued')
     self.delay(:priority => priority).generate_download
   end
 
