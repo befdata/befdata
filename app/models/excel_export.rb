@@ -210,7 +210,7 @@ private
 
     datasets.each do |dataset|
       dataset.enqueue_to_generate_download
-      puts "enqueed dataset #{dataset.id}"
+      puts "queued dataset #{dataset.id}"
     end
   end
 
