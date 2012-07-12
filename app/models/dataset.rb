@@ -162,7 +162,8 @@ class Dataset < ActiveRecord::Base
     self.users.select{|u| u.has_role?(:owner, self)}
   end
 
-  def increment_download_counter
+  def log_download(downloading_user)
+    # increment the download counter
     # temporarily turn off timestamp update otherwise the update date is updated everytime someone downloads the dataset
     class << self
       def record_timestamps; false; end
@@ -173,6 +174,10 @@ class Dataset < ActiveRecord::Base
     class << self
       def record_timestamps; true; end
     end
+
+    # log the download
+    DatasetDownload.create(:user => downloading_user,
+                          :dataset => self)
   end
 
   def number_of_observations

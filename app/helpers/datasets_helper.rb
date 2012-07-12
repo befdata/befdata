@@ -23,7 +23,7 @@ module DatasetsHelper
     return true if dataset.free_for_public
     return false unless current_user
 
-    return true if dataset.free_for_members || current_user.has_role?(:admin) || current_user.has_role?(:owner, dataset)
+    return true if dataset.free_for_members || current_user.has_role?(:admin) || current_user.has_role?(:data_admin) || current_user.has_role?(:owner, dataset)
     return true if current_user.has_role?(:proposer, dataset)
     return true if dataset.free_within_projects && !(current_user.projects & dataset.projects).empty?
     false

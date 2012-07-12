@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120711144049) do
+ActiveRecord::Schema.define(:version => 20120712150319) do
 
   create_table "author_paperproposals", :force => true do |t|
     t.integer  "paperproposal_id"
@@ -99,6 +99,15 @@ ActiveRecord::Schema.define(:version => 20120711144049) do
 
   add_index "datagroups", ["title"], :name => "index_datagroups_on_title"
   add_index "datagroups", ["type_id"], :name => "index_datagroups_on_type_id"
+
+  create_table "dataset_downloads", :force => true do |t|
+    t.integer  "user_id"
+    t.integer  "dataset_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "dataset_downloads", ["user_id", "dataset_id"], :name => "index_dataset_downloads_on_user_id_and_dataset_id"
 
   create_table "dataset_paperproposals", :force => true do |t|
     t.string   "aspect"

@@ -140,7 +140,7 @@ class DatasetsController < ApplicationController
   end
 
   def download
-    @dataset.increment_download_counter
+    @dataset.log_download(current_user)
     send_file(@dataset.generated_spreadsheet.path,
               :filename => "download_#{@dataset.downloads}_#{@dataset.filename}")
   end
