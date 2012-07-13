@@ -46,7 +46,8 @@ class DatagroupsController < ApplicationController
       redirect_to :back and return
     else
       flash[:notice] = "Categories successfully updated"
-      render :show
+      flash[:updates] = @changes
+      redirect_to datagroup_path @datagroup
     end
   end
 
@@ -54,7 +55,7 @@ private
 
   def render_categories_csv
     csv_string = CSV.generate do |csv|
-      csv << ["ID","SHORT","LONG","DESCRIPTION"]
+      csv << ["ID","SHORT","LONG","DESCRIPTION","MERGE ID"]
       @datagroup.categories.sort_by(&:short).each do |cat|
         csv << [cat.id, cat.short, cat.long, cat.description]
       end

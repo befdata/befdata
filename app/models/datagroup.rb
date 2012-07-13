@@ -69,7 +69,7 @@ class Datagroup < ActiveRecord::Base
     rescue
       errors.add :file, 'can not be read' and return false
     end
-    lines = validate_and_reduce_categories_csv? (lines)
+    lines = validate_and_reduce_categories_csv?(lines)
     return if !lines || !errors.blank?
 
     cats = Category.find lines.collect{|l| l[0]}
@@ -91,9 +91,24 @@ class Datagroup < ActiveRecord::Base
       errors.add :categories, 'need to remain unique for datagroup' and return false
     end
 
-    changes.each {|c| c.save}
+    merges = collect_merges(lines)
+    validate_merges(merges, lines)
+    return if !errors.blank?
 
-    changes.collect{|c| c.id}
+    merge_sources = merges.collect{|m| m[0]}
+    changes.reject! {|c| merge_sources.include?(c.id)}
+
+    changes.each {|c| c.save}
+    execute_merges(merges,user)
+
+    update_overview = Hash.new
+    changes.each do |c|
+      update_overview[c.id] = 'u'
+    end
+    merges.each do |m|
+      update_overview[m[1]] = update_overview[m[1]].to_s + 'm'
+    end
+    update_overview
   end
 
   def validate_and_reduce_categories_csv? (csv_lines)
@@ -105,7 +120,7 @@ class Datagroup < ActiveRecord::Base
       errors.add :csv, 'header does not match' and return false
     end
 
-    unless csv_lines[0].length == 4
+    unless csv_lines[0].length == 5
       errors.add :csv, 'has wrong number of columns' and return false
     end
 
@@ -117,14 +132,14 @@ class Datagroup < ActiveRecord::Base
       errors.add :csv, 'no categories given' and return false
     end
 
-    upd_cats_ids = csv_lines.collect{|l| l[0].to_i}
+    csv_cats_ids = csv_lines.collect{|l| l[0].to_i}
 
-    unless upd_cats_ids.uniq!.nil?
+    unless csv_cats_ids.uniq!.nil?
       errors.add :csv, 'IDs must be unique' and return false
     end
 
     dg_cats_ids = self.categories.collect{|c| c.id}
-    cats_no_match = upd_cats_ids - dg_cats_ids
+    cats_no_match = csv_cats_ids - dg_cats_ids
     unless cats_no_match.empty?
       errors.add :csv, "category #{cats_no_match} not matching the categories of this datagroup" and return false
     end
@@ -146,4 +161,40 @@ class Datagroup < ActiveRecord::Base
     all_shorts = unchanged_categories.collect{|c| c.short} + changed_categories.collect{|c| c.short}
     all_shorts.uniq! == nil ? true : false
   end
+
+  def collect_merges (csv_lines)
+    csv_lines.reject {|l| l[4].blank?}.collect {|l| [l[0].to_i, l[4].to_i]}
+  end
+
+  def validate_merges(merge_pairs, csv_lines)
+    csv_ids = csv_lines.collect {|l| l[0].to_i}
+    merge_source_ids = merge_pairs.collect {|mp| mp[0]}
+    merge_target_ids = merge_pairs.collect {|mp| mp[1]}
+
+    unless (merge_target_ids - csv_ids).empty?
+      errors.add :categories, 'can not merge with categories which are not present'
+    end
+
+    unless (merge_target_ids & merge_source_ids).empty?
+      errors.add :categories, 'recursive merges are not allowed'
+    end
+  end
+
+  def execute_merges(merge_pairs, user)
+    merge_pairs.each do |mp|
+      source_cat = Category.find mp[0]
+      target_cat = Category.find mp[1]
+
+      cells = source_cat.sheetcells
+      cells.each do |cell|
+        cell.category = target_cat
+        cell.save
+      end
+      comment_string = "Merged #{source_cat.id} via CVS by #{user.lastname}, #{Time.now.to_s}."
+      target_cat.comment = "#{target_cat.comment} #{comment_string}".strip
+      target_cat.save
+      source_cat.destroy
+    end
+  end
+
 end

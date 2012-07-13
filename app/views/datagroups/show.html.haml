@@ -33,6 +33,7 @@
 - else
   %h3 Categories
 
+  - @changes = flash[:updates]
   %table#categories-table.tablesorter
     %thead
       %tr
@@ -49,7 +50,7 @@
           %td= cat.description
           - if @changes
             %td
-              = @changes.include?(cat.id) ? 'x' : ''
+              = @changes[cat.id]
 
   :javascript
     $(document).ready(function()
