@@ -8,9 +8,8 @@ class DataSetTest < ActiveSupport::TestCase
   end
 
   def teardown
-    FileUtils.move("#{Rails.root}/files/4_8346952459374534species first test.xls.tmp",
-              "#{Rails.root}/files/4_8346952459374534species first test.xls",
-              :force => true)
+    FileUtils.copy("#{Rails.root}/files/4_8346952459374534species first test.xls.tmp",
+              "#{Rails.root}/files/4_8346952459374534species first test.xls")
   end
 
   # Replace this with your real tests.
