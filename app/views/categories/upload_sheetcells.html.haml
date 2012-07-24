@@ -1,0 +1,17 @@
+- content_for :actions do
+  = link_to datagroups_path do
+    = image_tag "list-ordered.png"
+    List Datagroups
+
+%h2
+  Update sheetcells of
+  = link_to @category.short, @category
+
+%h3 Upload CSV with altered sheetcells categoy
+
+= form_for :csvfile, :url => {:controller => :categories, :action => :update_sheetcells, :id => @category.id},
+:html => {:multipart => true} do |f|
+  = f.error_messages
+  = f.file_field :file
+  %br
+  = f.submit 'File upload'

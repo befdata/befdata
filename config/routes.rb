@@ -66,7 +66,12 @@ Befchina::Application.routes.draw do
     end
   end
 
-  resources :categories
+  resources :categories do
+    member do
+      get :upload_sheetcells
+      post :update_sheetcells
+    end
+  end
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
