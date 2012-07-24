@@ -111,6 +111,8 @@ class Datagroup < ActiveRecord::Base
     update_overview
   end
 
+private
+
   def validate_and_reduce_categories_csv? (csv_lines)
     if csv_lines[0].nil?
       errors.add :csv, 'seems to be empty' and return false
