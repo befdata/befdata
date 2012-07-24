@@ -4,12 +4,11 @@
   %p= link_to "Access denied. Please log in.", login_path
 
 - else
-  - if current_user
-    - content_for :actions do
-      #dataset-menu{:class => !@dataset.finished_import? && 'hidden'}
-        = render :partial => 'edit_download_destroy_links'
-      - unless @dataset.finished_import?
-        = render :partial => 'import_status'
+  - content_for :actions do
+    #dataset-menu{:class => !@dataset.finished_import? && 'hidden'}
+      = render :partial => 'edit_download_destroy_links'
+    - unless @dataset.finished_import?
+      = render :partial => 'import_status'
 
   - content_for :info do
     %h3
@@ -41,7 +40,10 @@
           - @dataset.dataset_downloads.sort_by {|dl|dl.created_at}.reverse.each do |dl|
             %li
               = dl.created_at.localtime.strftime "%Y-%m-%d %H:%M"
-              = link_to dl.user.lastname, dl.user
+              - if dl.user
+                = link_to dl.user.lastname, dl.user
+              - else
+                Public
 
   - unless @dataset.usagerights.blank?
     %h4 Usage Rights
