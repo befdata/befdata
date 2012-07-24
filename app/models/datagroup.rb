@@ -69,7 +69,7 @@ class Datagroup < ActiveRecord::Base
     rescue
       errors.add :file, 'can not be read' and return false
     end
-    lines = validate_and_reduce_categories_csv?(lines)
+    lines = validate_and_reduce_categories_csv(lines)
     return if !lines || !errors.blank?
 
     cats = Category.find lines.collect{|l| l[0]}
@@ -113,7 +113,7 @@ class Datagroup < ActiveRecord::Base
 
 private
 
-  def validate_and_reduce_categories_csv? (csv_lines)
+  def validate_and_reduce_categories_csv (csv_lines)
     if csv_lines[0].nil?
       errors.add :csv, 'seems to be empty' and return false
     end
