@@ -14,7 +14,7 @@
   - content_for :info do
     %h3
       Last update
-    %p= @dataset.last_update.strftime "%Y-%m-%d %H:%M"
+    %p= @dataset.last_update.localtime.strftime "%Y-%m-%d %H:%M"
 
     - if !@dataset.comment.blank? && may_see_comment?(@dataset)
       %h3
@@ -33,6 +33,15 @@
       %ul
         - @projects.each do |p|
           %li= link_to p, project_path(p.id)
+    - if current_user && (current_user.has_role?(:owner, @dataset) || current_user.has_role?(:admin))
+      %h3
+        Downloads (#{@dataset.downloads || 0})
+      - unless @dataset.dataset_downloads.empty?
+        %ul
+          - @dataset.dataset_downloads.sort_by {|dl|dl.created_at}.reverse.each do |dl|
+            %li
+              = dl.created_at.localtime.strftime "%Y-%m-%d %H:%M"
+              = link_to dl.user.lastname, dl.user
 
   - unless @dataset.usagerights.blank?
     %h4 Usage Rights
