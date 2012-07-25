@@ -34,3 +34,5 @@ test/fixtures_dump
 
 .bundle
 .config
+
+ext/database-and-file-backup.sh
