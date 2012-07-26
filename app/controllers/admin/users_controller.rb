@@ -8,7 +8,7 @@ class Admin::UsersController < Admin::AdminController
     config.search.columns = [:firstname, :lastname]
 
     config.columns << :password
-    config.columns[:password].label = "New Password<br/>(Leave this blank to keep old password)"
+    config.columns[:password].label = "New Password<br/>(Leave this blank to keep old password)".html_safe
     config.columns[:password].form_ui = :password
     config.columns << :password_confirmation
     config.columns[:password_confirmation].label = "New Password Confirmation"
