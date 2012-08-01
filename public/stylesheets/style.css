@@ -75,7 +75,10 @@ body {
 div.last { margin-right: 0; }
 
 /* Use these classes to set the width of a column. */
-.span-1  { width: 48px;}
+.span-1  {
+  width: 48px;
+  clear: left;
+}
 .span-2  { width: 128px;}
 .span-3  { width: 208px;}
 .span-4  { width: 288px;}

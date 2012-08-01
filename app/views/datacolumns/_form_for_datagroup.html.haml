@@ -1,26 +1,25 @@
 / This partial is only rendered when the Data Group is unapproved.
 .span-8.last
-= form_tag :action => 'update_datagroup', :controller => 'datacolumns' do |form|
-  = hidden_field_tag :id, @data_column.id
-  %p From your upload:
-  .span-1.last
-    = radio_button_tag 'datagroup', @data_column.datagroup.id, true
-  .span-6
-    %h4= @data_column.datagroup.title
-    %p= @data_column.datagroup.description
-  - unless @data_groups_available.blank?
-    %p.clear Possible matches in the portal:
-    - @data_groups_available.each do |datagroup|
-      .span-1.last
-        = radio_button_tag 'datagroup', datagroup.id, false
-      .span-6
-        %h4= datagroup.title
-        %p= datagroup.description
-        - unless datagroup.datacolumns.blank?
-          %p
-            %b Previously assigned data columns:
-            - datagroup.datacolumns.each do |datacolumn|
-              = datacolumn.columnheader
-  %button{:name => "commit", :type => "submit"} Save data group
-
-      
+  = form_tag :action => 'update_datagroup', :controller => 'datacolumns' do |form|
+    = hidden_field_tag :id, @data_column.id
+    %p From your upload:
+    .span-1.last
+      = radio_button_tag 'datagroup', @data_column.datagroup.id, true
+    .span-6
+      %h4= @data_column.datagroup.title
+      %p= @data_column.datagroup.description
+    - unless @data_groups_available.blank?
+      %p.clear Possible matches in the portal:
+      - @data_groups_available.each do |datagroup|
+        .span-1.last
+          = radio_button_tag 'datagroup', datagroup.id, false
+        .span-6
+          %h4= datagroup.title
+          %p= datagroup.description
+          - unless datagroup.datacolumns.blank?
+            %p
+              %b Previously assigned data columns:
+              - datagroup.datacolumns.each do |datacolumn|
+                = datacolumn.columnheader
+    %button{:name => "commit", :type => "submit"} Save data group
+.clear
