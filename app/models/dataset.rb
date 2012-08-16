@@ -38,6 +38,8 @@ class Dataset < ActiveRecord::Base
 
   has_many :freeformats, :as => :freeformattable, :dependent => :destroy
 
+  has_many :dataset_downloads
+
   has_and_belongs_to_many :projects
 
   validates_presence_of :title

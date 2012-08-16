@@ -1,5 +1,5 @@
 - is_error = @dataset.import_status.starts_with?('error')
-- may_edit = (current_user.has_role?(:owner, @dataset) || current_user.has_role?(:admin))
+- may_edit = current_user && (current_user.has_role?(:owner, @dataset) || current_user.has_role?(:admin))
 
 #dataset-import
   %h3#import-head

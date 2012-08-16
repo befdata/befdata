@@ -1,4 +1,12 @@
 - content_for :actions do
+  - unless @category.sheetcells.empty?
+    = link_to category_path(:id => @category, :format => :csv) do
+      = image_tag("save.png")
+      Download Sheetcells as CSV
+    - if current_user.has_role?(:admin)
+      = link_to upload_sheetcells_category_path do
+        = image_tag("file-upload.png")
+        Upload Sheetcells as CSV
   = link_to datagroups_path do
     = image_tag "list-ordered.png"
     List Datagroups
@@ -33,11 +41,28 @@
           %td= sc.datacolumn.columnheader
           %td= render :partial => sc.datacolumn.dataset, :locals => {:with_cart => true, :with_comment => false}
 
-
   :javascript
     $(document).ready(function()
       {
           $("#category-occurrences-table").tablesorter( {sortList: [[3,0], [2,0], [1,0], [0,0]]} );
       }
     );
+
+- @changes = flash[:updates]
+- if @changes && !@changes.empty?
+  %h3 Changed
+  %table#category-sheetcell-changes.tablesorter
+    %thead
+      %tr
+        %th ID
+        %th Action
+        %th Category
+    %tbody
+      - @changes.each do |ch|
+        %tr
+          %td= ch[0]
+          %td= ch[1]
+          %td
+            - unless ch[2].blank?
+              = link_to ch[3], category_path(ch[2])
 
