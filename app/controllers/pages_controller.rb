@@ -32,6 +32,7 @@ class PagesController < ApplicationController
       ['JQuery','http://jquery.org/'],
       ['JQuery Tablesorter','http://tablesorter.com/'],
       ['JQuery UI','http://jqueryui.com/'],
+      ['SimpleModal','http://www.ericmmartin.com/projects/simplemodal/'],
       ['Blueprint CSS','http://blueprintcss.org/'],
     ]
   end
