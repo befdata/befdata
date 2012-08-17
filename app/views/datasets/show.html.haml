@@ -90,7 +90,12 @@
         .columnheader= column.columnheader
         = column.definition
         %br
-        %i Data group: #{column.datagroup.title}
+        %i
+          Data group:
+          - if current_user
+            = link_to column.datagroup.title, column.datagroup
+          - else
+            = column.datagroup.title
         %br
         - if column.values_stored?
           %table.import_values
