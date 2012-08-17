@@ -3,6 +3,13 @@
     - @project.users.each do |person|
       %li
         = render :partial => person, :locals => {:extra => "(#{person.roles_for(@project).map{|e| t("role."+e.name)}.join(",")})"}
+  - if current_user
+    %h3 Email contact
+    %ul
+      %li
+        = render :partial => "users/email_list_modal",
+          :locals => {:list => @project.users_email_list, :css => "project_members", :caption => 'Project members'}
+
 
 %h2
   = "#{@project.name} (#{@project.shortname})"

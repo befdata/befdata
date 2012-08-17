@@ -1,0 +1,48 @@
+-# This partial sets a link to and opens a modal with a list of email addresses
+-# These parameters must be given:
+-#   css: to modify the css ids
+-#   caption: text for the link
+-#   list: an array of hashes (like that: [{:name => "name1", :mail => "email1"}, ... ]
+
+- modal_id = "#{css}_email_modal"
+- link_id = "show_#{modal_id}"
+
+- string_simple = list.collect{|l| l[:mail]}.join(', ')
+- string_with_names = list.collect{|l| "#{l[:name]} <#{l[:mail]}>"}.join(', ')
+
+%a{:href => '#', :class => 'email_modal_link', :id => link_id}
+  = caption
+
+%div{:class => 'email_modal hidden', :id => modal_id}
+  %h3
+    = caption
+  .menu
+    %a{:href => '#', :class => 'show_simple_email_list'}
+      Simple list
+    %a{:href => '#', :class => 'show_email_list_with_names'}
+      With names
+  %textarea.email_addresses{:readonly => 'readonly'}
+    = string_simple
+  %p.close_hint
+    Click somewhere outside or press ESC to close
+
+
+:javascript
+  $("##{link_id}").click(function(e) {
+    $("##{modal_id}").modal(
+      {
+        overlayClose:true,
+        persist:true
+      }
+    );
+    $("##{modal_id} .show_simple_email_list").click(function(e) {
+      $("##{modal_id} .email_addresses").val("#{string_simple}");
+      e.preventDefault();
+    });
+    $("##{modal_id} .show_email_list_with_names").click(function(e) {
+      $("##{modal_id} .email_addresses").val("#{string_with_names}");
+      e.preventDefault();
+    });
+    e.preventDefault();
+  });
+

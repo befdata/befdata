@@ -638,6 +638,44 @@ div#actions + div#info {
     margin-top: 0;
 }
 
+/* --- Modals ------------------------------------------------ */
+
+.simplemodal-container {
+    background-color: #fff;
+    padding: 12px;
+    border: 2px #18921E solid;
+    width: 600px;
+    font-size: 0.9em;
+}
+
+.simplemodal-overlay {
+    background-color: #fff;
+}
+
+.email_modal h3 {
+    margin-bottom: 7px;
+}
+
+.email_modal .menu a:first-child {
+    margin-right: 7px;
+}
+
+.email_modal .email_addresses {
+    font-family: courier, monospace;
+    font-size: 1.1em;
+    outline: 1px #8A8A8A solid;
+    padding: 5px;
+    width: 588px;
+    height: 100px;
+    overflow: auto;
+    margin-bottom: 7px;
+}
+
+.email_modal .close_hint {
+    color: #8A8A8A;
+    margin: 5px 0 0 0;
+}
+
 /* --- Footer ------------------------------------------------ */
 
 #footer {
