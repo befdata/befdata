@@ -234,7 +234,10 @@ class Dataset < ActiveRecord::Base
     self.download_generation_status = 'finished'
     puts "=== Download generated for Dataset id: #{id} at #{Time.now}"
     save
+  end
 
+  def owners_email_list
+    owners.collect{|u| Hash[:name, "#{u.firstname} #{u.lastname}", :mail, "#{u.email}"]}
   end
 
 end

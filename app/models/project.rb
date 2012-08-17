@@ -37,7 +37,7 @@ class Project < ActiveRecord::Base
     string.downcase.scan(/[^\W]/).join.slice(/^\D+\d*\D/)
   end
 
-  def users_email_list
+  def members_email_list
     users.collect{|u| Hash[:name, "#{u.firstname} #{u.lastname}", :mail, "#{u.email}"]}
   end
 

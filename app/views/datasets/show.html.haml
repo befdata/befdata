@@ -26,6 +26,12 @@
       %ul
         - @contacts.each do |c|
           %li= render c
+    - if current_user
+      %h3 Email contact
+      %ul
+        %li
+          = render :partial => "users/email_list_modal",
+            :locals => {:list => @dataset.owners_email_list, :css => "dataset_owners", :caption => 'Dataset owners'}
     - unless @projects.blank?
       %h3
         Projects involved
