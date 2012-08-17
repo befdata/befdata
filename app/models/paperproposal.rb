@@ -104,7 +104,7 @@ class Paperproposal < ActiveRecord::Base
 
     year = self.state != 'accepted' ? "" : " (#{self.envisaged_date.year})"
     publication = self.envisaged_journal.blank? ? "" : " #{envisaged_journal}."
-    "#{authors}#{year}: #{self.title}. #{publication}"
+    "#{authors} (Portal members involved)#{year}: #{self.title}. #{publication}"
   end
 
   private
