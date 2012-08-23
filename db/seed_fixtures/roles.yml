@@ -13,3 +13,17 @@ roles_002:
   authorizable_id: '1'
   created_at: '2012-03-17 20:45:15.27943'
   updated_at: '2012-03-17 20:45:15.27943'
+roles_003:
+  id: '4'
+  name: project_board
+  authorizable_type: 
+  authorizable_id: 
+  created_at: '2012-08-23 13:16:59.801788'
+  updated_at: '2012-08-23 13:16:59.801788'
+roles_004:
+  id: '5'
+  name: data_admin
+  authorizable_type: 
+  authorizable_id: 
+  created_at: '2012-08-23 13:16:59.834308'
+  updated_at: '2012-08-23 13:16:59.834308'
