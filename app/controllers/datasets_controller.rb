@@ -5,8 +5,6 @@ class DatasetsController < ApplicationController
 
   before_filter :redirect_if_unimported, :only => [:download, :edit, :data, :approve_predefined, :destroy]
 
-  rescue_from 'Acl9::AccessDenied', :with => :access_denied
-
   skip_before_filter :deny_access_to_all
 
   access_control do

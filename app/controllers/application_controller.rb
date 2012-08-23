@@ -6,6 +6,7 @@ class ::ApplicationController < ActionController::Base
   access_control :deny_access_to_all do
     deny all
   end
+  rescue_from "Acl9::AccessDenied", :with => :access_denied
 
   def access_denied
     if current_user

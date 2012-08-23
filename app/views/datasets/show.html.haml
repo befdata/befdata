@@ -1,7 +1,8 @@
 %h2= @dataset.title
 
 - unless current_user || @dataset.visible_for_public
-  %p= link_to "Access denied. Please log in.", login_path
+  #errorExplanation
+    Access denied. Please log in.
 
 - else
   - content_for :actions do

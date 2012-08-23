@@ -3,7 +3,6 @@ class FreeformatsController < ApplicationController
   before_filter :load_freeformat_and_freeformattable, :except => :create
   before_filter :load_freeformattable, :only => :create
 
-  rescue_from 'Acl9::AccessDenied', :with => :access_denied
   skip_before_filter :deny_access_to_all
 
   access_control do
