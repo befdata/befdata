@@ -130,8 +130,8 @@ datasets_004:
     example diversity measures of tree, shrub and herb layer.
   usagerights: BEF-China intern
   spatialextent: ! "The Gutianshan National Nature Reserve (NNR) is located in the
-    western part of Zhejiang Province (29Âº8'18\" â\x80\x93 29Âº17'29\" N, 118Âº2'14\"
-    â\x80\x93 118Âº11'12\" E, Fig. 1).  The Gutianshan NNR has an area of approximately
+    western part of Zhejiang Province (29º8'18\" -  29º17'29\" N, 118º2'14\"
+    - 118º11'12\" E, Fig. 1).  The Gutianshan NNR has an area of approximately
     81 km2 and was initially established as a National Forest Reserve in 1975 and
     became a National Nature Reserve in 2001. The NNR comprises a large portion of
     broad-leaved forests of advanced successional stages (Hu & Yu 2008), which have
@@ -147,9 +147,9 @@ datasets_004:
     activities, and thus an exceptionally intact forest cover has been preserved.
     --- The climate at Gutianshan NNR is warm and temperate with a short dry season
     in November and December and with warm summers (Fig. 2). The climatic conditions
-    are characteristic for the subtropics with an annual average temperature of 15.1Â°C,
-    January minimum temperatures of -6.8Â°C, July maximum temperatures of 38.1Â°C
-    and an accumulated temperature sum (â\x89¥ 5Â°C) of 5221.5 degree days."
+    are characteristic for the subtropics with an annual average temperature of 15.1°C,
+    January minimum temperatures of -6.8°C, July maximum temperatures of 38.1°C
+    and an accumulated temperature sum (> 5°C) of 5221.5 degree days."
   temporalextent: Most of the data were collected in 2008, while some additional data
     were also collected in 2009.
   taxonomicextent: ! 'The forest is representative for Chinese mixed broad-leaved
@@ -166,8 +166,8 @@ datasets_004:
     are located in the peripheral buffer zone of the Gutianshan NNR, where logging
     has been performed until the present. Plots were assigned to five strata according
     to the average age of tree layer individuals (1: < 20 yrs, 2: < 40 yrs, 3: < 60
-    yrs, 4: < 80 yrs, 5: ï\x82³ 80 yrs). CSP locations within strata were selected
-    randomly; however, due to inaccessibility and excessive slopes (> 50Â°) of many
+    yrs, 4: < 80 yrs, 5: > 80 yrs). CSP locations within strata were selected
+    randomly; however, due to inaccessibility and excessive slopes (> 50°) of many
     locations, parts to the NNR had to be excluded from sampling, thus, resulting
     in an uneven distribution of some of the plots (Fig. 1). In total, 27 CSPs were
     established between May and July 2008. Species recording was performed between
