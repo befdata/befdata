@@ -59,3 +59,9 @@ roles_users_019:
 role_users_020:
   user_id: "6"
   role_id: "25"
+role_users_012:
+  user_id: "3"
+  role_id: "26"
+role_users_013:
+  user_id: "1"
+  role_id: "27"
