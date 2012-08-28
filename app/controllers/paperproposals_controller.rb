@@ -3,7 +3,6 @@ class PaperproposalsController < ApplicationController
   before_filter :load_proposal, :only => [:show, :edit, :update, :destroy]
 
   skip_before_filter :deny_access_to_all
-  rescue_from 'Acl9::AccessDenied', :with => :access_denied
 
   access_control do
     actions :index do
