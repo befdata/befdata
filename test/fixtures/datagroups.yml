@@ -142,17 +142,6 @@ datagroups_013:
   created_at: 2011-03-28 13:59:35.0964
   updated_at: 2011-03-28 13:59:35.0964
   type_id: "1"
-datagroups_014: 
-  id: "12"
-  informationsource: 
-  methodvaluetype: number
-  title: longitude
-  description: longitude
-  instrumentation: 
-  comment: 
-  created_at: 2011-05-01 11:46:37.573884
-  updated_at: 2011-05-01 11:46:37.573884
-  type_id: "1"
 datagroups_015: 
   id: "20"
   informationsource: 
@@ -197,28 +186,6 @@ datagroups_018:
   created_at: 2011-05-01 11:46:33.176676
   updated_at: 2011-05-01 11:46:33.176676
   type_id: "1"
-datagroups_019: 
-  id: "13"
-  informationsource: 
-  methodvaluetype: number
-  title: latitude
-  description: latitude
-  instrumentation: 
-  comment: 
-  created_at: 2011-05-01 11:46:39.105733
-  updated_at: 2011-05-01 11:46:39.105733
-  type_id: "1"
-datagroups_020: 
-  id: "15"
-  informationsource: 
-  methodvaluetype: number
-  title: aspect
-  description: aspect
-  instrumentation: 
-  comment: 
-  created_at: 2011-05-01 11:46:42.218239
-  updated_at: 2011-05-01 11:46:42.218239
-  type_id: "1"
 datagroups_021: 
   id: "21"
   informationsource: 
@@ -252,17 +219,6 @@ datagroups_023:
   created_at: 2011-05-01 11:46:45.072263
   updated_at: 2011-05-01 11:46:45.072263
   type_id: "1"
-datagroups_024: 
-  id: "11"
-  informationsource: 
-  methodvaluetype: text
-  title: helper
-  description: helper
-  instrumentation: 
-  comment: 
-  created_at: 2011-05-01 11:46:36.272046
-  updated_at: 2011-05-01 11:46:36.272046
-  type_id: "2"
 datagroups_025: 
   id: "8"
   informationsource: 
@@ -273,17 +229,6 @@ datagroups_025:
   comment: 
   created_at: 2011-05-01 11:46:31.881328
   updated_at: 2011-05-01 11:46:31.881328
-  type_id: "1"
-datagroups_026: 
-  id: "14"
-  informationsource: 
-  methodvaluetype: number
-  title: elevation
-  description: elevation
-  instrumentation: 
-  comment: 
-  created_at: 2011-05-01 11:46:40.633028
-  updated_at: 2011-05-01 11:46:40.633028
   type_id: "1"
 datagroups_027: 
   id: "22"
