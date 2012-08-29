@@ -1,6 +1,6 @@
 ## The Datatype class is the validated data type for the "Sheetcell" accepted_value. Datatypes are initialised at application start up by the "Datatypehelper" class.
 ##
-## See config/initializers/datatype_load.rb ( DatattypeLoad) for initializing datatypes
+## See config/initializers/datatype_load.rb ( DatattypeLoad ) for initializing datatypes
 ## and a list of possible datatypes. A Datagroup contains a datatype attribute that is a suggestion 
 ## for the datatype attribute of a Datacolumn. Datacolumn overrides Datagroup. After validation, a 
 ## Datacolumn may have different datatypes, since invalid values are converted to Category objects.
