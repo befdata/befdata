@@ -15,8 +15,8 @@ class Sheetcell < ActiveRecord::Base
     end
   end
 
-  ## Datatypes are defined in config/initializers/datatype_load.rb and the valitation procedures are 
-  ## stored in https://github.com/befdata/befdata/blob/master/db/non_schema_sql.sql
+  # Datatypes are defined in config/initializers/datatype_load.rb and the valitation procedures are 
+  # stored in https://github.com/befdata/befdata/blob/master/db/non_schema_sql.sql
   def datatype
     if(!self.datatype_id.nil?)
       return Datatypehelper.find_by_id(self.datatype_id)
