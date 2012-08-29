@@ -69,6 +69,7 @@ class Datacolumn < ActiveRecord::Base
   # then looking for a match in categories from the "Dataworkbook"
   # if there are no "Category" matches then the import value is used as the accepted value
   # NB: all of the business logic is in functions within the database
+  # found in db/non_schema_sql.sql
   def add_data_values(user)
 
     # remove any previous accepted values so that we can keep a track of what has been updated
