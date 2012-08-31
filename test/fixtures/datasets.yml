@@ -103,7 +103,7 @@ datasets_003:
   updated_at: '2012-06-12 15:41:20.602269'
   free_for_members: f
   free_for_public: f
-  free_within_projects: f
+  free_within_projects: t
   student_file: f
   import_status: finished
   download_generated_at: '2012-06-12 15:41:21.598814'

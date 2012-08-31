@@ -55,7 +55,7 @@ class DataworkbookTest < ActiveSupport::TestCase
   end
   
   test "method index for a specific columnheader is correct" do
-    assert_equal 9, @book.method_index_for_columnheader('height')
+    assert_equal 1, @book.method_index_for_columnheader('height')
   end
   
   test "column info for columnheader is correct" do

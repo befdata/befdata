@@ -10,7 +10,6 @@ class DataSetTest < ActiveSupport::TestCase
   def teardown
     FileUtils.copy("#{Rails.root}/files/4_8346952459374534species first test.xls.tmp",
               "#{Rails.root}/files/4_8346952459374534species first test.xls")
-    FileUtils.rm("#{Rails.root}/files/4_8346952459374534species first test.xls.tmp")
   end
 
   test "any dataset can have zero to many projects linked" do
