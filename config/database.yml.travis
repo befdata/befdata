@@ -1,0 +1,4 @@
+test:
+  adapter: postgresql
+  database: befdata_test
+  username: postgres

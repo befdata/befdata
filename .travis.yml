@@ -1,0 +1,8 @@
+language: ruby
+rvm:
+  - 1.9.3
+
+before_script:
+  - cp config/configuration.yml.dist config/configuration.yml
+  - cp config/database.yml.travis config/database.yml.travis
+  - psql -c 'create database befdata_test;' -U postgres
