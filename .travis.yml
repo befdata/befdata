@@ -4,5 +4,5 @@ rvm:
 
 before_script:
   - cp config/configuration.yml.dist config/configuration.yml
-  - cp config/database.yml.travis config/database.yml.travis
+  - cp config/database.yml.travis config/database.yml
   - psql -c 'create database befdata_test;' -U postgres
