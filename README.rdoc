@@ -4,8 +4,6 @@ BEFdata platforms support interdisciplinary data sharing and harmonisation of di
 
 Main features of the BEFdata platform are:
 
-* a list object
-
 * Users can add data using the spreadsheet software they like best (Chapter 3, The BEFdata workbook, BEFdata user manual)
 
 
