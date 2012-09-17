@@ -11,16 +11,4 @@ class UsersControllerTest < ActionController::TestCase
     get :show, {:id => User.first.path_name}
     assert_response :success
   end
-  test "logged-in user can see 'Edit profile' in his/her page" do
-    login_user(User.first.login)
-
-    get :show, :id=>User.first.path_name
-    assert_response :success
-    assert_select "div#actions a", "Edit profile"
-
-    get :show, :id=>User.last.path_name
-    assert_response :success
-    assert_select "div#actions a", false
-  end
-
 end

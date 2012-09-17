@@ -42,5 +42,15 @@ class UserLoginTest < ActionDispatch::IntegrationTest
     follow_redirect!
     assert_select "h2", /Welcome/
   end
+  test "logged-in user can see 'Edit profile' in his/her page" do
+    post(user_session_path, {:user_session=>{:login=>@user.login, :password=>"test"}})
 
+    get user_path(User.first)
+    assert_response :success
+    assert_select "div#actions a", false
+
+    get user_path(@user)
+    assert_response :success
+    assert_select "div#actions a", "Edit profile"
+  end
 end
