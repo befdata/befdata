@@ -8,7 +8,7 @@ class UsersController < ApplicationController
     actions :index, :show do
       allow all
     end
-    action :edit do
+    actions :edit, :update do
       allow logged_in
     end
   end
@@ -47,6 +47,16 @@ class UsersController < ApplicationController
     @user_datasets_owned = @user.datasets_owned.sort_by {|d| d.title.to_s}
 
     redirect_to(:action => "index", :status => :not_found) unless @user
+  end
+  def update
+    @user = current_user
+
+    if @user.update_attributes(params[:user])
+      redirect_to :back, :notice => "Saved successfully!"
+    else
+      flash[:error]=@user.errors.full_messages.to_sentence
+      redirect_to :back
+    end
   end
 
 end

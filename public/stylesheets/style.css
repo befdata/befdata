@@ -825,8 +825,9 @@ ul#page-associates {
 .box label {
     margin-left: 4px;
     display: block;
-    width: 130px;
+    width: 140px;
     float: left;
+    cursor: text;
 }
 
 .box .scroll_checkboxes label {
@@ -836,7 +837,10 @@ ul#page-associates {
     overflow: hidden;
 }
 
-
+.box textarea{
+    width: 220px;
+    height: 130px;
+}
 .arrow_box {
     margin: 5px 5px;
 }

@@ -4,6 +4,7 @@
 The Chinese-European DFG Research Unit “BEF China” (FOR 891) has started a new forest Biodiversity and Ecosystem Functioning (BEF) experiment in subtropical forests in China. Within “Central project Z2: Data management” a data portal specifically tailored to reflect the main scientific questions and the experimental design of the experiment is developed. The Portal shall shall not only be applyable to the befchina experiment but to other similar experiments as well.
 
 
+{<img src="https://secure.travis-ci.org/befdata/befdata.png" />}[https://secure.travis-ci.org/befdata/befdata.png]
 
 == Getting Started
 

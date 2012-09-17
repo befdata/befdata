@@ -15,6 +15,7 @@ en:
     postdoc: "PostDoc"
     funding source: "Funding Source"
     admin: "Administrator"
+    data_admin: "Data Administrator"
     no_role: "Currently no role associated"
 
   address:

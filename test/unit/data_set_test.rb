@@ -12,10 +12,9 @@ class DataSetTest < ActiveSupport::TestCase
               "#{Rails.root}/files/4_8346952459374534species first test.xls")
   end
 
-  # Replace this with your real tests.
   test "any dataset can have zero to many projects linked" do
-    p_datasets = projects("projects_001").datasets
-    assert p_datasets
+    assert projects("projects_001").datasets
+    assert_empty projects(:projects_002).datasets
   end
 
   test "delete_imported_research_data_and_file should delete all sheetcells" do

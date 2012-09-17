@@ -5,3 +5,9 @@ roles_users_001:
 roles_users_002:
   user_id: '1'
   role_id: '3'
+roles_users_003:
+  user_id: '1'
+  role_id: '4'
+roles_users_004:
+  user_id: '1'
+  role_id: '5'
