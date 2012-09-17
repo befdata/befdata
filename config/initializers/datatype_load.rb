@@ -3,8 +3,7 @@ class Datatypehelper
   DATATYPE_COLLECTION = [
                          Datatype.new(1, "text", ""),
                          Datatype.new(2, "year", ""),
-                         Datatype.new(3, "date(2009-07-14)", "yyyy.mm.dd"),
-                         Datatype.new(4, "date(14.07.2009)", "dd.mm.yyyy"),
+                         Datatype.new(3, "date", "yyyy-mm-dd"),
                          Datatype.new(5, "category", ""),
                          Datatype.new(7, "number", ""),
                          Datatype.new(8, "unknown", "")

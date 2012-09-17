@@ -80,10 +80,8 @@ class Datacolumn < ActiveRecord::Base
           datatype = Datatypehelper.find_by_id(1)
         when "year"
           datatype = Datatypehelper.find_by_id(2)
-        when "date(2009-07-14)"
+        when "date"
           datatype = Datatypehelper.find_by_id(3)
-        when "date(14.07.2009)"
-          datatype = Datatypehelper.find_by_id(4)
         when "category"
           datatype = Datatypehelper.find_by_id(5)
         when "number"
