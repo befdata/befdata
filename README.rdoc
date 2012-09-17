@@ -1,8 +1,9 @@
 == Welcome to BEFdata, Datasharing for Biodiversity - ecological functioning research units
 
+BEFdata platforms support interdisciplinary data sharing and harmonisation of distributed research projects collaborating with each other. They upload, validate and store data from a formatted Excel workbook. Metadata can be downloaded in Ecological Metadata Language (EML). BEFdata allows the harmonization of naming conventions by generating category lists from the primary data, which can be reviewed and managed via the Excel workbook or directly on the platform. BEFdata provides a secure environment during on-going analysis; project members can only access primary data from other researchers after the acceptance of a data request
 
-The Chinese-European DFG Research Unit “BEF China” (FOR 891) has started a new forest Biodiversity and Ecosystem Functioning (BEF) experiment in subtropical forests in China. Within “Central project Z2: Data management” a data portal specifically tailored to reflect the main scientific questions and the experimental design of the experiment is developed. The Portal shall shall not only be applyable to the befchina experiment but to other similar experiments as well.
-
+Main features of the BEFdata platform are:
+ * Users can add data using the spreadsheet software they like best (Chapter 3, The BEFdata workbook, BEFdata user manual) * Metadata can be exported in international standards (Chapter 2.4, Data, BEFdata user manual) * Provide online access and manage within collaboration naming conventions as part of the primary data. (Chapter 5.2.1 Category management, BEFdata user manual)  * Keeping record of ideas for analysis and data exchange (Chapter 2.5 Paper proposals, BEFdata user manual) * Data and metadata is available on one platform that can be used as machine readable interfaces between different platforms (our EML export being a first example) BEFdata was developed withi the Chinese-European DFG Research Unit “BEF China” (FOR 891),   a new forest Biodiversity and Ecosystem Functioning (BEF) experiment in subtropical forests in China.
 
 {<img src="https://secure.travis-ci.org/befdata/befdata.png" />}[https://secure.travis-ci.org/befdata/befdata.png]
 
