@@ -23,5 +23,6 @@ group :test, :development do
   gem "test-unit", '2.4.8' #2.4.9 is incompatible to Rubymine's and Teamcity's way of running tests
                           # Issue is filed and update will fix this http://youtrack.jetbrains.com/issue/RUBY-11239
   gem "ruby-prof"
+  gem "libxml-ruby" 
 end
 

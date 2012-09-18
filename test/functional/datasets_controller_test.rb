@@ -1,5 +1,5 @@
 require 'test_helper'
-require 'fileutils'
+
 
 class DatasetsControllerTest < ActionController::TestCase
   setup :activate_authlogic
@@ -14,10 +14,26 @@ class DatasetsControllerTest < ActionController::TestCase
     assert_response :success
   end
 
-	test "eml file structure should be like the standard" do
-    assert_equal true,
-      FileUtils.compare_file("app/views/datasets/show.eml.erb", "test/fixtures/test_files_for_eml/show.eml.erb")
-	end
+  test "eml is valid" do
+    require 'libxml'
+    #get the eml export test dataset
+    # generate eml
+    get :show, {:id => Dataset.last.id, :format => :eml}
+    # load schema
+    schema = LibXML::XML::Schema.new("test/fixtures/test_files_for_eml/eml-2.1.0/eml.xsd")
+    # load file
+    document = LibXML::XML::Document.file(@response.body)
+    # validate the file against the schema
+    result = document.validate_schema(schema) do |message,flag|
+      log.debug(message)
+      puts message
+    end
+  end
+
+	#test "eml file structure should be like the standard" do
+  #  assert_equal true,
+  #    FileUtils.compare_file("app/views/datasets/show.eml.erb", "test/fixtures/test_files_for_eml/show.eml.erb")
+	#end
 
   test "dataset can be downloaded" do
     login_nadrowski
