@@ -368,7 +368,7 @@ sheetcells_031:
   updated_at: 2011-06-01 13:52:20.23
   category_id: "59"
   accepted_value: 
-  datatype_id: "4"
+  datatype_id: "5"
   status_id: "4"
   row_number: "4"
 sheetcells_032: 
@@ -440,7 +440,7 @@ sheetcells_037:
   updated_at: 2011-06-01 13:55:45.41
   category_id: "65"
   accepted_value: 
-  datatype_id: "4"
+  datatype_id: "5"
   status_id: "4"
   row_number: "2"
 sheetcells_038: 
@@ -452,7 +452,7 @@ sheetcells_038:
   updated_at: 2011-06-01 13:55:45.391
   category_id: "61"
   accepted_value: 
-  datatype_id: "4"
+  datatype_id: "5"
   status_id: "4"
   row_number: "3"
 sheetcells_039: 
@@ -464,7 +464,7 @@ sheetcells_039:
   updated_at: 2011-06-01 13:55:44.915
   category_id: "63"
   accepted_value: 
-  datatype_id: "4"
+  datatype_id: "5"
   status_id: "4"
   row_number: "5"
 sheetcells_040: 
@@ -512,7 +512,7 @@ sheetcells_043:
   updated_at: 2011-07-01 15:06:46.832
   category_id: 
   accepted_value: 
-  datatype_id: "4"
+  datatype_id: "8"
   status_id: "1"
   row_number: "2"
 sheetcells_044: 
@@ -620,7 +620,7 @@ sheetcells_052:
   updated_at: 2011-07-01 15:06:46.832
   category_id: 
   accepted_value: 
-  datatype_id: "4"
+  datatype_id: "8"
   status_id: "1"
   row_number: "3"
 sheetcells_053: 
@@ -632,7 +632,7 @@ sheetcells_053:
   updated_at: 2011-07-01 15:06:46.832
   category_id: 
   accepted_value: 
-  datatype_id: "4"
+  datatype_id: "8"
   status_id: "1"
   row_number: "4"
 sheetcells_054: 
@@ -644,7 +644,7 @@ sheetcells_054:
   updated_at: 2011-07-01 15:06:46.832
   category_id: 
   accepted_value: 
-  datatype_id: "4"
+  datatype_id: "8"
   status_id: "1"
   row_number: "5"
 sheetcells_055: 
@@ -656,7 +656,7 @@ sheetcells_055:
   updated_at: 2011-07-01 15:06:46.832
   category_id: 
   accepted_value: 
-  datatype_id: "4"
+  datatype_id: "8"
   status_id: "1"
   row_number: "6"
 sheetcells_056: 
@@ -668,7 +668,7 @@ sheetcells_056:
   updated_at: 2011-07-01 15:06:46.832
   category_id: 
   accepted_value: 
-  datatype_id: "4"
+  datatype_id: "8"
   status_id: "1"
   row_number: "7"
 sheetcells_057: 
@@ -680,7 +680,7 @@ sheetcells_057:
   updated_at: 2011-07-01 15:06:46.832
   category_id: 
   accepted_value: 
-  datatype_id: "4"
+  datatype_id: "8"
   status_id: "1"
   row_number: "8"
 sheetcells_058: 
@@ -692,7 +692,7 @@ sheetcells_058:
   updated_at: 2011-07-01 15:06:46.832
   category_id: 
   accepted_value: 
-  datatype_id: "4"
+  datatype_id: "8"
   status_id: "1"
   row_number: "9"
 sheetcells_059: 
@@ -1136,7 +1136,7 @@ sheetcells_095:
   updated_at: 2011-06-01 13:55:45.369
   category_id: "62"
   accepted_value: 
-  datatype_id: "4"
+  datatype_id: "5"
   status_id: "4"
   row_number: "4"
 sheetcells_096: 
