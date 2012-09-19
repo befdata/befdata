@@ -6,7 +6,7 @@ class CategoriesControllerTest < ActionController::TestCase
   test "show category" do
     login_nadrowski
 
-    get :show, :id => 66
+    get :show, :id => 61
 
     assert :success
   end
