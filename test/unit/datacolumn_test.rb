@@ -183,28 +183,20 @@ class DatacolumnTest < ActiveSupport::TestCase
     assert(portal_match_count == 0, "Portal match count doesn't equal 0")
   end
 
-  test "accept_date_2_datacolumn_values" do
+  test "not_accept_dmy_date_format_any_more" do
     datacolumn = Datacolumn.find(47)
     datacolumn.add_data_values(User.find(1))
 
-    valid_dates=0
     invalid_count = 0
     datacolumn.sheetcells.each do |cell|
-      if cell.import_value == cell.accepted_value then
-        # check that the data type is still a date
-        assert(cell.datatype_id == 4)
-        valid_dates += 1
-        assert(cell.status_id == Sheetcellstatus::VALID)
-      else
-        # check that it's an invalid date
-        assert(cell.datatype_id == 4)
-        assert(cell.accepted_value.nil?)
-        assert(cell.status_id == Sheetcellstatus::INVALID)
-        invalid_count += 1
-      end
+      #check that all date(d.m.y) is considered as "unknown"
+      assert(cell.datatype_id == 8)
+      assert(cell.accepted_value.nil?)
+      assert(cell.status_id == Sheetcellstatus::INVALID)
+      invalid_count += 1
     end
     # there should be 7 valid dates
-    assert(valid_dates == 7, "There are not 7 valid dates")
+    assert invalid_count==8
     assert(datacolumn.invalid_values.count == invalid_count)
   end
 
