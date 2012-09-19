@@ -86,29 +86,7 @@ categories_008:
   updated_at: 2011-06-01 15:03:52.819
   datagroup_id: "7"
   user_id: "1"
-  status_id: 
-categories_009: 
-  id: "65"
-  short: Toxicodendron sylvestre
-  long: Toxicodendron sylvestre
-  description: Toxicodendron sylvestre
-  comment: "added from category sheet in dataset: Test species name import second version"
-  created_at: 2011-06-01 15:06:09.098
-  updated_at: 2011-06-01 15:06:09.098
-  datagroup_id: "1"
-  user_id: "1"
-  status_id: 
-categories_010: 
-  id: "66"
-  short: Mahonia bealei
-  long: Mahonia bealei
-  description: Mahonia bealei
-  comment: "added from category sheet in dataset: Test species name import second version"
-  created_at: 2011-06-01 15:06:09.205
-  updated_at: 2011-06-01 15:06:09.205
-  datagroup_id: "1"
-  user_id: "1"
-  status_id: 
+  status_id:
 categories_011: 
   id: "67"
   short: AAA
