@@ -1,4 +1,5 @@
 require 'test_helper'
+require 'fileutils'
 
 
 class DatasetsControllerTest < ActionController::TestCase
