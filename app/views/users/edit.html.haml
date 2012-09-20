@@ -2,60 +2,63 @@
   Editing profile of #{link_to @user.full_name, user_path(@user.path_name)}
 .box
   = form_for @user, :html=>{:multipart=>true} do |u|
-    = u.label :login
-    = u.text_field :login
-
-    = u.label :password
-    = u.password_field  :password
-
-    = u.label :password_confirmation
-    = u.password_field :password_confirmation
-
-    = u.label :firsname
-    = u.text_field :firstname
-
-    = u.label :middlenames
-    = u.text_field :middlenames
-
-    = u.label :lastname
-    = u.text_field :lastname
-
-    = u.label :email
-    = u.text_field :email
-
-    = u.label :salutation
-    = u.text_field :salutation
-
-    = u.label :institution_name
-    = u.text_field :institution_name
-
-    = u.label :institution_url
-    = u.url_field :institution_url
-
-    = u.label :institution_phone
-    = u.phone_field :institution_phone
-
-    = u.label :institution_fax
-    = u.text_field :institution_fax
-
-    = u.label :url
-    = u.url_field :url
-
-    = u.label :country
-    = u.text_field :country
-
-    = u.label :city
-    = u.text_field :city
-
-    = u.label :street
-    = u.text_field :street
-
-    = u.label :comment
-    = u.text_area :comment
-
-    = u.label :avatar
-    = u.file_field :avatar
-    %div
+    .group
+      = u.label :login
+      = u.text_field :login
+    .group
+      = u.label :password
+      = u.password_field  :password
+    .group
+      = u.label :password_confirmation
+      = u.password_field :password_confirmation
+    .group
+      = u.label :firtsname
+      = u.text_field :firstname
+    .group
+      = u.label :middlenames
+      = u.text_field :middlenames
+    .group
+      = u.label :lastname
+      = u.text_field :lastname
+    .group
+      = u.label :email
+      = u.text_field :email
+    .group
+      = u.label :salutation
+      = u.text_field :salutation
+    .group
+      = u.label :institution_name
+      = u.text_field :institution_name
+    .group
+      = u.label :institution_url
+      = u.url_field :institution_url
+    .group
+      = u.label :institution_phone
+      = u.phone_field :institution_phone
+    .group
+      = u.label :institution_fax
+      = u.text_field :institution_fax
+    .group
+      = u.label :url
+      = u.url_field :url
+    .group
+      = u.label :country
+      = u.text_field :country
+    .group
+      = u.label :city
+      = u.text_field :city
+    .group
+      = u.label :street
+      = u.text_field :street
+    .group
+      = u.label :comment
+      = u.text_area :comment
+    .group
+      .avata
+        = u.label :avatar,"Change Avatar"
+        = image_tag @user.avatar.url(:small)
+      = u.file_field :avatar
+    .group
       = u.submit "Save"
 
 - unless @project_board_votes.empty?

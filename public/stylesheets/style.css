@@ -829,7 +829,16 @@ ul#page-associates {
     float: left;
     cursor: text;
 }
-
+.group{
+  overflow:auto;
+}
+.group .avata{
+  width: 140px;
+  float:left;
+}
+.avata img{
+  margin:0 20px 10px;
+}
 .box .scroll_checkboxes label {
     display: block;
     width: 350px;
