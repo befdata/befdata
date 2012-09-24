@@ -36,3 +36,5 @@ test/fixtures_dump
 .config
 
 ext/database-and-file-backup.sh
+
+tags
