@@ -18,16 +18,16 @@ class DatasetsControllerTest < ActionController::TestCase
   test "eml is valid" do
     # require the xml library
     require 'libxml'
-    # call eml view of a dataset
-    get :show, {:id => Dataset.find_by_id(5), :format => :eml}
-    # get eml file from call
+    # call eml view of last dataset in database
+    get :show, {:id => Dataset.last, :format => :eml}
+    # get eml as string from response 
     @xml_file = @response.body
-    # define standard
+    # define the standard
     @xsd_file = "test/fixtures/test_files_for_eml/eml-2.1.0/eml.xsd"
-    # prepare files for validation
-    document = LibXML::XML::Document.file(@xml_file)
+    # prepare the files for validation
+    document = LibXML::XML::Document.string(@xml_file)
     schema = LibXML::XML::Schema.new(@xsd_file)
-    # valiadte files
+    # valiadte the files
     result = document.validate_schema(schema) do |message,flag|
       log.debug(message)
       puts message
