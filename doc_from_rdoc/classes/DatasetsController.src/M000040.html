@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>delete_imported_research_data_and_file (DatasetsController)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File app/controllers/datasets_controller.rb, line 165</span>
+  <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">delete_imported_research_data_and_file</span>
+    <span class="ruby-keyword kw">if</span> <span class="ruby-operator">!</span><span class="ruby-identifier">params</span>[<span class="ruby-identifier">:datafile</span>] <span class="ruby-keyword kw">then</span>
+      <span class="ruby-identifier">flash</span>[<span class="ruby-identifier">:error</span>] = <span class="ruby-value str">&quot;No filename given&quot;</span>
+      <span class="ruby-identifier">redirect_to</span> <span class="ruby-identifier">:back</span> <span class="ruby-keyword kw">and</span> <span class="ruby-keyword kw">return</span>
+    <span class="ruby-keyword kw">end</span>
+    <span class="ruby-identifier">new_datafile</span> = <span class="ruby-constant">Datafile</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">params</span>[<span class="ruby-identifier">:datafile</span>])
+    <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">new_datafile</span>.<span class="ruby-identifier">save</span>
+      <span class="ruby-ivar">@dataset</span>.<span class="ruby-identifier">delete_imported_research_data_and_file</span>
+      <span class="ruby-ivar">@dataset</span>.<span class="ruby-identifier">upload_spreadsheet</span> = <span class="ruby-identifier">new_datafile</span>
+      <span class="ruby-ivar">@dataset</span>.<span class="ruby-identifier">filename</span> = <span class="ruby-identifier">new_datafile</span>.<span class="ruby-identifier">file_file_name</span>
+      <span class="ruby-ivar">@dataset</span>.<span class="ruby-identifier">import_status</span> = <span class="ruby-value str">'new'</span>
+      <span class="ruby-ivar">@dataset</span>.<span class="ruby-identifier">save</span>
+      <span class="ruby-identifier">flash</span>[<span class="ruby-identifier">:notice</span>] = <span class="ruby-value str">&quot;Research data has been replaced.&quot;</span>
+      <span class="ruby-identifier">redirect_to</span>(<span class="ruby-identifier">:action</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value str">'show'</span>)
+    <span class="ruby-keyword kw">else</span>
+      <span class="ruby-identifier">flash</span>[<span class="ruby-identifier">:error</span>] = <span class="ruby-identifier">new_datafile</span>.<span class="ruby-identifier">errors</span>.<span class="ruby-identifier">full_messages</span>.<span class="ruby-identifier">to_sentence</span>
+      <span class="ruby-identifier">redirect_to</span> <span class="ruby-identifier">edit_dataset_path</span>(<span class="ruby-ivar">@dataset</span>)
+    <span class="ruby-keyword kw">end</span>
+  <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

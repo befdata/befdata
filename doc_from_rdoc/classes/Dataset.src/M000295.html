@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>generate_download (Dataset)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File app/models/dataset.rb, line 227</span>
+  <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">generate_download</span>
+    <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">update_attribute</span>(<span class="ruby-identifier">:download_generation_status</span>, <span class="ruby-value str">'started'</span>)
+
+    <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">generated_spreadsheet</span> = <span class="ruby-constant">ExcelExport</span>.<span class="ruby-identifier">new</span>(<span class="ruby-keyword kw">self</span>).<span class="ruby-identifier">excel_temp_file</span>
+    <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">generated_spreadsheet_file_name</span> = <span class="ruby-identifier">title</span>.<span class="ruby-identifier">gsub</span>(<span class="ruby-regexp re">/[^\w]/</span>, <span class="ruby-value str">'-'</span>)
+    <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">generated_spreadsheet_content_type</span> = <span class="ruby-value str">&quot;application/xls&quot;</span>
+    <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">download_generated_at</span> = <span class="ruby-constant">Time</span>.<span class="ruby-identifier">now</span> <span class="ruby-operator">+</span> <span class="ruby-value">1</span>.<span class="ruby-identifier">second</span>
+    <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">download_generation_status</span> = <span class="ruby-value str">'finished'</span>
+    <span class="ruby-identifier">puts</span> <span class="ruby-node">&quot;=== Download generated for Dataset id: #{id} at #{Time.now}&quot;</span>
+    <span class="ruby-identifier">save</span>
+  <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

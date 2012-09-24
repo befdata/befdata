@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>is_valid_worksheet (Datafile)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File app/models/datafile.rb, line 20</span>
+  <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">is_valid_worksheet</span>
+    <span class="ruby-keyword kw">if</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">file</span>.<span class="ruby-identifier">queued_for_write</span>[<span class="ruby-identifier">:original</span>]
+      <span class="ruby-identifier">file_path</span> = <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">file</span>.<span class="ruby-identifier">queued_for_write</span>[<span class="ruby-identifier">:original</span>].<span class="ruby-identifier">path</span>
+    <span class="ruby-keyword kw">else</span>
+      <span class="ruby-identifier">file_path</span> = <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">file</span>.<span class="ruby-identifier">path</span>
+    <span class="ruby-keyword kw">end</span>
+
+    <span class="ruby-keyword kw">begin</span>
+      <span class="ruby-identifier">ss</span> = <span class="ruby-constant">Spreadsheet</span>.<span class="ruby-identifier">open</span>(<span class="ruby-identifier">file_path</span>)
+      <span class="ruby-identifier">ss</span>.<span class="ruby-identifier">io</span>.<span class="ruby-identifier">close</span>
+    <span class="ruby-keyword kw">rescue</span>
+      <span class="ruby-identifier">errors</span>.<span class="ruby-identifier">add</span> <span class="ruby-identifier">:file</span>, <span class="ruby-value str">&quot;can not be read&quot;</span>
+      <span class="ruby-keyword kw">return</span>
+    <span class="ruby-keyword kw">end</span>
+
+    <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">ss</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-operator">!</span><span class="ruby-identifier">ss</span>.<span class="ruby-identifier">worksheet</span>(<span class="ruby-constant">Dataworkbook</span><span class="ruby-operator">::</span><span class="ruby-constant">WBF</span>[<span class="ruby-identifier">:sheet_count</span>]<span class="ruby-operator">-</span><span class="ruby-value">1</span>).<span class="ruby-identifier">nil?</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">ss</span>.<span class="ruby-identifier">worksheet</span>(<span class="ruby-constant">Dataworkbook</span><span class="ruby-operator">::</span><span class="ruby-constant">WBF</span>[<span class="ruby-identifier">:sheet_count</span>]).<span class="ruby-identifier">nil?</span>
+      <span class="ruby-identifier">errors</span>.<span class="ruby-identifier">add</span> <span class="ruby-identifier">:file</span>, <span class="ruby-value str">&quot;is no valid workbook - has wrong number of pages&quot;</span>
+      <span class="ruby-keyword kw">return</span>
+    <span class="ruby-keyword kw">end</span>
+
+    <span class="ruby-identifier">wb_version</span> = <span class="ruby-identifier">ss</span>.<span class="ruby-identifier">worksheet</span>(<span class="ruby-constant">Dataworkbook</span><span class="ruby-operator">::</span><span class="ruby-constant">WBF</span>[<span class="ruby-identifier">:metadata_sheet</span>])[<span class="ruby-operator">*</span><span class="ruby-constant">Dataworkbook</span><span class="ruby-operator">::</span><span class="ruby-constant">WBF</span>[<span class="ruby-identifier">:meta_version_pos</span>]]
+    <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">wb_version</span>.<span class="ruby-identifier">blank?</span>
+      <span class="ruby-identifier">errors</span>.<span class="ruby-identifier">add</span> <span class="ruby-identifier">:file</span>, <span class="ruby-value str">&quot;workbook version number not found&quot;</span>
+      <span class="ruby-keyword kw">return</span>
+    <span class="ruby-keyword kw">end</span>
+
+    <span class="ruby-comment cmt"># check if first two numbers of version information match</span>
+    <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">wb_version</span>.<span class="ruby-identifier">scan</span>(<span class="ruby-regexp re">/\A\d+\.\d+\./</span>).<span class="ruby-identifier">first</span> <span class="ruby-operator">!=</span> <span class="ruby-constant">Dataworkbook</span><span class="ruby-operator">::</span><span class="ruby-constant">WBF</span>[<span class="ruby-identifier">:wb_format_version</span>].<span class="ruby-identifier">scan</span>(<span class="ruby-regexp re">/\A\d+\.\d+\./</span>).<span class="ruby-identifier">first</span>
+      <span class="ruby-identifier">errors</span>.<span class="ruby-identifier">add</span> <span class="ruby-identifier">:file</span>, <span class="ruby-node">&quot;workbook version not matching (#{wb_version} &lt; #{Dataworkbook::WBF[:wb_format_version]})&quot;</span>
+      <span class="ruby-keyword kw">return</span>
+    <span class="ruby-keyword kw">end</span>
+
+    <span class="ruby-comment cmt"># TODO heck for unique column headers</span>
+    <span class="ruby-comment cmt"># errors.add :file, &quot;column headers in the raw data sheet must be unique&quot;</span>
+  <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

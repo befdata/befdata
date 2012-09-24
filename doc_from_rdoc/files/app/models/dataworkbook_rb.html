@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>File: dataworkbook.rb</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <meta http-equiv="Content-Script-Type" content="text/javascript" />
+  <link rel="stylesheet" href="../../.././rdoc-style.css" type="text/css" media="screen" />
+  <script type="text/javascript">
+  // <![CDATA[
+
+  function popupCode( url ) {
+    window.open(url, "Code", "resizable=yes,scrollbars=yes,toolbar=no,status=no,height=150,width=400")
+  }
+
+  function toggleCode( id ) {
+    if ( document.getElementById )
+      elem = document.getElementById( id );
+    else if ( document.all )
+      elem = eval( "document.all." + id );
+    else
+      return false;
+
+    elemStyle = elem.style;
+    
+    if ( elemStyle.display != "block" ) {
+      elemStyle.display = "block"
+    } else {
+      elemStyle.display = "none"
+    }
+
+    return true;
+  }
+  
+  // Make codeblocks hidden by default
+  document.writeln( "<style type=\"text/css\">div.method-source-code { display: none }</style>" )
+  
+  // ]]>
+  </script>
+
+</head>
+<body>
+
+
+
+  <div id="fileHeader">
+    <h1>dataworkbook.rb</h1>
+    <table class="header-table">
+    <tr class="top-aligned-row">
+      <td><strong>Path:</strong></td>
+      <td>app/models/dataworkbook.rb
+      </td>
+    </tr>
+    <tr class="top-aligned-row">
+      <td><strong>Last Update:</strong></td>
+      <td>Fri Aug 31 18:40:16 +0200 2012</td>
+    </tr>
+    </table>
+  </div>
+  <!-- banner header -->
+
+  <div id="bodyContent">
+
+
+
+  <div id="contextContent">
+
+    <div id="description">
+      <p>
+The <a href="../../../classes/Dataworkbook.html">Dataworkbook</a> class
+functions as wrapper for the BEFdata Workbook, an MS Excel 2003 file
+containing the raw data array in one sheet and four separate sheets
+providing metadata. The &quot;General Metadata&quot; sheet provides
+information on the context of the data set (general_metadata_sheet,
+general_metadata_column, general_metadata_hash), while the &quot;Technical
+description&quot; (data_desciption_sheet,
+data_column_info_for_columnheader), &quot;Acknowledgments&quot;
+(data_responsible_person_sheet, columnheader_people), and
+&quot;Categories&quot; (data_categories_sheet,
+sheet_categories_for_columnheader) sheets provide information on each
+single column of data from the &quot;Raw data&quot; sheet.
+</p>
+<p>
+The column headers in the raw data sheet of the BEFdata Workbook function
+as foreign IDs connecting metadata to the raw data columns. It is thus
+essential that the column headers in the raw data sheet are unique
+(columnheaders_unique?).
+</p>
+<p>
+Information provided on the general metadata sheet and on the
+acknowledgement sheet manages provenance in relation to <a
+href="../../../classes/Project.html">Project</a> and <a
+href="../../../classes/User.html">User</a> classes. Information on the
+technical description sheet directs the import workflow of raw data entries
+to the <a href="../../../classes/Datacolumn.html">Datacolumn</a>, <a
+href="../../../classes/Datagroup.html">Datagroup</a>, and <a
+href="../../../classes/Sheetcell.html">Sheetcell</a> classes. For the
+validation process of raw data values the <a
+href="../../../classes/Datatype.html">Datatype</a> and <a
+href="../../../classes/Sheetcellstatus.html">Sheetcellstatus</a> classes
+are used.
+</p>
+
+    </div>
+
+    <div id="requires-list">
+      <h3 class="section-bar">Required files</h3>
+
+      <div class="name-list">
+      dataworkbook_format&nbsp;&nbsp;
+      </div>
+    </div>
+
+   </div>
+
+
+  </div>
+
+
+    <!-- if includes -->
+
+    <div id="section">
+
+
+
+
+
+      
+
+
+    <!-- if method_list -->
+
+
+  </div>
+
+
+<div id="validator-badges">
+  <p><small><a href="http://validator.w3.org/check/referer">[Validate]</a></small></p>
+</div>
+
+</body>
+</html>

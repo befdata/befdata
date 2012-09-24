@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>update_categories_with_csv (Datagroup)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File app/models/datagroup.rb, line 66</span>
+  <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">update_categories_with_csv</span> (<span class="ruby-identifier">file</span>, <span class="ruby-identifier">user</span>)
+    <span class="ruby-keyword kw">begin</span>
+      <span class="ruby-identifier">lines</span> = <span class="ruby-constant">CSV</span>.<span class="ruby-identifier">read</span> <span class="ruby-identifier">file</span>
+    <span class="ruby-keyword kw">rescue</span>
+      <span class="ruby-identifier">errors</span>.<span class="ruby-identifier">add</span> <span class="ruby-identifier">:file</span>, <span class="ruby-value str">'can not be read'</span> <span class="ruby-keyword kw">and</span> <span class="ruby-keyword kw">return</span> <span class="ruby-keyword kw">false</span>
+    <span class="ruby-keyword kw">end</span>
+    <span class="ruby-identifier">lines</span> = <span class="ruby-identifier">validate_and_reduce_categories_csv</span>(<span class="ruby-identifier">lines</span>)
+    <span class="ruby-keyword kw">return</span> <span class="ruby-keyword kw">if</span> <span class="ruby-operator">!</span><span class="ruby-identifier">lines</span> <span class="ruby-operator">||</span> <span class="ruby-operator">!</span><span class="ruby-identifier">errors</span>.<span class="ruby-identifier">blank?</span>
+
+    <span class="ruby-identifier">cats</span> = <span class="ruby-constant">Category</span>.<span class="ruby-identifier">find</span> <span class="ruby-identifier">lines</span>.<span class="ruby-identifier">collect</span>{<span class="ruby-operator">|</span><span class="ruby-identifier">l</span><span class="ruby-operator">|</span> <span class="ruby-identifier">l</span>[<span class="ruby-value">0</span>]}
+    <span class="ruby-identifier">comment_string</span> = <span class="ruby-node">&quot;Updated via CVS by #{user.lastname}, #{Time.now.to_s}.&quot;</span>
+    <span class="ruby-identifier">changes</span> = []
+
+    <span class="ruby-identifier">lines</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">l</span><span class="ruby-operator">|</span>
+      <span class="ruby-identifier">c</span> = <span class="ruby-identifier">cats</span>.<span class="ruby-identifier">detect</span>{<span class="ruby-operator">|</span><span class="ruby-identifier">c</span><span class="ruby-operator">|</span> <span class="ruby-identifier">c</span>.<span class="ruby-identifier">id</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">l</span>[<span class="ruby-value">0</span>].<span class="ruby-identifier">to_i</span>}
+      <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">c</span>.<span class="ruby-identifier">short</span> <span class="ruby-operator">!=</span> <span class="ruby-identifier">l</span>[<span class="ruby-value">1</span>] <span class="ruby-operator">||</span> <span class="ruby-identifier">c</span>.<span class="ruby-identifier">long</span> <span class="ruby-operator">!=</span> <span class="ruby-identifier">l</span>[<span class="ruby-value">2</span>] <span class="ruby-operator">||</span> <span class="ruby-identifier">c</span>.<span class="ruby-identifier">description</span> <span class="ruby-operator">!=</span> <span class="ruby-identifier">l</span>[<span class="ruby-value">3</span>]
+        <span class="ruby-identifier">changes</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">c</span>
+        <span class="ruby-identifier">c</span>.<span class="ruby-identifier">short</span> = <span class="ruby-identifier">l</span>[<span class="ruby-value">1</span>]
+        <span class="ruby-identifier">c</span>.<span class="ruby-identifier">long</span> = <span class="ruby-identifier">l</span>[<span class="ruby-value">2</span>]
+        <span class="ruby-identifier">c</span>.<span class="ruby-identifier">description</span> = <span class="ruby-identifier">l</span>[<span class="ruby-value">3</span>]
+        <span class="ruby-identifier">c</span>.<span class="ruby-identifier">comment</span> = <span class="ruby-node">&quot;#{c.comment} #{comment_string}&quot;</span>.<span class="ruby-identifier">strip</span>
+      <span class="ruby-keyword kw">end</span>
+    <span class="ruby-keyword kw">end</span>
+
+    <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">categories_remain_unique?</span>(<span class="ruby-identifier">changes</span>)
+      <span class="ruby-identifier">errors</span>.<span class="ruby-identifier">add</span> <span class="ruby-identifier">:categories</span>, <span class="ruby-value str">'need to remain unique for datagroup'</span> <span class="ruby-keyword kw">and</span> <span class="ruby-keyword kw">return</span> <span class="ruby-keyword kw">false</span>
+    <span class="ruby-keyword kw">end</span>
+
+    <span class="ruby-identifier">merges</span> = <span class="ruby-identifier">collect_merges</span>(<span class="ruby-identifier">lines</span>)
+    <span class="ruby-identifier">validate_merges</span>(<span class="ruby-identifier">merges</span>, <span class="ruby-identifier">lines</span>)
+    <span class="ruby-keyword kw">return</span> <span class="ruby-keyword kw">if</span> <span class="ruby-operator">!</span><span class="ruby-identifier">errors</span>.<span class="ruby-identifier">blank?</span>
+
+    <span class="ruby-identifier">merge_sources</span> = <span class="ruby-identifier">merges</span>.<span class="ruby-identifier">collect</span>{<span class="ruby-operator">|</span><span class="ruby-identifier">m</span><span class="ruby-operator">|</span> <span class="ruby-identifier">m</span>[<span class="ruby-value">0</span>]}
+    <span class="ruby-identifier">changes</span>.<span class="ruby-identifier">reject!</span> {<span class="ruby-operator">|</span><span class="ruby-identifier">c</span><span class="ruby-operator">|</span> <span class="ruby-identifier">merge_sources</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">c</span>.<span class="ruby-identifier">id</span>)}
+
+    <span class="ruby-identifier">changes</span>.<span class="ruby-identifier">each</span> {<span class="ruby-operator">|</span><span class="ruby-identifier">c</span><span class="ruby-operator">|</span> <span class="ruby-identifier">c</span>.<span class="ruby-identifier">save</span>}
+    <span class="ruby-identifier">execute_merges</span>(<span class="ruby-identifier">merges</span>,<span class="ruby-identifier">user</span>)
+
+    <span class="ruby-identifier">update_overview</span> = <span class="ruby-constant">Hash</span>.<span class="ruby-identifier">new</span>
+    <span class="ruby-identifier">changes</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">c</span><span class="ruby-operator">|</span>
+      <span class="ruby-identifier">update_overview</span>[<span class="ruby-identifier">c</span>.<span class="ruby-identifier">id</span>] = <span class="ruby-value str">'u'</span>
+    <span class="ruby-keyword kw">end</span>
+    <span class="ruby-identifier">merges</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">m</span><span class="ruby-operator">|</span>
+      <span class="ruby-identifier">update_overview</span>[<span class="ruby-identifier">m</span>[<span class="ruby-value">1</span>]] = <span class="ruby-identifier">update_overview</span>[<span class="ruby-identifier">m</span>[<span class="ruby-value">1</span>]].<span class="ruby-identifier">to_s</span> <span class="ruby-operator">+</span> <span class="ruby-value str">'m'</span>
+    <span class="ruby-keyword kw">end</span>
+    <span class="ruby-identifier">update_overview</span>
+  <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

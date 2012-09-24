@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>new (ExcelExport)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File app/models/excel_export.rb, line 6</span>
+  <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">dataset</span>)
+    <span class="ruby-constant">Spreadsheet</span>.<span class="ruby-identifier">client_encoding</span> = <span class="ruby-value str">'UTF-8'</span>
+    <span class="ruby-identifier">excel_workbook</span> = <span class="ruby-constant">Spreadsheet</span>.<span class="ruby-identifier">open</span> <span class="ruby-constant">Rails</span>.<span class="ruby-identifier">root</span>.<span class="ruby-identifier">join</span>(<span class="ruby-value str">'files'</span>, <span class="ruby-value str">'template'</span>,<span class="ruby-value str">'befdata_workbook_empty.xls'</span>)
+
+    <span class="ruby-identifier">create_metasheet</span>(<span class="ruby-identifier">excel_workbook</span>, <span class="ruby-identifier">dataset</span>)
+    <span class="ruby-identifier">create_columnsheet</span>(<span class="ruby-identifier">excel_workbook</span>, <span class="ruby-identifier">dataset</span>)
+    <span class="ruby-identifier">create_peoplesheet</span>(<span class="ruby-identifier">excel_workbook</span>, <span class="ruby-identifier">dataset</span>)
+    <span class="ruby-identifier">create_categorysheet</span>(<span class="ruby-identifier">excel_workbook</span>, <span class="ruby-identifier">dataset</span>)
+    <span class="ruby-identifier">create_datasheet</span>(<span class="ruby-identifier">excel_workbook</span>, <span class="ruby-identifier">dataset</span>)
+
+    <span class="ruby-identifier">workaround_for_readable_xls</span>(<span class="ruby-identifier">excel_workbook</span>)
+
+    <span class="ruby-identifier">tf</span> = <span class="ruby-constant">Tempfile</span>.<span class="ruby-identifier">new</span>(<span class="ruby-value str">&quot;ds-temp&quot;</span>)
+    <span class="ruby-identifier">excel_workbook</span>.<span class="ruby-identifier">write</span>(<span class="ruby-identifier">tf</span>)
+    <span class="ruby-ivar">@excel_temp_file</span> = <span class="ruby-identifier">tf</span>
+  <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

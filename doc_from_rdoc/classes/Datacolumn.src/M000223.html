@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>destory_normal_datagroups_solely_associated_to_this_column (Datacolumn)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File app/models/datacolumn.rb, line 34</span>
+  <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">destory_normal_datagroups_solely_associated_to_this_column</span>
+    <span class="ruby-identifier">datagroup</span>.<span class="ruby-identifier">destroy</span> <span class="ruby-keyword kw">if</span> (<span class="ruby-identifier">datagroup</span>.<span class="ruby-identifier">datacolumns</span>.<span class="ruby-identifier">count</span> <span class="ruby-operator">==</span> <span class="ruby-value">1</span>) <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-operator">!</span><span class="ruby-identifier">datagroup</span>.<span class="ruby-identifier">is_system_datagroup</span>
+  <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

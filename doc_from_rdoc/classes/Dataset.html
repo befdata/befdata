@@ -1,0 +1,615 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>Class: Dataset</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <meta http-equiv="Content-Script-Type" content="text/javascript" />
+  <link rel="stylesheet" href=".././rdoc-style.css" type="text/css" media="screen" />
+  <script type="text/javascript">
+  // <![CDATA[
+
+  function popupCode( url ) {
+    window.open(url, "Code", "resizable=yes,scrollbars=yes,toolbar=no,status=no,height=150,width=400")
+  }
+
+  function toggleCode( id ) {
+    if ( document.getElementById )
+      elem = document.getElementById( id );
+    else if ( document.all )
+      elem = eval( "document.all." + id );
+    else
+      return false;
+
+    elemStyle = elem.style;
+    
+    if ( elemStyle.display != "block" ) {
+      elemStyle.display = "block"
+    } else {
+      elemStyle.display = "none"
+    }
+
+    return true;
+  }
+  
+  // Make codeblocks hidden by default
+  document.writeln( "<style type=\"text/css\">div.method-source-code { display: none }</style>" )
+  
+  // ]]>
+  </script>
+
+</head>
+<body>
+
+
+
+    <div id="classHeader">
+        <table class="header-table">
+        <tr class="top-aligned-row">
+          <td><strong>Class</strong></td>
+          <td class="class-name-in-header">Dataset</td>
+        </tr>
+        <tr class="top-aligned-row">
+            <td><strong>In:</strong></td>
+            <td>
+                <a href="../files/app/models/dataset_rb.html">
+                app/models/dataset.rb
+                </a>
+        <br />
+            </td>
+        </tr>
+
+        <tr class="top-aligned-row">
+            <td><strong>Parent:</strong></td>
+            <td>
+                ActiveRecord::Base
+            </td>
+        </tr>
+        </table>
+    </div>
+  <!-- banner header -->
+
+  <div id="bodyContent">
+
+
+
+  <div id="contextContent">
+
+    <div id="description">
+      <p>
+This file contains the <a href="Dataset.html">Dataset</a> model, which maps
+the database table Datasets for the application. The <a
+href="Dataset.html">Dataset</a> title must be unique.
+</p>
+<p>
+Datasets contain the general metadata of a dataset. In addition, a dataset
+can contain:
+</p>
+<ol>
+<li>Primary research data, as uploaded data values from a &quot;<a
+href="Dataworkbook.html">Dataworkbook</a>&quot;, where the measurement
+information is stored in the &quot;<a
+href="Datacolumn.html">Datacolumn</a>&quot;
+
+</li>
+</ol>
+<p>
+and the data values in &quot;<a href="Sheetcell.html">Sheetcell</a>&quot;s.
+The original &quot;<a href="Dataworkbook.html">Dataworkbook</a>&quot; is
+stored as a &quot;<a href="Datafile.html">Datafile</a>&quot; which is
+referenced by the <a href="Dataset.html">Dataset</a>, in the
+&quot;upload_spreadsheet_id&quot; field.
+</p>
+<ol>
+<li>one or more asset (&quot;<a href="Freeformat.html">Freeformat</a>&quot;)
+files.
+
+</li>
+</ol>
+<p>
+Datasets are taggable, that is, they can be linked to entries in the Tags
+table. This uses the is_taggable rails gem.
+</p>
+<p>
+<a href="Dataset.html">Dataset</a> provenance is managed using the ACL9
+rails gem. &quot;<a href="User.html">User</a>&quot;s can be given different
+roles in relation to a <a href="Dataset.html">Dataset</a> and access to the
+<a href="Dataset.html">Dataset</a> is controlled via the &quot;<a
+href="Role.html">Role</a>&quot;.
+</p>
+<p>
+Datasets can belong to one or more &quot;<a
+href="Project.html">Project</a>&quot;s
+</p>
+<p>
+&quot;<a href="Paperproposal.html">Paperproposal</a>&quot;s contain one or
+more Datasets. They are linked through the &quot;DatasetPaperProposal&quot;
+class.
+</p>
+<p>
+Highlighted methods:
+</p>
+<ol>
+<li>&quot;<a href="Dataset.html#M000283">approve_predefined_columns</a>&quot;:
+after the initial upload of data a user can bulk approve columns, without
+reviewing each
+
+</li>
+</ol>
+<p>
+column individually. The <a href="Datacolumn.html">Datacolumn</a> must be
+corrected described, in that it must have a datagroup and a datatype.
+</p>
+
+    </div>
+
+
+   </div>
+
+    <div id="method-list">
+      <h3 class="section-bar">Methods</h3>
+
+      <div class="name-list">
+      <a href="#M000275">abstract_with_freeformats</a>&nbsp;&nbsp;
+      <a href="#M000269">add_xls_extension_to_filename</a>&nbsp;&nbsp;
+      <a href="#M000283">approve_predefined_columns</a>&nbsp;&nbsp;
+      <a href="#M000277">cells_linked_to_values?</a>&nbsp;&nbsp;
+      <a href="#M000284">columns_with_invalid_values_after_approving_predefined</a>&nbsp;&nbsp;
+      <a href="#M000280">datacolumns_with_approved_datagroup</a>&nbsp;&nbsp;
+      <a href="#M000281">datacolumns_with_approved_datatype</a>&nbsp;&nbsp;
+      <a href="#M000274">dataworkbook</a>&nbsp;&nbsp;
+      <a href="#M000285">delete_imported_research_data_and_file</a>&nbsp;&nbsp;
+      <a href="#M000270">delete_sheetcells</a>&nbsp;&nbsp;
+      <a href="#M000294">enqueue_to_generate_download</a>&nbsp;&nbsp;
+      <a href="#M000279">finished_datacolumns</a>&nbsp;&nbsp;
+      <a href="#M000293">finished_import?</a>&nbsp;&nbsp;
+      <a href="#M000295">generate_download</a>&nbsp;&nbsp;
+      <a href="#M000273">has_research_data?</a>&nbsp;&nbsp;
+      <a href="#M000278">headers</a>&nbsp;&nbsp;
+      <a href="#M000292">import_data</a>&nbsp;&nbsp;
+      <a href="#M000291">last_update</a>&nbsp;&nbsp;
+      <a href="#M000271">load_metadata_from_spreadsheet</a>&nbsp;&nbsp;
+      <a href="#M000287">log_download</a>&nbsp;&nbsp;
+      <a href="#M000290">number_of_observations</a>&nbsp;&nbsp;
+      <a href="#M000286">owners</a>&nbsp;&nbsp;
+      <a href="#M000296">owners_email_list</a>&nbsp;&nbsp;
+      <a href="#M000282">predefined_columns</a>&nbsp;&nbsp;
+      <a href="#M000289">record_timestamps</a>&nbsp;&nbsp;
+      <a href="#M000288">record_timestamps</a>&nbsp;&nbsp;
+      <a href="#M000276">set_start_and_end_dates_of_research</a>&nbsp;&nbsp;
+      <a href="#M000272">try_retrieving_projects_from_tag_list</a>&nbsp;&nbsp;
+      </div>
+    </div>
+
+  </div>
+
+
+    <!-- if includes -->
+
+    <div id="section">
+
+
+
+
+
+      
+
+
+    <!-- if method_list -->
+    <div id="methods">
+      <h3 class="section-bar">Public Class methods</h3>
+
+      <div id="method-M000289" class="method-detail">
+        <a name="M000289"></a>
+
+        <div class="method-heading">
+          <a href="Dataset.src/M000289.html" target="Code" class="method-signature"
+            onclick="popupCode('Dataset.src/M000289.html');return false;">
+          <span class="method-name">record_timestamps</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+        </div>
+      </div>
+
+      <div id="method-M000288" class="method-detail">
+        <a name="M000288"></a>
+
+        <div class="method-heading">
+          <a href="Dataset.src/M000288.html" target="Code" class="method-signature"
+            onclick="popupCode('Dataset.src/M000288.html');return false;">
+          <span class="method-name">record_timestamps</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+        </div>
+      </div>
+
+      <h3 class="section-bar">Public Instance methods</h3>
+
+      <div id="method-M000275" class="method-detail">
+        <a name="M000275"></a>
+
+        <div class="method-heading">
+          <a href="Dataset.src/M000275.html" target="Code" class="method-signature"
+            onclick="popupCode('Dataset.src/M000275.html');return false;">
+          <span class="method-name">abstract_with_freeformats</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+        </div>
+      </div>
+
+      <div id="method-M000269" class="method-detail">
+        <a name="M000269"></a>
+
+        <div class="method-heading">
+          <a href="Dataset.src/M000269.html" target="Code" class="method-signature"
+            onclick="popupCode('Dataset.src/M000269.html');return false;">
+          <span class="method-name">add_xls_extension_to_filename</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+        </div>
+      </div>
+
+      <div id="method-M000283" class="method-detail">
+        <a name="M000283"></a>
+
+        <div class="method-heading">
+          <a href="Dataset.src/M000283.html" target="Code" class="method-signature"
+            onclick="popupCode('Dataset.src/M000283.html');return false;">
+          <span class="method-name">approve_predefined_columns</span><span class="method-args">(approving_user)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+        </div>
+      </div>
+
+      <div id="method-M000277" class="method-detail">
+        <a name="M000277"></a>
+
+        <div class="method-heading">
+          <a href="Dataset.src/M000277.html" target="Code" class="method-signature"
+            onclick="popupCode('Dataset.src/M000277.html');return false;">
+          <span class="method-name">cells_linked_to_values?</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+        </div>
+      </div>
+
+      <div id="method-M000284" class="method-detail">
+        <a name="M000284"></a>
+
+        <div class="method-heading">
+          <a href="Dataset.src/M000284.html" target="Code" class="method-signature"
+            onclick="popupCode('Dataset.src/M000284.html');return false;">
+          <span class="method-name">columns_with_invalid_values_after_approving_predefined</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+        </div>
+      </div>
+
+      <div id="method-M000280" class="method-detail">
+        <a name="M000280"></a>
+
+        <div class="method-heading">
+          <a href="Dataset.src/M000280.html" target="Code" class="method-signature"
+            onclick="popupCode('Dataset.src/M000280.html');return false;">
+          <span class="method-name">datacolumns_with_approved_datagroup</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+        </div>
+      </div>
+
+      <div id="method-M000281" class="method-detail">
+        <a name="M000281"></a>
+
+        <div class="method-heading">
+          <a href="Dataset.src/M000281.html" target="Code" class="method-signature"
+            onclick="popupCode('Dataset.src/M000281.html');return false;">
+          <span class="method-name">datacolumns_with_approved_datatype</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+        </div>
+      </div>
+
+      <div id="method-M000274" class="method-detail">
+        <a name="M000274"></a>
+
+        <div class="method-heading">
+          <a href="Dataset.src/M000274.html" target="Code" class="method-signature"
+            onclick="popupCode('Dataset.src/M000274.html');return false;">
+          <span class="method-name">dataworkbook</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+        </div>
+      </div>
+
+      <div id="method-M000285" class="method-detail">
+        <a name="M000285"></a>
+
+        <div class="method-heading">
+          <a href="Dataset.src/M000285.html" target="Code" class="method-signature"
+            onclick="popupCode('Dataset.src/M000285.html');return false;">
+          <span class="method-name">delete_imported_research_data_and_file</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+        </div>
+      </div>
+
+      <div id="method-M000270" class="method-detail">
+        <a name="M000270"></a>
+
+        <div class="method-heading">
+          <a href="Dataset.src/M000270.html" target="Code" class="method-signature"
+            onclick="popupCode('Dataset.src/M000270.html');return false;">
+          <span class="method-name">delete_sheetcells</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+        </div>
+      </div>
+
+      <div id="method-M000294" class="method-detail">
+        <a name="M000294"></a>
+
+        <div class="method-heading">
+          <a href="Dataset.src/M000294.html" target="Code" class="method-signature"
+            onclick="popupCode('Dataset.src/M000294.html');return false;">
+          <span class="method-name">enqueue_to_generate_download</span><span class="method-args">(priority = :low)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+        </div>
+      </div>
+
+      <div id="method-M000279" class="method-detail">
+        <a name="M000279"></a>
+
+        <div class="method-heading">
+          <a href="Dataset.src/M000279.html" target="Code" class="method-signature"
+            onclick="popupCode('Dataset.src/M000279.html');return false;">
+          <span class="method-name">finished_datacolumns</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+        </div>
+      </div>
+
+      <div id="method-M000293" class="method-detail">
+        <a name="M000293"></a>
+
+        <div class="method-heading">
+          <a href="Dataset.src/M000293.html" target="Code" class="method-signature"
+            onclick="popupCode('Dataset.src/M000293.html');return false;">
+          <span class="method-name">finished_import?</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+        </div>
+      </div>
+
+      <div id="method-M000295" class="method-detail">
+        <a name="M000295"></a>
+
+        <div class="method-heading">
+          <a href="Dataset.src/M000295.html" target="Code" class="method-signature"
+            onclick="popupCode('Dataset.src/M000295.html');return false;">
+          <span class="method-name">generate_download</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+        </div>
+      </div>
+
+      <div id="method-M000273" class="method-detail">
+        <a name="M000273"></a>
+
+        <div class="method-heading">
+          <a href="Dataset.src/M000273.html" target="Code" class="method-signature"
+            onclick="popupCode('Dataset.src/M000273.html');return false;">
+          <span class="method-name">has_research_data?</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+        </div>
+      </div>
+
+      <div id="method-M000278" class="method-detail">
+        <a name="M000278"></a>
+
+        <div class="method-heading">
+          <a href="Dataset.src/M000278.html" target="Code" class="method-signature"
+            onclick="popupCode('Dataset.src/M000278.html');return false;">
+          <span class="method-name">headers</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+During the import routine, we step through each of the data columns using
+their header.
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000292" class="method-detail">
+        <a name="M000292"></a>
+
+        <div class="method-heading">
+          <a href="Dataset.src/M000292.html" target="Code" class="method-signature"
+            onclick="popupCode('Dataset.src/M000292.html');return false;">
+          <span class="method-name">import_data</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+        </div>
+      </div>
+
+      <div id="method-M000291" class="method-detail">
+        <a name="M000291"></a>
+
+        <div class="method-heading">
+          <a href="Dataset.src/M000291.html" target="Code" class="method-signature"
+            onclick="popupCode('Dataset.src/M000291.html');return false;">
+          <span class="method-name">last_update</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+        </div>
+      </div>
+
+      <div id="method-M000271" class="method-detail">
+        <a name="M000271"></a>
+
+        <div class="method-heading">
+          <a href="Dataset.src/M000271.html" target="Code" class="method-signature"
+            onclick="popupCode('Dataset.src/M000271.html');return false;">
+          <span class="method-name">load_metadata_from_spreadsheet</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+        </div>
+      </div>
+
+      <div id="method-M000287" class="method-detail">
+        <a name="M000287"></a>
+
+        <div class="method-heading">
+          <a href="Dataset.src/M000287.html" target="Code" class="method-signature"
+            onclick="popupCode('Dataset.src/M000287.html');return false;">
+          <span class="method-name">log_download</span><span class="method-args">(downloading_user)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+        </div>
+      </div>
+
+      <div id="method-M000290" class="method-detail">
+        <a name="M000290"></a>
+
+        <div class="method-heading">
+          <a href="Dataset.src/M000290.html" target="Code" class="method-signature"
+            onclick="popupCode('Dataset.src/M000290.html');return false;">
+          <span class="method-name">number_of_observations</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+        </div>
+      </div>
+
+      <div id="method-M000286" class="method-detail">
+        <a name="M000286"></a>
+
+        <div class="method-heading">
+          <a href="Dataset.src/M000286.html" target="Code" class="method-signature"
+            onclick="popupCode('Dataset.src/M000286.html');return false;">
+          <span class="method-name">owners</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+        </div>
+      </div>
+
+      <div id="method-M000296" class="method-detail">
+        <a name="M000296"></a>
+
+        <div class="method-heading">
+          <a href="Dataset.src/M000296.html" target="Code" class="method-signature"
+            onclick="popupCode('Dataset.src/M000296.html');return false;">
+          <span class="method-name">owners_email_list</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+        </div>
+      </div>
+
+      <div id="method-M000282" class="method-detail">
+        <a name="M000282"></a>
+
+        <div class="method-heading">
+          <a href="Dataset.src/M000282.html" target="Code" class="method-signature"
+            onclick="popupCode('Dataset.src/M000282.html');return false;">
+          <span class="method-name">predefined_columns</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+        </div>
+      </div>
+
+      <div id="method-M000276" class="method-detail">
+        <a name="M000276"></a>
+
+        <div class="method-heading">
+          <a href="Dataset.src/M000276.html" target="Code" class="method-signature"
+            onclick="popupCode('Dataset.src/M000276.html');return false;">
+          <span class="method-name">set_start_and_end_dates_of_research</span><span class="method-args">(book)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+        </div>
+      </div>
+
+      <div id="method-M000272" class="method-detail">
+        <a name="M000272"></a>
+
+        <div class="method-heading">
+          <a href="Dataset.src/M000272.html" target="Code" class="method-signature"
+            onclick="popupCode('Dataset.src/M000272.html');return false;">
+          <span class="method-name">try_retrieving_projects_from_tag_list</span><span class="method-args">(book)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+        </div>
+      </div>
+
+
+    </div>
+
+
+  </div>
+
+
+<div id="validator-badges">
+  <p><small><a href="http://validator.w3.org/check/referer">[Validate]</a></small></p>
+</div>
+
+</body>
+</html>

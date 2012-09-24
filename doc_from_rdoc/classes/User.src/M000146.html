@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>datasets_with_responsible_datacolumns_not_owned (User)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File app/models/user.rb, line 129</span>
+  <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">datasets_with_responsible_datacolumns_not_owned</span>
+    <span class="ruby-comment cmt"># there must be a better way of doing this but it works for now</span>
+
+    <span class="ruby-comment cmt"># find all the datacolumns that this user is responsible for</span>
+    <span class="ruby-comment cmt"># and select all the datasets that the datacolumns are part of</span>
+    <span class="ruby-ivar">@columns</span> = <span class="ruby-constant">Datacolumn</span>.<span class="ruby-identifier">all</span>.<span class="ruby-identifier">select</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">ds</span><span class="ruby-operator">|</span> <span class="ruby-identifier">ds</span>.<span class="ruby-identifier">accepts_role?</span>(<span class="ruby-identifier">:responsible</span>, <span class="ruby-keyword kw">self</span>)}
+    <span class="ruby-keyword kw">if</span>(<span class="ruby-ivar">@columns</span>.<span class="ruby-identifier">count</span><span class="ruby-operator">&gt;</span><span class="ruby-value">0</span>)
+      <span class="ruby-ivar">@columnids</span> = <span class="ruby-ivar">@columns</span>.<span class="ruby-identifier">map</span>{<span class="ruby-operator">|</span><span class="ruby-identifier">col</span><span class="ruby-operator">|</span> <span class="ruby-identifier">col</span>.<span class="ruby-identifier">dataset_id</span>}
+      <span class="ruby-keyword kw">if</span> (<span class="ruby-ivar">@columns</span>.<span class="ruby-identifier">count</span><span class="ruby-operator">==</span><span class="ruby-value">1</span>)
+        <span class="ruby-comment cmt">#Dataset.find(:all, :conditions =&gt; [&quot;id = ?&quot;, @columnids])</span>
+        <span class="ruby-ivar">@predicate</span> = <span class="ruby-node">&quot;id=#{@columnids[0]}&quot;</span>
+      <span class="ruby-keyword kw">else</span>
+        <span class="ruby-ivar">@predicate</span> = <span class="ruby-node">&quot;id in (#{@columnids.join(&quot;,&quot;)})&quot;</span>
+        <span class="ruby-comment cmt">#Dataset.find(:all, :conditions =&gt; [&quot;id in (?)&quot;, @columnids])</span>
+      <span class="ruby-keyword kw">end</span>
+      <span class="ruby-comment cmt"># get the datasets this user owns</span>
+      <span class="ruby-comment cmt"># and do not select them in the query</span>
+      <span class="ruby-ivar">@owned</span> = <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">datasets_owned</span>
+      <span class="ruby-keyword kw">if</span>(<span class="ruby-ivar">@owned</span>.<span class="ruby-identifier">count</span> <span class="ruby-operator">&gt;</span><span class="ruby-value">0</span>)
+        <span class="ruby-ivar">@ownedids</span> = <span class="ruby-ivar">@owned</span>.<span class="ruby-identifier">map</span>{<span class="ruby-operator">|</span><span class="ruby-identifier">ds</span><span class="ruby-operator">|</span> <span class="ruby-identifier">ds</span>.<span class="ruby-identifier">id</span>}
+        <span class="ruby-keyword kw">if</span>(<span class="ruby-ivar">@owned</span>.<span class="ruby-identifier">count</span><span class="ruby-operator">==</span><span class="ruby-value">1</span>)
+          <span class="ruby-ivar">@predicate</span> = <span class="ruby-ivar">@predicate</span> <span class="ruby-operator">+</span> <span class="ruby-node">&quot; and id !=#{@ownedids[0]}&quot;</span>
+        <span class="ruby-keyword kw">else</span>
+          <span class="ruby-ivar">@predicate</span> = <span class="ruby-ivar">@predicate</span> <span class="ruby-operator">+</span> <span class="ruby-node">&quot; and id not in (#{@ownedids.join(&quot;,&quot;)})&quot;</span>
+        <span class="ruby-keyword kw">end</span>
+      <span class="ruby-keyword kw">end</span>
+      <span class="ruby-comment cmt"># return all the datasets for the predicate</span>
+      <span class="ruby-constant">Dataset</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">:all</span>, <span class="ruby-identifier">:conditions</span> =<span class="ruby-operator">&gt;</span> [<span class="ruby-ivar">@predicate</span>])
+    <span class="ruby-keyword kw">else</span>
+      <span class="ruby-comment cmt"># return an empty array</span>
+      <span class="ruby-constant">Array</span>.<span class="ruby-identifier">new</span>
+    <span class="ruby-keyword kw">end</span>
+  <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

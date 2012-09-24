@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>new (PaperproposalsController)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File app/controllers/paperproposals_controller.rb, line 21</span>
+  <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">new</span>
+    <span class="ruby-ivar">@paperproposal</span> = <span class="ruby-constant">Paperproposal</span>.<span class="ruby-identifier">new</span>
+    <span class="ruby-ivar">@paperproposal</span>.<span class="ruby-identifier">author</span> = <span class="ruby-identifier">current_user</span>
+    <span class="ruby-ivar">@paperproposal</span>.<span class="ruby-identifier">corresponding</span> = <span class="ruby-identifier">current_user</span>
+    <span class="ruby-comment cmt"># !! Zeitschlucker</span>
+    <span class="ruby-ivar">@all_persons</span> = <span class="ruby-constant">User</span>.<span class="ruby-identifier">all</span>.<span class="ruby-identifier">sort</span>{<span class="ruby-operator">|</span><span class="ruby-identifier">a</span>,<span class="ruby-identifier">b</span><span class="ruby-operator">|</span> <span class="ruby-identifier">a</span>.<span class="ruby-identifier">to_label</span> <span class="ruby-operator">&lt;=&gt;</span> <span class="ruby-identifier">b</span>.<span class="ruby-identifier">to_label</span>}
+
+    <span class="ruby-identifier">project</span> = <span class="ruby-identifier">current_user</span>.<span class="ruby-identifier">roles_for</span>(<span class="ruby-constant">Project</span>).<span class="ruby-identifier">first</span>.<span class="ruby-identifier">try</span>(<span class="ruby-identifier">:authorizable</span>)
+    <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">project</span>
+      <span class="ruby-identifier">senior</span> = <span class="ruby-identifier">project</span>.<span class="ruby-identifier">accepted_roles</span>.<span class="ruby-identifier">find_by_name</span>(<span class="ruby-value str">&quot;pi&quot;</span>).<span class="ruby-identifier">try</span>(<span class="ruby-identifier">:users</span>).<span class="ruby-identifier">try</span>(<span class="ruby-identifier">:first</span>)
+      <span class="ruby-ivar">@paperproposal</span>.<span class="ruby-identifier">senior_author</span> = <span class="ruby-identifier">senior</span>
+    <span class="ruby-keyword kw">end</span>
+  <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

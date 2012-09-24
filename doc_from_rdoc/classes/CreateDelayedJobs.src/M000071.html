@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>up (CreateDelayedJobs)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File db/migrate/20110609161622_create_delayed_jobs.rb, line 2</span>
+  <span class="ruby-keyword kw">def</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">up</span>
+    <span class="ruby-identifier">create_table</span> <span class="ruby-identifier">:delayed_jobs</span>, <span class="ruby-identifier">:force</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword kw">true</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">table</span><span class="ruby-operator">|</span>
+      <span class="ruby-identifier">table</span>.<span class="ruby-identifier">integer</span>  <span class="ruby-identifier">:priority</span>, <span class="ruby-identifier">:default</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value">0</span>      <span class="ruby-comment cmt"># Allows some jobs to jump to the front of the queue</span>
+      <span class="ruby-identifier">table</span>.<span class="ruby-identifier">integer</span>  <span class="ruby-identifier">:attempts</span>, <span class="ruby-identifier">:default</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value">0</span>      <span class="ruby-comment cmt"># Provides for retries, but still fail eventually.</span>
+      <span class="ruby-identifier">table</span>.<span class="ruby-identifier">text</span>     <span class="ruby-identifier">:handler</span>                      <span class="ruby-comment cmt"># YAML-encoded string of the object that will do work</span>
+      <span class="ruby-identifier">table</span>.<span class="ruby-identifier">text</span>     <span class="ruby-identifier">:last_error</span>                   <span class="ruby-comment cmt"># reason for last failure (See Note below)</span>
+      <span class="ruby-identifier">table</span>.<span class="ruby-identifier">datetime</span> <span class="ruby-identifier">:run_at</span>                       <span class="ruby-comment cmt"># When to run. Could be Time.zone.now for immediately, or sometime in the future.</span>
+      <span class="ruby-identifier">table</span>.<span class="ruby-identifier">datetime</span> <span class="ruby-identifier">:locked_at</span>                    <span class="ruby-comment cmt"># Set when a client is working on this object</span>
+      <span class="ruby-identifier">table</span>.<span class="ruby-identifier">datetime</span> <span class="ruby-identifier">:failed_at</span>                    <span class="ruby-comment cmt"># Set when all retries have failed (actually, by default, the record is deleted instead)</span>
+      <span class="ruby-identifier">table</span>.<span class="ruby-identifier">string</span>   <span class="ruby-identifier">:locked_by</span>                    <span class="ruby-comment cmt"># Who is working on this object (if locked)</span>
+      <span class="ruby-identifier">table</span>.<span class="ruby-identifier">timestamps</span>
+    <span class="ruby-keyword kw">end</span>
+        
+    <span class="ruby-identifier">add_index</span> <span class="ruby-identifier">:delayed_jobs</span>, [<span class="ruby-identifier">:priority</span>, <span class="ruby-identifier">:run_at</span>], <span class="ruby-identifier">:name</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value str">'delayed_jobs_priority'</span>
+  <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

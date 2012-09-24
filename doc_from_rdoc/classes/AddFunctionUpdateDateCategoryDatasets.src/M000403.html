@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>up (AddFunctionUpdateDateCategoryDatasets)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File db/migrate/20120415204514_add_function_update_date_category_datasets.rb, line 2</span>
+  <span class="ruby-keyword kw">def</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">up</span>
+    <span class="ruby-identifier">execute</span> <span class="ruby-value str">&quot;\nCREATE OR REPLACE FUNCTION update_date_category_datasets(category_id integer) RETURNS boolean\nLANGUAGE sql AS\n$_$update datasets\nset updated_at = now()\nfrom sheetcells sc inner join datacolumns dc on sc.datacolumn_id = dc.id\nwhere category_id = $1 and datasets.id = dc.dataset_id\nreturning true$_$;\n\n&quot;</span>
+  <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

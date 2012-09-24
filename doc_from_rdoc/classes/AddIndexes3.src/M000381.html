@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>down (AddIndexes3)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File db/migrate/20110822082912_add_indexes_3.rb, line 28</span>
+  <span class="ruby-keyword kw">def</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">down</span>
+    <span class="ruby-comment cmt"># categories</span>
+    <span class="ruby-identifier">remove_index</span> <span class="ruby-identifier">:categories</span>, [<span class="ruby-identifier">:datagroup_id</span>]
+    <span class="ruby-identifier">remove_index</span> <span class="ruby-identifier">:categories</span>, [<span class="ruby-identifier">:status_id</span>]
+
+    <span class="ruby-comment cmt"># datagroups</span>
+    <span class="ruby-identifier">remove_index</span> <span class="ruby-identifier">:datagroups</span>, [<span class="ruby-identifier">:type_id</span>]
+    <span class="ruby-identifier">add_index</span> <span class="ruby-identifier">:datagroups</span>, [<span class="ruby-identifier">:id</span>]
+
+    <span class="ruby-comment cmt"># datasets_projects</span>
+    <span class="ruby-identifier">remove_index</span> <span class="ruby-identifier">:dataset_projects</span>, [<span class="ruby-identifier">:dataset_id</span>,<span class="ruby-identifier">:project_id</span>]
+
+    <span class="ruby-comment cmt"># dataset</span>
+    <span class="ruby-identifier">remove_index</span> <span class="ruby-identifier">:datasets</span>, [<span class="ruby-identifier">:upload_spreadsheet_id</span>]
+
+    <span class="ruby-comment cmt"># import_categories</span>
+    <span class="ruby-identifier">remove_index</span> <span class="ruby-identifier">:import_categories</span>, [<span class="ruby-identifier">:datacolumn_id</span>]
+
+    <span class="ruby-comment cmt"># free_formats</span>
+    <span class="ruby-identifier">remove_index</span> <span class="ruby-identifier">:freeformats</span>, [<span class="ruby-identifier">:paperproposal_id</span>]
+    <span class="ruby-identifier">remove_index</span> <span class="ruby-identifier">:freeformats</span>, [<span class="ruby-identifier">:dataset_id</span>]
+
+    <span class="ruby-comment cmt"># sheetcells</span>
+    <span class="ruby-identifier">remove_index</span> <span class="ruby-identifier">:sheetcells</span>, [<span class="ruby-identifier">:category_id</span>, <span class="ruby-identifier">:status_id</span>, <span class="ruby-identifier">:datacolumn_id</span>]
+  <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

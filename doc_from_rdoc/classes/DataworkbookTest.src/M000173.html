@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>setup (DataworkbookTest)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File test/unit/dataworkbook_test.rb, line 6</span>
+  <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">setup</span>
+    <span class="ruby-ivar">@dataset</span> = <span class="ruby-constant">Dataset</span>.<span class="ruby-identifier">find</span>(<span class="ruby-value">5</span>)
+    <span class="ruby-ivar">@spreadsheet</span> = <span class="ruby-constant">Spreadsheet</span>.<span class="ruby-identifier">open</span> <span class="ruby-ivar">@dataset</span>.<span class="ruby-identifier">upload_spreadsheet</span>.<span class="ruby-identifier">file</span>.<span class="ruby-identifier">path</span>
+    <span class="ruby-ivar">@spreadsheet</span>.<span class="ruby-identifier">io</span>.<span class="ruby-identifier">close</span>
+    <span class="ruby-ivar">@book</span> = <span class="ruby-constant">Dataworkbook</span>.<span class="ruby-identifier">new</span>(<span class="ruby-ivar">@dataset</span>.<span class="ruby-identifier">upload_spreadsheet</span>)
+  <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

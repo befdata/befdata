@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>update (DatasetsController)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File app/controllers/datasets_controller.rb, line 76</span>
+  <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">update</span>
+    <span class="ruby-identifier">users_given_as_provenance</span> = <span class="ruby-identifier">params</span>[<span class="ruby-identifier">:people</span>].<span class="ruby-identifier">blank?</span> <span class="ruby-value">? </span>[] <span class="ruby-operator">:</span> <span class="ruby-constant">User</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">params</span>[<span class="ruby-identifier">:people</span>])
+    <span class="ruby-identifier">users_with_current_ownership</span> = <span class="ruby-constant">User</span>.<span class="ruby-identifier">all</span>.<span class="ruby-identifier">select</span> {<span class="ruby-operator">|</span><span class="ruby-identifier">u</span><span class="ruby-operator">|</span> <span class="ruby-identifier">u</span>.<span class="ruby-identifier">has_role?</span> <span class="ruby-identifier">:owner</span>, <span class="ruby-ivar">@dataset</span>}
+
+    <span class="ruby-keyword kw">if</span> <span class="ruby-operator">!</span><span class="ruby-identifier">users_given_as_provenance</span>.<span class="ruby-identifier">empty?</span> <span class="ruby-keyword kw">then</span>
+      <span class="ruby-identifier">users_with_current_ownership</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">u</span><span class="ruby-operator">|</span>
+        <span class="ruby-identifier">u</span>.<span class="ruby-identifier">has_no_role!</span> <span class="ruby-identifier">:owner</span>, <span class="ruby-ivar">@dataset</span>
+      <span class="ruby-keyword kw">end</span>
+      <span class="ruby-identifier">users_given_as_provenance</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">u</span><span class="ruby-operator">|</span>
+        <span class="ruby-identifier">u</span>.<span class="ruby-identifier">has_role!</span> <span class="ruby-identifier">:owner</span>, <span class="ruby-ivar">@dataset</span>
+      <span class="ruby-keyword kw">end</span>
+    <span class="ruby-comment cmt"># but at least keep current_user if there would be nobody</span>
+    <span class="ruby-keyword kw">elsif</span> <span class="ruby-identifier">users_with_current_ownership</span>.<span class="ruby-identifier">empty?</span> <span class="ruby-keyword kw">then</span>
+      <span class="ruby-identifier">current_user</span>.<span class="ruby-identifier">has_role!</span> <span class="ruby-identifier">:owner</span>, <span class="ruby-ivar">@dataset</span>
+    <span class="ruby-keyword kw">end</span>
+
+    <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@dataset</span>.<span class="ruby-identifier">update_attributes</span>(<span class="ruby-identifier">params</span>[<span class="ruby-identifier">:dataset</span>]) <span class="ruby-keyword kw">then</span>
+      <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@dataset</span>.<span class="ruby-identifier">has_research_data?</span>
+        <span class="ruby-identifier">redirect_to</span> <span class="ruby-identifier">dataset_path</span>
+      <span class="ruby-keyword kw">else</span>
+        <span class="ruby-identifier">redirect_to</span> <span class="ruby-identifier">dataset_path</span>
+      <span class="ruby-keyword kw">end</span>
+    <span class="ruby-keyword kw">else</span>
+      <span class="ruby-identifier">flash</span>[<span class="ruby-identifier">:error</span>] = <span class="ruby-ivar">@dataset</span>.<span class="ruby-identifier">errors</span>.<span class="ruby-identifier">full_messages</span>.<span class="ruby-identifier">to_sentence</span>
+      <span class="ruby-identifier">render</span> <span class="ruby-identifier">:create</span>
+    <span class="ruby-keyword kw">end</span>
+  <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

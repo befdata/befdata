@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>lookup_data_header_people (Dataworkbook)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File app/models/dataworkbook.rb, line 352</span>
+  <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">lookup_data_header_people</span>(<span class="ruby-identifier">columnheader</span>)
+    <span class="ruby-identifier">header</span> = <span class="ruby-constant">Array</span>(<span class="ruby-identifier">data_responsible_person_sheet</span>.<span class="ruby-identifier">column</span>(<span class="ruby-operator">*</span><span class="ruby-constant">WBF</span>[<span class="ruby-identifier">:people_columnheader_col</span>]))
+    <span class="ruby-identifier">lastname</span> = <span class="ruby-constant">Array</span>(<span class="ruby-identifier">data_responsible_person_sheet</span>.<span class="ruby-identifier">column</span>(<span class="ruby-operator">*</span><span class="ruby-constant">WBF</span>[<span class="ruby-identifier">:people_lastname_col</span>]))
+    <span class="ruby-comment cmt">## collecting the relevant rows</span>
+    <span class="ruby-identifier">people</span> = []
+    <span class="ruby-identifier">i</span>=<span class="ruby-value">0</span>
+    <span class="ruby-keyword kw">for</span> <span class="ruby-identifier">i</span> <span class="ruby-keyword kw">in</span> <span class="ruby-value">0</span> <span class="ruby-operator">..</span> <span class="ruby-identifier">header</span>.<span class="ruby-identifier">length</span><span class="ruby-operator">-</span><span class="ruby-value">1</span> <span class="ruby-keyword kw">do</span>
+      <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">header</span>[<span class="ruby-identifier">i</span>].<span class="ruby-identifier">nil?</span>
+        <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">clean_string</span>(<span class="ruby-identifier">header</span>[<span class="ruby-identifier">i</span>]) <span class="ruby-operator">==</span> <span class="ruby-identifier">columnheader</span>
+          <span class="ruby-identifier">people</span> <span class="ruby-operator">+=</span> <span class="ruby-constant">User</span>.<span class="ruby-identifier">find_all_by_lastname</span>(<span class="ruby-identifier">clean_string</span>(<span class="ruby-identifier">lastname</span>[<span class="ruby-identifier">i</span>]))
+        <span class="ruby-keyword kw">end</span>
+      <span class="ruby-keyword kw">end</span>
+    <span class="ruby-keyword kw">end</span>
+    <span class="ruby-identifier">people</span>.<span class="ruby-identifier">flatten</span>.<span class="ruby-identifier">uniq</span>
+  <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

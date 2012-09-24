@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>abstract_with_freeformats (Dataset)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File app/models/dataset.rb, line 92</span>
+  <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">abstract_with_freeformats</span>
+    <span class="ruby-identifier">f_strings</span> = <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">freeformats</span>.<span class="ruby-identifier">collect</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">f</span><span class="ruby-operator">|</span>
+      <span class="ruby-value str">&quot;File asset &quot;</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">f</span>.<span class="ruby-identifier">file_file_name</span> <span class="ruby-operator">+</span> (<span class="ruby-identifier">f</span>.<span class="ruby-identifier">description</span>.<span class="ruby-identifier">blank?</span> <span class="ruby-value">? </span><span class="ruby-value str">&quot;&quot;</span> <span class="ruby-operator">:</span> (<span class="ruby-value str">&quot;: &quot;</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">f</span>.<span class="ruby-identifier">description</span>))
+    <span class="ruby-keyword kw">end</span>
+    <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">abstract</span> <span class="ruby-operator">+</span> (<span class="ruby-identifier">f_strings</span>.<span class="ruby-identifier">empty?</span> <span class="ruby-value">? </span><span class="ruby-value str">&quot;&quot;</span> <span class="ruby-operator">:</span> (<span class="ruby-value str">&quot; - &quot;</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">f_strings</span>.<span class="ruby-identifier">join</span>(<span class="ruby-value str">&quot; - &quot;</span>)))
+  <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>update_state (PaperproposalsController)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File app/controllers/paperproposals_controller.rb, line 77</span>
+  <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">update_state</span>
+    <span class="ruby-ivar">@paperproposal</span> = <span class="ruby-constant">Paperproposal</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">params</span>[<span class="ruby-identifier">:id</span>])
+    <span class="ruby-identifier">pre_state</span> = <span class="ruby-ivar">@paperproposal</span>.<span class="ruby-identifier">board_state</span>
+    <span class="ruby-ivar">@paperproposal</span>.<span class="ruby-identifier">update_attributes</span>(<span class="ruby-identifier">params</span>[<span class="ruby-identifier">:paperproposal</span>])
+    <span class="ruby-ivar">@paperproposal</span>.<span class="ruby-identifier">lock</span> = <span class="ruby-keyword kw">true</span>
+    <span class="ruby-ivar">@paperproposal</span>.<span class="ruby-identifier">save</span>
+
+    <span class="ruby-comment cmt">#submit again</span>
+    <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">pre_state</span> <span class="ruby-operator">==</span> <span class="ruby-value str">&quot;re_prep&quot;</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-ivar">@paperproposal</span>.<span class="ruby-identifier">board_state</span> <span class="ruby-operator">==</span> <span class="ruby-value str">&quot;submit&quot;</span>
+      <span class="ruby-ivar">@paperproposal</span>.<span class="ruby-identifier">paperproposal_votes</span>.<span class="ruby-identifier">each</span>{<span class="ruby-operator">|</span><span class="ruby-identifier">element</span><span class="ruby-operator">|</span> <span class="ruby-identifier">element</span>.<span class="ruby-identifier">update_attribute</span>(<span class="ruby-identifier">:vote</span>, <span class="ruby-value str">&quot;none&quot;</span>)}
+    <span class="ruby-keyword kw">end</span>
+
+    <span class="ruby-identifier">project_board_role</span> = <span class="ruby-constant">Role</span>.<span class="ruby-identifier">find_by_name</span>(<span class="ruby-value str">&quot;project_board&quot;</span>)
+    <span class="ruby-identifier">users</span> =  <span class="ruby-identifier">project_board_role</span>.<span class="ruby-identifier">users</span>
+    <span class="ruby-identifier">users</span>.<span class="ruby-identifier">each</span>{<span class="ruby-operator">|</span><span class="ruby-identifier">user</span><span class="ruby-operator">|</span> <span class="ruby-ivar">@paperproposal</span>.<span class="ruby-identifier">paperproposal_votes</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-constant">PaperproposalVote</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">:user</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">user</span>, <span class="ruby-identifier">:project_board_vote</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword kw">true</span>)}
+
+    <span class="ruby-identifier">redirect_to</span> <span class="ruby-ivar">@paperproposal</span>
+  <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

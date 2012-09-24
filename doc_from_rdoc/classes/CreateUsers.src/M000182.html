@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>up (CreateUsers)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File db/migrate/20110313170705_create_users.rb, line 2</span>
+  <span class="ruby-keyword kw">def</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">up</span>
+    <span class="ruby-identifier">create_table</span> <span class="ruby-identifier">:users</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">t</span><span class="ruby-operator">|</span>
+
+      <span class="ruby-comment cmt"># authlogic stuff</span>
+      <span class="ruby-identifier">t</span>.<span class="ruby-identifier">string</span>    <span class="ruby-identifier">:login</span>,               <span class="ruby-identifier">:null</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword kw">false</span>                <span class="ruby-comment cmt"># optional, you can use email instead, or both</span>
+      <span class="ruby-identifier">t</span>.<span class="ruby-identifier">string</span>    <span class="ruby-identifier">:email</span>,               <span class="ruby-identifier">:null</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword kw">false</span>                <span class="ruby-comment cmt"># optional, you can use login instead, or both</span>
+      <span class="ruby-identifier">t</span>.<span class="ruby-identifier">string</span>    <span class="ruby-identifier">:crypted_password</span>,    <span class="ruby-identifier">:null</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword kw">false</span>                <span class="ruby-comment cmt"># optional, see below</span>
+      <span class="ruby-identifier">t</span>.<span class="ruby-identifier">string</span>    <span class="ruby-identifier">:password_salt</span>,       <span class="ruby-identifier">:null</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword kw">false</span>                <span class="ruby-comment cmt"># optional, but highly recommended</span>
+      <span class="ruby-identifier">t</span>.<span class="ruby-identifier">string</span>    <span class="ruby-identifier">:persistence_token</span>,   <span class="ruby-identifier">:null</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword kw">false</span>                <span class="ruby-comment cmt"># required</span>
+      <span class="ruby-identifier">t</span>.<span class="ruby-identifier">string</span>    <span class="ruby-identifier">:single_access_token</span>, <span class="ruby-identifier">:null</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword kw">false</span>                <span class="ruby-comment cmt"># optional, see Authlogic::Session::Params</span>
+      <span class="ruby-identifier">t</span>.<span class="ruby-identifier">string</span>    <span class="ruby-identifier">:perishable_token</span>,    <span class="ruby-identifier">:null</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword kw">false</span>                <span class="ruby-comment cmt"># optional, see Authlogic::Session::Perishability</span>
+      <span class="ruby-identifier">t</span>.<span class="ruby-identifier">integer</span>   <span class="ruby-identifier">:login_count</span>,         <span class="ruby-identifier">:null</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword kw">false</span>, <span class="ruby-identifier">:default</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value">0</span> <span class="ruby-comment cmt"># optional, see Authlogic::Session::MagicColumns</span>
+      <span class="ruby-identifier">t</span>.<span class="ruby-identifier">integer</span>   <span class="ruby-identifier">:failed_login_count</span>,  <span class="ruby-identifier">:null</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword kw">false</span>, <span class="ruby-identifier">:default</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value">0</span> <span class="ruby-comment cmt"># optional, see Authlogic::Session::MagicColumns</span>
+      <span class="ruby-identifier">t</span>.<span class="ruby-identifier">datetime</span>  <span class="ruby-identifier">:last_request_at</span>                                    <span class="ruby-comment cmt"># optional, see Authlogic::Session::MagicColumns</span>
+      <span class="ruby-identifier">t</span>.<span class="ruby-identifier">datetime</span>  <span class="ruby-identifier">:current_login_at</span>                                   <span class="ruby-comment cmt"># optional, see Authlogic::Session::MagicColumns</span>
+      <span class="ruby-identifier">t</span>.<span class="ruby-identifier">datetime</span>  <span class="ruby-identifier">:last_login_at</span>                                      <span class="ruby-comment cmt"># optional, see Authlogic::Session::MagicColumns</span>
+      <span class="ruby-identifier">t</span>.<span class="ruby-identifier">string</span>    <span class="ruby-identifier">:current_login_ip</span>                                   <span class="ruby-comment cmt"># optional, see Authlogic::Session::MagicColumns</span>
+      <span class="ruby-identifier">t</span>.<span class="ruby-identifier">string</span>    <span class="ruby-identifier">:last_login_ip</span>                                      <span class="ruby-comment cmt"># optional, see Authlogic::Session::MagicColumns</span>
+
+      <span class="ruby-comment cmt"># befchina stuff</span>
+
+      <span class="ruby-identifier">t</span>.<span class="ruby-identifier">string</span>   <span class="ruby-identifier">:firstname</span>
+      <span class="ruby-identifier">t</span>.<span class="ruby-identifier">string</span>   <span class="ruby-identifier">:middlenames</span>
+      <span class="ruby-identifier">t</span>.<span class="ruby-identifier">string</span>   <span class="ruby-identifier">:lastname</span>
+      <span class="ruby-identifier">t</span>.<span class="ruby-identifier">string</span>   <span class="ruby-identifier">:salutation</span>
+      <span class="ruby-identifier">t</span>.<span class="ruby-identifier">text</span>     <span class="ruby-identifier">:comment</span>
+      <span class="ruby-identifier">t</span>.<span class="ruby-identifier">string</span>   <span class="ruby-identifier">:url</span>
+
+      <span class="ruby-identifier">t</span>.<span class="ruby-identifier">string</span>   <span class="ruby-identifier">:institution_name</span>
+      <span class="ruby-identifier">t</span>.<span class="ruby-identifier">text</span>     <span class="ruby-identifier">:affiliation</span>
+      <span class="ruby-identifier">t</span>.<span class="ruby-identifier">string</span>   <span class="ruby-identifier">:institution_url</span>
+      <span class="ruby-identifier">t</span>.<span class="ruby-identifier">string</span>   <span class="ruby-identifier">:institution_phone</span>
+      <span class="ruby-identifier">t</span>.<span class="ruby-identifier">string</span>   <span class="ruby-identifier">:institution_fax</span>
+      <span class="ruby-identifier">t</span>.<span class="ruby-identifier">text</span>     <span class="ruby-identifier">:comment</span>
+      <span class="ruby-identifier">t</span>.<span class="ruby-identifier">string</span>   <span class="ruby-identifier">:street</span>
+      <span class="ruby-identifier">t</span>.<span class="ruby-identifier">string</span>   <span class="ruby-identifier">:city</span>
+      <span class="ruby-identifier">t</span>.<span class="ruby-identifier">string</span>   <span class="ruby-identifier">:country</span>
+
+      <span class="ruby-identifier">t</span>.<span class="ruby-identifier">timestamps</span>
+    <span class="ruby-keyword kw">end</span>
+  <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

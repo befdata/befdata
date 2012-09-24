@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>up (MigrateObservationsToBeStoredAsLinenumbersInsideSheetcells)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File db/migrate/20110825133533_migrate_observations_to_be_stored_as_linenumbers_inside_sheetcells.rb, line 2</span>
+  <span class="ruby-keyword kw">def</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">up</span>
+    <span class="ruby-identifier">add_column</span>(<span class="ruby-identifier">:sheetcells</span>, <span class="ruby-identifier">:row_number</span>, <span class="ruby-identifier">:integer</span>)
+
+    <span class="ruby-identifier">puts</span> <span class="ruby-node">&quot;Migration #{Observation.count} observations&quot;</span>
+    <span class="ruby-constant">Observation</span>.<span class="ruby-identifier">all</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">observation</span><span class="ruby-operator">|</span> <span class="ruby-comment cmt">#yes i know this will take a loooong time ;)</span>
+      <span class="ruby-identifier">print</span> <span class="ruby-value str">'.'</span>
+      <span class="ruby-identifier">observation</span>.<span class="ruby-identifier">sheetcells</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">cell</span><span class="ruby-operator">|</span>
+        <span class="ruby-identifier">cell</span>.<span class="ruby-identifier">row_number</span> = <span class="ruby-identifier">observation</span>.<span class="ruby-identifier">rownr</span>
+        <span class="ruby-identifier">cell</span>.<span class="ruby-identifier">save</span>
+      <span class="ruby-keyword kw">end</span>
+    <span class="ruby-keyword kw">end</span>
+  <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

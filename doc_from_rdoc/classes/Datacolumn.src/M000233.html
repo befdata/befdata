@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>update_invalid_value (Datacolumn)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File app/models/datacolumn.rb, line 166</span>
+  <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">update_invalid_value</span>(<span class="ruby-identifier">original_value</span>, <span class="ruby-identifier">short</span>, <span class="ruby-identifier">long</span>, <span class="ruby-identifier">description</span>, <span class="ruby-identifier">user</span>, <span class="ruby-identifier">dataset</span>)
+    <span class="ruby-comment cmt"># firstly check that the category doesn't already exist in the datagroup</span>
+    <span class="ruby-identifier">cat</span> = <span class="ruby-constant">Category</span>.<span class="ruby-identifier">first</span>(<span class="ruby-identifier">:conditions</span> =<span class="ruby-operator">&gt;</span> [<span class="ruby-value str">&quot;datagroup_id = ? and short = ?&quot;</span>,
+                                                   <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">datagroup</span>.<span class="ruby-identifier">id</span>,
+                                                   <span class="ruby-identifier">short</span>]
+                              )
+    <span class="ruby-keyword kw">if</span>(<span class="ruby-identifier">cat</span>.<span class="ruby-identifier">nil?</span>)
+      <span class="ruby-identifier">cat</span> = <span class="ruby-constant">Category</span>.<span class="ruby-identifier">create</span>(<span class="ruby-identifier">:short</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">short</span>,
+                          <span class="ruby-identifier">:long</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">long</span>,
+                          <span class="ruby-identifier">:description</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">description</span>,
+                          <span class="ruby-identifier">:status_id</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-constant">Categorystatus</span><span class="ruby-operator">::</span><span class="ruby-constant">MANUALLY_APPROVED</span>,
+                          <span class="ruby-identifier">:user_id</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">user</span>.<span class="ruby-identifier">id</span>,
+                          <span class="ruby-identifier">:datagroup</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">datagroup</span>,
+                          <span class="ruby-identifier">:comment</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">dataset</span>.<span class="ruby-identifier">title</span>)
+    <span class="ruby-keyword kw">end</span>
+    <span class="ruby-comment cmt"># update all invalid sheetcells with the same original value with the new category id</span>
+    <span class="ruby-keyword kw">if</span>(<span class="ruby-identifier">cat</span>.<span class="ruby-identifier">valid?</span>)
+      <span class="ruby-identifier">cells</span> = <span class="ruby-identifier">invalid_sheetcells_by_value</span>(<span class="ruby-identifier">original_value</span>)
+      <span class="ruby-keyword kw">if</span>(<span class="ruby-operator">!</span><span class="ruby-identifier">cells</span>.<span class="ruby-identifier">nil?</span>)
+        <span class="ruby-identifier">cells</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">cell</span><span class="ruby-operator">|</span>
+          <span class="ruby-identifier">cell</span>.<span class="ruby-identifier">update_attributes</span>(<span class="ruby-identifier">:category</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">cat</span>,
+                                 <span class="ruby-identifier">:status_id</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-constant">Sheetcellstatus</span><span class="ruby-operator">::</span><span class="ruby-constant">VALID</span>,
+                                 <span class="ruby-identifier">:accepted_value</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword kw">nil</span>,
+                                 <span class="ruby-identifier">:datatype_id</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-constant">Datatypehelper</span>.<span class="ruby-identifier">find_by_name</span>(<span class="ruby-value str">&quot;category&quot;</span>).<span class="ruby-identifier">id</span>
+                                )
+        <span class="ruby-keyword kw">end</span>
+      <span class="ruby-keyword kw">end</span>
+
+      <span class="ruby-comment cmt">#TODO not sure if this should really go here - Sophia</span>
+      <span class="ruby-comment cmt"># update any other invalid values for columns with the same datagroup as they may contain the same values</span>
+      <span class="ruby-identifier">columns</span> = <span class="ruby-constant">Datacolumn</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">:all</span>, <span class="ruby-identifier">:conditions</span> =<span class="ruby-operator">&gt;</span> [<span class="ruby-value str">&quot;datagroup_id = ? and dataset_id = ?&quot;</span>,
+                                               <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">datagroup</span>.<span class="ruby-identifier">id</span>,
+                                               <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">dataset</span>.<span class="ruby-identifier">id</span>]
+                              )
+      <span class="ruby-keyword kw">if</span>(<span class="ruby-operator">!</span><span class="ruby-identifier">columns</span>.<span class="ruby-identifier">nil?</span>)
+        <span class="ruby-identifier">columns</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">col</span><span class="ruby-operator">|</span>
+          <span class="ruby-identifier">cells</span> = <span class="ruby-identifier">col</span>.<span class="ruby-identifier">invalid_sheetcells_by_value</span>(<span class="ruby-identifier">original_value</span>)
+          <span class="ruby-keyword kw">if</span>(<span class="ruby-operator">!</span><span class="ruby-identifier">cells</span>.<span class="ruby-identifier">nil?</span>)
+            <span class="ruby-identifier">cells</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">cell</span><span class="ruby-operator">|</span>
+              <span class="ruby-identifier">cell</span>.<span class="ruby-identifier">update_attributes</span>(<span class="ruby-identifier">:category</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">cat</span>,
+                                 <span class="ruby-identifier">:status_id</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-constant">Sheetcellstatus</span><span class="ruby-operator">::</span><span class="ruby-constant">VALID</span>,
+                                 <span class="ruby-identifier">:accepted_value</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword kw">nil</span>,
+                                 <span class="ruby-identifier">:datatype_id</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-constant">Datatypehelper</span>.<span class="ruby-identifier">find_by_name</span>(<span class="ruby-value str">&quot;category&quot;</span>).<span class="ruby-identifier">id</span>
+                                )
+            <span class="ruby-keyword kw">end</span>
+          <span class="ruby-keyword kw">end</span>
+        <span class="ruby-keyword kw">end</span>
+      <span class="ruby-keyword kw">end</span>
+    <span class="ruby-keyword kw">end</span>
+  <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

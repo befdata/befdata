@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>up (FillOptimisationFieldsInSheetcells)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File db/migrate/20110606083721_fill_optimisation_fields_in_sheetcells.rb, line 2</span>
+  <span class="ruby-keyword kw">def</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">up</span>
+    <span class="ruby-comment cmt"># take the existing value of the sheetcell and place it in the new accepted_value field</span>
+    <span class="ruby-comment cmt"># unless the data type is categoric value, in this case place the id of the categoric value in the new category_id field</span>
+    <span class="ruby-identifier">sheetcells</span> = <span class="ruby-constant">Sheetcell</span>.<span class="ruby-identifier">all</span>.<span class="ruby-identifier">select</span>
+    <span class="ruby-identifier">sheetcells</span>.<span class="ruby-identifier">each</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">sc</span><span class="ruby-operator">|</span>
+      <span class="ruby-keyword kw">if</span> (<span class="ruby-identifier">sc</span>.<span class="ruby-identifier">value_type</span> <span class="ruby-operator">==</span> <span class="ruby-value str">&quot;Categoricvalue&quot;</span>)
+        <span class="ruby-identifier">sc</span>.<span class="ruby-identifier">update_attributes</span>(<span class="ruby-identifier">:category_id</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">sc</span>.<span class="ruby-identifier">value_id</span>)
+      <span class="ruby-keyword kw">else</span>
+        <span class="ruby-identifier">value</span> =
+          <span class="ruby-keyword kw">case</span> <span class="ruby-identifier">sc</span>.<span class="ruby-identifier">value_type</span>
+            <span class="ruby-keyword kw">when</span> <span class="ruby-value str">&quot;Numericvalue&quot;</span> <span class="ruby-keyword kw">then</span> <span class="ruby-identifier">sc</span>.<span class="ruby-identifier">value</span>.<span class="ruby-identifier">number</span>
+            <span class="ruby-keyword kw">when</span> <span class="ruby-value str">&quot;Datetimevalue&quot;</span> <span class="ruby-keyword kw">then</span> <span class="ruby-identifier">sc</span>.<span class="ruby-identifier">value</span>.<span class="ruby-identifier">year</span>
+            <span class="ruby-keyword kw">when</span> <span class="ruby-value str">&quot;Textvalue&quot;</span> <span class="ruby-keyword kw">then</span> <span class="ruby-identifier">sc</span>.<span class="ruby-identifier">value</span>.<span class="ruby-identifier">text</span>
+          <span class="ruby-keyword kw">end</span>
+        <span class="ruby-identifier">sc</span>.<span class="ruby-identifier">update_attributes</span>(<span class="ruby-identifier">:accepted_value</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">value</span>)
+      <span class="ruby-keyword kw">end</span>
+     }
+  <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

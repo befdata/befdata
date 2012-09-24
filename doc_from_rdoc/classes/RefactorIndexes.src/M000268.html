@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>down (RefactorIndexes)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File db/migrate/20120320103524_refactor_indexes.rb, line 36</span>
+  <span class="ruby-keyword kw">def</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">down</span>
+    <span class="ruby-comment cmt"># datacolumns</span>
+    <span class="ruby-identifier">add_index</span> <span class="ruby-identifier">:datacolumns</span>, [<span class="ruby-identifier">:datagroup_id</span>,<span class="ruby-identifier">:dataset_id</span>]
+    <span class="ruby-identifier">remove_index</span> <span class="ruby-identifier">:datacolumns</span>, [<span class="ruby-identifier">:dataset_id</span>]
+    
+    <span class="ruby-comment cmt">#dataset  </span>
+    <span class="ruby-identifier">remove_index</span> <span class="ruby-identifier">:datasets</span>, [<span class="ruby-identifier">:filename</span>]
+      
+    <span class="ruby-comment cmt"># freeformats</span>
+    <span class="ruby-identifier">remove_index</span> <span class="ruby-identifier">:freeformats</span>, [<span class="ruby-identifier">:freeformattable_type</span>,<span class="ruby-identifier">:freeformattable_id</span>], <span class="ruby-identifier">:name</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value str">'idx_freeformats_type_id'</span>
+      
+    <span class="ruby-comment cmt">#paperproposals  </span>
+    <span class="ruby-identifier">remove_index</span> <span class="ruby-identifier">:paperproposals</span>, [<span class="ruby-identifier">:senior_author_id</span>]
+    <span class="ruby-identifier">remove_index</span> <span class="ruby-identifier">:paperproposals</span>, [<span class="ruby-identifier">:project_id</span>]
+     
+    <span class="ruby-comment cmt">#sheetcells</span>
+    <span class="ruby-identifier">add_index</span> <span class="ruby-identifier">:sheetcells</span>, [<span class="ruby-identifier">:category_id</span>,<span class="ruby-identifier">:status_id</span>,<span class="ruby-identifier">:datacolumn_id</span>]
+    <span class="ruby-identifier">remove_index</span> <span class="ruby-identifier">:sheetcells</span>, [<span class="ruby-identifier">:row_number</span>]
+    <span class="ruby-identifier">remove_index</span> <span class="ruby-identifier">:sheetcells</span>, [<span class="ruby-identifier">:category_id</span>] 
+    <span class="ruby-identifier">remove_index</span> <span class="ruby-identifier">:sheetcells</span>, [<span class="ruby-identifier">:status_id</span>,<span class="ruby-identifier">:datacolumn_id</span>] 
+      
+    <span class="ruby-comment cmt">#datagroups</span>
+    <span class="ruby-identifier">remove_index</span> <span class="ruby-identifier">:datagroups</span>, [<span class="ruby-identifier">:title</span>] 
+      
+    <span class="ruby-comment cmt">#roles_users</span>
+    <span class="ruby-identifier">remove_index</span> <span class="ruby-identifier">:roles_users</span>, [<span class="ruby-identifier">:user_id</span>,<span class="ruby-identifier">:role_id</span>] 
+       
+    <span class="ruby-comment cmt">#projects_roles</span>
+    <span class="ruby-identifier">remove_index</span> <span class="ruby-identifier">:projects_roles</span>, [<span class="ruby-identifier">:project_id</span>,<span class="ruby-identifier">:role_id</span>] 
+      
+    <span class="ruby-comment cmt">#author_paperproposals</span>
+    <span class="ruby-identifier">remove_index</span> <span class="ruby-identifier">:author_paperproposals</span>, [<span class="ruby-identifier">:paperproposal_id</span>]
+  <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>

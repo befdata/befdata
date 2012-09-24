@@ -1,0 +1,675 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>Class: Dataworkbook</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <meta http-equiv="Content-Script-Type" content="text/javascript" />
+  <link rel="stylesheet" href=".././rdoc-style.css" type="text/css" media="screen" />
+  <script type="text/javascript">
+  // <![CDATA[
+
+  function popupCode( url ) {
+    window.open(url, "Code", "resizable=yes,scrollbars=yes,toolbar=no,status=no,height=150,width=400")
+  }
+
+  function toggleCode( id ) {
+    if ( document.getElementById )
+      elem = document.getElementById( id );
+    else if ( document.all )
+      elem = eval( "document.all." + id );
+    else
+      return false;
+
+    elemStyle = elem.style;
+    
+    if ( elemStyle.display != "block" ) {
+      elemStyle.display = "block"
+    } else {
+      elemStyle.display = "none"
+    }
+
+    return true;
+  }
+  
+  // Make codeblocks hidden by default
+  document.writeln( "<style type=\"text/css\">div.method-source-code { display: none }</style>" )
+  
+  // ]]>
+  </script>
+
+</head>
+<body>
+
+
+
+    <div id="classHeader">
+        <table class="header-table">
+        <tr class="top-aligned-row">
+          <td><strong>Class</strong></td>
+          <td class="class-name-in-header">Dataworkbook</td>
+        </tr>
+        <tr class="top-aligned-row">
+            <td><strong>In:</strong></td>
+            <td>
+                <a href="../files/app/models/dataworkbook_rb.html">
+                app/models/dataworkbook.rb
+                </a>
+        <br />
+            </td>
+        </tr>
+
+        <tr class="top-aligned-row">
+            <td><strong>Parent:</strong></td>
+            <td>
+                Object
+            </td>
+        </tr>
+        </table>
+    </div>
+  <!-- banner header -->
+
+  <div id="bodyContent">
+
+
+
+  <div id="contextContent">
+
+
+
+   </div>
+
+    <div id="method-list">
+      <h3 class="section-bar">Methods</h3>
+
+      <div class="name-list">
+      <a href="#M000122">add_acknowledged_people</a>&nbsp;&nbsp;
+      <a href="#M000121">add_any_sheet_categories_included_for_this_column</a>&nbsp;&nbsp;
+      <a href="#M000111">columnheaders_raw</a>&nbsp;&nbsp;
+      <a href="#M000112">columnheaders_unique?</a>&nbsp;&nbsp;
+      <a href="#M000109">data_categories_sheet</a>&nbsp;&nbsp;
+      <a href="#M000124">data_column_info_for_columnheader</a>&nbsp;&nbsp;
+      <a href="#M000107">data_description_sheet</a>&nbsp;&nbsp;
+      <a href="#M000128">data_for_columnheader</a>&nbsp;&nbsp;
+      <a href="#M000129">data_group_title</a>&nbsp;&nbsp;
+      <a href="#M000108">data_responsible_person_sheet</a>&nbsp;&nbsp;
+      <a href="#M000127">data_with_head</a>&nbsp;&nbsp;
+      <a href="#M000125">datatype_for_columnheader</a>&nbsp;&nbsp;
+      <a href="#M000117">datemax</a>&nbsp;&nbsp;
+      <a href="#M000116">datemin</a>&nbsp;&nbsp;
+      <a href="#M000105">general_metadata_hash</a>&nbsp;&nbsp;
+      <a href="#M000106">general_metadata_sheet</a>&nbsp;&nbsp;
+      <a href="#M000118">import_data</a>&nbsp;&nbsp;
+      <a href="#M000119">initialize_data_column_information</a>&nbsp;&nbsp;
+      <a href="#M000130">lookup_data_header_people</a>&nbsp;&nbsp;
+      <a href="#M000113">members_listed_as_responsible</a>&nbsp;&nbsp;
+      <a href="#M000123">method_index_for_columnheader</a>&nbsp;&nbsp;
+      <a href="#M000126">methodsheet_datagroup</a>&nbsp;&nbsp;
+      <a href="#M000103">new</a>&nbsp;&nbsp;
+      <a href="#M000104">open_datafile_from_disk</a>&nbsp;&nbsp;
+      <a href="#M000114">portal_users_listed_as_responsible</a>&nbsp;&nbsp;
+      <a href="#M000110">raw_data_sheet</a>&nbsp;&nbsp;
+      <a href="#M000120">save_all_cells_to_database</a>&nbsp;&nbsp;
+      <a href="#M000131">sheet_categories_for_columnheader</a>&nbsp;&nbsp;
+      <a href="#M000115">tag_list</a>&nbsp;&nbsp;
+      </div>
+    </div>
+
+  </div>
+
+
+    <!-- if includes -->
+    <div id="includes">
+      <h3 class="section-bar">Included Modules</h3>
+
+      <div id="includes-list">
+        <span class="include-name"><a href="DataworkbookFormat.html">DataworkbookFormat</a></span>
+      </div>
+    </div>
+
+    <div id="section">
+
+
+
+
+
+    <div id="attribute-list">
+      <h3 class="section-bar">Attributes</h3>
+
+      <div class="name-list">
+        <table>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">book</td>
+          <td class="context-item-value">&nbsp;[R]&nbsp;</td>
+          <td class="context-item-desc"></td>
+        </tr>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">datafile</td>
+          <td class="context-item-value">&nbsp;[R]&nbsp;</td>
+          <td class="context-item-desc"></td>
+        </tr>
+        </table>
+      </div>
+    </div>
+      
+
+
+    <!-- if method_list -->
+    <div id="methods">
+      <h3 class="section-bar">Public Class methods</h3>
+
+      <div id="method-M000103" class="method-detail">
+        <a name="M000103"></a>
+
+        <div class="method-heading">
+          <a href="Dataworkbook.src/M000103.html" target="Code" class="method-signature"
+            onclick="popupCode('Dataworkbook.src/M000103.html');return false;">
+          <span class="method-name">new</span><span class="method-args">(datafile)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+        </div>
+      </div>
+
+      <h3 class="section-bar">Public Instance methods</h3>
+
+      <div id="method-M000122" class="method-detail">
+        <a name="M000122"></a>
+
+        <div class="method-heading">
+          <a href="Dataworkbook.src/M000122.html" target="Code" class="method-signature"
+            onclick="popupCode('Dataworkbook.src/M000122.html');return false;">
+          <span class="method-name">add_acknowledged_people</span><span class="method-args">(columnheader, data_column_new)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+        </div>
+      </div>
+
+      <div id="method-M000121" class="method-detail">
+        <a name="M000121"></a>
+
+        <div class="method-heading">
+          <a href="Dataworkbook.src/M000121.html" target="Code" class="method-signature"
+            onclick="popupCode('Dataworkbook.src/M000121.html');return false;">
+          <span class="method-name">add_any_sheet_categories_included_for_this_column</span><span class="method-args">(columnheader, data_column_new)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+        </div>
+      </div>
+
+      <div id="method-M000111" class="method-detail">
+        <a name="M000111"></a>
+
+        <div class="method-heading">
+          <a href="Dataworkbook.src/M000111.html" target="Code" class="method-signature"
+            onclick="popupCode('Dataworkbook.src/M000111.html');return false;">
+          <span class="method-name">columnheaders_raw</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Provides an array with the headers of all raw data columns.
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000112" class="method-detail">
+        <a name="M000112"></a>
+
+        <div class="method-heading">
+          <a href="Dataworkbook.src/M000112.html" target="Code" class="method-signature"
+            onclick="popupCode('Dataworkbook.src/M000112.html');return false;">
+          <span class="method-name">columnheaders_unique?</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Checks whether the raw data headers are unique.
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000109" class="method-detail">
+        <a name="M000109"></a>
+
+        <div class="method-heading">
+          <a href="Dataworkbook.src/M000109.html" target="Code" class="method-signature"
+            onclick="popupCode('Dataworkbook.src/M000109.html');return false;">
+          <span class="method-name">data_categories_sheet</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Returns the object representing the categories sheet.
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000124" class="method-detail">
+        <a name="M000124"></a>
+
+        <div class="method-heading">
+          <a href="Dataworkbook.src/M000124.html" target="Code" class="method-signature"
+            onclick="popupCode('Dataworkbook.src/M000124.html');return false;">
+          <span class="method-name">data_column_info_for_columnheader</span><span class="method-args">(columnheader)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Returns a hash filled with all informations regarding a given columnheader.
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000107" class="method-detail">
+        <a name="M000107"></a>
+
+        <div class="method-heading">
+          <a href="Dataworkbook.src/M000107.html" target="Code" class="method-signature"
+            onclick="popupCode('Dataworkbook.src/M000107.html');return false;">
+          <span class="method-name">data_description_sheet</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Returns the object representing the second data description sheet.
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000128" class="method-detail">
+        <a name="M000128"></a>
+
+        <div class="method-heading">
+          <a href="Dataworkbook.src/M000128.html" target="Code" class="method-signature"
+            onclick="popupCode('Dataworkbook.src/M000128.html');return false;">
+          <span class="method-name">data_for_columnheader</span><span class="method-args">(columnheader)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Returns a hash with al the raw data for a given columnheader.
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000129" class="method-detail">
+        <a name="M000129"></a>
+
+        <div class="method-heading">
+          <a href="Dataworkbook.src/M000129.html" target="Code" class="method-signature"
+            onclick="popupCode('Dataworkbook.src/M000129.html');return false;">
+          <span class="method-name">data_group_title</span><span class="method-args">(columnheader)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Returns the string that represents the Data Group title for any given
+columnheader from the Workbook.
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000108" class="method-detail">
+        <a name="M000108"></a>
+
+        <div class="method-heading">
+          <a href="Dataworkbook.src/M000108.html" target="Code" class="method-signature"
+            onclick="popupCode('Dataworkbook.src/M000108.html');return false;">
+          <span class="method-name">data_responsible_person_sheet</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Returns the object representing the responsible people sheet.
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000127" class="method-detail">
+        <a name="M000127"></a>
+
+        <div class="method-heading">
+          <a href="Dataworkbook.src/M000127.html" target="Code" class="method-signature"
+            onclick="popupCode('Dataworkbook.src/M000127.html');return false;">
+          <span class="method-name">data_with_head</span><span class="method-args">(columnheader)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Return the complete column from the raw data sheet for a given
+columnheader, including the header again.
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000125" class="method-detail">
+        <a name="M000125"></a>
+
+        <div class="method-heading">
+          <a href="Dataworkbook.src/M000125.html" target="Code" class="method-signature"
+            onclick="popupCode('Dataworkbook.src/M000125.html');return false;">
+          <span class="method-name">datatype_for_columnheader</span><span class="method-args">(columnheader)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Extracts the datatype from the spreadsheet for a given columnheader
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000117" class="method-detail">
+        <a name="M000117"></a>
+
+        <div class="method-heading">
+          <a href="Dataworkbook.src/M000117.html" target="Code" class="method-signature"
+            onclick="popupCode('Dataworkbook.src/M000117.html');return false;">
+          <span class="method-name">datemax</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Helper method to determine the correct maximal date value from the string
+given in the Workbook.
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000116" class="method-detail">
+        <a name="M000116"></a>
+
+        <div class="method-heading">
+          <a href="Dataworkbook.src/M000116.html" target="Code" class="method-signature"
+            onclick="popupCode('Dataworkbook.src/M000116.html');return false;">
+          <span class="method-name">datemin</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Helper method to determine the correct minimal date value from the string
+given in the Workbook.
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000105" class="method-detail">
+        <a name="M000105"></a>
+
+        <div class="method-heading">
+          <a href="Dataworkbook.src/M000105.html" target="Code" class="method-signature"
+            onclick="popupCode('Dataworkbook.src/M000105.html');return false;">
+          <span class="method-name">general_metadata_hash</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+The general metadata sheet contains information about the data set as a
+whole. The general_metadata method gathers the contents of the text cells
+within this sheet.
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000106" class="method-detail">
+        <a name="M000106"></a>
+
+        <div class="method-heading">
+          <a href="Dataworkbook.src/M000106.html" target="Code" class="method-signature"
+            onclick="popupCode('Dataworkbook.src/M000106.html');return false;">
+          <span class="method-name">general_metadata_sheet</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Returns the object representing the general metadata sheet.
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000118" class="method-detail">
+        <a name="M000118"></a>
+
+        <div class="method-heading">
+          <a href="Dataworkbook.src/M000118.html" target="Code" class="method-signature"
+            onclick="popupCode('Dataworkbook.src/M000118.html');return false;">
+          <span class="method-name">import_data</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+The method that loads the Workbook into the database.
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000119" class="method-detail">
+        <a name="M000119"></a>
+
+        <div class="method-heading">
+          <a href="Dataworkbook.src/M000119.html" target="Code" class="method-signature"
+            onclick="popupCode('Dataworkbook.src/M000119.html');return false;">
+          <span class="method-name">initialize_data_column_information</span><span class="method-args">(columnheader)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+        </div>
+      </div>
+
+      <div id="method-M000130" class="method-detail">
+        <a name="M000130"></a>
+
+        <div class="method-heading">
+          <a href="Dataworkbook.src/M000130.html" target="Code" class="method-signature"
+            onclick="popupCode('Dataworkbook.src/M000130.html');return false;">
+          <span class="method-name">lookup_data_header_people</span><span class="method-args">(columnheader)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+The third sheet of the data workbook lists people which have collected data
+found in the raw data sheet of the workbook. These people are associated to
+subprojects and have roles within their subprojects. These people can be
+asked if there are questions concerning data in a given column of the raw
+data sheet. These people should also be considered when writing papers
+using the data from this column in the rawdata sheet (see DataRequest and
+DataRequestsController).
+</p>
+<p>
+The lookup method is only called when there are no people already
+associated to a data header (see MeasurementsMethodstep,
+MeasurementsMethodstepsController).
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000113" class="method-detail">
+        <a name="M000113"></a>
+
+        <div class="method-heading">
+          <a href="Dataworkbook.src/M000113.html" target="Code" class="method-signature"
+            onclick="popupCode('Dataworkbook.src/M000113.html');return false;">
+          <span class="method-name">members_listed_as_responsible</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+        </div>
+      </div>
+
+      <div id="method-M000123" class="method-detail">
+        <a name="M000123"></a>
+
+        <div class="method-heading">
+          <a href="Dataworkbook.src/M000123.html" target="Code" class="method-signature"
+            onclick="popupCode('Dataworkbook.src/M000123.html');return false;">
+          <span class="method-name">method_index_for_columnheader</span><span class="method-args">(columnheader)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Reverse lookup for column headers. Returns the index for any provided
+columnheader.
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000126" class="method-detail">
+        <a name="M000126"></a>
+
+        <div class="method-heading">
+          <a href="Dataworkbook.src/M000126.html" target="Code" class="method-signature"
+            onclick="popupCode('Dataworkbook.src/M000126.html');return false;">
+          <span class="method-name">methodsheet_datagroup</span><span class="method-args">(columnheader)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+During the upload process we look several times back in the spreadsheet. In
+this case, we are looking for data group information (Methodstep,
+MethodstepsController). Data groups consist of several data column
+instances (MeasurementsMethodstep). During first upload, we use the
+information provided in the method sheet in columns 5 to 11 to guess a
+similar data group from the data portal. During the upload of each single
+data column from the raw data sheet (raw_data_per_header), we use this
+information to initialize a <a href="Dataworkbook.html#M000103">new</a>
+data group instance which can then be altered and saved to save this <a
+href="Dataworkbook.html#M000103">new</a> data group on the portal.
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000104" class="method-detail">
+        <a name="M000104"></a>
+
+        <div class="method-heading">
+          <a href="Dataworkbook.src/M000104.html" target="Code" class="method-signature"
+            onclick="popupCode('Dataworkbook.src/M000104.html');return false;">
+          <span class="method-name">open_datafile_from_disk</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+        </div>
+      </div>
+
+      <div id="method-M000114" class="method-detail">
+        <a name="M000114"></a>
+
+        <div class="method-heading">
+          <a href="Dataworkbook.src/M000114.html" target="Code" class="method-signature"
+            onclick="popupCode('Dataworkbook.src/M000114.html');return false;">
+          <span class="method-name">portal_users_listed_as_responsible</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+        </div>
+      </div>
+
+      <div id="method-M000110" class="method-detail">
+        <a name="M000110"></a>
+
+        <div class="method-heading">
+          <a href="Dataworkbook.src/M000110.html" target="Code" class="method-signature"
+            onclick="popupCode('Dataworkbook.src/M000110.html');return false;">
+          <span class="method-name">raw_data_sheet</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Returns the object representing the raw data sheet.
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000120" class="method-detail">
+        <a name="M000120"></a>
+
+        <div class="method-heading">
+          <a href="Dataworkbook.src/M000120.html" target="Code" class="method-signature"
+            onclick="popupCode('Dataworkbook.src/M000120.html');return false;">
+          <span class="method-name">save_all_cells_to_database</span><span class="method-args">(data_column_new, datatype, all_cells)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+        </div>
+      </div>
+
+      <div id="method-M000131" class="method-detail">
+        <a name="M000131"></a>
+
+        <div class="method-heading">
+          <a href="Dataworkbook.src/M000131.html" target="Code" class="method-signature"
+            onclick="popupCode('Dataworkbook.src/M000131.html');return false;">
+          <span class="method-name">sheet_categories_for_columnheader</span><span class="method-args">(columnheader)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Returns the category information from the Workbook for a given
+columnheader.
+</p>
+        </div>
+      </div>
+
+      <div id="method-M000115" class="method-detail">
+        <a name="M000115"></a>
+
+        <div class="method-heading">
+          <a href="Dataworkbook.src/M000115.html" target="Code" class="method-signature"
+            onclick="popupCode('Dataworkbook.src/M000115.html');return false;">
+          <span class="method-name">tag_list</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Returns the tags that were in the respective cell.
+</p>
+        </div>
+      </div>
+
+
+    </div>
+
+
+  </div>
+
+
+<div id="validator-badges">
+  <p><small><a href="http://validator.w3.org/check/referer">[Validate]</a></small></p>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+<head>
+  <title>general_metadata_hash (Dataworkbook)</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <link rel="stylesheet" href="../.././rdoc-style.css" type="text/css" media="screen" />
+</head>
+<body class="standalone-code">
+  <pre><span class="ruby-comment cmt"># File app/models/dataworkbook.rb, line 39</span>
+  <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">general_metadata_hash</span>
+    <span class="ruby-identifier">metadata</span> = <span class="ruby-constant">Hash</span>.<span class="ruby-identifier">new</span>
+    <span class="ruby-identifier">metadata</span>[<span class="ruby-identifier">:filename</span>] = <span class="ruby-ivar">@datafile</span>.<span class="ruby-identifier">file_file_name</span>
+    <span class="ruby-identifier">metadata</span>[<span class="ruby-identifier">:downloads</span>] = <span class="ruby-value">0</span>
+
+    <span class="ruby-identifier">metadata</span>[<span class="ruby-identifier">:title</span>] = <span class="ruby-identifier">clean_string</span>(<span class="ruby-identifier">general_metadata_sheet</span>[<span class="ruby-operator">*</span><span class="ruby-constant">WBF</span>[<span class="ruby-identifier">:meta_title_pos</span>]])
+    <span class="ruby-identifier">metadata</span>[<span class="ruby-identifier">:abstract</span>] = <span class="ruby-identifier">clean_string</span>(<span class="ruby-identifier">general_metadata_sheet</span>[<span class="ruby-operator">*</span><span class="ruby-constant">WBF</span>[<span class="ruby-identifier">:meta_abstract_pos</span>]])
+    <span class="ruby-identifier">metadata</span>[<span class="ruby-identifier">:comment</span>] = <span class="ruby-identifier">clean_string</span>(<span class="ruby-identifier">general_metadata_sheet</span>[<span class="ruby-operator">*</span><span class="ruby-constant">WBF</span>[<span class="ruby-identifier">:meta_comment_pos</span>]])
+    <span class="ruby-identifier">metadata</span>[<span class="ruby-identifier">:usagerights</span>] = <span class="ruby-identifier">clean_string</span>(<span class="ruby-identifier">general_metadata_sheet</span>[<span class="ruby-operator">*</span><span class="ruby-constant">WBF</span>[<span class="ruby-identifier">:meta_usagerights_pos</span>]])
+    <span class="ruby-identifier">metadata</span>[<span class="ruby-identifier">:published</span>] = <span class="ruby-identifier">clean_string</span>(<span class="ruby-identifier">general_metadata_sheet</span>[<span class="ruby-operator">*</span><span class="ruby-constant">WBF</span>[<span class="ruby-identifier">:meta_published_pos</span>]])
+    <span class="ruby-identifier">metadata</span>[<span class="ruby-identifier">:spatialextent</span>] = <span class="ruby-identifier">clean_string</span>(<span class="ruby-identifier">general_metadata_sheet</span>[<span class="ruby-operator">*</span><span class="ruby-constant">WBF</span>[<span class="ruby-identifier">:meta_spatial_extent_pos</span>]])
+    <span class="ruby-identifier">metadata</span>[<span class="ruby-identifier">:temporalextent</span>] = <span class="ruby-identifier">clean_string</span>(<span class="ruby-identifier">general_metadata_sheet</span>[<span class="ruby-operator">*</span><span class="ruby-constant">WBF</span>[<span class="ruby-identifier">:meta_temporalextent_pos</span>]])
+    <span class="ruby-identifier">metadata</span>[<span class="ruby-identifier">:taxonomicextent</span>] = <span class="ruby-identifier">clean_string</span>(<span class="ruby-identifier">general_metadata_sheet</span>[<span class="ruby-operator">*</span><span class="ruby-constant">WBF</span>[<span class="ruby-identifier">:meta_taxonomicextent_pos</span>]])
+    <span class="ruby-identifier">metadata</span>[<span class="ruby-identifier">:design</span>] = <span class="ruby-identifier">clean_string</span>(<span class="ruby-identifier">general_metadata_sheet</span>[<span class="ruby-operator">*</span><span class="ruby-constant">WBF</span>[<span class="ruby-identifier">:meta_design_pos</span>]])
+    <span class="ruby-identifier">metadata</span>[<span class="ruby-identifier">:dataanalysis</span>] = <span class="ruby-identifier">clean_string</span>(<span class="ruby-identifier">general_metadata_sheet</span>[<span class="ruby-operator">*</span><span class="ruby-constant">WBF</span>[<span class="ruby-identifier">:meta_dataanalysis_pos</span>]])
+    <span class="ruby-identifier">metadata</span>[<span class="ruby-identifier">:circumstances</span>] = <span class="ruby-identifier">clean_string</span>(<span class="ruby-identifier">general_metadata_sheet</span>[<span class="ruby-operator">*</span><span class="ruby-constant">WBF</span>[<span class="ruby-identifier">:meta_circumstances_pos</span>]])
+    <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">metadata</span>
+  <span class="ruby-keyword kw">end</span></pre>
+</body>
+</html>
