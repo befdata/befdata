@@ -1,23 +1,29 @@
-## This file contains the Dataset model, which maps the database table Datasets for the application. The Dataset title must be unique.
-##
-## Datasets contain the general metadata of a dataset. In addition, a dataset can contain:
-## 1. Primary research data, as uploaded data values from a "Dataworkbook", where the measurement information is stored in the "Datacolumn"
-## and the data values in "Sheetcell"s. The original "Dataworkbook" is stored as a "Datafile" which is referenced by the Dataset, in the "upload_spreadsheet_id" field.
-## 2. one or more asset ("Freeformat") files.
-##
-## Datasets are taggable, that is, they can be linked to entries in the Tags table. This uses the is_taggable
-## rails gem.
-##
-## Dataset provenance is managed using the ACL9 rails gem. "User"s can be given different roles in relation to a Dataset
-## and access to the Dataset is controlled via the "Role".
-##
-## Datasets can belong to one or more "Project"s
-##
-## "Paperproposal"s contain one or more Datasets. They are linked through the "DatasetPaperProposal" class.
-##
-## Highlighted methods:
-## 1. "approve_predefined_columns": after the initial upload of data a user can bulk approve columns, without reviewing each
-## column individually. The Datacolumn must be corrected described, in that it must have a datagroup and a datatype.
+# This file contains the Dataset model, which maps the database table Datasets for the application.
+# The Dataset title must be unique.
+
+# Datasets contain the general metadata of a dataset. In addition, a dataset can contain:
+# 1. Primary research data, as uploaded data values from a Dataworkbook,
+#    where the information on the column is stored in Datacolumn instances
+#    and the data values in Sheetcell instances. The original dataworkbook is stored as a Datafile
+#    which is referenced by the dataset, in the upload_spreadsheet_id field.
+# 2. one or more asset (Freeformat) files.
+#
+# Datasets are taggable, that is, they can be linked to entries in the Tags table. This uses the is_taggable
+# rails gem.
+#
+# Dataset provenance is managed using the ACL9 rails gem. Users can be given different roles in relation
+# to a dataset (see User) and access to the dataset is controlled via the Role.
+#
+# Datasets can belong to one or more Project instances. They can also set free for download within their
+# projects.
+#
+# Paperproposal instances contain one or more datasets. They are linked through
+# the DatasetPaperproposal class.
+#
+# Highlighted methods:
+# * approve_predefined_columns : after the initial upload of data a User can bulk approve columns,
+#   without reviewing each column individually. The Datacolumn must be correctly described, in
+#   that it must have a Datagroup and a Datatype.
 
 class Dataset < ActiveRecord::Base
 

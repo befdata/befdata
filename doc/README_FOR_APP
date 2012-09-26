@@ -1,2 +1,5 @@
-Use this README file to introduce your application and point to useful places in the API for learning more.
-Run "rake doc:app" to generate API documentation for your models, controllers, helpers, and libraries.
+Welcome to the BEFdata documentation. Here you will find hyperlinked information that
+is generated from the comments in the original files of the code using "rake doc:app"
+which again uses the markup of Rdoc.
+
+Look for example at Dataset, Paperproposal, Project, User.

@@ -1,3 +1,15 @@
+# This file contains teh Paperproposal model definition. Paperproposals are used for organizing data exchange.
+
+# Paperproposals assemble the Dataset instances (DatasetPaperproposal) )that are
+# needed for a particular purpose, in most cases
+# a scientific analysis. *Proponents* of the paperproposal are those users (User) that have submitted
+# the paperproposal.
+#
+# Proponents submit proposals to the project board (see Role) for approval as well as hints and tipps
+# and then to the owners of datasets for the permission to use the data.
+#
+# Datasets can be of main or side aspect for the proposal. Dataset owners of main aspect datasets
+# should be offered a co-authorship in the resulting paper.
 class Paperproposal < ActiveRecord::Base
 
   # acts_as_authorization_object :subject_class_name => 'Project'
