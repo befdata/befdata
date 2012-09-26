@@ -1,5 +1,6 @@
 require 'test_helper'
 require 'fileutils'
+require 'libxml'
 
 
 class DatasetsControllerTest < ActionController::TestCase
@@ -16,22 +17,12 @@ class DatasetsControllerTest < ActionController::TestCase
   end
 
   test "eml is valid" do
-    # require the xml library
-    require 'libxml'
-    # call eml view of last dataset in database
+
     get :show, {:id => Dataset.last, :format => :eml}
-    # get eml as string from response 
-    @xml_file = @response.body
-    # define the standard
-    @xsd_file = "test/fixtures/test_files_for_eml/eml-2.1.0/eml.xsd"
-    # prepare the files for validation
-    document = LibXML::XML::Document.string(@xml_file)
-    schema = LibXML::XML::Schema.new(@xsd_file)
-    # valiadte the files
-    result = document.validate_schema(schema) do |message,flag|
-      log.debug(message)
-      puts message
-    end
+    dataset_as_eml = LibXML::XML::Document.string(@response.body)
+    eml_schema = LibXML::XML::Schema.new("test/fixtures/test_files_for_eml/eml-2.1.0/eml.xsd")
+
+    assert dataset_as_eml.validate_schema(eml_schema)
   end
 
   test "dataset can be downloaded" do
