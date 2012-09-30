@@ -1,33 +1,0 @@
-<?xml version="1.0" encoding="iso-8859-1"?>
-<!DOCTYPE html 
-     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-
-<html>
-<head>
-  <title>invalid_values (Datacolumn)</title>
-  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
-  <link rel="stylesheet" href="../.././rdoc-style.css" type="text/css" media="screen" />
-</head>
-<body class="standalone-code">
-  <pre><span class="ruby-comment cmt"># File app/models/datacolumn.rb, line 137</span>
-  <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">invalid_values</span>
-    <span class="ruby-comment cmt">#TODO check for memory consumption</span>
-    <span class="ruby-comment cmt"># get all the invalid sheetcells</span>
-    <span class="ruby-identifier">invalid_sheetcells</span> = <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">sheetcells</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">:all</span>, <span class="ruby-identifier">:order</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value str">&quot;import_value&quot;</span>,
-                                        <span class="ruby-identifier">:conditions</span> =<span class="ruby-operator">&gt;</span> [<span class="ruby-value str">&quot;status_id = ?&quot;</span>, <span class="ruby-constant">Sheetcellstatus</span><span class="ruby-operator">::</span><span class="ruby-constant">INVALID</span>],
-                                        <span class="ruby-identifier">:group</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value str">&quot;import_value&quot;</span>,
-                                        <span class="ruby-identifier">:select</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value str">&quot;import_value&quot;</span>)
-      
-    <span class="ruby-comment cmt"># No need to order the sheetcells if none were found</span>
-    <span class="ruby-keyword kw">return</span> <span class="ruby-constant">Hash</span>.<span class="ruby-identifier">new</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">invalid_sheetcells</span>.<span class="ruby-identifier">blank?</span> 
-    
-    <span class="ruby-comment cmt"># Create a new array</span>
-    <span class="ruby-identifier">invalid_values</span> = <span class="ruby-constant">Hash</span>.<span class="ruby-identifier">new</span>
-    <span class="ruby-identifier">invalid_sheetcells</span>.<span class="ruby-identifier">each_with_index</span>{<span class="ruby-operator">|</span><span class="ruby-identifier">sc</span>, <span class="ruby-identifier">i</span><span class="ruby-operator">|</span>
-                        <span class="ruby-identifier">invalid_values</span>[<span class="ruby-identifier">sc</span>.<span class="ruby-identifier">import_value</span>] = <span class="ruby-identifier">i</span>
-                }
-    <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">invalid_values</span>
-  <span class="ruby-keyword kw">end</span></pre>
-</body>
-</html>

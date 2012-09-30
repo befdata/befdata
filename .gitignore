@@ -3,6 +3,8 @@ db/*.sqlite3
 log/*.log
 tmp/
 doc_from_rdoc/*
+doc/app/*
+db/schema.rb
 
 *~
 index/*
@@ -37,3 +39,5 @@ test/fixtures_dump
 .config
 
 ext/database-and-file-backup.sh
+
+tags
