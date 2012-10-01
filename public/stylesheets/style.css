@@ -651,9 +651,13 @@ p.datagroup-description {
     padding: 3px;
 }
 
-.ui-accordion-header:hover {
+h4.ui-accordion-header:hover {
     background-image: none;
     background-color: #EEEEEE;
+}
+
+table#invalid-values-table input{
+    margin-bottom: 2px;
 }
 
 /* --- Sidebar ----------------------------------------------- */

@@ -1,1 +1,33 @@
 %h3 Approve invalid values
+
+- unless @available_categories.blank?
+  %p
+    Available categories in the
+    %strong
+      =link_to @datacolumn.datagroup.title, @datacolumn.datagroup
+    datagroup so far:
+    = raw @available_categories.collect{|cat| link_to cat.short, cat}.join(', ')
+
+%p Please check these #{@invalid_values_hash.length} invalid values below and approve them manually.
+
+= form_tag :action => 'update_invalid_values', :controller => 'datacolumns' do |form|
+  = hidden_field_tag :id, @datacolumn.id
+  %table#invalid-values-table
+    %thead
+      %tr
+        %th Original
+        %th Short
+        %th Long
+        %th Description
+    %tbody
+      - @invalid_values_hash.each do |value, i|
+        %tr
+          %td
+            = value
+          %td
+            = text_field_tag "short_value_#{i}", value
+          %td
+            = text_field_tag "long_value_#{i}"
+          %td
+            = text_field_tag "description_#{i}"
+  = submit_tag "Approve"

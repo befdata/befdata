@@ -102,40 +102,33 @@ class DatacolumnsController < ApplicationController
   # This method is called whenever someone clicks on the 'Save Data Group' Button
   # in the Data Column approval process.
   def update_datagroup
-    # Whenever the datagroup parameter is '-1' this means that
-    # the Data Group was not chosen bur submitted via the manual form.
-    unless params[:datagroup] == '-1'
-      # The datagroup parameter is not '-1'. Go find it in the Database and assign it to this Data Column.
-      @datagroup = Datagroup.find(params[:datagroup])
-      @datacolumn.approve_datagroup(@datagroup)
-
-      # Create a nice success message and redirect back so we render the same view again.
-      flash[:notice] = "Data group successfully saved."
-      redirect_to :back
-    else
-      # The datagroup parameter was '-1', hence we need to create a new Data Group.
-      begin
-        # Create the new Data Group and save it to the database.
-        @datagroup = Datagroup.new(params[:new_datagroup])
-        Datacolumn.transaction do
-          if @datagroup.save
-            # When properly saved, assign the new Data Group to this Data Column,
-            @datacolumn.approve_datagroup(@datagroup)
-            # Generate a nice success message and redirect back so we render the same view again.
-            flash[:notice] = "Data group successfully saved."
-            redirect_to :back
-          else
-            # When saving went wrong, generate a failure message and redirect back anyway.
-            flash[:error] = "#{@datagroup.errors.to_a.first.capitalize}"
-            redirect_to :back
+    case params[:datagroup]
+      when nil
+        flash[:error] = "You need to choose a datagroup to assign."
+        redirect_to :back and return
+      when '-1' #indicates a new datagroup
+        begin
+          @datagroup = Datagroup.new(params[:new_datagroup])
+          Datacolumn.transaction do
+            if @datagroup.save
+              @datacolumn.approve_datagroup(@datagroup)
+              flash[:notice] = "Data group successfully saved."
+              redirect_to :back
+            else
+              flash[:error] = "#{@datagroup.errors.to_a.first.capitalize}"
+              redirect_to :back
+            end
           end
-        end
         # This Exception is thrown by 'save' when the record-to-save could not be validated.
-      rescue ActiveRecord::RecordInvalid => invalid
-        # When validation was not possible, generate a failure message and redirect back anyway.
-        flash[:error] = "#{invalid.errors.to_a.first.capitalize}"
+        rescue ActiveRecord::RecordInvalid => invalid
+          flash[:error] = "#{invalid.errors.to_a.first.capitalize}"
+          redirect_to :back
+        end
+      else
+        @datagroup = Datagroup.find(params[:datagroup])
+        @datacolumn.approve_datagroup(@datagroup)
+        flash[:notice] = "Data group successfully saved."
         redirect_to :back
-      end
     end
   end
 
@@ -160,7 +153,6 @@ class DatacolumnsController < ApplicationController
   def update_metadata
 
     unless @datacolumn.update_attributes(params[:datacolumn])
-      # Error message when updating failed. Redirect to the last view anyway.
       flash[:error] = "#{@datacolumn.errors.to_a.first.capitalize}"
       redirect_to :back
     end
@@ -176,7 +168,6 @@ class DatacolumnsController < ApplicationController
 
     @datacolumn.update_attributes({:finished => true})
 
-    # Create a nice success message and redirect back so we render the same view again.
     flash[:notice] = "Metadata and acknowledgements successfully saved."
     redirect_to :back
   end
