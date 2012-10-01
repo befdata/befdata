@@ -1,16 +1,16 @@
 class DatasetsController < ApplicationController
 
-  before_filter :load_dataset, :only => [:download, :show, :edit, :edit_files, :update, :data, :approve_predefined,
+  before_filter :load_dataset, :only => [:download, :show, :edit, :edit_files, :update, :approve, :approve_predefined,
                                          :delete_imported_research_data_and_file, :destroy, :regenerate_download]
 
-  before_filter :redirect_if_unimported, :only => [:download, :edit, :data, :approve_predefined, :destroy]
+  before_filter :redirect_if_unimported, :only => [:download, :edit, :approve, :approve_predefined, :destroy]
 
   skip_before_filter :deny_access_to_all
 
   access_control do
     allow all, :to => [:show, :index, :load_context, :download_excel_template, :importing]
 
-    actions :download, :regenerate_download, :edit, :edit_files, :update, :data, :approve_predefined  do
+    actions :download, :regenerate_download, :edit, :edit_files, :update, :approve, :approve_predefined  do
       allow :admin
       allow :data_admin
       allow :owner, :of => :dataset
@@ -32,6 +32,9 @@ class DatasetsController < ApplicationController
       allow logged_in
     end
   end
+
+  #layout "application"
+  #layout "approval", :except => :approve
 
 
   def create
@@ -101,8 +104,9 @@ class DatasetsController < ApplicationController
     end
   end
 
-  def data
-    @predefined_columns = @dataset.predefined_columns
+  def approve
+    @predefined_columns = @dataset.predefined_columns.collect{|c| c.id}
+    render :layout => 'approval'
   end
 
   # to be used by the ajax import status query
@@ -117,8 +121,10 @@ class DatasetsController < ApplicationController
     if @dataset.columns_with_invalid_values_after_approving_predefined.blank?
       flash[:notice] = "All available columns were successfully approved."
     else
-      flash[:error] = "Unfortunately we could not validate entries in the following data columns:
-        #{@dataset.columns_with_invalid_values_after_approving_predefined.map{|c| c.columnheader}.join(', ')}"
+      still_unapproved_columns = @dataset.columns_with_invalid_values_after_approving_predefined
+      flash[:error] = "Unfortunately we could not automatically validate entries in the following data columns:
+        #{still_unapproved_columns.map{|c| c.columnheader}.join(', ')}"
+      flash[:non_auto_approved] = still_unapproved_columns.map{|c| c.id}
     end
     redirect_to :back
   end

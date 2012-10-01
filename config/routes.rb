@@ -16,7 +16,7 @@ Befchina::Application.routes.draw do
   resources :datasets do
     member do
       post :delete_imported_research_data_and_file, :approve_predefined
-      get :download, :data, :edit_files, :importing, :regenerate_download
+      get :download, :edit_files, :importing, :regenerate_download, :approve
     end
   end
 
@@ -30,10 +30,11 @@ Befchina::Application.routes.draw do
   resources :keywords, :controller => 'tags'
 
   resources :projects
+
   resources :datacolumns do
     member do
-      post :update_datagroup, :update_datatype, :update_metadata
-      post :update_invalid_values
+      get :approval_overview
+      post :update_datagroup, :update_datatype, :update_metadata, :update_invalid_values
     end
   end
 

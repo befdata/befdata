@@ -1,0 +1,20 @@
+- content_for :actions do
+  %ul
+    %li
+      = link_to approve_dataset_url(@dataset) do
+        = image_tag "list-ordered.png"
+        Overview
+    %li
+      = link_to 'not working' do
+        = image_tag("checkbox.png")
+        Quick Approval
+
+
+- content_for :info do
+  %h3 Datacolumns
+  %ul#datacolumns-list
+    - @dataset.datacolumns.each do |c|
+      %li
+        = link_to approval_overview_datacolumn_url(c) do
+          %span{:class => "approval-status approval-stage-#{c.approval_stage.to_s}"}= ''
+          = c.columnheader

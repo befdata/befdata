@@ -1,0 +1,41 @@
+%h3 Overview: #{@datacolumn.columnheader}
+
+%h4
+  Datagroup
+  = "(not yet approved)" unless @datacolumn.datagroup_approved?
+%p
+  = @datacolumn.datagroup.title
+
+%h4
+  Datatype
+  = "(not yet approved)" unless @datacolumn.datatype_approved?
+%p
+  = @datacolumn.import_data_type
+
+%h4 Invalid values
+%p
+  - if !@datacolumn.invalid_values.blank?
+    There are still invalid values. Please approve.
+  - else
+    No invalid values found, that's fine.
+
+%h4 Metadata
+%p
+  %strong Definition:
+  = @datacolumn.definition
+%p
+  %strong Comment:
+  = @datacolumn.comment
+%p
+  %strong Unit:
+  = @datacolumn.unit
+%p
+  %strong People:
+  %span.comma-seperated-list
+    - @datacolumn.users.each do |u|
+      %span= link_to u.to_label, user_path(u.path_name)
+
+
+
+
+

@@ -1,0 +1,8 @@
+- content_for :content do
+  %h2 Approve #{link_to @dataset.title, @dataset}
+  #approval-area
+    = yield
+
+= render :partial => 'datasets/approval_sidebar'
+
+= render :template => 'layouts/application'

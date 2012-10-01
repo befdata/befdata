@@ -1,0 +1,59 @@
+%table#columns-table.tablesorter
+  %thead
+    %tr
+      %th= "#"
+      %th= ' '
+      %th Header
+      %th Datagroup
+      %th Datatype
+      %th Auto-approvable
+  %tbody
+    -@dataset.datacolumns.each do |c|
+      %tr
+        %td= c.columnnr
+        %td{:class => "approval-status approval-stage-#{c.approval_stage.to_s}"}
+          = c.approval_stage.to_s
+        %td= c.columnheader
+        %td{:class => !c.datagroup_approved? ? 'unapproved' : ''}
+          = c.datagroup.title
+        %td{:class => !c.datatype_approved? ? 'unapproved' : ''}
+          = c.import_data_type
+        %td
+          = 'x' if @predefined_columns.include?(c.id)
+          = 'only manually' if flash[:non_auto_approved] && flash[:non_auto_approved].include?(c.id)
+
+- unless @predefined_columns.blank?
+  %p
+    The system has sufficient information to automatically and at once approve the columns marked with an 'x'.
+    = form_tag :action => 'approve_predefined', :controller => 'datasets' , :id => @dataset.id do
+      = submit_tag 'Auto-approve', :confirm => "Are you sure you want to automatically approve #{@predefined_columns.count} columns?"
+  %p.clear
+
+:javascript
+  $(document).ready(function()
+    {
+        $("#columns-table").tablesorter();
+    }
+  );
+
+
+-#- if @dataset.datacolumns.length > 0
+-#  - unless @predefined_columns.blank?
+-#    %p
+-#      We have sufficient information to automatically approve the following #{pluralize(@predefined_columns.length, 'column')}:
+-#      = @predefined_columns.map{|c| c.columnheader}.join(', ')
+-#      = form_tag :action => 'approve_predefined', :controller => 'datasets' , :id => @dataset.id do
+-#        %button{:name => "commit", :type => "submit", :onclick => "return confirm('Are you sure you want to approve the columns?"} Approve all
+-#    %p.clear
+-#  %p
+-#    Click on the column name below to approve the column attributes.
+
+= render 'data_column_tabs'
+
+-#- else
+-#  %p
+-#    Sorry, we cannot proceed. The data column headers must be unique otherwise we cannot match the data between the sheets in the workbook.
+-#    Please delete this context, make sure your data column headers in the raw data sheet are unique, and reload.
+-#    You can download the current state of your workbook here:
+-#    %b= link_to @dataset.title, {:controller => :datasets, :action => 'show', :id => @dataset.id}
+    

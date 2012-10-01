@@ -34,9 +34,11 @@
         - if flash[:notice]
           #notice
             = flash[:notice]
-        - if content_for?(:actions) || content_for?(:info) then
-          #main.span-8.append-1
-            = yield
+
+        - sidebar_exists = content_for?(:actions) || content_for?(:info)
+        #main{:class => sidebar_exists ? "span-8 append-1" : "span-12"}
+          = content_for?(:content) ? yield(:content) : yield
+        - if sidebar_exists
           #sidebar.span-3.last
             - if content_for?(:actions)
               #actions
@@ -44,9 +46,6 @@
             - if content_for?(:info)
               #info
                 = yield :info
-        - else
-          #main.span-12
-            = yield
       #footer.span-12
         = render :partial => "pages/#{LayoutHelper::BEF_LAYOUT}/footer"
 

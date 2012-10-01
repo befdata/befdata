@@ -257,6 +257,9 @@ ul > *:first-child{
     margin-top: 0;
 }
 
+span.comma-seperated-list > span:after { content: ","; }
+span.comma-seperated-list > span:last-child:after { content: ""; }
+
 a {
 	color: #18921e;
     text-decoration: none;
@@ -583,6 +586,36 @@ span.dataset-comment {
 .dataset-create-form p {
     width: 70%;
 }
+
+/* --- Approval UI ------------------------------------------------ */
+
+table#columns-table td.unapproved {
+    color: #8a8a8a;
+}
+
+span.approval-status {
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+}
+
+.approval-stage-0 {
+    color: #ff0200;
+    background-color: #ff0200;
+}
+.approval-stage-1 {
+    color: #ff7800;
+    background-color: #ff7800;
+}
+.approval-stage-2 {
+    color: #fff004;
+    background-color: #fff004;
+}
+.approval-stage-3 {
+    color: #36ff00;
+    background-color: #36ff00;
+}
+
 
 /* --- Sidebar ----------------------------------------------- */
 

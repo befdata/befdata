@@ -1,13 +1,41 @@
 class DatacolumnsController < ApplicationController
 
-  # ACL9 access block for the methods of this controller.
+  before_filter :load_datacolumn_and_dataset
+
   skip_before_filter :deny_access_to_all
   access_control do
-    actions :edit, :update_datagroup, :update_datatype, :update_metadata, :update_invalid_values do
+    actions :edit, :update_datagroup, :update_datatype, :update_metadata, :update_invalid_values,
+            :approval_overview do
       allow :admin
       allow :owner, :of => :dataset
       allow :proposer, :of => :dataset
     end
+  end
+
+  layout :choose_layout
+
+  def approval_overview
+
+  end
+
+  def next_approval_step
+
+  end
+
+  def approve_datagroup
+
+  end
+
+  def approve_datatype
+
+  end
+
+  def approve_metadata
+
+  end
+
+  def approve_invalid_values
+
   end
 
   # This method provides all neccessary informations
@@ -164,6 +192,24 @@ class DatacolumnsController < ApplicationController
       flash[:notice] = "The invalid values have been successfully approved"
       redirect_to :back
     end
+  end
+
+  private
+
+  def choose_layout
+    # TODO AJAX:
+    if request.xhr?
+      nil
+    elsif [].include? action_name
+      'application'
+    else
+      'approval'
+    end
+  end
+
+  def load_datacolumn_and_dataset
+    @datacolumn = Datacolumn.find(params[:id])
+    @dataset = @datacolumn.dataset
   end
 
 end
