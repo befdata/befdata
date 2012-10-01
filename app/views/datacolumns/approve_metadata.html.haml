@@ -1,1 +1,32 @@
-%h3 Approve Metadata
+%h3 Approve Metadata and Acknowledgements
+
+%p
+  Please confirm the metadata and acknowledgements.
+
+= form_tag :controller=> 'datacolumns', :action => 'update_metadata' do |form|
+  = hidden_field_tag :id, @datacolumn.id
+  %dl
+    %dt= label_tag 'datacolumn[definition]', 'Definition'
+    %dd= text_area_tag 'datacolumn[definition]', @datacolumn.definition, {:class => "metadata-text-input"}
+  %dl
+    %dt= label_tag 'datacolumn[comment]', 'Comma separated keywords'
+    %dd= text_area_tag 'datacolumn[comment]', @datacolumn.comment, {:class => "metadata-text-input"}
+  %dl
+    %dt= label_tag 'datacolumn[unit]', 'Unit'
+    %dd= text_field_tag 'datacolumn[unit]', @datacolumn.unit, {:class => "metadata-text-input"}
+  %dl#metadata-people
+    %dt= label_tag 'people', 'Acknowledged people'
+    - unless @ppl_not_found.blank?
+      %p.datagroup-description
+        The following people could not be matched automatically and need to be added to the list manually:
+        = @ppl_not_found.join(", ")
+    %dd
+      = select "person", "person_id", User.all_users_names_and_ids_for_select, {:prompt => 'Select Member'}, {:onchange => 'selectPeople(this)'}
+      %ul#people-list.metadata-approve-people{:style => 'list-style: none;'}
+        - @ppl.each do |person|
+          %li{:onclick => "this.parentNode.removeChild(this);"}
+            %input{:name => "people[]", :type => "hidden", :value => person.id}/
+            = image_tag person.avatar.to_s, :height => '16'
+            = person.to_label
+
+  = submit_tag 'Confirm / Save'

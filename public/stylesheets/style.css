@@ -660,6 +660,15 @@ table#invalid-values-table input{
     margin-bottom: 2px;
 }
 
+.metadata-approve-people {
+    margin-bottom: 25px;
+}
+
+textarea.metadata-text-input {
+    width: 500px;
+    height: 120px;
+}
+
 /* --- Sidebar ----------------------------------------------- */
 
 div#sidebar {

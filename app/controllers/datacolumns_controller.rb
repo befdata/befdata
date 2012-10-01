@@ -16,7 +16,6 @@ class DatacolumnsController < ApplicationController
   layout :choose_layout
 
   def approval_overview
-
   end
 
   def next_approval_step
@@ -32,6 +31,7 @@ class DatacolumnsController < ApplicationController
     unless @datacolumn.finished
       redirect_to approve_metadata and return
     end
+    redirect_to approval_overview
   end
 
   def approve_datagroup
@@ -50,54 +50,9 @@ class DatacolumnsController < ApplicationController
   def approve_metadata
     @methods_short_list = Datagroup.all(:order => "title").collect{|m| [m.title, m.id]}
     @ppl = @datacolumn.users
+    # TODO also give a list of not matched names (alread in view)
+    # @ppl_not_found = ???
   end
-
-
-
-  # This method provides all neccessary informations
-  # for the display of the Data Column approval pages.
-  #def edit
-  #  begin
-  #    @data_groups_available = Datagroup.all(:order => "title", :conditions => ["id <> ?", @datacolumn.datagroup.id])
-  #
-  #    # Is the Data Group of this Data Column approved? If no, then render the Data Group approval partial.
-  #    unless @datacolumn.datagroup_approved?
-  #      render :partial => 'approve_datagroup' and return
-  #    end
-  #
-  #    # get the datatype of this column for correct preselection
-  #    @datatype = Datatypehelper.find_by_name(@datacolumn.import_data_type)
-  #
-  #    # Is the Data Type of this Data Column approved? If no, then render the Data Type approval partial.
-  #    unless @datacolumn.datatype_approved?
-  #      render :partial => 'approve_datatype' and return
-  #    end
-  #
-  #    @available_categories = @datacolumn.datagroup.categories.order(:short)
-  #    @invalid_values_hash = @datacolumn.invalid_values
-  #
-  #    User has to have a look on values that were marked as invalid
-  #    unless @invalid_values_hash.blank?
-  #      render :partial => 'approve_categories' and return
-  #    end
-  #    # Collect all methods for the select tag.
-  #    @methods_short_list = Datagroup.all(:order => "title").collect{|m| [m.title, m.id]}
-  #
-  #    #Collect the already linked people.
-  #    @ppl = @datacolumn.users
-  #
-  #    Unfinished datacolumn means, the user must have at least one look on the metadata and members involved.
-  #    unless @datacolumn.finished
-  #      render :partial => 'approve_metadata' and return
-  #    end
-  #    render :layout => false
-  #  rescue
-  #    # The tabbed display prevent the usual error messages from being displayed.
-  #    # We therefore catch all exceptions and display a generic error message along with the exception itself.
-  #    render :text => "Sorry, there is a problem loading the page. Error: #{$!}"
-  #    #raise
-  #  end
-  #end
 
   # This method is called whenever someone clicks on the 'Save Data Group' Button
   # in the Data Column approval process.
