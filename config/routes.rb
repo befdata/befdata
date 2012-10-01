@@ -33,7 +33,8 @@ Befchina::Application.routes.draw do
 
   resources :datacolumns do
     member do
-      get :approval_overview
+      get :approval_overview, :next_approval_step,
+          :approve_datagroup, :approve_datatype, :approve_metadata, :approve_invalid_values
       post :update_datagroup, :update_datatype, :update_metadata, :update_invalid_values
     end
   end

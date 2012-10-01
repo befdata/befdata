@@ -1,6 +1,16 @@
 - content_for :content do
   %h2 Approve #{link_to @dataset.title, @dataset}
+  - if @datacolumn
+    %h2 Datacolumn: #{@datacolumn.columnheader}
   #approval-area
+    - if @datacolumn
+      %ul.approval-line
+        %li= link_to "Overview", approval_overview_datacolumn_url(@datacolumn)
+        %li= link_to "Datagroup", approve_datagroup_datacolumn_url(@datacolumn)
+        %li= link_to "Datatype", approve_datatype_datacolumn_url(@datacolumn)
+        %li= link_to "Invalid Values", approve_invalid_values_datacolumn_url(@datacolumn)
+        %li= link_to "Metadata", approve_metadata_datacolumn_url(@datacolumn)
+      %hr.approval-line
     = yield
 
 = render :partial => 'datasets/approval_sidebar'

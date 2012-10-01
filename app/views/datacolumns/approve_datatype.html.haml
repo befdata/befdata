@@ -1,0 +1,37 @@
+%h3 Approve Datatype
+
+%p
+  - if !@datacolumn.datatype_approved?
+    The datatype
+    %strong= @datacolumn.import_data_type
+    is not approved. Please select the datatype and click on
+    %i Save.
+    Your data will then be validated against the selected datatype. At the moment there is only a text representation
+    of your data present in the database.
+  - else
+    The datatype has already been approved as
+    %strong #{@datacolumn.import_data_type}.
+    You can change it by selecting a new datatype. The data will then be
+    validated against the selected datatype.
+
+%p
+  The following is an overview of the #{@datacolumn.values_stored? ? "accepted" : "uploaded"} values for this data column.
+%table
+  %thead
+    %tr
+      %th.span-4.last Value
+  %tbody
+    - if @datacolumn.values_stored?
+      - @datacolumn.accepted_values(5).each do |sc|
+        %tr
+          %td= sc.accepted_value
+    - else
+      - @datacolumn.imported_values(10).each do |sc|
+        %tr
+          %td= sc.import_value
+
+= form_tag :action => :update_datatype, :controller => :datacolumns do |form|
+  = hidden_field_tag :id, @datacolumn.id
+  %p.question= label_tag 'datacolumn[import_data_type]', "Which type of data is this?"
+  %p= select('datacolumn', 'import_data_type', options_for_select(Datatypehelper.known.map{|dt| dt.name}, @datatype.name), {:prompt => "Select please"})
+  %p= submit_tag 'Save Datatype'

@@ -257,9 +257,6 @@ ul > *:first-child{
     margin-top: 0;
 }
 
-span.comma-seperated-list > span:after { content: ","; }
-span.comma-seperated-list > span:last-child:after { content: ""; }
-
 a {
 	color: #18921e;
     text-decoration: none;
@@ -276,6 +273,10 @@ a:hover, a:focus {
 
 a img {
 	border: none;
+}
+
+.question {
+    font-weight: bold;
 }
 
 /* --- Tables ------------------------------------------------ */
@@ -615,6 +616,15 @@ span.approval-status {
     color: #36ff00;
     background-color: #36ff00;
 }
+
+span.comma-seperated-list > span:after { content: ","; }
+span.comma-seperated-list > span:last-child:after { content: ""; }
+
+ul.approval-line { margin-bottom: 0; }
+ul.approval-line li {display: inline; }
+ul.approval-line li:after { content: " >"; }
+ul.approval-line li:last-child:after { content: ""; }
+hr.approval-line {margin-top: 5px;}
 
 
 /* --- Sidebar ----------------------------------------------- */
