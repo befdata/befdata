@@ -624,11 +624,37 @@ span.approval-status {
 span.comma-seperated-list > span:after { content: ","; }
 span.comma-seperated-list > span:last-child:after { content: ""; }
 
-ul.approval-line { margin-bottom: 0; }
 ul.approval-line li {display: inline; }
 ul.approval-line li:after { content: " >"; }
+ul.approval-line li:first-child:after { content: ""; }
 ul.approval-line li:last-child:after { content: ""; }
 hr.approval-line {margin-top: 5px;}
+
+ul.approval-line {
+    margin-bottom: 17px;
+}
+
+.approval-line span.approval-status {
+    width: 50px;
+    height: 9px;
+}
+
+.approval-line a {
+    color: #8a8a8a;
+}
+
+.approval-line a.unvisited {
+    color: #CDCDCD;
+}
+
+.approval-line a.active {
+    color: #000000;
+}
+
+.approval-line a:hover {
+    color: #18921E;
+}
+
 
 input[type=radio][name=datagroup] {
     margin-top: 5px;
@@ -638,7 +664,7 @@ input[type=radio][name=datagroup] {
 
 p.datagroup-description {
     font-size: 0.9em;
-    margin-bottom: 0px;
+    margin-bottom: 0;
 }
 
 .datagroup-radio-label {
