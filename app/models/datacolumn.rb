@@ -223,7 +223,8 @@ class Datacolumn < ActiveRecord::Base
     stage = '1' if self.datagroup_approved
     stage = '2' if self.datagroup_approved && self.datatype_approved
     stage = '3' if self.datagroup_approved && self.datatype_approved && self.invalid_values.blank?
-    return stage
+    stage = '4' if self.datagroup_approved && self.datatype_approved && self.invalid_values.blank? && self.finished
+    stage
   end
   
   def untouched?

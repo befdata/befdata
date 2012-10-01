@@ -609,10 +609,14 @@ span.approval-status {
     background-color: #ff7800;
 }
 .approval-stage-2 {
-    color: #fff004;
-    background-color: #fff004;
+    color: #fff600;
+    background-color: #fff600;
 }
 .approval-stage-3 {
+    color: #00faff;
+    background-color: #00faff;
+}
+.approval-stage-4 {
     color: #36ff00;
     background-color: #36ff00;
 }
@@ -626,6 +630,31 @@ ul.approval-line li:after { content: " >"; }
 ul.approval-line li:last-child:after { content: ""; }
 hr.approval-line {margin-top: 5px;}
 
+input[type=radio][name=datagroup] {
+    margin-top: 5px;
+    margin-right: 7px;
+    display: inline;
+}
+
+p.datagroup-description {
+    font-size: 0.9em;
+    margin-bottom: 0px;
+}
+
+.datagroup-radio-label {
+    margin-bottom: 20px;
+}
+
+.ui-accordion-header {
+    color: #18921E;
+    border-color: #DDDDDD;
+    padding: 3px;
+}
+
+.ui-accordion-header:hover {
+    background-image: none;
+    background-color: #EEEEEE;
+}
 
 /* --- Sidebar ----------------------------------------------- */
 
