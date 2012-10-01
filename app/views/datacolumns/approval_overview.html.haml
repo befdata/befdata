@@ -1,5 +1,10 @@
 %h3 Overview
 
+-unless @datacolumn.finished
+  %p
+    The datacolumn is not yet fully approved,
+    = link_to "click here to do so.", next_approval_step_datacolumn_url(@datacolumn)
+
 %h4
   Datagroup
   = "(not yet approved)" unless @datacolumn.datagroup_approved?
@@ -17,9 +22,11 @@
   - if !@datacolumn.invalid_values.blank?
     There are still invalid values. Please approve.
   - else
-    No invalid values found, that's fine.
+    No invalid values found.
 
-%h4 Metadata
+%h4
+  Metadata
+  = "(not yet approved)" unless @datacolumn.finished?
 %p
   %strong Definition:
   = @datacolumn.definition

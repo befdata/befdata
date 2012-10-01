@@ -605,8 +605,8 @@ span.approval-status {
     background-color: #ff0200;
 }
 .approval-stage-1 {
-    color: #ff7800;
-    background-color: #ff7800;
+    color: #ffac00;
+    background-color: #ffac00;
 }
 .approval-stage-2 {
     color: #fff600;
@@ -667,6 +667,9 @@ table#invalid-values-table input{
 textarea.metadata-text-input {
     width: 500px;
     height: 120px;
+}
+input[type=text].metadata-text-input {
+    width: 500px;
 }
 
 /* --- Sidebar ----------------------------------------------- */

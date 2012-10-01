@@ -20,18 +20,18 @@ class DatacolumnsController < ApplicationController
 
   def next_approval_step
     unless @datacolumn.datagroup_approved?
-      redirect_to approve_datagroup and return
+      redirect_to :action => "approve_datagroup" and return
     end
     unless @datacolumn.datatype_approved?
-      redirect_to approve_datatype and return
+      redirect_to :action => "approve_datatype" and return
     end
     unless @datacolumn.invalid_values.blank?
-      redirect_to approve_invalid_values and return
+      redirect_to :action => "approve_invalid_values" and return
     end
     unless @datacolumn.finished
-      redirect_to approve_metadata and return
+      redirect_to :action => "approve_metadata" and return
     end
-    redirect_to approval_overview
+    redirect_to :action => "approval_overview"
   end
 
   def approve_datagroup
@@ -68,7 +68,7 @@ class DatacolumnsController < ApplicationController
             if @datagroup.save
               @datacolumn.approve_datagroup(@datagroup)
               flash[:notice] = "Data group successfully saved."
-              redirect_to :back
+              redirect_to :action => "next_approval_step"
             else
               flash[:error] = "#{@datagroup.errors.to_a.first.capitalize}"
               redirect_to :back
@@ -83,7 +83,7 @@ class DatacolumnsController < ApplicationController
         @datagroup = Datagroup.find(params[:datagroup])
         @datacolumn.approve_datagroup(@datagroup)
         flash[:notice] = "Data group successfully saved."
-        redirect_to :back
+        redirect_to :action => "next_approval_step"
     end
   end
 
@@ -95,7 +95,7 @@ class DatacolumnsController < ApplicationController
     begin
       @datacolumn.approve_datatype(params[:datacolumn][:import_data_type], current_user)
       flash[:notice] = params[:datacolumn][:import_data_type]
-      redirect_to :back
+      redirect_to :action => "next_approval_step"
     rescue
       flash[:error] = "An error occured while updating the datatype: #{$!}"
       redirect_to :back
@@ -124,7 +124,7 @@ class DatacolumnsController < ApplicationController
     @datacolumn.update_attributes({:finished => true})
 
     flash[:notice] = "Metadata and acknowledgements successfully saved."
-    redirect_to :back
+    redirect_to :action => "next_approval_step"
   end
 
   # creates categories for all invalid values completed in the form and assigns the category to the sheetcell
@@ -141,7 +141,7 @@ class DatacolumnsController < ApplicationController
       end
       @datacolumn.update_attribute(:updated_at, Time.now)
       flash[:notice] = "The invalid values have been successfully approved"
-      redirect_to :back
+      redirect_to :action => "next_approval_step"
     end
   end
 
