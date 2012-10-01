@@ -1,13 +1,13 @@
 / This partial is only rendered when the Data Group is unapproved.
 .span-8.last
   = form_tag :action => 'update_datagroup', :controller => 'datacolumns' do |form|
-    = hidden_field_tag :id, @data_column.id
+    = hidden_field_tag :id, @datacolumn.id
     %p From your upload:
     .span-1.last
-      = radio_button_tag 'datagroup', @data_column.datagroup.id, true
+      = radio_button_tag 'datagroup', @datacolumn.datagroup.id, true
     .span-6
-      %h4= @data_column.datagroup.title
-      %p= @data_column.datagroup.description
+      %h4= @datacolumn.datagroup.title
+      %p= @datacolumn.datagroup.description
     - unless @data_groups_available.blank?
       %p.clear Possible matches in the portal:
       - @data_groups_available.each do |datagroup|

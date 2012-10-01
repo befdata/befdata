@@ -2,15 +2,15 @@
   %p
     Please confirm the metadata and acknowledgements.
   = form_tag :controller=> 'datacolumns', :action => 'update_metadata' do |form|
-    = hidden_field_tag :id, @data_column.id
+    = hidden_field_tag :id, @datacolumn.id
     .span-3= label_tag 'datacolumn[definition]', 'Definition'
-    .span-3.last= text_area_tag 'datacolumn[definition]', @data_column.definition
+    .span-3.last= text_area_tag 'datacolumn[definition]', @datacolumn.definition
     .span-3= label_tag 'datacolumn[comment]', 'Comma separated keywords'
-    .span-3.last= text_area_tag 'datacolumn[comment]', @data_column.comment
+    .span-3.last= text_area_tag 'datacolumn[comment]', @datacolumn.comment
     .span-3= #label_tag 'datacolumn[tags]', 'Tags'
     .span-3.last= #text_field_tag 'datacolumn[tags]', @data_column.tag_list
     .span-3= label_tag 'datacolumn[unit]', 'Unit'
-    .span-3.last= text_field_tag 'datacolumn[unit]', @data_column.unit
+    .span-3.last= text_field_tag 'datacolumn[unit]', @datacolumn.unit
     %p.clear
       Acknowledgements
     - unless @ppl_not_found.blank?

@@ -9,7 +9,7 @@
 .span-7.last
   %h4 Approve the data group
 %p.clear
-  - if !@data_column.datagroup_approved?
+  - if !@datacolumn.datagroup_approved?
     .approved_0 The data group has not been approved.
     Please approve the uploaded data group or select one from the available data groups and click on
     %i Save.
@@ -24,15 +24,15 @@
   = form_tag :action => 'update_datagroup', :controller => 'datacolumns' do |form|
     .span-6
       = hidden_field_tag 'datagroup', '-1'
-      = hidden_field_tag :id, @data_column.id
+      = hidden_field_tag :id, @datacolumn.id
       .span-3= label_tag 'new_datagroup[title]', 'Title'
-      .span-3.last= text_field_tag 'new_datagroup[title]', @data_column.datagroup.title
+      .span-3.last= text_field_tag 'new_datagroup[title]', @datacolumn.datagroup.title
       .span-3= label_tag 'new_datagroup[description]', 'Description'
-      .span-3.last= text_area_tag 'new_datagroup[description]', @data_column.datagroup.description
+      .span-3.last= text_area_tag 'new_datagroup[description]', @datacolumn.datagroup.description
       .span-3= label_tag 'new_datagroup[instrumentation]', 'Instrumentation'
-      .span-3.last= text_field_tag 'new_datagroup[instrumentation]', @data_column.datagroup.instrumentation
+      .span-3.last= text_field_tag 'new_datagroup[instrumentation]', @datacolumn.datagroup.instrumentation
       .span-3= label_tag 'new_datagroup[informationsource]', 'Source of information'
-      .span-3.last= text_field_tag 'new_datagroup[informationsource]', @data_column.datagroup.informationsource
+      .span-3.last= text_field_tag 'new_datagroup[informationsource]', @datacolumn.datagroup.informationsource
       .span-3= label_tag 'new_datagroup[methodvaluetype]', 'Method value type'
-      .span-3.last= text_field_tag'new_datagroup[methodvaluetype]', @data_column.datagroup.methodvaluetype
+      .span-3.last= text_field_tag'new_datagroup[methodvaluetype]', @datacolumn.datagroup.methodvaluetype
     %button{:name => "commit", :type => "submit"} Create a new data group
