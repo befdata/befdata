@@ -4,9 +4,9 @@ class DatacolumnsController < ApplicationController
 
   skip_before_filter :deny_access_to_all
   access_control do
-    actions :approval_overview, :next_approval_step,
-            :approve_datagroup, :approve_datatype, :approve_metadata, :approve_invalid_values,
-            :update_datagroup, :update_datatype, :update_metadata, :update_invalid_values do
+    actions :approval_overview, :next_approval_step, :approve_datagroup, :approve_datatype, :approve_metadata,
+            :approve_invalid_values, :update_datagroup, :create_and_update_datagroup, :update_datatype,
+            :update_metadata, :update_invalid_values do
       allow :admin
       allow :owner, :of => :dataset
       allow :proposer, :of => :dataset
@@ -54,36 +54,37 @@ class DatacolumnsController < ApplicationController
     # @ppl_not_found = ???
   end
 
+  def create_and_update_datagroup
+    begin
+      @datagroup = Datagroup.new(params[:new_datagroup])
+      Datacolumn.transaction do
+        if @datagroup.save
+          @datacolumn.approve_datagroup(@datagroup)
+          flash[:notice] = "Data group successfully saved."
+          next_approval_step
+        else
+          flash[:error] = "#{@datagroup.errors.to_a.first.capitalize}"
+          redirect_to :back
+        end
+      end
+        # This Exception is thrown by 'save' when the record-to-save could not be validated.
+    rescue ActiveRecord::RecordInvalid => invalid
+      flash[:error] = "#{invalid.errors.to_a.first.capitalize}"
+      redirect_to :back
+    end
+  end
+
   # This method is called whenever someone clicks on the 'Save Data Group' Button
   # in the Data Column approval process.
   def update_datagroup
-    case params[:datagroup]
-      when nil
-        flash[:error] = "You need to choose a datagroup to assign."
-        redirect_to :back and return
-      when '-1' #indicates a new datagroup
-        begin
-          @datagroup = Datagroup.new(params[:new_datagroup])
-          Datacolumn.transaction do
-            if @datagroup.save
-              @datacolumn.approve_datagroup(@datagroup)
-              flash[:notice] = "Data group successfully saved."
-              redirect_to :action => "next_approval_step"
-            else
-              flash[:error] = "#{@datagroup.errors.to_a.first.capitalize}"
-              redirect_to :back
-            end
-          end
-        # This Exception is thrown by 'save' when the record-to-save could not be validated.
-        rescue ActiveRecord::RecordInvalid => invalid
-          flash[:error] = "#{invalid.errors.to_a.first.capitalize}"
-          redirect_to :back
-        end
-      else
-        @datagroup = Datagroup.find(params[:datagroup])
-        @datacolumn.approve_datagroup(@datagroup)
-        flash[:notice] = "Data group successfully saved."
-        redirect_to :action => "next_approval_step"
+    if params[:datagroup].nil?
+      flash[:error] = "You need to choose a datagroup."
+      redirect_to :back and return
+    else
+      @datagroup = Datagroup.find(params[:datagroup])
+      @datacolumn.approve_datagroup(@datagroup)
+      flash[:notice] = "Data group successfully saved."
+      next_approval_step
     end
   end
 
@@ -95,7 +96,7 @@ class DatacolumnsController < ApplicationController
     begin
       @datacolumn.approve_datatype(params[:datacolumn][:import_data_type], current_user)
       flash[:notice] = params[:datacolumn][:import_data_type]
-      redirect_to :action => "next_approval_step"
+      next_approval_step
     rescue
       flash[:error] = "An error occured while updating the datatype: #{$!}"
       redirect_to :back
@@ -106,7 +107,6 @@ class DatacolumnsController < ApplicationController
   # The meta data of this Data Column is saved. The people submitted via form are assigned
   # to the Data Column or their assignation is revoked.
   def update_metadata
-
     unless @datacolumn.update_attributes(params[:datacolumn])
       flash[:error] = "#{@datacolumn.errors.to_a.first.capitalize}"
       redirect_to :back
@@ -124,7 +124,7 @@ class DatacolumnsController < ApplicationController
     @datacolumn.update_attributes({:finished => true})
 
     flash[:notice] = "Metadata and acknowledgements successfully saved."
-    redirect_to :action => "next_approval_step"
+    next_approval_step
   end
 
   # creates categories for all invalid values completed in the form and assigns the category to the sheetcell
@@ -141,7 +141,7 @@ class DatacolumnsController < ApplicationController
       end
       @datacolumn.update_attribute(:updated_at, Time.now)
       flash[:notice] = "The invalid values have been successfully approved"
-      redirect_to :action => "next_approval_step"
+      next_approval_step
     end
   end
 

@@ -682,6 +682,21 @@ h4.ui-accordion-header:hover {
     background-color: #EEEEEE;
 }
 
+form#filter-form {
+    margin-bottom: 17px;
+}
+
+form#filter-form input{
+    margin-bottom: 2px;
+    margin-left: 10px;
+    margin-right: 2px;
+}
+
+form#filter-form input{
+    margin-bottom: 2px;
+    margin-left: 10px;
+}
+
 table#invalid-values-table input{
     margin-bottom: 2px;
 }
@@ -694,6 +709,7 @@ textarea.metadata-text-input {
     width: 500px;
     height: 120px;
 }
+
 input[type=text].metadata-text-input {
     width: 500px;
 }

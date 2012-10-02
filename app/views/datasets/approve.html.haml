@@ -13,7 +13,7 @@
         %td= c.columnnr
         %td{:class => "approval-status approval-stage-#{c.approval_stage.to_s}"}
           = c.approval_stage.to_s
-        %td= c.columnheader
+        %td= link_to c.columnheader, approval_overview_datacolumn_url(c)
         %td{:class => !c.datagroup_approved? ? 'unapproved' : ''}
           = c.datagroup.title
         %td{:class => !c.datatype_approved? ? 'unapproved' : ''}
@@ -27,7 +27,6 @@
     The system has sufficient information to automatically and at once approve the columns marked with an 'x'.
     = form_tag :action => 'approve_predefined', :controller => 'datasets' , :id => @dataset.id do
       = submit_tag 'Auto-approve', :confirm => "Are you sure you want to automatically approve #{@predefined_columns.count} columns?"
-  %p.clear
 
 :javascript
   $(document).ready(function()

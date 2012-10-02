@@ -12,9 +12,9 @@
     You can change the data group by selecting one from the list or by creating a new one.
 
 #accordion
-  %h4.accordion-head Uploaded Datagroup
-  #datagroup-from-upload.datagroup-selectable.accordion
-    = form_tag :action => 'update_datagroup', :controller => 'datacolumns' do |form|
+  %h4 Uploaded Datagroup
+  = form_tag :action => 'update_datagroup', :controller => 'datacolumns' do |form|
+    #datagroup-existing.datagroup-selectable
       = hidden_field_tag :id, @datacolumn.id
       = radio_button_tag 'datagroup', @datacolumn.datagroup.id, true, {:class => 'span-1'}
       = label "datagroup", @datacolumn.datagroup.id, {:class => "span-6 last datagroup-radio-label"} do
@@ -25,44 +25,99 @@
       = submit_tag "Save uploaded data group"
 
   %h4 Create a new data group
-  #datagroup-create.accordion
-    = form_tag :action => 'update_datagroup', :controller => 'datacolumns' do |form|
-      = hidden_field_tag :datagroup, '-1'
-      = hidden_field_tag :id, @datacolumn.id
-      %dl
-        %dt= label_tag 'new_datagroup[title]', 'Title'
-        %dd= text_field_tag 'new_datagroup[title]', @datacolumn.datagroup.title
-        %dt= label_tag 'new_datagroup[description]', 'Description'
-        %dd= text_area_tag 'new_datagroup[description]', @datacolumn.datagroup.description
-        %dt= label_tag 'new_datagroup[instrumentation]', 'Instrumentation'
-        %dd= text_field_tag 'new_datagroup[instrumentation]', @datacolumn.datagroup.instrumentation
-        %dt= label_tag 'new_datagroup[informationsource]', 'Source of information'
-        %dd= text_field_tag 'new_datagroup[informationsource]', @datacolumn.datagroup.informationsource
-        %dt= label_tag 'new_datagroup[methodvaluetype]', 'Method value type'
-        %dd= text_field_tag'new_datagroup[methodvaluetype]', @datacolumn.datagroup.methodvaluetype
-      = submit_tag "Create and assign a new data group"
+  = form_tag :action => 'create_and_update_datagroup', :controller => 'datacolumns' do |form|
+    = hidden_field_tag :id, @datacolumn.id
+    %dl
+      %dt= label_tag 'new_datagroup[title]', 'Title'
+      %dd= text_field_tag 'new_datagroup[title]', @datacolumn.datagroup.title
+      %dt= label_tag 'new_datagroup[description]', 'Description'
+      %dd= text_area_tag 'new_datagroup[description]', @datacolumn.datagroup.description
+      %dt= label_tag 'new_datagroup[instrumentation]', 'Instrumentation'
+      %dd= text_field_tag 'new_datagroup[instrumentation]', @datacolumn.datagroup.instrumentation
+      %dt= label_tag 'new_datagroup[informationsource]', 'Source of information'
+      %dd= text_field_tag 'new_datagroup[informationsource]', @datacolumn.datagroup.informationsource
+      %dt= label_tag 'new_datagroup[methodvaluetype]', 'Method value type'
+      %dd= text_field_tag'new_datagroup[methodvaluetype]', @datacolumn.datagroup.methodvaluetype
+    = submit_tag "Create and assign a new data group"
 
   - unless @data_groups_available.blank?
-    %h4.accordion-head Choose between Existing datagroups
-    .datagroups-existing.accordion
+    %h4 Choose between Existing datagroups
+    .datagroups-list
+      %form{:id => 'filter-form', :action => '#'}
+        %strong Filter
+        %input{:id => 'filter-input', :type => 'text'}
+        %a{:id => 'clear-filter', :href => '#'} clear
+      %noscript
+        %p Enable javascript for the filter to work
+      -#%hr
       = form_tag :action => 'update_datagroup', :controller => 'datacolumns' do |form|
         = hidden_field_tag :id, @datacolumn.id
         = submit_tag "Save chosen data group"
-        - @data_groups_available.each do |datagroup|
-          #datagroup-from-portal.datagroup-selectable
-            = radio_button_tag 'datagroup', datagroup.id, false, {:class => 'span-1'}
-            = label 'datagroup', datagroup.id, {:class => "span-6 last datagroup-radio-label"}  do
-              %strong= link_to datagroup.title, datagroup
-              %p.datagroup-description
-                %strong Description:
-                = datagroup.description
-              - unless datagroup.datacolumns.blank?
+        #all-datagroups-from-portal
+          - @data_groups_available.each do |datagroup|
+            .datagroup-from-portal.datagroup-selectable
+              = radio_button_tag 'datagroup', datagroup.id, false, {:class => 'span-1'}
+              = label 'datagroup', datagroup.id, {:class => "span-6 last datagroup-radio-label"}  do
+                %strong= link_to datagroup.title, datagroup
                 %p.datagroup-description
-                  %strong Already assigned datacolumns:
-                  = datagroup.datacolumns.map{|c| c.columnheader}.join(', ')
+                  %strong Description:
+                  = datagroup.description
+                - unless datagroup.datacolumns.blank?
+                  %p.datagroup-description
+                    %strong Already assigned datacolumns:
+                    = datagroup.datacolumns.map{|c| c.columnheader}.join(', ')
         = submit_tag "Save chosen data group"
 
 :javascript
   jQuery(document).ready(function(){
     $( "#accordion" ).accordion({ header: 'h4', autoHeight:false, icons:false, collapsible:true});
+
+    // *** filter the datagroups ***
+    function datagroupsFilter(){
+
+      // assign elements
+      filterForm = $("#filter-form");
+      filterInput = $("#filter-input");
+      clearFilter = $("#clear-filter");
+      filterableElementsParent = $("div#all-datagroups-from-portal");
+      irrelevantString1 = "Description:"
+      irrelevantString2 = "Already assigned datacolumns:"
+
+      // case insensitive contains
+      $.expr[':'].icontains = function(obj, index, meta, stack){
+      string = (obj.textContent || obj.innerText || jQuery(obj).text() || '');
+      string = string.replace(irrelevantString1,"");
+      string = string.replace(irrelevantString2,"");
+      return string.toLowerCase().indexOf(meta[3].toLowerCase()) >= 0;
+      };
+
+      // react to changes of textfield
+      filterInput.change(function() {
+        filterString = $(this).val();
+        if (filterString) {
+          filterableElementsParent.children("div:not(:icontains(" + filterString + "))").slideUp();
+          filterableElementsParent.children("div:icontains(" + filterString + ")").slideDown();
+        } else {
+          filterableElementsParent.children().slideDown();
+        }
+      }).keyup(function() {
+        $(this).change();
+      });
+
+      // clear the filter
+      clearFilter.click(function(event) {
+        filterInput.val('');
+        filterInput.change();
+        event.preventDefault();
+      });
+
+      // prevent the form from submitting
+      filterForm.bind("submit", function(event) {
+        event.preventDefault();
+      });
+    };
+
+    // activaaaaaate
+    datagroupsFilter();
+
   });
