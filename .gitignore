@@ -4,7 +4,6 @@ log/*.log
 tmp/
 doc_from_rdoc/*
 doc/app/*
-db/schema.rb
 
 *~
 index/*
