@@ -1,0 +1,48 @@
+%h3 Quick Approve
+%p Only do this, if you know what you do, this changes a lot at once.
+%p
+  Below the select box you find the previosly assigned values. Grey values means they are not approved and are
+  automatically filled in if possible. Empty boxes will be left unchanged.
+
+= form_tag :controller=> 'datasets', :action => 'batch_update_columns' do
+  %table#columns-table.quick-approve-table
+    %thead
+      %tr
+        %th= "#"
+        %th= ' '
+        %th Header
+        %th Datagroup
+        %th Datatype
+    %tbody
+      -@dataset.datacolumns.each do |c|
+        = hidden_field_tag "datacolumn[][id]", c.id
+        %tr
+          %td= c.columnnr
+          %td{:class => "approval-status approval-stage-#{c.approval_stage.to_s}"}
+            = c.approval_stage.to_s
+          %td= link_to c.columnheader, approval_overview_datacolumn_url(c)
+
+          %td.datagroup-cell
+            = select_tag "datacolumn[][datagroup]", options_from_collection_for_select(@datagroups,"id","title",
+              (c.datagroup.id unless c.datagroup_approved?)), {:include_blank => true}
+            %p.datagroup-description.clear-value
+              clear
+            %p.datagroup-description.reset-old-datagroup-value{:class => !c.datagroup_approved? ? 'unapproved' : ''}
+              = c.datagroup.title
+
+          %td.datatype-cell
+            = select_tag "datacolumn[][import_data_type]", options_from_collection_for_select(@datatypes,"name","name",
+              (c.import_data_type unless c.datatype_approved?)), {:include_blank => true}
+            %p.datagroup-description.clear-value
+              clear
+            %p.datagroup-description.reset-old-datatype-value{:class => !c.datatype_approved? ? 'unapproved' : ''}
+              = c.import_data_type
+
+  = submit_tag 'Approve all columns'#, {:confirm => 'Are you sure?'}
+
+:javascript
+  jQuery(document).ready(function(){
+    $(".clear-value").click(function() {
+          $(this).siblings("select").children("option").removeAttr("selected");
+    });
+  });

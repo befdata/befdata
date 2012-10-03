@@ -1,16 +1,19 @@
 class DatasetsController < ApplicationController
 
   before_filter :load_dataset, :only => [:download, :show, :edit, :edit_files, :update, :approve, :approve_predefined,
-                                         :delete_imported_research_data_and_file, :destroy, :regenerate_download]
+                                         :delete_imported_research_data_and_file, :destroy, :regenerate_download,
+                                         :approval_quick, :batch_update_columns]
 
-  before_filter :redirect_if_unimported, :only => [:download, :edit, :approve, :approve_predefined, :destroy]
+  before_filter :redirect_if_unimported, :only => [:download, :edit, :approve, :approve_predefined, :destroy,
+                                                   :approval_quick, :batch_update_columns]
 
   skip_before_filter :deny_access_to_all
 
   access_control do
     allow all, :to => [:show, :index, :load_context, :download_excel_template, :importing]
 
-    actions :download, :regenerate_download, :edit, :edit_files, :update, :approve, :approve_predefined  do
+    actions :download, :regenerate_download, :edit, :edit_files, :update, :approve, :approve_predefined,
+      :approval_quick, :batch_update_columns do
       allow :admin
       allow :data_admin
       allow :owner, :of => :dataset
@@ -32,10 +35,6 @@ class DatasetsController < ApplicationController
       allow logged_in
     end
   end
-
-  #layout "application"
-  #layout "approval", :except => :approve
-
 
   def create
     # submitting neither title nor datafile
@@ -104,15 +103,44 @@ class DatasetsController < ApplicationController
     end
   end
 
+  # to be used by the ajax import status query
+  def importing
+    @dataset = Dataset.find(params[:id], :select => ['id','import_status'])
+    render :text => @dataset.import_status
+  end
+
   def approve
     @predefined_columns = @dataset.predefined_columns.collect{|c| c.id}
     render :layout => 'approval'
   end
 
-  # to be used by the ajax import status query
-  def importing
-    @dataset = Dataset.find(params[:id], :select => ['id','import_status'])
-    render :text => @dataset.import_status
+  def approval_quick
+    @datagroups = Datagroup.order(:title)
+    @datatypes = Datatypehelper.known
+    render :layout => 'approval'
+  end
+
+  def batch_update_columns
+    datacolumns = params[:datacolumn]
+    changes = 0
+    datacolumns.each do |hash|
+      datacolumn = Datacolumn.find hash[:id]
+
+      unless hash[:datagroup].blank?
+        changes += 1
+        datagroup = Datagroup.find(hash[:datagroup])
+        datacolumn.approve_datagroup(datagroup)
+      end
+
+      unless hash[:import_data_type].blank?
+        changes += 1
+        datatype = hash[:import_data_type]
+        datacolumn.approve_datatype datatype, current_user
+      end
+    end
+
+    flash[:notice] = "Successfully approved #{changes} properties."
+    redirect_to approve_dataset_url(@dataset)
   end
 
   def approve_predefined

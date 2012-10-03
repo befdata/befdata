@@ -95,7 +95,7 @@ class DatacolumnsController < ApplicationController
   def update_datatype
     begin
       @datacolumn.approve_datatype(params[:datacolumn][:import_data_type], current_user)
-      flash[:notice] = params[:datacolumn][:import_data_type]
+      flash[:notice] = "Successfully updated Datatype"
       next_approval_step
     rescue
       flash[:error] = "An error occured while updating the datatype: #{$!}"

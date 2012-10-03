@@ -2,8 +2,9 @@
 
 -unless @datacolumn.finished
   %p
-    The datacolumn is not yet fully approved,
-    = link_to "click here to do so.", next_approval_step_datacolumn_url(@datacolumn)
+    %strong
+      The datacolumn is not yet fully approved,
+      = link_to "click here to do so.", next_approval_step_datacolumn_url(@datacolumn)
 
 %h4
   Datagroup

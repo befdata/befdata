@@ -655,7 +655,6 @@ ul.approval-line {
     color: #18921E;
 }
 
-
 input[type=radio][name=datagroup] {
     margin-top: 5px;
     margin-right: 7px;
@@ -712,6 +711,26 @@ textarea.metadata-text-input {
 
 input[type=text].metadata-text-input {
     width: 500px;
+}
+
+.quick-approve-table select {
+    margin-bottom: 0px;
+}
+
+.quick-approve-table td{
+    vertical-align: top;
+}
+
+.quick-approve-table .datagroup-cell select {
+    width: 230px;
+}
+
+.quick-approve-table .datatype-cell select {
+    width: 70px;
+}
+
+.quick-approve-table .clear-value {
+    color: #18921E;
 }
 
 /* --- Sidebar ----------------------------------------------- */
