@@ -726,7 +726,7 @@ input[type=text].metadata-text-input {
 }
 
 .quick-approve-table .datatype-cell select {
-    width: 70px;
+    width: 80px;
 }
 
 .quick-approve-table .clear-value {

@@ -6,6 +6,10 @@ require 'libxml'
 class DatasetsControllerTest < ActionController::TestCase
   setup :activate_authlogic
 
+  # because the update of a datacolumns datatype in test "quick approve updates datacolumn properties" calls some
+  # sql statement in Datacolumn.add_data_values(user) which is conflicting with the dafault rails test transactions
+  self.use_transactional_fixtures = false
+
   test "should get show dataset" do
     get :show, {:id => Dataset.first.id}
     assert_response :success
@@ -17,7 +21,6 @@ class DatasetsControllerTest < ActionController::TestCase
   end
 
   test "eml is valid" do
-
     get :show, {:id => Dataset.last, :format => :eml}
     dataset_as_eml = LibXML::XML::Document.string(@response.body)
     eml_schema = LibXML::XML::Schema.new("test/fixtures/test_files_for_eml/eml-2.1.0/eml.xsd")
@@ -31,6 +34,7 @@ class DatasetsControllerTest < ActionController::TestCase
 
     get :download, :id => ds.id
     assert_nil flash[:error]
+    assert :success
   end
 
   test "unlogged-in visitors can only download free_for_public datasets" do
@@ -80,10 +84,63 @@ class DatasetsControllerTest < ActionController::TestCase
     assert_match(/Access denied/, flash[:error])
   end
   
-  # Data 
+  # Approval
   
-  test "data method should display all datacolumns" do
-    pending "Implement me!"
+  test "approve shows table for all datacolumns" do
+    login_nadrowski
+    dataset = Dataset.find 5
+
+    get :approve, :id => dataset.id
+    assert_select 'tbody tr', :count => dataset.datacolumns.count
+  end
+
+  test "auto approve works" do
+    login_nadrowski
+    dataset = Dataset.find 8
+    @request.env['HTTP_REFERER'] = approve_dataset_url(dataset)
+    assert_not_empty dataset.predefined_columns
+
+    post :approve_predefined, :id => dataset.id
+
+    assert :success
+    assert_empty Dataset.find(dataset.id).predefined_columns
+    assert_equal Datacolumn.find(53).import_data_type, 'text'
+  end
+
+  test "quick approve is displaying all select boxes" do
+    login_nadrowski
+    dataset = Dataset.find 5
+
+    get :approval_quick, :id => dataset.id
+    assert_select '.quick-approve-table select', :count => dataset.datacolumns.count*2
+  end
+
+  test "quick approve updates datacolumn properties" do
+    login_nadrowski
+    dataset = Dataset.find 5
+    datacolumn_1_id = 33
+    datagroup_1_id = 5
+    datacolumn_2_id = 35
+    datatype_2 = 'text'
+
+    post :batch_update_columns, {:id => dataset.id,
+            :datacolumn => [{:id => datacolumn_1_id, :datagroup => datagroup_1_id},
+                            {:id => datacolumn_2_id, :import_data_type => datatype_2}]}
+
+    assert_equal datagroup_1_id, Datacolumn.find(datacolumn_1_id).datagroup.id
+    assert_equal datatype_2, Datacolumn.find(datacolumn_2_id).import_data_type.to_s
+
+    assert_match /2/, flash[:notice]
+  end
+
+  test "quick approve works only for the dataset columns" do
+    login_nadrowski
+    dataset = Dataset.find 5
+    datacolumn_id = 62
+    post :batch_update_columns, {:id => dataset.id,
+                                 :datacolumn => [{:id => datacolumn_id, :import_data_type => 'text'}]}
+
+    assert_not_equal Datacolumn.find(datacolumn_id).import_data_type, 'text'
   end
   
   # Destroy
@@ -134,5 +191,8 @@ class DatasetsControllerTest < ActionController::TestCase
   test "should show new dataset page" do
     login_nadrowski
     get :new
+    assert :success
   end
+
+
 end

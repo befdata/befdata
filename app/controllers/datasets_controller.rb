@@ -125,6 +125,10 @@ class DatasetsController < ApplicationController
     changes = 0
     datacolumns.each do |hash|
       datacolumn = Datacolumn.find hash[:id]
+      unless datacolumn.dataset == @dataset
+        flash[:error] = "Updated datacolumns must be part of the dataset!"
+        redirect_to approve_dataset_url(@dataset) and return
+      end
 
       unless hash[:datagroup].blank?
         changes += 1

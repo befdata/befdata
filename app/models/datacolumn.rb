@@ -128,7 +128,6 @@ class Datacolumn < ActiveRecord::Base
     self.import_data_type = datatype
     self.add_data_values(user)
 
-    # update the datatype approval flag and save.
     self.datatype_approved = true
     self.save
   end
