@@ -8,7 +8,7 @@ class FreeformatsControllerTest < ActionController::TestCase
 
     get :download, :id => Freeformat.first
 
-    assert :success
+    assert_success_no_error
   end
 
   test "add freeformat to dataset and change it and delete it" do
@@ -85,22 +85,25 @@ class FreeformatsControllerTest < ActionController::TestCase
 
     get :download, :id => f.id
 
-    assert :success
+    assert_success_no_error
   end
 
   # ToDo: this has to be changed with better acl9 for paperproposal
-  test "only logged may download freeformat from paperproposal" do
+  test "public user may not download freeformat from paperproposal" do
     @request.env['HTTP_REFERER'] = login_url
     f = Freeformat.find_by_file_file_name "8346952459374534ppNutrientCyclingtest.doc"
 
     get :download, :id => f.id
 
     assert_match /.*Access denied.*/, flash[:error]
+  end
 
+  test "logged in user may download freeformat from paperproposal" do
     login_user "Phdstudentnutrientcycling"
+    f = Freeformat.find_by_file_file_name "8346952459374534ppNutrientCyclingtest.doc"
 
     get :download, :id => f.id
 
-    assert :success
+    assert_success_no_error
   end
 end

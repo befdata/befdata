@@ -5,7 +5,7 @@ class PaperproposalsControllerTest < ActionController::TestCase
 
   test "should get index" do
     get :index
-    assert_response :success
+    assert_success_no_error
   end
 
   test "without login should not be able to edit" do
@@ -17,7 +17,7 @@ class PaperproposalsControllerTest < ActionController::TestCase
   test "should get new" do
     login_nadrowski
     get :new
-    assert_response :success
+    assert_success_no_error
   end
 
   test "should post new paperproposal" do
@@ -49,7 +49,7 @@ class PaperproposalsControllerTest < ActionController::TestCase
     login_and_load_paperproposal "nadrowski", "Step 1 Paperproposal"
 
     get :edit, :id => @paperproposal.id
-    assert_response :success
+    assert_success_no_error
 
     assert_select "form#update_state_edit", false, "Without any dataset you can not send to board"
   end
@@ -71,7 +71,7 @@ class PaperproposalsControllerTest < ActionController::TestCase
 
     get :show, :id => @paperproposal.id
 
-    assert_response :success
+    assert_success_no_error
     assert_select "div.box", {:text => /Submitted to board, waiting for acceptance./}
   end
 
@@ -88,7 +88,7 @@ class PaperproposalsControllerTest < ActionController::TestCase
 
     get :edit, :id => @paperproposal.id
 
-    assert_response :success
+    assert_success_no_error
   end
 
   test "it should not be possible to edit a paperproposal in vote" do

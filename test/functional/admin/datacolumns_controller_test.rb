@@ -6,13 +6,13 @@ class Admin::DatacolumnsControllerTest < ActionController::TestCase
   test "should get index" do
     login_nadrowski
     get :index
-    assert_response :success
+    assert_success_no_error
   end
 
   test "show edit" do
     login_nadrowski
     get :edit, :id => Datacolumn.first.id
-    assert_response :success
+    assert_success_no_error
   end
 
 end

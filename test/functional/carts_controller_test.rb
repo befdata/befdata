@@ -7,6 +7,6 @@ class CartsControllerTest < ActionController::TestCase
     login_nadrowski
 
     get :show
-    assert_response :success
+    assert_success_no_error
   end
 end

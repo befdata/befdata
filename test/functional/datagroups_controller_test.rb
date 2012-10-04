@@ -8,7 +8,7 @@ class DatagroupsControllerTest < ActionController::TestCase
 
     get :index
 
-    assert :success
+    assert_success_no_error
   end
 
   test "show datagroup" do
@@ -16,7 +16,7 @@ class DatagroupsControllerTest < ActionController::TestCase
 
     get :show, :id => Datagroup.first.id
 
-    assert :success
+    assert_success_no_error
   end
 
   test "show datagroup cvs upload" do
@@ -24,7 +24,7 @@ class DatagroupsControllerTest < ActionController::TestCase
 
     get :upload_categories, :id => Datagroup.first.id
 
-    assert :success
+    assert_success_no_error
   end
 
   test "download categories cvs" do
@@ -32,7 +32,7 @@ class DatagroupsControllerTest < ActionController::TestCase
 
     get :show, {:id => 22, :format => :cvs}
 
-    assert :success
+    assert_success_no_error
   end
 
   test "upload updated categories cvs" do
@@ -42,8 +42,7 @@ class DatagroupsControllerTest < ActionController::TestCase
 
     post :update_categories, :id => 22, :csvfile => {:file => f}
 
-    assert :success
-    assert_blank flash[:error]
+    assert_success_no_error
   end
 
   test "dont accept duplicate categories short via cvs" do
@@ -65,8 +64,7 @@ class DatagroupsControllerTest < ActionController::TestCase
     post :update_categories, :id => 22, :csvfile => {:file => f}
     cat_count_new = Datagroup.find(22).categories.count
 
-    assert :success
-    assert_blank flash[:error]
+    assert_success_no_error
     assert cat_count_new = (cat_count_old - 3)
   end
 

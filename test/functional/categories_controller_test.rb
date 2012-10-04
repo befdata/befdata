@@ -8,7 +8,7 @@ class CategoriesControllerTest < ActionController::TestCase
 
     get :show, :id => 61
 
-    assert :success
+    assert_success_no_error
   end
 
   test "show sheetcells cvs upload" do
@@ -16,7 +16,7 @@ class CategoriesControllerTest < ActionController::TestCase
 
     get :upload_sheetcells, :id => 61
 
-    assert :success
+    assert_success_no_error
   end
 
   test "download sheetcell cvs" do
@@ -24,7 +24,7 @@ class CategoriesControllerTest < ActionController::TestCase
 
     get :show, {:id => 61, :format => :cvs}
 
-    assert :success
+    assert_success_no_error
   end
 
   test "upload sheetcells cvs addes to and creates categories" do
@@ -46,8 +46,7 @@ class CategoriesControllerTest < ActionController::TestCase
     other_category_new_sheetcell_count = other_category.sheetcells.count
     new_category_sheetcell_count = new_category.sheetcells.count
 
-    assert :success
-    assert_blank flash[:error]
+    assert_success_no_error
     assert_equal category_new_sheetcell_count, category_old_sheetcell_count - 2, "deleting sheetcells from old category"
     assert_equal other_category_new_sheetcell_count, other_category_old_sheetcell_count + 1, "adding sheetcell to other category"
     assert_equal new_category_sheetcell_count, 1, "adding sheetcell to newly created category"

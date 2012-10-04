@@ -10,7 +10,7 @@ class Settings::UsersControllerTest < ActionController::TestCase
     login_user u.login
 
     get :index
-    assert_response :success
+    assert_success_no_error
     assert_template 'list'
   end
 
@@ -19,7 +19,7 @@ class Settings::UsersControllerTest < ActionController::TestCase
     login_user non_admin_user.login
 
     get :show, :id => non_admin_user.id
-    assert_response :success
+    assert_success_no_error
     assert_template 'show'
   end
 
@@ -28,7 +28,7 @@ class Settings::UsersControllerTest < ActionController::TestCase
     login_user non_admin_user.login
 
     get :edit, :id => non_admin_user.id
-    assert_response :success
+    assert_success_no_error
     assert_template 'update_form'
   end
 
@@ -66,7 +66,7 @@ class Settings::UsersControllerTest < ActionController::TestCase
     login_nadrowski
 
     get :edit, :id => some_user.id
-    assert_response :success
+    assert_success_no_error
     assert_template 'update_form'
   end
 

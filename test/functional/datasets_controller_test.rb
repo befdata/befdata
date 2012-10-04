@@ -12,12 +12,12 @@ class DatasetsControllerTest < ActionController::TestCase
 
   test "should get show dataset" do
     get :show, {:id => Dataset.first.id}
-    assert_response :success
+    assert_success_no_error
   end
 
   test "should show eml metadata as xml" do
     get :show, {:id => Dataset.first.id, :format => :eml}
-    assert_response :success
+    assert_success_no_error
   end
 
   test "eml is valid" do
@@ -33,8 +33,7 @@ class DatasetsControllerTest < ActionController::TestCase
     ds = Dataset.find_by_title "Test species name import second version"
 
     get :download, :id => ds.id
-    assert_nil flash[:error]
-    assert :success
+    assert_success_no_error
   end
 
   test "unlogged-in visitors can only download free_for_public datasets" do
@@ -91,6 +90,8 @@ class DatasetsControllerTest < ActionController::TestCase
     dataset = Dataset.find 5
 
     get :approve, :id => dataset.id
+
+    assert_success_no_error
     assert_select 'tbody tr', :count => dataset.datacolumns.count
   end
 
@@ -191,7 +192,7 @@ class DatasetsControllerTest < ActionController::TestCase
   test "should show new dataset page" do
     login_nadrowski
     get :new
-    assert :success
+    assert_success_no_error
   end
 
 
