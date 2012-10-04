@@ -32,6 +32,6 @@
 
 = form_tag :action => :update_datatype, :controller => :datacolumns do |form|
   = hidden_field_tag :id, @datacolumn.id
-  %p.question= label_tag 'datacolumn[import_data_type]', "Which type of data is this?"
-  %p= select('datacolumn', 'import_data_type', options_for_select(Datatypehelper.known.map{|dt| dt.name}, @datatype.name), {:prompt => "Select please"})
+  %p.question= label_tag 'import_data_type', "Which type of data is this?"
+  %p= select_tag 'import_data_type', options_for_select(Datatypehelper.known.map{|dt| dt.name}, @datatype.name)
   %p= submit_tag 'Save Datatype'

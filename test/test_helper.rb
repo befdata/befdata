@@ -48,4 +48,9 @@ class ActiveSupport::TestCase
     @category = Category.find_by_long long
   end
 
+  def assert_success_no_error
+    assert :success
+    assert_nil flash[:error]
+  end
+
 end

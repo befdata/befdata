@@ -93,8 +93,13 @@ class DatacolumnsController < ApplicationController
   #
   # The datatype of this Data Column is saved and the respective Sheetcells are updated.
   def update_datatype
+    unless params[:import_data_type]
+      flash[:error] = 'Please select a datatype'
+      redirect_to :back
+    end
+
     begin
-      @datacolumn.approve_datatype(params[:datacolumn][:import_data_type], current_user)
+      @datacolumn.approve_datatype(params[:import_data_type], current_user)
       flash[:notice] = "Successfully updated Datatype"
       next_approval_step
     rescue
@@ -129,20 +134,18 @@ class DatacolumnsController < ApplicationController
 
   # creates categories for all invalid values completed in the form and assigns the category to the sheetcell
   def update_invalid_values
-    if(!@datacolumn.nil?)
-      @datacolumn.invalid_values.each do |value, i|
-        short = params["short_value_#{i}"].empty? ? nil : params["short_value_#{i}"]
-        long = params["long_value_#{i}"].empty? ? nil : params["long_value_#{i}"]
-        description = params["description_#{i}"].empty? ? nil : params["description_#{i}"]
+    @datacolumn.invalid_values.each do |value, i|
+      short = params["short_value_#{i}"].blank? ? nil : params["short_value_#{i}"]
+      long = params["long_value_#{i}"].blank? ? nil : params["long_value_#{i}"]
+      description = params["description_#{i}"].blank? ? nil : params["description_#{i}"]
 
-        if(!short.nil?)
-          @datacolumn.update_invalid_value(value, short, long, description, current_user, @dataset)
-        end
+      if(!short.nil?)
+        @datacolumn.update_invalid_value(value, short, long, description, current_user, @dataset)
       end
-      @datacolumn.update_attribute(:updated_at, Time.now)
-      flash[:notice] = "The invalid values have been successfully approved"
-      next_approval_step
     end
+    @datacolumn.update_attribute(:updated_at, Time.now)
+    flash[:notice] = "The invalid values have been successfully approved"
+    next_approval_step
   end
 
   private
