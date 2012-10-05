@@ -9,7 +9,7 @@ class UsersController < ApplicationController
       allow all
     end
     actions :edit, :update do
-      allow logged_in
+      allow logged_in, :if=>:correct_user
     end
   end
 
@@ -60,4 +60,12 @@ class UsersController < ApplicationController
     end
   end
 
+  private
+
+  # checks whether the user to be edited/updated is current user
+  def correct_user
+    user_id = params[:id]
+    return(false) if user_id && user_id.to_i != current_user.id
+    return(true)
+  end
 end
