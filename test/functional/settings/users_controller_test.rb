@@ -46,9 +46,8 @@ class Settings::UsersControllerTest < ActionController::TestCase
   test "public may not update someones profile details" do
     some_user = User.first
 
-    assert_raise do
-      get :edit, :id => some_user.id
-    end
+    get :edit, :id => some_user.id
+    assert_match /Access denied/i,flash[:error]
   end
 
   test "normal users may not edit other profile details" do
