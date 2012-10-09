@@ -213,6 +213,20 @@ class Datacolumn < ActiveRecord::Base
     self.finished = false
   end
 
+  # this should not be happen but we thought it might be a good last step before we can
+  # confirm the dataset as completely approved
+  def final_check_for_valid_sheetcells
+    if self.sheetcells.where(:status_id => Sheetcellstatus::INVALID).count != 0
+      self.finished = false
+      self.save
+      return false
+    end
+
+    self.finished = true
+    self.save
+    true
+  end
+
   def to_label
     columnheader
   end

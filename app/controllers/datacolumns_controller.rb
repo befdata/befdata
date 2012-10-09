@@ -126,10 +126,13 @@ class DatacolumnsController < ApplicationController
     # Check all new people whether they were responsible before. If not, add them.
     new_people.each{|p| User.find(p).has_role! :responsible, @datacolumn unless @datacolumn.users.include?(User.find(p))}
 
-    @datacolumn.update_attributes({:finished => true})
-
-    flash[:notice] = "Metadata and acknowledgements successfully saved."
-    next_approval_step
+    if @datacolumn.final_check_for_valid_sheetcells
+      flash[:notice] = "Metadata and acknowledgements successfully saved."
+      next_approval_step
+    else
+      flash[:error] = "There are still invalid values left"
+      redirect_to approve_invalid_values_datacolumn_path @datacolumn
+    end
   end
 
   # creates categories for all invalid values completed in the form and assigns the category to the sheetcell
