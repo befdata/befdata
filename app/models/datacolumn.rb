@@ -56,7 +56,7 @@ class Datacolumn < ActiveRecord::Base
 
   # returns the first 'count' number unique accepted values
   def accepted_values(count)
-    values = self.sheetcells..all(:limit => count,
+    values = self.sheetcells.all(:limit => count,
                                   :joins => "LEFT OUTER JOIN categories ON categories.id = sheetcells.category_id" ,
                                   :select => "distinct case when sheetcells.category_id > 0 then categories.short else sheetcells.accepted_value end as accepted_value",
                                   :order => "accepted_value")
