@@ -120,6 +120,8 @@ class Datacolumn < ActiveRecord::Base
   def approve_datagroup(datagroup)
     self.datagroup = datagroup
     self.datagroup_approved = true
+    self.datatype_approved = false
+    self.finished = false
     self.save
   end
 
@@ -129,6 +131,7 @@ class Datacolumn < ActiveRecord::Base
     self.add_data_values(user)
 
     self.datatype_approved = true
+    self.finished = false
     self.save
   end
 
@@ -211,6 +214,7 @@ class Datacolumn < ActiveRecord::Base
         end
       end
     end
+    self.finished = false
   end
 
   def to_label
