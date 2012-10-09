@@ -21,7 +21,7 @@
           = c.import_data_type
         - if !@predefined_columns.blank? || flash[:non_auto_approved]
           %td
-            = 'x' if @predefined_columns.include?(c.id)
+            = "\u2713" if @predefined_columns.include?(c.id)
             = 'only manually' if flash[:non_auto_approved] && flash[:non_auto_approved].include?(c.id)
 
 - unless @predefined_columns.blank?
