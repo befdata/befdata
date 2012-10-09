@@ -47,19 +47,19 @@ class Datacolumn < ActiveRecord::Base
 
   # returns the first 'count' number unique imported values
   def imported_values(count)
-    values = self.sheetcells.find(:all, :order => "import_value",
-                                        :limit => count,
-                                        :group => "import_value",
-                                        :select => "import_value")
+    values = self.sheetcells.all( :order => "import_value",
+                                  :limit => count,
+                                  :group => "import_value",
+                                  :select => "import_value")
     return values
   end
 
   # returns the first 'count' number unique accepted values
   def accepted_values(count)
-    values = self.sheetcells.find(:all, :limit => count,
-                                        :joins => "LEFT OUTER JOIN categories ON categories.id = sheetcells.category_id" ,
-                                        :select => "distinct case when sheetcells.category_id > 0 then categories.short else sheetcells.accepted_value end as accepted_value",
-                                        :order => "accepted_value")
+    values = self.sheetcells..all(:limit => count,
+                                  :joins => "LEFT OUTER JOIN categories ON categories.id = sheetcells.category_id" ,
+                                  :select => "distinct case when sheetcells.category_id > 0 then categories.short else sheetcells.accepted_value end as accepted_value",
+                                  :order => "accepted_value")
 
     return values
   end
@@ -139,10 +139,10 @@ class Datacolumn < ActiveRecord::Base
   def invalid_values
     #TODO check for memory consumption
     # get all the invalid sheetcells
-    invalid_sheetcells = self.sheetcells.find(:all, :order => "import_value",
-                                        :conditions => ["status_id = ?", Sheetcellstatus::INVALID],
-                                        :group => "import_value",
-                                        :select => "import_value")
+    invalid_sheetcells = self.sheetcells.all( :order => "import_value",
+                                              :conditions => ["status_id = ?", Sheetcellstatus::INVALID],
+                                              :group => "import_value",
+                                              :select => "import_value")
       
     # No need to order the sheetcells if none were found
     return Hash.new if invalid_sheetcells.blank? 
@@ -158,10 +158,8 @@ class Datacolumn < ActiveRecord::Base
   # returns any invalid sheetcells with the given value
   def invalid_sheetcells_by_value(value)
     #Todo check for memory consumption
-     return self.sheetcells.find(:all, :conditions => ["status_id = ? AND import_value=?",
-                                                       Sheetcellstatus::INVALID,
-                                                      value]
-                                )
+     return self.sheetcells.all( :conditions => ["status_id = ? AND import_value=?",
+                                                 Sheetcellstatus::INVALID, value])
   end
 
   # creates a category for the invalid value and assigns the category to all matching sheetcells
@@ -195,10 +193,8 @@ class Datacolumn < ActiveRecord::Base
 
       #TODO not sure if this should really go here - Sophia
       # update any other invalid values for columns with the same datagroup as they may contain the same values
-      columns = Datacolumn.find(:all, :conditions => ["datagroup_id = ? and dataset_id = ?",
-                                               self.datagroup.id,
-                                               self.dataset.id]
-                              )
+      columns = Datacolumn.all( :conditions => ["datagroup_id = ? and dataset_id = ?",
+                                               self.datagroup.id, self.dataset.id])
       if(!columns.nil?)
         columns.each do |col|
           cells = col.invalid_sheetcells_by_value(original_value)
