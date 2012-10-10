@@ -43,16 +43,20 @@ class UserLoginTest < ActionDispatch::IntegrationTest
     assert_select "h2", /Welcome/
   end
   test "logged-in user can see 'Edit profile' link in his/her page" do
+    # public visitor
     get user_path(User.first)
     assert_response :success
     assert_select "div#actions a", false, "public should not see link to edit profile"
 
     post(user_session_path, {:user_session=>{:login=>@user.login, :password=>"test"}})
+    # visit others' profile page
+    User.where(["login!=?",@user.login]).each do |u|
+      get user_path(u)
+      assert_response :success
+      assert_select "div#actions a", false,"logged-in user should not see link to edit profile in others' page"
+    end
 
-    get user_path(User.first)
-    assert_response :success
-    assert_select "div#actions a", false,"logged-in user should not see link to edit profile in others' page"
-
+    #visit own profile page
     get user_path(@user)
     assert_response :success
     assert_select "div#actions a", "Edit profile", "logged-in user should see link to edit profile in his/her own page"
