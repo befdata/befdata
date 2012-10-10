@@ -978,16 +978,6 @@ ul#page-associates {
     float: left;
     cursor: text;
 }
-.group{
-  overflow:auto;
-}
-.group .avata{
-  width: 140px;
-  float:left;
-}
-.avata img{
-  margin:0 20px 10px;
-}
 .box .scroll_checkboxes label {
     display: block;
     width: 350px;
@@ -1162,4 +1152,36 @@ Some Form layout
 -------------------------------------------------------------- */
 .dataset-metadata-form textarea {
     height: 120px;
+}
+#profile{
+  width:608px;
+  margin: 10px;
+  border: solid 1px rgb(221,221,221);
+  padding: 20px;
+}
+#profile label{
+  float:left;
+  width: 140px;
+  margin-right: 20px;
+}
+#profile input{
+  width: 300px;
+}
+#profile input[type="submit"]{
+  width: auto;
+}
+#profile textarea{
+  width: 300px;
+  height: 100px;
+}
+#profile .required{
+  font-weight: bold;
+}
+#profile .avata{
+  width: 140px;
+  float:left;
+  margin-right: 20px;
+}
+#profile img{
+  margin-left: 10px;
 }
