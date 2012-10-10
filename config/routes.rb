@@ -7,7 +7,8 @@ Befchina::Application.routes.draw do
   match 'logout' => 'user_sessions#destroy', :as => :logout
 
   resources :users
-  match 'profile' => 'users#edit', :as => :profile
+  match 'profile' => 'users#show', :as => :profile
+  match 'profile/edit' => 'users#edit', :as => :edit_profile
 
   match 'imprint' => 'pages#imprint', :as => :imprint
   match 'help' => 'pages#help', :as => :help

@@ -39,14 +39,12 @@ class UsersController < ApplicationController
 
   # The show method provides all informations about one specific person.
   def show
-    redirect_to(:action => "index") and return if params[:id].blank?
-
-    u_id = params[:id].split(/-/).first
-    @user = User.find u_id
-
+    #redirect_to(:action=>"index") and return if params[:id] && params[:id].strip.empty?
+    @user = params[:id].nil? ? current_user : User.find(params[:id])
+    # User.find raises Error when not finding an user, so when @user is nil, current_user is nil,ie. user is not logged in.
+    redirect_to(root_path, flash:{error:"You must be logged in to access this page"}) and return if @user.nil?
     @user_datasets_owned = @user.datasets_owned.sort_by {|d| d.title.to_s}
-
-    redirect_to(:action => "index", :status => :not_found) unless @user
+    #redirect_to(:action => "index", :status => :not_found) unless @user
   end
 
   def update

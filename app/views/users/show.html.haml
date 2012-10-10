@@ -1,8 +1,14 @@
 - if @user == current_user
   = content_for :actions do
-    = link_to profile_path do
+    = link_to edit_profile_path do
       = image_tag "edit.png"
       = "Edit profile"
+    = link_to new_dataset_path do
+      = image_tag "file-upload.png"
+      = "Create dataset"
+    = link_to new_paperproposal_path do
+      = image_tag "document.png"
+      = "Create paperproposal"
 - unless @user.projects.blank?
   = content_for :info do
     %h3 Projects
