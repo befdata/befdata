@@ -1,24 +1,6 @@
-%h2 Edit properties of #{link_to @dataset.title, @dataset}
-
+%h2 Edit meta data of #{link_to @dataset.title, @dataset}
 %p
   For more information, please contact #{link_to @dataset.owners.first, user_path(@dataset.owners.first)} of project
   = link_to(@dataset.projects.first, project_path(@dataset.projects.first)) unless @dataset.projects.empty?
-- unless @dataset.comment.blank?
-  %h3 Comment
-  %p= @dataset.comment
 
-%h3 Edit meta data of this dataset
-%p
-  = render :active_scaffold => "settings/datasets", :constraints => {:id => @dataset.id}
-
-%h3 Edit method descriptions of this context
-%p
-  At the time of writing, it is only possible to add, but not to
-  delete methods or personroles to a given columnheader (=
-  measurements_methodstep)
-%p
-  = render :active_scaffold => "settings/datacolumns", :constraints => {:dataset_id => @dataset.id}
-
-
-
-
+= render :partial => "form_for_metadata"

@@ -51,12 +51,6 @@ Befchina::Application.routes.draw do
     end
   end
 
-  namespace :settings do
-    resources :users, :datasets, :datacolumns do
-      as_routes
-    end
-  end
-
   resources :carts
   match 'create_cart_context/:dataset_id' => 'carts#create_cart_context', :as => :create_cart_context
   match 'delete_cart_context/:dataset_id' => 'carts#delete_cart_context', :as => :delete_cart_context
