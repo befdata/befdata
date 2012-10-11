@@ -26,7 +26,7 @@
 
 - unless @predefined_columns.blank?
   %p
-    The system has sufficient information to automatically and at once approve the columns marked with an 'x'.
+    There are sufficient information to automatically and at once approve the columns marked with #{"\u2713"}
     = form_tag :action => 'approve_predefined', :controller => 'datasets' , :id => @dataset.id do
       = submit_tag 'Auto-approve', :confirm => "Are you sure you want to automatically approve #{@predefined_columns.count} columns?"
 
