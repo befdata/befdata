@@ -46,9 +46,14 @@ class DatasetsControllerTest < ActionController::TestCase
 
     ds_public = Dataset.find_by_title("TITLE: use for visual testing of export")
 
+    FileUtils.copy("#{Rails.root}/test/fixtures/test_files_for_uploads/9_generated-download.xls",
+                   "#{Rails.root}/files/9_generated-download.xls")
+
     assert ds_public.free_for_public?
     get :download, :id => ds_public.id
     assert_nil flash[:error]
+
+    FileUtils.rm("#{Rails.root}/files/9_generated-download.xls")
   end
 
 
