@@ -51,7 +51,7 @@ class PaperproposalsController < ApplicationController
     @paperproposal.author_paperproposals = proponents
     @all_persons = User.all
     unless @paperproposal.save
-      flash[:error] = @paperproposal.errors.full_messages
+      flash[:error] = @paperproposal.errors.full_messages.to_sentence
       render :action => :new
     else
       redirect_to edit_paperproposal_path(@paperproposal)
@@ -150,7 +150,7 @@ private
     @paperproposal.paperproposal_votes << data_request_votes
     @paperproposal.board_state = "accept"
     unless @paperproposal.save
-      flash[:errors] = @paperproposal.errors.full_messages
+      flash[:errors] = @paperproposal.errors.full_messages.to_sentence
     end
   end
 
