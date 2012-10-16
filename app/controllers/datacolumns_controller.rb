@@ -50,8 +50,6 @@ class DatacolumnsController < ApplicationController
   def approve_metadata
     @methods_short_list = Datagroup.all(:order => "title").collect{|m| [m.title, m.id]}
     @ppl = @datacolumn.users
-    # TODO also give a list of not matched names (alread in view)
-    # @ppl_not_found = ???
   end
 
   def create_and_update_datagroup

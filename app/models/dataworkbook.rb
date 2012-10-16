@@ -16,6 +16,7 @@
 ## raw data values the Datatype and Sheetcellstatus classes are used.
 
 require "dataworkbook_format"
+
 class Dataworkbook
   include DataworkbookFormat
 
@@ -99,18 +100,7 @@ class Dataworkbook
 
     users_from_sheet_with_row_header = given_names.zip surnames, emails
     users_from_sheet = users_from_sheet_with_row_header.drop(1)
-    users_from_sheet
-  end
-
-  def portal_users_listed_as_responsible
-    portal_users = []
-    if @book.nil?
-      load_datafile
-    end
-    members_listed_as_responsible.each do |member|
-      portal_users << User.find_by_firstname_and_lastname(clean_string(member[0]), clean_string(member[1]))
-    end
-    portal_users.compact
+    find_users(users_from_sheet)
   end
 
   # Returns the tags that were in the respective cell.
@@ -173,7 +163,7 @@ class Dataworkbook
         add_any_sheet_categories_included_for_this_column(columnheader, data_column_new)
         add_acknowledged_people(columnheader, data_column_new)
       end
-      data_column_new.finished = true
+      data_column_new.save
 
       processing_column += 1
     end
@@ -239,10 +229,24 @@ class Dataworkbook
   end
 
   def add_acknowledged_people(columnheader, data_column_new)
-    ppl = lookup_data_header_people(columnheader)
-    ppl = ppl.flatten.uniq
-    ppl.each do |user|
+    header = Array(data_responsible_person_sheet.column(*WBF[:people_columnheader_col]))
+    lastnames = Array(data_responsible_person_sheet.column(*WBF[:people_lastname_col]))
+    firstnames = Array(data_responsible_person_sheet.column(*WBF[:people_firstname_col]))
+
+    names_array = [] << header << firstnames << lastnames
+    names_array = names_array.transpose
+    names_array.uniq!
+    names_array.reject!{|x| x[0]!= columnheader}
+    names_array.each{|x| x.delete columnheader}
+
+    ppl = find_users(names_array)
+
+    ppl[:found_users].each do |user|
       user.has_role! :responsible, data_column_new
+    end
+    unless ppl[:unfound_usernames].blank?
+      message = "These persons could not be matched within the portal: #{ppl[:unfound_usernames].join(', ')}"
+      data_column_new.informationsource = message
     end
   end
 
@@ -337,34 +341,6 @@ class Dataworkbook
     Array(data_description_sheet.column(*WBF[:group_title_col]))[method_index_for_columnheader(columnheader)]
   end
 
-  # The third sheet of the data workbook lists people which have
-  # collected data found in the raw data sheet of the workbook.  These
-  # people are associated to subprojects and have roles within their
-  # subprojects.  These people can be asked if there are questions
-  # concerning data in a given column of the raw data sheet.  These
-  # people should also be considered when writing papers using the
-  # data from this column in the rawdata sheet (see DataRequest and
-  # DataRequestsController).
-  #
-  # The lookup method is only called when there are no people already
-  # associated to a data header (see MeasurementsMethodstep,
-  # MeasurementsMethodstepsController).
-  def lookup_data_header_people(columnheader)
-    header = Array(data_responsible_person_sheet.column(*WBF[:people_columnheader_col]))
-    lastname = Array(data_responsible_person_sheet.column(*WBF[:people_lastname_col]))
-    ## collecting the relevant rows
-    people = []
-    i=0
-    for i in 0 .. header.length-1 do
-      unless header[i].nil?
-        if clean_string(header[i]) == columnheader
-          people += User.find_all_by_lastname(clean_string(lastname[i]))
-        end
-      end
-    end
-    people.flatten.uniq
-  end
-
   # Returns the category information from the Workbook for a given columnheader.
   def sheet_categories_for_columnheader(columnheader)
 
@@ -452,6 +428,30 @@ class Dataworkbook
        return true
      end
     return false
+  end
+
+  # gives found and unfound users
+  # usernames must be an array af the formm [[firstname_1, lastname_1], [firstname_2, lastname_2]]
+  def find_users (usernames = [])
+    found_users = []
+    unfound_usernames = []
+    usernames.each do |un|
+      first = clean_string(un[0])
+      last = clean_string(un[1])
+      unless first.nil? && last.nil?
+        u = User.find_by_firstname_and_lastname(first, last)
+        if u.nil?
+          unfound_usernames << "#{first} #{last}"
+        else
+          found_users << u
+        end
+      end
+    end
+    found_users.compact!
+    found_users.uniq!
+    unfound_usernames.compact!
+    unfound_usernames.uniq!
+    {:found_users => found_users, :unfound_usernames => unfound_usernames}
   end
 
 end

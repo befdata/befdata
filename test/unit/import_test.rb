@@ -43,6 +43,8 @@ self.use_transactional_fixtures = false
     importcats = datacolumn.import_categories
     assert(!importcats.nil?)
     assert(importcats.count==18, "There are not 18 import categories for this column")
+    # unreckognized_user is found
+    assert_match "firstname_unknown", datacolumn.informationsource
 
     importcats.each do |cat|
       # test that it still has it's decimal point

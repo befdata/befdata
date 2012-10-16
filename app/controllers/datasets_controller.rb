@@ -64,9 +64,10 @@ class DatasetsController < ApplicationController
     if @dataset.save
       current_user.has_role! :owner, @dataset
       if datafile then
-        @dataset.dataworkbook.portal_users_listed_as_responsible.each do |user|
+        @dataset.dataworkbook.members_listed_as_responsible[:found_users].each do |user|
           user.has_role!(:owner, @dataset)
         end
+        @unfound_usernames = @dataset.dataworkbook.members_listed_as_responsible[:unfound_usernames]
       end
     else
       flash[:error] = @dataset.errors.full_messages.to_sentence
@@ -92,11 +93,7 @@ class DatasetsController < ApplicationController
     end
 
     if @dataset.update_attributes(params[:dataset]) then
-      if @dataset.has_research_data?
-        redirect_to dataset_path
-      else
-        redirect_to dataset_path
-      end
+      redirect_to dataset_path
     else
       flash[:error] = @dataset.errors.full_messages.to_sentence
       render :create
