@@ -23,7 +23,7 @@ class Paperproposal < ActiveRecord::Base
   has_many :authors, :class_name => "User", :source => :user, :through => :author_paperproposals
   has_many :author_paperproposals, :dependent => :destroy, :include => [:user]
 
-  has_many :coordinators, :class_name => "User", :source => :person, :through => :paperproposal_votes,
+  has_many :coordinators, :class_name => "User", :source => :user, :through => :paperproposal_votes,
            :conditions => ['project_board_vote = ?',true]
 
   has_many :project_board_votes, :class_name => "PaperproposalVote",
