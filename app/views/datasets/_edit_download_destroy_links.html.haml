@@ -9,11 +9,15 @@
         = link_to :controller => :datasets, :action => 'regenerate_download', :id => @dataset.id do
           = image_tag("checkbox.png")
           = "Regenerate Download"
+    %li
+      = link_to dataset_path(:id => @dataset, :format => :csv) do
+        = image_tag("save.png")
+        Download CSV
   - if current_user
     %li
       = link_to dataset_path(:id => @dataset, :format => :eml) do
         = image_tag("save.png")
-        Download Eml
+        Download EML
     %li
       = link_to create_cart_context_path(:dataset_id => @dataset.id), :method => :post do
         = image_tag("cart.png")
