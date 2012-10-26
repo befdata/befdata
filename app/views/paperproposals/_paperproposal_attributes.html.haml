@@ -1,7 +1,7 @@
 = f.label :title
 = f.text_field :title
-%br
 - if @paperproposal.id
+  %br
   = f.label :initial_title
   = f.text_field :initial_title, :disabled => 'disabled'
 %br
@@ -13,12 +13,6 @@
 %br
 = f.label :author
 = f.select :author_id, @all_persons.map{|person| [person.to_label, person.id]}
-%br
-= f.label :corresponding
-= f.select :corresponding_id, @all_persons.map{|person| [person.to_label, person.id]}, { :include_blank => true }
-%br
-= f.label :senior_author
-= f.select :senior_author_id, @all_persons.map{|person| [person.to_label, person.id]}, { :include_blank => true }
 %br
 = f.label :authored_by_project
 = f.select :project_id, Project.all.map{|project| [project.to_label, project.id]}, { :include_blank => false }

@@ -163,8 +163,7 @@ class User < ActiveRecord::Base
   end
 
   def paperproposals
-    from_paperproposals = Paperproposal.all(:conditions => ["author_id=? or corresponding_id=? or senior_author_id=?", self.id, self.id, self.id])
-    (paperproposals_author_table + from_paperproposals).uniq.sort
+    (paperproposals_author_table + owning_paperproposals).uniq.sort
   end
 
   def projectroles
@@ -193,6 +192,10 @@ class User < ActiveRecord::Base
     User.all(:order => :lastname).collect {|person| [person.to_label, person.id]}
   end
 
+  def pi
+    projects = self.roles_for(Project).map(&:authorizable)
+    projects.map(&:pi).flatten
+  end
 end
 
 

@@ -15,11 +15,8 @@ class Paperproposal < ActiveRecord::Base
   # acts_as_authorization_object :subject_class_name => 'Project'
 
   belongs_to :author, :class_name => "User", :foreign_key => "author_id"
-  belongs_to :corresponding, :class_name => "User", :foreign_key => "corresponding_id"
-  belongs_to :senior_author, :class_name => "User", :foreign_key => "senior_author_id"
 
   belongs_to :authored_by_project, :class_name => "Project", :foreign_key => :project_id
-
   
   # User roles in a paperproposal: proponents, main aspect dataset owner, side aspect dataset owner, acknowledged.
   # many-to-many association with User model through author_paperproposal joint table. 
@@ -89,22 +86,22 @@ class Paperproposal < ActiveRecord::Base
     return "final" if self.board_state == "final"
   end
 
-  def author_list
-    middle_block = self.author_paperproposals.reject{|e| e.kind == "ack"}.map{|e| e.user}.uniq
-    middle_block << self.corresponding
-    middle_block.reject!{|e| e == self.senior_author || e == self.author}
+  def author_list(include_pi=true)
+    # Do we still need senior author in author list?
+    senior_author = include_pi ? self.author.pi : []
+    ack = self.acknowledgements_from_all_datasets
+    middle_block = self.authors - ack - [self.author] - senior_author
     middle_block.uniq!
     middle_block.sort!{|a,b| a.lastname <=> b.lastname}
 
-    author_list = [self.author, middle_block, self.senior_author]
+    author_list = [self.author, middle_block, senior_author]
     author_list.flatten!
     author_list.uniq!
 
-    ack = self.author_paperproposals.select{|e| e.kind == "ack"}.map{|e| e.user}.uniq
-    ack.reject!{|e| author_list.include?(e) }
-    ack = ack.sort{|a,b| a.lastname <=> b.lastname}
+    ack -= author_list
+    ack = ack.uniq.sort{|a,b| a.lastname <=> b.lastname}
 
-    {:author_list => author_list, :corresponding => self.corresponding, :ack => ack}
+    {:author_list => author_list, :ack => ack}
   end
 
   def calc_authorship(user)
