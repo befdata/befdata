@@ -384,7 +384,7 @@ class Dataworkbook
       d = convert_to_string(data_array[x])
       d = clean_string(d)
       row = x + 1
-      data_hash[row] = d unless d.nil?
+      data_hash[row] = d unless d.blank?
     end
     # deleting the first row which contains the column header and not
     # a value
@@ -407,7 +407,7 @@ class Dataworkbook
         # this regex matches any string that ends with .0 and removes it
         input = input.to_s.gsub(/(\.0)$/,'') if Integer(input) rescue false
       end
-     end
+    end
 
     return input
   end
