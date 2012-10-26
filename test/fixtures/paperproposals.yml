@@ -5,12 +5,10 @@ paperproposals_001:
   envisaged_journal: Gaya save the world
   title: Nutrient cycling and diversity in subtropical forests
   rationale: Diversity enhancing nutrient cycling
-  corresponding_id: "5"
   envisaged_date: "2011-03-28"
   state: in prep
   expiry_date: 
   board_state: prep
-  senior_author_id: "3"
   external_data: ""
   lock: f
   created_at: 2011-03-28 11:25:52.856
@@ -26,12 +24,10 @@ paperproposals_002:
   rationale: |-
     This is a Paperproposal only create with one main proponent (Martin)
     There is no dataset to this paperproposal and no file
-  corresponding_id: "1"
   envisaged_date: "2011-06-17"
   state: in prep
   expiry_date: 
   board_state: prep
-  senior_author_id: "2"
   external_data: ""
   lock: f
   created_at: 2011-06-17 09:34:23.384091
@@ -45,12 +41,10 @@ paperproposals_003:
   envisaged_journal: ""
   title: Step 2 Paperproposal
   rationale: This is a Paperproposal with one Dataset. It could be send to board. It contains Michael.
-  corresponding_id: "3"
   envisaged_date: "2011-06-20"
   state: in prep
   expiry_date: 
   board_state: prep
-  senior_author_id: "3"
   external_data: ""
   lock: f
   created_at: 2011-06-20 06:45:04.150229
@@ -64,12 +58,10 @@ paperproposals_004:
   envisaged_journal: Science
   title: Final Paperproposal
   rationale: This is a final paperproposal, owned by Martin Phdstudentproductivity. With added datasets contains freeformat and datafile
-  corresponding_id: "6"
   envisaged_date: "2011-07-19"
   state: in prep
   expiry_date: 
   board_state: final
-  senior_author_id: "2"
   external_data: ""
   lock: f
   created_at: 2011-07-19 15:04:36.250126
@@ -83,12 +75,10 @@ paperproposals_005:
   envisaged_journal: ""
   title: Step 3 Paperproposal
   rationale: This Paperproposal is send to Project Board, now the project board member could vote for this one.
-  corresponding_id: "5"
   envisaged_date: "2011-06-20"
   state: in prep
   expiry_date: 
   board_state: submit
-  senior_author_id: "3"
   external_data: ""
   lock: t
   created_at: 2011-06-20 06:50:59.706176
@@ -102,12 +92,10 @@ paperproposals_006:
   envisaged_journal: ""
   title: Step 3 Paperproposal rejected
   rationale: This is a paperproposal which is rejected by project board, to make some changes.
-  corresponding_id: "1"
   envisaged_date: "2011-06-20"
   state: in prep
   expiry_date: 
   board_state: re_prep
-  senior_author_id: "2"
   external_data: ""
   lock: f
   created_at: 2011-06-20 08:23:10.652495
@@ -121,12 +109,10 @@ paperproposals_007:
   envisaged_journal: Plant Growth
   title: Production is enhanced by diversity
   rationale: Production and diversity.
-  corresponding_id: "6"
   envisaged_date: "2011-03-29"
   state: in prep
   expiry_date: 
   board_state: prep
-  senior_author_id: "4"
   external_data: ""
   lock: f
   created_at: 2011-03-29 08:02:32.8672
