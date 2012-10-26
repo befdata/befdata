@@ -5,9 +5,11 @@ class User < ActiveRecord::Base
   validates_presence_of :lastname, :firstname
   validates_uniqueness_of :login
 
-  has_many :paperproposals, :through => :author_paperproposals
+  # related paperproposals. Roles include: proponent, main aspect dataset owner, side aspect dataset owner, acknowledged.
   has_many :author_paperproposals, :dependent => :destroy, :include => [:paperproposal]
-  alias :paperproposals_author_table :paperproposals
+  has_many :paperproposals_author_table, :through => :author_paperproposals,:source => :paperproposal
+  # paperproposals created by the user
+  has_many :owning_paperproposals, :class_name => "Paperproposal",:foreign_key => "author_id"
 
   has_many :paperproposal_votes, :dependent => :destroy  #Todo really dependent destroy?
 

@@ -1,11 +1,11 @@
-# This file contains teh Paperproposal model definition. Paperproposals are used for organizing data exchange.
+# This file contains the Paperproposal model definition. Paperproposals are used for organizing data exchange.
 
 # Paperproposals assemble the Dataset instances (DatasetPaperproposal) )that are
 # needed for a particular purpose, in most cases
 # a scientific analysis. *Proponents* of the paperproposal are those users (User) that have submitted
 # the paperproposal.
 #
-# Proponents submit proposals to the project board (see Role) for approval as well as hints and tipps
+# Proponents submit proposals to the project board (see Role) for approval as well as hints and tips
 # and then to the owners of datasets for the permission to use the data.
 #
 # Datasets can be of main or side aspect for the proposal. Dataset owners of main aspect datasets
@@ -20,23 +20,35 @@ class Paperproposal < ActiveRecord::Base
 
   belongs_to :authored_by_project, :class_name => "Project", :foreign_key => :project_id
 
-  has_many :authors, :class_name => "User", :source => :user, :through => :author_paperproposals
+  
+  # User roles in a paperproposal: proponents, main aspect dataset owner, side aspect dataset owner, acknowledged.
+  # many-to-many association with User model through author_paperproposal joint table. 
   has_many :author_paperproposals, :dependent => :destroy, :include => [:user]
+  has_many :authors, :class_name => "User", :source => :user, :through => :author_paperproposals
+  # with four conditional association.
+  has_many :proponents,:class_name => "User", :source => :user, :through => :author_paperproposals, :conditions=>['kind=?',"user"]
+  has_many :main_aspect_dataset_owners,:class_name => "User", :source => :user, :through => :author_paperproposals, :conditions=>['kind=?',"main"]
+  has_many :side_aspect_dataset_owners,:class_name => "User", :source => :user, :through => :author_paperproposals, :conditions=>['kind=?',"side"]
+  has_many :acknowledgements_from_all_datasets,:class_name => "User", :source => :user, :through => :author_paperproposals, :conditions=>['kind=?',"ack"]
 
+  # User votes on a paperproposal.
+  # has_many association with paperproposal_votes model.
+  # two conditional association to differentiate project board vote and dataset request vote.(FIXME: dataset owner's vote?)
+  has_many :paperproposal_votes, :dependent => :destroy
+  has_many :project_board_votes, :class_name => "PaperproposalVote",
+           :source => :paperproposal_votes, :conditions => {:project_board_vote => true }
+  has_many :for_data_request_votes, :class_name => "PaperproposalVote",
+           :source => :paperproposal_votes, :conditions => {:project_board_vote => false }
+  # has_many through association with User model via paperproposal_votes joint table.
   has_many :coordinators, :class_name => "User", :source => :user, :through => :paperproposal_votes,
            :conditions => ['project_board_vote = ?',true]
 
-  has_many :project_board_votes, :class_name => "PaperproposalVote",
-           :source => :paperproposal_votes, :conditions => {:project_board_vote => true }
 
-  has_many :for_data_request_votes, :class_name => "PaperproposalVote",
-           :source => :paperproposal_votes, :conditions => {:project_board_vote => false }
-
-  has_many :paperproposal_votes, :dependent => :destroy
-
+  # habtm association with Dataset model.
   has_many :dataset_paperproposals, :dependent => :destroy
   has_many :datasets, :through => :dataset_paperproposals
 
+  # one-to-many association with Freeformat model.
   has_many :freeformats, :as => :freeformattable, :dependent => :destroy
 
   accepts_nested_attributes_for :authors
