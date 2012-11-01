@@ -31,13 +31,12 @@ class Dataset < ActiveRecord::Base
 
   acts_as_taggable
 
-
   has_attached_file :generated_spreadsheet,
-                    :path => ":rails_root/files/:id_generated-download.xls"
+    :path => ":rails_root/files/:id_generated-download.xls"
 
   belongs_to :upload_spreadsheet, :class_name => "Datafile",
-                                  :foreign_key => "upload_spreadsheet_id",
-                                  :dependent => :destroy
+    :foreign_key => "upload_spreadsheet_id",
+    :dependent => :destroy
 
   has_many :datacolumns, :dependent => :destroy, :order => "columnnr"
   has_many :sheetcells, :through => :datacolumns
@@ -48,8 +47,7 @@ class Dataset < ActiveRecord::Base
 
   has_and_belongs_to_many :projects
 
-  validates_presence_of :title
-  validates_uniqueness_of :title
+  validates :title, :presence => true, :uniqueness => true
 
   validates_associated :upload_spreadsheet, :if => "upload_spreadsheet_id_changed?"
 
