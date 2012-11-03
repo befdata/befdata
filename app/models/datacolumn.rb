@@ -16,24 +16,19 @@
 class Datacolumn < ActiveRecord::Base
 
   acts_as_taggable
-  before_destroy :destory_normal_datagroups_solely_associated_to_this_column
   after_destroy :destroy_taggings
   after_save :update_dataset
 
   acts_as_authorization_object :subject_class_name => 'User'
 
-  belongs_to :datagroup
+  belongs_to :datagroup, :dependent => :destroy
   belongs_to :dataset
 
-  has_many :sheetcells, :dependent => :delete_all
+  has_many :sheetcells, :dependent => :destroy
   has_many :import_categories, :dependent => :destroy
 
   validates_presence_of :datagroup_id, :dataset_id, :columnheader, :columnnr, :definition
   validates_uniqueness_of :columnheader, :columnnr, :scope => :dataset_id
-
-  def destory_normal_datagroups_solely_associated_to_this_column
-    datagroup.destroy if (datagroup.datacolumns.count == 1) && !datagroup.is_system_datagroup
-  end
 
   def destroy_taggings
     logger.debug "in destroy taggings"

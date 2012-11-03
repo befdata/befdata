@@ -18,7 +18,7 @@ class Datagroup < ActiveRecord::Base
   validates_presence_of :title, :description
   validates_uniqueness_of :title
 
-  before_destroy :check_for_system_datagroup
+  before_destroy :check_if_destroyable
   after_destroy :destroy_taggings
 
   after_initialize :init
@@ -34,8 +34,11 @@ class Datagroup < ActiveRecord::Base
     self.taggings.destroy_all
   end
 
-  def check_for_system_datagroup
-    raise Exception, "Cannot destroy a system datagroup" if is_system_datagroup
+  def check_if_destroyable
+    unless !self.is_system_datagroup &&
+        (self.datacolumns.empty? || (self.datacolumns.count == 1 && self.datacolumns.first.destroyed?))
+      false
+    end
   end
 
   def is_system_datagroup

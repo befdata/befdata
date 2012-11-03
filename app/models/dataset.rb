@@ -63,12 +63,6 @@ class Dataset < ActiveRecord::Base
     end
   end
 
-  def delete_sheetcells
-    datacolumns.each do |column|
-      Sheetcell.delete_all(["datacolumn_id = ?", column.id])
-    end
-  end
-
   def load_metadata_from_spreadsheet
     return if upload_spreadsheet.nil?
 
