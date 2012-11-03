@@ -15,6 +15,7 @@ class TransactionalDatasetTest < ActiveSupport::TestCase
     models.each do |model|
       before[model] = eval("#{model}.count")
     end
+    datagroup_ids_before = Datagroup.all.map{|dg| dg.id}
 
 
     datafile = Datafile.create(:file => File.new(File.join(fixture_path, 'test_files_for_uploads',
@@ -33,9 +34,12 @@ class TransactionalDatasetTest < ActiveSupport::TestCase
       after[model] = eval("#{model}.count")
     end
 
+    datagroups_ids_after = Datagroup.all.map{|dg| dg.id}
+    #assert_equal datagroup_ids_before, datagroups_ids_after
     before.each do |model, count|
       assert count == after[model], "For #{model} the numbers are: #{count} -> #{after[model]}"
     end
+
 
   end
 

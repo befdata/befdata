@@ -6,6 +6,10 @@
     %dd= f.text_field :title, :class => 'text-input'
 
   %h4 Ownership information
+  - unless @unfound_usernames.blank?
+    %p
+      The following names could not be matched within the portal:
+      = @unfound_usernames.join(', ')
   %dl
     %dt= label_tag 'Owners', nil
     %dd= select "person", "person_id", User.all_users_names_and_ids_for_select, {:prompt => 'Select Member'}, {:onchange => 'selectPeople(this)'}
