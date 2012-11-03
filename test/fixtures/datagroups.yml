@@ -87,38 +87,16 @@ datagroups_008:
   created_at: 2011-03-28 13:59:35.8384
   updated_at: 2011-03-28 13:59:35.8384
   type_id: "1"
-datagroups_009: 
-  id: "17"
-  informationsource: 
-  methodvaluetype: number
-  title: solar radiation
-  description: solar radiation
-  instrumentation: 
-  comment: 
-  created_at: 2011-05-01 11:46:46.622642
-  updated_at: 2011-05-01 11:46:46.622642
-  type_id: "1"
-datagroups_010: 
+datagroups_010:
   id: "4"
-  informationsource: 
+  informationsource:
   methodvaluetype: nominal
   title: Metal Tag Numbers in the CSPs
   description: "The stems were marked with a metal tag with a code compound of a number of six positions. The tag was attached to each individual by attaching it with a wire sorrounding one stem, taking care to leave it long enough to allow the grow of the stem. Normally the wire was attached between 1 and 1.8m over the ground. If the individual had many stems, such as often seen in shrubs, only one of the stems was tagged. "
   instrumentation: letters are attached if the same number was used for different tree individuals. This occurred a few times. Numbers are unique only within CSPs
-  comment: 
+  comment:
   created_at: 2011-03-28 13:59:35.4144
   updated_at: 2011-03-28 13:59:35.4144
-  type_id: "1"
-datagroups_011: 
-  id: "10"
-  informationsource: 
-  methodvaluetype: category
-  title: Extinction series type within main experiment.
-  description: The acronym corresponds to the species pool of the random scenario (A, B, C), the directed extinction scenarios (R for rarity, S for SLA), the economic species (E), and  free succession plots (F).  In site B there is another treatment for genetic variation (G).
-  instrumentation: 
-  comment: 
-  created_at: 2011-05-01 11:46:34.738593
-  updated_at: 2011-05-01 11:46:34.738593
   type_id: "1"
 datagroups_012: 
   id: "18"
@@ -175,18 +153,7 @@ datagroups_017:
   created_at: 2011-03-28 13:59:35.5574
   updated_at: 2011-03-28 13:59:35.5574
   type_id: "1"
-datagroups_018: 
-  id: "9"
-  informationsource: 
-  methodvaluetype: number
-  title: Diversity based on taxon
-  description: Taxon diversity can be given as species richness, or other diversity indices.  We also use rarefied species richness, shannon diversity index, and phylogenetic diversity indices.
-  instrumentation: 
-  comment: 
-  created_at: 2011-05-01 11:46:33.176676
-  updated_at: 2011-05-01 11:46:33.176676
-  type_id: "1"
-datagroups_021: 
+datagroups_021:
   id: "21"
   informationsource: 
   methodvaluetype: datetime
@@ -208,29 +175,7 @@ datagroups_022:
   created_at: 2011-03-28 13:59:35.7254
   updated_at: 2011-03-28 13:59:35.7254
   type_id: "1"
-datagroups_023: 
-  id: "16"
-  informationsource: 
-  methodvaluetype: number
-  title: slope
-  description: slope
-  instrumentation: 
-  comment: 
-  created_at: 2011-05-01 11:46:45.072263
-  updated_at: 2011-05-01 11:46:45.072263
-  type_id: "1"
-datagroups_025: 
-  id: "8"
-  informationsource: 
-  methodvaluetype: category
-  title: Site B plot acronym according to design spreadsheet.
-  description: Site B plot number according to design spreadsheet. Plots are named according to their location on the original spreadsheet used for treatment design. This has letters from West to East and numbers from North to south. Some plots were moved half a gridcell (1 mu) so be suitable for planting (grid cell loctype)
-  instrumentation: 
-  comment: 
-  created_at: 2011-05-01 11:46:31.881328
-  updated_at: 2011-05-01 11:46:31.881328
-  type_id: "1"
-datagroups_027: 
+datagroups_027:
   id: "22"
   informationsource: 
   methodvaluetype: 
