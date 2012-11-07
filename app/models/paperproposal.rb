@@ -48,6 +48,7 @@ class Paperproposal < ActiveRecord::Base
   # one-to-many association with Freeformat model.
   has_many :freeformats, :as => :freeformattable, :dependent => :destroy
 
+  scope :has_state, lambda{|s| where(:state=>s)}
   accepts_nested_attributes_for :authors
 
   validates_presence_of :title, :rationale
@@ -65,6 +66,11 @@ class Paperproposal < ActiveRecord::Base
     'in review' => 2,
     'manuscript avaible' => 3,
     'in prep' => 4
+  }
+  KIND = {"user"=>"Proponent",
+          "main"=>"Main aspect data provider",
+          "side"=>"Side aspect data provider",
+          "ack" =>"Acknowledged"
   }
 
   def <=>(other)
@@ -105,17 +111,13 @@ class Paperproposal < ActiveRecord::Base
   end
 
   def calc_authorship(user)
-     if(self.author_id==user.id)
-       "Author"
-     else
-       if(self.corresponding_id==user.id)
-         "Corresponding author"
-       else
-         if(self.senior_author_id===user.id)
-           "Senior author"
-         end
-       end
-     end
+    authorship = []
+    if(user.id == self.author_id)
+      authorship << "Author"
+    end
+    roles = self.author_paperproposals.where(:user_id=>user.id).map(&:kind)
+    roles.each{|r| authorship<< KIND[r]}
+    return authorship.to_sentence
   end
 
   def beautiful_title (only_authors = false)
