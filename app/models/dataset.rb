@@ -47,6 +47,8 @@ class Dataset < ActiveRecord::Base
   has_many :dataset_downloads
 
   has_and_belongs_to_many :projects
+  has_many :dataset_paperproposals, :dependent => :destroy
+  has_many :paperproposals, :through=>:dataset_paperproposals
 
   validates_presence_of :title
   validates_uniqueness_of :title
