@@ -228,7 +228,6 @@ private
     end
   end
 
-
   def query_datacolumns(dataset = nil, column_selection = nil)
     if column_selection
       column_selection

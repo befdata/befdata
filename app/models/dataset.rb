@@ -240,5 +240,5 @@ class Dataset < ActiveRecord::Base
   def approval_finished?
     !self.datacolumns.any?{|dc| dc.approval_stage!="4"}
   end
-
+  
 end
