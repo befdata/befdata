@@ -168,35 +168,8 @@ private
 
       sheet[0,col-1] = datacolumn.columnheader if datacolumn.columnheader
 
-      #sheet_values = datacolumn.sheetcells.find(:all,
-      #                                          :select => "sheetcells.status_id, sheetcells.datatype_id, sheetcells.row_number,
-       #                                                     case when categories.short > '' then categories.short when accepted_value > '' then accepted_value
-       #                                                     else sheetcells.import_value end as accepted_value",
-      #                                          :joins => "left outer join categories on sheetcells.category_id=categories.id",
-      #                                          :order => "sheetcells.row_number")
-
-      #sheet_values.each do |sheet_val|
-      #  if(sheet_val.datatype_id==3 or sheet_val.datatype_id==4)
-      #    val = sheet_val.accepted_value.to_date.to_s
-      #  else
-      #    val = sheet_val.accepted_value
-      #  end
-      #  sheet[sheet_val.row_number - 1, col - 1] = val if val
-      #end
-
-      #find_each -> 1000 at a time
       datacolumn.sheetcells.find_each do |sheetcell|
-        if sheetcell.datatype && sheetcell.datatype.is_category? && sheetcell.category
-          value = sheetcell.category.short
-        elsif sheetcell.datatype && sheetcell.datatype.name.match(/^date/) && sheetcell.accepted_value
-          value = sheetcell.accepted_value.to_date.to_s
-        elsif sheetcell.accepted_value
-          value = sheetcell.accepted_value
-        else
-          value = sheetcell.import_value
-          sheet.row(sheetcell.row_number - 1).set_format(col - 1, WBF[:unapproved_format])
-        end
-        sheet[sheetcell.row_number - 1, col - 1] = value if value
+        sheet[sheetcell.row_number - 1, col - 1] = sheetcell.export_value
       end
     end
   end

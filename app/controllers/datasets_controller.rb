@@ -169,48 +169,20 @@ class DatasetsController < ApplicationController
     respond_to do |format|
       format.html
       format.eml
-      format.csv { render text: to_csv} 
     end
   end
 
-  def to_csv 
-    require 'csv'
-    # This class renders the raw values of a dataset to a csv file. It iterates over the     
-    # datacolumns and the sheetcells in each datacolumn to extract the right    
-    # values of the sheetcells.                                                 
-    # data_columns=Datacolumn.all(:conditions => ["dataset_id = ?", params[:id]], :order => "columnnr ASC").uniq
-
-    # csv_raw_data_sheet=[0,0]
-
-    data_columns=Datacolumn.all(:conditions => ["dataset_id = ?", 6], :order => "columnnr ASC").uniq
-    CSV.generate do |csv|
-      dataset_column=Array.new 
-      dataset_value_array=Array.new 
-      data_columns.each do |dc|
-        dataset_column << dc.columnheader 
-        dc.sheetcells.sort_by{|r| :row_number}.each do |sc|
-          if sc.datatype && sc.datatype.is_category? && sc.category 
-            dataset_column << sc.category.short
-          elsif sc.datatype && sc.datatype.name.match(/^date/) && sc.accepted_value
-            dataset_column << sc.accepted_value.to_date.to_s
-          elsif sc.accepted_value
-            dataset_column << sc.accepted_value
-          else
-            dataset_column << sc.import_value
-          end
-        end
-        dataset_value_array << dataset_column 
-        # csv << dataset_column
-        dataset_column = Array.new 
-      end
-      csv << dataset_value_array.transpose
-    end
-  end
 
   def download
     @dataset.log_download(current_user)
-    send_file(@dataset.generated_spreadsheet.path,
-              :filename => "download_#{@dataset.downloads}_#{@dataset.filename}")
+    respond_to do |format|
+      format.html do
+        send_file @dataset.generated_spreadsheet.path, :filename => "#{@dataset.filename}"
+      end
+      format.csv do
+        send_data @dataset.to_csv, :type => "text/csv", :disposition => 'attachment', :filename => "#{@dataset.filename}.csv"
+      end
+    end
   end
 
   def regenerate_download

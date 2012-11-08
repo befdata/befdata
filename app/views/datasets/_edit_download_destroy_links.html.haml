@@ -10,7 +10,7 @@
           = image_tag("checkbox.png")
           = "Regenerate Download"
     %li
-      = link_to dataset_path(:id => @dataset, :format => :csv) do
+      = link_to :controller => :datasets, :action => 'download', :format => :csv, :id => @dataset.id do
         = image_tag("save.png")
         Download CSV
   - if current_user
