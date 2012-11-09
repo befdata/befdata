@@ -2,6 +2,18 @@ Befchina::Application.routes.draw do
 
   root :to => "pages#home"
 
+  require 'api_constraints'
+
+  namespace :api, defaults: {format: 'xml'} do
+    scope module: :v1, constraints: ApiConstraints.new(version: 1) do
+      resources :products
+    end 
+    # For next api version
+    # scope module: :v2, constraints: ApiConstraints.new(version: 2, default: true) do
+      # resources :products
+    # end
+  end
+
   resource :user_session
   match 'login' => 'user_sessions#new', :as => :login
   match 'logout' => 'user_sessions#destroy', :as => :logout
