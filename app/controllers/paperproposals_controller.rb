@@ -1,74 +1,94 @@
 class PaperproposalsController < ApplicationController
 
-  before_filter :load_proposal, :only => [:show, :edit, :update, :destroy]
+  before_filter :load_proposal, :except => [:index, :new, :create, :update_vote]
 
   skip_before_filter :deny_access_to_all
 
   access_control do
-    actions :index do
+    actions :index, :show do
       allow all
     end
-    actions :show, :new, :create, :destroy, :update, :update_state, :update_vote, :edit do
-      allow logged_in # ToDo this is not enough, isn't it?'
+    actions :new, :create do
+      allow logged_in
+
+    end
+    actions :edit, :destroy, :update, :update_state, :edit_files, :edit_datasets, :update_datasets do
+      allow :admin # TODO should we allow data_admin, too
+      allow logged_in # TODO for now, then only allow the author to update / also the other proponents? / not the ones from the datasets
+    end
+    actions :update_vote do
+      allow :admin
+      allow logged_in # only the ones who can vote, and then only their own vote
     end
   end
-
 
   def index
     @paperproposals = Paperproposal.all
   end
 
-  def new
-    @paperproposal = Paperproposal.new
-    @paperproposal.author = current_user
-    # !! Zeitschlucker
-    @all_persons = User.all.sort{|a,b| a.to_label <=> b.to_label}
-  end
-
   def show
   end
 
-  def edit
-    @all_persons = User.all
-    @used_persons = @paperproposal.authors
-    @datasets = Dataset.all :order => 'title'
-    @current_cart = current_cart
-    @freeformats = @paperproposal.freeformats
+  def new
+    @paperproposal = Paperproposal.new
+    @paperproposal.author = current_user
+    @paperproposal.authored_by_project = current_user.projects.first
+    @all_persons = User.order("lastname ASC, firstname ASC")
   end
 
   def create
     @paperproposal = Paperproposal.new(params[:paperproposal])
     @paperproposal.initial_title = @paperproposal.title
-    proponents = User.find_all_by_id(params[:people]).
-        map{|person| AuthorPaperproposal.new(:user => person, :kind => "user")}
-    @paperproposal.author_paperproposals = proponents
-    @all_persons = User.all
+
+    update_proponents
+
     unless @paperproposal.save
       flash[:error] = @paperproposal.errors.full_messages.to_sentence
-      render :action => :new
+      redirect_to :back
     else
-      redirect_to edit_paperproposal_path(@paperproposal)
+      redirect_to edit_datasets_paperproposal_path(@paperproposal)
     end
   end
 
-  #update attributes and joins for one data request
+  def edit
+    @all_persons = User.all
+    @used_persons = @paperproposal.authors
+  end
+
   def update
     @paperproposal.update_attributes(params[:paperproposal])
-    @paperproposal.save
-
-    @paperproposal.dataset_paperproposals.clear if ( params[:datasets].nil? && params[:paperproposal].nil? )
-    if params[:datasets]
-      @datasets = Dataset.find(params[:datasets])
-      @paperproposal.datasets= @datasets
+    if @paperproposal.save
+      update_proponents
+      redirect_to paperproposal_path(@paperproposal)
+    else
+      flash[:error] = @paperproposal.errors.full_messages.to_sentence
+      redirect_to :back
     end
-    update_aspects if params[:aspect]
-    update_author_list(@paperproposal)
-    redirect_to edit_paperproposal_path(@paperproposal)
+  end
+
+  def edit_files
+    @freeformats = @paperproposal.freeformats
+  end
+
+  def edit_datasets
+    @datasets = @paperproposal.datasets.empty? ? current_cart.datasets : @paperproposal.datasets
+    @all_datasets = Dataset.all :order => 'title'
+  end
+
+  def update_datasets
+    @paperproposal.update_attributes(params[:paperproposal])
+    params[:aspect].each do |k, v|
+      ds_pp = @paperproposal.dataset_paperproposals.where('dataset_id = ?', k).first
+      ds_pp.aspect = v
+      ds_pp.save
+    end
+
+    #TODO update_author_list(@paperproposal)
+    redirect_to @paperproposal
   end
 
   # submit to board - switch from prep state to submit state
   def update_state
-    @paperproposal = Paperproposal.find(params[:id])
     pre_state = @paperproposal.board_state
     @paperproposal.update_attributes(params[:paperproposal])
     @paperproposal.lock = true
@@ -132,6 +152,11 @@ class PaperproposalsController < ApplicationController
 
 private
 
+  def update_proponents
+    proponents = User.find_all_by_id(params[:people]).map{|person| AuthorPaperproposal.new(:user => person, :kind => "user")}
+    @paperproposal.author_paperproposals = proponents
+  end
+
   # After accept from project board, all authors from current data request will be add
   # that they accept this data request
   def prepare_data_request_for_accept_state
@@ -170,17 +195,6 @@ private
       end
     end
 
-  end
-
-  def update_aspects
-    logger.debug 'in update aspects'
-    logger.debug 'paperproposal: ' + @paperproposal.inspect
-    @paperproposal.dataset_paperproposals.each do |paperproposal_dataset|
-      logger.debug 'params[:aspect]: ' + params[:aspect].inspect
-      logger.debug 'paperproposal_dataset: ' + paperproposal_dataset.inspect
-      paperproposal_dataset.aspect = params[:aspect].fetch("#{paperproposal_dataset.dataset_id}")
-      paperproposal_dataset.save
-    end
   end
 
   def load_proposal

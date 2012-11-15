@@ -1,19 +1,76 @@
-%div.box
-  %h3
-    = @paperproposal.title
-    - unless @paperproposal.lock
-      = link_to image_tag("edit.png"), edit_paperproposal_path(@paperproposal)
-      = image_tag("lock-open.png")
+= content_for :actions do
+  %ul
+    %li
+      Download all files
+    - if !@paperproposal.lock
+      %li
+        = link_to edit_paperproposal_path(@paperproposal) do
+          = image_tag("edit.png")
+          Edit Metadata
+      %li
+        = link_to edit_datasets_paperproposal_path(@paperproposal) do
+          = image_tag("edit.png")
+          Manage Datasets
+      %li
+        = link_to edit_files_paperproposal_path(@paperproposal) do
+          = image_tag("edit.png")
+          Manage Files
     - else
-      = image_tag("lock-closed.png")
-  %h4 Rational
-  %p= @paperproposal.rationale
+      %li
+        = image_tag("lock-closed.png")
+        Locked
 
-  = render :partial => "state_of_vote"
-
-  - if @paperproposal.board_state == "final"
-    %p Its allowed to download files, present now list of download actions
+= content_for :info do
+  %h3 State
+  %p= @paperproposal.state
+  %h3 Author
+  = render @paperproposal.author
+  - unless @paperproposal.proponents.empty?
+    %h3 Proponents
     %ul
-      - @paperproposal.datasets.each do |dataset|
-        %li= link_to dataset.title, dataset
+      - @paperproposal.proponents.each do |u|
+        %li= render u
+  - unless @paperproposal.authored_by_project.blank?
+    %h3 Project
+    = link_to @paperproposal.authored_by_project.name, @paperproposal.authored_by_project
+  %h3 Email lists
+  blabla
+
+
+%h2
+  = @paperproposal.title
+
+- unless @paperproposal.initial_title == @paperproposal.title
+  %p
+    %strong Initial title:
+    = @paperproposal.initial_title
+
+- unless @paperproposal.envisaged_journal.blank?
+  %p
+    %strong Envisaged journal:
+    =@paperproposal.envisaged_journal
+
+- unless @paperproposal.envisaged_date.blank?
+  %p
+    %strong Envisaged date:
+    =@paperproposal.envisaged_date
+
+%h3 Rational
+%p= @paperproposal.rationale
+
+%h3 Datasets
+- if !@paperproposal.dataset_paperproposals.empty?
+  %ul
+    - @paperproposal.dataset_paperproposals.includes(:dataset).each do |ds_pp|
+      %li
+        = link_to ds_pp.dataset.title, ds_pp.dataset
+        = ds_pp.aspect
+- else
+  %p No datasets are linked to this paperproposal.
+
+%h3 Files
+%p Feeformat files TODO
+
+%h3 State of vote (???))
+= render :partial => "state_of_vote"
 

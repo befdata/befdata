@@ -1,4 +1,5 @@
-- if @paperproposal.board_state != "final"
-  = render :partial => 'full_edit'
-- else
-  = render :partial => 'final_edit'
+%h2
+  Edit Metadata of
+  = link_to @paperproposal.title, @paperproposal
+
+= render :partial => "form_for_attributes"

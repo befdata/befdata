@@ -40,7 +40,6 @@ class Paperproposal < ActiveRecord::Base
   has_many :coordinators, :class_name => "User", :source => :user, :through => :paperproposal_votes,
            :conditions => ['project_board_vote = ?',true]
 
-
   # habtm association with Dataset model.
   has_many :dataset_paperproposals, :dependent => :destroy
   has_many :datasets, :through => :dataset_paperproposals
@@ -52,13 +51,6 @@ class Paperproposal < ActiveRecord::Base
   accepts_nested_attributes_for :authors
 
   validates_presence_of :title, :rationale
-
-#    def delete_all_data_groups_except(data_groups)
-#      self.data_group_data_requests.each do |data_group_data_request|
-#        next if data_groups.include?(data_group_data_request.measurements_methodstep)
-#        data_group_data_request.delete
-#      end
-#    end
 
   STATES = {
     # for the sorting

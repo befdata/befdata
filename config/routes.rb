@@ -40,7 +40,12 @@ Befchina::Application.routes.draw do
     end
   end
 
-  resources :paperproposals
+  resources :paperproposals do
+    member do
+      get :edit_datasets, :edit_files
+      post :update_datasets
+    end
+  end
   match 'paperproposals/update_vote/:id' => 'paperproposals#update_vote', :as => :update_vote
   match 'paperproposals/update_state/:id' => 'paperproposals#update_state', :as => :paperproposal_update_state
 

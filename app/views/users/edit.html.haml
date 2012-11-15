@@ -36,7 +36,7 @@
     = u.text_field :street
     = u.label :comment
     = u.text_area :comment
-    .avata
+    .avatar
       = u.label :avatar,"Change Avatar"
       = image_tag @user.avatar.url(:small)
     = u.file_field :avatar

@@ -49,6 +49,58 @@ function selectProjects(select) {
     ul.appendChild(li);
 }
 
+function selectDatasets(select) {
+    if (select.options[select.selectedIndex].value == "") {
+        // The prompt option has no value and thus can't be added.
+        return;
+    }
+    var option = select.options[select.selectedIndex];
+    var table_body = document.getElementById('collect-datasets-tbody');
+
+    var id = option.value;
+    var choices = table_body.getElementsByTagName('input');
+    for (var i = 0; i < choices.length; i++) if (choices[i].value == id) return;
+
+    var tr = document.createElement('tr');
+    var td_text = document.createElement('td');
+    var td_select = document.createElement('td');
+    var td_remove = document.createElement('td');
+
+    var input = document.createElement('input');
+    input.type = 'hidden';
+    input.name = 'paperproposal[dataset_ids][]';
+    input.value = option.value;
+
+    var text = document.createTextNode(option.firstChild.data);
+    td_text.appendChild(text);
+
+    var aspect_select = document.createElement('select');
+    aspect_select.id = "aspect_" + id
+    aspect_select.name = "aspect[" + id + "]";
+    var option_1 = document.createElement('option');
+    option_1.value = 'main';
+    var option_1_text = document.createTextNode('main');
+    option_1.appendChild(option_1_text);
+    aspect_select.appendChild(option_1);
+    var option_2 = document.createElement('option');
+    option_2.value = 'side';
+    var option_2_text = document.createTextNode('side');
+    option_2.appendChild(option_2_text);
+    aspect_select.appendChild(option_2);
+    td_select.appendChild(aspect_select);
+
+    var a = document.createElement('a');
+    a.text = 'Remove';
+    a.setAttribute('onclick', 'this.parentNode.parentNode.parentNode.removeChild(this.parentNode.parentNode);');
+    td_remove.appendChild(a);
+
+    tr.appendChild(input);
+    tr.appendChild(td_text);
+    tr.appendChild(td_select);
+    tr.appendChild(td_remove);
+
+    table_body.appendChild(tr);
+}
 
 function clone_element_before(element) {
     var input = element.previousSibling.previousSibling;
