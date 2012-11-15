@@ -56,12 +56,12 @@ roles_users_018:
 roles_users_019:
   user_id: "3"
   role_id: "24"
-role_users_020:
+roles_users_020:
   user_id: "6"
   role_id: "25"
-role_users_012:
+roles_users_021:
   user_id: "3"
   role_id: "26"
-role_users_013:
+roles_users_022:
   user_id: "1"
   role_id: "27"
