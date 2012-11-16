@@ -1,3 +1,4 @@
 %h2 Keywords
-- @tags.each do |tag|
-  = link_to tag.name, {:controller => :tags, :action => :show, :id => tag.id}
+- tag_cloud @tags, %w(nube1 nube2 nube3 nube4 nube5 nube6) do | tag,css_class|
+  = link_to tag.name, keyword_path(tag), class:css_class, title: "see all dataset with tag "+'"'+tag.name+'"'
+  = "  "
