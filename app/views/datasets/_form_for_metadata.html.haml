@@ -51,6 +51,9 @@
 
   %h4 General Metadata
   %dl
+    %dt= f.label :tag_list, "Keywords(separated by comma)"
+    %dd= f.text_field :tag_list,:id=>"tag_list",:size=>70
+
     %dt= label_tag 'abstract'
     %dd= f.text_area :abstract
 
@@ -101,3 +104,45 @@
   %dl
     %dt
     %dd= submit_tag 'Save Metadata'
+
+:javascript
+  function split( val ) {
+    return val.split( /,\s*/ );
+  }
+  function extractLast( term ) {
+    return split( term ).pop();
+  }
+  $("#tag_list")
+  .bind( "keydown", function( event ) {
+    if ( event.keyCode === $.ui.keyCode.TAB &&
+            $( this ).data( "autocomplete" ).menu.active ) {
+        event.preventDefault();
+    }
+  })
+  .autocomplete({
+    source: function( request, response ) {
+      var term = extractLast( request.term );
+      if (term.length >=2 ){
+      $.getJSON( "/keywords.json", {
+        term: term
+      }, response );
+      }
+    },
+    focus: function() {
+      // prevent value inserted on focus
+      return false;
+    },
+    select: function( event, ui ) {
+      var terms = split( this.value );
+      // remove the current input
+      terms.pop();
+      // add the selected item
+      terms.push( ui.item.value );
+      // add placeholder to get the comma-and-space at the end
+      terms.push( "" );
+      this.value = terms.join( ", " );
+      return false;
+    },
+    minLength: 2,
+    delay: 200
+  })
