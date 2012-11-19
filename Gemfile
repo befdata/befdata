@@ -3,6 +3,7 @@ source 'http://rubygems.org'
 gem 'rails', '3.0.13'
 gem 'rake'
 gem 'pg'
+gem 'bundler'
 
 gem 'haml'
 gem 'authlogic'
@@ -24,5 +25,6 @@ group :test, :development do
                           # Issue is filed and update will fix this http://youtrack.jetbrains.com/issue/RUBY-11239
   gem "ruby-prof"
   gem "libxml-ruby"
+  gem "foreman"
 end
 

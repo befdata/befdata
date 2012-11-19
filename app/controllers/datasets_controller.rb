@@ -173,10 +173,18 @@ class DatasetsController < ApplicationController
     end
   end
 
+
   def download
     @dataset.log_download(current_user)
-    send_file(@dataset.generated_spreadsheet.path,
-              :filename => "download_#{@dataset.downloads}_#{@dataset.filename}")
+    respond_to do |format|
+      format.html do
+        send_file @dataset.generated_spreadsheet.path, :filename => "#{@dataset.filename}"
+      end
+      format.csv do
+        send_data @dataset.to_csv(params[:seperate_category_columns]), :type => "text/csv",
+          :disposition => 'attachment', :filename => "#{@dataset.filename}.csv"
+      end
+    end
   end
 
   def regenerate_download

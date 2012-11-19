@@ -83,7 +83,7 @@ postgres_database_app_db=
 # e.g postgres_database_app_db=pgbefdeploydb
 # This is the database name of your application
 
-install_app_ruby_environment=
+install_app_ruby_environment=production
 # Usually you can leave this as it is. If you need to setup a second environment
 # of the same application parallel you can run the script twice. For the second
 # run you need to change the environment variable (e.g to staging, testing
@@ -677,7 +677,7 @@ install_basics_gems_and_repos()
 	sudo_install_gems "${packages_gem[@]}"
 
 	# Start mod_rails installer if not already installed 
-	if [ -e /var/lib/gems/1.9.1/gems/passenger-3.0.17/ext/apache2/mod_passenger.so ]
+	if [ -e /var/lib/gems/1.9.1/gems/passenger-3.0.18/ext/apache2/mod_passenger.so ]
 	then
 		echo "Passenger is installed already: skip compilation"
 	else
@@ -717,8 +717,8 @@ Options -ExecCGI
 # Don not allow apache to follow symbolic links
 Options -FollowSymLinks
 
-LoadModule passenger_module /var/lib/gems/1.9.1/gems/passenger-3.0.17/ext/apache2/mod_passenger.so
-PassengerRoot /var/lib/gems/1.9.1/gems/passenger-3.0.17
+LoadModule passenger_module /var/lib/gems/1.9.1/gems/passenger-3.0.18/ext/apache2/mod_passenger.so
+PassengerRoot /var/lib/gems/1.9.1/gems/passenger-3.0.18
 PassengerRuby /usr/bin/ruby1.9.1
 
 # Ensure that files outside the web root are not served

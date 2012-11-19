@@ -33,11 +33,11 @@ class Dataset < ActiveRecord::Base
 
 
   has_attached_file :generated_spreadsheet,
-                    :path => ":rails_root/files/:id_generated-download.xls"
+    :path => ":rails_root/files/:id_generated-download.xls"
 
   belongs_to :upload_spreadsheet, :class_name => "Datafile",
-                                  :foreign_key => "upload_spreadsheet_id",
-                                  :dependent => :destroy
+    :foreign_key => "upload_spreadsheet_id",
+    :dependent => :destroy
 
   has_many :datacolumns, :dependent => :destroy, :order => "columnnr"
   has_many :sheetcells, :through => :datacolumns
@@ -50,8 +50,7 @@ class Dataset < ActiveRecord::Base
   has_many :dataset_paperproposals, :dependent => :destroy
   has_many :paperproposals, :through => :dataset_paperproposals
 
-  validates_presence_of :title
-  validates_uniqueness_of :title
+  validates :title, :presence => true, :uniqueness => true
 
   validates_associated :upload_spreadsheet, :if => "upload_spreadsheet_id_changed?"
 
@@ -242,8 +241,39 @@ class Dataset < ActiveRecord::Base
     !self.datacolumns.any?{|dc| dc.approval_stage!="4"}
   end
 
+
   def refresh_paperproposal_authors
     self.paperproposals.each {|pp| pp.calculate_datasets_proponents}
+  end
+
+  def to_csv (seperate_category_columns = false)
+    # gather columns and values
+    all_columns = []
+    self.datacolumns.order("columnnr ASC").each do |dc|
+      column = []
+      category_column = []
+      column[0] = dc.columnheader
+      category_column[0] = "#{dc.columnheader} - Categories"
+
+      dc.sheetcells.each do |sc|
+        if !seperate_category_columns || dc.import_data_type == 'category' || !(sc.datatype && sc.datatype.is_category? && sc.category)
+          column[sc.row_number - 1] = sc.export_value
+        else
+          category_column[sc.row_number - 1] = sc.export_value
+        end
+      end
+      all_columns << column
+      all_columns << category_column if category_column.length > 1
+    end
+
+    # bring to same length to transpose
+    max_length = all_columns.map{|c| c.length}.max
+    all_columns.each{|c|   c[max_length-1] = nil unless c.length == max_length}
+    all_columns  = all_columns.transpose
+
+    CSV.generate do |csv|
+      all_columns.each {|c| csv << c}
+    end
   end
 
 end

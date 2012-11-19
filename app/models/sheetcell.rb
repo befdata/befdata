@@ -42,4 +42,18 @@ class Sheetcell < ActiveRecord::Base
     end
   end
 
+  def export_value
+    value = nil
+    if self.datatype && self.datatype.is_category? && self.category
+      value = self.category.short
+    elsif self.datatype && self.datatype.name.match(/^date/) && self.accepted_value
+      value = self.accepted_value.to_date.to_s
+    elsif self.accepted_value
+      value = self.accepted_value
+    else
+      value = self.import_value
+    end
+    value
+  end
+
 end
