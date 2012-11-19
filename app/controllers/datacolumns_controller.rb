@@ -124,6 +124,8 @@ class DatacolumnsController < ApplicationController
     # Check all new people whether they were responsible before. If not, add them.
     new_people.each{|p| User.find(p).has_role! :responsible, @datacolumn unless @datacolumn.users.include?(User.find(p))}
 
+    @datacolumn.dataset.refresh_paperproposal_authors
+
     if @datacolumn.final_check_for_valid_sheetcells
       flash[:notice] = "Metadata and acknowledgements successfully saved."
       next_approval_step

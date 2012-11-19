@@ -91,6 +91,7 @@ class DatasetsController < ApplicationController
     elsif users_with_current_ownership.empty? then
       current_user.has_role! :owner, @dataset
     end
+    @dataset.refresh_paperproposal_authors
 
     if @dataset.update_attributes(params[:dataset]) then
       redirect_to dataset_path
