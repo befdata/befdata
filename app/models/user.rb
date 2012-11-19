@@ -196,6 +196,11 @@ class User < ActiveRecord::Base
     projects = self.roles_for(Project).map(&:authorizable)
     projects.map(&:pi).flatten
   end
+
+  def self.email_list(users_array)
+    users_array.collect{|u| Hash[:name, "#{u.firstname} #{u.lastname}", :mail, "#{u.email}"]}
+  end
+
 end
 
 

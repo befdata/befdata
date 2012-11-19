@@ -24,16 +24,32 @@
   %h3 Author
   = render @paperproposal.author
   - unless @paperproposal.proponents.empty?
-    %h3 Proponents
+    %h3 Main Proponents
     %ul
       - @paperproposal.proponents.each do |u|
         %li= render u
   - unless @paperproposal.authored_by_project.blank?
     %h3 Project
     = link_to @paperproposal.authored_by_project.name, @paperproposal.authored_by_project
-  %h3 Email lists
-  blabla
-
+  - if current_user
+    %h3 Email lists
+    %ul
+      %li
+        = render :partial => "users/email_list_modal",
+                  :locals => {:list => User.email_list(@paperproposal.authors_selection(:author_and_proponents)),
+                  :css => "paperproposal_owners_prop", :caption => 'Author and proponents'}
+      %li
+        = render :partial => "users/email_list_modal",
+                  :locals => {:list => User.email_list(@paperproposal.authors_selection(:proponents_and_main)),
+                  :css => "paperproposal_owners_main", :caption => 'Author, proponents and owners of main datasets'}
+      %li
+        = render :partial => "users/email_list_modal",
+                  :locals => {:list => User.email_list(@paperproposal.authors_selection(:proponents_and_all_owners)),
+                  :css => "paperproposal_owners_datasets", :caption => 'Author, proponents and all dataset owners'}
+      %li
+        = render :partial => "users/email_list_modal",
+                  :locals => {:list => User.email_list(@paperproposal.authors_selection(:all_mentioned)),
+                  :css => "paperproposal_authors_also_helper", :caption => 'Author, proponents, dataset owners and data helpers'}
 
 %h2
   = @paperproposal.title

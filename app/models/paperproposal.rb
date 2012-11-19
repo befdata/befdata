@@ -161,6 +161,16 @@ class Paperproposal < ActiveRecord::Base
     ordered_authors
   end
 
+  def authors_selection(specific_selection)
+    result = case specific_selection
+               when :author_and_proponents then [author] + proponents
+               when :proponents_and_main then [author] + proponents + main_aspect_dataset_owners
+               when :proponents_and_all_owners then [author] + proponents + main_aspect_dataset_owners + side_aspect_dataset_owners
+               when :all_mentioned then [author] + proponents + main_aspect_dataset_owners + side_aspect_dataset_owners + acknowledgements_from_datasets
+            end
+    result.flatten.uniq
+  end
+
   private
 
   def check_aspects_for_contexts

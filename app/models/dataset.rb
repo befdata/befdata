@@ -238,10 +238,6 @@ class Dataset < ActiveRecord::Base
     save
   end
 
-  def owners_email_list
-    owners.collect{|u| Hash[:name, "#{u.firstname} #{u.lastname}", :mail, "#{u.email}"]}
-  end
-
   def approval_finished?
     !self.datacolumns.any?{|dc| dc.approval_stage!="4"}
   end

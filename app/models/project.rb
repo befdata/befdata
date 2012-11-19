@@ -37,9 +37,6 @@ class Project < ActiveRecord::Base
     string.downcase.scan(/[^\W]/).join.slice(/^\D+\d*\D/)
   end
 
-  def members_email_list
-    users.collect{|u| Hash[:name, "#{u.firstname} #{u.lastname}", :mail, "#{u.email}"]}
-  end
   def pi
     self.accepted_roles.find_by_name("pi").try(:users)
   end
