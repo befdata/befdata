@@ -1,7 +1,5 @@
 = content_for :actions do
   %ul
-    %li
-      Download all files
     - if !@paperproposal.lock
       %li
         = link_to edit_paperproposal_path(@paperproposal) do
@@ -55,10 +53,10 @@
     %strong Envisaged date:
     =@paperproposal.envisaged_date
 
-%h3 Rational
+%h3 Rationale
 %p= @paperproposal.rationale
 
-%h3 Datasets
+%h3 Datasets #{"(" + @paperproposal.dataset_paperproposals.count.to_s + ")" unless @paperproposal.dataset_paperproposals.empty? }
 - if !@paperproposal.dataset_paperproposals.empty?
   %ul
     - @paperproposal.dataset_paperproposals.includes(:dataset).each do |ds_pp|
@@ -68,8 +66,15 @@
 - else
   %p No datasets are linked to this paperproposal.
 
-%h3 Files
-%p Feeformat files TODO
+%h3 Calculated Authors
+%p
+  %span.comma-seperated-list
+    - @paperproposal.all_authors_ordered.each do |u|
+      %span= link_to u.to_label, user_path(u.path_name)
+
+- unless @freeformats.blank?
+  %h3 Files (#{@freeformats.length})
+  = render :partial => 'freeformats/index'
 
 %h3 State of vote (???))
 = render :partial => "state_of_vote"

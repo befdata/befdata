@@ -10,7 +10,6 @@ class PaperproposalsController < ApplicationController
     end
     actions :new, :create do
       allow logged_in
-
     end
     actions :edit, :destroy, :update, :update_state, :edit_files, :edit_datasets, :update_datasets do
       allow :admin # TODO should we allow data_admin, too
@@ -27,6 +26,7 @@ class PaperproposalsController < ApplicationController
   end
 
   def show
+    @freeformats = @paperproposal.freeformats
   end
 
   def new
@@ -39,7 +39,6 @@ class PaperproposalsController < ApplicationController
   def create
     @paperproposal = Paperproposal.new(params[:paperproposal])
     @paperproposal.initial_title = @paperproposal.title
-
     update_proponents
 
     unless @paperproposal.save
@@ -72,6 +71,7 @@ class PaperproposalsController < ApplicationController
 
   def edit_datasets
     @datasets = @paperproposal.datasets.empty? ? current_cart.datasets : @paperproposal.datasets
+    @datasets = @datasets.sort_by(&:title)
     @all_datasets = Dataset.all :order => 'title'
   end
 
@@ -82,8 +82,7 @@ class PaperproposalsController < ApplicationController
       ds_pp.aspect = v
       ds_pp.save
     end
-
-    #TODO update_author_list(@paperproposal)
+    @paperproposal.calculate_datasets_proponents
     redirect_to @paperproposal
   end
 
@@ -154,7 +153,8 @@ private
 
   def update_proponents
     proponents = User.find_all_by_id(params[:people]).map{|person| AuthorPaperproposal.new(:user => person, :kind => "user")}
-    @paperproposal.author_paperproposals = proponents
+    AuthorPaperproposal.delete_all(["paperproposal_id = ? AND kind = ?", @paperproposal.id, 'user'])
+    @paperproposal.author_paperproposals << proponents
   end
 
   # After accept from project board, all authors from current data request will be add

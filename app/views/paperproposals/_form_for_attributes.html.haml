@@ -3,7 +3,7 @@
     %dt= f.label :title
     %dd= f.text_field :title
 
-    - if @paperproposal.id
+    - unless @paperproposal.new_record?
       %p Initial title was: #{@paperproposal.initial_title}
 
     %dt= f.label :envisaged_journal
@@ -36,7 +36,7 @@
     %p (Main proponents are those authors, that contribute major aspects to the analysis.)
     = select "not_needed", "param", @all_persons.map{|person| [person.to_label, person.id]}, {:prompt => 'Select Member'}, {:onchange => 'selectPeople(this)'}
     %ul#people-list{:style => 'list-style: none;'}
-      - f.fields_for :authors, @paperproposal.authors do |field|
+      - f.fields_for :authors, @paperproposal.proponents do |field|
         %li{:onclick => "this.parentNode.removeChild(this);"}
           %input{:name => "people[]", :type => "hidden", :value => field.object.id}
           = field.object.try(:to_label)

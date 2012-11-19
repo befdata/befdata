@@ -23,10 +23,10 @@ class Paperproposal < ActiveRecord::Base
   has_many :author_paperproposals, :dependent => :destroy, :include => [:user]
   has_many :authors, :class_name => "User", :source => :user, :through => :author_paperproposals
   # with four conditional association.
-  has_many :proponents,:class_name => "User", :source => :user, :through => :author_paperproposals, :conditions=>['kind=?',"user"]
-  has_many :main_aspect_dataset_owners,:class_name => "User", :source => :user, :through => :author_paperproposals, :conditions=>['kind=?',"main"]
-  has_many :side_aspect_dataset_owners,:class_name => "User", :source => :user, :through => :author_paperproposals, :conditions=>['kind=?',"side"]
-  has_many :acknowledgements_from_all_datasets,:class_name => "User", :source => :user, :through => :author_paperproposals, :conditions=>['kind=?',"ack"]
+  has_many :proponents, :class_name => "User", :source => :user, :through => :author_paperproposals, :conditions => ['kind=?',"user"]
+  has_many :main_aspect_dataset_owners, :class_name => "User", :source => :user, :through => :author_paperproposals, :conditions => ['kind=?',"main"]
+  has_many :side_aspect_dataset_owners, :class_name => "User", :source => :user, :through => :author_paperproposals, :conditions => ['kind=?',"side"]
+  has_many :acknowledgements_from_datasets, :class_name => "User", :source => :user, :through => :author_paperproposals, :conditions => ['kind = ?', 'ack']
 
   # User votes on a paperproposal.
   # has_many association with paperproposal_votes model.
@@ -87,7 +87,7 @@ class Paperproposal < ActiveRecord::Base
   def author_list(include_pi=true)
     # Do we still need senior author in author list?
     senior_author = include_pi ? self.author.pi : []
-    ack = self.acknowledgements_from_all_datasets
+    ack = self.acknowledgements_from_datasets
     middle_block = self.authors - ack - [self.author] - senior_author
     middle_block.uniq!
     middle_block.sort!{|a,b| a.lastname <=> b.lastname}
@@ -120,6 +120,45 @@ class Paperproposal < ActiveRecord::Base
     year = self.state != 'accepted' ? "" : " (#{self.envisaged_date.year})"
     publication = self.envisaged_journal.blank? ? "" : " #{envisaged_journal}."
     "#{authors} (Portal members involved)#{year}: #{self.title}. #{publication}"
+  end
+
+  def calculate_datasets_proponents
+    all_proponents = {:main => [], :side => [], :ack => []}
+    # collect relevant users
+    self.dataset_paperproposals.each do |ds_pp|
+      dataset = ds_pp.dataset
+      ds_pp.aspect = 'main' if ds_pp.aspect.blank? #some have no aspect set
+      all_proponents[ds_pp.aspect.to_sym] << dataset.owners
+      all_proponents[:ack] << dataset.datacolumns.map{|dc| dc.users}
+    end
+
+    #clear out the old ones
+    AuthorPaperproposal.delete_all(["paperproposal_id = ? AND (kind = ? OR kind = ? OR kind = ?)", self.id, 'main', 'side', 'ack'])
+
+    #reassign
+    new_author_paperproposals = []
+    all_proponents.each do |aspect, user_array|
+      user_array.flatten!
+      user_array.uniq!
+      new_author_paperproposals <<
+          user_array.map{ |u| AuthorPaperproposal.new(:user => u, :paperproposal => self, :kind => aspect.to_s)}
+    end
+    new_author_paperproposals.flatten!
+    self.author_paperproposals << new_author_paperproposals
+    self.save
+  end
+
+  def all_authors_ordered
+    categorized_authors = [[self.author], self.proponents, self.main_aspect_dataset_owners,
+                           self.side_aspect_dataset_owners, self.acknowledgements_from_datasets]
+    ordered_authors = []
+    categorized_authors.each do |cat|
+      cat.sort_by!(&:lastname)
+      cat.each do |user|
+        ordered_authors << user unless ordered_authors.include?(user)
+      end
+    end
+    ordered_authors
   end
 
   private
