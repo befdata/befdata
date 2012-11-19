@@ -102,7 +102,7 @@
           %table.import_values
             %tr
               %th.span-4.last= "Values"
-            - column.accepted_values(5).each do |sc|
+            - column.accepted_values(5).shuffle.each do |sc|
               %tr
                 %td.span-4.last{:class => cycle('even', 'odd')} #{sc.accepted_value}
         - else
