@@ -1,95 +1,43 @@
-%h2
-  Editing profile of #{link_to @user.full_name, user_path(@user.path_name)}
-#profile
-  = form_for @user, :html=>{:multipart=>true} do |u|
-    = u.label :login,:class=>"required"
-    = u.text_field :login
-    = u.label :password
-    = u.password_field  :password
-    = u.label :password_confirmation
-    = u.password_field :password_confirmation
-    = u.label :firstname,:class=>"required"
-    = u.text_field :firstname
-    = u.label :middlenames
-    = u.text_field :middlenames
-    = u.label :lastname,:class=>"required"
-    = u.text_field :lastname
-    = u.label :email,:class=>"required"
-    = u.text_field :email
-    = u.label :salutation
-    = u.text_field :salutation
-    = u.label :institution_name
-    = u.text_field :institution_name
-    = u.label :institution_url
-    = u.url_field :institution_url
-    = u.label :institution_phone
-    = u.phone_field :institution_phone
-    = u.label :institution_fax
-    = u.text_field :institution_fax
-    = u.label :url
-    = u.url_field :url
-    = u.label :country
-    = u.text_field :country
-    = u.label :city
-    = u.text_field :city
-    = u.label :street
-    = u.text_field :street
-    = u.label :comment
-    = u.text_area :comment
-    .avatar
-      = u.label :avatar,"Change Avatar"
-      = image_tag @user.avatar.url(:small)
+%h2 Editing profile of #{link_to @user.full_name, user_path(@user.path_name)}
+
+= form_for @user, :html=>{:multipart=>true} do |u|
+  = u.label :login,:class=>"required"
+  = u.text_field :login
+  = u.label :spassword
+  = u.password_field :password, :value => "", :autocomplete => "off"
+  = u.label :password_confirmation
+  = u.password_field :password_confirmation
+  = u.label :firstname,:class=>"required"
+  = u.text_field :firstname
+  = u.label :middlenames
+  = u.text_field :middlenames
+  = u.label :lastname,:class=>"required"
+  = u.text_field :lastname
+  = u.label :email,:class=>"required"
+  = u.text_field :email
+  = u.label :salutation
+  = u.text_field :salutation
+  = u.label :institution_name
+  = u.text_field :institution_name
+  = u.label :institution_url
+  = u.url_field :institution_url
+  = u.label :institution_phone
+  = u.phone_field :institution_phone
+  = u.label :institution_fax
+  = u.text_field :institution_fax
+  = u.label :url
+  = u.url_field :url
+  = u.label :country
+  = u.text_field :country
+  = u.label :city
+  = u.text_field :city
+  = u.label :street
+  = u.text_field :street
+  = u.label :comment
+  = u.text_area :comment
+  .avatar
+    = u.label :avatar,"Change Avatar"
+    = image_tag @user.avatar.url(:small)
     = u.file_field :avatar
-    .clear
-      %hr
-      = u.submit "Save"
 
-- unless @project_board_votes.empty?
-  %h3 Project Board Votes
-  - @project_board_votes.each do |vote|
-    %div.box
-      %h3
-        = "Paper Proposal:"
-        = link_to vote.paperproposal.title, vote.paperproposal
-      %p
-        Rational:
-        = vote.paperproposal.rationale
-      %p
-        Author List:
-        != author_list_formatter(vote.paperproposal.author_list)
-      - form_for vote, :url => update_vote_path(vote) do |form|
-        - if vote.vote == "none"
-          Accept or reject?
-          = form.select :vote, ["accept", "reject"]
-          %br
-          = form.label :comment
-          = form.text_field :comment
-          = form.submit "Send your vote"
-        - else
-          Your vote was:
-          = vote.vote
-
-- unless @to_vote.empty?
-  %h3 Vote to submit
-  - @to_vote.each do |vote|
-    %div.box
-      %h3
-        = "Paper Proposal:"
-        = link_to vote.paperproposal.title, vote.paperproposal
-      %p
-        Rational:
-        = vote.paperproposal.rationale
-      %p
-        Author List:
-        = author_list_formatter(vote.paperproposal.author_list)
-      - form_for vote, :url => update_vote_path(vote) do |form|
-        - if vote.vote == "none"
-          Accept or reject?
-          = form.select :vote, ["accept", "reject"]
-          %br
-          = form.label :comment
-          = form.text_field :comment
-          = form.submit "Send your vote"
-        - else
-          Your vote was:
-          = vote.vote
+  = u.submit "Save"

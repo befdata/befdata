@@ -1,0 +1,49 @@
+- unless @project_board_votes.empty?
+  %h3 Project Board Votes
+  - @project_board_votes.each do |vote|
+    %div.box
+      %h3
+        = "Paper Proposal:"
+        = link_to vote.paperproposal.title, vote.paperproposal
+      %p
+        Rational:
+        = vote.paperproposal.rationale
+      %p
+        Author List:
+        != author_list_formatter(vote.paperproposal.author_list)
+      - form_for vote, :url => update_vote_path(vote) do |form|
+        - if vote.vote == "none"
+          Accept or reject?
+          = form.select :vote, ["accept", "reject"]
+          %br
+          = form.label :comment
+          = form.text_field :comment
+          = form.submit "Send your vote"
+        - else
+          Your vote was:
+          = vote.vote
+
+- unless @to_vote.empty?
+  %h3 Vote to submit
+  - @to_vote.each do |vote|
+    %div.box
+      %h3
+        = "Paper Proposal:"
+        = link_to vote.paperproposal.title, vote.paperproposal
+      %p
+        Rational:
+        = vote.paperproposal.rationale
+      %p
+        Author List:
+        = author_list_formatter(vote.paperproposal.author_list)
+      - form_for vote, :url => update_vote_path(vote) do |form|
+        - if vote.vote == "none"
+          Accept or reject?
+          = form.select :vote, ["accept", "reject"]
+          %br
+          = form.label :comment
+          = form.text_field :comment
+          = form.submit "Send your vote"
+        - else
+          Your vote was:
+          = vote.vote

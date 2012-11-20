@@ -588,6 +588,10 @@ span.dataset-comment {
     width: 70%;
 }
 
+.dataset-metadata-form textarea {
+    height: 120px;
+}
+
 /* --- Approval UI ------------------------------------------------ */
 
 table#columns-table td.unapproved {
@@ -753,6 +757,50 @@ input[type=text].metadata-text-input {
 
 #add_dataset_to_paperproposal_select {
     margin-bottom: 35px;
+}
+
+/* --- User Profile ----------------------------------------- */
+
+form.edit_user {
+    width: 600px;
+    margin-left: 10px;
+}
+
+.edit_user label {
+    float:left;
+    width: 140px;
+    margin-right: 20px;
+}
+
+.edit_user input {
+    width: 300px;
+}
+
+.edit_user input[type="submit"] {
+    width: auto;
+    margin-left: 160px;
+    margin-top: 20px;
+}
+
+.edit_user textarea {
+    width: 300px;
+    height: 100px;
+}
+
+.edit_user .required:after {
+    content: ' *';
+    color: red;
+}
+
+.edit_user .avatar {
+    width: 500px;
+    float:left;
+    margin-right: 20px;
+    display: block;
+}
+
+.edit_user .avatar input {
+    margin-left: 160px;
 }
 
 /* --- Sidebar ----------------------------------------------- */
@@ -1168,42 +1216,3 @@ Custom JQuery Tweaking
 .ui-tabs-nav .approved_medium a { color: #eb8f00; }
 .ui-tabs-nav .approved_true a { color: #9bc56f; }
 .ui-corner-all, .ui-corner-top, .ui-corner-left, .ui-corner-tl { border-bottom-right-radius: 0; border-bottom-left-radius: 0; border-top-right-radius: 0px; border-top-left-radius: 0px; }
-
-/* --------------------------------------------------------------
-Some Form layout
--------------------------------------------------------------- */
-.dataset-metadata-form textarea {
-    height: 120px;
-}
-#profile{
-  width:608px;
-  margin: 10px;
-  border: solid 1px rgb(221,221,221);
-  padding: 20px;
-}
-#profile label{
-  float:left;
-  width: 140px;
-  margin-right: 20px;
-}
-#profile input{
-  width: 300px;
-}
-#profile input[type="submit"]{
-  width: auto;
-}
-#profile textarea{
-  width: 300px;
-  height: 100px;
-}
-#profile .required{
-  font-weight: bold;
-}
-#profile .avata{
-  width: 140px;
-  float:left;
-  margin-right: 20px;
-}
-#profile img{
-  margin-left: 10px;
-}

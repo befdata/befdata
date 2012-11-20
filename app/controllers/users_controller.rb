@@ -1,32 +1,51 @@
 # This controller handles all calls for staff information.
 
 class UsersController < ApplicationController
-  before_filter :require_user, :only => [:edit]
+  before_filter :require_user, :except => [:index, :show]
+  before_filter :load_current_user, :except => [:index, :show]
 
   skip_before_filter :deny_access_to_all
+
   access_control do
     actions :index, :show do
       allow all
     end
-    actions :edit, :update do
-      allow logged_in, :if=>:correct_user
+    actions :edit, :update, :votes do
+      allow logged_in
     end
   end
 
-
-  # The index method simply lists all staff members, ordered by their last name.
   def index
     @users = User.all :order => "lastname"
   end
 
-  # Whenever a logged in user wants to change its profile information, this action is responsible.
-  def edit
-    @user = current_user
+  def show
+    @user = params[:id].nil? ? current_user : User.find(params[:id])
+    if @user.nil?
+      flash[:error] = "You must be logged in to access this page"
+      redirect_to :root and return
+    else
+      @user_datasets_owned = @user.datasets_owned.sort_by {|d| d.title.to_s}
+    end
+  end
 
+  def edit
+  end
+
+  def update
+    if @user.update_attributes(params[:user])
+      redirect_to :profile, :notice => "Saved successfully!"
+    else
+      flash[:error]=@user.errors.full_messages.to_sentence
+      redirect_to :back
+    end
+  end
+
+  def votes
     @project_board_votes = @user.project_board_votes
     #ToDo make it better, better scope, soon with rails 3
     @project_board_votes.reject!{|element| element.paperproposal.board_state == "accept" ||
-                                           element.paperproposal.board_state == "final"}
+        element.paperproposal.board_state == "final"}
     @project_board_votes.sort!{|a,b| a.paperproposal <=> b.paperproposal}
 
     @to_vote = @user.for_paperproposal_votes
@@ -37,33 +56,16 @@ class UsersController < ApplicationController
     @data_requests = Paperproposal.find_all_by_board_state("submit").sort
   end
 
-  # The show method provides all informations about one specific person.
-  def show
-    #redirect_to(:action=>"index") and return if params[:id] && params[:id].strip.empty?
-    @user = params[:id].nil? ? current_user : User.find(params[:id])
-    # User.find raises Error when not finding an user, so when @user is nil, current_user is nil,ie. user is not logged in.
-    redirect_to(root_path, flash:{error:"You must be logged in to access this page"}) and return if @user.nil?
-    @user_datasets_owned = @user.datasets_owned.sort_by {|d| d.title.to_s}
-    #redirect_to(:action => "index", :status => :not_found) unless @user
-  end
+private
 
-  def update
+  def load_current_user
     @user = current_user
-
-    if @user.update_attributes(params[:user])
-      redirect_to :back, :notice => "Saved successfully!"
-    else
-      flash[:error]=@user.errors.full_messages.to_sentence
-      redirect_to :back
-    end
   end
-
-  private
 
   # checks whether the user to be edited/updated is current user
   def correct_user
     user_id = params[:id]
-    return(false) if user_id && user_id.to_i != current_user.id
+    return(false) if user_id && (user_id.to_i != current_user.id)
     return(true)
   end
 end

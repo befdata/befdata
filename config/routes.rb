@@ -9,6 +9,7 @@ Befchina::Application.routes.draw do
   resources :users
   match 'profile' => 'users#show', :as => :profile
   match 'profile/edit' => 'users#edit', :as => :edit_profile
+  match 'profile/votes' => 'users#votes', :as => :votes
 
   match 'imprint' => 'pages#imprint', :as => :imprint
   match 'help' => 'pages#help', :as => :help
