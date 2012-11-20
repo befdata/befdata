@@ -733,6 +733,28 @@ input[type=text].metadata-text-input {
     color: #18921E;
 }
 
+/* --- Paperproposal ----------------------------------------- */
+
+.paperproposal-datasets-table thead th:first-child {
+    width: 100%;
+}
+
+.paperproposal-datasets-table  {
+    width: 80%;
+}
+
+.paperproposal-datasets-table td{
+    vertical-align: top;
+}
+
+.paperproposal-datasets-table select {
+    margin-bottom: 0px;
+}
+
+#add_dataset_to_paperproposal_select {
+    margin-bottom: 35px;
+}
+
 /* --- Sidebar ----------------------------------------------- */
 
 div#sidebar {

@@ -19,5 +19,6 @@
           %td
             %a{:onclick => "this.parentNode.parentNode.parentNode.removeChild(this.parentNode.parentNode);"} Remove
   %h4 Add dataset
-  = select "not_needed", "param", @all_datasets.map{|ds| [ds.title, ds.id]}, {:prompt => 'Select Dataset'}, {:onchange => 'selectDatasets(this)'}
-  %p= submit_tag
+  = select "add_dataset_to_paperproposal", "select",
+    @all_datasets.map{|ds| [ds.title, ds.id]}, {:prompt => 'Select Dataset'}, {:onchange => 'selectDatasets(this)'}
+  %p= submit_tag "Submit"
