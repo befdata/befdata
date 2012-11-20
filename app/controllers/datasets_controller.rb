@@ -227,9 +227,13 @@ class DatasetsController < ApplicationController
   end
 
   def destroy
-    @dataset.destroy
-    flash[:notice] = "The dataset was successfully deleted."
-    redirect_to data_path
+    if @dataset.destroy
+      flash[:notice] = "The dataset was successfully deleted."
+      redirect_to data_path
+    else
+      flash[:error] = @dataset.errors.full_messages.to_sentence
+      redirect_to :back
+    end
   end
 
   private
