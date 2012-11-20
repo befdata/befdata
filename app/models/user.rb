@@ -38,7 +38,7 @@ class User < ActiveRecord::Base
   before_save :change_avatar_file_name, :add_protocol_to_url
 
   def change_avatar_file_name
-    if avatar_file_name
+    if avatar_file_name && avatar_file_name_changed?
       new_name = "#{id}_#{lastname}#{File.extname(avatar_file_name).downcase}"
       if avatar_file_name != new_name
         self.avatar.instance_write(:file_name, new_name)
