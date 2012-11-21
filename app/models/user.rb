@@ -188,6 +188,10 @@ class User < ActiveRecord::Base
     end
   end
 
+  def open_votes_count
+    self.paperproposal_votes.where("vote = 'none'").count
+  end
+
   def self.all_users_names_and_ids_for_select
     User.all(:order => :lastname).collect {|person| [person.to_label, person.id]}
   end

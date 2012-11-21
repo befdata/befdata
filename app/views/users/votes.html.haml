@@ -1,49 +1,15 @@
-- unless @project_board_votes.empty?
-  %h3 Project Board Votes
-  - @project_board_votes.each do |vote|
-    %div.box
-      %h3
-        = "Paper Proposal:"
-        = link_to vote.paperproposal.title, vote.paperproposal
-      %p
-        Rational:
-        = vote.paperproposal.rationale
-      %p
-        Author List:
-        != author_list_formatter(vote.paperproposal.author_list)
-      - form_for vote, :url => update_vote_path(vote) do |form|
-        - if vote.vote == "none"
-          Accept or reject?
-          = form.select :vote, ["accept", "reject"]
-          %br
-          = form.label :comment
-          = form.text_field :comment
-          = form.submit "Send your vote"
-        - else
-          Your vote was:
-          = vote.vote
+= content_for :actions do
+  = link_to votes_history_url do
+    = image_tag "list-ordered.png"
+    Voting History
 
-- unless @to_vote.empty?
-  %h3 Vote to submit
-  - @to_vote.each do |vote|
-    %div.box
-      %h3
-        = "Paper Proposal:"
-        = link_to vote.paperproposal.title, vote.paperproposal
-      %p
-        Rational:
-        = vote.paperproposal.rationale
-      %p
-        Author List:
-        = author_list_formatter(vote.paperproposal.author_list)
-      - form_for vote, :url => update_vote_path(vote) do |form|
-        - if vote.vote == "none"
-          Accept or reject?
-          = form.select :vote, ["accept", "reject"]
-          %br
-          = form.label :comment
-          = form.text_field :comment
-          = form.submit "Send your vote"
-        - else
-          Your vote was:
-          = vote.vote
+- if @project_board_votes.empty? && @dataset_votes.empty?
+  %p Currently there are no votes to give for you.
+
+- unless @project_board_votes.empty?
+  %h2 Project Board Votes
+  = render :partial => 'open_votes_list', :locals => {:votes => @project_board_votes}
+
+- unless @dataset_votes.empty?
+  %h2 Data Request Votes
+  = render :partial => 'open_votes_list', :locals => {:votes => @dataset_votes}

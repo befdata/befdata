@@ -1,0 +1,22 @@
+= content_for :actions do
+  = link_to votes_path do
+    = image_tag "checkbox.png"
+    = "Open Votes"
+
+%h2 Voting history
+
+- if @given_votes.empty?
+  %p You have not voted on anything yet.
+
+- @given_votes.each do |vote|
+  .vote.vote-old
+    %p= vote.updated_at
+    %p= vote.project_board_vote ? 'Project Board Vote' : 'Data Request Vote'
+    %p
+      %strong Your vote was:
+      = vote.vote
+    - paperproposal = vote.paperproposal
+    = render :partial => 'paperproposals/summary_for_vote', :locals => {:paperproposal => vote.paperproposal}
+    %p
+      %strong State:
+      = paperproposal.calc_board_state

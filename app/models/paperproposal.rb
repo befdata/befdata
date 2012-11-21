@@ -148,9 +148,13 @@ class Paperproposal < ActiveRecord::Base
     self.save
   end
 
-  def all_authors_ordered
-    categorized_authors = [[self.author], self.proponents, self.main_aspect_dataset_owners,
-                           self.side_aspect_dataset_owners, self.acknowledgements_from_datasets]
+  def all_authors_ordered(focus = nil)
+    categorized_authors = [[self.author], self.proponents]
+    unless focus == :without_data
+      categorized_authors << self.main_aspect_dataset_owners
+      categorized_authors << self.side_aspect_dataset_owners
+      categorized_authors << self.acknowledgements_from_datasets
+    end
     ordered_authors = []
     categorized_authors.each do |cat|
       cat.sort_by!(&:lastname)

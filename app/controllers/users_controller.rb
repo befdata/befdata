@@ -10,7 +10,7 @@ class UsersController < ApplicationController
     actions :index, :show do
       allow all
     end
-    actions :edit, :update, :votes do
+    actions :edit, :update, :votes, :votes_history do
       allow logged_in
     end
   end
@@ -42,18 +42,17 @@ class UsersController < ApplicationController
   end
 
   def votes
-    @project_board_votes = @user.project_board_votes
-    #ToDo make it better, better scope, soon with rails 3
-    @project_board_votes.reject!{|element| element.paperproposal.board_state == "accept" ||
-        element.paperproposal.board_state == "final"}
-    @project_board_votes.sort!{|a,b| a.paperproposal <=> b.paperproposal}
+    @project_board_votes = @user.project_board_votes.reject{|vote|
+      vote.paperproposal.board_state == ("accept" || "final") || (vote.vote != 'none')}
+    @project_board_votes.sort_by!(&:paperproposal)
 
-    @to_vote = @user.for_paperproposal_votes
-    #ToDo make it better, better scope, soon with rails 3
-    @to_vote.reject!{|element| element.paperproposal.board_state == "final"}
-    @to_vote.sort!{|a,b| a.paperproposal <=> b.paperproposal}
+    @dataset_votes = @user.for_paperproposal_votes.reject{|vote|
+      vote.paperproposal.board_state == "final" || (vote.vote != 'none')}
+    @dataset_votes.sort_by!(&:paperproposal)
+  end
 
-    @data_requests = Paperproposal.find_all_by_board_state("submit").sort
+  def votes_history
+    @given_votes = @user.paperproposal_votes.where("vote <> 'none'").order("updated_at DESC")
   end
 
 private

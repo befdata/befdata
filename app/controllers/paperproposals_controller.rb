@@ -140,7 +140,7 @@ class PaperproposalsController < ApplicationController
           #do nothing
       end
     end
-    redirect_to :profile
+    redirect_to :votes
   end
 
   # ToDo Perhapse dont destroy a data request when he is final?!

@@ -1,0 +1,11 @@
+%h3
+  = "Paper Proposal:"
+  = link_to paperproposal.title, paperproposal
+%p
+  %strong Rationale:
+  = paperproposal.rationale
+%p
+  %strong Main authors:
+  %span.comma-seperated-list
+    - paperproposal.all_authors_ordered(:without_data).each do |u|
+      %span= link_to u.to_label, user_path(u.path_name)
