@@ -106,43 +106,45 @@
     %dd= submit_tag 'Save Metadata'
 
 :javascript
-  function split( val ) {
-    return val.split( /,\s*/ );
-  }
-  function extractLast( term ) {
-    return split( term ).pop();
-  }
-  $("#tag_list")
-  .bind( "keydown", function( event ) {
-    if ( event.keyCode === $.ui.keyCode.TAB &&
-            $( this ).data( "autocomplete" ).menu.active ) {
-        event.preventDefault();
+  $(document).ready(function(){
+    function split( val ) {
+      return val.split( /,\s*/ );
     }
-  })
-  .autocomplete({
-    source: function( request, response ) {
-      var term = extractLast( request.term );
-      if (term.length >=2 ){
-      $.getJSON( "/keywords.json", {
-        term: term
-      }, response );
-      }
-    },
-    focus: function() {
-      // prevent value inserted on focus
-      return false;
-    },
-    select: function( event, ui ) {
-      var terms = split( this.value );
-      // remove the current input
-      terms.pop();
-      // add the selected item
-      terms.push( ui.item.value );
-      // add placeholder to get the comma-and-space at the end
-      terms.push( "" );
-      this.value = terms.join( ", " );
-      return false;
-    },
-    minLength: 2,
-    delay: 200
+    function extractLast( term ) {
+      return split( term ).pop();
+    }
+    $("#tag_list")
+      .bind( "keydown", function( event ) {
+        if ( event.keyCode === $.ui.keyCode.TAB &&
+                $( this ).data( "autocomplete" ).menu.active ) {
+            event.preventDefault();
+        }
+      })
+      .autocomplete({
+        source: function( request, response ) {
+          var term = extractLast( request.term );
+          if (term.length >=2 ){
+          $.getJSON( "/keywords.json", {
+            q: term
+          }, response );
+          }
+        },
+        focus: function() {
+          // prevent value inserted on focus
+          return false;
+        },
+        select: function( event, ui ) {
+          var terms = split( this.value );
+          // remove the current input
+          terms.pop();
+          // add the selected item
+          terms.push( ui.item.value );
+          // add placeholder to get the comma-and-space at the end
+          terms.push( "" );
+          this.value = terms.join( ", " );
+          return false;
+        },
+        minLength: 2,
+        delay: 200
+      })
   })

@@ -101,9 +101,10 @@
           - else
             = column.datagroup.title
         %br
-        %i
-          Keywords:
-          = raw column.tags.map{|t| link_to t.name, keyword_path(t.id)}.join(", ")
+        - unless column.tags.empty?
+          %i
+            Keywords:
+            = raw column.tags.map{|t| link_to t.name, keyword_path(t.id)}.join(", ")
         %br
         - if column.values_stored?
           %table.import_values

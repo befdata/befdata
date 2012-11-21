@@ -59,7 +59,7 @@
         var term = extractLast( request.term );
         if (term.length >=2 ){
         $.getJSON( "/keywords.json", {
-          term: term
+          q: term
         }, response );
         }
       },
