@@ -10,7 +10,7 @@
     %dd= text_area_tag 'datacolumn[definition]', @datacolumn.definition, {:class => "metadata-text-input"}
 
     %dt= label_tag "datacolumn[tag_list]", 'Keywords (Comma separated)'
-    %dd= text_field_tag "datacolumn[tag_list]", @datacolumn.tag_list.join(", "), {:class => "metadata-text-input",:id=>"tag_list"}
+    %dd= text_field_tag "datacolumn[tag_list]", @datacolumn.tag_list.join(", "), {:class => "metadata-text-input",:id =>"tag_list", "data-tags"=> ActsAsTaggableOn::Tag.all.map(&:name).sort.to_json}
   %dl
     %dt= label_tag 'datacolumn[comment]',"Comment"
     %dd= text_area_tag 'datacolumn[comment]', @datacolumn.comment, {:class => "metadata-text-input"}
@@ -41,45 +41,12 @@
       $('#unmatched-persons-hint').css("text-decoration", "line-through")
       event.preventDefault();
     });
-    function split( val ) {
-      return val.split( /,\s*/ );
-    }
-    function extractLast( term ) {
-      return split( term ).pop();
-    }
-    $("#tag_list")
-    .bind( "keydown", function( event ) {
-      if ( event.keyCode === $.ui.keyCode.TAB &&
-              $( this ).data( "autocomplete" ).menu.active ) {
-          event.preventDefault();
-      }
-    })
-    .autocomplete({
-      source: function( request, response ) {
-        var term = extractLast( request.term );
-        if (term.length >=2 ){
-        $.getJSON( "/keywords.json", {
-          q: term
-        }, response );
-        }
-      },
-      focus: function() {
-        // prevent value inserted on focus
-        return false;
-      },
-      select: function( event, ui ) {
-        var terms = split( this.value );
-        // remove the current input
-        terms.pop();
-        // add the selected item
-        terms.push( ui.item.value );
-        // add placeholder to get the comma-and-space at the end
-        terms.push( "" );
-        this.value = terms.join( ", " );
-        return false;
-      },
-      minLength: 2,
-      delay: 200
-    })
+    $("#tag_list").select2({
+      tags: $("#tag_list").data("tags"),
+      tokenSeparators: [",", ";", "，"],
+      width: "resolve",
+      minimumInputLength: 1,
+      formatInputTooShort: function(){return ""}
+    });
   });
 

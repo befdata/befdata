@@ -369,6 +369,27 @@ input[type=button]:hover, input[type=submit]:hover, button:hover, input[type=but
     background-color: #eee;
 }
 
+/*select2 tweak*/
+
+.select2-results .select2-highlighted {
+  background: #e8e8e8;
+  color: #18921e;
+}
+.select2-result-selectable {
+    padding: 2px;
+    margin: 0px;
+    line-height: 1em;
+    font-size: 1.2em;
+}
+.select2-container-multi .select2-choices {
+    background-image: none;
+}
+.select2-container-multi.select2-container-active .select2-choices {
+    box-shadow        : none;
+    border: 1px solid #18921e;
+    outline: none;
+}
+
 /* --- Header ------------------------------------------------- */
 
 #rails_env_notice {

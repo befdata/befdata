@@ -10,7 +10,7 @@ class TagsController < ApplicationController
     @tags = ActsAsTaggableOn::Tag.where("lower(name) like ?", "%#{params[:q] && params[:q].downcase}%").order(:name)
     respond_to do |format|
       format.html
-      format.json { render :json=>@tags.map(&:name)}
+    format.json { render :json=> @tags.map(&:attributes)}
     end
   end
 
