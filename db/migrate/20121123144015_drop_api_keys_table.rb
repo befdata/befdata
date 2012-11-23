@@ -4,6 +4,6 @@ class DropApiKeysTable < ActiveRecord::Migration
   end
 
   def self.down
-    railse ActiveRecord::IrreversibleMigration
+    raise ActiveRecord::IrreversibleMigration
   end
 end
