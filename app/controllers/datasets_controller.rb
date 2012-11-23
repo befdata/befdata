@@ -36,6 +36,7 @@ class DatasetsController < ApplicationController
     end
   end
 
+
   def create
     # submitting neither title nor datafile
     if !params[:dataset] && !params[:datafile]
@@ -232,7 +233,7 @@ class DatasetsController < ApplicationController
   end
 
   private
-
+  
   def load_dataset
     @dataset = Dataset.find(params[:id])
   end
