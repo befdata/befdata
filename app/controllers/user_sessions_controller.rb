@@ -32,5 +32,7 @@ class UserSessionsController < ApplicationController
     current_user_session.destroy
     flash[:notice] = "Logout successful!"
     redirect_to root_url
-  end
+  end 
+
+
 end
