@@ -10,7 +10,7 @@ class TagsController < ApplicationController
     @tags = ActsAsTaggableOn::Tag.where("lower(name) like ?", "%#{params[:q] && params[:q].downcase}%").order(:name)
     respond_to do |format|
       format.html
-    format.json { render :json=> @tags.map(&:attributes)}
+      format.json { render :json=> @tags.map(&:attributes)}
     end
   end
 
@@ -22,6 +22,22 @@ class TagsController < ApplicationController
     tag_datasets = Dataset.tagged_with(@tag.name)
     tag_dc_datasets = Datacolumn.tagged_with(@tag.name).map(&:dataset)
     @datasets = (tag_datasets + tag_dc_datasets).flatten.uniq.sort_by(&:title)
+
+    respond_to do |format|
+      format.html
+      format.csv do
+        csvdata = CSV.generate do |csv|
+          csv << %w(id title emlURL xlsURL csvURL csvSeperatedMixedValueColumnsUrl)
+          @datasets.each do |d|
+            csv << [d.id, d.title, dataset_url(d, :eml),
+                    download_dataset_url(d), download_dataset_url(d, :csv),
+                    download_dataset_url(d, :csv, :seperate_category_columns => true)
+                   ]
+          end
+        end
+        send_data csvdata, :type => "text/csv", :filename=>"datasets_tagged_with_#{@tag.name}.csv", :disposition => 'attachment'
+      end
+    end
   end
 
 end
