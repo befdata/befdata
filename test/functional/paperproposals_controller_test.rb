@@ -26,23 +26,26 @@ class PaperproposalsControllerTest < ActionController::TestCase
     post :create, :paperproposal => {:title => "Test", :rationale => "Rational"}
     @paperproposal = Paperproposal.find_by_title("Test")
 
-    assert_redirected_to edit_paperproposal_path(@paperproposal)
+    assert_redirected_to edit_datasets_paperproposal_path(@paperproposal)
   end
 
   test "should add datasets to paperproposal and the author list is changed" do
     login_and_load_paperproposal "nadrowski", "Step 1 Paperproposal"
     @dataset_with_michael = Dataset.find_by_title("Test species name import second version")
+    old_authors_count = @paperproposal.all_authors_ordered.count
 
-    
-    get :edit, :id => @paperproposal.id
-    assert_select "div#datasets li", {:count => Dataset.count}
-    assert_select "div#author-list li#potential ul li", false
+    get :edit_datasets, :id => @paperproposal.id
+    assert_select "tbody tr", {:count => 0}
 
-    put :update, :id => @paperproposal.id, :datasets => [@dataset_with_michael.id], :aspect => {"#{@dataset_with_michael.id}" => "main"}
-    assert_redirected_to edit_paperproposal_path(@paperproposal)
+    post :update_datasets, :id => @paperproposal.id, :paperproposal => {:dataset_ids => [@dataset_with_michael.id]}, :aspect => {@dataset_with_michael.id.to_s => "main"}
+    assert_redirected_to paperproposal_path(@paperproposal)
 
-    get :edit, :id => @paperproposal.id    
-    assert_select "div#author-list li#potential ul", {:text=> /Michael/}
+    @paperproposal.reload
+    assert_equal 1, @paperproposal.datasets.count
+    assert old_authors_count < @paperproposal.all_authors_ordered.count
+
+    get :show, :id => @paperproposal.id
+    assert_select "span.comma-seperated-list", /.*Michael.*/, response.body
   end
 
   test "should not send to board if no dataset is set" do
@@ -72,7 +75,7 @@ class PaperproposalsControllerTest < ActionController::TestCase
     get :show, :id => @paperproposal.id
 
     assert_success_no_error
-    assert_select "div.box", {:text => /Submitted to board, waiting for acceptance./}
+    assert_select "div", {:text => /Submitted to board, waiting for acceptance./}
   end
 
   test "for project board member it should be possible to vote" do
@@ -131,14 +134,8 @@ class PaperproposalsControllerTest < ActionController::TestCase
     assert_equal "Test", @paperproposal.initial_title
   end
 
-  test "should show all links to dataset if the paperproposal is final" do
-    login_and_load_paperproposal "Phdstudentproductivity", "Final Paperproposal"
-
-    get :show, :id => @paperproposal.id
-
-    assert_select 'div.box ul' do |element|
-      assert element[0].children.select{|child| child.to_s =~ /dataset/}.count == 2
-    end
+  test "should allow download of datasets to paperproposers if final" do
+    pending "functionality not jet implemented"
   end
   
 end

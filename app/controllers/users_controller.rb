@@ -61,10 +61,4 @@ private
     @user = current_user
   end
 
-  # checks whether the user to be edited/updated is current user
-  def correct_user
-    user_id = params[:id]
-    return(false) if user_id && (user_id.to_i != current_user.id)
-    return(true)
-  end
 end

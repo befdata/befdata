@@ -77,10 +77,12 @@ class PaperproposalsController < ApplicationController
 
   def update_datasets
     @paperproposal.update_attributes(params[:paperproposal])
-    params[:aspect].each do |k, v|
-      ds_pp = @paperproposal.dataset_paperproposals.where('dataset_id = ?', k).first
-      ds_pp.aspect = v
-      ds_pp.save
+    if params[:aspect]
+      params[:aspect].each do |k, v|
+        ds_pp = @paperproposal.dataset_paperproposals.where('dataset_id = ?', k).first
+        ds_pp.aspect = v
+        ds_pp.save
+      end
     end
     @paperproposal.calculate_datasets_proponents
     redirect_to @paperproposal
