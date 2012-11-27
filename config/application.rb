@@ -40,5 +40,6 @@ module Befchina
 
     # Configure sensitive parameters which will be filtered from the log file.
     config.filter_parameters += [:password]
+    ActsAsTaggableOn::Tag.remove_unused = true
   end
 end

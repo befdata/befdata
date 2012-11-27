@@ -166,6 +166,7 @@ class DatasetsController < ApplicationController
     @projects = @dataset.projects
     @freeformats = @dataset.freeformats :order => :file_file_name
     @datacolumns = @dataset.datacolumns
+    @tags = @dataset.all_tags
 
     respond_to do |format|
       format.html

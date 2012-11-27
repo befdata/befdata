@@ -193,7 +193,7 @@ class Dataworkbook
     #data_column_information[:definition] << column_description unless column_description.blank?
     data_column_information[:definition] = "#{data_column_information[:definition]}#{column_description}" unless column_description.blank?
     data_column_information[:dataset_id] = @dataset.id
-    data_column_information[:tag_list] = data_column_information[:comment] unless data_column_information[:comment].blank?
+    data_column_information[:tag_list] = data_column_information[:tag_list] unless data_column_information[:tag_list].blank?
     data_column_information[:datagroup_id] = data_group.id
     data_column_information[:datagroup_approved] = false
     data_column_information[:datatype_approved] = false
@@ -269,7 +269,7 @@ class Dataworkbook
     else
       data_header_ch[:definition] = Array(data_description_sheet.column(*WBF[:column_definition_col]))[method_index].blank? ? columnheader : clean_string(Array(data_description_sheet.column(*WBF[:column_definition_col]))[method_index])
       data_header_ch[:unit] = clean_string(Array(data_description_sheet.column(*WBF[:column_unit_col]))[method_index])
-      data_header_ch[:comment] = clean_string(Array(data_description_sheet.column(*WBF[:column_keywords_col]))[method_index])
+      data_header_ch[:tag_list] = clean_string(Array(data_description_sheet.column(*WBF[:column_keywords_col]))[method_index])
       data_header_ch[:import_data_type] = clean_string(Array(data_description_sheet.column(*WBF[:group_methodvaluetype_col]))[method_index])
     end
 
