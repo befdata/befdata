@@ -1,19 +1,97 @@
-%div.box
-  %h3
-    = @paperproposal.title
-    - unless @paperproposal.lock
-      = link_to image_tag("edit.png"), edit_paperproposal_path(@paperproposal)
-      = image_tag("lock-open.png")
+= content_for :actions do
+  %ul
+    - if !@paperproposal.lock
+      %li
+        = link_to edit_paperproposal_path(@paperproposal) do
+          = image_tag("edit.png")
+          Edit Metadata
+      %li
+        = link_to edit_datasets_paperproposal_path(@paperproposal) do
+          = image_tag("edit.png")
+          Manage Datasets
+      %li
+        = link_to edit_files_paperproposal_path(@paperproposal) do
+          = image_tag("edit.png")
+          Manage Files
     - else
-      = image_tag("lock-closed.png")
-  %h4 Rational
-  %p= @paperproposal.rationale
+      %li
+        = image_tag("lock-closed.png")
+        Locked
 
-  = render :partial => "state_of_vote"
-
-  - if @paperproposal.board_state == "final"
-    %p Its allowed to download files, present now list of download actions
+= content_for :info do
+  %h3 State
+  %p= @paperproposal.state
+  %h3 Author
+  = render @paperproposal.author
+  - unless @paperproposal.proponents.empty?
+    %h3 Main Proponents
     %ul
-      - @paperproposal.datasets.each do |dataset|
-        %li= link_to dataset.title, dataset
+      - @paperproposal.proponents.each do |u|
+        %li= render u
+  - unless @paperproposal.authored_by_project.blank?
+    %h3 Project
+    = link_to @paperproposal.authored_by_project.name, @paperproposal.authored_by_project
+  - if current_user
+    %h3 Email lists
+    %ul
+      %li
+        = render :partial => "users/email_list_modal",
+                  :locals => {:list => User.email_list(@paperproposal.authors_selection(:author_and_proponents)),
+                  :css => "paperproposal_owners_prop", :caption => 'Author and proponents'}
+      %li
+        = render :partial => "users/email_list_modal",
+                  :locals => {:list => User.email_list(@paperproposal.authors_selection(:proponents_and_main)),
+                  :css => "paperproposal_owners_main", :caption => 'Author, proponents and owners of main datasets'}
+      %li
+        = render :partial => "users/email_list_modal",
+                  :locals => {:list => User.email_list(@paperproposal.authors_selection(:proponents_and_all_owners)),
+                  :css => "paperproposal_owners_datasets", :caption => 'Author, proponents and all dataset owners'}
+      %li
+        = render :partial => "users/email_list_modal",
+                  :locals => {:list => User.email_list(@paperproposal.authors_selection(:all_mentioned)),
+                  :css => "paperproposal_authors_also_helper", :caption => 'Author, proponents, dataset owners and data helpers'}
+
+%h2
+  = @paperproposal.title
+
+- unless @paperproposal.initial_title == @paperproposal.title
+  %p
+    %strong Initial title:
+    = @paperproposal.initial_title
+
+- unless @paperproposal.envisaged_journal.blank?
+  %p
+    %strong Envisaged journal:
+    =@paperproposal.envisaged_journal
+
+- unless @paperproposal.envisaged_date.blank?
+  %p
+    %strong Envisaged date:
+    =@paperproposal.envisaged_date
+
+%h3 Rationale
+%p= @paperproposal.rationale
+
+%h3 Datasets #{"(" + @paperproposal.dataset_paperproposals.count.to_s + ")" unless @paperproposal.dataset_paperproposals.empty? }
+- if !@paperproposal.dataset_paperproposals.empty?
+  %ul
+    - @paperproposal.dataset_paperproposals.includes(:dataset).each do |ds_pp|
+      %li
+        = link_to ds_pp.dataset.title, ds_pp.dataset
+        = ds_pp.aspect
+- else
+  %p No datasets are linked to this paperproposal.
+
+%h3 Calculated Authors
+%p
+  %span.comma-seperated-list
+    - @paperproposal.all_authors_ordered.each do |u|
+      %span= link_to u.to_label, user_path(u.path_name)
+
+- unless @freeformats.blank?
+  %h3 Files (#{@freeformats.length})
+  = render :partial => 'freeformats/index'
+
+%h3 State of vote (???))
+= render :partial => "state_of_vote"
 

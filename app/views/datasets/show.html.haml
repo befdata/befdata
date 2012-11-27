@@ -12,6 +12,9 @@
       = render :partial => 'import_status'
 
   - content_for :info do
+    - unless @tags.blank?
+      %h3 Keywords
+      = raw  @tags.sort_by(&:name).map{|t| link_to t.name, keyword_path(t.id)}.join(", ")
     %h3
       Last update
     %p= @dataset.last_update.localtime.strftime "%Y-%m-%d %H:%M"
@@ -32,7 +35,7 @@
       %ul
         %li
           = render :partial => "users/email_list_modal",
-            :locals => {:list => @dataset.owners_email_list, :css => "dataset_owners", :caption => 'Dataset owners'}
+            :locals => {:list => User.email_list(@dataset.owners), :css => "dataset_owners", :caption => 'Dataset owners'}
     - unless @projects.blank?
       %h3
         Projects involved
@@ -98,11 +101,16 @@
           - else
             = column.datagroup.title
         %br
+        - unless column.tags.empty?
+          %i
+            Keywords:
+            = raw column.tags.map{|t| link_to t.name, keyword_path(t.id)}.join(", ")
+        %br
         - if column.values_stored?
           %table.import_values
             %tr
               %th.span-4.last= "Values"
-            - column.accepted_values(5).each do |sc|
+            - column.accepted_values(5).shuffle.each do |sc|
               %tr
                 %td.span-4.last{:class => cycle('even', 'odd')} #{sc.accepted_value}
         - else

@@ -1,0 +1,10 @@
+%h2
+  Manage files of
+  = link_to @paperproposal.title, @paperproposal
+
+- unless @freeformats.blank?
+  %h3 Change freeformat files
+  = render :partial => 'freeformats/edit_list'
+
+%h3 Add freeformat file
+= render :partial => 'freeformats/new', :locals => {:freeformattable => @paperproposal}

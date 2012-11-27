@@ -31,6 +31,7 @@ class Dataset < ActiveRecord::Base
 
   acts_as_taggable
 
+
   has_attached_file :generated_spreadsheet,
     :path => ":rails_root/files/:id_generated-download.xls"
 
@@ -46,6 +47,8 @@ class Dataset < ActiveRecord::Base
   has_many :dataset_downloads
 
   has_and_belongs_to_many :projects
+  has_many :dataset_paperproposals
+  has_many :paperproposals, :through => :dataset_paperproposals
 
   validates :title, :presence => true, :uniqueness => true
 
@@ -55,9 +58,19 @@ class Dataset < ActiveRecord::Base
 
   before_save :add_xls_extension_to_filename
 
+  before_destroy :check_for_paperproposals
+
   def add_xls_extension_to_filename
     if self.filename
       /\.xls$/.match(self.filename) ? self.filename : self.filename = "#{self.filename}.xls"
+    end
+  end
+
+  def check_for_paperproposals
+    if paperproposals.count > 0
+      errors.add(:dataset,
+        "can not be deleted while linked paperproposals exist [ids: #{paperproposals.map{|pp| pp.id}.join(", ")}]")
+      return false
     end
   end
 
@@ -234,16 +247,16 @@ class Dataset < ActiveRecord::Base
     save
   end
 
-  def owners_email_list
-    owners.collect{|u| Hash[:name, "#{u.firstname} #{u.lastname}", :mail, "#{u.email}"]}
-  end
-
   def approval_finished?
     !self.datacolumns.any?{|dc| dc.approval_stage!="4"}
   end
 
-  def to_csv (seperate_category_columns = false)
 
+  def refresh_paperproposal_authors
+    self.paperproposals.each {|pp| pp.calculate_datasets_proponents}
+  end
+
+  def to_csv (seperate_category_columns = false)
     # gather columns and values
     all_columns = []
     self.datacolumns.order("columnnr ASC").each do |dc|
@@ -273,4 +286,7 @@ class Dataset < ActiveRecord::Base
     end
   end
 
+  def all_tags
+    (tags + self.datacolumns.map(&:tags)).flatten.uniq
+  end
 end

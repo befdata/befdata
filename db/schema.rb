@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121025031154) do
+ActiveRecord::Schema.define(:version => 20121115082152) do
 
   create_table "author_paperproposals", :force => true do |t|
     t.integer  "paperproposal_id"
@@ -229,12 +229,10 @@ ActiveRecord::Schema.define(:version => 20121025031154) do
     t.string   "envisaged_journal"
     t.string   "title"
     t.text     "rationale"
-    t.integer  "corresponding_id"
     t.date     "envisaged_date"
     t.string   "state"
     t.date     "expiry_date"
     t.string   "board_state",       :default => "prep"
-    t.integer  "senior_author_id"
     t.string   "external_data"
     t.boolean  "lock",              :default => false
     t.datetime "created_at"
@@ -245,9 +243,7 @@ ActiveRecord::Schema.define(:version => 20121025031154) do
   end
 
   add_index "paperproposals", ["author_id"], :name => "index_paperproposals_on_author_id"
-  add_index "paperproposals", ["corresponding_id"], :name => "index_paperproposals_on_corresponding_id"
   add_index "paperproposals", ["project_id"], :name => "index_paperproposals_on_project_id"
-  add_index "paperproposals", ["senior_author_id"], :name => "index_paperproposals_on_senior_author_id"
 
   create_table "projects", :force => true do |t|
     t.string   "shortname"

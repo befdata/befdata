@@ -92,6 +92,7 @@ class DatasetsController < ApplicationController
     elsif users_with_current_ownership.empty? then
       current_user.has_role! :owner, @dataset
     end
+    @dataset.refresh_paperproposal_authors
 
     if @dataset.update_attributes(params[:dataset]) then
       redirect_to dataset_path
@@ -166,6 +167,7 @@ class DatasetsController < ApplicationController
     @projects = @dataset.projects
     @freeformats = @dataset.freeformats :order => :file_file_name
     @datacolumns = @dataset.datacolumns
+    @tags = @dataset.all_tags
 
     respond_to do |format|
       format.html
@@ -227,9 +229,13 @@ class DatasetsController < ApplicationController
   end
 
   def destroy
-    @dataset.destroy
-    flash[:notice] = "The dataset was successfully deleted."
-    redirect_to data_path
+    if @dataset.destroy
+      flash[:notice] = "The dataset was successfully deleted."
+      redirect_to data_path
+    else
+      flash[:error] = @dataset.errors.full_messages.to_sentence
+      redirect_to :back
+    end
   end
 
   private
