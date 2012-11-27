@@ -286,4 +286,7 @@ class Dataset < ActiveRecord::Base
     end
   end
 
+  def all_tags
+    (tags + self.datacolumns.map(&:tags)).flatten.uniq
+  end
 end

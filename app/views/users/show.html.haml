@@ -41,6 +41,10 @@
     %br
   - unless @user.comment.blank?
     = @user.comment
+- if @user == current_user
+  - unless @user.single_access_token.blank?
+    Single access token:
+    = @user.single_access_token
 
 - unless @user_datasets_owned.empty?
   %h3 Datasets

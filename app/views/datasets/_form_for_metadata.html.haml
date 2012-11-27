@@ -51,6 +51,9 @@
 
   %h4 General Metadata
   %dl
+    %dt= f.label :tag_list, "Keywords(separated by comma)"
+    %dd= f.text_field :tag_list,{:id => "tag_list", :class => "metadata-text-input", "data-tags"=> ActsAsTaggableOn::Tag.all.map(&:name).sort.to_json}
+
     %dt= label_tag 'abstract'
     %dd= f.text_area :abstract
 
@@ -101,3 +104,14 @@
   %dl
     %dt
     %dd= submit_tag 'Save Metadata'
+
+:javascript
+  $(document).ready(function(){
+    $("#tag_list").select2({
+      tags: $("#tag_list").data("tags"),
+      tokenSeparators: [",", ";", "，"],
+      width: "resolve",
+      minimumInputLength: 1,
+      formatInputTooShort: function(){return ""}
+    });
+  });

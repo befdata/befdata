@@ -36,6 +36,7 @@ class DatasetsController < ApplicationController
     end
   end
 
+
   def create
     # submitting neither title nor datafile
     if !params[:dataset] && !params[:datafile]
@@ -166,6 +167,7 @@ class DatasetsController < ApplicationController
     @projects = @dataset.projects
     @freeformats = @dataset.freeformats :order => :file_file_name
     @datacolumns = @dataset.datacolumns
+    @tags = @dataset.all_tags
 
     respond_to do |format|
       format.html
@@ -237,7 +239,7 @@ class DatasetsController < ApplicationController
   end
 
   private
-
+  
   def load_dataset
     @dataset = Dataset.find(params[:id])
   end
