@@ -3,12 +3,16 @@
     = link_to edit_profile_path do
       = image_tag "edit.png"
       = "Edit profile"
+    = link_to votes_path do
+      = image_tag "checkbox.png"
+      = "Paperproposal Votes"
     = link_to new_dataset_path do
       = image_tag "file-upload.png"
       = "Create dataset"
     = link_to new_paperproposal_path do
       = image_tag "document.png"
       = "Create paperproposal"
+
 - unless @user.projects.blank?
   = content_for :info do
     %h3 Projects

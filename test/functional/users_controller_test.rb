@@ -18,14 +18,13 @@ class UsersControllerTest < ActionController::TestCase
     assert_not_nil flash[:error]
   end
 
-  test "one can not edit others' profile" do
+  test "only allow editing of ones own profile" do
     u =  User.find_by_login("nadrowski")
     assert u.has_role?(:admin)
     login_nadrowski
 
-    get :edit, {:id=>User.first.path_name}
-    assert_response :redirect
-    assert_not_nil flash[:error], "This shouldn't happen: One is able to edit others' profile without via admin interface."
+    get :edit, {:id=>User.find(3).path_name}
+    assert_select "h2", /.*Nadrowski.*/
   end
 
   test "one can edit his/her own profile" do

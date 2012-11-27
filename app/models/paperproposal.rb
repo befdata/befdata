@@ -1,11 +1,11 @@
-# This file contains teh Paperproposal model definition. Paperproposals are used for organizing data exchange.
+# This file contains the Paperproposal model definition. Paperproposals are used for organizing data exchange.
 
 # Paperproposals assemble the Dataset instances (DatasetPaperproposal) )that are
 # needed for a particular purpose, in most cases
 # a scientific analysis. *Proponents* of the paperproposal are those users (User) that have submitted
 # the paperproposal.
 #
-# Proponents submit proposals to the project board (see Role) for approval as well as hints and tipps
+# Proponents submit proposals to the project board (see Role) for approval as well as hints and tips
 # and then to the owners of datasets for the permission to use the data.
 #
 # Datasets can be of main or side aspect for the proposal. Dataset owners of main aspect datasets
@@ -15,40 +15,42 @@ class Paperproposal < ActiveRecord::Base
   # acts_as_authorization_object :subject_class_name => 'Project'
 
   belongs_to :author, :class_name => "User", :foreign_key => "author_id"
-  belongs_to :corresponding, :class_name => "User", :foreign_key => "corresponding_id"
-  belongs_to :senior_author, :class_name => "User", :foreign_key => "senior_author_id"
 
   belongs_to :authored_by_project, :class_name => "Project", :foreign_key => :project_id
-
-  has_many :authors, :class_name => "User", :source => :user, :through => :author_paperproposals
+  
+  # User roles in a paperproposal: proponents, main aspect dataset owner, side aspect dataset owner, acknowledged.
+  # many-to-many association with User model through author_paperproposal joint table. 
   has_many :author_paperproposals, :dependent => :destroy, :include => [:user]
+  has_many :authors, :class_name => "User", :source => :user, :through => :author_paperproposals
+  # with four conditional association.
+  has_many :proponents, :class_name => "User", :source => :user, :through => :author_paperproposals, :conditions => ['kind=?',"user"]
+  has_many :main_aspect_dataset_owners, :class_name => "User", :source => :user, :through => :author_paperproposals, :conditions => ['kind=?',"main"]
+  has_many :side_aspect_dataset_owners, :class_name => "User", :source => :user, :through => :author_paperproposals, :conditions => ['kind=?',"side"]
+  has_many :acknowledgements_from_datasets, :class_name => "User", :source => :user, :through => :author_paperproposals, :conditions => ['kind = ?', 'ack']
 
-  has_many :coordinators, :class_name => "User", :source => :person, :through => :paperproposal_votes,
-           :conditions => ['project_board_vote = ?',true]
-
+  # User votes on a paperproposal.
+  # has_many association with paperproposal_votes model.
+  # two conditional association to differentiate project board vote and dataset request vote.(FIXME: dataset owner's vote?)
+  has_many :paperproposal_votes, :dependent => :destroy
   has_many :project_board_votes, :class_name => "PaperproposalVote",
            :source => :paperproposal_votes, :conditions => {:project_board_vote => true }
-
   has_many :for_data_request_votes, :class_name => "PaperproposalVote",
            :source => :paperproposal_votes, :conditions => {:project_board_vote => false }
+  # has_many through association with User model via paperproposal_votes joint table.
+  has_many :coordinators, :class_name => "User", :source => :user, :through => :paperproposal_votes,
+           :conditions => ['project_board_vote = ?',true]
 
-  has_many :paperproposal_votes, :dependent => :destroy
-
+  # habtm association with Dataset model.
   has_many :dataset_paperproposals, :dependent => :destroy
   has_many :datasets, :through => :dataset_paperproposals
 
+  # one-to-many association with Freeformat model.
   has_many :freeformats, :as => :freeformattable, :dependent => :destroy
 
+  scope :has_state, lambda{|s| where(:state=>s)}
   accepts_nested_attributes_for :authors
 
   validates_presence_of :title, :rationale
-
-#    def delete_all_data_groups_except(data_groups)
-#      self.data_group_data_requests.each do |data_group_data_request|
-#        next if data_groups.include?(data_group_data_request.measurements_methodstep)
-#        data_group_data_request.delete
-#      end
-#    end
 
   STATES = {
     # for the sorting
@@ -56,6 +58,11 @@ class Paperproposal < ActiveRecord::Base
     'in review' => 2,
     'manuscript avaible' => 3,
     'in prep' => 4
+  }
+  KIND = {"user"=>"Proponent",
+          "main"=>"Main aspect data provider",
+          "side"=>"Side aspect data provider",
+          "ack" =>"Acknowledged"
   }
 
   def <=>(other)
@@ -77,36 +84,32 @@ class Paperproposal < ActiveRecord::Base
     return "final" if self.board_state == "final"
   end
 
-  def author_list
-    middle_block = self.author_paperproposals.reject{|e| e.kind == "ack"}.map{|e| e.user}.uniq
-    middle_block << self.corresponding
-    middle_block.reject!{|e| e == self.senior_author || e == self.author}
+  def author_list(include_pi=true)
+    # Do we still need senior author in author list?
+    senior_author = include_pi ? self.author.pi : []
+    ack = self.acknowledgements_from_datasets
+    middle_block = self.authors - ack - [self.author] - senior_author
     middle_block.uniq!
     middle_block.sort!{|a,b| a.lastname <=> b.lastname}
 
-    author_list = [self.author, middle_block, self.senior_author]
+    author_list = [self.author, middle_block, senior_author]
     author_list.flatten!
     author_list.uniq!
 
-    ack = self.author_paperproposals.select{|e| e.kind == "ack"}.map{|e| e.user}.uniq
-    ack.reject!{|e| author_list.include?(e) }
-    ack = ack.sort{|a,b| a.lastname <=> b.lastname}
+    ack -= author_list
+    ack = ack.uniq.sort{|a,b| a.lastname <=> b.lastname}
 
-    {:author_list => author_list, :corresponding => self.corresponding, :ack => ack}
+    {:author_list => author_list, :ack => ack}
   end
 
   def calc_authorship(user)
-     if(self.author_id==user.id)
-       "Author"
-     else
-       if(self.corresponding_id==user.id)
-         "Corresponding author"
-       else
-         if(self.senior_author_id===user.id)
-           "Senior author"
-         end
-       end
-     end
+    authorship = []
+    if(user.id == self.author_id)
+      authorship << "Author"
+    end
+    roles = self.author_paperproposals.where(:user_id=>user.id).map(&:kind)
+    roles.each{|r| authorship<< KIND[r]}
+    return authorship.to_sentence
   end
 
   def beautiful_title (only_authors = false)
@@ -117,6 +120,59 @@ class Paperproposal < ActiveRecord::Base
     year = self.state != 'accepted' ? "" : " (#{self.envisaged_date.year})"
     publication = self.envisaged_journal.blank? ? "" : " #{envisaged_journal}."
     "#{authors} (Portal members involved)#{year}: #{self.title}. #{publication}"
+  end
+
+  def calculate_datasets_proponents
+    all_proponents = {:main => [], :side => [], :ack => []}
+    # collect relevant users
+    self.dataset_paperproposals.each do |ds_pp|
+      dataset = ds_pp.dataset
+      ds_pp.aspect = 'main' if ds_pp.aspect.blank? #some have no aspect set
+      all_proponents[ds_pp.aspect.to_sym] << dataset.owners
+      all_proponents[:ack] << dataset.datacolumns.map{|dc| dc.users}
+    end
+
+    #clear out the old ones
+    AuthorPaperproposal.delete_all(["paperproposal_id = ? AND (kind = ? OR kind = ? OR kind = ?)", self.id, 'main', 'side', 'ack'])
+
+    #reassign
+    new_author_paperproposals = []
+    all_proponents.each do |aspect, user_array|
+      user_array.flatten!
+      user_array.uniq!
+      new_author_paperproposals <<
+          user_array.map{ |u| AuthorPaperproposal.new(:user => u, :paperproposal => self, :kind => aspect.to_s)}
+    end
+    new_author_paperproposals.flatten!
+    self.author_paperproposals << new_author_paperproposals
+    self.save
+  end
+
+  def all_authors_ordered(focus = nil)
+    categorized_authors = [[self.author], self.proponents]
+    unless focus == :without_data
+      categorized_authors << self.main_aspect_dataset_owners
+      categorized_authors << self.side_aspect_dataset_owners
+      categorized_authors << self.acknowledgements_from_datasets
+    end
+    ordered_authors = []
+    categorized_authors.each do |cat|
+      cat.sort_by!(&:lastname)
+      cat.each do |user|
+        ordered_authors << user unless ordered_authors.include?(user)
+      end
+    end
+    ordered_authors
+  end
+
+  def authors_selection(specific_selection)
+    result = case specific_selection
+               when :author_and_proponents then [author] + proponents
+               when :proponents_and_main then [author] + proponents + main_aspect_dataset_owners
+               when :proponents_and_all_owners then [author] + proponents + main_aspect_dataset_owners + side_aspect_dataset_owners
+               when :all_mentioned then [author] + proponents + main_aspect_dataset_owners + side_aspect_dataset_owners + acknowledgements_from_datasets
+            end
+    result.flatten.uniq
   end
 
   private

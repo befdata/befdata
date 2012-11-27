@@ -5,9 +5,11 @@ class User < ActiveRecord::Base
   validates_presence_of :lastname, :firstname
   validates_uniqueness_of :login
 
-  has_many :paperproposals, :through => :author_paperproposals
+  # related paperproposals. Roles include: proponent, main aspect dataset owner, side aspect dataset owner, acknowledged.
   has_many :author_paperproposals, :dependent => :destroy, :include => [:paperproposal]
-  alias :paperproposals_author_table :paperproposals
+  has_many :paperproposals_author_table, :through => :author_paperproposals,:source => :paperproposal
+  # paperproposals created by the user
+  has_many :owning_paperproposals, :class_name => "Paperproposal",:foreign_key => "author_id"
 
   has_many :paperproposal_votes, :dependent => :destroy  #Todo really dependent destroy?
 
@@ -36,7 +38,7 @@ class User < ActiveRecord::Base
   before_save :change_avatar_file_name, :add_protocol_to_url
 
   def change_avatar_file_name
-    if avatar_file_name
+    if avatar_file_name && avatar_file_name_changed?
       new_name = "#{id}_#{lastname}#{File.extname(avatar_file_name).downcase}"
       if avatar_file_name != new_name
         self.avatar.instance_write(:file_name, new_name)
@@ -45,13 +47,13 @@ class User < ActiveRecord::Base
   end
 
   def add_protocol_to_url
-    if self.url
+    unless self.url.blank?
       /^http/.match(self.url) ? self.url : self.url = "http://#{url}"
     end
   end
 
   def to_label
-    if salutation
+    if !salutation.blank?
       "#{firstname} #{lastname}, #{salutation}"
     else
       "#{firstname} #{lastname}"
@@ -161,8 +163,7 @@ class User < ActiveRecord::Base
   end
 
   def paperproposals
-    from_paperproposals = Paperproposal.all(:conditions => ["author_id=? or corresponding_id=? or senior_author_id=?", self.id, self.id, self.id])
-    (paperproposals_author_table + from_paperproposals).uniq.sort
+    (paperproposals_author_table + owning_paperproposals).uniq.sort
   end
 
   def projectroles
@@ -187,8 +188,21 @@ class User < ActiveRecord::Base
     end
   end
 
+  def open_votes_count
+    self.paperproposal_votes.where("vote = 'none'").count
+  end
+
   def self.all_users_names_and_ids_for_select
     User.all(:order => :lastname).collect {|person| [person.to_label, person.id]}
+  end
+
+  def pi
+    projects = self.roles_for(Project).map(&:authorizable)
+    projects.map(&:pi).flatten
+  end
+
+  def self.email_list(users_array)
+    users_array.collect{|u| Hash[:name, "#{u.firstname} #{u.lastname}", :mail, "#{u.email}"]}
   end
 
 end

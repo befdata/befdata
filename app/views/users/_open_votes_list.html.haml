@@ -1,0 +1,28 @@
+- votes.each do |vote|
+  .vote.vote-open
+    = render :partial => 'paperproposals/summary_for_vote', :locals => {:paperproposal => vote.paperproposal}
+
+    %h4 State of Voting
+    .vote-state
+      %span.voters-with-arrows
+        - other_votes = vote.project_board_vote ? vote.paperproposal.project_board_votes : vote.paperproposal.for_data_request_votes
+        - other_votes.each do |pb_vote|
+          .voter-with-arrow
+            %span.voter-name
+              = link_to pb_vote.user.to_label, pb_vote.user
+            = image_tag("/images/arrow_right_#{pb_vote.vote}.png", :title => pb_vote.comment)
+
+      - if vote.project_board_vote
+        %span.vote-result
+          = image_tag("/images/arrow_join_#{vote.paperproposal.board_state}.png")
+          %span.vote-state-text= vote.paperproposal.calc_board_state
+
+    - form_for vote, :url => update_vote_path(vote) do |form|
+      %h4 Your Vote
+      %dl
+        %dt= form.label :vote, "Accept or reject?"
+        %dd= form.select :vote, ["accept", "reject"]
+      %dl
+        %dt= form.label :comment
+        %dd= form.text_area :comment
+      = form.submit "Send your vote"

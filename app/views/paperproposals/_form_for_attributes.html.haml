@@ -1,0 +1,44 @@
+- form_for @paperproposal, :html => {:class => 'dataset-metadata-form'} do |f|
+  %dl
+    %dt= f.label :title
+    %dd= f.text_field :title
+
+    - unless @paperproposal.new_record?
+      %p Initial title was: #{@paperproposal.initial_title}
+
+    %dt= f.label :envisaged_journal
+    %dd= f.text_field :envisaged_journal
+
+    %dt= f.label :envisaged_date
+    %dd= f.date_select :envisaged_date
+
+    %dt= f.label :rationale
+    %dd= f.text_area :rationale
+
+    %dt= f.label :external_data
+    %dd= f.text_field :external_data
+
+    %dt= f.label :state
+    %dd= f.select :state, ["in prep", "manuscript avaible", "in review", "accepted"]
+
+    %dt= f.label :comment
+    %dd= f.text_area :comment
+
+    %h3 Authorship
+
+    %dt= f.label :author
+    %dd= f.select :author_id, @all_persons.map{|person| [person.to_label, person.id]}
+
+    %dt= f.label :authored_by_project
+    %dd= f.select :project_id, Project.all.map{|project| [project.to_label, project.id]}, { :include_blank => false }
+
+    %h4 Main Proponents
+    %p (Main proponents are those authors, that contribute major aspects to the analysis.)
+    = select "not_needed", "param", @all_persons.map{|person| [person.to_label, person.id]}, {:prompt => 'Select Member'}, {:onchange => 'selectPeople(this)'}
+    %ul#people-list{:style => 'list-style: none;'}
+      - f.fields_for :authors, @paperproposal.proponents do |field|
+        %li{:onclick => "this.parentNode.removeChild(this);"}
+          %input{:name => "people[]", :type => "hidden", :value => field.object.id}
+          = field.object.try(:to_label)
+
+  = f.submit "Submit"
