@@ -13,8 +13,8 @@
 
   - content_for :info do
     - unless @tags.blank?
-      %h3 Keywords:
-      = raw @tags.map{|t| link_to t.name, keyword_path(t.id)}.join(", ")
+      %h3 Keywords
+      = raw  @tags.sort_by(&:name).map{|t| link_to t.name, keyword_path(t.id)}.join(", ")
     %h3
       Last update
     %p= @dataset.last_update.localtime.strftime "%Y-%m-%d %H:%M"
