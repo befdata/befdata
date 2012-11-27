@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121123144015) do
+ActiveRecord::Schema.define(:version => 20121025031154) do
 
   create_table "author_paperproposals", :force => true do |t|
     t.integer  "paperproposal_id"
@@ -257,15 +257,6 @@ ActiveRecord::Schema.define(:version => 20121123144015) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
-
-  create_table "projects_roles", :id => false, :force => true do |t|
-    t.integer  "project_id"
-    t.integer  "role_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "projects_roles", ["project_id", "role_id"], :name => "index_projects_roles_on_project_id_and_role_id"
 
   create_table "roles", :force => true do |t|
     t.string   "name",              :limit => 40
