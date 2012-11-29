@@ -36,6 +36,16 @@ class DatasetsControllerTest < ActionController::TestCase
     assert_success_no_error
   end
 
+  test "dataset can be downloaded via api key" do 
+    get :download, {:id => Dataset.first.id, :format => :csv, :user_credentials => User.find_by_login("nadrowski").single_access_token}
+    assert_success_no_error
+  end
+  
+  test "dataset can not be downloaded via invalid api key" do 
+    get :download, {:id => Dataset.first.id, :format => :csv, :user_credentials => '12345'}
+    assert_match(/Access denied. Try to log in first./, flash[:error])
+  end
+
   test "unlogged-in visitors can only download free_for_public datasets" do
     ds = Dataset.find_by_title "Test species name import second version"
     assert !ds.free_for_public?
