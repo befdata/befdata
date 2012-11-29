@@ -81,6 +81,7 @@ class DatacolumnsController < ApplicationController
     else
       @datagroup = Datagroup.find(params[:datagroup])
       @datacolumn.approve_datagroup(@datagroup)
+      @datacolumn.dataset.touch
       flash[:notice] = "Data group successfully saved."
       next_approval_step
     end
@@ -98,6 +99,7 @@ class DatacolumnsController < ApplicationController
 
     begin
       @datacolumn.approve_datatype(params[:import_data_type], current_user)
+      @datacolumn.dataset.touch
       flash[:notice] = "Successfully updated Datatype"
       next_approval_step
     rescue
@@ -125,7 +127,7 @@ class DatacolumnsController < ApplicationController
     new_people.each{|p| User.find(p).has_role! :responsible, @datacolumn unless @datacolumn.users.include?(User.find(p))}
 
     @datacolumn.dataset.refresh_paperproposal_authors
-
+    @datacolumn.dataset.touch
     if @datacolumn.final_check_for_valid_sheetcells
       flash[:notice] = "Metadata and acknowledgements successfully saved."
       next_approval_step
