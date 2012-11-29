@@ -2,7 +2,7 @@ class PagesController < ApplicationController
 
   skip_before_filter :deny_access_to_all
   access_control do
-    actions :home, :imprint, :help, :data do
+    actions :home, :imprint, :help, :data, :search do
       allow all
     end
   end
@@ -48,4 +48,7 @@ class PagesController < ApplicationController
     @datasets = Dataset.order(:title)
   end
 
+  def search
+    
+  end
 end

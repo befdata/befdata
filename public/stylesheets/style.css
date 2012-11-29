@@ -492,7 +492,6 @@ input#user_session_password {
     position: absolute;
     right: 0;
     top: 10px;
-    visibility: hidden;
 }
 
 input#search_term {
