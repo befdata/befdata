@@ -12,6 +12,9 @@
     = link_to new_paperproposal_path do
       = image_tag "document.png"
       = "Create paperproposal"
+    = link_to update_credentials_path, :confirm => "Really update your api login credentials?" do
+      = image_tag "reload.png"
+      = "Update api login credentials"
 
 - unless @user.projects.blank?
   = content_for :info do
@@ -43,7 +46,7 @@
     = @user.comment
 - if @user == current_user
   - unless @user.single_access_token.blank?
-    Single access token:
+    Api login credentials:
     = @user.single_access_token
 
 - unless @user_datasets_owned.empty?

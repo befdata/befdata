@@ -11,6 +11,7 @@ Befchina::Application.routes.draw do
   match 'profile/edit' => 'users#edit', :as => :edit_profile
   match 'profile/votes' => 'users#votes', :as => :votes
   match 'profile/votes_history' => 'users#votes_history', :as => :votes_history
+  match 'profile/update_credentials' => 'users#update_credentials', :as => :update_credentials 
 
   match 'imprint' => 'pages#imprint', :as => :imprint
   match 'help' => 'pages#help', :as => :help
@@ -76,6 +77,7 @@ Befchina::Application.routes.draw do
       post :update_sheetcells
     end
   end
+
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

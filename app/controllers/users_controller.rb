@@ -10,7 +10,7 @@ class UsersController < ApplicationController
     actions :index, :show do
       allow all
     end
-    actions :edit, :update, :votes, :votes_history do
+    actions :edit, :update, :update_credentials, :votes, :votes_history do
       allow logged_in
     end
   end
@@ -40,6 +40,12 @@ class UsersController < ApplicationController
       redirect_to :back
     end
   end
+
+  def update_credentials
+    # Updates the user credentials with a new random generated, 15 charachter long hex string.
+    @user.update_attributes(:single_access_token => SecureRandom.hex(15))
+    redirect_to :profile, :notice => "Updated successfully!"
+  end 
 
   def votes
     @project_board_votes = @user.project_board_votes.reject{|vote|
