@@ -31,5 +31,13 @@ class UsersControllerTest < ActionController::TestCase
     login_nadrowski
     get :edit,{:id=>User.find_by_login("nadrowski").path_name}
     assert_success_no_error
+  end 
+
+  test "user can update its api login credentials" do
+    login_nadrowski
+    old_user_credentials = User.find_by_login("nadrowski").single_access_token
+    get :update_credentials
+    new_user_credentials = User.find_by_login("nadrowski").single_access_token
+    assert_not_equal(old_user_credentials, new_user_credentials)
   end
 end
