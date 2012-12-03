@@ -994,6 +994,32 @@ div#actions + div#info {
     margin: 5px 0 0 0;
 }
 
+.show_download_link_modal h3 {
+    margin-bottom: 7px;
+}
+
+.show_download_link_modal .menu a:first-child {
+    margin-right: 7px;
+}
+
+.show_download_link_modal .email_addresses {
+    font-family: courier, monospace;
+    font-size: 1.1em;
+    outline: 1px #8A8A8A solid;
+    padding: 5px;
+    width: 588px;
+    height: 100px;
+    overflow: auto;
+    margin-bottom: 7px;
+}
+
+.show_download_link_modal .close_hint {
+    color: #8A8A8A;
+    margin: 5px 0 0 0;
+}
+
+
+
 /* --- Footer ------------------------------------------------ */
 
 #footer {
