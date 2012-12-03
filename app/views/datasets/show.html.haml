@@ -36,6 +36,12 @@
         %li
           = render :partial => "users/email_list_modal",
             :locals => {:list => User.email_list(@dataset.owners), :css => "dataset_owners", :caption => 'Dataset owners'}
+    - if current_user
+      %h3 Display download url  
+      %ul
+        %li
+          = render :partial => "datasets/popup_display_download_url",
+            :locals => {:id => @dataset.id, :css => "dataset_owners", :caption => 'Download url'}
     - unless @projects.blank?
       %h3
         Projects involved
