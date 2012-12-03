@@ -49,6 +49,10 @@ class PagesController < ApplicationController
   end
 
   def search
-    
+    if params[:q].blank?
+      flash.now[:error] = "You should specify a search term."
+    else
+      @datasets = Dataset.search(params[:q])
+    end
   end
 end

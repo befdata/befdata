@@ -1,1 +1,9 @@
-%h2= "Search Results for '#{params[:q]}'"
+%h2= "Search Results for \"#{params[:q]}\""
+
+- if @datasets && !@datasets.empty?
+  %ul.dataset
+    - @datasets.each do |d|
+      %li
+        = link_to d.title, dataset_path(d)
+- else
+  No results found
