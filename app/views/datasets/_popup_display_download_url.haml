@@ -1,0 +1,35 @@
+-# This partial sets a link to and opens a modal with a list of email addresses
+-# These parameters must be given:
+-#   css: to modify the css ids
+-#   caption: text for the link
+
+- modal_id = "#{css}_show_download_link_modal"
+- link_id = "show_#{modal_id}"
+
+- string_url = "#{request.protocol}#{request.host_with_port}/datasets/#{id}/download.csv?seperate_category_columns=true?user_credentials=#{current_user.single_access_token}"
+
+%a{:href => '#', :class => 'download_url_modal_link', :id => link_id}
+  = caption
+
+%div{:class => 'download_url_modal hidden', :id => modal_id}
+  %h3
+    = caption
+  %textarea.download_url{:readonly => 'readonly'}
+    = string_url
+  %p.close_hint
+    Click somewhere outside or press ESC to close
+
+:javascript
+  $("##{link_id}").click(function(e) {
+    $("##{modal_id}").modal(
+      {
+        overlayClose:true,
+        persist:true
+      }
+    );
+    $("##{modal_id} .show_download_url").click(function(e) {
+      $("##{modal_id} .download_url").val("#{string_url}");
+      e.preventDefault();
+    });
+  });
+
