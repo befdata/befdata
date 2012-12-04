@@ -12,6 +12,7 @@ class Datagroup < ActiveRecord::Base
 
   has_many :datacolumns
   has_many :categories, :dependent => :destroy
+  has_many :datasets, :through => :datacolumns
 
   acts_as_taggable
 
