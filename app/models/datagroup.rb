@@ -23,7 +23,7 @@ class Datagroup < ActiveRecord::Base
   after_destroy :destroy_taggings
 
   after_initialize :init
-
+  after_update { datasets.map(&:touch) }
   # set the default value for datagroup
   def init
     if(@new_record)
