@@ -12,6 +12,7 @@ class Datagroup < ActiveRecord::Base
 
   has_many :datacolumns
   has_many :categories, :dependent => :destroy
+  has_many :datasets, :through => :datacolumns
 
   acts_as_taggable
 
@@ -22,7 +23,7 @@ class Datagroup < ActiveRecord::Base
   after_destroy :destroy_taggings
 
   after_initialize :init
-
+  after_update { datasets.map(&:touch) }
   # set the default value for datagroup
   def init
     if(@new_record)

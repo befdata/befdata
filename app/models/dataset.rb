@@ -41,7 +41,7 @@ class Dataset < ActiveRecord::Base
 
   has_many :datacolumns, :dependent => :destroy, :order => "columnnr"
   has_many :sheetcells, :through => :datacolumns
-
+  has_many :datagroups, :through => :datacolumns, :include => :categories
   has_many :freeformats, :as => :freeformattable, :dependent => :destroy
 
   has_many :dataset_downloads

@@ -22,7 +22,7 @@ class Datacolumn < ActiveRecord::Base
   acts_as_authorization_object :subject_class_name => 'User'
 
   belongs_to :datagroup, :dependent => :destroy
-  belongs_to :dataset
+  belongs_to :dataset, :touch => true
 
   has_many :sheetcells, :dependent => :destroy
   has_many :import_categories, :dependent => :destroy
