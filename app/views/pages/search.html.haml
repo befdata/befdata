@@ -4,6 +4,6 @@
   %ul.datasets
     - @datasets.each do |d|
       %li.dataset
-        = render d, ;locals =>  {:with_cart => true}
+        = render :partial => d, :locals => {:with_cart => true}
 - else
   No results found

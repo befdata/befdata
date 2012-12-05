@@ -76,6 +76,9 @@ GEM
       cocaine (>= 0.0.2)
       mime-types
     pg (0.13.2)
+    pg_search (0.5.7)
+      activerecord (>= 3)
+      activesupport (>= 3)
     polyglot (0.3.3)
     rack (1.2.5)
     rack-mount (0.6.14)
@@ -138,6 +141,7 @@ DEPENDENCIES
   newrelic_rpm
   paperclip (~> 3.0)
   pg
+  pg_search
   rails (= 3.0.13)
   rake
   ruby-prof
