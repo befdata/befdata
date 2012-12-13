@@ -20,13 +20,65 @@ class PaperproposalsControllerTest < ActionController::TestCase
     assert_success_no_error
   end
 
-  test "should post new paperproposal" do
+  test "create new paperproposal" do
     login_nadrowski
     
     post :create, :paperproposal => {:title => "Test", :rationale => "Rational"}
     @paperproposal = Paperproposal.find_by_title("Test")
 
     assert_redirected_to edit_datasets_paperproposal_path(@paperproposal)
+  end
+
+  test "should have initital title same as the title after creation process" do
+    login_nadrowski
+
+    post :create, :paperproposal => {:title => "Test", :rationale => "Rational"}
+    @paperproposal = Paperproposal.find_by_title("Test")
+
+    assert_equal "Test", @paperproposal.initial_title
+  end
+
+  test "show paperproposal" do
+    login_nadrowski
+    get :show, :id => 1
+    assert_success_no_error
+  end
+
+  test "show metadata edit" do
+    login_nadrowski
+    get :edit, :id => 1
+    assert_success_no_error
+  end
+
+  test "show manage datasets" do
+    login_nadrowski
+    get :edit_datasets, :id => 1
+    assert_success_no_error
+  end
+
+  test "show manage freeformat files" do
+    login_nadrowski
+    get :edit_files, :id => 1
+    assert_success_no_error
+  end
+
+  test "updating also refreshes author list" do
+    login_nadrowski
+    paperproposal = Paperproposal.find 1
+    old_authors_count = paperproposal.all_authors_ordered.count
+    post :update, :id => paperproposal.id, :paperproposal => {:envisaged_journal => 'testjournal'}, :people => [5,3,4]
+    paperproposal.reload
+    assert old_authors_count > paperproposal.all_authors_ordered.count
+  end
+
+  test "vote on paperproposal is reflected in ui" do
+    login_nadrowski
+    paperproposal = Paperproposal.find 5
+    vote = PaperproposalVote.find 1
+    get :update_vote, :id => vote.id, :paperproposal_vote => {:vote => 'accept'}
+    get :show, :id => paperproposal.id
+    assert_success_no_error
+    assert_select 'img[alt="Arrow_right_accept"]'
   end
 
   test "should add datasets to paperproposal and the author list is changed" do
@@ -123,15 +175,6 @@ class PaperproposalsControllerTest < ActionController::TestCase
     assert_select 'div#content' do |element|
       assert !(element.first =~ /Initial title/)
     end
-  end
-
-  test "should have initital title same as the title after creation process" do
-    login_nadrowski
-
-    post :create, :paperproposal => {:title => "Test", :rationale => "Rational"}
-    @paperproposal = Paperproposal.find_by_title("Test")
-
-    assert_equal "Test", @paperproposal.initial_title
   end
 
   test "should allow download of datasets to paperproposers if final" do

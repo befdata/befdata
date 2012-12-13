@@ -3,7 +3,7 @@
 = form_for @user, :html=>{:multipart=>true} do |u|
   = u.label :login,:class=>"required"
   = u.text_field :login
-  = u.label :spassword
+  = u.label :password
   = u.password_field :password, :value => "", :autocomplete => "off"
   = u.label :password_confirmation
   = u.password_field :password_confirmation

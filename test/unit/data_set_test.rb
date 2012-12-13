@@ -142,22 +142,29 @@ class DataSetTest < ActiveSupport::TestCase
       datacolumn.save
 
       assert_not_equal updated_at, datacolumn.dataset.updated_at
-    end
+  end
 
-    test "validate_datagroup_should_update_dataset_updated_at" do
-      datacolumn = Datacolumn.find(48)
-      updated_at = datacolumn.dataset.updated_at
-      datacolumn.approve_datagroup(datacolumn.datagroup)
+  test "validate_datagroup_should_update_dataset_updated_at" do
+    datacolumn = Datacolumn.find(48)
+    updated_at = datacolumn.dataset.updated_at
+    datacolumn.approve_datagroup(datacolumn.datagroup)
 
-      assert_not_equal updated_at, datacolumn.dataset.updated_at
-    end
+    assert_not_equal updated_at, datacolumn.dataset.updated_at
+  end
 
-    test "validate_datatype_should_update_dataset_updated_at" do
-      datacolumn = Datacolumn.find(48)
-      updated_at = datacolumn.dataset.updated_at
-      datacolumn.approve_datatype("number", User.find(1))
+  test "validate_datatype_should_update_dataset_updated_at" do
+    datacolumn = Datacolumn.find(48)
+    updated_at = datacolumn.dataset.updated_at
+    datacolumn.approve_datatype("number", User.find(1))
 
-      assert_not_equal updated_at, datacolumn.dataset.updated_at
-    end
+    assert_not_equal updated_at, datacolumn.dataset.updated_at
+  end
+
+  test "no deletion of dataset used with paperproposal" do
+    dataset = Dataset.find(6)
+    assert_not_empty dataset.paperproposals
+    dataset.destroy
+    assert_not_nil Dataset.find(6)
+  end
 
 end

@@ -17,7 +17,7 @@ class PaperproposalsController < ApplicationController
     end
     actions :update_vote do
       allow :admin
-      allow logged_in # only the ones who can vote, and then only their own vote
+      allow logged_in # TODO only the ones who can vote, and then only their own vote
     end
   end
 
