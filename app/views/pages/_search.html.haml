@@ -1,4 +1,4 @@
-= form_for "search" do |f|
-  = f.text_field :term, :size => 12, :value => 'dummy'
-  = f.submit 'Search'
+= form_tag "/search", :method => :get  do
+  = search_field_tag :q, params[:q], {:size => 12, :id => "search_term" }
+  = submit_tag 'Search', :name => nil
 

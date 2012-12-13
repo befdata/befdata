@@ -428,7 +428,7 @@ input[type=button]:hover, input[type=submit]:hover, button:hover, input[type=but
     height: 18px;
 }
 
-#header input[type=text], #header input[type=password] {
+#header input[type=text], #header input[type=password],  #header input[type=search]{
     padding-left: 14px;
 }
 
@@ -492,7 +492,6 @@ input#user_session_password {
     position: absolute;
     right: 0;
     top: 10px;
-    visibility: hidden;
 }
 
 input#search_term {

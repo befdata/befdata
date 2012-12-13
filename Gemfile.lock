@@ -89,6 +89,9 @@ GEM
       cocaine (>= 0.0.2)
       mime-types
     pg (0.13.2)
+    pg_search (0.5.7)
+      activerecord (>= 3)
+      activesupport (>= 3)
     polyglot (0.3.3)
     pry (0.9.10)
       coderay (~> 1.0.5)
@@ -159,6 +162,7 @@ DEPENDENCIES
   newrelic_rpm
   paperclip (~> 3.0)
   pg
+  pg_search
   rails (= 3.0.13)
   rake
   rb-inotify

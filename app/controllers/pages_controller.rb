@@ -2,7 +2,7 @@ class PagesController < ApplicationController
 
   skip_before_filter :deny_access_to_all
   access_control do
-    actions :home, :imprint, :help, :data do
+    actions :home, :imprint, :help, :data, :search do
       allow all
     end
   end
@@ -35,6 +35,7 @@ class PagesController < ApplicationController
       ['JQuery UI','http://jqueryui.com/'],
       ['SimpleModal','http://www.ericmmartin.com/projects/simplemodal/'],
       ['Blueprint CSS','http://blueprintcss.org/'],
+      ['Pg_Search', 'https://github.com/Casecommons/pg_search']
     ]
   end
 
@@ -48,4 +49,11 @@ class PagesController < ApplicationController
     @datasets = Dataset.order(:title)
   end
 
+  def search
+    if params[:q].blank?
+      flash.now[:error] = "You should specify a search term."
+    else
+      @datasets = (Dataset.search(params[:q]) + Datacolumn.search(params[:q]).map(&:dataset)).uniq
+    end
+  end
 end

@@ -26,11 +26,9 @@
 #   that it must have a Datagroup and a Datatype.
 
 class Dataset < ActiveRecord::Base
-
+  include PgSearch
   acts_as_authorization_object :subject_class_name => 'User'
-
   acts_as_taggable
-
 
   has_attached_file :generated_spreadsheet,
     :path => ":rails_root/files/:id_generated-download.xls"
@@ -41,7 +39,7 @@ class Dataset < ActiveRecord::Base
 
   has_many :datacolumns, :dependent => :destroy, :order => "columnnr"
   has_many :sheetcells, :through => :datacolumns
-
+  has_many :datagroups, :through => :datacolumns, :include => :categories
   has_many :freeformats, :as => :freeformattable, :dependent => :destroy
 
   has_many :dataset_downloads
@@ -57,8 +55,17 @@ class Dataset < ActiveRecord::Base
   before_validation(:load_metadata_from_spreadsheet, :on => :create)
 
   before_save :add_xls_extension_to_filename
-
   before_destroy :check_for_paperproposals
+
+  pg_search_scope :search, against: {title: 'A', abstract: 'B', design: 'C', spatialextent: 'C', 
+            temporalextent: 'C', taxonomicextent: 'C', circumstances: 'C', dataanalysis: 'C'}, 
+        associated_against: {
+          tags: {name: 'A'}
+        },
+        using: {tsearch: {
+          dictionary: "english",
+          prefix: true
+        }}
 
   def add_xls_extension_to_filename
     if self.filename

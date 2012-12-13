@@ -1,0 +1,9 @@
+%h2= "Search Results for \"#{params[:q]}\""
+
+- if @datasets && !@datasets.empty?
+  %ul.datasets
+    - @datasets.each do |d|
+      %li.dataset
+        = render :partial => d, :locals => {:with_cart => true}
+- else
+  No results found

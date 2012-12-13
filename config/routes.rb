@@ -16,6 +16,7 @@ Befchina::Application.routes.draw do
   match 'imprint' => 'pages#imprint', :as => :imprint
   match 'help' => 'pages#help', :as => :help
   match 'data' => 'pages#data', :as => :data
+  match 'search' => 'pages#search'
 
   resources :datasets do
     member do
