@@ -17,7 +17,6 @@ class TagsController < ApplicationController
   def show
     redirect_to(:action => "index") and return if params[:id].blank?
     @tag = ActsAsTaggableOn::Tag.find(params[:id])
-    return redirect_to(:action => "index", :status => :not_found) unless @tag
 
     tag_datasets = Dataset.tagged_with(@tag.name)
     tag_dc_datasets = Datacolumn.tagged_with(@tag.name).map(&:dataset)
@@ -28,10 +27,12 @@ class TagsController < ApplicationController
       format.csv do
         csvdata = CSV.generate do |csv|
           csv << %w(id title emlURL xlsURL csvURL csvSeperatedMixedValueColumnsUrl)
+          user_api = current_user.try(:single_access_token)
           @datasets.each do |d|
-            csv << [d.id, d.title, dataset_url(d, :eml),
-                    download_dataset_url(d), download_dataset_url(d, :csv),
-                    download_dataset_url(d, :csv, :seperate_category_columns => true)
+            csv << [d.id, d.title, dataset_url(d, :eml, user_credentials: user_api),
+                    download_dataset_url(d, user_credentials: user_api), 
+                    download_dataset_url(d, :csv, user_credentials: user_api),
+                    download_dataset_url(d, :csv, seperate_category_columns: true, user_credentials: user_api)
                    ]
           end
         end

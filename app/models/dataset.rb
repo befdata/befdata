@@ -270,7 +270,7 @@ class Dataset < ActiveRecord::Base
       column = []
       category_column = []
       column[0] = dc.columnheader
-      category_column[0] = "#{dc.columnheader} - Categories"
+      category_column[0] = "#{dc.columnheader}_Categories"
 
       dc.sheetcells.each do |sc|
         if !seperate_category_columns || dc.import_data_type == 'category' || !(sc.datatype && sc.datatype.is_category? && sc.category)
