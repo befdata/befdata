@@ -13,7 +13,7 @@
 
   - content_for :info do
     - unless @tags.blank?
-      %h3 Keywords
+      %h3= link_to "Keywords", keywords_dataset_path(@dataset)
       = raw  @tags.sort_by(&:name).map{|t| link_to t.name, keyword_path(t.id)}.join(", ")
     %h3
       Last update
