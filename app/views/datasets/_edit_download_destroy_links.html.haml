@@ -1,9 +1,9 @@
 %ul
   - if may_download_dataset?
     %li
-      = link_to :controller => :datasets, :action => 'download', :id => @dataset.id do
+      = link_to download_dataset_path(@dataset), :title => t("status."+@dataset.download_status) do
         = image_tag("save.png")
-        = "Download (state: #{@dataset.download_generation_status})"
+        = "Download (state: #{@dataset.download_status})"
     -if current_user && (current_user.has_role?(:owner, @dataset) || current_user.has_role?(:admin) || current_user.has_role?(:data_admin))
       %li
         = link_to :controller => :datasets, :action => 'regenerate_download', :id => @dataset.id do

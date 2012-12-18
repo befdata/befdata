@@ -51,3 +51,7 @@ expected conclusions and how will effect sizes or significances be quantified?)"
 
   context:
     upload: "Upload new context"
+  status:
+    outdated: Excel file of is out of date. It will be regenerated within at most 10 minutes. you can also regenerate download manually if you have the right
+    finished: Excel file of this dataset is ready to be downloaded
+    queued: Excel file of this dataset is being generated, Please wait till it's finished

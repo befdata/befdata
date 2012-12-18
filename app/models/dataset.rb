@@ -72,7 +72,6 @@ class Dataset < ActiveRecord::Base
       /\.xls$/.match(self.filename) ? self.filename : self.filename = "#{self.filename}.xls"
     end
   end
-
   def check_for_paperproposals
     if paperproposals.count > 0
       errors.add(:dataset,
@@ -117,6 +116,10 @@ class Dataset < ActiveRecord::Base
   def set_start_and_end_dates_of_research(book)
     self.datemin = book.datemin
     self.datemax = book.datemax
+  end
+  def download_status
+    return "outdated" if download_generation_status == 'finished' && download_generated_at < updated_at
+    return download_generation_status
   end
 
   def cells_linked_to_values?
