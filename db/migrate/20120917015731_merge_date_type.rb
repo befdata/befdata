@@ -1,12 +1,12 @@
 class MergeDateType < ActiveRecord::Migration
   def self.up
     #migrate datacolumn table
-    Datacolumn.all.each do |dc|
+    Datacolumn.find_each do |dc|
       dc.update_attribute(:import_data_type, "date") if dc.import_data_type =~ /date/
     end
 
     #sheetcells table
-    Sheetcell.all.each do |cell|
+    Sheetcell.find_each do |cell|
       if cell.datatype_id==4
         cell.update_attribute(:datatype_id, "3")
         cell.update_attribute(:import_value, MergeDateType.convert_date(cell.import_value))
@@ -16,7 +16,7 @@ class MergeDateType < ActiveRecord::Migration
   end
 
   #regenerate downloads
-  Dataset.all.each do |dataset|
+  Dataset.find_each do |dataset|
       dataset.enqueue_to_generate_download if dataset.download_generation_status=="finished"
   end
 
