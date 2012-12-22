@@ -93,6 +93,8 @@
     %h4 Freeformat files (#{@freeformats.length})
     = render :partial => 'freeformats/index'
 
+  = render :partial => 'paperproposals/associated_paperproposals', :locals => {:paperproposals => @dataset.paperproposals}
+
   - unless @datacolumns.empty?
     %h3 Data columns available in the raw data part of this dataset
     - @datacolumns.each do |column|
