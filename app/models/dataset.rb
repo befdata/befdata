@@ -57,15 +57,23 @@ class Dataset < ActiveRecord::Base
   before_save :add_xls_extension_to_filename
   before_destroy :check_for_paperproposals
 
-  pg_search_scope :search, against: {title: 'A', abstract: 'B', design: 'C', spatialextent: 'C', 
-            temporalextent: 'C', taxonomicextent: 'C', circumstances: 'C', dataanalysis: 'C'}, 
-        associated_against: {
-          tags: {name: 'A'}
-        },
-        using: {tsearch: {
-          dictionary: "english",
-          prefix: true
-        }}
+  pg_search_scope :search, against: {
+    title: 'A',
+    abstract: 'B',
+    design: 'C',
+    spatialextent: 'C',
+    temporalextent: 'C',
+    taxonomicextent: 'C',
+    circumstances: 'C',
+    dataanalysis: 'C',
+  }, associated_against: {
+    tags: {name: 'A'}
+  },using: {
+    tsearch: {
+      dictionary: "english",
+      prefix: true
+    }
+  }
 
   def add_xls_extension_to_filename
     if self.filename
