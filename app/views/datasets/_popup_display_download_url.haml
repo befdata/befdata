@@ -1,4 +1,4 @@
--# This partial sets a link to and opens a modal with a list of email addresses
+-# This partial displays links of download urls for api key downloads
 -# These parameters must be given:
 -#   css: to modify the css ids
 -#   caption: text for the link
@@ -6,16 +6,39 @@
 - modal_id = "#{css}_show_download_link_modal"
 - link_id = "show_#{modal_id}"
 
-- string_url = "#{request.protocol}#{request.host_with_port}/datasets/#{id}/download.csv?seperate_category_columns=true?user_credentials=#{current_user.single_access_token}"
+- url_part_protocol =  request.protocol
+- url_part_host_with_port = request.host_with_port
 
-%a{:href => '#', :class => 'download_url_modal_link', :id => link_id}
+- url_csv_categories = "#{url_part_protocol}#{url_part_host_with_port}#{url_for(:controller => :datasets, 
+  :action => 'download', 
+  :format => :csv, 
+  :id => @dataset.id, 
+  :seperate_category_columns => true, 
+  :user_credentials => current_user.single_access_token)}"
+
+- url_csv_plain = "#{url_part_protocol}#{url_part_host_with_port}#{url_for(:controller => :datasets, 
+  :action => 'download', 
+  :format => :csv, 
+  :id => @dataset.id, 
+  :user_credentials => current_user.single_access_token)}"
+
+- url_eml = "#{request.protocol}#{request.host_with_port}/datasets/#{id}.eml"
+
+%a{:href => '#', :class => 'download_modal_link', :id => link_id}
   = caption
 
-%div{:class => 'download_url_modal hidden', :id => modal_id}
+%div{:class => 'show_download_link_modal hidden', :id => modal_id}
   %h3
     = caption
-  %textarea.download_url{:readonly => 'readonly'}
-    = string_url
+  .menu
+    %a{:href => '#', :class => 'show_csv_url_with_categories'}
+      Separate categories 
+    %a{:href => '#', :class => 'show_email_list_with_names'}
+      No separate categories 
+    %a{:href => '#', :class => 'show_eml'}
+      EML 
+  %textarea.download_urls{:readonly => 'readonly'}
+    = url_csv_categories
   %p.close_hint
     Click somewhere outside or press ESC to close
 
@@ -27,9 +50,16 @@
         persist:true
       }
     );
-    $("##{modal_id} .show_download_url").click(function(e) {
-      $("##{modal_id} .download_url").val("#{string_url}");
+    $("##{modal_id} .show_csv_url_with_categories").click(function(e) {
+      $("##{modal_id} .download_urls").val("#{url_csv_categories}");
+      e.preventDefault();
+    });
+    $("##{modal_id} .show_email_list_with_names").click(function(e) {
+      $("##{modal_id} .download_urls").val("#{url_csv_plain}");
+      e.preventDefault();
+    });
+    $("##{modal_id} .show_eml").click(function(e) {
+      $("##{modal_id} .download_urls").val("#{url_eml}");
       e.preventDefault();
     });
   });
-
