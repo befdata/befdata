@@ -36,9 +36,9 @@
   .menu
     %a{:href => '#', :class => 'show_csv_url_with_categories'}
       Separate categories 
-    %a{:href => '#', :class => 'show_email_list_with_names'}
+    %a{:href => '#', :class => 'show_csv_url_without_categories'}
       No separate categories 
-    %a{:href => '#', :class => 'show_eml'}
+    %a{:href => '#', :class => 'show_eml_url'}
       EML 
   %textarea.download_urls{:readonly => 'readonly'}
     = url_csv_categories
@@ -57,11 +57,11 @@
       $("##{modal_id} .download_urls").val("#{url_csv_categories}");
       e.preventDefault();
     });
-    $("##{modal_id} .show_email_list_with_names").click(function(e) {
+    $("##{modal_id} .show_csv_url_without_categories").click(function(e) {
       $("##{modal_id} .download_urls").val("#{url_csv_plain}");
       e.preventDefault();
     });
-    $("##{modal_id} .show_eml").click(function(e) {
+    $("##{modal_id} .show_eml_url").click(function(e) {
       $("##{modal_id} .download_urls").val("#{url_eml}");
       e.preventDefault();
     });
