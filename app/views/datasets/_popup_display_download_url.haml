@@ -21,7 +21,11 @@
   :user_credentials => current_user.single_access_token,
   :only_path => false)}"
 
-- url_eml = "#{request.protocol}#{request.host_with_port}/datasets/#{id}.eml"
+- url_eml = "#{url_for(:controller => :datasets,
+  :action => 'show', 
+  :format => :eml, 
+  :id => @dataset.id,
+  :only_path => false)}"
 
 %a{:href => '#', :class => 'download_modal_link', :id => link_id}
   = caption
