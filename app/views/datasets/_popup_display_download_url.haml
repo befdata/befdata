@@ -6,21 +6,20 @@
 - modal_id = "#{css}_show_download_link_modal"
 - link_id = "show_#{modal_id}"
 
-- url_part_protocol =  request.protocol
-- url_part_host_with_port = request.host_with_port
-
-- url_csv_categories = "#{url_part_protocol}#{url_part_host_with_port}#{url_for(:controller => :datasets, 
+- url_csv_categories = "#{url_for(:controller => :datasets, 
   :action => 'download', 
   :format => :csv, 
   :id => @dataset.id, 
   :seperate_category_columns => true, 
-  :user_credentials => current_user.single_access_token)}"
+  :user_credentials => current_user.single_access_token,
+  :only_path => false)}"
 
-- url_csv_plain = "#{url_part_protocol}#{url_part_host_with_port}#{url_for(:controller => :datasets, 
+- url_csv_plain = "#{url_for(:controller => :datasets, 
   :action => 'download', 
   :format => :csv, 
   :id => @dataset.id, 
-  :user_credentials => current_user.single_access_token)}"
+  :user_credentials => current_user.single_access_token,
+  :only_path => false)}"
 
 - url_eml = "#{request.protocol}#{request.host_with_port}/datasets/#{id}.eml"
 
