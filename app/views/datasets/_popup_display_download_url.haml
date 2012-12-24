@@ -40,7 +40,7 @@
       No separate categories 
     %a{:href => '#', :class => 'show_eml_url'}
       EML 
-  %textarea.download_urls{:readonly => 'readonly'}
+  %textarea.download_urls{:readonly => 'readonly', :onclick => 'this.focus();this.select()'}
     = url_csv_categories
   %p.close_hint
     Click somewhere outside or press ESC to close
