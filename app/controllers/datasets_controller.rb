@@ -2,15 +2,15 @@ class DatasetsController < ApplicationController
 
   before_filter :load_dataset, :only => [:download, :show, :edit, :edit_files, :update, :approve, :approve_predefined,
                                          :delete_imported_research_data_and_file, :destroy, :regenerate_download,
-                                         :approval_quick, :batch_update_columns]
+                                         :approval_quick, :batch_update_columns, :keywords]
 
   before_filter :redirect_if_unimported, :only => [:download, :edit, :approve, :approve_predefined, :destroy,
-                                                   :approval_quick, :batch_update_columns]
+                                                   :approval_quick, :batch_update_columns, :keywords]
 
   skip_before_filter :deny_access_to_all
 
   access_control do
-    allow all, :to => [:show, :index, :load_context, :download_excel_template, :importing]
+    allow all, :to => [:show, :index, :load_context, :download_excel_template, :importing, :keywords]
 
     actions :download, :regenerate_download, :edit, :edit_files, :update, :approve, :approve_predefined,
       :approval_quick, :batch_update_columns do
@@ -236,6 +236,16 @@ class DatasetsController < ApplicationController
       flash[:error] = @dataset.errors.full_messages.to_sentence
       redirect_to :back
     end
+  end
+
+  def keywords
+    # keywords of the dataset
+    @dt_keywords = @dataset.tags
+
+    @datacolumns = @dataset.datacolumns
+    similar_datasets_first = @dataset.find_related_tags
+    similar_datasets_second = @datacolumns.collect {|dc| dc.find_related_tags }.flatten.map(&:dataset)
+    @datasets = (similar_datasets_first + similar_datasets_second - [@dataset]).uniq
   end
 
   private

@@ -31,18 +31,19 @@ class Datacolumn < ActiveRecord::Base
   validates_presence_of :datagroup_id, :dataset_id, :columnheader, :columnnr, :definition
   validates_uniqueness_of :columnheader, :columnnr, :scope => :dataset_id
 
-  pg_search_scope :search, against: {columnheader: 'A', definition: 'B', 
-                          comment: 'C', informationsource: 'C',  instrumentation: 'C' }, 
-      associated_against: {
-        tags: {name: 'A'},
-        datagroup: {informationsource: 'C', methodvaluetype: 'C', title: 'A',
-                    description: 'B', instrumentation: 'C', comment: 'C'},
-        categories: {short: 'A', long: 'A', description: 'B', comment: 'B'}
-      },
-      using: {tsearch: {
-        dictionary: "english",
-        prefix: true
-      }}
+  pg_search_scope :search, against: {
+    columnheader: 'A',
+    definition: 'B'
+  }, associated_against: {
+    tags: {name: 'A'},
+    datagroup: {title: 'A', description: 'B'},
+    categories: {short: 'A', long: 'A', description: 'B'}
+  }, using: {
+    tsearch: {
+      dictionary: "english",
+      prefix: true
+    }
+  }
 
   def destroy_taggings
     logger.debug "in destroy taggings"

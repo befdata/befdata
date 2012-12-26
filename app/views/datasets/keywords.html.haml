@@ -1,0 +1,39 @@
+- editable = current_user && (current_user.has_role?(:owner, @dataset) || current_user.has_role?(:admin))
+
+- content_for :actions do
+  = link_to  keywords_path do
+    = image_tag "list-ordered.png"
+    All Keywords
+  - if editable
+    = link_to edit_dataset_path(@datasest) do
+      = image_tag "edit.png"
+      Edit dataset keywords
+
+%h2 Keywords of #{link_to @dataset.title, @dataset}
+
+%h3= "Dataset Keywords"
+%p
+  %i=  @dt_keywords.empty? ? "No keywords" : raw(@dt_keywords.collect{|k| link_to k.name, keyword_path(k)}.join(", "))
+
+%h3 Datacolumn Keywords
+
+%table
+  %tr
+    %th Column
+    %th keywords
+    - if editable
+      %th edit
+  - @datacolumns.each do |dc|
+    %tr
+      %td= dc.columnheader
+      %td
+        %i= dc.tags.empty? ? "No keywords" : raw(dc.tags.collect {|k| link_to k.name, keyword_path(k) }.join(", "))
+      - if editable
+        %td= link_to "edit", approve_metadata_datacolumn_path(dc)
+
+- unless @datasets.empty?
+  %h2 Related Datasets
+  %ul
+    - @datasets.each do |ds|
+      %li.dataset
+        = render :partial => ds, :locals => {:with_cart => true, :with_comment => false}

@@ -57,22 +57,29 @@ class Dataset < ActiveRecord::Base
   before_save :add_xls_extension_to_filename
   before_destroy :check_for_paperproposals
 
-  pg_search_scope :search, against: {title: 'A', abstract: 'B', design: 'C', spatialextent: 'C', 
-            temporalextent: 'C', taxonomicextent: 'C', circumstances: 'C', dataanalysis: 'C'}, 
-        associated_against: {
-          tags: {name: 'A'}
-        },
-        using: {tsearch: {
-          dictionary: "english",
-          prefix: true
-        }}
+  pg_search_scope :search, against: {
+    title: 'A',
+    abstract: 'B',
+    design: 'C',
+    spatialextent: 'C',
+    temporalextent: 'C',
+    taxonomicextent: 'C',
+    circumstances: 'C',
+    dataanalysis: 'C',
+  }, associated_against: {
+    tags: {name: 'A'}
+  },using: {
+    tsearch: {
+      dictionary: "english",
+      prefix: true
+    }
+  }
 
   def add_xls_extension_to_filename
     if self.filename
       /\.xls$/.match(self.filename) ? self.filename : self.filename = "#{self.filename}.xls"
     end
   end
-
   def check_for_paperproposals
     if paperproposals.count > 0
       errors.add(:dataset,
@@ -117,6 +124,10 @@ class Dataset < ActiveRecord::Base
   def set_start_and_end_dates_of_research(book)
     self.datemin = book.datemin
     self.datemax = book.datemax
+  end
+  def download_status
+    return "outdated" if download_generation_status == 'finished' && download_generated_at < updated_at
+    return download_generation_status
   end
 
   def cells_linked_to_values?
@@ -270,7 +281,7 @@ class Dataset < ActiveRecord::Base
       column = []
       category_column = []
       column[0] = dc.columnheader
-      category_column[0] = "#{dc.columnheader} - Categories"
+      category_column[0] = "#{dc.columnheader}_Categories"
 
       dc.sheetcells.each do |sc|
         if !seperate_category_columns || dc.import_data_type == 'category' || !(sc.datatype && sc.datatype.is_category? && sc.category)

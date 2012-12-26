@@ -35,7 +35,8 @@ class PagesController < ApplicationController
       ['JQuery UI','http://jqueryui.com/'],
       ['SimpleModal','http://www.ericmmartin.com/projects/simplemodal/'],
       ['Blueprint CSS','http://blueprintcss.org/'],
-      ['Pg_Search', 'https://github.com/Casecommons/pg_search']
+      ['Pg_Search', 'https://github.com/Casecommons/pg_search'],
+      ['select2', 'http://ivaynberg.github.com/select2']
     ]
   end
 
@@ -53,7 +54,9 @@ class PagesController < ApplicationController
     if params[:q].blank?
       flash.now[:error] = "You should specify a search term."
     else
-      @datasets = (Dataset.search(params[:q]) + Datacolumn.search(params[:q]).map(&:dataset)).uniq
+      @datasets = ( Dataset.search(params[:q])+
+                    Datacolumn.includes(:dataset).search(params[:q]).uniq_by(&:dataset_id).map(&:dataset)
+                    ).uniq
     end
   end
 end
