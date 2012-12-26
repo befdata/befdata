@@ -1,23 +1,21 @@
 class MergeDateType < ActiveRecord::Migration
   def self.up
     #migrate datacolumn table
-    Datacolumn.find_each do |dc|
-      dc.update_attribute(:import_data_type, "date") if dc.import_data_type =~ /date/
+    Datacolumn.where("import_data_type LIKE ?", "%date%").each do |dc|
+      dc.update_attribute(:import_data_type, "date")
     end
 
     #sheetcells table
-    Sheetcell.find_each do |cell|
-      if cell.datatype_id==4
+    Sheetcell.where(:datatype_id => 4).find_each do |cell|
         cell.update_attribute(:datatype_id, "3")
         cell.update_attribute(:import_value, MergeDateType.convert_date(cell.import_value))
         cell.update_attribute(:accepted_value, MergeDateType.convert_date(cell.accepted_value))
-      end
     end
   end
 
   #regenerate downloads
-  Dataset.find_each do |dataset|
-      dataset.enqueue_to_generate_download if dataset.download_generation_status=="finished"
+  Dataset.where(:download_generation_status => "finished").find_each do |dataset|
+      dataset.enqueue_to_generate_download
   end
 
   def self.down
