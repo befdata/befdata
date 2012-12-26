@@ -1,8 +1,8 @@
 class DatasetsController < ApplicationController
 
-  before_filter :load_dataset, :only => [:download, :show, :edit, :edit_files, :update, :approve, :approve_predefined,
+  before_filter :load_dataset, :only => [:download, :download_page, :show, :edit, :edit_files, :update, :approve, :approve_predefined,
                                          :delete_imported_research_data_and_file, :destroy, :regenerate_download,
-                                         :approval_quick, :batch_update_columns, :keywords]
+                                         :approval_quick, :batch_update_columns, :keywords, :download_status]
 
   before_filter :redirect_if_unimported, :only => [:download, :edit, :approve, :approve_predefined, :destroy,
                                                    :approval_quick, :batch_update_columns, :keywords]
@@ -10,9 +10,9 @@ class DatasetsController < ApplicationController
   skip_before_filter :deny_access_to_all
 
   access_control do
-    allow all, :to => [:show, :index, :load_context, :download_excel_template, :importing, :keywords]
+    allow all, :to => [:show, :index, :load_context, :download_excel_template, :importing, :keywords, :download_status]
 
-    actions :download, :regenerate_download, :edit, :edit_files, :update, :approve, :approve_predefined,
+    actions :download, :download_page, :regenerate_download, :edit, :edit_files, :update, :approve, :approve_predefined,
       :approval_quick, :batch_update_columns do
       allow :admin
       allow :data_admin
@@ -24,7 +24,7 @@ class DatasetsController < ApplicationController
       allow :owner, :of => :dataset
     end
 
-    action :download do
+    action :download, :download_page do
       allow :proposer, :of => :dataset
       allow logged_in, :if => :dataset_is_free_for_members
       allow logged_in, :if => :dataset_is_free_for_project_of_user
@@ -191,7 +191,10 @@ class DatasetsController < ApplicationController
 
   def regenerate_download
     @dataset.enqueue_to_generate_download(:high)
-    redirect_to :action => :show
+    redirect_back_or_default dataset_path(@dataset)
+  end
+  def download_status
+    render :text => "Status: <span id = #{@dataset.download_status} >" + @dataset.download_status + "</span>"
   end
 
   def download_excel_template
@@ -270,5 +273,4 @@ class DatasetsController < ApplicationController
       redirect_to :action => 'show'
     end
   end
-
 end
