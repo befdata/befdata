@@ -1,7 +1,4 @@
 -# This partial displays links of download urls for api key downloads
--# These parameters must be given:
--#   css: to modify the css ids
--#   caption: text for the link
 
 - modal_id = "#{css}_show_download_link_modal"
 - link_id = "show_#{modal_id}"
@@ -66,11 +63,3 @@
       e.preventDefault();
     });
   });
-=======
-    $("##{modal_id} .show_download_url").click(function(e) {
-      $("##{modal_id} .download_url").val("#{string_url}");
-      e.preventDefault();
-    });
-  });
-
->>>>>>> master
