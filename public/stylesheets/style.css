@@ -1349,36 +1349,6 @@ Some Form layout
     height: 120px;
 }
 
-
-ul.ui-autocomplete {
-  position: absolute;
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  outline: solid 1px #18921e;
-}
-ul.ui-autocomplete li{
-  border-top: solid 1px #DDD;
-  margin: 0;
-  padding: 0;
-}
-
-ul.ui-autocomplete li a {
-  color: black;
-  display: block;
-  padding: 3px;
-  text-decoration: none;
-}
-/*ul.ui-autocomplete li a.ui-state-hover, a.ui-state-active {*/
-/*background-color: white;*/
-/*}*/
-.ui-state-hover, .ui-widget-content .ui-state-hover, .ui-widget-header .ui-state-hover, .ui-state-focus, .ui-widget-content .ui-state-focus, .ui-widget-header .ui-state-focus {
-  border: none;
-  background: url("/stylesheets/ui-lightness/images/ui-bg_glass_100_f6f6f6_1x400.png") repeat-x scroll 50% 50% rgb(253, 245, 206);;
-  font-weight: bold;
-  color: darkgreen;
-}
-
 #profile{
   width:608px;
   margin: 10px;
