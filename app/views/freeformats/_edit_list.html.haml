@@ -5,8 +5,22 @@
       %i #{ff.description}
 
       %a.showr{:id => "freeformat_change_#{ff.id}"} Change
+      = link_to 'Delete', {:controller => :freeformats, :action => :destroy, :id => ff.id},
+      {:confirm => "Are you sure you want to delete #{ff.file_file_name}?", :method => :delete}
+
       .hidden{:id => "form_freeformat_change_#{ff.id}"}
         = render :partial => 'freeformats/edit', :locals => {:freeformat => ff}
 
-      = link_to 'Delete', {:controller => :freeformats, :action => :destroy, :id => ff.id},
-      {:confirm => "Are you sure you want to delete #{ff.file_file_name}?", :method => :delete}
+:javascript
+  $(function() {
+    $(".showr").toggle(
+      function() {
+        var id = $(this).attr('id');
+        $("#form_" + id).slideDown();
+      },
+      function(){
+        var id = $(this).attr('id');
+        $("#form_" + id).slideUp();
+      }
+    );
+  });
