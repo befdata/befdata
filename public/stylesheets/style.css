@@ -1423,6 +1423,8 @@ span#finished {
 }
 #tabs.ui-tabs.ui-widget{
   border:none;
+  margin-bottom: 20px;
+  font-size: 1em;
 }
 #tabs .ui-widget-header {
   background:transparent;

@@ -165,7 +165,6 @@ class DatasetsController < ApplicationController
 
     @contacts = @dataset.owners
     @projects = @dataset.projects
-    @freeformats = @dataset.freeformats :order => :file_file_name
     @datacolumns = @dataset.datacolumns
     @tags = @dataset.all_tags
 
@@ -201,6 +200,9 @@ class DatasetsController < ApplicationController
     send_file Rails.root.join('files', 'template','befdata_workbook_empty.xls'),
         :filename=>'emtpy_excel_template.xls',
         :disposition => 'attachment'
+  end
+  def download_page
+    @freeformats = @dataset.freeformats :order => :file_file_name
   end
 
   def edit_files
