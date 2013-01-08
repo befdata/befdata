@@ -1,0 +1,145 @@
+!!! XML 
+%eml:eml{:packageId => "eml.1.1", :system => "knb", "xmlns:eml" => "eml://ecoinformatics.org/eml-2.1.0", "xmlns:xsi" => "http://www.w3.org/2001/XMLSchema-instance", "xsi:schemaLocation" => "eml://ecoinformatics.org/eml-2.1.0 eml-2.1.0/eml.xsd"}
+  %dataset{:id => @dataset.id}
+    %alternateIdentifier= dataset_url(@dataset)
+    %title= @dataset.title
+    - @dataset.owners.each do |creator|
+      %creator{:id => creator.login}
+        %individualName
+          %givenName= creator.firstname
+          %surName= creator.lastname
+        = content_tag_unless_blank :organizationName, creator.institution_name
+        - if creator.street || creator.city
+          %address
+            = content_tag_unless_blank :deliveryPoint, creator.street
+            = content_tag_unless_blank :city, creator.city
+            = content_tag_unless_blank :country, creator.country
+        = content_tag_unless_blank :phone, creator.institution_phone
+        %electronicMailAddress= creator.email
+    %pubDate= @dataset.created_at.to_date.to_formatted_s(:db)
+    %language en_US
+    - if @dataset.abstract || @dataset.circumstances
+      %abstract
+        = content_tag_unless_blank :para, @dataset.abstract
+        = content_tag_unless_blank :para, @dataset.circumstances
+    - unless @dataset.tags.empty?
+      %keywordSet
+        - @dataset.tags.each do |tag|
+          %keyword= tag.name
+        %keywordThesaurus Portal Tags
+    - unless @dataset.datacolumns.empty?
+      %keywordSet
+        - @dataset.datacolumns.each do |datacolumn|
+          %keyword= datacolumn.columnheader
+        %keywordThesaurus Dataset Data Columns
+    - unless @dataset.usagerights.blank?
+      %intellectualRights
+        %para= @dataset.usagerights
+    %distribution{:scope => "document"}
+      %online
+        %url{:function => "information"}
+          = dataset_url @dataset
+    - unless @dataset.spatialextent.blank? && @dataset.taxonomicextent.blank?
+      %coverage
+        - if @dataset.spatialextent
+          %geographicCoverage
+            %geographicDescription= @dataset.spatialextent
+            %boundingCoordinates
+              %westBoundingCoordinate= EML_CONFIG[:bounding_coordinates_for_geographic_coverage][:west_bounding_coordinate]
+              %eastBoundingCoordinate= EML_CONFIG[:bounding_coordinates_for_geographic_coverage][:east_bounding_coordinate]
+              %northBoundingCoordinate= EML_CONFIG[:bounding_coordinates_for_geographic_coverage][:north_bounding_coordinate]
+              %southBoundingCoordinate= EML_CONFIG[:bounding_coordinates_for_geographic_coverage][:south_bounding_coordinate]
+        - unless @dataset.datemin.blank? && @dataset.datemax.blank?
+          %temporalCoverage
+            %rangeOfDates
+              %beginDate
+                %calendarDate
+                  = @dataset.datemin.to_s.split[0]
+              %endDate
+                %calendarDate
+                  = @dataset.datemax.to_s.split[0]
+        - unless @dataset.taxonomicextent.blank?
+          %taxonomicCoverage
+            %generalTaxonomicCoverage= @dataset.taxonomicextent
+            %taxonomicClassification
+              %commonName
+                = @dataset.taxonomicextent
+    - @dataset.owners.each do |contact|
+      %contact
+        %references= contact.login
+    %methods
+      %methodStep
+        %description
+          = content_tag_unless_blank :para, @dataset.title
+          = content_tag_unless_blank :para, @dataset.abstract
+      %sampling
+        %studyExtent
+          %description
+            = content_tag_unless_blank :para, "#{@dataset.datemin} - #{@dataset.datemax}"
+            = content_tag_unless_blank :para, @dataset.temporalextent
+            = content_tag_unless_blank :para, @dataset.spatialextent
+            = content_tag_unless_blank :para, @dataset.taxonomicextent
+        %samplingDescription
+          = content_tag_unless_blank :para, @dataset.design
+          = content_tag_unless_blank :para, @dataset.dataanalysis
+    %dataTable
+      %entityName= dataset_url(@dataset)+'.txt'
+      %entityDescription= @dataset.title
+      %physical
+        %objectName= dataset_path(@dataset)+'.txt'
+        / TODO<size unit="bytes">1245</size>
+        %characterEncoding ASCII
+        %dataFormat
+          %textFormat
+            %numHeaderLines 1
+            %attributeOrientation column
+            %simpleDelimited
+              %fieldDelimiter \t
+        %distribution
+          %online
+            %url= dataset_url(@dataset)+'.txt'
+      %attributeList
+        - @dataset.datacolumns.each do |column|
+          %attribute{:id => column.columnheader}
+            %attributeName= "#{column.datagroup.title} (#{column.columnheader})"
+            %attributeLabel= column.columnheader
+            %attributeDefinition= "#{column.datagroup.description} (#{column.columnheader}: #{column.definition})"
+            %measurementScale
+              - case column.datagroup.methodvaluetype
+              - when 'number'
+                %ratio
+                  %unit
+                    %standardUnit= eml_unit_for_column(column)
+                  %numericDomain
+                    %numberType real
+              - when 'datetime'
+                %dateTime
+                  %formatString YYYY
+              - else
+                %nominal
+                  %nonNumericDomain
+                    %textDomain
+                      %definition= column.datagroup.description
+            %methods
+              %methodStep
+                %description
+                  = content_tag_unless_blank :para, column.datagroup.title
+                  = content_tag_unless_blank :para, column.datagroup.description
+                  = content_tag_unless_blank :para, column.definition
+                = content_tag_unless_blank :instrumentation, column.datagroup.instrumentation
+      %caseSensitive yes
+      %numberOfRecords= @dataset.number_of_observations
+    - @dataset.freeformats.each do |freeformat|
+      %otherEntity{:id => freeformat.id}
+        %alternateIdentifier= freeformat.file.url
+        %entityName= freeformat.file_file_name
+        = content_tag_unless_blank :entityDescription, freeformat.description
+        %physical
+          %objectName= freeformat.file_file_name
+          %dataFormat
+            %externallyDefinedFormat
+              %formatName= freeformat.file_content_type
+          %distribution
+            %online
+              %url= freeformat.file.url
+        %entityType "File Asset"
