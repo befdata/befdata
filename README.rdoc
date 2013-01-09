@@ -52,7 +52,9 @@ BEFdata was developed withi the Chinese-European DFG Research Unit â€œBEF Chinaâ
 5. Setup the database
 
     rake db:setup
+
     load fixtures
+
     rake db:fixtures:load
 
 6. Fire up development server

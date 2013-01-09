@@ -14,9 +14,9 @@
         = image_tag("save.png")
         Download CSV
     %li
-      = link_to :controller => :datasets, :action => 'download', :format => :csv, :id => @dataset.id, :seperate_category_columns => true do
+      = link_to :controller => :datasets, :action => 'download', :format => :csv, :id => @dataset.id, :separate_category_columns => true do
         = image_tag("save.png")
-        Download CSV with seperate columns for categories
+        Download CSV with separate columns for categories
   - if current_user
     %li
       = link_to dataset_path(:id => @dataset, :format => :eml) do

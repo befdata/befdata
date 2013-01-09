@@ -97,7 +97,7 @@ class PaperproposalsControllerTest < ActionController::TestCase
     assert old_authors_count < @paperproposal.all_authors_ordered.count
 
     get :show, :id => @paperproposal.id
-    assert_select "span.comma-seperated-list", /.*Michael.*/, response.body
+    assert_select "span.comma-separated-list", /.*Michael.*/, response.body
   end
 
   test "should not send to board if no dataset is set" do

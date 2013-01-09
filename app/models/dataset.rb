@@ -274,7 +274,7 @@ class Dataset < ActiveRecord::Base
     self.paperproposals.each {|pp| pp.calculate_datasets_proponents}
   end
 
-  def to_csv (seperate_category_columns = false)
+  def to_csv (separate_category_columns = false)
     # gather columns and values
     all_columns = []
     self.datacolumns.order("columnnr ASC").each do |dc|
@@ -284,7 +284,7 @@ class Dataset < ActiveRecord::Base
       category_column[0] = "#{dc.columnheader}_Categories"
 
       dc.sheetcells.each do |sc|
-        if !seperate_category_columns || dc.import_data_type == 'category' || !(sc.datatype && sc.datatype.is_category? && sc.category)
+        if !separate_category_columns || dc.import_data_type == 'category' || !(sc.datatype && sc.datatype.is_category? && sc.category)
           column[sc.row_number - 1] = sc.export_value
         else
           category_column[sc.row_number - 1] = sc.export_value
