@@ -645,8 +645,8 @@ span.approval-status {
     background-color: #36ff00;
 }
 
-span.comma-seperated-list > span:after { content: ","; }
-span.comma-seperated-list > span:last-child:after { content: ""; }
+span.comma-separated-list > span:after { content: ","; }
+span.comma-separated-list > span:last-child:after { content: ""; }
 
 ul.approval-line li {display: inline; }
 ul.approval-line li:after { content: " >"; }

@@ -39,7 +39,7 @@
   = @datacolumn.unit
 %p
   %strong People:
-  %span.comma-seperated-list
+  %span.comma-separated-list
     - @datacolumn.users.each do |u|
       %span= link_to u.to_label, user_path(u.path_name)
   - unless @datacolumn.informationsource.blank?
