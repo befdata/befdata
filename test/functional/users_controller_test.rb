@@ -52,7 +52,7 @@ class UsersControllerTest < ActionController::TestCase
     login_nadrowski
     get :votes
     assert_success_no_error
-  end
+  end 
 
   test "show voting history" do
     login_nadrowski

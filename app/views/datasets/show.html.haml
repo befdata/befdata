@@ -36,13 +36,15 @@
         %li
           = render :partial => "users/email_list_modal",
             :locals => {:list => User.email_list(@dataset.owners), :css => "dataset_owners", :caption => 'Dataset owners'}
+ 
     - unless @projects.blank?
       %h3
         Projects involved
       %ul
         - @projects.each do |p|
           %li= link_to p, project_path(p.id)
-    
+
+
   - unless @dataset.usagerights.blank?
     %h4 Usage Rights
     %p= @dataset.usagerights

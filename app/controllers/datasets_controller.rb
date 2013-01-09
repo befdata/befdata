@@ -182,7 +182,7 @@ class DatasetsController < ApplicationController
         send_file @dataset.generated_spreadsheet.path, :filename => "#{@dataset.filename}"
       end
       format.csv do
-        send_data @dataset.to_csv(params[:seperate_category_columns]), :type => "text/csv",
+        send_data @dataset.to_csv(params[:separate_category_columns]), :type => "text/csv",
           :disposition => 'attachment', :filename => "#{@dataset.filename}.csv"
       end
     end

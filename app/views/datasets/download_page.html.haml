@@ -31,7 +31,7 @@
       %h3 CSV file with separate category columns
       %p Same as Regular CSV file, but the invalid values are stored in a separate column. For dataset that hasn't been approved yet, it's same with Regular CSV file.
       %div#download
-        = link_to "Download", download_dataset_url(@dataset, :csv, :seperate_category_columns => true), class: 'button'
+        = link_to "Download", download_dataset_url(@dataset, :csv, :separate_category_columns => true), class: 'button'
     #csv
       %h3 Regular CSV file
       %p This correspondes to the raw data sheet of the Excel file, containing only data.
