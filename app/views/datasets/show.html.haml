@@ -36,30 +36,14 @@
         %li
           = render :partial => "users/email_list_modal",
             :locals => {:list => User.email_list(@dataset.owners), :css => "dataset_owners", :caption => 'Dataset owners'}
-    - if current_user
-      %h3 Data URLs  
-      %ul
-        %li
-          = render :partial => "datasets/popup_display_download_url",
-            :locals => {:id => @dataset.id, :css => "dataset_owners", :caption => 'CSV and EML'}
+ 
     - unless @projects.blank?
       %h3
         Projects involved
       %ul
         - @projects.each do |p|
           %li= link_to p, project_path(p.id)
-    - if current_user && (current_user.has_role?(:owner, @dataset) || current_user.has_role?(:admin))
-      %h3
-        Downloads (#{@dataset.downloads || 0})
-      - unless @dataset.dataset_downloads.empty?
-        %ul
-          - @dataset.dataset_downloads.sort_by {|dl|dl.created_at}.reverse.each do |dl|
-            %li
-              = dl.created_at.localtime.strftime "%Y-%m-%d %H:%M"
-              - if dl.user
-                = link_to dl.user.lastname, dl.user
-              - else
-                Public
+
 
   - unless @dataset.usagerights.blank?
     %h4 Usage Rights

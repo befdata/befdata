@@ -54,9 +54,7 @@ class PagesController < ApplicationController
     if params[:q].blank?
       flash.now[:error] = "You should specify a search term."
     else
-      @datasets = ( Dataset.search(params[:q])+
-                    Datacolumn.includes(:dataset).search(params[:q]).uniq_by(&:dataset_id).map(&:dataset)
-                    ).uniq
+      @datasets = Dataset.search(params[:q]) | Datacolumn.includes(:dataset).search(params[:q]).uniq_by(&:dataset_id).map(&:dataset)
     end
   end
 end

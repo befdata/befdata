@@ -29,7 +29,7 @@ class TagsController < ApplicationController
           csv << %w(id title emlURL xlsURL csvURL csvSeparatedMixedValueColumnsUrl)
           user_api = current_user.try(:single_access_token)
           @datasets.each do |d|
-            csv << [d.id, d.title, dataset_url(d, :eml, user_credentials: user_api),
+            csv << [d.id, d.title, dataset_url(d, :eml),
                     download_dataset_url(d, user_credentials: user_api), 
                     download_dataset_url(d, :csv, user_credentials: user_api),
                     download_dataset_url(d, :csv, separate_category_columns: true, user_credentials: user_api)

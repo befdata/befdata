@@ -1,0 +1,81 @@
+- content_for :info do
+  %h3 Last update
+  %p #{time_ago_in_words(@dataset.last_update)} ago
+  - if @dataset.upload_spreadsheet
+    %h3 Download URLs
+    = render :partial => "popup_display_download_url", :locals => {:id => @dataset.id, :css => "dataset_owners", :caption => 'Display download urls'}
+  %h3  Downloads history (#{@dataset.dataset_downloads.count || 0})
+  - unless @dataset.dataset_downloads.empty?
+    %ul
+      - @dataset.dataset_downloads.sort_by {|dl|dl.created_at}.reverse.each do |dl|
+        %li
+          = dl.created_at.localtime.strftime "%Y-%m-%d %H:%M"
+          - if dl.user
+            = link_to dl.user.lastname, dl.user
+          - else
+            Public
+
+%h2 Download #{link_to @dataset.title, @dataset}
+
+- unless @dataset.upload_spreadsheet || !@freeformats.blank?
+  %h3 Nothing can be downloaded
+
+- if @dataset.upload_spreadsheet
+  %h3 Dataset has these formats: 
+  #tabs.overflow.hidden
+    %ul
+      %li= link_to "Excel file" , "#xls"
+      %li= link_to "CSV" , "#csv"
+      %li= link_to "CSV2" , "#csv2"
+    #csv2
+      %h3 CSV file with separate category columns
+      %p Same as Regular CSV file, but the invalid values are stored in a separate column. For dataset that hasn't been approved yet, it's same with Regular CSV file.
+      %div#download
+        = link_to "Download", download_dataset_url(@dataset, :csv, :separate_category_columns => true), class: 'button'
+    #csv
+      %h3 Regular CSV file
+      %p This correspondes to the raw data sheet of the Excel file, containing only data.
+      %div#download
+        = link_to "Download", download_dataset_path(@dataset, :csv), class: 'button'
+    #xls
+      %div.overflow
+        %h3.left MS-Excel2003 file
+        %span#download_status.right
+          Status:
+          = content_tag :span, id: @dataset.download_status do
+            = @dataset.download_status
+        %span.right= image_tag "spinner.gif", :class => @dataset.download_status == 'queued' ? "" : 'hidden', :id => "indicator"
+      - if @dataset.download_status == "outdated"
+        %div#warning This Excel file is outdated. Usually, it will be regenerated within at most 10 minutes. You could wait for a while, or you could also #{link_to("regenerated download", regenerate_download_dataset_path(@dataset))} manually rightnow.
+      - if @dataset.download_status == "queued"
+        %div#warning  This Excel file is being regenerated, please wait till it is finished.
+      %p
+        This is the same as the workbook the owner uploaded, including all the data and metadata.
+      %div#download
+        = link_to "Download", download_dataset_path(@dataset), class: 'button'
+
+- unless @freeformats.blank?
+  %h3 Dataset has #{pluralize(@freeformats.length, "attached file")}
+  = render :partial => 'freeformats/index'
+
+
+:javascript
+  $(function(){
+    $("#tabs").tabs().show(0);
+    if ($("#download_status").text().indexOf("finished") == -1){
+      var intervalId = setInterval(
+        function(){
+          $("#download_status").load("#{download_status_dataset_url(@dataset)}", function(){
+            var status = $("#download_status").text();
+            if( status.indexOf("finished") != -1 ){
+              clearInterval(intervalId);
+              $("#warning, #indicator").hide();
+            }
+            if (status.indexOf("queued") != -1){
+              $("#warning").text("This Excel file is being regenerated, please wait till it is finished.");
+            }
+          });
+        }, 5000
+      );
+    }
+  });

@@ -4,5 +4,6 @@
   = f.error_messages
   = f.file_field :file
   %br
-  = f.text_area :description, :size => "40x4"
+  = f.text_area :description, :size => "40x4", :placeholder => "Describe your file here..."
+  %br  
   = f.submit 'File upload'

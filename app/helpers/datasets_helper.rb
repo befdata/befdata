@@ -18,7 +18,7 @@ module DatasetsHelper
   end
 
   def may_download_dataset?(dataset = @dataset)
-    return false unless dataset.upload_spreadsheet
+    return false unless dataset.upload_spreadsheet || !dataset.freeformats.empty?
 
     return true if dataset.free_for_public
     return false unless current_user

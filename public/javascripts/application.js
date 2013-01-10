@@ -128,13 +128,3 @@ function clone_element_before(element) {
 function clone_me() {
     this.clone().appendTo(this.parent);
 }
-
-
-$(function() {
-    $(".showr").click(function() {
-        var id;
-        id = $(this).attr('id');
-        $("#form_" + id).show();
-        $(this).hide();
-    });
-});

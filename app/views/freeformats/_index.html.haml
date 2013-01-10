@@ -1,4 +1,3 @@
-%ul
+%dl
   - @freeformats.each do |ff|
-    %li
-      = render :partial => 'freeformats/show', :locals => {:freeformat => ff}
+    = render :partial => 'freeformats/show', :locals => {:freeformat => ff}
