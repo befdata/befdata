@@ -32,7 +32,8 @@ class Category < ActiveRecord::Base
   end
   
   def check_for_sheetcells_associated
-    unless self.sheetcells.empty? || (self.sheetcells.count == 1 && self.sheetcells.first.destroyed?)
+    sc = self.sheetcells(true)
+    unless sc.empty? || (sc.count == 1 && sc.first.destroyed?)
       false
     end
   end

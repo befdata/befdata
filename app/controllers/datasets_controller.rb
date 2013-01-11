@@ -24,7 +24,7 @@ class DatasetsController < ApplicationController
       allow :owner, :of => :dataset
     end
 
-    action :download, :download_page do
+    action :download, :download_page, :regenerate_download do
       allow :proposer, :of => :dataset
       allow logged_in, :if => :dataset_is_free_for_members
       allow logged_in, :if => :dataset_is_free_for_project_of_user
