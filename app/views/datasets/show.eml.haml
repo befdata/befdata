@@ -38,7 +38,7 @@
     %distribution{:scope => "document"}
       %online
         %url{:function => "information"}
-          = dataset_url @dataset
+          = dataset_url(@dataset)+"/download.csv"
     - unless @dataset.spatialextent.blank? && @dataset.taxonomicextent.blank?
       %coverage
         - if @dataset.spatialextent
@@ -83,7 +83,7 @@
           = content_tag_unless_blank :para, @dataset.design
           = content_tag_unless_blank :para, @dataset.dataanalysis
     %dataTable
-      %entityName= dataset_url(@dataset)+'.txt'
+      %entityName= "#{@dataset.filename}.csv"
       %entityDescription= @dataset.title
       %physical
         %objectName= dataset_path(@dataset)+'.txt'
@@ -94,39 +94,85 @@
             %numHeaderLines 1
             %attributeOrientation column
             %simpleDelimited
-              %fieldDelimiter \t
+              %fieldDelimiter ,
         %distribution
           %online
-            %url= dataset_url(@dataset)+'.txt'
+            -# %url= dataset_url(@dataset)+'.txt' 
+            %url= dataset_url(@dataset)+'.txt' 
       %attributeList
-        - @dataset.datacolumns.each do |column|
-          %attribute{:id => column.columnheader}
-            %attributeName= "#{column.datagroup.title} (#{column.columnheader})"
-            %attributeLabel= column.columnheader
-            %attributeDefinition= "#{column.datagroup.description} (#{column.columnheader}: #{column.definition})"
-            %measurementScale
-              - case column.datagroup.methodvaluetype
-              - when 'number'
-                %ratio
-                  %unit
-                    %standardUnit= eml_unit_for_column(column)
-                  %numericDomain
-                    %numberType real
-              - when 'datetime'
-                %dateTime
-                  %formatString YYYY
-              - else
+        - @dataset.datacolumns.each do |column| 
+          - unless column.split_me?(params[:separate_category_columns])
+            %attribute{:id => column.columnheader}
+              %attributeName= "#{column.datagroup.title} (#{column.columnheader})"
+              %attributeLabel= column.columnheader
+              %attributeDefinition= "#{column.datagroup.description} (#{column.columnheader}: #{column.definition})"
+              %measurementScale
+                - case column.datagroup.methodvaluetype
+                - when 'number'
+                  %ratio
+                    %unit
+                      %standardUnit= eml_unit_for_column(column)
+                    %numericDomain
+                      %numberType real
+                - when 'datetime'
+                  %dateTime
+                    %formatString YYYY
+                - else
+                  %nominal
+                    %nonNumericDomain
+                      %textDomain
+                        %definition= column.datagroup.description
+              %methods
+                %methodStep
+                  %description
+                    = content_tag_unless_blank :para, column.datagroup.title
+                    = content_tag_unless_blank :para, column.datagroup.description
+                    = content_tag_unless_blank :para, column.definition
+                  = content_tag_unless_blank :instrumentation, column.datagroup.instrumentation
+          - else 
+            %attribute{:id => column.columnheader}
+              %attributeName= "#{column.datagroup.title} (#{column.columnheader})"
+              %attributeLabel= column.columnheader
+              %attributeDefinition= "#{column.datagroup.description} (#{column.columnheader}: #{column.definition})"
+              %measurementScale
+                - case column.datagroup.methodvaluetype
+                - when 'number'
+                  %ratio
+                    %unit
+                      %standardUnit= eml_unit_for_column(column)
+                    %numericDomain
+                      %numberType real
+                - when 'datetime'
+                  %dateTime
+                    %formatString YYYY
+                - else
+                  %nominal
+                    %nonNumericDomain
+                      %textDomain
+                        %definition= column.datagroup.description
+              %methods
+                %methodStep
+                  %description
+                    = content_tag_unless_blank :para, column.datagroup.title
+                    = content_tag_unless_blank :para, column.datagroup.description
+                    = content_tag_unless_blank :para, column.definition
+                  = content_tag_unless_blank :instrumentation, column.datagroup.instrumentation 
+            %attribute{:id => "#{column.columnheader}_Categories"}
+              %attributeName= "#{column.datagroup.title} (#{column.columnheader}_Categories)"
+              %attributeLabel= "#{column.columnheader}_Categories"
+              %attributeDefinition= "#{column.datagroup.description} (#{column.columnheader}_Categories: #{column.definition})"
+              %measurementScale
                 %nominal
                   %nonNumericDomain
                     %textDomain
                       %definition= column.datagroup.description
-            %methods
-              %methodStep
-                %description
-                  = content_tag_unless_blank :para, column.datagroup.title
-                  = content_tag_unless_blank :para, column.datagroup.description
-                  = content_tag_unless_blank :para, column.definition
-                = content_tag_unless_blank :instrumentation, column.datagroup.instrumentation
+              %methods
+                %methodStep
+                  %description
+                    = content_tag_unless_blank :para, column.datagroup.title
+                    = content_tag_unless_blank :para, column.datagroup.description
+                    = content_tag_unless_blank :para, column.definition
+                  = content_tag_unless_blank :instrumentation, column.datagroup.instrumentation 
       %caseSensitive yes
       %numberOfRecords= @dataset.number_of_observations
     - @dataset.freeformats.each do |freeformat|
