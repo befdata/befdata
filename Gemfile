@@ -20,17 +20,21 @@ gem 'whenever', :require => false
 gem 'activerecord-import'
 gem 'newrelic_rpm'
 gem 'pg_search'
+
 group :test, :development do
   gem "test-unit", '2.4.8' #2.4.9 is incompatible to Rubymine's and Teamcity's way of running tests
                           # Issue is filed and update will fix this http://youtrack.jetbrains.com/issue/RUBY-11239
   gem 'foreman'
   # gem 'ruby-prof'
   gem 'libxml-ruby'
-  gem 'rb-inotify'
+  gem 'rb-inotify' 
+  gem 'thin'   
 end 
 
 group :tools do
   gem 'guard'
   gem 'guard-test'
+  gem 'hpricot' 
+  gem 'ruby_parser'
 end
 
