@@ -256,5 +256,27 @@ class Datacolumn < ActiveRecord::Base
 
   def update_dataset
     self.dataset.update_attribute(:updated_at, Time.now)
+  end 
+
+  def split_me?(separate_category_columns = false)
+    #This method returns true for a column when it requires splitting for export into csv. 
+    #It is also used for the eml export to adapt its output to the category split 
+    #export of the csv file. 
+
+    collect_column_sheetcells_boolean_values = []
+
+    self.sheetcells.each do |sc|
+      if !separate_category_columns || self.import_data_type == 'category' || !(sc.datatype && sc.datatype.is_category? && sc.category)  
+        collect_column_sheetcells_boolean_values << false
+      else 
+        collect_column_sheetcells_boolean_values << true 
+      end 
+    end 
+
+    if collect_column_sheetcells_boolean_values.include?(true)
+      return true 
+    else 
+      return false 
+    end
   end
 end
