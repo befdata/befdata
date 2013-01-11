@@ -269,11 +269,10 @@ class Dataset < ActiveRecord::Base
     !self.datacolumns.any?{|dc| dc.approval_stage!="4"}
   end
 
-
   def refresh_paperproposal_authors
     self.paperproposals.each {|pp| pp.calculate_datasets_proponents}
   end
-
+  
   def to_csv (separate_category_columns = false)
     # gather columns and values
     all_columns = []
