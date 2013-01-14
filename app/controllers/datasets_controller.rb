@@ -187,7 +187,6 @@ class DatasetsController < ApplicationController
           :disposition => 'attachment', :filename => "#{@dataset.filename}.csv"
       end 
       format.eml do 
-        require_no_user
         eml_file = render_to_string(params[:separate_category_columns], :template=>"datasets/show.eml")  
         send_data(eml_file, :type=>"text/xml", :disposition => 'attachment', :filename => "#{@dataset.id}.eml")  
       end
