@@ -95,10 +95,10 @@
       filterInput.change(function() {
         filterString = $(this).val();
         if (filterString) {
-          filterableElementsParent.children("div:not(:icontains(" + filterString + "))").slideUp();
-          filterableElementsParent.children("div:icontains(" + filterString + ")").slideDown();
+          filterableElementsParent.children("div:not(:icontains(" + filterString + "))").hide();
+          filterableElementsParent.children("div:icontains(" + filterString + ")").show();
         } else {
-          filterableElementsParent.children().slideDown();
+          filterableElementsParent.children().show();
         }
       }).keyup(function() {
         $(this).change();
