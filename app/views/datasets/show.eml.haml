@@ -38,7 +38,7 @@
     %distribution{:scope => "document"}
       %online
         %url{:function => "information"}
-          = dataset_url(@dataset)+"/download.csv?"+"separate_category_columns=true&user_credentials=#{current_user.single_access_token}"
+          = dataset_url @dataset
     - unless @dataset.spatialextent.blank? && @dataset.taxonomicextent.blank?
       %coverage
         - if @dataset.spatialextent
@@ -83,7 +83,7 @@
           = content_tag_unless_blank :para, @dataset.design
           = content_tag_unless_blank :para, @dataset.dataanalysis
     %dataTable
-      %entityName= "#{@dataset.filename}.csv"
+      %entityName= dataset_url(@dataset)+'.txt'
       %entityDescription= @dataset.title
       %physical
         %objectName= dataset_path(@dataset)+'.txt'
@@ -97,8 +97,7 @@
               %fieldDelimiter ,
         %distribution
           %online
-            %url{:function => "download"}
-              = dataset_url(@dataset)+raw("/download.csv?separate_category_columns=true&user_credentials=#{current_user.single_access_token}")
+            %url= dataset_url(@dataset)+'.txt' 
       %attributeList
         - @dataset.datacolumns.each do |column| 
           - unless column.split_me?(params[:separate_category_columns])

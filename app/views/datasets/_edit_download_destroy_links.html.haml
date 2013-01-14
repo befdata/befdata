@@ -6,7 +6,7 @@
         = "Download file"
   - if current_user
     %li
-      = link_to dataset_path(:id => @dataset, :format => :eml) do
+      = link_to download_dataset_url(@dataset, :eml) do
         = image_tag("save.png")
         Download EML
     %li

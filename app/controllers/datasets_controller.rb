@@ -10,13 +10,13 @@ class DatasetsController < ApplicationController
   skip_before_filter :deny_access_to_all
 
   access_control do
-    allow all, :to => [:show, :index, :load_context, :download_excel_template, :importing, :keywords, :download_status]
+    allow all, :to => [:show, :index, :load_context, :download_excel_template, :importing, :keywords, :download_status] 
 
     actions :download, :download_page, :regenerate_download, :edit, :edit_files, :update, :approve, :approve_predefined,
       :approval_quick, :batch_update_columns do
       allow :admin
       allow :data_admin
-      allow :owner, :of => :dataset
+      allow :owner, :of => :dataset 
     end
 
     actions :delete_imported_research_data_and_file, :destroy do
@@ -186,7 +186,8 @@ class DatasetsController < ApplicationController
         send_data @dataset.to_csv(params[:separate_category_columns] =~ /true/i), :type => "text/csv",
           :disposition => 'attachment', :filename => "#{@dataset.filename}.csv"
       end 
-      format.eml do
+      format.eml do 
+        require_no_user
         eml_file = render_to_string(params[:separate_category_columns], :template=>"datasets/show.eml")  
         send_data(eml_file, :type=>"text/xml", :disposition => 'attachment', :filename => "#{@dataset.id}.eml")  
       end
