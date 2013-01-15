@@ -3,13 +3,13 @@
 - modal_id = "#{css}_show_download_link_modal"
 - link_id = "show_#{modal_id}"
 
-- url_csv_categories = download_dataset_url(@dataset, :csv, :separate_category_columns => true, 
+- url_csv_categories = download_dataset_url(@dataset, :csv, :separate_category_columns => true,
                                             :user_credentials => current_user.try(:single_access_token))
 - url_csv_plain = download_dataset_url(@dataset, :csv, :user_credentials => current_user.try(:single_access_token))
 
-- url_eml_categories = download_dataset_url(@dataset, :eml, :separate_category_columns => true)
+- url_eml_categories = download_dataset_url(@dataset, :eml, :separate_category_columns => true, :user_credentials => current_user.try(:single_access_token))
 
-- url_eml = download_dataset_url(@dataset, :eml)
+- url_eml = download_dataset_url(@dataset, :eml, :user_credentials => current_user.try(:single_access_token))
 
 
 %a{:href => '#', :class => 'download_modal_link', :id => link_id}
@@ -20,11 +20,11 @@
     = caption
   .menu
     %a{:href => '#', :class => 'show_csv_url_with_categories'}
-      CSV with categories 
+      CSV with categories
     %a{:href => '#', :class => 'show_eml_url_with_categories'}
-      EML with categories 
+      EML with categories
     %a{:href => '#', :class => 'show_csv_url_without_categories'}
-      CSV standard 
+      CSV standard
     %a{:href => '#', :class => 'show_eml_url'}
       EML standard
   %textarea.download_urls{:readonly => 'readonly', :onclick => 'this.focus();this.select()'}
