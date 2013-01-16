@@ -1,6 +1,7 @@
 %h2 Editing profile of #{link_to @user.full_name, user_path(@user.path_name)}
 
 = form_for @user, :html=>{:multipart=>true} do |u|
+  = u.error_messages
   = u.label :login,:class=>"required"
   = u.text_field :login
   = u.label :password

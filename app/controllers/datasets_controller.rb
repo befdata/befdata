@@ -87,8 +87,8 @@ class DatasetsController < ApplicationController
     if @dataset.update_attributes(params[:dataset]) then
       redirect_to dataset_path
     else
-      flash[:error] = @dataset.errors.full_messages.to_sentence
-      render :create
+      last_request = request.env["HTTP_REFERER"]
+      render :action => (last_request == edit_dataset_url(@dataset) ? :edit : :create)
     end
   end
 
