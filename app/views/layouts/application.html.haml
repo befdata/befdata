@@ -14,7 +14,7 @@
     = javascript_include_tag 'rails'
     = javascript_include_tag 'application'
     = javascript_include_tag 'select2.min'
-    = csrf_meta_tag
+    = csrf_meta_tags
     = render :partial => "pages/#{LayoutHelper::BEF_LAYOUT}/head"
   %body
     - unless Rails.env == 'production'
