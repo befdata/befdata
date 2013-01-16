@@ -78,20 +78,10 @@ class DatasetsController < ApplicationController
   end
 
   def update
-    users_given_as_provenance = params[:people].blank? ? [] : User.find(params[:people])
-    users_with_current_ownership = User.all.select {|u| u.has_role? :owner, @dataset}
+    # set owners from the drop-down select box. if no one is specified, current user is used
+    users_given_as_provenance = params[:people].blank? ? [current_user] : User.find(params[:people])
+    @dataset.owners = users_given_as_provenance
 
-    if !users_given_as_provenance.empty? then
-      users_with_current_ownership.each do |u|
-        u.has_no_role! :owner, @dataset
-      end
-      users_given_as_provenance.each do |u|
-        u.has_role! :owner, @dataset
-      end
-    # but at least keep current_user if there would be nobody
-    elsif users_with_current_ownership.empty? then
-      current_user.has_role! :owner, @dataset
-    end
     @dataset.refresh_paperproposal_authors
 
     if @dataset.update_attributes(params[:dataset]) then

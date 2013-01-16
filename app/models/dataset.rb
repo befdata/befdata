@@ -24,9 +24,10 @@
 # * approve_predefined_columns : after the initial upload of data a User can bulk approve columns,
 #   without reviewing each column individually. The Datacolumn must be correctly described, in
 #   that it must have a Datagroup and a Datatype.
-
+require 'acl_patch'
 class Dataset < ActiveRecord::Base
   include PgSearch
+  include AclPatch
   acts_as_authorization_object :subject_class_name => 'User'
   acts_as_taggable
 
@@ -189,10 +190,6 @@ class Dataset < ActiveRecord::Base
     upload_spreadsheet.try(:destroy)
   end
 
-  def owners
-    self.users.select{|u| u.has_role?(:owner, self)}
-  end
-
   def log_download(downloading_user)
     # increment the download counter
     # temporarily turn off timestamp update otherwise the update date is updated everytime someone downloads the dataset
@@ -307,4 +304,20 @@ class Dataset < ActiveRecord::Base
   def all_tags
     tags | self.datacolumns.map(&:tags).flatten
   end
+
+ # acl9 role related staff: different kinds of user
+
+  def owners
+    query_by_role(:owner)
+  end
+  def owners= (people)
+    people  = [people] unless people.is_a?(Array)
+    current = self.owners
+    people.each {|u| u.has_role!(:owner, self) unless current.include?(u)}
+    current.each {|u| u.has_no_role!(:owner, self) unless people.include?(u)}
+  end
+  def proposers
+    query_by_role(:proposer)
+  end
+
 end

@@ -116,13 +116,8 @@ class DatacolumnsController < ApplicationController
     end
 
     # Retrieve the new list of people from the form params.
-    new_people = params[:people] ||= []
-
-    # Check all currently responsible users whether they are also new people. If not, remove them.
-    @datacolumn.users.each{|u| u.has_no_role! :responsible, @datacolumn unless new_people.include?(u.id.to_s)}
-
-    # Check all new people whether they were responsible before. If not, add them.
-    new_people.each{|p| User.find(p).has_role! :responsible, @datacolumn unless @datacolumn.users.include?(User.find(p))}
+    new_people = params[:people].blank? ? [] : User.find(params[:people])
+    @datacolumn.users = new_people
 
     @datacolumn.dataset.refresh_paperproposal_authors
     if @datacolumn.final_check_for_valid_sheetcells

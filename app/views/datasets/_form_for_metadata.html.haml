@@ -14,7 +14,7 @@
     %dt= label_tag 'Owners', nil
     %dd= select "person", "person_id", User.all_users_names_and_ids_for_select, {:prompt => 'Select Member'}, {:onchange => 'selectPeople(this)'}
   %ul#people-list
-    - @dataset.users.each do |user|
+    - @dataset.owners.each do |user|
       %li{:onclick => "this.parentNode.removeChild(this);"}
         %input{:name => "people[]", :type => "hidden", :value => user.id}/
         = image_tag 'cancel.png'

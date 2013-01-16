@@ -12,19 +12,18 @@
 ## 2. "update_invalid_value" creates a "Category" instance for the invalid value and assigns the "Category" to all "Sheetcell" instances
 ## that have the same invalid value in the "DataColumn". Regardless of the "Datatype" a "Category" is created for each invalid value and the
 ## "Datatype" of the "Sheetcell" updated to "Category". This results in Datacolumns consisting of more than one "Datatype".
-
+require 'acl_patch'
 class Datacolumn < ActiveRecord::Base
   include PgSearch
-  acts_as_taggable
-  after_destroy :destroy_taggings
-  after_save :update_dataset
-
+  include AclPatch
   acts_as_authorization_object :subject_class_name => 'User'
+  acts_as_taggable
+
+  after_destroy :destroy_taggings
 
   belongs_to :datagroup, :dependent => :destroy
   has_many :categories, :through => :datagroup
   belongs_to :dataset, :touch => true
-
   has_many :sheetcells, :dependent => :destroy
   has_many :import_categories, :dependent => :destroy
 
@@ -254,7 +253,13 @@ class Datacolumn < ActiveRecord::Base
     approval_stage == '0' && finished == false
   end
 
-  def update_dataset
-    self.dataset.update_attribute(:updated_at, Time.now)
+  # acl9 related stuff: users
+
+  # users of a datacolumn are those who are responsible for it
+  def users= (people)
+    people  = [people] unless people.is_a?(Array)
+    current = self.users
+    people.each {|u| u.has_role!(:responsible, self) unless current.include?(u)}
+    current.each {|u| u.has_no_role!(:responsible, self) unless people.include?(u)}
   end
 end

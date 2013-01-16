@@ -56,7 +56,7 @@ private
     sheet[*WBF[:meta_datemax_pos]] = dataset.datemax ? dataset.datemax.to_date.to_s : ""
     sheet[*WBF[:meta_projects_pos]] = dataset.projects.uniq.collect{|p| p.shortname}.sort.join(', ')
 
-    c_owners = dataset.users.select{|p| p.has_role?(:owner, dataset)}
+    c_owners = dataset.owners
     unless c_owners.blank?
       i = WBF[:meta_owners_start_col]
       c_owners.each do |cpr|
