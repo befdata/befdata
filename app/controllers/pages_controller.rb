@@ -23,7 +23,6 @@ class PagesController < ApplicationController
       ['Acts-as-taggable-on','https://github.com/mbleigh/acts-as-taggable-on'],
       ['Spreadsheet','http://spreadsheet.rubyforge.org/'],
       ['Yaml_db','https://github.com/ludicast/yaml_db'],
-      ['Active_scaffold','https://github.com/activescaffold/active_scaffold/blob/master/MIT-LICENSE'],
       ['Delayed_job','https://github.com/collectiveidea/delayed_job'],
       ['Daemons','http://daemons.rubyforge.org/'],
       ['Whenever','https://github.com/javan/whenever/'],

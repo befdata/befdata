@@ -53,13 +53,6 @@ Befchina::Application.routes.draw do
   match 'paperproposals/update_vote/:id' => 'paperproposals#update_vote', :as => :update_vote
   match 'paperproposals/update_state/:id' => 'paperproposals#update_state', :as => :paperproposal_update_state
 
-  namespace :admin do
-    resources :datasets, :projects, :users, :datagroups, :tags,
-              :datacolumns, :categories, :freeformats, :paperproposals do
-      as_routes
-    end
-  end
-
   resources :carts
   match 'create_cart_context/:dataset_id' => 'carts#create_cart_context', :as => :create_cart_context
   match 'delete_cart_context/:dataset_id' => 'carts#delete_cart_context', :as => :delete_cart_context

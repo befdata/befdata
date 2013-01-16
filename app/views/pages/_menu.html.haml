@@ -6,5 +6,3 @@
   %li= link_to 'Papers', :paperproposals
   - if current_user
     %li= link_to 'Cart', current_cart_url
-    - if current_user.has_role?(:admin)
-      %li= link_to 'Admin', admin_datasets_path
