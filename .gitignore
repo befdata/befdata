@@ -23,7 +23,6 @@ config/newrelic.yml
 tmp/*
 index/*
 files/*
-!files/9_generated-download.xls
 
 *DO_NOT_EDIT
 

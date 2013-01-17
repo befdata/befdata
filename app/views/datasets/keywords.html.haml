@@ -15,21 +15,21 @@
 %p
   %i=  @dt_keywords.empty? ? "No keywords" : raw(@dt_keywords.collect{|k| link_to k.name, keyword_path(k)}.join(", "))
 
-%h3 Datacolumn Keywords
-
-%table
-  %tr
-    %th Column
-    %th keywords
-    - if editable
-      %th edit
-  - @datacolumns.each do |dc|
+- unless @datacolumns.empty?
+  %h3 Datacolumn Keywords
+  %table
     %tr
-      %td= dc.columnheader
-      %td
-        %i= dc.tags.empty? ? "No keywords" : raw(dc.tags.collect {|k| link_to k.name, keyword_path(k) }.join(", "))
+      %th Column
+      %th keywords
       - if editable
-        %td= link_to "edit", approve_metadata_datacolumn_path(dc)
+        %th edit
+    - @datacolumns.each do |dc|
+      %tr
+        %td= dc.columnheader
+        %td
+          %i= dc.tags.empty? ? "No keywords" : raw(dc.tags.collect {|k| link_to k.name, keyword_path(k) }.join(", "))
+        - if editable
+          %td= link_to "edit", approve_metadata_datacolumn_path(dc)
 
 - unless @datasets.empty?
   %h2 Related Datasets
