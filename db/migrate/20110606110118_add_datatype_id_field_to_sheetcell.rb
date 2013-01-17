@@ -5,7 +5,7 @@ class AddDatatypeIdFieldToSheetcell < ActiveRecord::Migration
     add_column :sheetcells, :datatype_id, :integer
 
     directory = File.join(File.dirname(File.dirname(File.dirname(__FILE__))), "test/fixtures")
-    Fixtures.create_fixtures(directory, "datatypes")
+    ActiveRecord::Fixtures.create_fixtures(directory, "datatypes")
   end
 
   def self.down
