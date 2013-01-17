@@ -26,7 +26,8 @@ group :test, :development do
   # gem 'ruby-prof'
   gem 'libxml-ruby'
   gem 'rb-inotify'
-end
+  gem 'thin'   
+end 
 
 group :assets do
   gem 'sass-rails',   '~> 3.2.3'
@@ -36,8 +37,10 @@ group :assets do
   gem 'uglifier', '>= 1.0.3'
 end
 
-# continous testing with guard
 group :tools do
   gem 'guard'
   gem 'guard-test'
+  gem 'hpricot' 
+  gem 'ruby_parser'
 end
+

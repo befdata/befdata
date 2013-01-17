@@ -160,10 +160,8 @@ class DatasetsController < ApplicationController
 
     respond_to do |format|
       format.html
-      format.eml
     end
   end
-
 
   def download
     @dataset.log_download(current_user)
@@ -174,6 +172,10 @@ class DatasetsController < ApplicationController
       format.csv do
         send_data @dataset.to_csv(params[:separate_category_columns] =~ /true/i), :type => "text/csv",
           :disposition => 'attachment', :filename => "#{@dataset.filename}.csv"
+      end
+      format.eml do
+        eml_file = render_to_string(params[:separate_category_columns], :template=>"datasets/show.eml")
+        send_data(eml_file, :type=>"text/xml", :disposition => 'attachment', :filename => "#{@dataset.id}.eml")
       end
     end
   end
@@ -244,7 +246,7 @@ class DatasetsController < ApplicationController
   end
 
   private
-  
+
   def load_dataset
     @dataset = Dataset.find(params[:id])
   end

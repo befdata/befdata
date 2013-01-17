@@ -16,12 +16,14 @@ class DatasetsControllerTest < ActionController::TestCase
   end
 
   test "should show eml metadata as xml" do
-    get :show, {:id => Dataset.first.id, :format => :eml}
+    login_nadrowski
+    get :download, {:id => Dataset.first.id, :format => :eml}
     assert_success_no_error
   end
 
-  test "eml is valid" do
-    get :show, {:id => Dataset.last, :format => :eml}
+  test "eml should be valid" do
+    login_nadrowski
+    get :download, {:id => Dataset.last, :format => :eml}
     dataset_as_eml = LibXML::XML::Document.string(@response.body)
     eml_schema = LibXML::XML::Schema.new("test/fixtures/test_files_for_eml/eml-2.1.0/eml.xsd")
 
@@ -36,12 +38,12 @@ class DatasetsControllerTest < ActionController::TestCase
     assert_success_no_error
   end
 
-  test "dataset can be downloaded via api key" do 
+  test "dataset can be downloaded via api key" do
     get :download, {:id => Dataset.first.id, :format => :csv, :user_credentials => User.find_by_login("nadrowski").single_access_token}
     assert_success_no_error
   end
-  
-  test "dataset can not be downloaded via invalid api key" do 
+
+  test "dataset can not be downloaded via invalid api key" do
     get :download, {:id => Dataset.first.id, :format => :csv, :user_credentials => '12345'}
     assert_match(/Access denied. Try to log in first./, flash[:error])
   end
@@ -97,9 +99,9 @@ class DatasetsControllerTest < ActionController::TestCase
     get :download, :id=>ds.id
     assert_match(/Access denied/, flash[:error])
   end
-  
+
   # Approval
-  
+
   test "approve shows table for all datacolumns" do
     login_nadrowski
     dataset = Dataset.find 5
@@ -158,11 +160,11 @@ class DatasetsControllerTest < ActionController::TestCase
 
     assert_not_equal Datacolumn.find(datacolumn_id).import_data_type, 'text'
   end
-  
+
   # Destroy
-  
+
   test "destroy should delete a dataset" do
-    pending "Implement me!"  
+    pending "Implement me!"
   end
 
   test "replacing original research data with new file" do

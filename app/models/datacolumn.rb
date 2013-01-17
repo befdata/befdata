@@ -12,18 +12,19 @@
 ## 2. "update_invalid_value" creates a "Category" instance for the invalid value and assigns the "Category" to all "Sheetcell" instances
 ## that have the same invalid value in the "DataColumn". Regardless of the "Datatype" a "Category" is created for each invalid value and the
 ## "Datatype" of the "Sheetcell" updated to "Category". This results in Datacolumns consisting of more than one "Datatype".
+
 require 'acl_patch'
 class Datacolumn < ActiveRecord::Base
   include PgSearch
   include AclPatch
   acts_as_authorization_object :subject_class_name => 'User'
   acts_as_taggable
-
   after_destroy :destroy_taggings
 
   belongs_to :datagroup, :dependent => :destroy
   has_many :categories, :through => :datagroup
   belongs_to :dataset, :touch => true
+
   has_many :sheetcells, :dependent => :destroy
   has_many :import_categories, :dependent => :destroy
 
@@ -251,6 +252,28 @@ class Datacolumn < ActiveRecord::Base
   
   def untouched?
     approval_stage == '0' && finished == false
+  end
+
+  def split_me?(separate_category_columns = false)
+    #This method returns true for a column when it requires splitting for export into csv. 
+    #It is also used for the eml export to adapt its output to the category split 
+    #export of the csv file. 
+
+    collect_column_sheetcells_boolean_values = []
+
+    self.sheetcells.each do |sc|
+      if !separate_category_columns || self.import_data_type == 'category' || !(sc.datatype && sc.datatype.is_category? && sc.category)  
+        collect_column_sheetcells_boolean_values << false
+      else 
+        collect_column_sheetcells_boolean_values << true 
+      end 
+    end 
+
+    if collect_column_sheetcells_boolean_values.include?(true)
+      return true 
+    else 
+      return false 
+    end
   end
 
   # acl9 related stuff: users
