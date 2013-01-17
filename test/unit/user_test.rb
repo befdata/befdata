@@ -9,7 +9,7 @@ class UserTest < ActiveSupport::TestCase
 
   test "add avatar to user" do
     @user = User.find_by_login 'nadrowski'
-    @user.avatar = test_file_for_upload "test-avatar.png"
+    @user.avatar = File.new(File.join(fixture_path,"test_files_for_uploads", "test-avatar.png"))
 
     assert @user.save!, "Avatar could not even be uploaded"
 

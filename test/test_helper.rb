@@ -4,6 +4,7 @@ require 'rails/test_help'
 require 'authlogic/test_case'
 
 class ActiveSupport::TestCase
+  include ActionDispatch::TestProcess
   # Setup all fixtures in test/fixtures/*.(yml|csv) for all tests in alphabetical order.
   #
   # Note: You'll currently still have to declare fixtures explicitly in integration tests
@@ -30,16 +31,14 @@ class ActiveSupport::TestCase
     UserSession.create(user)
   end
 
-  def test_file_for_upload(filename = "test-avatar.png")
-    f = File.new(File.join(fixture_path, 'test_files_for_uploads', filename))
-
-    # to simulate an uploaded file which has this method
+  def test_file_for_upload(filename)
+    # make Rack::Test::UploadedFile behaves like ActionDispatch::Http::UploadedFile by exposing tempfile accessor
+    # please put all files for uploading under 'test_file_for_uploads' directory
+    # used only for uploading files through form in functional or integration test
+    f = fixture_file_upload(File.join('test_files_for_uploads', filename))
     class << f
-      def tempfile
-        self
-      end
+      attr_accessor :tempfile
     end
-
     f
   end
 
