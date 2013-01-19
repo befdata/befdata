@@ -1,7 +1,7 @@
 class ::ApplicationController < ActionController::Base
   protect_from_forgery
   helper_method :current_user_session, :current_user
-  #layout "application"
+  #layout :layout_from_config
 
   access_control :deny_access_to_all do
     deny all

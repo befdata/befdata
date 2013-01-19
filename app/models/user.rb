@@ -66,9 +66,7 @@ class User < ActiveRecord::Base
 
   def projects
   # die conditions greifen nicht in dieser Abfrage ...
-  #    roles = self.role_objects :conditions => [:authorizable_type => 'Project']
-    roles = self.role_objects.select{|rob| rob.authorizable_type=="Project"}
-    roles.map{|role| role.authorizable}
+    self.roles_for(Project).map(&:authorizable)
   end
 
   # This method provides a nice look of Person on some pages
@@ -125,59 +123,24 @@ class User < ActiveRecord::Base
   end
 
   def datasets_owned
-    Dataset.all.select{|ds| ds.accepts_role?(:owner, self)}
+    self.roles.includes(:authorizable).where({name: "owner", authorizable_type: "Dataset"}).map(&:authorizable)
   end
-
-  def datasets_with_responsible_datacolumns_not_owned
-    # there must be a better way of doing this but it works for now
-
-    # find all the datacolumns that this user is responsible for
-    # and select all the datasets that the datacolumns are part of
-    @columns = Datacolumn.all.select { |ds| ds.accepts_role?(:responsible, self)}
-    if(@columns.count>0)
-      @columnids = @columns.map{|col| col.dataset_id}
-      if (@columns.count==1)
-        #Dataset.find(:all, :conditions => ["id = ?", @columnids])
-        @predicate = "id=#{@columnids[0]}"
-      else
-        @predicate = "id in (#{@columnids.join(",")})"
-        #Dataset.find(:all, :conditions => ["id in (?)", @columnids])
-      end
-      # get the datasets this user owns
-      # and do not select them in the query
-      @owned = self.datasets_owned
-      if(@owned.count >0)
-        @ownedids = @owned.map{|ds| ds.id}
-        if(@owned.count==1)
-          @predicate = @predicate + " and id !=#{@ownedids[0]}"
-        else
-          @predicate = @predicate + " and id not in (#{@ownedids.join(",")})"
-        end
-      end
-      # return all the datasets for the predicate
-      Dataset.find(:all, :conditions => [@predicate])
-    else
-      # return an empty array
-      Array.new
+  def datasets_with_responsible_datacolumns
+    columns = self.roles_for(Datacolumn).map(&:authorizable_id)
+    unless columns.empty?
+      dataset_ids = Datacolumn.where(:id => columns).pluck(:dataset_id)
+      datasets = Dataset.find(dataset_ids)
+      return datasets
     end
+    return Array.new
   end
 
   def paperproposals
-    (paperproposals_author_table + owning_paperproposals).uniq.sort
+    owning_paperproposals | paperproposals_author_table
   end
 
   def projectroles
-    # return the project roles that this user has
-    # disclude any admins roles
-    @projectsarray = []
-    @index =0
-    for role in self.role_objects.reject{|r| r.name == "admin"}
-      if(role.authorizable.class.to_s == "Project")
-        @projectsarray[@index]= role
-        @index = @index +1
-      end
-    end
-    @projectsarray
+    self.roles_for(Project)
   end
 
   def authorized_for_update?

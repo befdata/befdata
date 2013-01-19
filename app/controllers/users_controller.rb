@@ -23,7 +23,9 @@ class UsersController < ApplicationController
       flash[:error] = "You must be logged in to access this page"
       redirect_to :root and return
     else
-      @user_datasets_owned = @user.datasets_owned.sort_by {|d| d.title.to_s}
+      @datasets_owned = @user.datasets_owned.sort_by {|d| d.title.to_s}
+      @datasets_with_responsible_datacolumns_not_owned = @user.datasets_with_responsible_datacolumns - @datasets_owned
+      @project_roles = @user.projectroles
     end
   end
 

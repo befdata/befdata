@@ -16,13 +16,13 @@
       = image_tag "reload.png"
       = "Update api login credentials"
 
-- unless @user.projects.blank?
+- unless @project_roles.blank?
   = content_for :info do
     %h3 Projects
     %ul
-      - @user.projectroles.each do |role|
+      - @project_roles.each do |role|
         %li
-          = link_to role.authorizable, project_path(role.authorizable.id)
+          = link_to role.authorizable, project_path(role.authorizable)
           ="(#{t("role."+role.name)})"
 
 %h2
@@ -49,17 +49,17 @@
     Api login credentials:
     = @user.single_access_token
 
-- unless @user_datasets_owned.empty?
+- unless @datasets_owned.empty?
   %h3 Datasets
   %ul
-    - @user_datasets_owned.each do |ds|
+    - @datasets_owned.each do |ds|
       %li
         = render :partial => ds, :locals => {:with_cart => true, :with_comment => true}
 
-- unless @user.datasets_with_responsible_datacolumns_not_owned.count==0
+- unless @datasets_with_responsible_datacolumns_not_owned.count==0
   %h3 Involved with data columns within the following datasets
   %ul
-    - @user.datasets_with_responsible_datacolumns_not_owned.each do |ds|
+    - @datasets_with_responsible_datacolumns_not_owned.each do |ds|
       %li
         = render :partial => ds, :locals => {:with_cart => true, :with_comment => false}
 
