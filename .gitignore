@@ -10,6 +10,7 @@ index/*
 *.svn*
 *tuneup*
 
+public/assets/*
 public/files/*
 public/downloads/*
 public/images/user_avatars/*

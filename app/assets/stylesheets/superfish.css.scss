@@ -66,7 +66,7 @@ ul.sf-menu li li li.sfHover ul {
 	font-size:		14px;
 	padding: 		.5em 0.9em .75em;
 	text-decoration:	none;
-	background: url(../images/bg02.jpg) no-repeat right 50%;
+	background: imamge-url("bg02.jpg") no-repeat right 50%;
 }
 .sf-menu a, .sf-menu a:visited  { /* visited pseudo selector so IE6 applies text colour*/
 	color:			#fff;
@@ -90,7 +90,7 @@ ul.sf-menu li li li.sfHover ul {
 }
 
 .sf-menu li > ul {
-        border-top:		0px none; */ this one is ignored by ie */
+        border-top:		0px none; /* this one is ignored by ie */
 }
 
 .sf-menu li li li {
@@ -151,7 +151,7 @@ li.sfHover > a > .sf-sub-indicator {
 
 /*** shadows for all but IE6 ***/
 .sf-shadow ul {
-	background:	url('/images/shadow.png') no-repeat bottom right;
+	background:	image-url('shadow.png') no-repeat bottom right;
 	padding: 0 8px 9px 0;
 	/*-moz-border-radius-bottomleft: 17px;
 	-moz-border-radius-topright: 17px;

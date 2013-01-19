@@ -19,6 +19,9 @@ gem 'whenever', :require => false
 gem 'activerecord-import'
 gem 'newrelic_rpm'
 gem 'pg_search'
+gem 'jquery-rails'
+gem 'jquery-ui-rails'
+
 group :test, :development do
   gem "test-unit", '2.4.8' #2.4.9 is incompatible to Rubymine's and Teamcity's way of running tests
                           # Issue is filed and update will fix this http://youtrack.jetbrains.com/issue/RUBY-11239

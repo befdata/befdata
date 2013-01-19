@@ -1,17 +1,14 @@
-// Place your application-specific JavaScript functions and classes here
-// This file is automatically included by javascript_include_tag :defaults
-
 function selectPeople(select) {
-	if (select.options[select.selectedIndex].value == "") {
-		// The prompt option has no value and thus can't be added. 
-		return;
-	}
+  if (select.options[select.selectedIndex].value == "") {
+    // The prompt option has no value and thus can't be added.
+    return;
+  }
     var option = select.options[select.selectedIndex];
     var ul = document.getElementById('people-list');
     var choices = ul.getElementsByTagName('input');
     for (var i = 0; i < choices.length; i++) if (choices[i].value == option.value) return;
     var image = document.createElement('img');
-    image.setAttribute('src', '/images/cancel.png');
+    image.setAttribute('src', "<%= asset_path('cancel.png') %>");
     var li = document.createElement('li');
     var input = document.createElement('input');
     var text = document.createTextNode(option.firstChild.data);
@@ -26,16 +23,16 @@ function selectPeople(select) {
 }
 
 function selectProjects(select) {
-	if (select.options[select.selectedIndex].value == "") {
-		// The prompt option has no value and thus can't be added.
-		return;
-	}
+  if (select.options[select.selectedIndex].value == "") {
+    // The prompt option has no value and thus can't be added.
+    return;
+  }
     var option = select.options[select.selectedIndex];
     var ul = document.getElementById('projects-list');
     var choices = ul.getElementsByTagName('input');
     for (var i = 0; i < choices.length; i++) if (choices[i].value == option.value) return;
     var image = document.createElement('img');
-    image.setAttribute('src', '/images/cancel.png');
+    image.setAttribute('src', "<%= asset_path('cancel.png') %>");
     var li = document.createElement('li');
     var input = document.createElement('input');
     var text = document.createTextNode(option.firstChild.data);

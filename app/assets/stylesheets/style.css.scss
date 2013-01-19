@@ -196,7 +196,7 @@ body {
     font-family: "Trebuchet MS", Helvetica, Arial, sans-serif;
     line-height: 1.8em;
 	color: #000;
-    background: url(../images/bg-stripes-grey-grey.png) repeat;
+    background: image-url("bg-stripes-grey-grey.png") repeat;
 }
 
 input, textarea, select {
@@ -319,18 +319,18 @@ table.tablesorter th {
 }
 
 table.tablesorter .header {
-	background-image: url(../images/tablesorter/bg.gif);
+	background-image: image-url("tablesorter/bg.gif");
 	background-repeat: no-repeat;
     background-position: center right;
 }
 
 table.tablesorter .headerSortUp {
-	background-image: url(../images/tablesorter/asc.gif);
+	background-image: image-url("tablesorter/asc.gif");
 	background-repeat: no-repeat;
 }
 
 table.tablesorter .headerSortDown {
-	background-image: url(../images/tablesorter/desc.gif);
+	background-image: image-url("tablesorter/desc.gif");
 	background-repeat: no-repeat;
 }
 
@@ -433,7 +433,7 @@ input[type=button]:hover, input[type=submit]:hover, button:hover, input[type=but
 }
 
 #logo {
-	background: url(../images/header-logo.png) no-repeat left top;
+	background: image-url("header-logo.png") no-repeat left top;
     width: 928px;
     height: 43px;
     margin-top: 30px;
@@ -463,11 +463,11 @@ input[type=button]:hover, input[type=submit]:hover, button:hover, input[type=but
 }
 
 input#user_session_login {
-    background: url("../images/login-user.png") left center no-repeat;
+    background: image-url("login-user.png") left center no-repeat;
 }
 
 input#user_session_password {
-    background: url("../images/login-pwd.png") left center no-repeat;
+    background: image-url("login-pwd.png") left center no-repeat;
 }
 
 #remember_me {
@@ -495,7 +495,7 @@ input#user_session_password {
 }
 
 input#search_term {
-    background: url("../images/header-search.png") left center no-repeat;
+    background: image-url("header-search.png") left center no-repeat;
     margin-right: 4px;
 }
 
@@ -1024,7 +1024,7 @@ div#actions + div#info {
 /* --- Footer ------------------------------------------------ */
 
 #footer {
-    background: url("../images/bg-footer.png") repeat-x top left;
+    background: image-url("bg-footer.png") repeat-x top left;
 	clear: both;
     display: block;
     margin-top: 20px;
@@ -1334,7 +1334,7 @@ a.button:active{
 /* -------------------------------------------------------------- 
 Custom JQuery Tweaking
 -------------------------------------------------------------- */
-
+.ui-widget {font-family: "Trebuchet MS", Helvetica, Arial, sans-serif;}
 .ui-widget-header { background: #243f12; border: 1px solid #9bc56f; }
 .ui-widget-content { background: #fff; }
 .ui-tabs { padding: 0; }

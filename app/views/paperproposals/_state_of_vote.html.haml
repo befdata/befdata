@@ -21,9 +21,9 @@
         - @paperproposal.project_board_votes.each do |vote|
           %div.arrow_box
             %span.label= vote.user.to_label
-            = image_tag("/images/arrow_right_#{vote.vote}.png", :title => vote.comment)
+            = image_tag("arrow_right_#{vote.vote}.png", :title => vote.comment)
       %span.right_vote
-        = image_tag("/images/arrow_join_#{state}.png")
+        = image_tag("arrow_join_#{state}.png")
         = @paperproposal.calc_board_state
     %span.clear
 
