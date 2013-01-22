@@ -38,6 +38,6 @@ class Project < ActiveRecord::Base
   end
 
   def pi
-    query_by_role(:pi)
+    get_user_with_role(:pi)
   end
 end

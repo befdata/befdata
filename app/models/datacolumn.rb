@@ -280,9 +280,6 @@ class Datacolumn < ActiveRecord::Base
 
   # users of a datacolumn are those who are responsible for it
   def users= (people)
-    people  = [people] unless people.is_a?(Array)
-    current = self.users
-    people.each {|u| u.has_role!(:responsible, self) unless current.include?(u)}
-    current.each {|u| u.has_no_role!(:responsible, self) unless people.include?(u)}
+    self.set_user_with_role(:responsible, people)
   end
 end

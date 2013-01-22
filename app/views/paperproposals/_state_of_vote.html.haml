@@ -2,13 +2,13 @@
   Current Board State is: #{@paperproposal.calc_board_state}
 
   - if @paperproposal.calc_board_state == "complete"
-    - form_for @paperproposal, :url => paperproposal_update_state_path(@paperproposal) do |form|
+    = form_for @paperproposal, :url => paperproposal_update_state_path(@paperproposal) do |form|
       = form.label @paperproposal.calc_board_state
       = form.submit "Send to board"
       = form.hidden_field :board_state, :value => "submit"
       
   - if @paperproposal.board_state == "re_prep"
-    - form_for @paperproposal, :url => paperproposal_update_state_path(@paperproposal) do |form|
+    = form_for @paperproposal, :url => paperproposal_update_state_path(@paperproposal) do |form|
       = "When you are ready, we are!"
       = form.submit "Send to board again", :confirm => "Do you make your changes?"
       = form.hidden_field :board_state, :value => "submit"

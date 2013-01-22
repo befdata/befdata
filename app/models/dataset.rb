@@ -307,16 +307,13 @@ class Dataset < ActiveRecord::Base
  # acl9 role related staff: different kinds of user
 
   def owners
-    query_by_role(:owner)
+    get_user_with_role(:owner)
   end
   def owners= (people)
-    people  = [people] unless people.is_a?(Array)
-    current = self.owners
-    people.each {|u| u.has_role!(:owner, self) unless current.include?(u)}
-    current.each {|u| u.has_no_role!(:owner, self) unless people.include?(u)}
+    set_user_with_role(:owner, people)
   end
   def proposers
-    query_by_role(:proposer)
+    get_user_with_role(:proposer)
   end
 
 end

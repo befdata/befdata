@@ -17,7 +17,7 @@
           = image_tag("arrow_join_#{vote.paperproposal.board_state}.png")
           %span.vote-state-text= vote.paperproposal.calc_board_state
 
-    - form_for vote, :url => update_vote_path(vote) do |form|
+    = form_for vote, :url => update_vote_path(vote) do |form|
       %h4 Your Vote
       %dl
         %dt= form.label :vote, "Accept or reject?"
