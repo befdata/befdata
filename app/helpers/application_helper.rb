@@ -13,4 +13,8 @@ module ApplicationHelper
       yield t, classes[(t.taggings.count.to_i - min) / divisor]
     }
   end
+  def all_project_roles
+    t("role").slice(:pi, :"co-pi", :postdoc, :"phd student",
+                    :technician, :student).invert
+  end
 end

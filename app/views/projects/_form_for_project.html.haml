@@ -1,0 +1,41 @@
+= form_for @project do |f|
+  = f.error_messages
+  = f.label :shortname, class: "required"
+  = f.text_field :shortname
+  = f.label :name, class: "required"
+  = f.text_field :name
+  = f.label :description
+  = f.text_area :description
+  = f.label :comment
+  = f.text_area :comment
+  = field_set_tag "Manage members" do
+    #roles
+      = render :partial => 'role', :collection => @roles
+    = link_to "+ Add role", "#", id: "add_role"
+  %div
+    = f.submit
+
+- new_fields = j render(:partial => 'role')
+- max_num = all_project_roles.length
+:javascript
+  $(function(){
+    $("select.select2").select2({
+      placeholder: "Select users"
+    });
+    $("#add_role").click(function(){
+      if ($(".role").length < "#{max_num}")
+      {
+        $("#{new_fields}").appendTo("#roles").find("select.select2").select2({
+          placeholder: "Select users"
+        });
+      }
+      else {
+        alert("Currently, At most #{max_num} roles allowed.");
+      }
+      return(false);
+    });
+    $("#roles").on("click", "a.empty", function(){
+      $(this).prev("select.select2").select2("val","");
+      return(false);
+    })
+  })
