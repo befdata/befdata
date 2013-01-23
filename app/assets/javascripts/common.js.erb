@@ -125,3 +125,11 @@ function clone_element_before(element) {
 function clone_me() {
     this.clone().appendTo(this.parent);
 }
+
+$(function(){
+  $("table.tablesorter").tablesorter();
+  $("#content").on("click","a.close", function(){
+    $(this).parent().remove();
+    return(false);
+  });
+})

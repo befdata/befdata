@@ -85,7 +85,7 @@ class DatasetsController < ApplicationController
     @dataset.refresh_paperproposal_authors
 
     if @dataset.update_attributes(params[:dataset]) then
-      redirect_to dataset_path
+      redirect_to dataset_path, notice: "Sucessfully Saved"
     else
       last_request = request.env["HTTP_REFERER"]
       render :action => (last_request == edit_dataset_url(@dataset) ? :edit : :create)

@@ -17,12 +17,13 @@
 
 - unless @datacolumns.empty?
   %h3 Datacolumn Keywords
-  %table
-    %tr
-      %th Column
-      %th keywords
-      - if editable
-        %th edit
+  %table.tablesorter
+    %thead
+      %tr
+        %th Column
+        %th keywords
+        - if editable
+          %th edit
     - @datacolumns.each do |dc|
       %tr
         %td= dc.columnheader

@@ -368,7 +368,10 @@ input[type=button]:hover, input[type=submit]:hover, button:hover, input[type=but
     outline-color: #18921e;
     background-color: #eee;
 }
-
+form .required:after {
+  content: ' *';
+  color: red;
+}
 /*select2 tweak*/
 
 .select2-results .select2-highlighted {
@@ -886,11 +889,6 @@ form.edit_user {
     height: 100px;
 }
 
-.edit_user .required:after {
-    content: ' *';
-    color: red;
-}
-
 .edit_user .avatar {
     width: 500px;
     float:left;
@@ -901,6 +899,7 @@ form.edit_user {
 .edit_user .avatar input {
     margin-left: 160px;
 }
+
 
 /* --- Sidebar ----------------------------------------------- */
 
@@ -1350,39 +1349,6 @@ Some Form layout
     height: 120px;
 }
 
-#profile{
-  width:608px;
-  margin: 10px;
-  border: solid 1px rgb(221,221,221);
-  padding: 20px;
-}
-#profile label{
-  float:left;
-  width: 140px;
-  margin-right: 20px;
-}
-#profile input{
-  width: 300px;
-}
-#profile input[type="submit"]{
-  width: auto;
-}
-#profile textarea{
-  width: 300px;
-  height: 100px;
-}
-#profile .required{
-  font-weight: bold;
-}
-#profile .avata{
-  width: 140px;
-  float:left;
-  margin-right: 20px;
-}
-#profile img{
-  margin-left: 10px;
-}
-
 /*  download page  */
 
 span#outdated {
@@ -1452,4 +1418,17 @@ span#finished {
 }
 #tabs .ui-tabs-active.ui-state-active.ui-state-hover a{
   color: white;
+}
+a.close {
+  display: block;
+  float: right;
+  font-weight: bold;
+  font-family: Arial, sans-serif;
+  font-size: 20px;
+  &:hover{
+    text-decoration: none;
+  }
+  &:after {
+    content: "×";
+  }
 }
