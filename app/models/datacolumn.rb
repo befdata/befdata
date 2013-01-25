@@ -13,13 +13,13 @@
 ## that have the same invalid value in the "DataColumn". Regardless of the "Datatype" a "Category" is created for each invalid value and the
 ## "Datatype" of the "Sheetcell" updated to "Category". This results in Datacolumns consisting of more than one "Datatype".
 
+require 'acl_patch'
 class Datacolumn < ActiveRecord::Base
   include PgSearch
+  include AclPatch
+  acts_as_authorization_object :subject_class_name => 'User'
   acts_as_taggable
   after_destroy :destroy_taggings
-  after_save :update_dataset
-
-  acts_as_authorization_object :subject_class_name => 'User'
 
   belongs_to :datagroup, :dependent => :destroy
   has_many :categories, :through => :datagroup
@@ -254,10 +254,6 @@ class Datacolumn < ActiveRecord::Base
     approval_stage == '0' && finished == false
   end
 
-  def update_dataset
-    self.dataset.update_attribute(:updated_at, Time.now)
-  end
-
   def split_me?(separate_category_columns = false)
     # This method returns true for a column when it requires splitting.
 
@@ -276,5 +272,11 @@ class Datacolumn < ActiveRecord::Base
     else
       return false
     end
+
+  # acl9 related stuff: users
+
+  # users of a datacolumn are those who are responsible for it
+  def users= (people)
+    self.set_user_with_role(:responsible, people)
   end
 end

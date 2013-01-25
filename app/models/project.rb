@@ -1,10 +1,10 @@
 # A project is actually a sub-project of the whole BEF project.
-
+require 'acl_patch'
 class Project < ActiveRecord::Base
   acts_as_authorization_object :subject_class_name => 'User'
+  include AclPatch
 
   has_and_belongs_to_many :datasets
-
   has_many :authored_paperproposals, :class_name => "Paperproposal",  :foreign_key => :project_id
 
   validates_presence_of :shortname, :name
@@ -38,6 +38,6 @@ class Project < ActiveRecord::Base
   end
 
   def pi
-    self.accepted_roles.find_by_name("pi").try(:users)
+    get_user_with_role(:pi)
   end
 end

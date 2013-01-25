@@ -1,9 +1,7 @@
 # This controller handles all calls for staff information.
 
 class UsersController < ApplicationController
-  before_filter :require_user, :except => [:index, :show]
   before_filter :load_current_user, :except => [:index, :show]
-
   skip_before_filter :deny_access_to_all
 
   access_control do
@@ -25,7 +23,9 @@ class UsersController < ApplicationController
       flash[:error] = "You must be logged in to access this page"
       redirect_to :root and return
     else
-      @user_datasets_owned = @user.datasets_owned.sort_by {|d| d.title.to_s}
+      @datasets_owned = @user.datasets_owned.sort_by {|d| d.title.to_s}
+      @datasets_with_responsible_datacolumns_not_owned = @user.datasets_with_responsible_datacolumns - @datasets_owned
+      @project_roles = @user.projectroles
     end
   end
 
@@ -36,8 +36,7 @@ class UsersController < ApplicationController
     if @user.update_attributes(params[:user])
       redirect_to :profile, :notice => "Saved successfully!"
     else
-      flash[:error]=@user.errors.full_messages.to_sentence
-      redirect_to :back
+      render :edit
     end
   end
 

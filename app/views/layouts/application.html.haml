@@ -2,20 +2,12 @@
 %html{:xmlns => "http://www.w3.org/1999/xhtml"}
   %head
     %meta{:content => "text/html; charset=utf-8", "http-equiv" => "Content-Type"}
-    = stylesheet_link_tag 'ui-lightness/jquery-ui'
-    = stylesheet_link_tag 'superfish'
-    = stylesheet_link_tag 'select2'
-    = stylesheet_link_tag 'style'
-    = javascript_include_tag 'jquery'
-    = javascript_include_tag 'jquery-ui'
-    = javascript_include_tag 'jquery-cookie'
-    = javascript_include_tag 'jquery.tablesorter.min'
-    = javascript_include_tag 'jquery.simplemodal.1.4.2.min'
-    = javascript_include_tag 'rails'
+    = stylesheet_link_tag 'application'
     = javascript_include_tag 'application'
-    = javascript_include_tag 'select2.min'
-    = active_scaffold_includes
-    = csrf_meta_tag
+    - unless LayoutHelper::BEF_LAYOUT == "application"
+      = stylesheet_link_tag 'site'
+      = javascript_include_tag 'site'
+    = csrf_meta_tags
     = render :partial => "pages/#{LayoutHelper::BEF_LAYOUT}/head"
   %body
     - unless Rails.env == 'production'
@@ -33,9 +25,11 @@
         - if flash[:error]
           #error
             = flash[:error]
+            = link_to  "", "#", class: "close"
         - if flash[:notice]
           #notice
             = flash[:notice]
+            = link_to  "", "#", class: "close"
 
         - sidebar_exists = content_for?(:actions) || content_for?(:info)
         #main{:class => sidebar_exists ? "span-8 append-1" : "span-12"}

@@ -9,7 +9,6 @@
       = link_to 'Logout', logout_path
 - else
   = form_for UserSession.new, :url => user_session_path do |f|
-    = f.error_messages
     = f.text_field :login, :size => 8
     = f.password_field :password, :size => 8
     %span#remember_me

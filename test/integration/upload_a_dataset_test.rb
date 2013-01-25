@@ -7,7 +7,7 @@ class UploadADatasetTest < ActionDispatch::IntegrationTest
     @user = User.find_by_login('nadrowski')
     post user_session_path, {:user_session=>{:login=>@user.login, :password=>"test"}}
 
-    uploadedfile = fixture_file_upload("test_files_for_uploads/UnitTestSpreadsheetForUpload_new.xls")
+    uploadedfile = test_file_for_upload("UnitTestSpreadsheetForUpload_new.xls")
 
     post datasets_path, {:datafile=>{:file=>uploadedfile}},{"HTTP_REFERER"=>new_dataset_path}
     #now it's on views/create pages

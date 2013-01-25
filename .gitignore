@@ -10,6 +10,7 @@ index/*
 *.svn*
 *tuneup*
 
+public/assets/*
 public/files/*
 public/downloads/*
 public/images/user_avatars/*
@@ -23,8 +24,6 @@ config/newrelic.yml
 tmp/*
 index/*
 files/*
-!files/9_generated-download.xls
-public/javascripts/active_scaffold/default/date_picker_bridge.js
 
 *DO_NOT_EDIT
 

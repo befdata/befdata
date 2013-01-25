@@ -1,0 +1,35 @@
+// Place all the styles related to the projects controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+/* --- Project edit form ----------------------------------------- */
+.edit_project, .new_project {
+  label {
+    display: block;
+  }
+  input[type="text"],textarea{
+    width: 650px;
+  }
+  textarea {
+    height: 250px;
+  }
+  fieldset {
+    width: 628px;
+    border: solid 1px lightgray;
+    padding: 12px;
+    margin: 5px 0px;
+    legend {
+      padding: 0px 3px;
+    }
+    select {
+      width: 30%;
+    }
+    .select2-container-multi {
+      width: 60%;
+    }
+    a.empty {
+      position: relative;
+      top: -0.5em;
+    }
+  }
+}

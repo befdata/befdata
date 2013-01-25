@@ -1,0 +1,26 @@
+body {
+    background: white;
+}
+
+#header div#logo {
+    background: image-url("http://www.fundiveurope.eu/wp-content/themes/fundiveurope/images/bg_header.jpg") top no-repeat;
+    height: 148px;
+}
+
+#footer {
+    background: image-url("http://www.fundiveurope.eu/wp-content/themes/fundiveurope/images/bg_footer.jpg") top left no-repeat;
+    height: 64px;
+}
+
+#footer ul#page-associates {
+    padding-left: 30px;
+}
+
+#footer ul#page-associates li{
+    margin-right: 10px;
+}
+
+#footer ul#foot-menu a {
+    color: #8a8a8a;
+}
+

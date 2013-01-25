@@ -1,3 +1,12 @@
+- if current_user && current_user.has_role?(:admin)
+  = content_for :actions do
+    = link_to edit_project_path(@project) do
+      = image_tag "edit.png"
+      Edit
+    - if @deletable
+      = link_to project_path(@project), {:method => :delete, :confirm => "Are you sure to delete project: #{@project.shortname}?"} do
+        = image_tag "trash.png"
+        Delete this Project
 = content_for :info do
   %ul
     - @project.users.each do |person|

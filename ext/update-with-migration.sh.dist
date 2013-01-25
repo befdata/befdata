@@ -15,6 +15,9 @@ pushd $ROOT
 
   echo "========= Migrating the database ========="
   rake db:migrate
+
+  echo "========= Precompiling the assets(only needed for production)========="
+  rake assets:precompile
   
   echo "========= Restarting Server ========"
   touch "tmp/restart.txt"

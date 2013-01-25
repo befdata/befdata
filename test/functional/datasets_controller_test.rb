@@ -189,7 +189,7 @@ class DatasetsControllerTest < ActionController::TestCase
     #upload another workbook
     post :delete_imported_research_data_and_file, :id => @dataset.id,
           :datafile => {
-              :file => fixture_file_upload("test_files_for_uploads/SP5_TargetSpecies_CN_final_8_target_spec_kn_-_short.xls")
+              :file => test_file_for_upload("SP5_TargetSpecies_CN_final_8_target_spec_kn_-_short.xls")
           }
 
     assert_redirected_to dataset_path(@dataset)

@@ -10,14 +10,14 @@
           .voter-with-arrow
             %span.voter-name
               = link_to pb_vote.user.to_label, pb_vote.user
-            = image_tag("/images/arrow_right_#{pb_vote.vote}.png", :title => pb_vote.comment)
+            = image_tag("arrow_right_#{pb_vote.vote}.png", :title => pb_vote.comment)
 
       - if vote.project_board_vote
         %span.vote-result
-          = image_tag("/images/arrow_join_#{vote.paperproposal.board_state}.png")
+          = image_tag("arrow_join_#{vote.paperproposal.board_state}.png")
           %span.vote-state-text= vote.paperproposal.calc_board_state
 
-    - form_for vote, :url => update_vote_path(vote) do |form|
+    = form_for vote, :url => update_vote_path(vote) do |form|
       %h4 Your Vote
       %dl
         %dt= form.label :vote, "Accept or reject?"

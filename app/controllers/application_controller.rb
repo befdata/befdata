@@ -1,7 +1,7 @@
 class ::ApplicationController < ActionController::Base
   protect_from_forgery
   helper_method :current_user_session, :current_user
-  #layout "application"
+  #layout :layout_from_config
 
   access_control :deny_access_to_all do
     deny all
@@ -53,31 +53,16 @@ private
     @current_user = current_user_session && current_user_session.user
   end
 
-  def require_user
-    unless current_user
-      store_location
-      flash[:error] = "You must be logged in to access this page"
-      redirect_back_or_default root_url
-      return false
-    end
-  end
-
   def require_no_user
     if current_user
-      store_location
       flash[:error] = "You must be logged out to access this page"
       redirect_back_or_default root_url
       return false
     end
   end
 
-  def store_location
-    session[:return_to] = request.request_uri
-  end
-
   def redirect_back_or_default (default = root_url)
     unless request.env['HTTP_REFERER'].blank?
-      session[:return_to] = request.env['HTTP_REFERER']
       redirect_to :back
     else
       redirect_to default

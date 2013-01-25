@@ -2,7 +2,7 @@ namespace :db do
   desc 'Add plpgsql functions to your database which are not included in our schema.rb
         Set RAILS_ENV to override environment'
   task :load_non_schema_sql => :environment do
-    ActiveRecord::Base.establish_connection(RAILS_ENV.to_sym)
+    ActiveRecord::Base.establish_connection(Rails.env.to_sym)
     sql_filename = "db/non_schema_sql.sql"
     sql = File.open(sql_filename).read
     ActiveRecord::Base.connection.execute(sql)
