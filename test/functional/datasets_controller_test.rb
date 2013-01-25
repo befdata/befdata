@@ -16,17 +16,14 @@ class DatasetsControllerTest < ActionController::TestCase
   end
 
   test "should show eml metadata as xml" do
-    login_nadrowski
-    get :download, {:id => Dataset.first.id, :format => :eml}
+    get :show, {:id => Dataset.first.id, :format => :eml}
     assert_success_no_error
   end
 
   test "eml should be valid" do
-    login_nadrowski
-    get :download, {:id => Dataset.last, :format => :eml}
+    get :show, {:id => Dataset.last, :format => :eml}
     dataset_as_eml = LibXML::XML::Document.string(@response.body)
     eml_schema = LibXML::XML::Schema.new("test/fixtures/test_files_for_eml/eml-2.1.0/eml.xsd")
-
     assert dataset_as_eml.validate_schema(eml_schema)
   end
 

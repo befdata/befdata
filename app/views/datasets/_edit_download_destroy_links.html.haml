@@ -4,11 +4,11 @@
       = link_to download_page_dataset_path(@dataset) do
         = image_tag("save.png")
         = "Download file"
+  %li
+    = link_to dataset_path(:id => @dataset, :format => :eml) do
+      = image_tag("save.png")
+      Download EML
   - if current_user
-    %li
-      = link_to download_dataset_url(@dataset, :eml) do
-        = image_tag("save.png")
-        Download EML
     %li
       = link_to create_cart_context_path(:dataset_id => @dataset.id), :method => :post do
         = image_tag("cart.png")
@@ -33,4 +33,3 @@
         = link_to dataset_path(@dataset), :method => :delete, :confirm => "Do you really want to delete this dataset?" do
           = image_tag("trash.png")
           Delete
-

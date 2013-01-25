@@ -153,10 +153,10 @@ class Datacolumn < ActiveRecord::Base
                                               :conditions => ["status_id = ?", Sheetcellstatus::INVALID],
                                               :group => "import_value",
                                               :select => "import_value")
-      
+
     # No need to order the sheetcells if none were found
-    return Hash.new if invalid_sheetcells.blank? 
-    
+    return Hash.new if invalid_sheetcells.blank?
+
     # Create a new array
     invalid_values = Hash.new
     invalid_sheetcells.each_with_index{|sc, i|
@@ -249,34 +249,32 @@ class Datacolumn < ActiveRecord::Base
     stage = '4' if self.datagroup_approved && self.datatype_approved && self.invalid_values.blank? && self.finished
     stage
   end
-  
+
   def untouched?
     approval_stage == '0' && finished == false
   end
 
   def update_dataset
     self.dataset.update_attribute(:updated_at, Time.now)
-  end 
+  end
 
   def split_me?(separate_category_columns = false)
-    #This method returns true for a column when it requires splitting for export into csv. 
-    #It is also used for the eml export to adapt its output to the category split 
-    #export of the csv file. 
+    # This method returns true for a column when it requires splitting.
 
     collect_column_sheetcells_boolean_values = []
 
     self.sheetcells.each do |sc|
-      if !separate_category_columns || self.import_data_type == 'category' || !(sc.datatype && sc.datatype.is_category? && sc.category)  
+      if self.import_data_type == 'category' || !(sc.datatype && sc.datatype.is_category? && sc.category)
         collect_column_sheetcells_boolean_values << false
-      else 
-        collect_column_sheetcells_boolean_values << true 
-      end 
-    end 
+      else
+        collect_column_sheetcells_boolean_values << true
+      end
+    end
 
     if collect_column_sheetcells_boolean_values.include?(true)
-      return true 
-    else 
-      return false 
+      return true
+    else
+      return false
     end
   end
 end
