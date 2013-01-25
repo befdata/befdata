@@ -277,7 +277,8 @@ class Datacolumn < ActiveRecord::Base
   # acl9 related stuff: users
 
   # users of a datacolumn are those who are responsible for it
-  def users(people)
+  # = for monkey patch of acl 9
+  def users= (people)
     self.set_user_with_role(:responsible, people)
   end
 end
