@@ -30,9 +30,3 @@
     = form_tag :action => 'approve_predefined', :controller => 'datasets' , :id => @dataset.id do
       = submit_tag 'Auto-approve', :confirm => "Are you sure you want to automatically approve #{@predefined_columns.count} columns?"
 
-:javascript
-  $(document).ready(function()
-    {
-        $("#columns-table").tablesorter();
-    }
-  );

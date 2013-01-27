@@ -20,7 +20,7 @@
 
 %h4 Invalid values
 %p
-  - if !@datacolumn.invalid_values.blank?
+  - if @datacolumn.has_invalid_values?
     There are still invalid values. Please approve.
   - else
     No invalid values found.

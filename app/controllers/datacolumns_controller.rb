@@ -25,7 +25,7 @@ class DatacolumnsController < ApplicationController
     unless @datacolumn.datatype_approved?
       redirect_to :action => "approve_datatype" and return
     end
-    unless @datacolumn.invalid_values.blank?
+    if @datacolumn.has_invalid_values?
       redirect_to :action => "approve_invalid_values" and return
     end
     unless @datacolumn.finished
