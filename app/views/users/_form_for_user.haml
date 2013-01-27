@@ -1,0 +1,47 @@
+= form_for @user do |f|
+  = f.error_messages
+  .group
+    = f.label :login, class: "required"
+    = f.text_field :login
+  .group
+    = f.label :password
+    = f.password_field :password
+  .group
+    = f.label :password_confirmation
+    = f.password_field :password_confirmation
+  .group
+    = f.label :firstname, class: "required"
+    = f.text_field :firstname
+  .group
+    = f.label :middlenames
+    = f.text_field :middlenames
+  .group
+    = f.label :lastname, class: "required"
+    = f.text_field :lastname
+  .group
+    = f.label :salutation
+    = f.text_field :salutation
+  .group
+    = f.label :email, class: "required"
+    = f.text_field :email
+  .group
+    = f.label :project_board
+    = f.check_box :project_board
+  .group
+    = f.label :admin
+    = f.check_box :admin
+  .group
+    = f.label :data_admin
+    = f.check_box :data_admin
+  = field_set_tag "Belongs to project" do
+    #roles
+      = render :partial => 'role', collection: @user.projectroles.collect{|r|{ name: r.name, id: r.authorizable.id} }
+    = link_to "Add role", "#", id: "add_role"
+  = f.submit class: "pull-left"
+
+- role_form = j render :partial => "role", :locals => { role: {name: nil, id: nil}}
+:javascript
+  $("#add_role").click(function(){
+    $("#roles").append("#{role_form}");
+    return(false);
+  })

@@ -7,11 +7,11 @@ Befchina::Application.routes.draw do
   match 'logout' => 'user_sessions#destroy', :as => :logout
 
   resources :users
-  match 'profile' => 'users#show', :as => :profile
-  match 'profile/edit' => 'users#edit', :as => :edit_profile
-  match 'profile/votes' => 'users#votes', :as => :votes
-  match 'profile/votes_history' => 'users#votes_history', :as => :votes_history
-  match 'profile/update_credentials' => 'users#update_credentials', :as => :update_credentials 
+  resource :profile, :only => [:show, :edit, :update] do
+    member do
+      get :votes, :votes_history, :update_credentials
+    end
+  end
 
   match 'imprint' => 'pages#imprint', :as => :imprint
   match 'help' => 'pages#help', :as => :help
