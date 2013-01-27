@@ -312,8 +312,4 @@ class Dataset < ActiveRecord::Base
   def owners= (people)
     set_user_with_role(:owner, people)
   end
-  def proposers
-    get_user_with_role(:proposer)
-  end
-
 end
