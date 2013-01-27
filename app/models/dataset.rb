@@ -170,13 +170,12 @@ class Dataset < ActiveRecord::Base
       column.datatype_approved = true
 
       # Check for invalid values
-      column.finished = true if column.invalid_values.blank?
-      @columns_with_invalid_values << column unless column.invalid_values.blank?
+      column.finished = true if !column.has_invalid_values?
+      @columns_with_invalid_values << column if column.has_invalid_values?
 
       # Save the column
       column.save
     end
-
   end
 
   def columns_with_invalid_values_after_approving_predefined

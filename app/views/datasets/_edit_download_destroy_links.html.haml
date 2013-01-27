@@ -25,7 +25,7 @@
           Edit Files
     - if @dataset.has_research_data? && (current_user.has_role?(:owner, @dataset) || current_user.has_role?(:admin))
       %li
-        = link_to approve_dataset_path(@dataset), :class=>"approval-complete-#{@dataset.approval_finished?}" do
+        = link_to approve_dataset_path(@dataset) do
           = image_tag("checkbox.png")
           Approve Data Columns
     - if current_user.has_role?(:admin) && (@dataset.paperproposals.empty?)

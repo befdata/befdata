@@ -145,6 +145,10 @@ class Datacolumn < ActiveRecord::Base
     self.save
   end
 
+  def has_invalid_values?
+    self.sheetcells.where(status_id: Sheetcellstatus::INVALID).count > 0
+  end
+
   # returns the unique invalid uploaded sheetcells
   def invalid_values
     #TODO check for memory consumption
@@ -245,8 +249,8 @@ class Datacolumn < ActiveRecord::Base
     stage = '0'
     stage = '1' if self.datagroup_approved
     stage = '2' if self.datagroup_approved && self.datatype_approved
-    stage = '3' if self.datagroup_approved && self.datatype_approved && self.invalid_values.blank?
-    stage = '4' if self.datagroup_approved && self.datatype_approved && self.invalid_values.blank? && self.finished
+    stage = '3' if self.datagroup_approved && self.datatype_approved && !self.has_invalid_values?
+    stage = '4' if self.datagroup_approved && self.datatype_approved && !self.has_invalid_values? && self.finished
     stage
   end
 
