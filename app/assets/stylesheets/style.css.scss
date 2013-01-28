@@ -861,46 +861,6 @@ input[type=text].metadata-text-input {
     position: relative;
 }
 
-/* --- User Profile ----------------------------------------- */
-
-form.edit_user {
-    width: 600px;
-    margin-left: 10px;
-}
-
-.edit_user label {
-    float:left;
-    width: 140px;
-    margin-right: 20px;
-}
-
-.edit_user input {
-    width: 300px;
-}
-
-.edit_user input[type="submit"] {
-    width: auto;
-    margin-left: 160px;
-    margin-top: 20px;
-}
-
-.edit_user textarea {
-    width: 300px;
-    height: 100px;
-}
-
-.edit_user .avatar {
-    width: 500px;
-    float:left;
-    margin-right: 20px;
-    display: block;
-}
-
-.edit_user .avatar input {
-    margin-left: 160px;
-}
-
-
 /* --- Sidebar ----------------------------------------------- */
 
 div#sidebar {
@@ -1431,4 +1391,7 @@ a.close {
   &:after {
     content: "×";
   }
+}
+#error a.close {
+  color: #f00;
 }

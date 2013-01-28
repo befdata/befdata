@@ -2,3 +2,9 @@
 - for person in @users
   .span-4#user-index{:class => cycle('noborder', 'noborder', 'last', :name => 'display_in_columns')}
     = render :partial => person
+- if current_user && current_user.has_role?(:admin)
+  .span-4#user-index{:class => cycle('noborder', 'noborder', 'last', :name => 'display_in_columns')}
+    .user
+      = link_to new_user_path do
+        = image_tag "add_user.png"
+        %span.username Create New User

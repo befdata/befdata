@@ -7,13 +7,11 @@ class Category < ActiveRecord::Base
   belongs_to :datagroup, :class_name => "Datagroup", :foreign_key => "datagroup_id"
   has_many :sheetcells
 
-  acts_as_taggable
 
   validates_presence_of :short, :long, :description
   before_validation :try_filling_missing_values
 
   before_destroy :check_for_sheetcells_associated
-  after_destroy :destroy_taggings
   after_update :update_dataset
 
   def try_filling_missing_values
@@ -38,9 +36,6 @@ class Category < ActiveRecord::Base
     end
   end
 
-  def destroy_taggings
-    self.taggings.destroy_all
-  end
 
   # find and update the updated_at date for all datasets that share this category
   def update_dataset

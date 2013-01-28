@@ -1,21 +1,12 @@
-- if @user == current_user
+- if current_user && current_user.admin
   = content_for :actions do
-    = link_to edit_profile_path do
+    = link_to edit_user_path(@user) do
       = image_tag "edit.png"
-      = "Edit profile"
-    = link_to votes_path do
-      = image_tag "checkbox.png"
-      = "Paperproposal Votes"
-    = link_to new_dataset_path do
-      = image_tag "file-upload.png"
-      = "Create dataset"
-    = link_to new_paperproposal_path do
-      = image_tag "document.png"
-      = "Create paperproposal"
-    = link_to update_credentials_path, :confirm => "Really update your api login credentials?" do
-      = image_tag "reload.png"
-      = "Update api login credentials"
-
+      Edit User
+    - if @deletable
+      = link_to user_path(@user), :method => :delete, :confirm => "Are you sure to delete #{@user.to_label}" do
+        = image_tag "trash.png"
+        Delete User
 - unless @project_roles.blank?
   = content_for :info do
     %h3 Projects
@@ -63,4 +54,4 @@
       %li
         = render :partial => ds, :locals => {:with_cart => true, :with_comment => false}
 
-= render :partial => 'paperproposals/associated_paperproposals', :locals => {:paperproposals => @user.paperproposals, :authorship_user => @user}
+= render :partial => 'paperproposals/associated_paperproposals', :locals => {:paperproposals => @paperproposals, :authorship_user => @user}

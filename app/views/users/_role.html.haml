@@ -1,0 +1,5 @@
+.role
+  = select_tag "roles[][value]", options_for_select(Project.all_projects_for_select, selected: role[:id]), class: "role_value"
+  %span As
+  = select_tag "roles[][type]", options_for_select(all_project_roles, selected: role[:name]), class: "role_type"
+  = link_to "", "#", class: 'close'

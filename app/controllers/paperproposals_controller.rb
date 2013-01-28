@@ -115,7 +115,7 @@ class PaperproposalsController < ApplicationController
 
     unless @to_vote.save
       flash[:error] = @to_vote.errors
-      redirect_to :profile
+      redirect_to profile_path
     end
 
     if @to_vote.vote == "reject"
@@ -142,7 +142,7 @@ class PaperproposalsController < ApplicationController
           #do nothing
       end
     end
-    redirect_to :votes
+    redirect_to votes_profile_path
   end
 
   # ToDo Perhapse dont destroy a data request when he is final?!
