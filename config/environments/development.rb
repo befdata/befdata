@@ -33,7 +33,7 @@ Befchina::Application.configure do
    config.assets.compress = false
 
   # Expands the lines which load the assets
-   config.assets.debug = true
+  config.assets.debug = false
 
   # For the use of Paperclip Image Manipulation - the path to ImageMagic executables
   Paperclip.options[:command_path] = "/usr/bin/"

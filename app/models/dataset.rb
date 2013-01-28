@@ -300,7 +300,7 @@ class Dataset < ActiveRecord::Base
   end
 
   def all_tags
-    tags | self.datacolumns.map(&:tags).flatten
+    tags | self.datacolumns.includes(:tags).map(&:tags).flatten
   end
 
  # acl9 role related staff: different kinds of user

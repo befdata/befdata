@@ -84,9 +84,9 @@ class Paperproposal < ActiveRecord::Base
     return "final" if self.board_state == "final"
   end
 
-  def author_list(include_pi=true)
+  def author_list(include_pi=false)
     # Do we still need senior author in author list?
-    senior_author = include_pi ? self.author.pi : []
+    senior_author = include_pi ? self.author.try(:pi) : []
     ack = self.acknowledgements_from_datasets
     middle_block = self.authors - ack - [self.author] - senior_author
     middle_block.uniq!
