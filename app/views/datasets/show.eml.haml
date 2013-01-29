@@ -1,4 +1,4 @@
-!!! XML 
+!!! XML
 %eml:eml{:packageId => "eml.1.1", :system => "knb", "xmlns:eml" => "eml://ecoinformatics.org/eml-2.1.0", "xmlns:xsi" => "http://www.w3.org/2001/XMLSchema-instance", "xsi:schemaLocation" => "eml://ecoinformatics.org/eml-2.1.0 eml-2.1.0/eml.xsd"}
   %dataset{:id => @dataset.id}
     %alternateIdentifier= dataset_url(@dataset)
@@ -38,7 +38,7 @@
     %distribution{:scope => "document"}
       %online
         %url{:function => "information"}
-          = dataset_url @dataset
+          = download_dataset_url(@dataset, :csv, :separate_category_columns => true, :user_credentials => current_user.try(:single_access_token))
     - unless @dataset.spatialextent.blank? && @dataset.taxonomicextent.blank?
       %coverage
         - if @dataset.spatialextent
@@ -97,9 +97,10 @@
               %fieldDelimiter ,
         %distribution
           %online
-            %url= dataset_url(@dataset)+'.txt' 
+            %url= download_dataset_url(@dataset, :csv, :separate_category_columns => true,
+                                            :user_credentials => current_user.try(:single_access_token))
       %attributeList
-        - @dataset.datacolumns.each do |column| 
+        - @dataset.datacolumns.each do |column|
           - unless column.split_me?(params[:separate_category_columns])
             %attribute{:id => column.columnheader}
               %attributeName= "#{column.datagroup.title} (#{column.columnheader})"
@@ -128,7 +129,7 @@
                     = content_tag_unless_blank :para, column.datagroup.description
                     = content_tag_unless_blank :para, column.definition
                   = content_tag_unless_blank :instrumentation, column.datagroup.instrumentation
-          - else 
+          - else
             %attribute{:id => column.columnheader}
               %attributeName= "#{column.datagroup.title} (#{column.columnheader})"
               %attributeLabel= column.columnheader
@@ -155,7 +156,7 @@
                     = content_tag_unless_blank :para, column.datagroup.title
                     = content_tag_unless_blank :para, column.datagroup.description
                     = content_tag_unless_blank :para, column.definition
-                  = content_tag_unless_blank :instrumentation, column.datagroup.instrumentation 
+                  = content_tag_unless_blank :instrumentation, column.datagroup.instrumentation
             %attribute{:id => "#{column.columnheader}_Categories"}
               %attributeName= "#{column.datagroup.title} (#{column.columnheader}_Categories)"
               %attributeLabel= "#{column.columnheader}_Categories"
@@ -171,7 +172,7 @@
                     = content_tag_unless_blank :para, column.datagroup.title
                     = content_tag_unless_blank :para, column.datagroup.description
                     = content_tag_unless_blank :para, column.definition
-                  = content_tag_unless_blank :instrumentation, column.datagroup.instrumentation 
+                  = content_tag_unless_blank :instrumentation, column.datagroup.instrumentation
       %caseSensitive yes
       %numberOfRecords= @dataset.number_of_observations
     - @dataset.freeformats.each do |freeformat|
