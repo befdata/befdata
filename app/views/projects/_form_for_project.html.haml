@@ -10,6 +10,8 @@
   = f.text_area :comment
   = field_set_tag "Manage members" do
     #roles
+      %noscript
+        %p you need javascript enabled to manage membership. Please enable javascript and refresh page.
       = render :partial => 'role', :collection => @roles
     = link_to "+ Add role", "#", id: "add_role"
   %div

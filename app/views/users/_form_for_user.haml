@@ -35,8 +35,10 @@
     = f.check_box :data_admin
   = field_set_tag "Belongs to project" do
     #roles
+      %noscript
+        %p you need javascript enabled to manage user roles. Please enable javascript and refresh page.
       = render :partial => 'role', collection: @user.projectroles.collect{|r|{ name: r.name, id: r.authorizable.id} }
-    = link_to "Add role", "#", id: "add_role"
+    = link_to "+ Add role", "#", id: "add_role"
   = f.submit class: "pull-left"
 
 - role_form = j render :partial => "role", :locals => { role: {name: nil, id: nil}}
