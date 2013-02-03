@@ -2,14 +2,14 @@ require 'csv'
 
 class DatagroupsController < ApplicationController
 
-  before_filter :load_datagroup, :only => [:show, :upload_categories, :update_categories]
+  before_filter :load_datagroup, :only => [:show, :upload_categories, :update_categories, :edit, :update]
 
   skip_before_filter :deny_access_to_all
   access_control do
     actions :index, :show do
       allow logged_in
     end
-    actions :upload_categories, :update_categories do
+    actions :upload_categories, :update_categories, :edit, :update do
       allow :admin
     end
   end
@@ -24,6 +24,14 @@ class DatagroupsController < ApplicationController
       format.csv do
         send_data render_categories_csv, :type => "text/csv", :filename=>"#{@datagroup.title}_categories.csv", :disposition => 'attachment'
       end
+    end
+  end
+
+  def update
+    if @datagroup.update_attributes(params[:datagroup])
+      redirect_to @datagroup, notice: "Successfully updated"
+    else
+      render :edit
     end
   end
 

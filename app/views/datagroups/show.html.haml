@@ -1,4 +1,8 @@
 - content_for :actions do
+  - if current_user.admin
+    = link_to edit_datagroup_path(@datagroup) do
+      = image_tag "edit.png"
+      Edit
   - unless @datagroup.categories.empty?
     = link_to datagroup_path(:id => @datagroup, :format => :csv) do
       = image_tag("save.png")

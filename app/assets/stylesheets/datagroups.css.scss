@@ -1,0 +1,12 @@
+// Place all the styles related to the datagroups controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+.new_datagroup, .edit_datagroup {
+	input[type='text'], textarea{
+		width: 500px;
+	}
+	textarea {
+		height: 200px;
+	}
+}
