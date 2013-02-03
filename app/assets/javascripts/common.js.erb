@@ -87,7 +87,7 @@ function selectDatasets(select) {
     td_select.appendChild(aspect_select);
 
     var a = document.createElement('a');
-    a.text = 'Remove';
+    a.appendChild(document.createTextNode('Remove'));
     a.setAttribute('onclick', 'this.parentNode.parentNode.parentNode.removeChild(this.parentNode.parentNode);');
     td_remove.appendChild(a);
 

@@ -1,0 +1,104 @@
+// Place all the styles related to the paperproposals controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+/* --- Paperproposal ----------------------------------------- */
+
+.paperproposal-datasets-table thead th:first-child {
+    width: 100%;
+}
+
+.paperproposal-datasets-table  {
+    width: 80%;
+}
+
+.paperproposal-datasets-table td{
+    vertical-align: top;
+}
+
+.paperproposal-datasets-table select {
+    margin-bottom: 0px;
+}
+
+#add_dataset_to_paperproposal_select {
+    margin-bottom: 35px;
+}
+
+/* --- Paperproposal Votes ---------------------------------- */
+
+.vote {
+    outline: 1px solid #cdcdcd;
+    padding: 15px;
+    margin-bottom: 10px;
+}
+.edit_paperproposal_vote {
+    display: block;
+    clear: both;
+    margin-top: 10px;
+}
+
+.edit_paperproposal_vote dt{
+    float: left;
+    width: 130px;
+}
+
+.edit_paperproposal_vote textarea{
+    height: 100px;
+    width: 250px;
+}
+
+.edit_paperproposal_vote input[type="submit"]{
+    margin-left: 130px;
+    margin-bottom: 4px;
+}
+
+.vote-state{
+    display: block;
+    clear: both;
+    margin: 1px;
+    height: auto;
+    overflow: hidden;
+    position: relative;
+}
+
+.vote-state .voters-with-arrows {
+    float: left;
+    width: 160px;
+    margin-right: 5px;
+    position: relative;
+}
+
+.vote-state .voters-with-arrows img {
+    float: right;
+    padding-top: 4px;
+}
+
+.vote-state .voter-with-arrow {
+    margin-bottom: 5px;
+    height: 1.5em;
+}
+
+.vote-state .voter-name {
+    white-space:nowrap;
+    width: 125px;
+    overflow: hidden;
+    display: inline-block;
+}
+
+.vote-state .vote-result {
+    float: left;
+    position: absolute;
+    vertical-align: middle;
+    margin: auto 0;
+    top: 25%;
+    height: 2.5em;
+}
+
+.vote-state .vote-result img {
+    padding-top: 4px;
+}
+
+.vote-state .vote-result .vote-state-text {
+    top: -4px;
+    position: relative;
+}

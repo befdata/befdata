@@ -1,0 +1,225 @@
+// Place all the styles related to the datasets controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+
+/* --- Approval UI ------------------------------------------------ */
+
+table#columns-table td.unapproved {
+    color: #8a8a8a;
+}
+
+span.approval-status {
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+}
+
+.approval-stage-0 {
+    color: #ff0200;
+    background-color: #ff0200;
+}
+.approval-stage-1 {
+    color: #ffac00;
+    background-color: #ffac00;
+}
+.approval-stage-2 {
+    color: #fff600;
+    background-color: #fff600;
+}
+.approval-stage-3 {
+    color: #00faff;
+    background-color: #00faff;
+}
+.approval-stage-4 {
+    color: #36ff00;
+    background-color: #36ff00;
+}
+
+span.comma-separated-list > span:after { content: ","; }
+span.comma-separated-list > span:last-child:after { content: ""; }
+
+ul.approval-line li {display: inline; }
+ul.approval-line li:after { content: " >"; }
+ul.approval-line li:first-child:after { content: ""; }
+ul.approval-line li:last-child:after { content: ""; }
+hr.approval-line {margin-top: 5px;}
+
+ul.approval-line {
+    margin-bottom: 17px;
+}
+
+.approval-line span.approval-status {
+    width: 50px;
+    height: 9px;
+}
+
+.approval-line a {
+    color: #8a8a8a;
+}
+
+.approval-line a.unvisited {
+    color: #CDCDCD;
+}
+
+.approval-line a.active {
+    color: #000000;
+}
+
+.approval-line a:hover {
+    color: #18921E;
+}
+
+input[type=radio][name=datagroup] {
+    margin-top: 5px;
+    margin-right: 7px;
+    display: inline;
+}
+
+p.datagroup-description {
+    font-size: 0.9em;
+    margin-bottom: 0;
+}
+
+.datagroup-radio-label {
+    margin-bottom: 20px;
+}
+
+.ui-accordion-header {
+    color: #18921E;
+    border-color: #DDDDDD;
+    padding: 3px;
+}
+
+h4.ui-accordion-header:hover {
+    background-image: none;
+    background-color: #EEEEEE;
+}
+
+form#filter-form {
+    margin-bottom: 17px;
+}
+
+form#filter-form input{
+    margin-bottom: 2px;
+    margin-left: 10px;
+    margin-right: 2px;
+}
+
+form#filter-form input{
+    margin-bottom: 2px;
+    margin-left: 10px;
+}
+
+table#invalid-values-table input{
+    margin-bottom: 2px;
+}
+
+.metadata-approve-people {
+    margin-bottom: 25px;
+}
+
+textarea.metadata-text-input {
+    width: 500px;
+    height: 120px;
+}
+
+input[type=text].metadata-text-input {
+    width: 500px;
+}
+
+.quick-approve-table select {
+    margin-bottom: 0px;
+}
+
+.quick-approve-table td{
+    vertical-align: top;
+}
+
+.quick-approve-table .datagroup-cell select {
+    width: 230px;
+}
+
+.quick-approve-table .datatype-cell select {
+    width: 80px;
+}
+
+.quick-approve-table .clear-value {
+    color: #18921E;
+}
+
+
+/*  download page  */
+
+span {
+  #outdated {
+    color: red;
+  }
+  #started, #queued {
+    color: rgb(255, 85, 0);
+  }
+  #finished {
+    color: green;
+  }
+}
+.overflow {
+  overflow: auto;
+  padding: 0px;
+  margin: 0px;
+  #indicator {
+    margin-right: 4px;
+  }
+  .left {
+    float: left;
+  }
+  .right {
+    float: right;
+  }
+}
+
+#warning {
+  margin: 5px 0;
+  border: solid 1px rgb(205,205,205);
+  padding: 5px;
+  a {
+    text-decoration: underline;
+    color: rgb(24, 146, 30);
+  }
+}
+
+#tabs.ui-tabs.ui-widget{
+  border:none;
+  margin-bottom: 20px;
+  font-size: 1em;
+}
+#tabs .ui-widget-header {
+  background:transparent;
+  border: none;
+}
+#tabs .ui-tabs-panel{
+  border:solid 1px #519E20;
+  overflow:auto;
+}
+#tabs .ui-state-default {
+  background: #A0DF82;
+  border: solid 1px #519E20;
+  border-bottom: none;
+}
+#tabs .ui-state-default a{
+  color: white;
+}
+#tabs .ui-state-default.ui-state-active {
+  background: #50A029;
+}
+#tabs .ui-state-default.ui-state-hover {
+  background: white;
+}
+#tabs .ui-state-default.ui-state-hover a{
+  color: #50A029;
+}
+#tabs .ui-tabs-active.ui-state-active.ui-state-hover {
+  background: #50A029;
+}
+#tabs .ui-tabs-active.ui-state-active.ui-state-hover a{
+  color: white;
+}
