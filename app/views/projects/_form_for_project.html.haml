@@ -12,12 +12,12 @@
     #roles
       %noscript
         %p you need javascript enabled to manage membership. Please enable javascript and refresh page.
-      = render :partial => 'role', :collection => @roles
+      = render :partial => 'role', :collection => roles
     = link_to "+ Add role", "#", id: "add_role"
   %div
     = f.submit
 
-- new_fields = j render(:partial => 'role')
+- new_fields = j render(:partial => 'role', :locals => { :role => {name: nil, id: [] } })
 - max_num = all_project_roles.length
 :javascript
   $(function(){

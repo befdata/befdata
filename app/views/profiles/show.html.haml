@@ -11,9 +11,19 @@
   = link_to new_paperproposal_path do
     = image_tag "document.png"
     = "Create paperproposal"
-  = link_to update_credentials_profile_path, :confirm => "Really update your api login credentials?" do
-    = image_tag "reload.png"
-    = "Update api login credentials"
+
+= content_for :info do
+  %h3 My login credentials
+  %span#api
+    = @user.try(:single_access_token)
+  = link_to update_credentials_profile_path, remote: true, id: 'change_api', confirm: "Are you sure to update your login credentials" do
+    = image_tag "reload.png", title: "Change one"
 
 = render :template => 'users/show'
 
+:javascript
+  $(function(){
+    $("#change_api").click(function(){
+      $(this).find("img").attr("src","#{asset_path('reloading.gif')}");
+    });
+  });

@@ -142,6 +142,14 @@ class User < ActiveRecord::Base
   def projectroles
     self.roles_for(Project)
   end
+  def projectroles=(roles_config)
+    # roles_config is an array of hashes like {role_name: "pi", project_id: 3}
+    self.has_no_roles_for!(Project)
+    return if roles_config.blank?
+    roles_config.each do |role|
+      self.has_role!(role[:role_name], Project.find(role[:project_id])) unless role[:project_id].blank?
+    end
+  end
 
   def authorized_for_update?
     if (self == current_user || current_user.has_role?("admin")) then

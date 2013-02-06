@@ -37,11 +37,11 @@
     #roles
       %noscript
         %p you need javascript enabled to manage user roles. Please enable javascript and refresh page.
-      = render :partial => 'role', collection: @user.projectroles.collect{|r|{ name: r.name, id: r.authorizable.id} }
+      = render :partial => 'role', collection: project_roles
     = link_to "+ Add role", "#", id: "add_role"
   = f.submit class: "pull-left"
 
-- role_form = j render :partial => "role", :locals => { role: {name: nil, id: nil}}
+- role_form = j render :partial => "role", :locals => { role: {role_name: nil, project_id: nil}}
 :javascript
   $("#add_role").click(function(){
     $("#roles").append("#{role_form}");

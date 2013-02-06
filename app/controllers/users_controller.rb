@@ -7,7 +7,7 @@ class UsersController < ApplicationController
     actions :index, :show do
       allow all
     end
-    actions  :new, :create, :edit, :update, :destroy do
+    actions  :new, :create, :destroy, :edit, :update do
       allow :admin
     end
   end
@@ -28,29 +28,24 @@ class UsersController < ApplicationController
   def new
     @user = User.new()
   end
+
   def create
     @user = User.new(params[:user])
     if @user.save
-      # assign roles of projects
-      unless params[:roles].blank?
-        params[:roles].each do |role|
-          @user.has_role!(role[:type], Project.find(role[:value])) unless role[:value].blank?
-        end
-      end
+      @user.projectroles = params[:roles]
       redirect_to user_path(@user), :notice => "Successfully Created user #{@user.to_label}"
     else
       render :action => :new
     end
   end
+
+  def edit
+    @project_roles = @user.projectroles.collect{|r|{ role_name: r.name, project_id: r.authorizable_id} }
+  end
+
   def update
     if @user.update_attributes(params[:user])
-      # assign roles of projects
-      @user.has_no_roles_for!(Project)
-      unless params[:roles].blank?
-        params[:roles].each do |role|
-          @user.has_role!(role[:type], Project.find(role[:value])) unless role[:value].blank?
-        end
-      end
+      @user.projectroles = params[:roles]
       redirect_to user_path(@user), :notice => "Saved successfully"
     else
       render :edit
@@ -65,7 +60,6 @@ class UsersController < ApplicationController
       redirect_to :back, :error => @user.errors.full_messages.to_sentence
     end
   end
-
 
 private
   def load_user

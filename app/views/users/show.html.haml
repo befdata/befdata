@@ -35,10 +35,6 @@
     %br
   - unless @user.comment.blank?
     = @user.comment
-- if @user == current_user
-  - unless @user.single_access_token.blank?
-    Api login credentials:
-    = @user.single_access_token
 
 - unless @datasets_owned.empty?
   %h3 Datasets

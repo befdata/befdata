@@ -21,8 +21,6 @@ class ProjectsController < ApplicationController
 
   def new
     @project = Project.new()
-    # initialize two select boxes for pi and phd student
-    @roles = [{name: :pi, id: []},{name: "phd student", id: []}]
   end
 
   def create

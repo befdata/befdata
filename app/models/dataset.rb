@@ -261,10 +261,6 @@ class Dataset < ActiveRecord::Base
     save
   end
 
-  def approval_finished?
-    !self.datacolumns.any?{|dc| dc.approval_stage!="4"}
-  end
-
   def refresh_paperproposal_authors
     self.paperproposals.each {|pp| pp.calculate_datasets_proponents}
   end

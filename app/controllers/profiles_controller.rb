@@ -22,9 +22,11 @@ class ProfilesController < ApplicationController
   end
 
   def update_credentials
-    # Updates the user credentials with a new random generated, 15 charachter long hex string.
-    @user.update_attributes(:single_access_token => SecureRandom.hex(15))
-    redirect_to :profile, :notice => "Updated successfully!"
+    @user.reset_single_access_token!
+    respond_to do |format|
+      format.html { redirect_to :profile, :notice => "Your login credentials was updated successfully!" }
+      format.js
+    end
   end
 
   def votes

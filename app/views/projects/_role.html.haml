@@ -1,4 +1,3 @@
-- role ||= {name: "phd student", id: []}
 .role
   = select_tag "roles[][type]", options_for_select(all_project_roles, selected: role[:name])
   = select_tag "roles[][value]", options_for_select(User.all_users_names_and_ids_for_select, role[:id]), multiple: true,  class: "select2"
