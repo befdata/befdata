@@ -10,6 +10,11 @@ if defined?(Bundler)
   # Bundler.require(:default, :assets, Rails.env)
 end
 
+# Configure environment variables
+CONFIG = YAML.load(File.read(File.expand_path('../application.yml', __FILE__)))
+CONFIG.merge! CONFIG.fetch(Rails.env, {})
+CONFIG.symbolize_keys!
+
 module Befchina
   class Application < Rails::Application
     # Settings in config/environments/* take precedence over those specified here.
@@ -65,5 +70,6 @@ module Befchina
     config.assets.version = '1.0'
 
     ActsAsTaggableOn::Tag.remove_unused = true
+
   end
 end

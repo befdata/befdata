@@ -1,0 +1,12 @@
+# Application wide environment variables
+
+# Applications secret token
+application_secret_token: "yousecrettokenhere"
+
+production:
+   # Configuration party_foul
+   party_foul_github_username: "username" 
+   party_foul_github_repository: "repositoryname" 
+   party_foul_github_oauth_token: "youroauthtokenhere" 
+
+

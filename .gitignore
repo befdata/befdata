@@ -38,3 +38,4 @@ test/fixtures_dump
 ext/database-and-file-backup.sh
 
 tags
+config/application.yml
