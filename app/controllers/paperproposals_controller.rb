@@ -76,7 +76,8 @@ class PaperproposalsController < ApplicationController
   end
 
   def update_datasets
-    @paperproposal.update_attributes(params[:paperproposal])
+    dataset_ids = params[:dataset_ids] ? params[:dataset_ids] : []
+    @paperproposal.update_attributes(:dataset_ids => dataset_ids)
     if params[:aspect]
       params[:aspect].each do |k, v|
         ds_pp = @paperproposal.dataset_paperproposals.where('dataset_id = ?', k).first

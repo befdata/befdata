@@ -65,7 +65,7 @@ function selectDatasets(select) {
 
     var input = document.createElement('input');
     input.type = 'hidden';
-    input.name = 'paperproposal[dataset_ids][]';
+    input.name = 'dataset_ids[]';
     input.value = option.value;
 
     var text = document.createTextNode(option.firstChild.data);

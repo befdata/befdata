@@ -89,7 +89,7 @@ class PaperproposalsControllerTest < ActionController::TestCase
     get :edit_datasets, :id => @paperproposal.id
     assert_select "tbody tr", {:count => 0}
 
-    post :update_datasets, :id => @paperproposal.id, :paperproposal => {:dataset_ids => [@dataset_with_michael.id]}, :aspect => {@dataset_with_michael.id.to_s => "main"}
+    post :update_datasets, :id => @paperproposal.id, :dataset_ids => [@dataset_with_michael.id], :aspect => {@dataset_with_michael.id.to_s => "main"}
     assert_redirected_to paperproposal_path(@paperproposal)
 
     @paperproposal.reload

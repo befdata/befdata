@@ -12,7 +12,7 @@
     %tbody#collect-datasets-tbody
       - @datasets.each do |ds|
         %tr
-          %input{:name => "paperproposal[dataset_ids][]", :type => "hidden", :value => ds.id}
+          %input{:name => "dataset_ids[]", :type => "hidden", :value => ds.id}
           %td= ds.title
           - ds_pp = @paperproposal.dataset_paperproposals.where('dataset_id = ?', ds.id).first
           %td= select "aspect", ds.id, options_for_select(['main','side'], :selected => ds_pp.nil? ? nil : ds_pp.aspect)
