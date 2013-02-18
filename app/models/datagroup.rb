@@ -14,13 +14,12 @@ class Datagroup < ActiveRecord::Base
   has_many :categories, :dependent => :destroy
   has_many :datasets, :through => :datacolumns
 
-  acts_as_taggable
+  #acts_as_taggable
 
   validates_presence_of :title, :description
   validates_uniqueness_of :title
 
   before_destroy :check_if_destroyable
-  after_destroy :destroy_taggings
 
   after_initialize :init
   after_update { datasets.map(&:touch) }
@@ -29,10 +28,6 @@ class Datagroup < ActiveRecord::Base
     if(@new_record)
       self.type_id = Datagrouptype::DEFAULT
     end
-  end
-
-  def destroy_taggings
-    self.taggings.destroy_all
   end
 
   def check_if_destroyable

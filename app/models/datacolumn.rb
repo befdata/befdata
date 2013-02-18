@@ -19,7 +19,6 @@ class Datacolumn < ActiveRecord::Base
   include AclPatch
   acts_as_authorization_object :subject_class_name => 'User'
   acts_as_taggable
-  after_destroy :destroy_taggings
 
   belongs_to :datagroup, :dependent => :destroy
   has_many :categories, :through => :datagroup
@@ -44,11 +43,6 @@ class Datacolumn < ActiveRecord::Base
     prefix: true
   }
   }
-
-  def destroy_taggings
-    logger.debug "in destroy taggings"
-    self.taggings.destroy_all
-  end
 
   # Are there data values associated to the measurements of this data column instance?
   def values_stored?
