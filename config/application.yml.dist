@@ -1,7 +1,7 @@
 # Application wide environment variables
 
 # Applications secret token
-application_secret_token: "yousecrettokenhere"
+application_secret_token: "12f3456a78cc910121b314d1516e171awe8192030"
 
 production:
    # Configuration party_foul
