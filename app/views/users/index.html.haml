@@ -3,7 +3,7 @@
   .span-4#user-index{:class => cycle('noborder', 'noborder', 'last', :name => 'display_in_columns')}
     .user
       = link_to new_user_path do
-        = image_tag "add_user.png"
+        = image_tag "add_user.png", :id => "create_user"
         %span.username Create New User
 - for person in @users
   .span-4#user-index{:class => cycle('noborder', 'noborder', 'last', :name => 'display_in_columns')}

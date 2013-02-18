@@ -123,7 +123,7 @@ class User < ActiveRecord::Base
   end
 
   def datasets_owned
-    self.roles.includes(:authorizable).where({name: "owner", authorizable_type: "Dataset"}).map(&:authorizable)
+    self.roles.includes(:authorizable).where({name: "owner", authorizable_type: "Dataset"}).map(&:authorizable).compact
   end
   def datasets_with_responsible_datacolumns
     columns = self.roles_for(Datacolumn).map(&:authorizable_id)
