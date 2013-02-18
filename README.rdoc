@@ -36,7 +36,15 @@ BEFdata was developed withi the Chinese-European DFG Research Unit â€œBEF Chinaâ
 
    You can use the provided template files and simply copy or rename them as following
     configuration.yml.dist -> configuration.yml
-    database.yml.dist -> database.yml
+    database.yml.dist -> database.yml 
+    application.yml.dist -> appication.yml 
+
+The application.yml contains environment variables which are used to configure  
+the application secret token. This token is used to verify the integrity        
+of signed cookies. Make sure the secret is at least 30 characters and all       
+random, no regular words or you'll be exposed to dictionary attacks! The        
+application.yml also configures the party foul gem to track issues in           
+production mode.                                                                
 
 3. Set up the database-connection
 
