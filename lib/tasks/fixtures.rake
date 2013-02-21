@@ -9,8 +9,8 @@ namespace :db do
       ActiveRecord::Base.establish_connection(:development)
       (ActiveRecord::Base.connection.tables - skip_tables).each do |table_name|
         i = "000"
-        Dir.mkdir("#{RAILS.root}/test/fixtures_dump") unless File.exists?("#{RAILS.root}/test/fixtures_dump")
-        File.open("#{RAILS.root}/test/fixtures_dump/#{table_name}.yml", 'w') do |file|
+        Dir.mkdir("#{Rails.root}/test/fixtures_dump") unless File.exists?("#{Rails.root}/test/fixtures_dump")
+        File.open("#{Rails.root}/test/fixtures_dump/#{table_name}.yml", 'w') do |file|
           data = ActiveRecord::Base.connection.select_all(sql % table_name)
           file.write data.inject({}) { |hash, record|
             hash["#{table_name}_#{i.succ!}"] = record
