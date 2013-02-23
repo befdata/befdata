@@ -35,13 +35,12 @@ class Datacolumn < ActiveRecord::Base
     definition: 'B'
   }, associated_against: {
     tags: {name: 'A'},
-    datagroup: {title: 'A', description: 'B'},
-    categories: {short: 'A', long: 'A', description: 'B'}
+    datagroup: {title: 'A', description: 'B'}
   }, using: {
     tsearch: {
-    dictionary: "english",
-    prefix: true
-  }
+      dictionary: "english",
+      prefix: true
+    }
   }
 
   # Are there data values associated to the measurements of this data column instance?
