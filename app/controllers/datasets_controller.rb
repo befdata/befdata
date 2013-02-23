@@ -156,7 +156,7 @@ class DatasetsController < ApplicationController
     @contacts = @dataset.owners
     @projects = @dataset.projects
     @freeformats = @dataset.freeformats :order => :file_file_name
-    @datacolumns = @dataset.datacolumns
+    @datacolumns = @dataset.datacolumns.includes(:datagroup, :tags)
     @tags = @dataset.all_tags
 
     respond_to do |format|
@@ -233,13 +233,12 @@ class DatasetsController < ApplicationController
   end
 
   def keywords
-    # keywords of the dataset
-    @dt_keywords = @dataset.tags
-
-    @datacolumns = @dataset.datacolumns
-    similar_datasets_first = @dataset.find_related_tags
-    similar_datasets_second = @datacolumns.collect {|dc| dc.find_related_tags }.flatten.map(&:dataset)
-    @datasets = (similar_datasets_first + similar_datasets_second - [@dataset]).uniq
+    # keywords of dataset
+    @dataset_keywords = @dataset.tags
+    # keywords of datacolumns
+    @datacolumn_keywords = @dataset.datacolumns.includes(:tags)
+    # related datasets
+    @datasets = @dataset.find_related_datasets
   end
 
   private

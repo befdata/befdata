@@ -1,16 +1,12 @@
 module ApplicationHelper
   include Acl9Helpers
-  def tag_cloud(tags, classes)
-    max, min = 0, 0
-    tags.each { |t|
-      max = t.taggings.count.to_i if t.taggings.count.to_i > max
-      min = t.taggings.count.to_i if t.taggings.count.to_i < min
-    }
+  def tag_cloud(tag_counts, classes)
+    max = tag_counts.collect{|t| t.count.to_i }.max
+    min = tag_counts.collect{|t| t.count.to_i }.min
 
-    divisor = ((max - min) / classes.size) + 1
-
-    tags.each { |t|
-      yield t, classes[(t.taggings.count.to_i - min) / divisor]
+    tag_counts.each { |t|
+      index = (t.count.to_f - min) / (max - min) * (classes.size - 1)
+      yield(t, classes[index.round])
     }
   end
   def all_project_roles

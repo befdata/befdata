@@ -13,9 +13,9 @@
 
 %h3= "Dataset Keywords"
 %p
-  %i=  @dt_keywords.empty? ? "No keywords" : raw(@dt_keywords.collect{|k| link_to k.name, keyword_path(k)}.join(", "))
+  %i=  @dataset_keywords.empty? ? "No keywords" : raw(@dataset_keywords.collect{|k| link_to k.name, keyword_path(k)}.join(", "))
 
-- unless @datacolumns.empty?
+- unless @datacolumn_keywords.empty?
   %h3 Datacolumn Keywords
   %table.tablesorter
     %thead
@@ -24,7 +24,7 @@
         %th keywords
         - if editable
           %th edit
-    - @datacolumns.each do |dc|
+    - @datacolumn_keywords.each do |dc|
       %tr
         %td= dc.columnheader
         %td

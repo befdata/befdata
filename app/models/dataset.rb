@@ -296,7 +296,38 @@ class Dataset < ActiveRecord::Base
   end
 
   def all_tags
-    tags | self.datacolumns.includes(:tags).map(&:tags).flatten
+    Dataset.tag_usage.select("tags.*").where("dataset_id =  #{self.id}").order("tags.name")
+  end
+
+  # This method returns similar datasets which are sorted by similarity in descending order
+  def find_related_datasets
+    tags = self.all_tags.map(&:id)
+    datasets = Dataset.tag_usage.select("datasets.*,count(tags.*) as count").where("tags.id in (#{tags.join(',')}) and datasets.id <> #{self.id}").
+                    group("datasets.id").order("count(tags.*) desc")
+    return(datasets)
+  end
+
+  def self.tag_counts
+    Dataset.tag_usage.select("tags.*, count(datasets.id) as count").group("tags.id")
+  end
+  def self.tag_usage
+    # Return a ActiveRecord::Relation object that can be reused by other methods
+    Dataset.joins("
+      join
+      (
+      select taggable_id as dataset_id, tag_id
+      from taggings
+      where taggable_type = 'Dataset'
+      union
+      select distinct d.dataset_id, g.tag_id
+      from taggings g join datacolumns d
+      on g.taggable_id = d.id
+      where g.taggable_type = 'Datacolumn'
+      ) c
+      on datasets.id = c.dataset_id
+      join tags
+      on tags.id = c.tag_id
+    ")
   end
 
  # acl9 role related staff: different kinds of user
@@ -307,4 +338,5 @@ class Dataset < ActiveRecord::Base
   def owners= (people)
     set_user_with_role(:owner, people)
   end
+
 end
