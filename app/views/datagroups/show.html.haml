@@ -28,7 +28,7 @@
 - unless @datagroup.datacolumns.empty?
   %h3 Datasets
   %ul
-    - @datagroup.datacolumns.collect{|dc| dc.dataset}.uniq.sort_by(&:title).each do |ds|
+    - @datagroup.datasets.order(:title).uniq.each do |ds|
       %li
         = render :partial => ds, :locals => {:with_cart => true, :with_comment => false}
 
@@ -36,22 +36,25 @@
   %h3 Datagroup has no categories
 - else
   %h3 Categories
+  #categories
+    #loader.hidden Sending request...
+    #categories_table
+      = render :partial => "categories/category_list"
 
-  - @changes = flash[:updates]
-  %table#categories-table.tablesorter
-    %thead
-      %tr
-        %th Short
-        %th Long
-        %th Description
-        - if @changes
-          %th Changed
-    %tbody
-      - @datagroup.categories.sort_by(&:short).each do |cat|
-        %tr
-          %td= link_to cat.short, cat
-          %td= cat.long
-          %td= cat.description
-          - if @changes
-            %td
-              = @changes[cat.id]
+  :javascript
+    $(function(){
+      function show_indicator() {
+        $("#categories_table tbody").fadeTo("fast",0.3);
+        $("#loader").show();
+      };
+      $("#categories").on("click", "#categories_table th a, .pagination a, #clear_search",  function(){
+        $.getScript(this.href);
+        show_indicator();
+        return(false);
+      });
+      $("#categories").on("submit", "form#filter", function(){
+        var term = $(":input[name='search']").val();
+        if(term == "") return false;
+        show_indicator();
+      });
+    });

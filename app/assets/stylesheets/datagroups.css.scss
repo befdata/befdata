@@ -3,10 +3,47 @@
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
 .new_datagroup, .edit_datagroup {
-	input[type='text'], textarea{
-		width: 500px;
-	}
-	textarea {
-		height: 200px;
-	}
+  input[type='text'], textarea{
+    width: 500px;
+  }
+  textarea {
+    height: 200px;
+  }
+}
+#categories {
+  position: relative;
+  margin-top: 20px;
+  #loader {
+    z-index: 10;
+    position: absolute;
+    width: 110px;
+    top: 40px;
+    left: 50%;
+    margin-left: -75px;
+    padding: 10px 10px 10px 30px;
+    background: image-url("spinner.gif") 10px 50% no-repeat #eee;
+    border: 1px solid #ddd;
+  }
+  #categories_table {
+    #search_form {
+      position: absolute;
+      right: 0px;
+      top: -30px;
+    }
+    table {
+      width: 100%;
+      th a {
+        color: black;
+        &:hover{
+          text-decoration: none;
+        };
+      }
+      .asc:after {
+        content: image-url("tablesorter/desc.gif");
+      }
+      .desc:after {
+        content: image-url("tablesorter/asc.gif");
+      }
+    }
+  }
 }

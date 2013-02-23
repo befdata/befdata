@@ -36,6 +36,13 @@ class Category < ActiveRecord::Base
     end
   end
 
+  def self.search(search)
+    if search
+      where('short iLIKE :q OR long iLIKE :q OR description iLIKE :q', :q => "%#{search}%")
+    else
+      scoped
+    end
+  end
 
   # find and update the updated_at date for all datasets that share this category
   def update_dataset

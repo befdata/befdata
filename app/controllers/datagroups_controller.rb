@@ -19,8 +19,18 @@ class DatagroupsController < ApplicationController
   end
 
   def show
+    set_sort_params
+    @categories = @datagroup.categories.joins('left join sheetcells on categories.id = sheetcells.category_id').
+        select('categories.*, count(sheetcells.id) as count').group('categories.id').search(params[:search]).
+        paginate(
+          page: params[:page],
+          per_page: 20,
+          order: "#{params[:sort]} #{params[:direction]}"
+        )
+
     respond_to do |format|
       format.html
+      format.js
       format.csv do
         send_data render_categories_csv, :type => "text/csv", :filename=>"#{@datagroup.title}_categories.csv", :disposition => 'attachment'
       end
@@ -72,6 +82,12 @@ private
 
   def load_datagroup
     @datagroup = Datagroup.find(params[:id])
+  end
+
+  def set_sort_params(default= "count desc")
+    column, direction = default.split
+    params[:sort] ||= column
+    params[:direction] ||= direction
   end
 
 end

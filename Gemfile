@@ -22,6 +22,7 @@ gem 'pg_search'
 gem 'jquery-rails'
 gem 'jquery-ui-rails' 
 gem 'party_foul'   
+gem 'will_paginate'
 
 group :test, :development do
   gem "test-unit", '2.4.8' #2.4.9 is incompatible to Rubymine's and Teamcity's way of running tests

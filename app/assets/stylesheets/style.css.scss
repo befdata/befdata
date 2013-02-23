@@ -1016,3 +1016,10 @@ a.close {
 noscript {
   color: #f00;
 }
+
+.pagination{
+  a, .current, .previous_page, .next_page{
+    border: solid 1px green;
+    padding: 3px;
+  }
+}
