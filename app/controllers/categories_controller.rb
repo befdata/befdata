@@ -15,7 +15,12 @@ class CategoriesController < ApplicationController
 
   def show
     respond_to do |format|
-      format.html
+      format.html do
+        @sheetcells = @category.sheetcells.includes(:datacolumn => :dataset).
+                          select("import_value, datacolumn_id, count(*) as count").
+                          group("import_value, datacolumn_id").
+                          order("count desc")
+      end
       format.csv do
         send_data render_sheetcells_csv, :type => "text/csv", :filename=>"#{@category.short}_sheetcells.csv", :disposition => 'attachment'
       end

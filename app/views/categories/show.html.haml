@@ -25,26 +25,25 @@
 - if @category.sheetcells.empty?
   %h3 No Occurrences found
 - else
-  %h3 Occurrences
+  %h3 Occurrences distribution (#{@category.sheetcells.count} sheetcells in total)
   %table#category-occurrences-table.tablesorter
     %thead
       %tr
-        %th ID
         %th Import Value
         %th Columnheader
         %th Dataset
+        %th count
     %tbody
-      - @category.sheetcells(:include => [{:datacolumn => :dataset}]).each do |sc|
+      - @sheetcells.each do |sc|
         %tr
-          %td= sc.id
           %td= sc.import_value
           %td= sc.datacolumn.columnheader
           %td= render :partial => sc.datacolumn.dataset, :locals => {:with_cart => true, :with_comment => false}
-
+          %td= sc.count
   :javascript
     $(document).ready(function()
       {
-          $("#category-occurrences-table").tablesorter( {sortList: [[3,0], [2,0], [1,0], [0,0]]} );
+        $("#category-occurrences-table").tablesorter( {sortList: [[3,1], [2,0], [1,0], [0,0]]} );
       }
     );
 
