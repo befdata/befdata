@@ -41,6 +41,13 @@ class Datagroup < ActiveRecord::Base
     self.reload
     (self.type_id != Datagrouptype::DEFAULT)
   end
+  def self.delete_orphan_datagroups
+    # delete non-system orphan datagroups that has no associated datacolumns
+    to_be_deleted = Datagroup.joins('left outer join datacolumns on datagroups.id = datacolumns.datagroup_id').
+              where("datacolumns.datagroup_id is NULL and datagroups.type_id = #{Datagrouptype::DEFAULT}")
+    puts "#{to_be_deleted.count} datagroups is deleted at #{Time.now.utc}" unless to_be_deleted.empty?
+    Datagroup.delete(to_be_deleted)
+  end
 
   def abbr_method
     text = "#{self.title}: #{self.description}"

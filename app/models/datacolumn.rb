@@ -20,12 +20,12 @@ class Datacolumn < ActiveRecord::Base
   acts_as_authorization_object :subject_class_name => 'User'
   acts_as_taggable
 
-  belongs_to :datagroup, :dependent => :destroy
+  belongs_to :datagroup
   has_many :categories, :through => :datagroup
   belongs_to :dataset, :touch => true
 
-  has_many :sheetcells, :dependent => :destroy
-  has_many :import_categories, :dependent => :destroy
+  has_many :sheetcells, :dependent => :delete_all
+  has_many :import_categories, :dependent => :delete_all
 
   validates_presence_of :datagroup_id, :dataset_id, :columnheader, :columnnr, :definition
   validates_uniqueness_of :columnheader, :columnnr, :scope => :dataset_id

@@ -11,6 +11,9 @@ class TransactionalDatasetTest < ActiveSupport::TestCase
     models ="AuthorPaperproposal Cart CartDataset Category Datacolumn Datafile Datagroup
               Dataset DatasetPaperproposal Freeformat ImportCategory Paperproposal
               PaperproposalVote Project Role Sheetcell User".split(" ")
+    # cleanup existing orphan datagroups & categories
+    Datagroup.delete_orphan_datagroups
+    Category.delete_orphan_categories
     before = {}
     models.each do |model|
       before[model] = eval("#{model}.count")
@@ -28,6 +31,9 @@ class TransactionalDatasetTest < ActiveSupport::TestCase
     book.import_data
     dataset.approve_predefined_columns(users(:users_003))
     dataset.destroy
+
+    Datagroup.delete_orphan_datagroups
+    Category.delete_orphan_categories
 
     after = {}
     models.each do |model|

@@ -19,3 +19,7 @@ every 1.minutes do
    runner "ExcelExport.regenerate_downloads_if_needed"
 end
 
+# cleanup orphan datagroups and categories
+every :day, :at => '1:00 am' do
+  rake 'cleanup:all'
+end

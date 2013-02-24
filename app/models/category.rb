@@ -14,6 +14,14 @@ class Category < ActiveRecord::Base
   before_destroy :check_for_sheetcells_associated
   after_update :update_dataset
 
+  def self.delete_orphan_categories
+    # delete categories that has no assciated sheetcells
+    to_be_deleted = Category.joins('left outer join sheetcells on sheetcells.category_id = categories.id').
+              where('sheetcells.category_id is NULL')
+    puts "#{to_be_deleted.count} categories is deleted at #{Time.now.utc}" unless to_be_deleted.empty?
+    Category.delete(to_be_deleted)
+  end
+
   def try_filling_missing_values
     if self.short then
       self.long ||= self.short
