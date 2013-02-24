@@ -23,6 +23,7 @@ class Datagroup < ActiveRecord::Base
 
   after_initialize :init
   after_update { datasets.map(&:touch) }
+
   # set the default value for datagroup
   def init
     if(@new_record)
@@ -41,6 +42,14 @@ class Datagroup < ActiveRecord::Base
     self.reload
     (self.type_id != Datagrouptype::DEFAULT)
   end
+  def is_system_datagroup=(string_boolean)
+    if string_boolean == "1"
+      self.type_id = Datagrouptype::HELPER
+    else
+      self.type_id = Datagrouptype::DEFAULT
+    end
+  end
+
   def self.delete_orphan_datagroups
     # delete non-system orphan datagroups that has no associated datacolumns
     to_be_deleted = Datagroup.joins('left outer join datacolumns on datagroups.id = datacolumns.datagroup_id').
