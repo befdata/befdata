@@ -16,9 +16,6 @@ pushd $ROOT
   echo "========= Migrating the database ========="
   rake db:migrate
 
-  echo "========= updating crontab tasks ==========="
-  whenever --update-crontab --set 'environment=production'
-
   echo "========= Precompiling the assets(only needed for production)========="
   rake assets:precompile
   

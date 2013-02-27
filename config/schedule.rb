@@ -20,6 +20,6 @@ every 1.minutes do
 end
 
 # cleanup orphan datagroups and categories
-every :day, :at => '1:00 am' do
-  rake 'cleanup:all'
-end
+#every :day, :at => '1:00 am' do
+#  rake 'cleanup:all'
+#end
