@@ -11,19 +11,4 @@
     %dd= f.text_area :instrumentation
     %dt= f.label :informationsource, "Source of infomation"
     %dd= f.text_area :informationsource
-  %div
-    = f.check_box :is_system_datagroup
-    = f.label :is_system_datagroup, "Protect this datagroup from deletion"
-    = link_to "what does this mean?", "#", :id => "show_explaination"
-    #explaination.hidden
-      Datagroups that are not used by any dataset will be cleaned up at a regular time interval. Select this to keep the datagroup even if there is no datasets using it.
-
   = f.submit "Update datagroup"
-
-:javascript
-  $(function(){
-    $("#show_explaination").click(function() {
-      $("#explaination").fadeToggle();
-      return(false);
-    });
-  })
