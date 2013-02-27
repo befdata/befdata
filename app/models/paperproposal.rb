@@ -17,9 +17,9 @@ class Paperproposal < ActiveRecord::Base
   belongs_to :author, :class_name => "User", :foreign_key => "author_id"
 
   belongs_to :authored_by_project, :class_name => "Project", :foreign_key => :project_id
-  
+
   # User roles in a paperproposal: proponents, main aspect dataset owner, side aspect dataset owner, acknowledged.
-  # many-to-many association with User model through author_paperproposal joint table. 
+  # many-to-many association with User model through author_paperproposal joint table.
   has_many :author_paperproposals, :dependent => :destroy, :include => [:user]
   has_many :authors, :class_name => "User", :source => :user, :through => :author_paperproposals
   # with four conditional association.
@@ -114,12 +114,22 @@ class Paperproposal < ActiveRecord::Base
 
   def beautiful_title (only_authors = false)
     # gives back a nice string to display, like: Kraft, N. J., Comita, L. S. (2011): DisentanglingAlong Latitudinal and Elevational Gradients. Science, 333(6050).
-    authors = self.author_list[:author_list].collect{|a| a.short_name}.join(", ")
+
+    pp_project_short_name = self.authored_by_project.blank? ? "" : "Project: #{self.authored_by_project.shortname}; "
+    pp_author = "Proposal author: #{self.author.short_name};"
     return authors if only_authors
 
-    year = self.state != 'accepted' ? "" : " (#{self.envisaged_date.year})"
-    publication = self.envisaged_journal.blank? ? "" : " #{envisaged_journal}."
-    "#{authors} (Portal members involved)#{year}: #{self.title}. #{publication}"
+    pp_year = self.envisaged_date.year.blank? ? "" : "Year: #{self.envisaged_date.year}; "
+    pp_title = self.title.blank? ? "" : "Title: #{self.title}; "
+    pp_journal = self.envisaged_journal.blank? ? "" : "Journal: #{envisaged_journal}"
+
+    proponents_array = []
+    self.proponents.each do |p|
+      proponents_array << p.firstname + " " + p.lastname
+    end
+    pp_proponents = proponents_array.blank? ? "" : "Proponents: #{proponents_array.split.join(", ")}; "
+
+    "#{pp_project_short_name} #{pp_author} #{pp_year} #{pp_title} #{pp_proponents} #{pp_journal}"
   end
 
   def calculate_datasets_proponents

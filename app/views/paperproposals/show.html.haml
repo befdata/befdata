@@ -54,6 +54,10 @@
 %h2
   = @paperproposal.title
 
+%p
+  %strong Created at:
+  = @paperproposal.created_at.to_date
+
 - unless @paperproposal.initial_title == @paperproposal.title
   %p
     %strong Initial title:
