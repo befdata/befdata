@@ -28,7 +28,7 @@ class Datafile < ActiveRecord::Base
       ss = Spreadsheet.open(file_path)
       ss.io.close
     rescue
-      errors.add :file, "Sorry file could not be read. We currently only support uploading .xls files."
+      errors.add :file, "could not be read. Note: We currently only support uploading .xls files."
       return
     end
 
