@@ -84,7 +84,7 @@ private
     @datagroup = Datagroup.find(params[:id])
   end
 
-  def set_sort_params(default= "count desc")
+  def set_sort_params(default= "short asc")
     column, direction = default.split
     params[:sort] ||= column
     params[:direction] ||= direction

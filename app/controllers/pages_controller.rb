@@ -46,7 +46,7 @@ class PagesController < ApplicationController
   # This provide a first look to our metadata and give a hint about our data
   def data
     @tags = Dataset.tag_counts.order("tags.name")
-    @datasets = Dataset.order(:title)
+    @datasets = Dataset.order(:title).select("id, title")
   end
 
   def search

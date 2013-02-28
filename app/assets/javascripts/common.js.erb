@@ -132,4 +132,8 @@ $(function(){
     $(this).parent().remove();
     return(false);
   });
+  $("#search_term").parent("form").submit(function(){
+    var term = $("#search_term").val();
+    if(term == "") return false;
+  });
 })

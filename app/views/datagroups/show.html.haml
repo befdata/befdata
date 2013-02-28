@@ -7,7 +7,7 @@
     = link_to datagroup_path(:id => @datagroup, :format => :csv) do
       = image_tag("save.png")
       Download Categories as CSV
-    - if current_user.has_role?(:admin)
+    - if current_user.admin
       = link_to upload_categories_datagroup_path do
         = image_tag("file-upload.png")
         Upload Categories as CSV
@@ -53,7 +53,7 @@
         return(false);
       });
       $("#categories").on("submit", "form#filter", function(){
-        var term = $(":input[name='search']").val();
+        var term = $(this).find(":input[type='search']").val();
         if(term == "") return false;
         show_indicator();
       });
