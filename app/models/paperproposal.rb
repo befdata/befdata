@@ -11,11 +11,7 @@
 # Datasets can be of main or side aspect for the proposal. Dataset owners of main aspect datasets
 # should be offered a co-authorship in the resulting paper.
 class Paperproposal < ActiveRecord::Base
-
-  # acts_as_authorization_object :subject_class_name => 'Project'
-
   belongs_to :author, :class_name => "User", :foreign_key => "author_id"
-
   belongs_to :authored_by_project, :class_name => "Project", :foreign_key => :project_id
 
   # User roles in a paperproposal: proponents, main aspect dataset owner, side aspect dataset owner, acknowledged.

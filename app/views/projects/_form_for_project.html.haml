@@ -32,12 +32,24 @@
         });
       }
       else {
-        alert("Currently, At most #{max_num} roles allowed.");
+        alert("Currently, At most #{max_num} role groups allowed.");
       }
       return(false);
     });
     $("#roles").on("click", "a.empty", function(){
       $(this).prev("select.select2").select2("val","");
       return(false);
+    });
+    $("form.edit_project, form.new_project").submit(function(e){
+      var roles = $(this).find("select[name='roles[][type]']").map(function(){
+        return $(this).val();
+      });
+      $.each(roles, function(i, v){
+        if($.inArray(v, roles) != i) {
+          alert("Found duplicated role groups!\nplease check your membership configuration.");
+          e.preventDefault();
+          return false;
+        }
+      });
     })
   })
