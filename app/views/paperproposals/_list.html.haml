@@ -1,22 +1,27 @@
 - paperproposals ||= @paperproposals
 - with_lock ||= false
 - authorship_user ||= false
-%ul.paperproposals
-  - slect_pps_with_project = paperproposals.select{ |p| p.authored_by_project != nil}
-  - sort_pps_with_project = slect_pps_with_project.sort{ |a,b| b.authored_by_project <=> a.authored_by_project && a.author.lastname.downcase <=> b.author.lastname.downcase && b.created_at.year <=> a.created_at.year }
-  - select_pps_without_project = paperproposals.select{ |p| p.authored_by_project == nil}
-  - sort_pps_without_project = select_pps_without_project.sort{ |a,b| b.author.lastname.downcase <=> a.author.lastname.downcase && b.created_at.year <=> a.created_at.year }
-  - combine_sorted_pps = sort_pps_with_project + sort_pps_without_project
+- slect_pps_with_project = paperproposals.select{ |p| p.authored_by_project != nil}
+- sort_pps_with_project = slect_pps_with_project.sort{ |a,b| a.authored_by_project.shortname <=> b.authored_by_project.shortname && a.author.lastname.downcase <=> b.author.lastname.downcase && a.created_at.year <=> b.created_at.year }
+- select_pps_without_project = paperproposals.select{ |p| p.authored_by_project == nil}
+- sort_pps_without_project = select_pps_without_project.sort{ |a,b| b.author.lastname.downcase <=> a.author.lastname.downcase && b.created_at.year <=> a.created_at.year }
+- combine_sorted_pps = sort_pps_with_project + sort_pps_without_project
 
-  - combine_sorted_pps.each do |pp|
-    %li.paperproposal
-      - if with_lock
-        .paperproposal-lock
-          = pp.lock ? image_tag("lock-closed.png") :image_tag("lock-open.png")
-      - if current_user
-        = link_to pp.beautiful_title, paperproposal_path(pp)
-      - else
-        = pp.beautiful_title
-      - if authorship_user
-        = "(#{pp.calc_authorship(@user)})" unless pp.calc_authorship(@user).blank?
-
+- @year_index.reverse.each do |year|
+  %h4
+    - pp_select = combine_sorted_pps.select{|p| p.created_at.year == year}.sort
+    - unless pp_select.blank?
+      = year
+  %ul.paperproposals
+    - combine_sorted_pps.each do |pp|
+      - if pp.created_at.year == year
+        %li.paperproposal
+          - if with_lock
+            .paperproposal-lock
+              = pp.lock ? image_tag("lock-closed.png") :image_tag("lock-open.png")
+          - if current_user
+            = link_to pp.beautiful_title, paperproposal_path(pp)
+          - else
+            = pp.beautiful_title
+          - if authorship_user
+            = "(#{pp.calc_authorship(@user)})" unless pp.calc_authorship(@user).blank?

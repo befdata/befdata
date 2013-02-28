@@ -120,7 +120,7 @@ class Paperproposal < ActiveRecord::Base
     pp_hash['pp_author'] = "#{self.author.short_name}: "
     return authors if only_authors
 
-    pp_hash['pp_year'] = self.envisaged_date.year.blank? ? "" : "#{self.envisaged_date.year}, "
+    pp_hash['pp_year'] = self.created_at.year.blank? ? "" : "#{self.created_at.year}, "
     pp_hash['pp_title'] = self.title.blank? ? "" : "#{self.title}, "
     pp_hash['pp_journal'] = self.envisaged_journal.blank? ? "" : ", Citation: #{envisaged_journal}"
 
@@ -129,11 +129,20 @@ class Paperproposal < ActiveRecord::Base
       proponents_and_dataowners_array << p.firstname + " " + p.lastname
     end
 
+    # self.associate
     proponents_and_dataowners_array = proponents_and_dataowners_array.sort
     pp_hash['pp_proponents_and_dataowners'] = proponents_and_dataowners_array.blank? ? "" : "Proponents and dataowners: #{proponents_and_dataowners_array.split.join(", ")}"
 
     # "#{pp_project_short_name} #{pp_author} #{pp_year} #{pp_title} #{pp_proponents_and_dataowners} #{pp_journal}"
     "#{ pp_hash["pp_project_short_name"]} #{pp_hash["pp_author"]} #{pp_hash["pp_year"]} #{pp_hash["pp_title"]} #{pp_hash["pp_proponents_and_dataowners"]} #{pp_hash["pp_journal"]}"
+  end
+
+  def self.get_all_pp_years
+    years = []
+    self.all.each do |pp|
+      years << pp.created_at.year
+    end
+    return years.uniq
   end
 
   def calculate_datasets_proponents
