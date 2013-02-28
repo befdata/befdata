@@ -11,8 +11,9 @@ class ProfilesController < ApplicationController
     @datasets_with_responsible_datacolumns_not_owned = @user.datasets_with_responsible_datacolumns - @datasets_owned
     @project_roles = @user.projectroles
     @paperproposals = @user.paperproposals
+    @year_index = Paperproposal.get_all_pp_years
   end
-  
+
   def update
     if @user.update_attributes(params[:user].slice(:login, :password, :password_confirmation, :firstname,
             :middlenames, :lastname, :email, :salutation, :institution_name, :institution_url, :institution_phone,
