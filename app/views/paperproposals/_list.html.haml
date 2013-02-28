@@ -7,7 +7,7 @@
 - sort_pps_without_project = select_pps_without_project.sort{ |a,b| b.author.lastname.downcase <=> a.author.lastname.downcase && b.created_at.year <=> a.created_at.year }
 - combine_sorted_pps = sort_pps_with_project + sort_pps_without_project
 
-- @year_index.reverse.each do |year|
+- get_all_paperproposal_years.reverse.each do |year|
   %h4
     - pp_select = combine_sorted_pps.select{|p| p.created_at.year == year}.sort
     - unless pp_select.blank?

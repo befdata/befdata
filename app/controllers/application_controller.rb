@@ -1,6 +1,6 @@
 class ::ApplicationController < ActionController::Base
   protect_from_forgery
-  helper_method :current_user_session, :current_user
+  helper_method :current_user_session, :current_user, :get_all_paperproposal_years
   #layout :layout_from_config
 
   access_control :deny_access_to_all do
@@ -33,6 +33,13 @@ class ::ApplicationController < ActionController::Base
     false
   end
 
+  def get_all_paperproposal_years
+    years = []
+    Paperproposal.all.each do |pp|
+      years << pp.created_at.year
+    end
+    return years.uniq
+  end
 
 protected
 

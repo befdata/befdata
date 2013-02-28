@@ -11,7 +11,6 @@ class ProfilesController < ApplicationController
     @datasets_with_responsible_datacolumns_not_owned = @user.datasets_with_responsible_datacolumns - @datasets_owned
     @project_roles = @user.projectroles
     @paperproposals = @user.paperproposals
-    @year_index = Paperproposal.get_all_pp_years
   end
 
   def update
