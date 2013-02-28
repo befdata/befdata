@@ -23,6 +23,7 @@ class PaperproposalsController < ApplicationController
 
   def index
     @paperproposals = Paperproposal.all
+    @year_index = Paperproposal.get_all_pp_years
   end
 
   def show
