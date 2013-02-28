@@ -7,7 +7,9 @@
 
 %h2 Paper Proposals
 
-- pp_select = @paperproposals.select{|p| p.state == 'accepted'}.sort
+= @proposal_info
+
+- pp_select = @paperproposals.select{ |p| p.state == 'accepted'}
 - unless pp_select.blank?
   %h3 Published
   = render :partial => 'list', :locals => {:paperproposals => pp_select, :with_lock => true}

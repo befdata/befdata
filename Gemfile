@@ -31,7 +31,10 @@ group :test, :development do
   # gem 'ruby-prof'
   gem 'libxml-ruby'
   gem 'rb-inotify'
-  gem 'thin'   
+  gem 'thin'    
+  gem 'debugger' 
+  gem 'better_errors'  
+  gem 'binding_of_caller'
 end 
 
 group :assets do
