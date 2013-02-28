@@ -12,7 +12,7 @@ class Datafile < ActiveRecord::Base
   :basename => "basename",
   :path => ":rails_root/files/:id_:filename",
   :url => "/files/:id/download"
-  
+
   def basename
     return File.basename(self.file.original_filename, File.extname(self.file.original_filename))
   end
@@ -28,7 +28,7 @@ class Datafile < ActiveRecord::Base
       ss = Spreadsheet.open(file_path)
       ss.io.close
     rescue
-      errors.add :file, "can not be read"
+      errors.add :file, "Sorry file could not be read. We currently only support uploading .xls files."
       return
     end
 
