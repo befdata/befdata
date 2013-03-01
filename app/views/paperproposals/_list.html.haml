@@ -2,12 +2,14 @@
 - with_lock ||= false
 - authorship_user ||= false
 - slect_pps_with_project = paperproposals.select{ |p| p.authored_by_project != nil}
-- sort_pps_with_project = slect_pps_with_project.sort{ |a,b| a.authored_by_project.shortname <=> b.authored_by_project.shortname && a.author.lastname.downcase <=> b.author.lastname.downcase && a.created_at.year <=> b.created_at.year }
+- sort_pps_with_project = slect_pps_with_project.sort{ |a,b| a.authored_by_project <=> a.authored_by_project && a.author <=> b.author}
 - select_pps_without_project = paperproposals.select{ |p| p.authored_by_project == nil}
-- sort_pps_without_project = select_pps_without_project.sort{ |a,b| b.author.lastname.downcase <=> a.author.lastname.downcase && b.created_at.year <=> a.created_at.year }
+- sort_pps_without_project = select_pps_without_project.sort{ |a,b| a.author.lastname.downcase <=> b.author.lastname.downcase}
 - combine_sorted_pps = sort_pps_with_project + sort_pps_without_project
 
-- get_all_paperproposal_years.reverse.each do |year|
+
+
+- get_all_paperproposal_years.each do |year|
   %h4
     - pp_select = combine_sorted_pps.select{|p| p.created_at.year == year}.sort
     - unless pp_select.blank?

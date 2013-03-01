@@ -38,7 +38,8 @@ class ::ApplicationController < ActionController::Base
     Paperproposal.all.each do |pp|
       years << pp.created_at.year
     end
-    return years.uniq
+    y = years.uniq.sort.reverse
+    return y
   end
 
 protected

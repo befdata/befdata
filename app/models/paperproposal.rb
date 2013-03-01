@@ -118,19 +118,17 @@ class Paperproposal < ActiveRecord::Base
 
     pp_hash['pp_year'] = self.created_at.year.blank? ? "" : "#{self.created_at.year}, "
     pp_hash['pp_title'] = self.title.blank? ? "" : "#{self.title}, "
-    pp_hash['pp_journal'] = self.envisaged_journal.blank? ? "" : ", Citation: #{envisaged_journal}"
+    pp_hash['pp_journal'] = self.envisaged_journal.blank? ? "" : ", <i>Citation</i>: #{envisaged_journal}".html_safe
 
     proponents_and_dataowners_array = []
     self.authors_selection(:proponents_and_all_owners).each do |p|
       proponents_and_dataowners_array << p.firstname + " " + p.lastname
     end
 
-    # self.associate
     proponents_and_dataowners_array = proponents_and_dataowners_array.sort
-    pp_hash['pp_proponents_and_dataowners'] = proponents_and_dataowners_array.blank? ? "" : "Proponents and dataowners: #{proponents_and_dataowners_array.split.join(", ")}"
+    pp_hash['pp_proponents_and_dataowners'] = proponents_and_dataowners_array.blank? ? "" : "<i>Proponents and dataowners</i>: #{proponents_and_dataowners_array.split.join(", ")}".html_safe
 
-    # "#{pp_project_short_name} #{pp_author} #{pp_year} #{pp_title} #{pp_proponents_and_dataowners} #{pp_journal}"
-    "#{ pp_hash["pp_project_short_name"]} #{pp_hash["pp_author"]} #{pp_hash["pp_year"]} #{pp_hash["pp_title"]} #{pp_hash["pp_proponents_and_dataowners"]} #{pp_hash["pp_journal"]}"
+    "#{ pp_hash["pp_project_short_name"]} #{pp_hash["pp_author"]} #{pp_hash["pp_year"]} #{pp_hash["pp_title"]} #{pp_hash["pp_proponents_and_dataowners"]} #{pp_hash["pp_journal"]}".html_safe
   end
 
   def self.get_all_pp_years
