@@ -2,7 +2,7 @@
 - with_lock ||= false
 - authorship_user ||= false
 - slect_pps_with_project = paperproposals.select{ |p| p.authored_by_project != nil}
-- sort_pps_with_project = slect_pps_with_project.sort{ |a,b| a.authored_by_project <=> b.authored_by_project && a.author.lastname.downcase <=> b.author.lastname.downcase}
+- sort_pps_with_project = slect_pps_with_project.sort{ |a,b| a.authored_by_project <=> b.authored_by_project}
 - select_pps_without_project = paperproposals.select{ |p| p.authored_by_project == nil}
 - sort_pps_without_project = select_pps_without_project.sort{ |a,b| a.author.lastname.downcase <=> b.author.lastname.downcase}
 - combine_sorted_pps = sort_pps_with_project + sort_pps_without_project
