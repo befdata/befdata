@@ -368,6 +368,13 @@ input[type=button]:hover, input[type=submit]:hover, button:hover, input[type=but
     outline-color: #18921e;
     background-color: #eee;
 }
+
+input[type='search'] {
+    -webkit-appearance: none;
+    border: none;
+    border-radius: 0;
+}
+
 form .required:after {
   content: ' *';
   color: red;
@@ -674,7 +681,15 @@ div#actions + div#info {
 .simplemodal-container {
     background-color: #fff;
     padding: 12px;
-    border: 2px #18921E solid;
+    border: 1px #18921E solid;
+    border-radius: 5px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    -moz-box-shadow: 0px 0px 20px #acacac;
+    -webkit-box-shadow: 0px 0px 20px #acacac;
+    -ms-filter: "progid:DXImageTransform.Microsoft.Shadow(Strength=20, Direction=90, Color=#acacac)";
+    box-shadow: 0px 0px 20px #acacac;
+    filter: progid:DXImageTransform.Microsoft.Shadow(Strength=20, Direction=90, Color=#acacac);
     width: 600px;
     font-size: 0.9em;
 }
