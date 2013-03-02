@@ -15,7 +15,7 @@
 //= require jquery.ui.accordion
 //= require jquery.ui.autocomplete
 //= require jquery.ui.tabs
-//= require jquery.simplemodal.1.4.2.min
+//= require jquery.simplemodal.1.4.4.min
 //= require jquery.tablesorter.min
 //= require jquery-cookie
 //= require select2.min
