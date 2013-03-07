@@ -17,12 +17,15 @@ gem 'delayed_job_active_record'
 gem 'daemons'
 gem 'whenever', :require => false
 gem 'activerecord-import'
-gem 'newrelic_rpm'
 gem 'pg_search'
 gem 'jquery-rails'
 gem 'jquery-ui-rails' 
-gem 'party_foul'   
 gem 'will_paginate'
+
+# group :production do
+  # gem 'newrelic_rpm'
+  # gem 'party_foul'   
+# end
 
 group :test, :development do
   gem "test-unit", '2.4.8' #2.4.9 is incompatible to Rubymine's and Teamcity's way of running tests

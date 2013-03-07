@@ -69,6 +69,6 @@ Befchina::Application.configure do
   Paperclip.options[:command_path] = "/usr/bin"
 
   # Configures Party-Fould exception handling middleware (needs to be on last position)
-  config.middleware.use('PartyFoul::Middleware')
+  # config.middleware.use('PartyFoul::Middleware')
 
 end
