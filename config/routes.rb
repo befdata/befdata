@@ -50,6 +50,7 @@ Befchina::Application.routes.draw do
       post :update_datasets
     end
   end
+  match 'index_csv' => 'paperproposals#index_csv'
   match 'paperproposals/update_vote/:id' => 'paperproposals#update_vote', :as => :update_vote
   match 'paperproposals/update_state/:id' => 'paperproposals#update_state', :as => :paperproposal_update_state
 

@@ -1,6 +1,6 @@
 class PaperproposalsController < ApplicationController
 
-  before_filter :load_proposal, :except => [:index, :new, :create, :update_vote]
+  before_filter :load_proposal, :except => [:index, :index_csv, :new, :create, :update_vote]
 
   skip_before_filter :deny_access_to_all
 
@@ -8,7 +8,7 @@ class PaperproposalsController < ApplicationController
     actions :index, :show do
       allow all
     end
-    actions :new, :create do
+    actions :new, :create, :index_csv do
       allow logged_in
     end
     actions :edit, :destroy, :update, :update_state, :edit_files, :edit_datasets, :update_datasets do
@@ -23,6 +23,21 @@ class PaperproposalsController < ApplicationController
 
   def index
     @paperproposals = Paperproposal.all
+  end
+
+  def index_csv
+    @paperproposals = Paperproposal.joins(:author).order('state ASC, project_id ASC, created_at ASC')
+    csv_string = CSV.generate(:force_quotes => true) do |csv|
+      csv << ['state', 'project', 'date created', 'authors', 'title', 'initial title', 'envisaged journal',
+              'envisaged date','rationale', 'comment','url']
+      @paperproposals.each do |pp|
+        csv << [pp.state, pp.authored_by_project.blank? ? '' : pp.authored_by_project.name, pp.created_at.year,
+                pp.all_authors_ordered.map{|u| u.to_s}.join(', '), pp.title, pp.initial_title, pp.envisaged_journal,
+                pp.envisaged_date.blank? ? '' : pp.envisaged_date.year, pp.rationale, pp.comment,
+                paperproposal_url(pp, :user_credentials => current_user.try(:single_access_token))]
+      end
+    end
+    send_data csv_string, :type => "text/csv", :filename=>"paperproposals-list-for-#{current_user.login}.csv", :disposition => 'attachment'
   end
 
   def show
