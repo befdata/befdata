@@ -70,7 +70,12 @@
 
 :javascript
   jQuery(document).ready(function(){
-    $( "#accordion" ).accordion({ header: 'h4', autoHeight:false, icons:false, collapsible:true});
+    $( "#accordion" ).accordion({
+      header: 'h4',
+      heightStyle: 'content',
+      icons:false,
+      collapsible:true
+    });
 
     // *** filter the datagroups ***
     function datagroupsFilter(){

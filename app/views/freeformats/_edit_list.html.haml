@@ -3,24 +3,18 @@
     %li
       = link_to ff.file_file_name, ff.file.url
       %i #{ff.description}
-
+      (
       %a.showr{:id => "freeformat_change_#{ff.id}"} Change
+      |
       = link_to 'Delete', {:controller => :freeformats, :action => :destroy, :id => ff.id},
       {:confirm => "Are you sure you want to delete #{ff.file_file_name}?", :method => :delete}
-
+      )
       .hidden{:id => "form_freeformat_change_#{ff.id}"}
         = render :partial => 'freeformats/edit', :locals => {:freeformat => ff}
-
 :javascript
   $(function() {
-    $(".showr").toggle(
-      function() {
-        var id = $(this).attr('id');
-        $("#form_" + id).slideDown();
-      },
-      function(){
-        var id = $(this).attr('id');
-        $("#form_" + id).slideUp();
-      }
-    );
+    $(".showr").click(function(){
+      var id = $(this).attr('id');
+      $("#form_" + id).slideToggle();
+    });
   });

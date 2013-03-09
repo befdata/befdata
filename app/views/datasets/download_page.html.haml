@@ -40,7 +40,7 @@
         Status:
         = content_tag :span, id: @dataset.download_status do
           = @dataset.download_status
-      %span.right= image_tag "spinner.gif", :class => @dataset.download_status == 'queued' ? "" : 'hidden', :id => "indicator"
+      %span.right= image_tag "spinner.gif", :class => ['queued', 'started'].include?(@dataset.download_status) ? "" : 'hidden', :id => "indicator"
     - if @dataset.download_status == "outdated"
       %div#warning This Excel file is outdated. Usually, it will be regenerated within at most 10 minutes. You could wait for a while, or you could also #{link_to("regenerated download", regenerate_download_dataset_path(@dataset))} manually rightnow.
     - if @dataset.download_status == "queued"

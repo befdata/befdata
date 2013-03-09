@@ -39,10 +39,6 @@ module Befchina
     # config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}').to_s]
     # config.i18n.default_locale = :de
 
-    # JavaScript files you want as :defaults (application.js is always included).
-    config.action_view.javascript_expansions[:defaults] = %w(jquery rails)
-
-
     # Configure the default encoding used in templates for Ruby 1.9.
     config.encoding = "utf-8"
 
@@ -69,7 +65,7 @@ module Befchina
     # Version of your assets, change this if you want to expire all your assets
     config.assets.version = '1.0'
 
-    ActsAsTaggableOn::Tag.remove_unused = true
+    ActsAsTaggableOn.remove_unused_tags = true
 
   end
 end

@@ -302,6 +302,7 @@ class Dataset < ActiveRecord::Base
   # This method returns similar datasets which are sorted by similarity in descending order
   def find_related_datasets
     tags = self.all_tags.map(&:id)
+    return [] if tags.empty?
     datasets = Dataset.tag_usage.select("datasets.*,count(tags.*) as count").where("tags.id in (#{tags.join(',')}) and datasets.id <> #{self.id}").
                     group("datasets.id").order("count(tags.*) desc")
     return(datasets)

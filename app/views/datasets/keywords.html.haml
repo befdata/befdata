@@ -32,9 +32,11 @@
         - if editable
           %td= link_to "edit", approve_metadata_datacolumn_path(dc)
 
-- unless @datasets.empty?
-  %h2 Related Datasets
+%h3 Related Datasets
+- unless @datasets.blank?
   %ul
     - @datasets.each do |ds|
       %li.dataset
         = render :partial => ds, :locals => {:with_cart => true, :with_comment => false}
+- else
+  %i No similar datasets found.
