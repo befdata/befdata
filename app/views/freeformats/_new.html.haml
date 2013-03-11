@@ -1,9 +1,4 @@
 = form_for Freeformat.new, :url => {:controller => :freeformats, :action => :create,
 :freeformattable_id => freeformattable.id, :freeformattable_type => freeformattable.class},
 :html => {:multipart => true} do |f|
-  = f.error_messages
-  = f.file_field :file
-  %br
-  = f.text_area :description, :size => "40x4", :placeholder => "Describe your file here..."
-  %br  
-  = f.submit 'File upload'
+  = render :partial => 'freeformats/form', :locals => {:form => f, :freeformat => f.object, :freeformattable => freeformattable}

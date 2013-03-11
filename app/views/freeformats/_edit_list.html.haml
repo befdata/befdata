@@ -1,16 +1,34 @@
-%ul
-  - @freeformats.each do |ff|
-    %li
-      = link_to ff.file_file_name, ff.file.url
-      %i #{ff.description}
-      (
-      %a.showr{:id => "freeformat_change_#{ff.id}"} Change
-      |
-      = link_to 'Delete', {:controller => :freeformats, :action => :destroy, :id => ff.id},
-      {:confirm => "Are you sure you want to delete #{ff.file_file_name}?", :method => :delete}
-      )
-      .hidden{:id => "form_freeformat_change_#{ff.id}"}
-        = render :partial => 'freeformats/edit', :locals => {:freeformat => ff}
+- is_paperproposal_list = @freeformats.first.freeformattable.is_a? Paperproposal
+
+%table
+  %thead
+    %tr
+      %th Filename
+      %th Description
+      %th Size
+      - if is_paperproposal_list
+        %th URI
+        %th Essential
+      %th Actions
+  %tbody
+    -@freeformats.each do |ff|
+      %tr
+        %td
+          = link_to ff.file_file_name, ff.file.url
+          .hidden{:id => "form_freeformat_change_#{ff.id}"}
+            = form_for ff, :url => {:controller => :freeformats, :action => :update, :id => ff.id},
+            :html => {:multipart => true} do |f|
+              = render :partial => 'freeformats/form', :locals => {:form => f, :freeformat => ff, :freeformattable => ff.freeformattable}
+        %td= ff.description
+        %td= ff.human_readable_filesize
+        - if is_paperproposal_list
+          %td= ff.uri
+          %td= ff.is_essential ? 'X' : ''
+        %td
+          %a.showr{:id => "freeformat_change_#{ff.id}"} Edit
+          = link_to 'Delete', {:controller => :freeformats, :action => :destroy, :id => ff.id},
+            {:confirm => "Are you sure you want to delete #{ff.file_file_name}?", :method => :delete}
+
 :javascript
   $(function() {
     $(".showr").click(function(){

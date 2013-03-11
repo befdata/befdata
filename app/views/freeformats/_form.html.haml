@@ -1,0 +1,14 @@
+- f = form
+
+= f.error_messages
+= f.file_field :file
+%br
+= f.text_area :description, :size => "40x4", :value => freeformat.description
+- if freeformattable.is_a? Paperproposal
+  %br
+  = f.label "is an essential file"
+  = f.check_box :is_essential
+  %br
+  = f.text_area :uri, :size => "40x2", :placeholder => "An URI like a DOI or an external link"
+%br
+= f.submit freeformat.new_record? ? 'Upload File' : 'Update File'

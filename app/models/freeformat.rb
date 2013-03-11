@@ -16,6 +16,15 @@ class Freeformat < ActiveRecord::Base
     return File.basename(self.file.original_filename, File.extname(self.file.original_filename))
   end
 
+  def human_readable_filesize
+    size = self.file_file_size.to_f
+    if size < 1000000
+      "#{(size / 1024).round(2)} KB"
+    else
+      "#{(size / 1024 / 1024).round(2)} KB"
+    end
+  end
+
   def to_label
     self.file_file_name.to_s
   end

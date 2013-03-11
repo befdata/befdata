@@ -1,8 +1,0 @@
-= form_for freeformat, :url => {:controller => :freeformats, :action => :update, :id => freeformat.id},
-:html => {:multipart => true} do |f|
-  = f.error_messages
-  = f.file_field :file
-  %br
-  = f.text_area :description, :size => "40x4", :value => freeformat.description
-  %br
-  = f.submit 'Update File'
