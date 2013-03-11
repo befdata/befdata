@@ -1,4 +1,5 @@
 class PaperproposalsController < ApplicationController
+  helper FreeformatsHelper
 
   before_filter :load_proposal, :except => [:index, :index_csv, :new, :create, :update_vote]
 
@@ -26,22 +27,11 @@ class PaperproposalsController < ApplicationController
   end
 
   def index_csv
-    @paperproposals = Paperproposal.joins(:author).order('state ASC, project_id ASC, created_at ASC')
-    csv_string = CSV.generate(:force_quotes => true) do |csv|
-      csv << ['state', 'project', 'date created', 'authors', 'title', 'initial title', 'envisaged journal',
-              'envisaged date','rationale', 'comment','url']
-      @paperproposals.each do |pp|
-        csv << [pp.state, pp.authored_by_project.blank? ? '' : pp.authored_by_project.name, pp.created_at.year,
-                pp.all_authors_ordered.map{|u| u.to_s}.join(', '), pp.title, pp.initial_title, pp.envisaged_journal,
-                pp.envisaged_date.blank? ? '' : pp.envisaged_date.year, pp.rationale, pp.comment,
-                paperproposal_url(pp, :user_credentials => current_user.try(:single_access_token))]
-      end
-    end
-    send_data csv_string, :type => "text/csv", :filename=>"paperproposals-list-for-#{current_user.login}.csv", :disposition => 'attachment'
+    send_data generate_csv_index, :type => "text/csv", :filename=>"paperproposals-list-for-#{current_user.login}.csv", :disposition => 'attachment'
   end
 
   def show
-    @freeformats = @paperproposal.freeformats
+    @freeformats = @paperproposal.freeformats.order('is_essential DESC, file_file_name ASC')
   end
 
   def new
@@ -168,6 +158,29 @@ class PaperproposalsController < ApplicationController
   end
 
 private
+
+  def generate_csv_index
+    paperproposals = Paperproposal.joins(:author).order('state ASC, project_id ASC, created_at ASC')
+
+    CSV.generate(:force_quotes => true) do |csv|
+      csv << ['State', 'Project', 'Date created', 'Authors', 'Title', 'Initial title', 'Envisaged journal',
+              'Envisaged date','Rationale', 'Comment','Url', 'Essential files and URIs']
+
+      paperproposals.each do |pp|
+        csv << [pp.state,
+                pp.authored_by_project.blank? ? '' : pp.authored_by_project.name,
+                pp.created_at.year,
+                pp.all_authors_ordered.map{|u| u.to_s}.join(', '),
+                pp.title, pp.initial_title, pp.envisaged_journal,
+                pp.envisaged_date.blank? ? '' : pp.envisaged_date.year,
+                pp.rationale, pp.comment,
+                paperproposal_url(pp),
+                pp.freeformats.where('is_essential = TRUE').order('file_file_name ASC').map{|ff|
+                  "#{view_context.complete_freeformat_url(ff, true)} (#{ff.uri})"}.join(' / ')
+        ]
+      end
+    end
+  end
 
   def update_proponents
     proponents = User.find_all_by_id(params[:people]).map{|person| AuthorPaperproposal.new(:user => person, :kind => "user")}

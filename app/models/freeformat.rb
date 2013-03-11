@@ -21,7 +21,7 @@ class Freeformat < ActiveRecord::Base
     if size < 1000000
       "#{(size / 1024).round(2)} KB"
     else
-      "#{(size / 1024 / 1024).round(2)} KB"
+      "#{(size / 1024 / 1024).round(2)} MB"
     end
   end
 

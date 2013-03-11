@@ -8,6 +8,12 @@ class PaperproposalsControllerTest < ActionController::TestCase
     assert_success_no_error
   end
 
+  test "should get index as csv" do
+    login_nadrowski
+    get :index_csv
+    assert_success_no_error
+  end
+
   test "without login should not be able to edit" do
     @request.env['HTTP_REFERER'] = login_url
     get :edit, :id => Paperproposal.first.id

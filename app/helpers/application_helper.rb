@@ -1,5 +1,6 @@
 module ApplicationHelper
   include Acl9Helpers
+
   def tag_cloud(tag_counts, classes)
     return if tag_counts.blank?
 
@@ -11,8 +12,10 @@ module ApplicationHelper
       yield(t, classes[index.nan? ? 0 : index.round])
     }
   end
+
   def all_project_roles
     t("role").slice(:pi, :"co-pi", :postdoc, :"phd student",
                     :technician, :student).invert
   end
+
 end
