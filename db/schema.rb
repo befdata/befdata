@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130311022659) do
+ActiveRecord::Schema.define(:version => 20130315024017) do
 
   create_table "author_paperproposals", :force => true do |t|
     t.integer  "paperproposal_id"
@@ -83,7 +83,10 @@ ActiveRecord::Schema.define(:version => 20130311022659) do
     t.datetime "file_updated_at"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "dataset_id"
   end
+
+  add_index "datafiles", ["dataset_id"], :name => "index_datafiles_on_dataset_id"
 
   create_table "datagroups", :force => true do |t|
     t.string   "informationsource"
@@ -137,7 +140,6 @@ ActiveRecord::Schema.define(:version => 20130311022659) do
     t.datetime "datemax"
     t.text     "published"
     t.boolean  "visible_for_public",                 :default => true
-    t.integer  "upload_spreadsheet_id"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.boolean  "free_for_members",                   :default => false
@@ -154,7 +156,6 @@ ActiveRecord::Schema.define(:version => 20130311022659) do
   end
 
   add_index "datasets", ["filename"], :name => "index_datasets_on_filename"
-  add_index "datasets", ["upload_spreadsheet_id"], :name => "index_datasets_on_upload_spreadsheet_id"
 
   create_table "datasets_projects", :id => false, :force => true do |t|
     t.integer  "dataset_id"

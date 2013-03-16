@@ -40,7 +40,6 @@ datasets_001:
   published: If your data has been published already, you can give citation and doi
     here.
   visible_for_public: t
-  upload_spreadsheet_id: '1'
   created_at: '2012-03-17 20:45:07.27112'
   updated_at: '2012-08-23 13:08:29.577698'
   free_for_members: f

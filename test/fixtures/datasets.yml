@@ -30,7 +30,6 @@ datasets_001:
   datemax: '2011-04-18 00:00:00'
   published: ''
   visible_for_public: t
-  upload_spreadsheet_id: '4'
   created_at: '2011-06-01 13:47:09.016'
   updated_at: '2012-06-12 15:41:20.190261'
   free_for_members: f
@@ -65,7 +64,6 @@ datasets_002:
   datemax: '2012-12-12 12:12:00'
   published: PUBLISHED
   visible_for_public: t
-  upload_spreadsheet_id: '9'
   created_at: '2011-12-12 13:33:55.116176'
   updated_at: '2012-06-12 15:41:21.338059'
   free_for_members: t
@@ -98,7 +96,6 @@ datasets_003:
   datemax: '2011-04-18 00:00:00'
   published: ''
   visible_for_public: t
-  upload_spreadsheet_id: '6'
   created_at: '2011-07-01 15:02:04.119'
   updated_at: '2012-06-12 15:41:20.602269'
   free_for_members: f
@@ -267,7 +264,6 @@ datasets_004:
   datemax: '2009-12-30 23:00:00'
   published: submitted to Ecology in 2009
   visible_for_public: t
-  upload_spreadsheet_id: '7'
   created_at: '2011-09-01 09:02:29.276168'
   updated_at: '2012-06-12 15:41:19.82133'
   free_for_members: f
@@ -312,7 +308,6 @@ datasets_005:
   datemax: '2011-04-18 00:00:00'
   published: ''
   visible_for_public: t
-  upload_spreadsheet_id: '8'
   created_at: '2011-06-01 15:02:04.119'
   updated_at: '2012-06-12 15:41:20.964016'
   free_for_members: t

@@ -7,6 +7,7 @@ datafiles_001:
   file_updated_at: 2011-06-01 13:47:07.55
   created_at: 2011-06-01 13:47:07.662
   updated_at: 2011-06-01 13:47:07.662
+  dataset_id: "5"
 datafiles_002: 
   id: "6"
   file_file_name: Unit test spreadsheet.xls
@@ -15,6 +16,7 @@ datafiles_002:
   file_updated_at: 2011-07-01 15:02:01.543
   created_at: 2011-06-01 15:02:01.648
   updated_at: 2011-06-01 15:02:01.648
+  dataset_id: "7"
 datafiles_003: 
   id: "7"
   file_file_name: problem_spreadsheet 2.xls
@@ -23,6 +25,7 @@ datafiles_003:
   file_updated_at: 2011-09-01 09:02:29.009153
   created_at: 2011-09-01 09:02:29.020153
   updated_at: 2011-09-01 09:02:29.020153
+  dataset_id: "8"
 datafiles_004: 
   id: "8"
   file_file_name: 8346952459374535species second test.xls
@@ -31,6 +34,7 @@ datafiles_004:
   file_updated_at: 2011-09-28 14:22:52.800443
   created_at: 2011-09-28 14:22:52.836721
   updated_at: 2011-09-28 14:22:52.836721
+  dataset_id: "6"
 datafiles_005: 
   id: "9"
   file_file_name: befdata_export_testing_for_old_import.xls
@@ -39,3 +43,4 @@ datafiles_005:
   file_updated_at: 2011-12-12 13:33:54.786774
   created_at: 2011-12-12 13:33:54.871298
   updated_at: 2011-12-12 13:33:54.871298
+  dataset_id: "9"
