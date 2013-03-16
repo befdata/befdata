@@ -34,9 +34,8 @@ class Dataset < ActiveRecord::Base
   has_attached_file :generated_spreadsheet,
     :path => ":rails_root/files/:id_generated-download.xls"
 
-  belongs_to :upload_spreadsheet, :class_name => "Datafile",
-    :foreign_key => "upload_spreadsheet_id",
-    :dependent => :destroy
+  has_many :upload_spreadsheets, :class_name => "Datafile", :order => 'id DESC', :dependent => :destroy
+  has_one  :upload_spreadsheet,  :class_name => "Datafile", :order => 'id DESC'
 
   has_many :datacolumns, :dependent => :destroy, :order => "columnnr"
   has_many :sheetcells, :through => :datacolumns
@@ -51,7 +50,7 @@ class Dataset < ActiveRecord::Base
 
   validates :title, :presence => true, :uniqueness => true
 
-  validates_associated :upload_spreadsheet, :if => "upload_spreadsheet_id_changed?"
+  # validates_associated :upload_spreadsheet, :if => "upload_spreadsheet_id_changed?"
 
   before_validation(:load_metadata_from_spreadsheet, :on => :create)
 

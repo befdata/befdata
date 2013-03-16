@@ -3,8 +3,7 @@
 require "dataworkbook_format"
 
 class Datafile < ActiveRecord::Base
-
-  has_one :dataset, :foreign_key => :upload_spreadsheet_id
+  belongs_to :dataset
 
   validate :is_valid_worksheet
 
