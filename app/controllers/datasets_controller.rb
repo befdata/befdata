@@ -1,7 +1,7 @@
 class DatasetsController < ApplicationController
 
   before_filter :load_dataset, :only => [:download, :download_page, :show, :edit, :edit_files, :update, :approve, :approve_predefined,
-                                         :delete_imported_research_data_and_file, :destroy, :regenerate_download,
+                                         :update_workbook, :destroy, :regenerate_download,
                                          :approval_quick, :batch_update_columns, :keywords, :download_status]
 
   before_filter :redirect_if_unimported, :only => [:download, :edit, :approve, :approve_predefined, :destroy,
@@ -19,7 +19,7 @@ class DatasetsController < ApplicationController
       allow :owner, :of => :dataset
     end
 
-    actions :delete_imported_research_data_and_file, :destroy do
+    actions :update_workbook, :destroy do
       allow :admin
       allow :owner, :of => :dataset
     end
@@ -202,15 +202,14 @@ class DatasetsController < ApplicationController
   end
 
 
-  def delete_imported_research_data_and_file
+  def update_workbook
     if !params[:datafile] then
       flash[:error] = "No filename given"
       redirect_to :back and return
     end
-    new_datafile = Datafile.new(params[:datafile])
+    new_datafile = @dataset.upload_spreadsheets.build(params[:datafile])
     if new_datafile.save
-      @dataset.delete_imported_research_data_and_file
-      @dataset.upload_spreadsheet = new_datafile
+      @dataset.delete_imported_research_data
       @dataset.filename = new_datafile.file_file_name
       @dataset.import_status = 'new'
       @dataset.save

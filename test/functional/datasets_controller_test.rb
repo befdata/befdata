@@ -175,7 +175,7 @@ class DatasetsControllerTest < ActionController::TestCase
 
     #upload the same workbook again. This should not cause error.
     assert_nothing_raised {
-      post :delete_imported_research_data_and_file, :id => @dataset.id,
+      post :update_workbook, :id => @dataset.id,
              :datafile => {
                  :file =>  Rack::Test::UploadedFile.new("#{Rails.root}/files/4_8346952459374534species first test.xls")
              }
@@ -187,7 +187,7 @@ class DatasetsControllerTest < ActionController::TestCase
 
 
     #upload another workbook
-    post :delete_imported_research_data_and_file, :id => @dataset.id,
+    post :update_workbook, :id => @dataset.id,
           :datafile => {
               :file => test_file_for_upload("SP5_TargetSpecies_CN_final_8_target_spec_kn_-_short.xls")
           }

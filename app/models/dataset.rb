@@ -183,9 +183,8 @@ class Dataset < ActiveRecord::Base
     @columns_with_invalid_values
   end
 
-  def delete_imported_research_data_and_file
+  def delete_imported_research_data
     datacolumns.destroy_all
-    upload_spreadsheet.try(:destroy)
   end
 
   def log_download(downloading_user)
