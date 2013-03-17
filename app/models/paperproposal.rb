@@ -213,7 +213,11 @@ class Paperproposal < ActiveRecord::Base
     elsif self.paperproposal_votes.select{|v| v.vote == ('none' || 'reject')}.empty?
       case self.board_state
         when 'submit'
-          make_data_request_accepted
+          if self.datasets.length == 0
+            make_data_request_final
+          else
+            make_data_request_accepted
+          end
         when 'accept'
           make_data_request_final
         else

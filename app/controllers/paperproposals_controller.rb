@@ -127,7 +127,7 @@ class PaperproposalsController < ApplicationController
     redirect_to :back
   end
 
-  # ToDo Perhapse dont destroy a data request when he is final?!
+  # ToDo Perhapse dont destroy a data request when he is final?! / let the user only delete in prep-state / otherwise flag for deletion
   def destroy
     @paperproposal.destroy
     redirect_to :paperproposals
