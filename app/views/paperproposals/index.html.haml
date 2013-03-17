@@ -11,8 +11,6 @@
 
 %h2 Paper Proposals
 
-= @proposal_info
-
 - pp_select = @paperproposals.select{ |p| p.state == 'accepted'}
 - unless pp_select.blank?
   %h3 Published

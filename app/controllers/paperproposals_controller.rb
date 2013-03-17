@@ -2,24 +2,34 @@ class PaperproposalsController < ApplicationController
   helper FreeformatsHelper
 
   before_filter :load_proposal, :except => [:index, :index_csv, :new, :create, :update_vote]
+  before_filter :load_vote, :only => [:update_vote]
 
   skip_before_filter :deny_access_to_all
 
   access_control do
-    actions :index, :show do
+    actions :index do
       allow all
+    end
+    actions :show do
+      allow all, :if => :proposal_is_accepted
+      allow logged_in
     end
     actions :new, :create, :index_csv do
       allow logged_in
     end
-    actions :edit, :destroy, :update, :update_state, :edit_files, :edit_datasets, :update_datasets do
+    actions :edit, :update, :update_state, :edit_datasets, :update_datasets do
       allow :admin
       allow :data_admin
-      allow logged_in # TODO for now, then only allow the author to update / also the other proponents? / not the ones from the datasets
+      allow logged_in, :if => :author_may_edit
+    end
+    actions :edit_files, :destroy do
+      allow :admin
+      allow :data_admin
+      allow logged_in, :if => :paperproposal_author
     end
     actions :update_vote do
       allow :admin
-      allow logged_in # TODO only the ones who can vote, and then only their own vote
+      allow logged_in, :if => :is_users_vote
     end
     actions :administrate_votes do
       allow :admin
@@ -114,8 +124,6 @@ class PaperproposalsController < ApplicationController
 
   # handles a vote
   def update_vote
-    @vote = PaperproposalVote.find(params[:id])
-
     @vote.update_attributes(params[:paperproposal_vote])
     if @vote.save
       @vote.paperproposal.handle_vote @vote, current_user
@@ -164,47 +172,27 @@ private
     @paperproposal.author_paperproposals << proponents
   end
 
-  # After accept from project board, all authors from current data request will be add
-  # that they accept this data request
-  #def prepare_data_request_for_accept_state
-  #  authors_of_data_columns_request = @paperproposal.author_paperproposals
-  #    # Todo erstmal alle
-  #    #.select{|element| element.kind == "main"}
-  #  data_request_votes = authors_of_data_columns_request.
-  #        map{|adr| PaperproposalVote.new(:user => adr.user, :project_board_vote => false)}
-  #  @paperproposal.paperproposal_votes << data_request_votes
-  #  @paperproposal.board_state = "accept"
-  #  unless @paperproposal.save
-  #    flash[:errors] = @paperproposal.errors.full_messages.to_sentence
-  #  end
-  #end
+  def proposal_is_accepted
+    defined? @paperproposal && @paperproposal.state == 'accepted'
+  end
 
-  def update_author_list(data_request)
-    auto_generated_adrs = data_request.author_paperproposals.select{|join| join.kind == "context" ||
-                                                                          join.kind == "main" ||
-                                                                          join.kind == "side"}
-    auto_generated_adrs.each{|element| element.destroy}
+  def paperproposal_author
+    @paperproposal.author == current_user
+  end
 
+  def author_may_edit
+    paperproposal_author && @paperproposal.board_state == ('prep' || 're_prep' || 'final')
+  end
 
-    data_request.dataset_paperproposals.each do |element|
-      owner_of_context = element.dataset.users.select{|e| e.has_role? :owner, element.dataset}
-      author_array = owner_of_context.
-          map{|e| AuthorPaperproposal.new(:user=> e,
-                                        :paperproposal => data_request,
-                                        :kind => "main")}
-      data_request.author_paperproposals << author_array
-      element.dataset.datacolumns.each do |e|
-        author_array = e.users.
-          map{|e| AuthorPaperproposal.new(:user => e,
-                                          :paperproposal => data_request,
-                                          :kind => "ack")}
-        data_request.author_paperproposals << author_array
-      end
-    end
-
+  def is_users_vote
+    @vote.user == current_user
   end
 
   def load_proposal
     @paperproposal = Paperproposal.find(params[:id])
+  end
+
+  def load_vote
+    @vote = PaperproposalVote.find(params[:id])
   end
 end
