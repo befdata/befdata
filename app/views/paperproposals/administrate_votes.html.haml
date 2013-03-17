@@ -3,7 +3,7 @@
   = link_to @paperproposal.title, @paperproposal
 %h3
   - case @paperproposal.board_state
-    - when 'submit' || 're_prep'
+    - when 'submit'
       Project Board Votes
       - votes = @paperproposal.project_board_votes
     - when 'accept'

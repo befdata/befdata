@@ -19,9 +19,11 @@
   = form_for vote, :url => update_vote_path(vote) do |form|
     %h4 Your Vote
     %dl
-      %dt= form.label :vote, "Accept or reject?"
-      %dd= form.select :vote, ["accept", "reject"]
+      %dt= form.label :vote, 'Accept or reject?'
+      - vote_choices = ['accept', 'reject']
+      - vote_choices << 'none' if current_user.has_role?(:admin)
+      %dd= form.select :vote, vote_choices
     %dl
       %dt= form.label :comment
       %dd= form.text_area :comment
-    = form.submit "Send your vote"
+    = form.submit "Send vote"
