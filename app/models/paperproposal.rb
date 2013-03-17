@@ -192,7 +192,60 @@ class Paperproposal < ActiveRecord::Base
     result.flatten.uniq
   end
 
-  private
+  def submit_to_board(user)
+    pre_state = self.board_state
+    self.board_state = 'submit'
+    self.lock = true
+    self.save
+
+    if pre_state == 're_prep'
+      self.project_board_votes.each{|vote| vote.update_attribute(:vote, 'none')}
+    else
+      Role.find_by_name('project_board').users.each do |user|
+        self.paperproposal_votes << PaperproposalVote.new(:user => user, :project_board_vote => true)
+      end
+    end
+  end
+
+  def handle_vote(vote, user)
+    if vote.vote == 'reject'
+      reject_data_request
+    elsif self.paperproposal_votes.select{|v| v.vote == ('none' || 'reject')}.empty?
+      case self.board_state
+        when 'submit'
+          make_data_request_accepted
+        when 'accept'
+          make_data_request_final
+        else
+      end
+    end
+  end
+
+private
+
+  def reject_data_request
+    self.board_state = 're_prep'
+    self.lock = false
+    self.save
+  end
+
+  def make_data_request_accepted
+    dataset_owners = (self.main_aspect_dataset_owners + self.side_aspect_dataset_owners).uniq
+    dataset_owners.each do |user|
+      self.paperproposal_votes << PaperproposalVote.new(:user => user, :project_board_vote => false)
+    end
+    self.board_state = 'accept'
+    self.save
+  end
+
+  def make_data_request_final
+    self.board_state = 'final'
+    self.lock = false
+    self.save
+    self.datasets.each do |ds|
+      ds.accepts_role! :proposer, self.author
+    end
+  end
 
   def check_aspects_for_contexts
     if self.datasets.length >= 0

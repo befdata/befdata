@@ -103,58 +103,27 @@ class PaperproposalsController < ApplicationController
 
   # submit to board - switch from prep state to submit state
   def update_state
-    pre_state = @paperproposal.board_state
-    @paperproposal.update_attributes(params[:paperproposal])
-    @paperproposal.lock = true
-    @paperproposal.save
-
-    #submit again
-    if pre_state == "re_prep" && @paperproposal.board_state == "submit"
-      @paperproposal.paperproposal_votes.each{|element| element.update_attribute(:vote, "none")}
+    if params[:paperproposal][:board_state] == 'submit'
+      @paperproposal.submit_to_board current_user
+      flash[:notice] = 'Submitted to Project Board'
+    else
+      flash[:error] = 'Something went wrong'
     end
-
-    project_board_role = Role.find_by_name("project_board")
-    users =  project_board_role.users
-    users.each{|user| @paperproposal.paperproposal_votes << PaperproposalVote.new(:user => user, :project_board_vote => true)}
-
     redirect_to @paperproposal
   end
 
-  # after one person vote, here the attributes for this data request is changed
+  # handles a vote
   def update_vote
-    @to_vote = PaperproposalVote.find(params[:id])
-    @to_vote.update_attributes(params[:paperproposal_vote])
-    @paperproposal = @to_vote.paperproposal
+    @vote = PaperproposalVote.find(params[:id])
 
-    unless @to_vote.save
-      flash[:error] = @to_vote.errors
-      redirect_to profile_path
+    @vote.update_attributes(params[:paperproposal_vote])
+    if @vote.save
+      @vote.paperproposal.handle_vote @vote, current_user
+      flash[:notice] = "Your vote was submitted"
+    else
+      flash[:error] = @vote.errors
     end
 
-    if @to_vote.vote == "reject"
-      @paperproposal.board_state = "re_prep"
-      @paperproposal.lock = false
-      @paperproposal.save
-    end
-
-    all_none_votes = @paperproposal.paperproposal_votes.select{|vote| vote.vote == "none"}
-    all_reject_votes = @paperproposal.paperproposal_votes.select{|vote| vote.vote == "reject"}
-
-    if all_none_votes.empty? & all_reject_votes.empty?
-      case @paperproposal.board_state
-        when "submit"
-          prepare_data_request_for_accept_state
-        when "accept"
-          @paperproposal.board_state = "final"
-          @paperproposal.lock = false
-          @paperproposal.save
-          @paperproposal.datasets.each do |context|
-            context.accepts_role! :proposer, @paperproposal.author
-          end
-        else
-          #do nothing
-      end
-    end
     redirect_to :back
   end
 
@@ -197,18 +166,18 @@ private
 
   # After accept from project board, all authors from current data request will be add
   # that they accept this data request
-  def prepare_data_request_for_accept_state
-    authors_of_data_columns_request = @paperproposal.author_paperproposals
-      # Todo erstmal alle
-      #.select{|element| element.kind == "main"}
-    data_request_votes = authors_of_data_columns_request.
-          map{|adr| PaperproposalVote.new(:user => adr.user, :project_board_vote => false)}
-    @paperproposal.paperproposal_votes << data_request_votes
-    @paperproposal.board_state = "accept"
-    unless @paperproposal.save
-      flash[:errors] = @paperproposal.errors.full_messages.to_sentence
-    end
-  end
+  #def prepare_data_request_for_accept_state
+  #  authors_of_data_columns_request = @paperproposal.author_paperproposals
+  #    # Todo erstmal alle
+  #    #.select{|element| element.kind == "main"}
+  #  data_request_votes = authors_of_data_columns_request.
+  #        map{|adr| PaperproposalVote.new(:user => adr.user, :project_board_vote => false)}
+  #  @paperproposal.paperproposal_votes << data_request_votes
+  #  @paperproposal.board_state = "accept"
+  #  unless @paperproposal.save
+  #    flash[:errors] = @paperproposal.errors.full_messages.to_sentence
+  #  end
+  #end
 
   def update_author_list(data_request)
     auto_generated_adrs = data_request.author_paperproposals.select{|join| join.kind == "context" ||
