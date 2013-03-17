@@ -13,12 +13,16 @@ class PaperproposalsController < ApplicationController
       allow logged_in
     end
     actions :edit, :destroy, :update, :update_state, :edit_files, :edit_datasets, :update_datasets do
-      allow :admin # TODO should we allow data_admin, too
+      allow :admin
+      allow :data_admin
       allow logged_in # TODO for now, then only allow the author to update / also the other proponents? / not the ones from the datasets
     end
     actions :update_vote do
       allow :admin
       allow logged_in # TODO only the ones who can vote, and then only their own vote
+    end
+    actions :administrate_votes do
+      allow :admin
     end
   end
 
@@ -32,6 +36,9 @@ class PaperproposalsController < ApplicationController
 
   def show
     @freeformats = @paperproposal.freeformats.order('is_essential DESC, file_file_name ASC')
+  end
+
+  def administrate_votes
   end
 
   def new
@@ -148,7 +155,7 @@ class PaperproposalsController < ApplicationController
           #do nothing
       end
     end
-    redirect_to votes_profile_path
+    redirect_to :back
   end
 
   # ToDo Perhapse dont destroy a data request when he is final?!

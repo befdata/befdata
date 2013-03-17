@@ -14,13 +14,13 @@
       = form.hidden_field :board_state, :value => "submit"
 
   - state = @paperproposal.board_state
-  - if  state == "submit" || state ==  "re_prep"
+  - if state == "submit" || state ==  "re_prep"
     %h5 Project Board Vote
     %div.around_box
       %span.left_vote
         - @paperproposal.project_board_votes.each do |vote|
           %div.arrow_box
-            %span.label= vote.user.to_label
+            %span.label= link_to vote.user.to_label, vote.user
             = image_tag("arrow_right_#{vote.vote}.png", :title => vote.comment)
       %span.right_vote
         = image_tag("arrow_join_#{state}.png")

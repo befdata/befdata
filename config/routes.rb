@@ -46,7 +46,7 @@ Befchina::Application.routes.draw do
 
   resources :paperproposals do
     member do
-      get :edit_datasets, :edit_files
+      get :edit_datasets, :edit_files, :administrate_votes
       post :update_datasets
     end
   end

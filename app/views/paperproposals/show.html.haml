@@ -1,6 +1,6 @@
 = content_for :actions do
   %ul
-    - if !@paperproposal.lock
+    - if !@paperproposal.lock || current_user.has_role?(:admin || :data_admin)
       %li
         = link_to edit_paperproposal_path(@paperproposal) do
           = image_tag("edit.png")
@@ -17,6 +17,11 @@
       %li
         = image_tag("lock-closed.png")
         Locked
+    - if current_user.has_role?(:admin) && !@paperproposal.paperproposal_votes.blank?
+      %li
+        = link_to administrate_votes_paperproposal_path(@paperproposal) do
+          = image_tag("edit.png")
+          Administrate Votes
 
 = content_for :info do
   %h3 State
