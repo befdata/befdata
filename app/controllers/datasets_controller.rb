@@ -199,6 +199,7 @@ class DatasetsController < ApplicationController
       redirect_to(:action => 'show') and return
     end
     @freeformats = @dataset.freeformats :order => :file_file_name
+    @workbooks = @dataset.upload_spreadsheets
   end
 
 

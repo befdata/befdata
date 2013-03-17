@@ -19,6 +19,9 @@ Befchina::Application.routes.draw do
   match 'search' => 'pages#search'
 
   resources :datasets do
+    resources :datafiles, :only => [:destroy] do
+      get :download, :on => :member
+    end
     member do
       post :update_workbook, :approve_predefined, :batch_update_columns
       get :download, :edit_files, :importing, :regenerate_download, :approve, :approval_quick, :keywords, :download_page, :download_status

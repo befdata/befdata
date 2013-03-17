@@ -1,13 +1,33 @@
 %h2 Edit files of #{link_to @dataset.title, @dataset}
 
-%h3 Exchange original data workbook
-%p
-  = form_for :datafile,
-            :url => delete_imported_research_data_and_file_dataset_path(@dataset),
-            :html => {:multipart => true} do |f|
-    = f.error_messages
-    = f.file_field :file
-    = f.submit 'Data set upload', :confirm => "All research data will be replaced by the content of this file!"
+- unless @workbooks.empty?
+  %h3 Uploaded Workbooks
+  %table
+    %thead
+      %th In Use
+      %th File name
+      %th File size
+      %th Uploaded
+      %th Action
+    %tbody
+      - @workbooks.each_with_index do |datafile, index|
+        %tr
+          %td= "\u2713" if index == 0
+          %td= link_to datafile.file_file_name, download_dataset_datafile_path(@dataset, datafile)
+          %td= number_to_human_size(datafile.file_file_size)
+          %td= datafile.file_updated_at
+          %td
+            = link_to_if(index > 0, "delete", dataset_datafile_path(@dataset, datafile), :method => :delete, :confirm => "Are you sure to delete this workbook ?") do
+              protected
+
+%h3 Upload Excel workbook
+
+= form_for :datafile,
+          :url => update_workbook_dataset_path(@dataset),
+          :html => {:multipart => true} do |f|
+  = f.error_messages
+  = f.file_field :file
+  = f.submit 'Data set upload', :confirm => "All research data will be replaced by the content of this file!"
 
 - unless @freeformats.empty?
   %h3 Change freeformat files
