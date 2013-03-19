@@ -20,6 +20,12 @@ class PaperproposalsControllerTest < ActionController::TestCase
     assert_match /.*Access denied.*/, flash[:error]
   end
 
+  test "admin can administrate votes" do
+    login_nadrowski
+    get :administrate_votes, :id => 5
+    assert_success_no_error
+  end
+
   test "should get new" do
     login_nadrowski
     get :new
@@ -78,6 +84,7 @@ class PaperproposalsControllerTest < ActionController::TestCase
   end
 
   test "vote on paperproposal is reflected in ui" do
+    @request.env['HTTP_REFERER'] = root_url
     login_nadrowski
     paperproposal = Paperproposal.find 5
     vote = PaperproposalVote.find 1

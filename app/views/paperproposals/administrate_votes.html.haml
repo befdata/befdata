@@ -1,0 +1,22 @@
+%h2
+  Administrate Votes for
+  = link_to @paperproposal.title, @paperproposal
+%h3
+  - case @paperproposal.board_state
+    - when 'submit'
+      Project Board Votes
+      - votes = @paperproposal.project_board_votes
+    - when 'accept'
+      Main Proponent Votes
+      - votes = @paperproposal.for_data_request_votes
+    - else
+      No open votes
+      - votes = []
+
+- votes.each do |vote|
+  %h4
+    On behalf of
+    = link_to vote.user.to_label, vote.user
+  =render :partial => 'paperproposals/open_vote', :locals => {:vote => vote}
+
+

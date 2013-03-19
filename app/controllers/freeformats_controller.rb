@@ -9,13 +9,14 @@ class FreeformatsController < ApplicationController
     actions :download, :update, :create, :destroy do
       allow :admin
       allow :owner, :of => :dataset
-      allow :proposer, :of => :dataset
-      allow logged_in, :if => :dataset_is_free_for_project_of_user
-      allow logged_in, :if => :freeformattable_is_paperproposal #this is not enough, like in paperproposal controller!
+      allow logged_in, :if => :paperproposal_author
     end
     actions :download do
+      allow :proposer, :of => :dataset
+      allow logged_in, :if => :dataset_is_free_for_project_of_user
       allow logged_in, :if => :dataset_is_free_for_members
       allow all, :if => :dataset_is_free_for_public
+      allow logged_in, :if => :freeformattable_is_paperproposal
     end
   end
 
@@ -70,7 +71,12 @@ private
   end
 
   def freeformattable_is_paperproposal
-    return true if @paperproposal
-    false
+    defined? @paperproposal
   end
+
+  def paperproposal_author
+    @paperproposal && @paperproposal.author == current_user
+  end
+
+
 end

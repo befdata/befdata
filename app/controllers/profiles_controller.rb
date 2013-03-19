@@ -32,12 +32,12 @@ class ProfilesController < ApplicationController
   end
 
   def votes
-    @project_board_votes = @user.project_board_votes.reject{|vote|
-      vote.paperproposal.board_state == ("accept" || "final") || (vote.vote != 'none')}
+    @project_board_votes = @user.project_board_votes.select{|vote|
+      (vote.paperproposal.board_state == 'submit' || 're_prep') && (vote.vote == 'none')}
     @project_board_votes.sort_by!(&:paperproposal)
 
-    @dataset_votes = @user.for_paperproposal_votes.reject{|vote|
-      vote.paperproposal.board_state == "final" || (vote.vote != 'none')}
+    @dataset_votes = @user.for_paperproposal_votes.select{|vote|
+      vote.paperproposal.board_state == 'accept' && (vote.vote == 'none')}
     @dataset_votes.sort_by!(&:paperproposal)
   end
 

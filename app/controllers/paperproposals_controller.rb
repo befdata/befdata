@@ -2,23 +2,37 @@ class PaperproposalsController < ApplicationController
   helper FreeformatsHelper
 
   before_filter :load_proposal, :except => [:index, :index_csv, :new, :create, :update_vote]
+  before_filter :load_vote, :only => [:update_vote]
 
   skip_before_filter :deny_access_to_all
 
   access_control do
-    actions :index, :show do
+    actions :index do
       allow all
+    end
+    actions :show do
+      allow all, :if => :proposal_is_accepted
+      allow logged_in
     end
     actions :new, :create, :index_csv do
       allow logged_in
     end
-    actions :edit, :destroy, :update, :update_state, :edit_files, :edit_datasets, :update_datasets do
-      allow :admin # TODO should we allow data_admin, too
-      allow logged_in # TODO for now, then only allow the author to update / also the other proponents? / not the ones from the datasets
+    actions :edit, :update, :update_state, :edit_datasets, :update_datasets do
+      allow :admin
+      allow :data_admin
+      allow logged_in, :if => :author_may_edit
+    end
+    actions :edit_files, :destroy do
+      allow :admin
+      allow :data_admin
+      allow logged_in, :if => :paperproposal_author
     end
     actions :update_vote do
       allow :admin
-      allow logged_in # TODO only the ones who can vote, and then only their own vote
+      allow logged_in, :if => :is_users_vote
+    end
+    actions :administrate_votes do
+      allow :admin
     end
   end
 
@@ -32,6 +46,9 @@ class PaperproposalsController < ApplicationController
 
   def show
     @freeformats = @paperproposal.freeformats.order('is_essential DESC, file_file_name ASC')
+  end
+
+  def administrate_votes
   end
 
   def new
@@ -96,62 +113,29 @@ class PaperproposalsController < ApplicationController
 
   # submit to board - switch from prep state to submit state
   def update_state
-    pre_state = @paperproposal.board_state
-    @paperproposal.update_attributes(params[:paperproposal])
-    @paperproposal.lock = true
-    @paperproposal.save
-
-    #submit again
-    if pre_state == "re_prep" && @paperproposal.board_state == "submit"
-      @paperproposal.paperproposal_votes.each{|element| element.update_attribute(:vote, "none")}
+    if params[:paperproposal][:board_state] == 'submit'
+      @paperproposal.submit_to_board current_user
+      flash[:notice] = 'Submitted to Project Board'
+    else
+      flash[:error] = 'Something went wrong'
     end
-
-    project_board_role = Role.find_by_name("project_board")
-    users =  project_board_role.users
-    users.each{|user| @paperproposal.paperproposal_votes << PaperproposalVote.new(:user => user, :project_board_vote => true)}
-
     redirect_to @paperproposal
   end
 
-  # after one person vote, here the attributes for this data request is changed
+  # handles a vote
   def update_vote
-    @to_vote = PaperproposalVote.find(params[:id])
-    @to_vote.update_attributes(params[:paperproposal_vote])
-    @paperproposal = @to_vote.paperproposal
-
-    unless @to_vote.save
-      flash[:error] = @to_vote.errors
-      redirect_to profile_path
+    @vote.update_attributes(params[:paperproposal_vote])
+    if @vote.save
+      @vote.paperproposal.handle_vote @vote, current_user
+      flash[:notice] = "Your vote was submitted"
+    else
+      flash[:error] = @vote.errors
     end
 
-    if @to_vote.vote == "reject"
-      @paperproposal.board_state = "re_prep"
-      @paperproposal.lock = false
-      @paperproposal.save
-    end
-
-    all_none_votes = @paperproposal.paperproposal_votes.select{|vote| vote.vote == "none"}
-    all_reject_votes = @paperproposal.paperproposal_votes.select{|vote| vote.vote == "reject"}
-
-    if all_none_votes.empty? & all_reject_votes.empty?
-      case @paperproposal.board_state
-        when "submit"
-          prepare_data_request_for_accept_state
-        when "accept"
-          @paperproposal.board_state = "final"
-          @paperproposal.lock = false
-          @paperproposal.save
-          @paperproposal.datasets.each do |context|
-            context.accepts_role! :proposer, @paperproposal.author
-          end
-        else
-          #do nothing
-      end
-    end
-    redirect_to votes_profile_path
+    redirect_to :back
   end
 
-  # ToDo Perhapse dont destroy a data request when he is final?!
+  # ToDo Perhapse dont destroy a data request when he is final?! / let the user only delete in prep-state / otherwise flag for deletion
   def destroy
     @paperproposal.destroy
     redirect_to :paperproposals
@@ -188,47 +172,27 @@ private
     @paperproposal.author_paperproposals << proponents
   end
 
-  # After accept from project board, all authors from current data request will be add
-  # that they accept this data request
-  def prepare_data_request_for_accept_state
-    authors_of_data_columns_request = @paperproposal.author_paperproposals
-      # Todo erstmal alle
-      #.select{|element| element.kind == "main"}
-    data_request_votes = authors_of_data_columns_request.
-          map{|adr| PaperproposalVote.new(:user => adr.user, :project_board_vote => false)}
-    @paperproposal.paperproposal_votes << data_request_votes
-    @paperproposal.board_state = "accept"
-    unless @paperproposal.save
-      flash[:errors] = @paperproposal.errors.full_messages.to_sentence
-    end
+  def proposal_is_accepted
+    defined? @paperproposal && @paperproposal.state == 'accepted'
   end
 
-  def update_author_list(data_request)
-    auto_generated_adrs = data_request.author_paperproposals.select{|join| join.kind == "context" ||
-                                                                          join.kind == "main" ||
-                                                                          join.kind == "side"}
-    auto_generated_adrs.each{|element| element.destroy}
+  def paperproposal_author
+    @paperproposal.author == current_user
+  end
 
+  def author_may_edit
+    paperproposal_author && @paperproposal.board_state == ('prep' || 're_prep' || 'final')
+  end
 
-    data_request.dataset_paperproposals.each do |element|
-      owner_of_context = element.dataset.users.select{|e| e.has_role? :owner, element.dataset}
-      author_array = owner_of_context.
-          map{|e| AuthorPaperproposal.new(:user=> e,
-                                        :paperproposal => data_request,
-                                        :kind => "main")}
-      data_request.author_paperproposals << author_array
-      element.dataset.datacolumns.each do |e|
-        author_array = e.users.
-          map{|e| AuthorPaperproposal.new(:user => e,
-                                          :paperproposal => data_request,
-                                          :kind => "ack")}
-        data_request.author_paperproposals << author_array
-      end
-    end
-
+  def is_users_vote
+    @vote.user == current_user
   end
 
   def load_proposal
     @paperproposal = Paperproposal.find(params[:id])
+  end
+
+  def load_vote
+    @vote = PaperproposalVote.find(params[:id])
   end
 end

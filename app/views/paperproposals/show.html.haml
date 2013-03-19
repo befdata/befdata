@@ -1,6 +1,6 @@
 = content_for :actions do
   %ul
-    - if !@paperproposal.lock
+    - if !@paperproposal.lock || current_user.has_role?(:admin || :data_admin)
       %li
         = link_to edit_paperproposal_path(@paperproposal) do
           = image_tag("edit.png")
@@ -17,6 +17,11 @@
       %li
         = image_tag("lock-closed.png")
         Locked
+    - if current_user.has_role?(:admin) && !@paperproposal.paperproposal_votes.blank?
+      %li
+        = link_to administrate_votes_paperproposal_path(@paperproposal) do
+          = image_tag("edit.png")
+          Administrate Votes
 
 = content_for :info do
   %h3 State
@@ -79,10 +84,10 @@
 %h3 Datasets #{"(" + @paperproposal.dataset_paperproposals.count.to_s + ")" unless @paperproposal.dataset_paperproposals.empty? }
 - if !@paperproposal.dataset_paperproposals.empty?
   %ul
-    - @paperproposal.dataset_paperproposals.includes(:dataset).each do |ds_pp|
+    - @paperproposal.dataset_paperproposals.joins(:dataset).order('aspect ASC, title ASC').each do |ds_pp|
       %li
         = link_to ds_pp.dataset.title, ds_pp.dataset
-        = ds_pp.aspect
+        = '(' + ds_pp.aspect + ')'
 - else
   %p No datasets are linked to this paperproposal.
 
@@ -96,6 +101,6 @@
   %h3 Files (#{@freeformats.length})
   = render :partial => 'freeformats/index'
 
-%h3 State of vote (???))
+%h3 Data request state
 = render :partial => "state_of_vote"
 

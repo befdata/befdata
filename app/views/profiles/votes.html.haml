@@ -8,8 +8,9 @@
 
 - unless @project_board_votes.empty?
   %h2 Project Board Votes
-  = render :partial => 'open_votes_list', :locals => {:votes => @project_board_votes}
+  - @project_board_votes.each do |vote|
+    = render :partial => 'paperproposals/open_vote', :locals => {:vote => vote}
 
 - unless @dataset_votes.empty?
-  %h2 Data Request Votes
-  = render :partial => 'open_votes_list', :locals => {:votes => @dataset_votes}
+  - @dataset_votes.each do |vote|
+    = render :partial => 'paperproposals/open_vote', :locals => {:vote => vote}
