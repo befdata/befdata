@@ -31,7 +31,7 @@ class PaperproposalsController < ApplicationController
       allow :admin
       allow logged_in, :if => :is_users_vote
     end
-    actions :administrate_votes do
+    actions :administrate_votes, :admin_approve_all_votes, :admin_reset_all_votes do
       allow :admin
     end
   end
@@ -49,6 +49,33 @@ class PaperproposalsController < ApplicationController
   end
 
   def administrate_votes
+    @votes_type_text = case @paperproposal.board_state
+                         when 'submit'
+                           'Project Board Votes'
+                         when 'accept'
+                           'Main Proponent Votes'
+                         else
+                           'No open votes'
+                       end
+    @votes = select_current_votes
+  end
+
+  def admin_approve_all_votes
+    select_current_votes.each do |v|
+      v.update_attribute :vote, 'accept'
+      v.save
+      @paperproposal.handle_vote v
+    end
+    flash[:notice] = 'All current votes appreoved'
+    redirect_to @paperproposal
+  end
+
+  def admin_reset_all_votes
+    select_current_votes.each do |v|
+      v.update_attribute :vote, 'none'
+    end
+    flash[:notice] = 'All current votes reset'
+    redirect_to @paperproposal
   end
 
   def new
@@ -114,7 +141,7 @@ class PaperproposalsController < ApplicationController
   # submit to board - switch from prep state to submit state
   def update_state
     if params[:paperproposal][:board_state] == 'submit'
-      @paperproposal.submit_to_board current_user
+      @paperproposal.submit_to_board
       flash[:notice] = 'Submitted to Project Board'
     else
       flash[:error] = 'Something went wrong'
@@ -126,8 +153,8 @@ class PaperproposalsController < ApplicationController
   def update_vote
     @vote.update_attributes(params[:paperproposal_vote])
     if @vote.save
-      @vote.paperproposal.handle_vote @vote, current_user
-      flash[:notice] = "Your vote was submitted"
+      @vote.paperproposal.handle_vote @vote
+      flash[:notice] = 'Your vote was submitted'
     else
       flash[:error] = @vote.errors
     end
@@ -163,6 +190,17 @@ private
                   "#{view_context.complete_freeformat_url(ff, true)} (#{ff.uri})"}.join(' / ')
         ]
       end
+    end
+  end
+
+  def select_current_votes
+    case @paperproposal.board_state
+      when 'submit'
+        @paperproposal.project_board_votes
+      when 'accept'
+        @paperproposal.for_data_request_votes
+      else
+        []
     end
   end
 

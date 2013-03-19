@@ -192,7 +192,7 @@ class Paperproposal < ActiveRecord::Base
     result.flatten.uniq
   end
 
-  def submit_to_board(user)
+  def submit_to_board
     pre_state = self.board_state
     self.board_state = 'submit'
     self.lock = true
@@ -207,10 +207,10 @@ class Paperproposal < ActiveRecord::Base
     end
   end
 
-  def handle_vote(vote, user)
+  def handle_vote(vote)
     if vote.vote == 'reject'
       reject_data_request
-    elsif self.paperproposal_votes.select{|v| v.vote == ('none' || 'reject')}.empty?
+    elsif self.paperproposal_votes(true).select{|v| v.vote == ('none' || 'reject')}.empty?
       case self.board_state
         when 'submit'
           if self.datasets.length == 0

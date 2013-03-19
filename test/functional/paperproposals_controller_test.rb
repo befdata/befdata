@@ -26,6 +26,25 @@ class PaperproposalsControllerTest < ActionController::TestCase
     assert_success_no_error
   end
 
+  test "admin can reset all votes" do
+    @request.env['HTTP_REFERER'] = root_url
+    paperproposal = Paperproposal.find 5
+    login_nadrowski
+    get :update_vote, :id => paperproposal.paperproposal_votes.first.id, :paperproposal_vote => {:vote => 'accept'} # vote something
+    assert_equal 1, paperproposal.paperproposal_votes(true).select{|v| v.vote == 'none'}.count
+    get :admin_reset_all_votes, :id => paperproposal.id
+    assert_equal 2, paperproposal.paperproposal_votes(true).select{|v| v.vote == 'none'}.count
+  end
+
+  test "admin can approve all votes" do
+    paperproposal = Paperproposal.find 5
+    login_nadrowski
+    get :admin_approve_all_votes, :id => paperproposal.id
+    assert_success_no_error
+    paperproposal.reload
+    paperproposal.board_state = 'accept'
+  end
+
   test "should get new" do
     login_nadrowski
     get :new
