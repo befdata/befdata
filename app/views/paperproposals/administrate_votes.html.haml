@@ -1,9 +1,13 @@
 = content_for :actions do
   %ul
     %li
-      = link_to 'Reset the votes',admin_reset_all_votes_paperproposal_url(@paperproposal)
+      = link_to admin_approve_all_votes_paperproposal_url(@paperproposal), :confirm => 'Are you sure?' do
+        = image_tag 'checkbox.png'
+        Approve the votes
     %li
-      = link_to 'Approve the votes', admin_approve_all_votes_paperproposal_url(@paperproposal)
+      = link_to admin_reset_all_votes_paperproposal_url(@paperproposal), :confirm => 'Are you sure?' do
+        = image_tag 'cancel.png'
+        Reset the votes
 
 %h2
   Administrate Votes for
