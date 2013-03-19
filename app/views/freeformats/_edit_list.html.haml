@@ -20,7 +20,7 @@
             :html => {:multipart => true} do |f|
               = render :partial => 'freeformats/form', :locals => {:form => f, :freeformat => ff, :freeformattable => ff.freeformattable}
         %td= ff.description
-        %td= ff.human_readable_filesize
+        %td= number_to_human_size ff.file_file_size
         - if is_paperproposal_list
           %td= ff.uri
           %td= ff.is_essential ? 'X' : ''

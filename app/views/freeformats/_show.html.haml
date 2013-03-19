@@ -1,7 +1,7 @@
 - if freeformat.is_essential
   = image_tag "star.png"
 = link_to freeformat.file_file_name, freeformat.file.url
-(#{freeformat.human_readable_filesize})
+(#{number_to_human_size freeformat.file_file_size})
 - unless freeformat.description.blank?
   %br
   %i= freeformat.description
