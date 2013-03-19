@@ -1,6 +1,12 @@
 .vote.vote-open
   = render :partial => 'paperproposals/summary_for_vote', :locals => {:paperproposal => vote.paperproposal}
 
+  - unless vote.project_board_vote
+    %h4 Requested Datasets
+    %ul
+      - (vote.paperproposal.datasets & vote.user.datasets_owned).each do |ds|
+        %li= link_to ds.title, ds
+
   %h4 State of Voting
   .vote-state
     %span.voters-with-arrows
