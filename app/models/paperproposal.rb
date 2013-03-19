@@ -211,6 +211,7 @@ class Paperproposal < ActiveRecord::Base
         self.paperproposal_votes << PaperproposalVote.new(:user => user, :project_board_vote => true)
       end
     end
+    auto_author_vote
   end
 
   def handle_vote(vote)
@@ -246,6 +247,7 @@ private
     end
     self.board_state = 'accept'
     self.save
+    auto_author_vote
   end
 
   def make_data_request_final
@@ -254,6 +256,14 @@ private
     self.save
     self.datasets.each do |ds|
       ds.accepts_role! :proposer, self.author
+    end
+  end
+
+  def auto_author_vote
+    self.paperproposal_votes.where('user_id = ?', self.author_id).each do |v|
+      v.vote = 'accept'
+      v.save
+      handle_vote v
     end
   end
 

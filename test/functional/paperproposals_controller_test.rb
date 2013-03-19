@@ -45,6 +45,16 @@ class PaperproposalsControllerTest < ActionController::TestCase
     paperproposal.board_state = 'accept'
   end
 
+  test "automatical project board and data request vote if it's your paperproposal" do
+    paperproposal = Paperproposal.find 6
+    login_nadrowski
+    post :update_state, :id => paperproposal.id, :paperproposal => {:board_state => "submit"}
+    paperproposal.reload
+    assert_equal 1, paperproposal.project_board_votes.where("vote = 'accept'").count
+    get :admin_approve_all_votes, :id => paperproposal.id
+    assert_equal 1, paperproposal.for_data_request_votes.where("vote = 'accept'").count
+  end
+
   test "should get new" do
     login_nadrowski
     get :new
