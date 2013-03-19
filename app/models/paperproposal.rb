@@ -192,6 +192,12 @@ class Paperproposal < ActiveRecord::Base
     result.flatten.uniq
   end
 
+  def update_proponents proponents_array
+    proponents = User.find_all_by_id(proponents_array).map{|person| AuthorPaperproposal.new(:user => person, :kind => "user")}
+    AuthorPaperproposal.delete_all(['paperproposal_id = ? AND kind = ?', self.id, 'user'])
+    self.author_paperproposals << proponents
+  end
+
   def submit_to_board
     pre_state = self.board_state
     self.board_state = 'submit'

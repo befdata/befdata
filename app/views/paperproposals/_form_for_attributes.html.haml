@@ -1,6 +1,7 @@
 = form_for @paperproposal, :html => {:class => 'dataset-metadata-form'} do |f|
+  = f.error_messages
   %dl
-    %dt= f.label :title
+    %dt= f.label :title, class: 'required'
     %dd= f.text_field :title
 
     - unless @paperproposal.new_record?
@@ -12,7 +13,7 @@
     %dt= f.label :envisaged_date
     %dd= f.date_select :envisaged_date
 
-    %dt= f.label :rationale
+    %dt= f.label :rationale, class: 'required'
     %dd= f.text_area :rationale
 
     %dt= f.label :external_data
@@ -27,19 +28,21 @@
     %h3 Authorship
 
     %dt= f.label :author
-    %dd= f.select :author_id, @all_persons.map{|person| [person.to_label, person.id]}
+    %dd= f.select :author_id, User.all_users_names_and_ids_for_select
 
     %dt= f.label :authored_by_project
     %dd= f.select :project_id, Project.all.map{|project| [project.to_label, project.id]}, { :include_blank => false }
 
     %h4 Main Proponents
     %p (Main proponents are those authors, that contribute major aspects to the analysis.)
-    = select "not_needed", "param", @all_persons.map{|person| [person.to_label, person.id]}, {:prompt => 'Select Member'}, {:onchange => 'selectPeople(this)'}
-    %ul#people-list{:style => 'list-style: none;'}
-      = f.fields_for :authors, @paperproposal.proponents do |field|
+
+    %p= select "not_needed", "param", User.all_users_names_and_ids_for_select, {:prompt => 'Select Member'}, {:onchange => 'selectPeople(this)'}
+    %ul#people-list
+      - proponents = defined?(@temp_proponents) ? @temp_proponents : @paperproposal.proponents
+      - proponents.each do |user|
         %li{:onclick => "this.parentNode.removeChild(this);"}
-          %input{:name => "people[]", :type => "hidden", :value => field.object.id}
+          %input{:name => "people[]", :type => "hidden", :value => user.id}/
           = image_tag 'cancel.png'
-          = field.object.try(:to_label)
+          = user.to_label
 
   = f.submit "Submit"

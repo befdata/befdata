@@ -82,35 +82,31 @@ class PaperproposalsController < ApplicationController
     @paperproposal = Paperproposal.new
     @paperproposal.author = current_user
     @paperproposal.authored_by_project = current_user.projects.first
-    @all_persons = User.order("lastname ASC, firstname ASC")
   end
 
   def create
     @paperproposal = Paperproposal.new(params[:paperproposal])
     @paperproposal.initial_title = @paperproposal.title
-    update_proponents
-
-    unless @paperproposal.save
-      flash[:error] = @paperproposal.errors.full_messages.to_sentence
-      redirect_to :back
-    else
+    @temp_proponents = User.find_all_by_id(params[:people]) #doesn't save it - workaround so they don't get lost when form is not filled correctly
+    if @paperproposal.save
+      @paperproposal.update_proponents params[:people]
       redirect_to edit_datasets_paperproposal_path(@paperproposal)
+    else
+      render :action => :new
     end
   end
 
   def edit
-    @all_persons = User.all
-    @used_persons = @paperproposal.authors
   end
 
   def update
     @paperproposal.update_attributes(params[:paperproposal])
+    @temp_proponents = User.find_all_by_id(params[:people]) #doesn't save it - workaround so they don't get lost when form is not filled correctly
     if @paperproposal.save
-      update_proponents
+      @paperproposal.update_proponents params[:people]
       redirect_to paperproposal_path(@paperproposal)
     else
-      flash[:error] = @paperproposal.errors.full_messages.to_sentence
-      redirect_to :back
+      render :action => :edit
     end
   end
 
@@ -202,12 +198,6 @@ private
       else
         []
     end
-  end
-
-  def update_proponents
-    proponents = User.find_all_by_id(params[:people]).map{|person| AuthorPaperproposal.new(:user => person, :kind => "user")}
-    AuthorPaperproposal.delete_all(["paperproposal_id = ? AND kind = ?", @paperproposal.id, 'user'])
-    @paperproposal.author_paperproposals << proponents
   end
 
   def proposal_is_accepted
