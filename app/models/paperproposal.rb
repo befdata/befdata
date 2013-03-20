@@ -232,7 +232,33 @@ class Paperproposal < ActiveRecord::Base
     end
   end
 
+  def hard_reset
+    result = ''
+    result = reset_download_rights if self.board_state == 'final'
+    self.lock = false
+    self.board_state = 'prep'
+    result << "#{self.paperproposal_votes.count} votes deleted."
+    self.paperproposal_votes.delete_all
+    self.save
+    result
+  end
+
 private
+
+  def reset_download_rights
+    other_final_paperproposals = Paperproposal.where("board_state = 'final' AND author_id = ?", self.author_id)
+    other_final_paperproposals.delete self
+
+    other_downloadable_datasets = other_final_paperproposals.collect{|pp| pp.datasets}.flatten.uniq
+
+    unique_downloadable_datasets = (self.datasets - other_downloadable_datasets)
+    reverted_roles = []
+    unique_downloadable_datasets.each do |ds|
+      self.author.has_no_role! :proposer, ds
+      reverted_roles << ds.id
+    end
+    "Reverted proposer rolesfor datasets #{reverted_roles.to_s}. "
+  end
 
   def reject_data_request
     self.board_state = 're_prep'

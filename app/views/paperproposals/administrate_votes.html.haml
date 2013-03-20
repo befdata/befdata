@@ -8,6 +8,10 @@
       = link_to admin_reset_all_votes_paperproposal_url(@paperproposal), :confirm => 'Are you sure?' do
         = image_tag 'cancel.png'
         Reset the votes
+    %li
+      = link_to admin_hard_reset_paperproposal_url(@paperproposal), :confirm => 'This will delete all votes and download rights. Are you sure?' do
+        = image_tag 'cancel.png'
+        Hard reset proposal
 
 %h2
   Administrate Votes for

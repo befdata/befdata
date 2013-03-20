@@ -31,7 +31,7 @@ class PaperproposalsController < ApplicationController
       allow :admin
       allow logged_in, :if => :is_users_vote
     end
-    actions :administrate_votes, :admin_approve_all_votes, :admin_reset_all_votes do
+    actions :administrate_votes, :admin_approve_all_votes, :admin_reset_all_votes, :admin_hard_reset do
       allow :admin
     end
   end
@@ -53,7 +53,7 @@ class PaperproposalsController < ApplicationController
                          when 'submit'
                            'Project Board Votes'
                          when 'accept'
-                           'Main Proponent Votes'
+                           'Data Owners Votes'
                          else
                            'No open votes'
                        end
@@ -75,6 +75,11 @@ class PaperproposalsController < ApplicationController
       v.update_attribute :vote, 'none'
     end
     flash[:notice] = 'All current votes reset'
+    redirect_to @paperproposal
+  end
+
+  def admin_hard_reset
+    flash[:notice] = 'Paperproposal has been resetted: ' + @paperproposal.hard_reset
     redirect_to @paperproposal
   end
 
@@ -154,7 +159,6 @@ class PaperproposalsController < ApplicationController
     else
       flash[:error] = @vote.errors
     end
-
     redirect_to :back
   end
 
