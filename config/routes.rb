@@ -2,7 +2,7 @@ Befchina::Application.routes.draw do
 
   root :to => "pages#home"
 
-  resource :user_session
+  resource :user_session, :only => [:create]
   match 'login' => 'user_sessions#new', :as => :login
   match 'logout' => 'user_sessions#destroy', :as => :logout
 
