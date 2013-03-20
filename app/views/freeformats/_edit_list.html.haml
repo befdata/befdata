@@ -8,7 +8,7 @@
       %th Size
       - if is_paperproposal_list
         %th URI
-        %th Essential
+        %th Published Paper
       %th Actions
   %tbody
     -@freeformats.each do |ff|
@@ -23,7 +23,7 @@
         %td= number_to_human_size ff.file_file_size
         - if is_paperproposal_list
           %td= ff.uri
-          %td= ff.is_essential ? 'X' : ''
+          %td= ff.is_essential ? "\u2713" : ''
         %td
           %a.showr{:id => "freeformat_change_#{ff.id}"} Edit
           = link_to 'Delete', {:controller => :freeformats, :action => :destroy, :id => ff.id},

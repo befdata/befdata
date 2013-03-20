@@ -175,7 +175,7 @@ private
 
     CSV.generate(:force_quotes => true) do |csv|
       csv << ['State', 'Project', 'Date created', 'Authors', 'Title', 'Initial title', 'Envisaged journal',
-              'Envisaged date','Rationale', 'Comment','Url', 'Essential files and URIs']
+              'Envisaged date','Rationale', 'Comment','Url', 'Published Papers and URIs']
 
       paperproposals.each do |pp|
         csv << [pp.state,
