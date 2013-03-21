@@ -16,8 +16,12 @@ class CartsController < ApplicationController
 
   def create_cart_context
     @dataset = Dataset.find(params[:dataset_id])
-    @cart_dataset = CartDataset.create!(:cart => current_cart, :dataset => @dataset)
-    flash[:notice] = "Added #{@dataset.title} to cart."
+    @cart_dataset = CartDataset.new(:cart => current_cart, :dataset => @dataset)
+    if @cart_dataset.save
+      flash[:notice] = "Added #{@dataset.title} to cart."
+    else
+      flash[:error] = "#{@dataset.title} is already in cart."
+    end
     redirect_to :back
   end
 
