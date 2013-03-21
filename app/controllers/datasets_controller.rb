@@ -218,7 +218,7 @@ class DatasetsController < ApplicationController
       redirect_to(:action => 'show')
     else
       flash[:error] = new_datafile.errors.full_messages.to_sentence
-      redirect_to edit_dataset_path(@dataset)
+      redirect_to :back
     end
   end
 
@@ -250,8 +250,6 @@ class DatasetsController < ApplicationController
   def trigger_import_if_nessecary
     if @dataset.import_status == 'new'
       @book = Dataworkbook.new(@dataset.upload_spreadsheet)
-      return unless @book.columnheaders_unique?
-
       @dataset.import_status = 'queued'
       @dataset.save
       @dataset.delay.import_data

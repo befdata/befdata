@@ -415,7 +415,7 @@ class Dataworkbook
   ## clean_string removes any leading and trailing spaces from the input
   def clean_string(input)
     unless input.nil?
-      input = input.to_s.gsub(/^[\s]+|[\s]+$/, "")
+      input = input.to_s.strip
     end
     return input
   end

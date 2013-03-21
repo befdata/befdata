@@ -48,8 +48,13 @@ class Datafile < ActiveRecord::Base
       return
     end
 
-    # TODO heck for unique column headers
-    # errors.add :file, "column headers in the raw data sheet must be unique"
+    # check for unique column headers
+    column_headers = ss.worksheet(Dataworkbook::WBF[:data_sheet]).row(0).compact.map(&:strip).reject(&:empty?)
+    unless column_headers.uniq.length == column_headers.length
+      errors.add :file, "column headers in the raw data sheet must be unique"
+      return
+    end
+
   end
 
 end
