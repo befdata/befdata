@@ -87,7 +87,7 @@
     - @paperproposal.dataset_paperproposals.joins(:dataset).order('aspect ASC, title ASC').each do |ds_pp|
       %li
         = link_to ds_pp.dataset.title, ds_pp.dataset
-        = '(' + ds_pp.aspect + ')'
+        = '(' + ds_pp.aspect + ')' unless ds_pp.aspect.nil?
 - else
   %p No datasets are linked to this paperproposal.
 
