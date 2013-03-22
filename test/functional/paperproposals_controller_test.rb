@@ -63,6 +63,7 @@ class PaperproposalsControllerTest < ActionController::TestCase
     assert_equal old_votes_count, PaperproposalVote.all.count
     assert_equal old_roles_count, User.find(paperproposal.author).roles.count
     assert_equal 'prep', paperproposal.board_state
+    assert_not_nil Paperproposal.find(paperproposal.id)
   end
 
   test "automatical project board and data request vote if it's your paperproposal" do
