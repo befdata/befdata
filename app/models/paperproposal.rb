@@ -198,6 +198,53 @@ class Paperproposal < ActiveRecord::Base
     self.author_paperproposals << proponents
   end
 
+  def update_datasets(dataset_ids, aspects)
+    old_datasets = self.datasets.to_a
+
+    self.update_attributes(:dataset_ids => dataset_ids)
+    if aspects
+      aspects.each do |k, v|
+        ds_pp = self.dataset_paperproposals.where('dataset_id = ?', k).first
+        ds_pp.aspect = v
+        ds_pp.save
+      end
+    end
+    self.reload
+    recalculate_votes old_datasets
+    calculate_datasets_proponents
+  end
+
+  def recalculate_votes(old_datasets_array)
+    return if %w'prep re_prep submit'.include? self.board_state # there are not data votes right now
+
+    old_data_voters = self.for_data_request_votes.collect{|pv| pv.user}
+    new_data_voters = self.datasets.collect{|ds| ds.owners}.flatten.uniq
+    removed_voters = old_data_voters - new_data_voters
+    added_voters = new_data_voters - old_data_voters
+
+    all_referred_datasets = (old_datasets_array + self.datasets).uniq
+    unchanged_datasets = old_datasets_array & self.datasets
+    changed_datasets = all_referred_datasets - unchanged_datasets
+    changed_datasets_owners = changed_datasets.collect{|ds| ds.owners}.flatten.uniq
+
+    # add, reset and delete votes
+    changed_datasets_owners.each do |u|
+      if removed_voters.include? u
+        self.for_data_request_votes.where(:user_id => u.id).first.destroy
+      elsif added_voters.include? u
+        create_data_vote_for_user u
+      else
+        self.for_data_request_votes.where(:user_id => u.id).first.update_attribute(:vote,'none')
+      end
+    end
+    auto_author_vote
+
+    unless changed_datasets_owners.empty?
+      self.board_state = 'accept' if self.board_state == 'final'
+      self.lock = false
+    end
+  end
+
   def submit_to_board
     pre_state = self.board_state
     self.board_state = 'submit'
@@ -268,11 +315,15 @@ private
   def make_data_request_accepted
     dataset_owners = (self.main_aspect_dataset_owners + self.side_aspect_dataset_owners).uniq
     dataset_owners.each do |user|
-      self.paperproposal_votes << PaperproposalVote.new(:user => user, :project_board_vote => false)
+      create_data_vote_for_user user
     end
     self.board_state = 'accept'
     self.save
     auto_author_vote
+  end
+
+  def create_data_vote_for_user(user)
+    self.paperproposal_votes << PaperproposalVote.new(:user => user, :project_board_vote => false)
   end
 
   def make_data_request_final

@@ -126,16 +126,8 @@ class PaperproposalsController < ApplicationController
   end
 
   def update_datasets
-    dataset_ids = params[:dataset_ids] ? params[:dataset_ids] : []
-    @paperproposal.update_attributes(:dataset_ids => dataset_ids)
-    if params[:aspect]
-      params[:aspect].each do |k, v|
-        ds_pp = @paperproposal.dataset_paperproposals.where('dataset_id = ?', k).first
-        ds_pp.aspect = v
-        ds_pp.save
-      end
-    end
-    @paperproposal.calculate_datasets_proponents
+    @paperproposal.update_datasets params[:dataset_ids] || [], params[:aspect]
+    flash[:notice] = 'Datasets have been updated'
     redirect_to @paperproposal
   end
 
