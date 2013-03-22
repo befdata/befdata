@@ -17,8 +17,7 @@
       = form.submit "Send to board again", :confirm => 'Did you make your changes?'
       = form.hidden_field :board_state, :value => "submit"
 
-  - state = @paperproposal.board_state
-  - if state == "submit" || state ==  "re_prep"
+  - if %w'submit re_prep'.include? @paperproposal.board_state
     %h5 Project Board Vote
     %div.around_box
       %span.left_vote
@@ -27,12 +26,12 @@
             %span.label= link_to vote.user.to_label, vote.user
             = image_tag("arrow_right_#{vote.vote}.png", :title => vote.comment)
       %span.right_vote
-        = image_tag("arrow_join_#{state}.png")
+        = image_tag("arrow_join_#{@paperproposal.board_state}.png")
         = @paperproposal.calc_board_state
     %span.clear
 
-  - if @paperproposal.board_state == "accept"
-    %p Now Main Proponent Vote
+  - if %w'accept data_rejected'.include? @paperproposal.board_state
+    %p Data owners Votes
     %ul
       - @paperproposal.for_data_request_votes.each do |join|
         %li

@@ -64,8 +64,8 @@ class PaperproposalsController < ApplicationController
     select_current_votes.each do |v|
       v.update_attribute :vote, 'accept'
       v.save
-      @paperproposal.handle_vote v
     end
+    @paperproposal.check_votes
     flash[:notice] = 'All current votes appreoved'
     redirect_to @paperproposal
   end
@@ -146,7 +146,7 @@ class PaperproposalsController < ApplicationController
   def update_vote
     @vote.update_attributes(params[:paperproposal_vote])
     if @vote.save
-      @vote.paperproposal.handle_vote @vote
+      @vote.paperproposal.check_votes
       flash[:notice] = 'Your vote was submitted'
     else
       flash[:error] = @vote.errors

@@ -77,6 +77,7 @@ class Paperproposal < ActiveRecord::Base
     return "Submitted to board, waiting for acceptance." if self.board_state == "submit"
     return "Project Board rejected your data request. Please make changes and submit again." if self.board_state == "re_prep"
     return "accept" if self.board_state == "accept"
+    return "data request rejected" if self.board_state == "data_rejected"
     return "final" if self.board_state == "final"
   end
 
@@ -210,11 +211,11 @@ class Paperproposal < ActiveRecord::Base
       end
     end
     self.reload
-    recalculate_votes old_datasets
+    calculate_votes old_datasets
     calculate_datasets_proponents
   end
 
-  def recalculate_votes(old_datasets_array)
+  def calculate_votes(old_datasets_array = [])
     return if %w'prep re_prep submit'.include? self.board_state # there are not data votes right now
 
     old_data_voters = self.for_data_request_votes.collect{|pv| pv.user}
@@ -237,12 +238,13 @@ class Paperproposal < ActiveRecord::Base
         self.for_data_request_votes.where(:user_id => u.id).first.update_attribute(:vote,'none')
       end
     end
-    auto_author_vote
 
     unless changed_datasets_owners.empty?
       self.board_state = 'accept' if self.board_state == 'final'
-      self.lock = false
     end
+
+    auto_author_vote
+    check_votes
   end
 
   def submit_to_board
@@ -261,21 +263,12 @@ class Paperproposal < ActiveRecord::Base
     auto_author_vote
   end
 
-  def handle_vote(vote)
-    if vote.vote == 'reject'
+  def check_votes
+    self.reload
+    if self.paperproposal_votes.where(:vote => 'accept').count == self.paperproposal_votes.count
+      all_votes_accepted
+    elsif !self.paperproposal_votes.where(:vote => 'reject').empty?
       reject_data_request
-    elsif self.paperproposal_votes(true).select{|v| v.vote == ('none' || 'reject')}.empty?
-      case self.board_state
-        when 'submit'
-          if self.datasets.length == 0
-            make_data_request_final
-          else
-            make_data_request_accepted
-          end
-        when 'accept'
-          make_data_request_final
-        else
-      end
     end
   end
 
@@ -306,29 +299,41 @@ private
     "Reverted proposer roles for datasets #{reverted_roles.to_s}. "
   end
 
+  def all_votes_accepted
+    case self.board_state
+      when 'submit'
+        if self.datasets.length == 0
+          make_data_request_final
+        else
+          make_data_request_accepted
+        end
+      when 'accept'
+        make_data_request_final
+      else
+    end
+  end
+
   def reject_data_request
-    self.board_state = 're_prep'
-    self.lock = false
+    self.board_state = case self.board_state
+                         when 'submit' then 're_prep'
+                         when 'accept' then 'data_rejected'
+                         else
+                       end
+    set_lock_status
     self.save
   end
 
   def make_data_request_accepted
-    dataset_owners = (self.main_aspect_dataset_owners + self.side_aspect_dataset_owners).uniq
-    dataset_owners.each do |user|
-      create_data_vote_for_user user
-    end
     self.board_state = 'accept'
+    set_lock_status
     self.save
+    calculate_votes
     auto_author_vote
-  end
-
-  def create_data_vote_for_user(user)
-    self.paperproposal_votes << PaperproposalVote.new(:user => user, :project_board_vote => false)
   end
 
   def make_data_request_final
     self.board_state = 'final'
-    self.lock = false
+    set_lock_status
     self.save
     self.datasets.each do |ds|
       ds.accepts_role! :proposer, self.author
@@ -336,11 +341,19 @@ private
   end
 
   def auto_author_vote
-    self.paperproposal_votes.where('user_id = ?', self.author_id).each do |v|
+    self.paperproposal_votes.where(:user_id => self.author_id).each do |v|
       v.vote = 'accept'
       v.save
-      handle_vote v
     end
+    check_votes
+  end
+
+  def set_lock_status
+    self.lock = %w'prep re_prep data_rejected final'.include?(self.board_state) ? false : true
+  end
+
+  def create_data_vote_for_user(user)
+    self.paperproposal_votes << PaperproposalVote.new(:user => user, :project_board_vote => false)
   end
 
   def check_aspects_for_contexts
