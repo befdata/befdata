@@ -2,14 +2,14 @@ require 'csv'
 
 class DatagroupsController < ApplicationController
 
-  before_filter :load_datagroup, :only => [:show, :upload_categories, :update_categories, :edit, :update]
+  before_filter :load_datagroup, :only => [:show, :upload_categories, :update_categories, :edit, :update, :destroy]
 
   skip_before_filter :deny_access_to_all
   access_control do
     actions :index, :show do
       allow logged_in
     end
-    actions :upload_categories, :update_categories, :edit, :update do
+    actions :upload_categories, :update_categories, :edit, :update, :destroy do
       allow :admin
     end
   end
@@ -42,6 +42,19 @@ class DatagroupsController < ApplicationController
       redirect_to @datagroup, notice: "Successfully updated"
     else
       render :edit
+    end
+  end
+
+  def destroy
+    unless @datagroup.datasets.empty?
+      flash[:error] = "Datagroup has associated datasets and cann't be deleted"
+      redirect_to :back
+    end
+    if @datagroup.destroy
+      redirect_to datagroups_path, :notice => "Deleted #{@datagroup.title}"
+    else
+      flash[:error] = @datagroup.errors.full_messages.to_sentence
+      redirect_to :back
     end
   end
 
