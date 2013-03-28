@@ -171,7 +171,7 @@ class Dataworkbook
 
   def initialize_data_column_information(columnheader)
     data_group_ch = methodsheet_datagroup(columnheader)
-    data_group = Datagroup.find_by_title(data_group_ch[:title])
+    data_group = Datagroup.where(["title iLike ?", data_group_ch[:title]]).first
     if data_group.blank?
       data_group = Datagroup.create(data_group_ch)
     else
@@ -301,12 +301,10 @@ class Dataworkbook
     data_group = {}
     if method_index.nil? # no discription for this columnheader in the method sheet
       data_group[:title] = columnheader
-      data_group[:description] = columnheader
     else
       row = data_description_sheet.row(method_index)
-      data_group[:title] = row[*WBF[:group_title_col]].blank? ? clean_string(row[*WBF[:column_definition_col]]) : clean_string(row[*WBF[:group_title_col]])
-      data_group[:title] ||= columnheader
-      data_group[:description] = row[*WBF[:group_description_col]].blank? ? clean_string(data_group[:title]) : clean_string(row[*WBF[:group_description_col]])
+      data_group[:title] = row[*WBF[:group_title_col]].blank? ? columnheader : clean_string(row[*WBF[:group_title_col]])
+      data_group[:description] = clean_string(row[*WBF[:group_description_col]])
       data_group[:instrumentation] = clean_string(row[*WBF[:group_instrumentation_col]])
       data_group[:informationsource] = clean_string(row[*WBF[:group_informationsource_col]])
       data_group[:methodvaluetype] = clean_string(row[*WBF[:group_methodvaluetype_col]])
@@ -421,9 +419,9 @@ class Dataworkbook
   end
 
   def compare_strings(datagroup_string, test_string)
-     unless test_string.nil? or test_string.empty?
-       unless datagroup_string.nil? or datagroup_string.empty?
-         return datagroup_string != test_string
+     unless test_string.blank?
+       unless datagroup_string.blank?
+         return datagroup_string.downcase != test_string.downcase
        end
        return true
      end

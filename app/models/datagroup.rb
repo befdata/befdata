@@ -20,7 +20,7 @@ class Datagroup < ActiveRecord::Base
   validates_uniqueness_of :title
 
   before_destroy :check_if_destroyable
-
+  before_validation :fill_missing_description
   after_initialize :init
   after_update { datasets.map(&:touch) }
   # set the default value for datagroup
@@ -41,6 +41,11 @@ class Datagroup < ActiveRecord::Base
     self.reload
     (self.type_id != Datagrouptype::DEFAULT)
   end
+
+  def fill_missing_description
+    self.description = self.title if self.description.blank?
+  end
+
   def self.delete_orphan_datagroups
     # delete non-system orphan datagroups that has no associated datacolumns
     to_be_deleted = Datagroup.joins('left outer join datacolumns on datagroups.id = datacolumns.datagroup_id').
