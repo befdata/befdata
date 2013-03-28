@@ -201,6 +201,7 @@ body {
 
 input, textarea, select {
     font-family: "Trebuchet MS", Helvetica, Arial, sans-serif;
+    font-size: 100%;
 }
 
 div.container {
@@ -355,19 +356,53 @@ input[type=file] {
     border: 1px solid #cdcdcd;
 }
 
-input[type=button], input[type=submit], button {
-    background-color: #e8e8e8;
-    outline: 1px solid #8a8a8a;
-    border:  none;
-    color: #18921e;
-    font-weight: bold;
-    padding: 3px;
+input[type=button], input[type=submit], button, a.button {
+  background-color: #e8e8e8;
+  outline: 1px solid #8a8a8a;
+  border:  none;
+  color: #18921e;
+  font-weight: bold;
+  padding: 3px;
+  font-family:"Trebuchet MS",Helvetica,Arial,sans-serif;
+  font-size: 13px;
+  line-height: 1.3em;
 }
 
-input[type=button]:hover, input[type=submit]:hover, button:hover, input[type=button]:focus, input[type=submit]:focus, button:focus {
-    outline-color: #18921e;
-    background-color: #eee;
+input[type=button]:hover, input[type=submit]:hover, button:hover, a.button:hover,
+input[type=button]:focus, input[type=submit]:focus, button:focus, a.button:focus {
+  outline-color: #18921e;
+  background-color: #eee;
 }
+
+a.button, button {
+  text-decoration:none;
+  display: inline-block;
+}
+
+button {
+  width:auto;
+  overflow:visible;
+  padding:4px 10px 3px 7px;   /* IE6 */
+}
+button[type] {
+  padding:12px 36px;   /* Firefox */
+  line-height:17px;    /* Safari */
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+}
+*:first-child+html button[type] {
+  padding:12px 36px;   /* IE7 */
+}
+button img, a.button img {
+  margin:0 3px -3px 0 !important;
+  padding:0;
+  border:none;
+  width:16px;
+  height:16px;
+  float:none;
+}
+
+button.inline { float: right; }
 
 input[type='search'] {
     -webkit-appearance: none;
@@ -739,6 +774,8 @@ div#actions + div#info {
     margin: 5px 0 0 0;
 }
 
+#modal { top: 20px; }
+#modal textarea { min-height: 150px; }
 
 
 /* --- Footer ------------------------------------------------ */
@@ -925,77 +962,10 @@ ul#page-associates {
 .sidenote .head { background: #243f12; margin: 0; padding: 3px; color: #fff; }
 .sidenote .content {padding: 10px;}
 
-/* --------------------------------------------------------------  
-   Blueprint Buttons
-   * Gives you some great CSS-only buttons.
-   
-   Created by Kevin Hale [particletree.com]
-   * particletree.com/features/rediscovering-the-button-element
--------------------------------------------------------------- */
-
-a.button, button {
-  display:block;
-  float:left;
-  margin: 0.7em 0.5em 0.7em 0;
-  padding:5px 10px 5px 7px;   /* Links */
-  background-color: rgb(232, 232, 232);
-  border: 1px solid rgb(138, 138, 138);
-  font-family:"Trebuchet MS",Helvetica,Arial,sans-serif;
-  font-size:100%;
-  line-height:130%;
-  text-decoration:none;
-  font-weight:bold;
-  color: rgb(24, 146, 30);
-  cursor:pointer;
-}
-button {
-  width:auto;
-  overflow:visible;
-  padding:4px 10px 3px 7px;   /* IE6 */
-}
-button[type] {
-  padding:12px 36px;   /* Firefox */
-  line-height:17px;    /* Safari */
-	-moz-border-radius: 5px;
-	border-radius: 5px;
-}
-*:first-child+html button[type] {
-  padding:12px 36px;   /* IE7 */
-  
-}
-button img, a.button img {
-  margin:0 3px -3px 0 !important;
-  padding:0;
-  border:none;
-  width:16px;
-  height:16px;
-  float:none;
-}
-
-button.inline { float: right; }
-
-#modal { top: 20px; }
-#modal textarea { min-height: 150px; }
-
-/* Button colors
--------------------------------------------------------------- */
-
-/* Standard */
-button:hover, a.button:hover{
-  background-color:#9bc56f;
-  border:1px solid #243f12;
-  color:#243f12;
-}
-a.button:active{
-  background-color:#6299c5;
-  border:1px solid #6299c5;
-  color:#fff;
-}
-
-/* -------------------------------------------------------------- 
+/* --------------------------------------------------------------
 Custom JQuery Tweaking
 -------------------------------------------------------------- */
-.ui-widget {font-family: "Trebuchet MS", Helvetica, Arial, sans-serif;}
+.ui-widget, .ui-widget input {font-family: "Trebuchet MS", Helvetica, Arial, sans-serif;}
 .ui-widget-header { background: #243f12; border: 1px solid #9bc56f; }
 .ui-widget-content { background: #fff; }
 .ui-tabs { padding: 0; }

@@ -83,7 +83,7 @@ class DatagroupsController < ApplicationController
   end
 
   def datacolumns
-    @datacolumns = @datagroup.datacolumns.paginate(:page => params[:page], :per_page => 20, :order => "columnheader")
+    @datacolumns = @datagroup.datacolumns.includes(:dataset).paginate(:page => params[:page], :per_page => 20, :order => "columnheader")
   end
 
   private
