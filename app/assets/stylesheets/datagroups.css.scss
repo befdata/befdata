@@ -14,15 +14,7 @@
   position: relative;
   margin-top: 20px;
   #loader {
-    z-index: 10;
-    position: absolute;
-    width: 110px;
     top: 40px;
-    left: 50%;
-    margin-left: -75px;
-    padding: 10px 10px 10px 30px;
-    background: image-url("spinner.gif") 10px 50% no-repeat #eee;
-    border: 1px solid #ddd;
   }
   #categories_table {
     #search_form {
@@ -46,4 +38,37 @@
       }
     }
   }
+}
+.datacolumn {
+  position: relative;
+  padding: 8px;
+  border-top: dotted 1px #CCC;
+  #loader {
+    top: 5px;
+  }
+  .columnheader{
+    font-weight: bold;
+    color: #18921e;
+  }
+  .definition {
+    white-space: pre-line;
+  }
+  form {
+    input[type="text"], textarea {
+      width: 100%;
+    }
+    textarea {
+      line-height: 1.7em;
+    }
+  }
+}
+#loader {
+  z-index: 10;
+  position: absolute;
+  width: 110px;
+  left: 50%;
+  margin-left: -75px;
+  padding: 10px 10px 10px 30px;
+  background: image-url("spinner.gif") 10px 50% no-repeat #eee;
+  border: 1px solid #ddd;
 }

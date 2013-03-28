@@ -1,0 +1,55 @@
+= content_for :actions do
+  = link_to datagroups_path do
+    = image_tag "list-ordered.png"
+    List Datagroups
+
+%h2 Datacolumns belonging to #{link_to @datagroup.title, @datagroup}
+- if @datacolumns.empty?
+  %i No associated datacolumns for this datagroup.
+- else
+  - @datacolumns.each do  |datacolumn|
+    = content_tag_for(:div, datacolumn) do
+      #loader.hidden Sending request...
+      .info
+        = link_to 'Edit', "#", :class => "form_loader right"
+        .columnheader= datacolumn.columnheader
+        .definition= datacolumn.definition
+        %i Dataset: #{link_to datacolumn.dataset.title, datacolumn.dataset}
+      = form_for datacolumn, :html => {:class => "hidden", :remote => true, 'data-type' => :json} do |f|
+        = f.text_field :columnheader
+        = f.text_area :definition
+        = f.submit
+        = link_to "Cancel", "#", :class => "button right cancel"
+  .clear= will_paginate @datacolumns
+
+  :javascript
+    $(function(){
+      $(".datacolumn").on('click', '.form_loader', function(){
+        var info = $(this).parent(".info");
+        var form = info.next("form");
+        var height = info.find(".definition").height();
+        $("input#datacolumn_columnheader", form).val($(".columnheader",info).text());
+        $("textarea#datacolumn_definition", form).val($(".definition",info).text());
+        info.toggle().next("form").toggle().find('textarea').height(height);
+        return(false);
+      });
+      $('.datacolumn').on('click', ".cancel", function(){
+        $(this).parent('form').toggle().prev(".info").toggle();
+        return(false);
+      })
+      $(".datacolumn").on('submit', 'form', function(){
+        $(this).parent().find("#loader").show();
+      });
+      $(".datacolumn").on('ajax:success', 'form', function(evernt, data){
+        var info = $(this).prev(".info");
+        if(data.error){
+          info.prev("#loader").toggle();
+          alert(data.error);
+        }
+        else{
+          $(".columnheader",info).text(data.datacolumn.columnheader);
+          $(".definition",info).text(data.datacolumn.definition);
+          $(this).toggle().prevAll(".info, #loader").toggle();
+        }
+      });
+    })

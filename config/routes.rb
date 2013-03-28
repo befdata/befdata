@@ -64,7 +64,7 @@ Befchina::Application.routes.draw do
 
   resources :datagroups do
     member do
-      get :upload_categories
+      get :upload_categories, :datacolumns
       post :update_categories
     end
   end

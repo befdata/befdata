@@ -6,7 +6,7 @@ class DatacolumnsController < ApplicationController
   access_control do
     actions :approval_overview, :next_approval_step, :approve_datagroup, :approve_datatype, :approve_metadata,
             :approve_invalid_values, :update_datagroup, :create_and_update_datagroup, :update_datatype,
-            :update_metadata, :update_invalid_values do
+            :update_metadata, :update_invalid_values, :update do
       allow :admin
       allow :owner, :of => :dataset
       allow :proposer, :of => :dataset
@@ -14,6 +14,18 @@ class DatacolumnsController < ApplicationController
   end
 
   layout :choose_layout
+
+  def update
+    respond_to do |format|
+      if @datacolumn.update_attributes(params[:datacolumn])
+        format.html { redirect_to :back }
+        format.json {render :json => @datacolumn}
+      else
+        format.html { redirect_to :back, :error => @datacolumn.errors.full_messages.to_sentence }
+        format.json {render :json => {error: @datacolumn.errors.full_messages.to_sentence}}
+      end
+    end
+  end
 
   def approval_overview
   end

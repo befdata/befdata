@@ -2,14 +2,14 @@ require 'csv'
 
 class DatagroupsController < ApplicationController
 
-  before_filter :load_datagroup, :only => [:show, :upload_categories, :update_categories, :edit, :update, :destroy]
+  before_filter :load_datagroup, :only => [:show, :upload_categories, :update_categories, :edit, :update, :destroy, :datacolumns]
 
   skip_before_filter :deny_access_to_all
   access_control do
     actions :index, :show do
       allow logged_in
     end
-    actions :upload_categories, :update_categories, :edit, :update, :destroy do
+    actions :upload_categories, :update_categories, :edit, :update, :destroy, :datacolumns do
       allow :admin
     end
   end
@@ -82,7 +82,11 @@ class DatagroupsController < ApplicationController
     end
   end
 
-private
+  def datacolumns
+    @datacolumns = @datagroup.datacolumns.paginate(:page => params[:page], :per_page => 20, :order => "columnheader")
+  end
+
+  private
 
   def render_categories_csv
     csv_string = CSV.generate do |csv|
