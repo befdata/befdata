@@ -229,7 +229,7 @@ class Dataset < ActiveRecord::Base
     rescue Exception => e
       Rails.logger.error e.message
       Rails.logger.error e.backtrace.join("\n")
-      self.update_attribute(:import_status, "error: #{e.message}")
+      self.update_attribute(:import_status, "error: #{e.message.first(248)}")
     end
   end
 
