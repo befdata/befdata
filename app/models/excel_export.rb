@@ -176,12 +176,10 @@ private
 
 
   def self.regenerate_downloads_if_needed
-    only_every_ten_minutes = "download_generated_at <= '#{(Time.now.utc - 10.minutes).to_s(:db)}' "
-    if_updated_after_last_generation = "AND updated_at >= download_generated_at "
-    if_download_generation_is_not_in_progress = "AND download_generation_status = 'finished'"
-    datasets = Dataset.where(only_every_ten_minutes +
-                                  if_updated_after_last_generation +
-                                  if_download_generation_is_not_in_progress)
+    datasets = Dataset.where("download_generated_at <= ?
+                          AND updated_at >= download_generated_at
+                          AND download_generation_status = 'finished'",
+                          (Time.now.utc - 10.minutes).to_s(:db))
 
     datasets.each do |dataset|
       dataset.enqueue_to_generate_download

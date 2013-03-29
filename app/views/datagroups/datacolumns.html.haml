@@ -24,7 +24,7 @@
 
   :javascript
     $(function(){
-      $(".datacolumn").on('click', '.form_loader', function(){
+      $(".datacolumn .form_loader").click(function(){
         var info = $(this).parent(".info");
         var form = info.next("form");
         var height = info.find(".definition").height();
@@ -33,14 +33,14 @@
         info.toggle().next("form").toggle().find('textarea').height(height);
         return(false);
       });
-      $('.datacolumn').on('click', ".cancel", function(){
+      $('.datacolumn .cancel').click(function(){
         $(this).parent('form').toggle().prev(".info").toggle();
         return(false);
       })
-      $(".datacolumn").on('submit', 'form', function(){
+      $(".datacolumn form").submit(function(){
         $(this).parent().find("#loader").show();
       });
-      $(".datacolumn").on('ajax:success', 'form', function(evernt, data){
+      $(".datacolumn form").on('ajax:success', function(evernt, data){
         var info = $(this).prev(".info");
         if(data.error){
           info.prev("#loader").toggle();

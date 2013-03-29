@@ -301,7 +301,8 @@ class Dataset < ActiveRecord::Base
   def find_related_datasets
     tags = self.all_tags.map(&:id)
     return [] if tags.empty?
-    datasets = Dataset.tag_usage.select("datasets.*,count(tags.*) as count").where("tags.id in (#{tags.join(',')}) and datasets.id <> #{self.id}").
+    datasets = Dataset.tag_usage.select("datasets.*,count(tags.*) as count").
+                    where(["tags.id in (?) and datasets.id <> ?", tags, self.id]).
                     group("datasets.id").order("count(tags.*) desc")
     return(datasets)
   end
