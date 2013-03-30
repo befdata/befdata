@@ -76,6 +76,18 @@ class PaperproposalsControllerTest < ActionController::TestCase
     assert_equal 1, paperproposal.for_data_request_votes.where("vote = 'accept'").count
   end
 
+  test "rejecting paperproposal data request" do
+    @request.env['HTTP_REFERER'] = root_url
+    paperproposal = Paperproposal.find 5
+    user = login_nadrowski
+    get :admin_approve_all_votes, :id => paperproposal.id #bring to next stage
+
+    get :update_vote, :id => user.paperproposal_votes.where(:vote => 'none').first.id, :paperproposal_vote => {:vote => 'reject'}
+
+    paperproposal.reload
+    assert_equal 'data_rejected', paperproposal.board_state
+  end
+
   test "should get new" do
     login_nadrowski
     get :new

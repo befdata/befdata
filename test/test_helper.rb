@@ -19,6 +19,7 @@ class ActiveSupport::TestCase
   def login_nadrowski
     nadrowski = User.find_by_login 'nadrowski'
     UserSession.create(nadrowski)
+    nadrowski
   end
 
   def login_and_load_paperproposal(user, title)
