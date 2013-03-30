@@ -63,7 +63,6 @@ class PaperproposalsController < ApplicationController
   def admin_approve_all_votes
     select_current_votes.each do |v|
       v.update_attribute :vote, 'accept'
-      v.save
     end
     @paperproposal.check_votes
     flash[:notice] = 'All current votes appreoved'
@@ -131,14 +130,9 @@ class PaperproposalsController < ApplicationController
     redirect_to @paperproposal
   end
 
-  # submit to board - switch from prep state to submit state
+  # submit to board / re-request data
   def update_state
-    if params[:paperproposal][:board_state] == 'submit'
-      @paperproposal.submit_to_board
-      flash[:notice] = 'Submitted to Project Board'
-    else
-      flash[:error] = 'Something went wrong'
-    end
+    flash[:notice] = @paperproposal.user_changes_state
     redirect_to @paperproposal
   end
 

@@ -5,7 +5,6 @@
   - if @paperproposal.calc_board_state == 'complete' || new_without_datasets
     = form_for @paperproposal, :url => paperproposal_update_state_path(@paperproposal) do |form|
       = form.label @paperproposal.calc_board_state
-      = form.hidden_field :board_state, :value => 'submit'
       - if new_without_datasets
         = form.submit 'Send to board', :confirm => 'Continue without selected datasets?'
       - else
@@ -15,7 +14,11 @@
     = form_for @paperproposal, :url => paperproposal_update_state_path(@paperproposal) do |form|
       = "When you are ready, we are!"
       = form.submit "Send to board again", :confirm => 'Did you make your changes?'
-      = form.hidden_field :board_state, :value => "submit"
+
+  - if @paperproposal.board_state == 'data_rejected'
+    = form_for @paperproposal, :url => paperproposal_update_state_path(@paperproposal) do |form|
+      = 'Edit your paperproposal or communicate with the ones who rejected your data request'
+      = form.submit 'Ask again', :confirm => 'Did you make your changes?'
 
   - if %w'submit re_prep'.include? @paperproposal.board_state
     %h5 Project Board Vote

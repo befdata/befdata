@@ -210,9 +210,17 @@ class Paperproposal < ActiveRecord::Base
         ds_pp.save
       end
     end
+
     self.reload
-    calculate_votes old_datasets
     calculate_datasets_proponents
+
+    if %w'prep re_prep submit'.include?(self.board_state)
+      set_lock_status
+      self.save
+    else
+      calculate_votes old_datasets
+      finalize_votes_and_lock
+    end
   end
 
   def calculate_votes(old_datasets_array = [])
@@ -233,34 +241,24 @@ class Paperproposal < ActiveRecord::Base
       if removed_voters.include? u
         self.for_data_request_votes.where(:user_id => u.id).first.destroy
       elsif added_voters.include? u
-        create_data_vote_for_user u
+        self.paperproposal_votes << PaperproposalVote.new(:user => u, :project_board_vote => false)
       else
-        self.for_data_request_votes.where(:user_id => u.id).first.update_attribute(:vote,'none')
+        vote = self.for_data_request_votes.where(:user_id => u.id).first
+        vote.update_attribute(:vote,'none') if vote.vote == 'accept'
       end
     end
 
-    unless changed_datasets_owners.empty?
-      self.board_state = 'accept' if self.board_state == 'final'
-    end
-
-    auto_author_vote
-    check_votes
+    self.board_state = 'accept' if self.board_state == 'final' && !changed_datasets.empty?
   end
 
-  def submit_to_board
-    pre_state = self.board_state
-    self.board_state = 'submit'
-    self.lock = true
-    self.save
-
-    if pre_state == 're_prep'
-      self.project_board_votes.each{|vote| vote.update_attribute(:vote, 'none')}
+  def user_changes_state
+    if %w'prep re_prep'.include?(self.board_state)
+      submit_to_board
+    elsif self.board_state == 'data_rejected'
+      re_request_data
     else
-      Role.find_by_name('project_board').users.each do |user|
-        self.paperproposal_votes << PaperproposalVote.new(:user => user, :project_board_vote => true)
-      end
+      'Paperproposal state could not be changed'
     end
-    auto_author_vote
   end
 
   def check_votes
@@ -284,6 +282,33 @@ class Paperproposal < ActiveRecord::Base
   end
 
 private
+
+  def submit_to_board
+    pre_state = self.board_state
+    self.board_state = 'submit'
+
+    if pre_state == 're_prep'
+      self.project_board_votes.each{|vote| vote.update_attribute(:vote, 'none')}
+    else
+      Role.find_by_name('project_board').users.each do |user|
+        self.paperproposal_votes << PaperproposalVote.new(:user => user, :project_board_vote => true)
+      end
+    end
+
+    finalize_votes_and_lock
+    'Submitted to project board'
+  end
+
+  def re_request_data
+    self.board_state = 'accept'
+
+    self.for_data_request_votes.where(:vote => 'reject').each do |v|
+      v.update_attribute :vote, 'none'
+    end
+
+    finalize_votes_and_lock
+    'Requesting data again'
+  end
 
   def reset_download_rights
     other_final_paperproposals = Paperproposal.where("board_state = 'final' AND author_id = ? AND id != ?", self.author_id, self.id)
@@ -317,7 +342,7 @@ private
     self.board_state = case self.board_state
                          when 'submit' then 're_prep'
                          when 'accept' then 'data_rejected'
-                         else
+                         else self.board_state
                        end
     set_lock_status
     self.save
@@ -325,43 +350,40 @@ private
 
   def make_data_request_accepted
     self.board_state = 'accept'
-    set_lock_status
-    self.save
     calculate_votes
-    auto_author_vote
+    finalize_votes_and_lock
   end
 
   def make_data_request_final
     self.board_state = 'final'
-    set_lock_status
-    self.save
     self.datasets.each do |ds|
       ds.accepts_role! :proposer, self.author
     end
+    set_lock_status
+    self.save
   end
 
   def auto_author_vote
     self.paperproposal_votes.where(:user_id => self.author_id).each do |v|
-      v.vote = 'accept'
-      v.save
+      v.update_attribute :vote, 'accept'
     end
-    check_votes
   end
 
   def set_lock_status
     self.lock = %w'prep re_prep data_rejected final'.include?(self.board_state) ? false : true
   end
 
-  def create_data_vote_for_user(user)
-    self.paperproposal_votes << PaperproposalVote.new(:user => user, :project_board_vote => false)
+  def finalize_votes_and_lock
+    set_lock_status
+    self.save
+    auto_author_vote
+    check_votes
   end
 
   def check_aspects_for_contexts
     if self.datasets.length >= 0
       self.dataset_paperproposals.each do |dgdr|
-        if dgdr.aspect.nil? || dgdr.aspect.empty?
-          return false
-        end
+        return false if dgdr.blank?
       end
       return true
     end
