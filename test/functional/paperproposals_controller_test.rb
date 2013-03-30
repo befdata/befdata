@@ -88,6 +88,23 @@ class PaperproposalsControllerTest < ActionController::TestCase
     assert_equal 'data_rejected', paperproposal.board_state
   end
 
+  test "changing datasets recalculates votes and resets if neccesary" do
+    @request.env['HTTP_REFERER'] = root_url
+    paperproposal = Paperproposal.find 5
+    user = login_nadrowski
+    get :admin_approve_all_votes, :id => paperproposal.id #bring to next stage
+    vote = user.paperproposal_votes.where(:vote => 'none').first
+
+    get :update_vote, :id => vote.id, :paperproposal_vote => {:vote => 'accept'}
+    post :update_datasets, :id => paperproposal.id, :dataset_ids => [6, 7, 8], :aspect => {6 => 'main', 7 => 'main', 8 => 'side'}
+
+    voters = paperproposal.for_data_request_votes(true).collect{|v| v.user_id}.sort
+    vote.reload
+
+    assert_equal [1,3,5], voters
+    assert_equal 'none', vote.vote
+  end
+
   test "should get new" do
     login_nadrowski
     get :new
