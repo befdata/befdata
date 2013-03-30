@@ -34,7 +34,7 @@ group :test, :development do
   gem 'libxml-ruby'
   gem 'rb-inotify'
   gem 'thin'    
-  gem 'debugger' 
+  # gem 'debugger'
   gem 'better_errors'  
   gem 'binding_of_caller'
 end 
