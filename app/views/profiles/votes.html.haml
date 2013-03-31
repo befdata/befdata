@@ -12,5 +12,6 @@
     = render :partial => 'paperproposals/open_vote', :locals => {:vote => vote}
 
 - unless @dataset_votes.empty?
+  %h2 Data requests
   - @dataset_votes.each do |vote|
     = render :partial => 'paperproposals/open_vote', :locals => {:vote => vote}
