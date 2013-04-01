@@ -239,12 +239,11 @@ class PaperproposalsControllerTest < ActionController::TestCase
   end
 
   test "it should not be possible to edit a paperproposal in vote" do
-    pending "but it is still possible"
-#    login_and_load_paperproposal "pinutrientcycling", "Step 3 Paperproposal"
-#
-#    get :edit, :id => @paperproposal.id
-#
-#    assert_response :redirect
+    login_and_load_paperproposal "Piproductivity", "Step 3 Paperproposal"
+
+    get :edit, :id => @paperproposal.id
+
+    assert_response :redirect
   end
 
   test "should show a paperproposal for owner" do
