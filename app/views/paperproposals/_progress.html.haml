@@ -43,5 +43,8 @@
           = form.submit 'Ask again', :confirm => 'Did you make your changes?'
 
     - if @paperproposal.board_state == 'final'
-      %p Data request approved#{' and download rights granted to the author' unless @paperproposal.datasets.empty?}.
+      %p
+        Data request approved.
+        - unless @paperproposal.expiry_date.blank? || @paperproposal.datasets.empty?
+          Download rights will expire on #{@paperproposal.expiry_date.strftime('%a %d %b %Y')}.
 

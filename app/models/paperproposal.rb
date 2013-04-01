@@ -337,6 +337,7 @@ private
   end
 
   def reset_download_rights
+    self.update_attribute(:expiry_date, '')
     other_final_paperproposals = Paperproposal.where("board_state = 'final' AND author_id = ? AND id != ?", self.author_id, self.id)
     other_downloadable_datasets = other_final_paperproposals.collect{|pp| pp.datasets}.flatten.uniq
     unique_downloadable_datasets = (self.datasets - other_downloadable_datasets)
@@ -379,6 +380,7 @@ private
   end
 
   def make_data_request_final
+    self.expiry_date = Date.today + 2.years
     self.board_state = 'final'
     self.datasets.each do |ds|
       ds.accepts_role! :proposer, self.author
