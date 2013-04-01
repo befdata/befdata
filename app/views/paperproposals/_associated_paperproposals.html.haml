@@ -1,9 +1,11 @@
 - paperproposals ||= @paperproposals
 - authorship_user ||= false
+- no_heading ||= false
 
 - if (current_user && !paperproposals.empty?) || !paperproposals.select{|p| p.state == 'accepted'}.empty?
 
-  %h3 Paper proposal submissions
+  - unless no_heading
+    %h3 Paper proposal submissions
 
   - if current_user.has_role?(:admin) || current_user.has_role?(:data_admin)
     - pp_select = paperproposals.select{|p| p.state == 'deletion'}.sort

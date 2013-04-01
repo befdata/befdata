@@ -11,7 +11,7 @@
 
 %h2 Paper Proposals
 
-= render :partial => 'paperproposals/associated_paperproposals'
+= render :partial => 'paperproposals/associated_paperproposals', :locals => {:no_heading => true}
 
 -#- pp_select = @paperproposals.select{ |p| p.state == 'accepted'}
 -#- unless pp_select.blank?
