@@ -1,6 +1,7 @@
 class PaperproposalsController < ApplicationController
   helper FreeformatsHelper
   include PaperproposalsHelper
+  include DatasetsHelper
 
   before_filter :load_proposal, :except => [:index, :index_csv, :new, :create, :update_vote]
   before_filter :load_vote, :only => [:update_vote]
@@ -53,7 +54,15 @@ class PaperproposalsController < ApplicationController
   end
 
   def show
-    @freeformats = @paperproposal.freeformats.order('is_essential DESC, file_file_name ASC')
+    respond_to do |format|
+      format.html
+        @freeformats = @paperproposal.freeformats.order('is_essential DESC, file_file_name ASC')
+      format.csv do
+        hash = generate_datasets_csv
+        filename = "pp-#{@paperproposal.id}_#{hash[:count]}-of-#{@paperproposal.datasets.count}-datasets_for-#{current_user.login}.csv"
+        send_data hash[:csv], :type => 'text/csv', :filename => filename, :disposition => 'attachment'
+      end
+    end
   end
 
   def administrate_votes
@@ -185,6 +194,21 @@ private
         ]
       end
     end
+  end
+
+  def generate_datasets_csv
+    ds_count = 0
+    csv = CSV.generate(:force_quotes => true) do |csv|
+      csv << ['ID', 'Title', 'Dataset Url', 'CSV download']
+      @paperproposal.datasets.order('title ASC').each do |ds|
+        if may_download_dataset?(ds)
+          csv << [ds.id, ds.title, dataset_url(ds),
+                  download_dataset_url(ds, :csv, :separate_category_columns => true, :user_credentials => current_user.single_access_token)]
+          ds_count += 1
+        end
+      end
+    end
+    {:count => ds_count, :csv => csv}
   end
 
   def select_current_votes

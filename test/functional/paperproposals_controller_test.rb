@@ -272,6 +272,14 @@ class PaperproposalsControllerTest < ActionController::TestCase
     pending "functionality not jet implemented"
   end
 
+  test "should download paperproposal datasets csv" do
+    login_and_load_paperproposal "Phdstudentnutrientcycling", "Nutrient cycling and diversity in subtropical forests"
+
+    get :show, :id => @paperproposal.id, :format => :csv
+
+    assert_success_no_error
+  end
+
   test "user can delete fresh paperproposal" do
     login_and_load_paperproposal "Phdstudentnutrientcycling", "Nutrient cycling and diversity in subtropical forests"
     old_pp_count = Paperproposal.all.count
