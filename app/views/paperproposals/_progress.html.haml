@@ -1,0 +1,46 @@
+#date-request-state
+
+  %p.paperproposal-states-breadcrumb
+    %span{:class => compare_progress_class(1)}
+      Preparation
+    %span{:class => compare_progress_class(2)}
+      Project Board
+    - if @paperproposal.board_state == 'data_rejected'
+      %span{:class => compare_progress_class(3)}
+        Edit
+    - unless @paperproposal.datasets.empty?
+      %span{:class => compare_progress_class(4)}
+        Data Requests
+    %span{:class => compare_progress_class(5)}
+      Finished
+
+  = render :partial => 'paperproposals/state_of_vote', :locals => {:votes => @paperproposal.current_votes[:votes]}
+
+  - if @paperproposal.calc_board_state == 'still no aspects set'
+    %p Too proceed please make sure that the aspect is set for all selected datasets
+
+  - if @paperproposal.board_state == 'prep' && (@paperproposal.calc_board_state == 'can be send to project board' || @paperproposal.datasets.empty?)
+    %p Please prepare your paperproposal and submit to project board when you are ready.
+    = form_for @paperproposal, :url => paperproposal_update_state_path(@paperproposal) do |form|
+      - if @paperproposal.datasets.empty?
+        = form.submit 'Send to board', :confirm => 'Continue without datasets?'
+      - else
+        = form.submit 'Send to board', :confirm => 'Are you sure?'
+
+  - if @paperproposal.board_state == 're_prep'
+    %p Your paperproposal was rejected by the project board. Please make changes and resubmit.
+    = form_for @paperproposal, :url => paperproposal_update_state_path(@paperproposal) do |form|
+      = form.submit 'Send to board again', :confirm => 'Did you make your changes?'
+
+  - if @paperproposal.board_state == 'data_rejected'
+    %p At least one data request was rejected. Please communicate with the data-owners, edit your paperproposal and ask again.
+    = form_for @paperproposal, :url => paperproposal_update_state_path(@paperproposal) do |form|
+      - if @paperproposal.datasets.empty?
+        = form.submit 'Finish data request', :confirm => 'Continue without datasets?'
+      - else
+        = form.submit 'Ask again', :confirm => 'Did you make your changes?'
+
+  - if @paperproposal.board_state == 'final'
+    %p Data request approved#{' and download rights granted to the author' unless @paperproposal.datasets.empty?}.
+
+

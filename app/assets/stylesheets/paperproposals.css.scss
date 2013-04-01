@@ -52,53 +52,64 @@
     margin-bottom: 4px;
 }
 
-.vote-state{
-    display: block;
-    clear: both;
-    margin: 1px;
-    height: auto;
-    overflow: hidden;
-    position: relative;
+/* Progress of paperproposal voting */
+
+#date-request-state {
+  outline: 1px solid #cdcdcd;
+  padding: 15px;
+  margin-bottom: 10px;
 }
 
-.vote-state .voters-with-arrows {
+.paperproposal-states-breadcrumb {
+  span:after {
+    content:">";
+    color: black;
+  }
+  span:last-child:after {
+    content:"";
+  }
+  .state-less {
+
+  }
+  .state-equal {
+    font-weight: bold;
+  }
+  .state-greater {
+    color: #CDCDCD;
+  }
+}
+
+.votes-state {
+  position: relative;
+  height: auto;
+  overflow: hidden;
+  margin-bottom: 13px;
+  .users-and-arrows {
     float: left;
-    width: 160px;
-    margin-right: 5px;
+    width: 170px;
     position: relative;
-}
-
-.vote-state .voters-with-arrows img {
-    float: right;
-    padding-top: 4px;
-}
-
-.vote-state .voter-with-arrow {
-    margin-bottom: 5px;
-    height: 1.5em;
-}
-
-.vote-state .voter-name {
-    white-space:nowrap;
-    width: 125px;
-    overflow: hidden;
-    display: inline-block;
-}
-
-.vote-state .vote-result {
-    float: left;
+    .voter {
+      float: left;
+      width: 130px;
+      height: 20px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    img{
+      position: relative;
+      top: 4px;
+    }
+  }
+  .votes-result {
     position: absolute;
-    vertical-align: middle;
-    margin: auto 0;
-    top: 25%;
-    height: 2.5em;
-}
-
-.vote-state .vote-result img {
-    padding-top: 4px;
-}
-
-.vote-state .vote-result .vote-state-text {
-    top: -4px;
-    position: relative;
+    top: 50%;
+    left: 170px;
+    margin-top: -8px; //half the image height
+    span {
+      position: relative;
+      top: -4px;
+      margin-left: 2px;
+    }
+  }
 }

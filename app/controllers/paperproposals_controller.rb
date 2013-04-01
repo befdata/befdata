@@ -125,8 +125,8 @@ class PaperproposalsController < ApplicationController
   end
 
   def update_datasets
-    @paperproposal.update_datasets params[:dataset_ids] || [], params[:aspect]
-    flash[:notice] = 'Datasets have been updated'
+    msg = @paperproposal.update_datasets params[:dataset_ids] || [], params[:aspect]
+    flash[:notice] = 'Datasets have been updated. ' + msg.to_s
     redirect_to @paperproposal
   end
 

@@ -5,3 +5,18 @@
 #api {
 	font-family: courier, monospace;
 }
+
+.vote-old {
+  p.vote-time {
+    float: right;
+  }
+  p.vote-type {
+    float: left;
+  }
+  p.vote-vote {
+    clear: both ;
+  }
+  p:last-child {
+    margin-bottom: 0;
+  }
+}

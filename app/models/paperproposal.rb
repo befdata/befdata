@@ -71,14 +71,14 @@ class Paperproposal < ActiveRecord::Base
   end
 
   def calc_board_state
-    return "In Preparation, no data selected yet." if self.board_state == "prep" && self.datasets.length == 0
-    return "still no aspects set" if self.board_state == "prep" && !check_aspects_for_contexts
-    return "complete" if self.board_state == "prep" && check_aspects_for_contexts
-    return "Submitted to board, waiting for acceptance." if self.board_state == "submit"
-    return "Project Board rejected your data request. Please make changes and submit again." if self.board_state == "re_prep"
-    return "accept" if self.board_state == "accept"
-    return "data request rejected" if self.board_state == "data_rejected"
-    return "final" if self.board_state == "final"
+    return 'in preparation, no data selected' if self.board_state == 'prep' && self.datasets.length == 0
+    return 'still no aspects set' if self.board_state == 'prep' && !check_aspects_for_contexts
+    return 'can be send to project board' if self.board_state == 'prep' && check_aspects_for_contexts
+    return 'submitted to board, waiting for acceptance' if self.board_state == 'submit'
+    return 'rejected by project board' if self.board_state == 're_prep'
+    return 'project board approved, requesting data' if self.board_state == 'accept'
+    return 'data request rejected' if self.board_state == "data_rejected"
+    return 'final' if self.board_state == 'final'
   end
 
   def author_list(include_pi=false)
@@ -193,6 +193,17 @@ class Paperproposal < ActiveRecord::Base
     result.flatten.uniq
   end
 
+  def current_votes
+    case self.board_state
+      when 're_prep', 'submit'
+        {:type => :project_board, :votes => self.project_board_votes}
+      when 'accept', 'data_rejected'
+        {:type => :data_requests, :votes => self.for_data_request_votes}
+      else
+        {:type => :none, :votes => []}
+    end
+  end
+
   def update_proponents proponents_array
     proponents = User.find_all_by_id(proponents_array).map{|person| AuthorPaperproposal.new(:user => person, :kind => "user")}
     AuthorPaperproposal.delete_all(['paperproposal_id = ? AND kind = ?', self.id, 'user'])
@@ -201,6 +212,11 @@ class Paperproposal < ActiveRecord::Base
 
   def update_datasets(dataset_ids, aspects)
     old_datasets = self.datasets.to_a
+
+    if self.board_state == 'final'
+      self.board_state = 'accept'
+      download_rights_message = reset_download_rights
+    end
 
     self.update_attributes(:dataset_ids => dataset_ids)
     if aspects
@@ -221,6 +237,7 @@ class Paperproposal < ActiveRecord::Base
       calculate_votes old_datasets
       finalize_votes_and_lock
     end
+    download_rights_message || ''
   end
 
   def calculate_votes(old_datasets_array = [])
@@ -247,8 +264,6 @@ class Paperproposal < ActiveRecord::Base
         vote.update_attribute(:vote,'none') if vote.vote == 'accept'
       end
     end
-
-    self.board_state = 'accept' if self.board_state == 'final' && !changed_datasets.empty?
   end
 
   def user_changes_state

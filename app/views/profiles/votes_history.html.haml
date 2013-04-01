@@ -10,13 +10,12 @@
 
 - @given_votes.each do |vote|
   .vote.vote-old
-    %p= vote.updated_at
-    %p= vote.project_board_vote ? 'Project Board Vote' : 'Data Request Vote'
-    %p
+    %p.vote-time= vote.updated_at
+    %p.vote-type= vote.project_board_vote ? 'Project Board Vote' : 'Data Request'
+    %p.vote-vote
       %strong Your vote was:
       = vote.vote
-    - paperproposal = vote.paperproposal
     = render :partial => 'paperproposals/summary_for_vote', :locals => {:paperproposal => vote.paperproposal}
     %p
       %strong State:
-      = paperproposal.calc_board_state
+      = vote.paperproposal.calc_board_state

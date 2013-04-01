@@ -1,43 +1,16 @@
-%div{:style => "border: 1px solid black"}
-  Current Board State is: #{@paperproposal.calc_board_state}
+- unless votes.empty?
+  - paperproposal = votes.first.paperproposal
+  - vote_result_so_far = case paperproposal.board_state
+    - when 'submit', 'accept' then 'request in progress'
+    - when 're_prep', 'data_rejected' then 'rejected'
+    - else ''
 
-  - new_without_datasets = @paperproposal.board_state == "prep" && @paperproposal.datasets.length == 0
-  - if @paperproposal.calc_board_state == 'complete' || new_without_datasets
-    = form_for @paperproposal, :url => paperproposal_update_state_path(@paperproposal) do |form|
-      = form.label @paperproposal.calc_board_state
-      - if new_without_datasets
-        = form.submit 'Send to board', :confirm => 'Continue without selected datasets?'
-      - else
-        = form.submit 'Send to board'
-      
-  - if @paperproposal.board_state == "re_prep"
-    = form_for @paperproposal, :url => paperproposal_update_state_path(@paperproposal) do |form|
-      = "When you are ready, we are!"
-      = form.submit "Send to board again", :confirm => 'Did you make your changes?'
-
-  - if @paperproposal.board_state == 'data_rejected'
-    = form_for @paperproposal, :url => paperproposal_update_state_path(@paperproposal) do |form|
-      = 'Edit your paperproposal or communicate with the ones who rejected your data request'
-      = form.submit 'Ask again', :confirm => 'Did you make your changes?'
-
-  - if %w'submit re_prep'.include? @paperproposal.board_state
-    %h5 Project Board Vote
-    %div.around_box
-      %span.left_vote
-        - @paperproposal.project_board_votes.each do |vote|
-          %div.arrow_box
-            %span.label= link_to vote.user.to_label, vote.user
-            = image_tag("arrow_right_#{vote.vote}.png", :title => vote.comment)
-      %span.right_vote
-        = image_tag("arrow_join_#{@paperproposal.board_state}.png")
-        = @paperproposal.calc_board_state
-    %span.clear
-
-  - if %w'accept data_rejected'.include? @paperproposal.board_state
-    %p Data owners Votes
-    %ul
-      - @paperproposal.for_data_request_votes.each do |join|
-        %li
-          = join.user.to_label
-          = join.comment
-          = join.vote
+  .votes-state
+    .users-and-arrows
+      - votes.each do |vote|
+        .user-and-arrow
+          .voter= link_to vote.user.to_label, vote.user
+          = image_tag("arrow_right_#{vote.vote}.png", :title => vote.comment)
+    .votes-result
+      = image_tag("arrow_join_#{vote_result_so_far.split[0]}.png")
+      %span= paperproposal.calc_board_state
