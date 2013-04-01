@@ -12,7 +12,7 @@ class PaperproposalsController < ApplicationController
       allow all
     end
     actions :show do
-      allow all, :if => :proposal_is_accepted?
+      #allow all, :if => :proposal_is_accepted?  TODO - see Question in #224
       allow logged_in
     end
     actions :new, :create, :index_csv do
