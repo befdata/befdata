@@ -219,7 +219,7 @@ class PaperproposalsControllerTest < ActionController::TestCase
     get :show, :id => @paperproposal.id
 
     assert_success_no_error
-    assert_select "div", {:text => /request in progress/}
+    assert_select "div", {:text => /submitted to board, waiting for acceptance/}
   end
 
   test "for project board member it should be possible to vote" do
