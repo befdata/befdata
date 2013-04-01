@@ -1,27 +1,29 @@
-= content_for :actions do
-  %ul
-    - if !@paperproposal.lock || current_user.has_role?(:admin || :data_admin)
-      %li
-        = link_to edit_paperproposal_path(@paperproposal) do
-          = image_tag("edit.png")
-          Edit Metadata
-      %li
-        = link_to edit_datasets_paperproposal_path(@paperproposal) do
-          = image_tag("edit.png")
-          Manage Datasets
-      %li
-        = link_to edit_files_paperproposal_path(@paperproposal) do
-          = image_tag("edit.png")
-          Manage Files
-    - else
-      %li
-        = image_tag("lock-closed.png")
-        Locked
-    - if current_user.has_role?(:admin) && !@paperproposal.paperproposal_votes.blank?
-      %li
-        = link_to administrate_votes_paperproposal_path(@paperproposal) do
-          = image_tag("edit.png")
-          Administrate Votes
+- if may_administrate_paperproposals? || is_paperproposal_author?
+  = content_for :actions do
+    %ul
+      - if may_administrate_paperproposals? || author_may_edit?
+        %li
+          = link_to edit_paperproposal_path(@paperproposal) do
+            = image_tag("edit.png")
+            Edit Metadata
+        %li
+          = link_to edit_files_paperproposal_path(@paperproposal) do
+            = image_tag("edit.png")
+            Manage Files
+      - if may_administrate_paperproposals? || author_may_edit_datasets?
+        %li
+          = link_to edit_datasets_paperproposal_path(@paperproposal) do
+            = image_tag("edit.png")
+            Manage Datasets
+      - if may_administrate_paperproposals?
+        %li
+          = link_to administrate_votes_paperproposal_path(@paperproposal) do
+            = image_tag("edit.png")
+            Admin
+      - if @paperproposal.lock
+        %li
+          = image_tag("lock-closed.png")
+          Locked
 
 = content_for :info do
   %h3 State

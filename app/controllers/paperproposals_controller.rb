@@ -1,5 +1,6 @@
 class PaperproposalsController < ApplicationController
   helper FreeformatsHelper
+  include PaperproposalsHelper
 
   before_filter :load_proposal, :except => [:index, :index_csv, :new, :create, :update_vote]
   before_filter :load_vote, :only => [:update_vote]
@@ -11,28 +12,35 @@ class PaperproposalsController < ApplicationController
       allow all
     end
     actions :show do
-      allow all, :if => :proposal_is_accepted
+      allow all, :if => :proposal_is_accepted?
       allow logged_in
     end
     actions :new, :create, :index_csv do
       allow logged_in
     end
-    actions :edit, :update, :update_state, :edit_datasets, :update_datasets do
+    actions :edit, :update, :edit_files, :update_state do
       allow :admin
       allow :data_admin
-      allow logged_in, :if => :author_may_edit
+      allow logged_in, :if => :author_may_edit?
     end
-    actions :edit_files, :destroy do
+    actions :edit_datasets, :update_datasets do
       allow :admin
       allow :data_admin
-      allow logged_in, :if => :paperproposal_author
+      allow logged_in, :if => :author_may_edit_datasets?
+    end
+    actions :destroy do
+      allow :admin
+      allow :data_admin
+      allow logged_in, :if => :is_paperproposal_author?
     end
     actions :update_vote do
       allow :admin
+      allow :data_admin
       allow logged_in, :if => :is_users_vote
     end
     actions :administrate_votes, :admin_approve_all_votes, :admin_reset_all_votes, :admin_hard_reset do
       allow :admin
+      allow :data_admin
     end
   end
 
@@ -190,20 +198,8 @@ private
     end
   end
 
-  def proposal_is_accepted
-    defined? @paperproposal && @paperproposal.state == 'accepted'
-  end
-
-  def paperproposal_author
-    @paperproposal.author == current_user
-  end
-
-  def author_may_edit
-    paperproposal_author && @paperproposal.board_state == ('prep' || 're_prep' || 'final')
-  end
-
   def is_users_vote
-    @vote.user == current_user
+    defined? vote && @vote.user == current_user
   end
 
   def load_proposal

@@ -115,18 +115,18 @@ class PaperproposalsControllerTest < ActionController::TestCase
     login_nadrowski
     
     post :create, :paperproposal => {:title => "Test", :rationale => "Rational"}
-    @paperproposal = Paperproposal.find_by_title("Test")
+    paperproposal = Paperproposal.find_by_title("Test")
 
-    assert_redirected_to edit_datasets_paperproposal_path(@paperproposal)
+    assert_redirected_to edit_datasets_paperproposal_path(paperproposal)
   end
 
   test "should have initital title same as the title after creation process" do
     login_nadrowski
 
     post :create, :paperproposal => {:title => "Test", :rationale => "Rational"}
-    @paperproposal = Paperproposal.find_by_title("Test")
+    paperproposal = Paperproposal.find_by_title("Test")
 
-    assert_equal "Test", @paperproposal.initial_title
+    assert_equal "Test", paperproposal.initial_title
   end
 
   test "show paperproposal" do

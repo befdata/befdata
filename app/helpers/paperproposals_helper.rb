@@ -25,7 +25,7 @@ module PaperproposalsHelper
     return string
   end
 
-  def paperproposal_state_to_i (paperproposal = @paperproposal)
+  def paperproposal_state_to_i(paperproposal = @paperproposal)
     case paperproposal.board_state
       when 'prep', 're_prep' then 1
       when 'submit' then 2
@@ -36,12 +36,35 @@ module PaperproposalsHelper
     end
   end
 
-  def compare_progress_class (elements_state_number, paperproposal = @paperproposal)
+  def compare_progress_class(elements_state_number, paperproposal = @paperproposal)
     case elements_state_number <=> paperproposal_state_to_i(paperproposal)
       when -1 then 'state-less'
       when 0 then 'state-equal'
       when 1 then 'state-greater'
     end
+  end
+
+  def proposal_is_accepted?
+    return false unless @paperproposal
+    @paperproposal.state == 'accepted'
+  end
+
+  def is_paperproposal_author?
+    return false unless @paperproposal && current_user
+    @paperproposal.author == current_user
+  end
+
+  def author_may_edit?
+    is_paperproposal_author? && @paperproposal.lock == false
+  end
+
+  def author_may_edit_datasets?
+    author_may_edit? && @paperproposal.board_state != 'final'
+  end
+
+  def may_administrate_paperproposals?
+    return false unless current_user
+    current_user.has_role?(:admin) || current_user.has_role?(:data_admin)
   end
 
 end
