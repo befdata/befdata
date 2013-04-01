@@ -1,6 +1,10 @@
 - if may_administrate_paperproposals? || is_paperproposal_author?
   = content_for :actions do
     %ul
+      - if @paperproposal.lock
+        %li
+          = image_tag("lock-closed.png")
+          Locked
       - if may_administrate_paperproposals? || author_may_edit?
         %li
           = link_to edit_paperproposal_path(@paperproposal) do
@@ -20,10 +24,11 @@
           = link_to administrate_votes_paperproposal_path(@paperproposal) do
             = image_tag("edit.png")
             Admin
-      - if @paperproposal.lock
+      - if may_administrate_paperproposals? || is_paperproposal_author?
         %li
-          = image_tag("lock-closed.png")
-          Locked
+          = link_to safe_delete_paperproposal_path(@paperproposal), :confirm => "Do you really want to delete this paperproposal?" do
+            = image_tag("trash.png")
+            Delete
 
 = content_for :info do
   %h3 State

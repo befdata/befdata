@@ -28,7 +28,7 @@ class PaperproposalsController < ApplicationController
       allow :data_admin
       allow logged_in, :if => :author_may_edit_datasets?
     end
-    actions :destroy do
+    actions :safe_delete do
       allow :admin
       allow :data_admin
       allow logged_in, :if => :is_paperproposal_author?
@@ -157,9 +157,9 @@ class PaperproposalsController < ApplicationController
   end
 
   # ToDo Perhapse dont destroy a data request when he is final?! / let the user only delete in prep-state / otherwise flag for deletion
-  def destroy
-    @paperproposal.destroy
-    redirect_to :paperproposals
+  def safe_delete
+    flash[:notice] = @paperproposal.safe_delete(current_user)
+    redirect_to paperproposals_path
   end
 
 private

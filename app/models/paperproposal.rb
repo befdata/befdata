@@ -37,6 +37,7 @@ class Paperproposal < ActiveRecord::Base
            :conditions => ['project_board_vote = ?',true]
 
   # habtm association with Dataset model.
+  before_destroy :reset_download_rights # needs to be before association definition,see https://rails.lighthouseapp.com/projects/8994/tickets/4386
   has_many :dataset_paperproposals, :dependent => :destroy
   has_many :datasets, :through => :dataset_paperproposals
 
@@ -296,6 +297,16 @@ class Paperproposal < ActiveRecord::Base
     result
   end
 
+  def safe_delete(user)
+    if self.board_state == 'prep' || user.has_role?(:admin) || user.has_role?(:data_admin)
+      self.destroy
+      'Paperproposal was destroyed'
+    else
+      self.update_attribute :state, 'deletion'
+      'Paperproposal flagged for deletion by an admin'
+    end
+  end
+
 private
 
   def submit_to_board
@@ -327,10 +338,8 @@ private
 
   def reset_download_rights
     other_final_paperproposals = Paperproposal.where("board_state = 'final' AND author_id = ? AND id != ?", self.author_id, self.id)
-
     other_downloadable_datasets = other_final_paperproposals.collect{|pp| pp.datasets}.flatten.uniq
     unique_downloadable_datasets = (self.datasets - other_downloadable_datasets)
-
     reverted_roles = []
     unique_downloadable_datasets.each do |ds|
       self.author.has_no_role! :proposer, ds

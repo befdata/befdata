@@ -272,5 +272,49 @@ class PaperproposalsControllerTest < ActionController::TestCase
   test "should allow download of datasets to paperproposers if final" do
     pending "functionality not jet implemented"
   end
-  
+
+  test "user can delete fresh paperproposal" do
+    login_and_load_paperproposal "Phdstudentnutrientcycling", "Nutrient cycling and diversity in subtropical forests"
+    old_pp_count = Paperproposal.all.count
+
+    get :safe_delete, :id => @paperproposal.id
+
+    assert_equal Paperproposal.all.count+1, old_pp_count
+  end
+
+  test "user can only flag for deletion after sumbission" do
+    login_and_load_paperproposal "Phdstudentnutrientcycling", "Nutrient cycling and diversity in subtropical forests"
+    old_pp_count = Paperproposal.all.count
+
+    get :update_state, :id => @paperproposal.id
+    @paperproposal.reload
+    assert_true @paperproposal.lock
+
+    get :safe_delete, :id => @paperproposal.id
+
+    assert_equal Paperproposal.all.count, old_pp_count
+    @paperproposal.reload
+    assert_equal 'deletion', @paperproposal.state
+  end
+
+  test "destroying datasets also deletes dependent objects" do
+    models = %w'Role DatasetPaperproposal Paperproposal PaperproposalVote AuthorPaperproposal'
+    before = {}
+    models.each do |model|
+      before[model] = eval("#{model}.count")
+    end
+    login_and_load_paperproposal 'nadrowski', 'Final Paperproposal'
+
+    get :safe_delete, :id => @paperproposal.id
+
+    after = {}
+    models.each do |model|
+      after[model] = eval("#{model}.count")
+    end
+
+    before.each do |model, before_count|
+      assert before_count > after[model], "For #{model} the numbers are: #{before_count} -> #{after[model]}"
+    end
+  end
+
 end

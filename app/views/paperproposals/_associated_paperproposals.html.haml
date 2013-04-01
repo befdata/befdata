@@ -5,6 +5,12 @@
 
   %h3 Paper proposal submissions
 
+  - if current_user.has_role?(:admin) || current_user.has_role?(:data_admin)
+    - pp_select = paperproposals.select{|p| p.state == 'deletion'}.sort
+    - unless pp_select.blank?
+      %h4 Flagged for deletion
+      = render :partial => 'paperproposals/list', :locals => {:paperproposals => pp_select, :authorship_user => authorship_user}
+
   - pp_select = paperproposals.select{|p| p.state == 'accepted'}.sort
   - unless pp_select.blank?
     %h4 Published
