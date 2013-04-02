@@ -28,7 +28,7 @@ class Datacolumn < ActiveRecord::Base
   has_many :import_categories, :dependent => :delete_all
 
   validates_presence_of :datagroup_id, :dataset_id, :columnheader, :columnnr, :definition
-  validates_uniqueness_of :columnheader, :columnnr, :scope => :dataset_id
+  validates_uniqueness_of :columnheader, :columnnr, :scope => :dataset_id, :case_sensitive => false
 
   pg_search_scope :search, against: {
     columnheader: 'A',
