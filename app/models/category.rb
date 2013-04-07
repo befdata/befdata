@@ -24,8 +24,8 @@ class Category < ActiveRecord::Base
 
   def try_filling_missing_values
     if self.short then
-      self.long ||= self.short
-      self.description ||= self.long
+      self.long = self.short if self.long.blank?
+      self.description = self.long if self.description.blank?
     end
   end
 

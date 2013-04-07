@@ -1,33 +1,75 @@
 %h3 Approve invalid values
 
-- unless @available_categories.blank?
-  %p
-    Available categories in the
-    %strong
-      =link_to @datacolumn.datagroup.title, @datacolumn.datagroup
-    datagroup so far:
-    = raw @available_categories.collect{|cat| link_to cat.short, cat}.join(', ')
+.info
+  .right
+    Approve
+    %b #{@count_of_all_invalid_values}
+    invalid values using
+    %ul.switchers
+      %li
+        %span.switcher#form_switcher.selected Form
+      %li
+        %span.switcher#csv_switcher CSV
+  %b  Datagroup:
+  = link_to  @datacolumn.datagroup, :target => '_blank' do
+    = @datacolumn.datagroup.title
+  (#{@datacolumn.datagroup.categories.count} categories)
 
-%p Please check these #{@invalid_values_hash.length} invalid values below and approve them manually.
-
-= form_tag :action => 'update_invalid_values', :controller => 'datacolumns' do |form|
-  = hidden_field_tag :id, @datacolumn.id
-  %table#invalid-values-table
-    %thead
-      %tr
-        %th Original
-        %th Short
-        %th Long
-        %th Description
-    %tbody
-      - @invalid_values_hash.each do |value, i|
+#invalid-values-form
+  - if  @count_of_all_invalid_values > 100
+    %i Displaying the first #{@invalid_values.count} of #{@count_of_all_invalid_values} invalid values
+  = form_tag update_invalid_values_datacolumn_path(@datacolumn) do
+    %table#invalid-values-table
+      %thead
         %tr
-          %td
-            = value
-          %td
-            = text_field_tag "short_value_#{i}", value
-          %td
-            = text_field_tag "long_value_#{i}"
-          %td
-            = text_field_tag "description_#{i}"
-  = submit_tag "Approve"
+          %th Original
+          %th Short
+          %th Long
+          %th Description
+      %tbody
+        - @invalid_values.each do |value|
+          %tr
+            %td
+              = value.import_value
+              = hidden_field_tag 'invalid_values[][import_value]', value.import_value
+            %td
+              = text_field_tag "invalid_values[][short]", value.import_value
+            %td
+              = text_field_tag "invalid_values[][long]"
+            %td
+              = text_field_tag "invalid_values[][description]"
+    - if  @count_of_all_invalid_values > 100
+      = submit_tag 'Approve this page'
+      -#= submit_tag 'Approve All', name: "approve_all"
+    - else
+      = submit_tag "Approve"
+
+#invalid-values-csv.prepend-1.hidden
+  .step
+    %span Step 1
+    = link_to "Download CSV file of invalid values", approve_invalid_values_datacolumn_path(@datacolumn, :csv)
+  .step
+    %span Step 2
+    Describe invalid values in the CSV file
+  .step
+    %span Step 3
+    Upload your CSV file
+    = form_tag update_invalid_values_with_csv_datacolumn_path(@datacolumn), :multipart => true do
+      = file_field_tag :csvfile, :accept => 'text/csv'
+      = submit_tag "upload"
+
+:javascript
+  $(function(){
+    $(".switchers .switcher").click(function(e){
+      $(this).closest('.switchers').find(".switcher:not(this)").removeClass('selected');
+      $(this).addClass('selected');
+    })
+    $("#form_switcher").click(function(){
+      $("#invalid-values-form").show();
+      $("#invalid-values-csv").hide();
+    });
+    $("#csv_switcher").click(function(){
+      $("#invalid-values-form").hide();
+      $("#invalid-values-csv").show();
+    });
+  })

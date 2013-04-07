@@ -6,7 +6,7 @@ class DatacolumnsController < ApplicationController
   access_control do
     actions :approval_overview, :next_approval_step, :approve_datagroup, :approve_datatype, :approve_metadata,
             :approve_invalid_values, :update_datagroup, :create_and_update_datagroup, :update_datatype,
-            :update_metadata, :update_invalid_values, :update do
+            :update_metadata, :update_invalid_values, :update_invalid_values_with_csv, :update do
       allow :admin
       allow :owner, :of => :dataset
       allow :proposer, :of => :dataset
@@ -55,8 +55,21 @@ class DatacolumnsController < ApplicationController
   end
 
   def approve_invalid_values
-    @available_categories = @datacolumn.datagroup.categories.order(:short)
-    @invalid_values_hash = @datacolumn.invalid_values
+    respond_to do |format|
+      format.html {
+        @invalid_values = @datacolumn.invalid_values.limit(100)
+        @count_of_all_invalid_values = @datacolumn.invalid_values.count
+      }
+      format.csv {
+        csvdata = CSV.generate do |csv|
+          csv << ["import value", "category short", "category long", "category description"]
+          @datacolumn.invalid_values.each do |value|
+            csv << [value.import_value, value.import_value]
+          end
+        end
+        send_data csvdata, :type => "text/csv", :filename=>"invalid_values_of_#{@datacolumn.columnheader}.csv", :disposition => 'attachment'
+      }
+    end
   end
 
   def approve_metadata
@@ -123,8 +136,8 @@ class DatacolumnsController < ApplicationController
   # to the Data Column or their assignation is revoked.
   def update_metadata
     unless @datacolumn.update_attributes(params[:datacolumn])
-      flash[:error] = "#{@datacolumn.errors.to_a.first.capitalize}"
-      redirect_to :back
+      flash[:error] = @datacolumn.errors.to_a.first.capitalize
+      redirect_to :back and return
     end
 
     # Retrieve the new list of people from the form params.
@@ -143,18 +156,36 @@ class DatacolumnsController < ApplicationController
 
   # creates categories for all invalid values completed in the form and assigns the category to the sheetcell
   def update_invalid_values
-    @datacolumn.invalid_values.each do |value, i|
-      short = params["short_value_#{i}"].blank? ? nil : params["short_value_#{i}"]
-      long = params["long_value_#{i}"].blank? ? nil : params["long_value_#{i}"]
-      description = params["description_#{i}"].blank? ? nil : params["description_#{i}"]
-
-      if(!short.nil?)
-        @datacolumn.update_invalid_value(value, short, long, description, current_user, @dataset)
-      end
+    invalid_values = params[:invalid_values]
+    invalid_values.each do |h|
+      next if h['short'].blank?
+      @datacolumn.update_invalid_value(h['import_value'], h['short'], h['long'], h['description'], current_user, @dataset)
     end
-    @datacolumn.update_attribute(:updated_at, Time.now)
+    if params[:approve_all]
+      @datacolumn.batch_update_invalid_values
+    end
+    @datacolumn.touch
     flash[:notice] = "The invalid values have been successfully approved"
     next_approval_step
+  end
+
+  def update_invalid_values_with_csv
+    if !params[:csvfile]
+      redirect_to :back, :error => "No File given" and return
+    end
+    f = params[:csvfile].tempfile
+    begin
+      CSV.foreach(f, headers: true, skip_blanks: true) do |row|
+        next if row['import value'].blank? or row['category short'].blank?
+        @datacolumn.update_invalid_value(row['import value'], row['category short'], row['category long'], row['category description'], current_user, @dataset)
+      end
+      @datacolumn.touch
+      flash[:notice] = "The invalid values have been successfully approved"
+      next_approval_step
+    rescue => e
+      flash[:error] = e.message
+      redirect_to :back and return
+    end
   end
 
   private

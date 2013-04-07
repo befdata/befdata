@@ -77,22 +77,9 @@ class Datacolumn < ActiveRecord::Base
 
     # remove any previous accepted values so that we can keep a track of what has been updated
     sqlclean = "select clear_datacolumn_accepted_values(#{id})"
-    # this bit will need to change once we change the column datatype to be an integer
-    case self.import_data_type
-    when "text"
-      datatype = Datatypehelper.find_by_id(1)
-    when "year"
-      datatype = Datatypehelper.find_by_id(2)
-    when "date"
-      datatype = Datatypehelper.find_by_id(3)
-    when "category"
-      datatype = Datatypehelper.find_by_id(5)
-    when "number"
-      datatype = Datatypehelper.find_by_id(7)
-    else
-      #unknown
-      datatype = Datatypehelper.find_by_id(8)
-    end
+
+    datatype = Datatypehelper.find_by_name(self.import_data_type)
+
     # I would like to change this so that the SQL is in one function but it wasn't working
     # TODO: I will look at this again - SR
     if(datatype.name == "text") then
@@ -144,86 +131,46 @@ class Datacolumn < ActiveRecord::Base
 
   # returns the unique invalid uploaded sheetcells
   def invalid_values
-    #TODO check for memory consumption
-    # get all the invalid sheetcells
-    invalid_sheetcells = self.sheetcells.all( :order => "import_value",
-                                             :conditions => ["status_id = ?", Sheetcellstatus::INVALID],
-                                             :group => "import_value",
-                                             :select => "import_value")
-
-    # No need to order the sheetcells if none were found
-    return Hash.new if invalid_sheetcells.blank?
-
-    # Create a new array
-    invalid_values = Hash.new
-    invalid_sheetcells.each_with_index{|sc, i|
-      invalid_values[sc.import_value] = i
-    }
-    return invalid_values
+    sheetcells.select(:import_value).where(status_id: Sheetcellstatus::INVALID).order(:import_value).uniq
   end
 
   # returns any invalid sheetcells with the given value
   def invalid_sheetcells_by_value(value)
-    #Todo check for memory consumption
-    return self.sheetcells.all( :conditions => ["status_id = ? AND import_value=?",
-                               Sheetcellstatus::INVALID, value])
+    self.sheetcells.where(status_id: Sheetcellstatus::INVALID, import_value: value)
   end
 
   # creates a category for the invalid value and assigns the category to all matching sheetcells
   def update_invalid_value(original_value, short, long, description, user, dataset)
     # firstly check that the category doesn't already exist in the datagroup
-    cat = Category.first(:conditions => ["datagroup_id = ? and short = ?",
-                         self.datagroup.id,
-                         short]
-                        )
-                        if(cat.nil?)
-                          cat = Category.create(:short => short,
-                                                :long => long,
-                                                :description => description,
-                                                :status_id => Categorystatus::MANUALLY_APPROVED,
-                                                :user_id => user.id,
-                                                :datagroup => self.datagroup,
-                                                :comment => dataset.title)
-                        end
-                        # update all invalid sheetcells with the same original value with the new category id
-                        if(cat.valid?)
-                          cells = invalid_sheetcells_by_value(original_value)
-                          if(!cells.nil?)
-                            cells.each do |cell|
-                              cell.update_attributes(:category => cat,
-                                                     :status_id => Sheetcellstatus::VALID,
-                                                     :accepted_value => nil,
-                                                     :datatype_id => Datatypehelper.find_by_name("category").id
-                                                    )
-                            end
-                          end
+    cat = self.datagroup.categories.where(short: short).first_or_create do |c|
+      c.long = long
+      c.description = description
+      c.status_id = Categorystatus::MANUALLY_APPROVED
+      c.user_id = user.id
+      c.datagroup = self.datagroup
+      c.comment = dataset.title
+    end
 
-                          #TODO not sure if this should really go here - Sophia
-                          # update any other invalid values for columns with the same datagroup as they may contain the same values
-                          columns = Datacolumn.all( :conditions => ["datagroup_id = ? and dataset_id = ?",
-                                                   self.datagroup.id, self.dataset.id])
-                          if(!columns.nil?)
-                            columns.each do |col|
-                              cells = col.invalid_sheetcells_by_value(original_value)
-                              if(!cells.nil?)
-                                cells.each do |cell|
-                                  cell.update_attributes(:category => cat,
-                                                         :status_id => Sheetcellstatus::VALID,
-                                                         :accepted_value => nil,
-                                                         :datatype_id => Datatypehelper.find_by_name("category").id
-                                                        )
-                                end
-                              end
-                            end
-                          end
-                        end
-                        self.finished = false
+    # update all invalid sheetcells with the same original value with the new category id
+    if(cat.valid?)
+      self.invalid_sheetcells_by_value(original_value).update_all(
+        :category_id => cat.id,
+        :status_id => Sheetcellstatus::VALID,
+        :accepted_value => nil,
+        :datatype_id => Datatypehelper.find_by_name("category").id
+      )
+    end
+    self.finished = false
+  end
+
+  def batch_approve_invalid_values
+
   end
 
   # this should not be happen but we thought it might be a good last step before we can
   # confirm the dataset as completely approved
   def final_check_for_valid_sheetcells
-    if self.sheetcells.where(:status_id => Sheetcellstatus::INVALID).count != 0
+    if self.has_invalid_values?
       self.finished = false
       self.save
       return false
@@ -271,10 +218,7 @@ class Datacolumn < ActiveRecord::Base
     end
   end
 
-  # acl9 related stuff: users
-
   # users of a datacolumn are those who are responsible for it
-  # = for monkey patch of acl 9
   def users= (people)
     self.set_user_with_role(:responsible, people)
   end
