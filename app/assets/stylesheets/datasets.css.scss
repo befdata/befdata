@@ -151,7 +151,15 @@ input[type=text].metadata-text-input {
 
 /*  download page  */
 
-span {
+#xls {
+  .overflow {
+    overflow: auto;
+    padding: 0px;
+    margin: 0px;
+    #indicator {
+      margin-right: 4px;
+    }
+  }
   #outdated {
     color: red;
   }
@@ -161,29 +169,29 @@ span {
   #finished {
     color: green;
   }
-}
-.overflow {
-  overflow: auto;
-  padding: 0px;
-  margin: 0px;
-  #indicator {
-    margin-right: 4px;
-  }
-  .left {
-    float: left;
-  }
-  .right {
-    float: right;
+  #warning {
+    margin: 5px 0;
+    border: solid 1px rgb(205,205,205);
+    padding: 5px;
+    a {
+      text-decoration: underline;
+      color: rgb(24, 146, 30);
+    }
   }
 }
 
-#warning {
-  margin: 5px 0;
-  border: solid 1px rgb(205,205,205);
-  padding: 5px;
-  a {
+ul#downloaders {
+  max-height: 500px;
+  overflow-y: auto;
+}
+
+.show_all {
+  color: rgb(24, 146, 30);
+  cursor: pointer;
+  padding-right: 20px;
+  background: image-url("tablesorter/asc.gif") 100% 50% no-repeat;
+  &:hover {
     text-decoration: underline;
-    color: rgb(24, 146, 30);
   }
 }
 

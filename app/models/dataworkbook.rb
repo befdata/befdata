@@ -40,8 +40,6 @@ class Dataworkbook
   def general_metadata_hash
     metadata = Hash.new
     metadata[:filename] = @datafile.file_file_name
-    metadata[:downloads] = 0
-
     metadata[:title] = clean_string(general_metadata_sheet[*WBF[:meta_title_pos]])
     metadata[:abstract] = clean_string(general_metadata_sheet[*WBF[:meta_abstract_pos]])
     metadata[:comment] = clean_string(general_metadata_sheet[*WBF[:meta_comment_pos]])

@@ -3,16 +3,18 @@
   %p #{time_ago_in_words(@dataset.last_update)} ago
   %h3 Download URLs
   = render :partial => "popup_display_download_url", :locals => {:id => @dataset.id, :css => "dataset_owners", :caption => 'Display download urls'}
-  %h3  Downloads history (#{@dataset.dataset_downloads.count || 0})
-  - unless @dataset.dataset_downloads.empty?
-    %ul
-      - @dataset.dataset_downloads.sort_by {|dl|dl.created_at}.reverse.each do |dl|
+  %h3  Downloads history (#{@dataset.dataset_downloads_count})
+  - if @dataset.dataset_downloads_count > 0
+    %ul#downloaders
+      - @dataset.dataset_downloads.includes(:user).sort_by {|dl|dl.created_at}.reverse.each do |dl|
         %li
           = dl.created_at.localtime.strftime "%Y-%m-%d %H:%M"
           - if dl.user
             = link_to dl.user.lastname, dl.user
           - else
             Public
+    - if @dataset.dataset_downloads_count > 10
+      %span.show_all Show all #{@dataset.dataset_downloads_count}
 
 %h2 Download #{link_to @dataset.title, @dataset}
 %h3 You can choose one of these formats:
@@ -70,5 +72,10 @@
           });
         }, 5000
       );
-    }
+    };
+    $("ul#downloaders").find("li:gt(9)").hide();
+    $(".show_all").click(function(){
+      $("ul#downloaders").find("li:gt(9)").show();
+      $(this).remove();
+    })
   });

@@ -34,7 +34,7 @@ datasets_001:
     what the main response means in term of ecosystem functioning. The main response
     column may be the abundance of tree species, the size of trees derived from dbh
     and height, or the kinetic energy of raindrops passing through forest canopy.
-  downloads: '1'
+  dataset_downloads_count: '1'
   datemin: '2011-10-08 22:00:00'
   datemax: '2011-12-30 23:00:00'
   published: If your data has been published already, you can give citation and doi

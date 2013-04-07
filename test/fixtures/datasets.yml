@@ -25,7 +25,7 @@ datasets_001:
   filename: species first test.xls
   comment: ''
   dataanalysis: ''
-  downloads: '0'
+  dataset_downloads_count: '0'
   datemin: '2011-04-18 00:00:00'
   datemax: '2011-04-18 00:00:00'
   published: ''
@@ -59,7 +59,7 @@ datasets_002:
   filename: befdata_export_testing_for_old_import.xls
   comment: COMMENT
   dataanalysis: DATA_ANALYSIS
-  downloads: '5'
+  dataset_downloads_count: '0'
   datemin: '2001-01-01 01:01:00'
   datemax: '2012-12-12 12:12:00'
   published: PUBLISHED
@@ -91,7 +91,7 @@ datasets_003:
   filename: Unit test spreadsheet.xls
   comment: ''
   dataanalysis: ''
-  downloads: '0'
+  dataset_downloads_count: '0'
   datemin: '2011-04-18 00:00:00'
   datemax: '2011-04-18 00:00:00'
   published: ''
@@ -259,7 +259,7 @@ datasets_004:
     (SÃ¸rensen 1948). In addition, we counted those species among the recruits that
     were not yet present in a plot among the adults (i.e. species in a plot exclusively
     found in the group of recruits, not among the adults)."
-  downloads: '0'
+  dataset_downloads_count: '0'
   datemin: '2007-12-31 23:00:00'
   datemax: '2009-12-30 23:00:00'
   published: submitted to Ecology in 2009
@@ -303,7 +303,7 @@ datasets_005:
   filename: species second test.xls
   comment: ''
   dataanalysis: ''
-  downloads: '2'
+  dataset_downloads_count: '0'
   datemin: '2011-04-18 00:00:00'
   datemax: '2011-04-18 00:00:00'
   published: ''

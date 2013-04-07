@@ -5,7 +5,6 @@
 # 1. Primary research data, as uploaded data values from a Dataworkbook,
 #    where the information on the column is stored in Datacolumn instances
 #    and the data values in Sheetcell instances. The original dataworkbook is stored as a Datafile
-#    which is referenced by the dataset, in the upload_spreadsheet_id field.
 # 2. one or more asset (Freeformat) files.
 #
 # Datasets are taggable, that is, they can be linked to entries in the Tags table. This uses the is_taggable
@@ -188,19 +187,6 @@ class Dataset < ActiveRecord::Base
   end
 
   def log_download(downloading_user)
-    # increment the download counter
-    # temporarily turn off timestamp update otherwise the update date is updated everytime someone downloads the dataset
-    class << self
-      def record_timestamps; false; end
-    end
-    self.downloads = (self.downloads || 0) + 1
-    save
-    # turn on the timestamp update
-    class << self
-      def record_timestamps; true; end
-    end
-
-    # log the download
     DatasetDownload.create(:user => downloading_user,
                           :dataset => self)
   end

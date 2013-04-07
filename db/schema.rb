@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130315024017) do
+ActiveRecord::Schema.define(:version => 20130402051643) do
 
   create_table "author_paperproposals", :force => true do |t|
     t.integer  "paperproposal_id"
@@ -135,7 +135,7 @@ ActiveRecord::Schema.define(:version => 20130315024017) do
     t.string   "filename"
     t.text     "comment"
     t.text     "dataanalysis"
-    t.integer  "downloads",                          :default => 0
+    t.integer  "dataset_downloads_count",            :default => 0
     t.datetime "datemin"
     t.datetime "datemax"
     t.text     "published"
