@@ -7,7 +7,7 @@ class TagsController < ApplicationController
   end
 
   def index
-    @tags = Dataset.tag_counts.where("lower(name) like ?", "%#{params[:q] && params[:q].downcase}%").order("tags.name")
+    @tags = Dataset.tag_counts.where("name iLike ?", "%#{params[:q]}%").order("tags.name")
     respond_to do |format|
       format.html
       format.json { render :json=> @tags.map(&:attributes)}
@@ -15,10 +15,8 @@ class TagsController < ApplicationController
   end
 
   def show
-    redirect_to(:action => "index") and return if params[:id].blank?
     @tag = ActsAsTaggableOn::Tag.find(params[:id])
-
-    @datasets = Dataset.tag_usage.select("datasets.*").where("tags.id = #{@tag.id}").order("datasets.title")
+    @datasets = Dataset.tag_usage.select("datasets.*").where("tags.id = ?", @tag.id).order("datasets.title")
 
     respond_to do |format|
       format.html

@@ -103,7 +103,7 @@ class DatacolumnsControllerTest < ActionController::TestCase
     datacolumn_id = 64
 
     post :update_invalid_values, :id => datacolumn_id,
-         :short_value_0 => 'x', :long_value_0 => 'xx', :description_0 => 'xxx'
+          :invalid_values => [{import_value: '<1', short: 'x', long: 'xx', description: 'xxx'}]
 
     assert_success_no_error
     cat = Category.find_by_short('x')

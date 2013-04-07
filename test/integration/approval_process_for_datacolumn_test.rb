@@ -37,8 +37,9 @@ class ApprovalProcessForDatacolumnTest < ActionDispatch::IntegrationTest
     assert_equal 3, @datacolumn.sheetcells.where(:status_id => Sheetcellstatus::VALID).count
 
     ## approve invalid values
-    post update_invalid_values_datacolumn_url @datacolumn,
-         :short_value_0 => 'na', :long_value_0 => 'nana', :description_0 => 'nanana'
+    post update_invalid_values_datacolumn_url @datacolumn, :invalid_values => [{
+         import_value: 'na', :short => 'na', :long => 'nana', :description => 'nanana'
+        }]
     # be redirected to metadata
     assert_redirected_to approve_metadata_datacolumn_url @datacolumn
     assert_success_no_error

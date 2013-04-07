@@ -161,9 +161,6 @@ class DatacolumnsController < ApplicationController
       next if h['short'].blank?
       @datacolumn.update_invalid_value(h['import_value'], h['short'], h['long'], h['description'], current_user, @dataset)
     end
-    if params[:approve_all]
-      @datacolumn.batch_update_invalid_values
-    end
     @datacolumn.touch
     flash[:notice] = "The invalid values have been successfully approved"
     next_approval_step
