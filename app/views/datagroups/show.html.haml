@@ -33,7 +33,7 @@
   %h4 Description
   %p= @datagroup.description
 
-- unless @datagroup.datacolumns.empty?
+- unless @datagroup.datasets.empty?
   %h3 Datasets
   %ul
     - @datagroup.datasets.order(:title).uniq.each do |ds|

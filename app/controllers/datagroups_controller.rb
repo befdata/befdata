@@ -19,21 +19,21 @@ class DatagroupsController < ApplicationController
   end
 
   def show
-    set_sort_params
-    @categories = @datagroup.categories.joins('left join sheetcells on categories.id = sheetcells.category_id').
-        select('categories.*, count(sheetcells.id) as count').group('categories.id').search(params[:search]).
-        paginate(
-          page: params[:page],
-          per_page: 20,
-          order: "#{params[:sort]} #{params[:direction]}"
-        )
-
     respond_to do |format|
-      format.html
-      format.js
       format.csv do
         send_data render_categories_csv, :type => "text/csv", :filename=>"#{@datagroup.title}_categories.csv", :disposition => 'attachment'
       end
+      validate_sort_params
+      @categories = @datagroup.categories.joins('left join sheetcells on categories.id = sheetcells.category_id').
+          select('categories.id, short, long, description, count(sheetcells.id) as count').
+          group('categories.id').search(params[:search]).
+          paginate(
+            page: params[:page],
+            per_page: 20,
+            order: "#{params[:sort]} #{params[:direction]}"
+          )
+      format.html
+      format.js
     end
   end
 
@@ -91,7 +91,7 @@ class DatagroupsController < ApplicationController
   def render_categories_csv
     csv_string = CSV.generate do |csv|
       csv << ["ID","SHORT","LONG","DESCRIPTION","MERGE ID"]
-      @datagroup.categories.sort_by(&:short).each do |cat|
+      @datagroup.categories.select('id,short,long,description').order(:short).each do |cat|
         csv << [cat.id, cat.short, cat.long, cat.description]
       end
     end
@@ -101,10 +101,9 @@ class DatagroupsController < ApplicationController
     @datagroup = Datagroup.find(params[:id])
   end
 
-  def set_sort_params(default= "short asc")
-    column, direction = default.split
-    params[:sort] ||= column
-    params[:direction] ||= direction
+  def validate_sort_params
+    params[:sort] = 'short' unless ['short', 'long', 'description', 'count'].include?(params[:sort])
+    params[:direction] = 'asc' unless ["desc", "asc"].include?(params[:direction])
   end
 
 end
