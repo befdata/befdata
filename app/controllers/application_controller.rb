@@ -85,7 +85,6 @@ private
       cookies[:cart_id] = Cart.create!.id
       @current_cart ||= Cart.find(cookies[:cart_id])
     end
-
   end
 
 end

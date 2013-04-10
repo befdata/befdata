@@ -284,3 +284,25 @@ ul#downloaders {
 #tabs .ui-tabs-active.ui-state-active.ui-state-hover a{
   color: white;
 }
+
+/*dataset main page*/
+.dataset-filter {
+  font-size: 13px;
+  border: solid 1px #BBB;
+  background-color: #DDD;
+  position: relative;
+  top: -10px;
+  padding: 2px 5px;
+  .right {
+    position: relative;
+    top: 2px;
+    select {
+      margin: 0px;
+      padding: 2px;
+    }
+  }
+  ul.switchers {
+    position: relative;
+    top: 3px;
+  }
+}

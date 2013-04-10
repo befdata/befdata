@@ -316,6 +316,19 @@ class Dataset < ActiveRecord::Base
     ")
   end
 
+  def self.joins_datafile_and_freeformats(workbook = nil)
+    rel = self.joins("
+      left join freeformats on freeformats.freeformattable_id = datasets.id AND freeformats.freeformattable_type='Dataset'
+      left join datafiles on datafiles.dataset_id = datasets.id
+    ").group('datasets.id')
+    case workbook
+      when true, 'true'
+        rel = rel.having('count(datafiles.id) > 0')
+      when false, 'false'
+        rel = rel.having('count(datafiles.id) = 0')
+    end
+    return(rel)
+  end
  # acl9 role related staff: different kinds of user
 
   def owners
