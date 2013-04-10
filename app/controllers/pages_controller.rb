@@ -63,7 +63,7 @@ class PagesController < ApplicationController
 private
   def validate_sort_params
     params[:sort] = 'title' unless ['title', 'id', 'last_update'].include?(params[:sort])
-    params[:direction] = 'desc' unless ["desc", "asc"].include?(params[:direction])
+    params[:direction] = 'asc' unless ["desc", "asc"].include?(params[:direction])
   end
 
 end

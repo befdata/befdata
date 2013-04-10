@@ -172,8 +172,8 @@ ul.switchers {
     &:first-child .switcher { border-radius: 3px 0 0 3px; }
     &:last-child .switcher { border-radius: 0 3px 3px 0; }
     .switcher.selected {
-      border: 1px solid #18921e;
-      background: #18921e;
+      border: 1px solid rgba(24, 146, 30, 0.78);
+      background: rgba(24, 146, 30, 0.78);
       color: #ffffff;
     }
   }
@@ -288,8 +288,8 @@ ul#downloaders {
 /*dataset main page*/
 .dataset-filter {
   font-size: 13px;
-  border: solid 1px #BBB;
-  background-color: #DDD;
+  border: solid 1px #DDD;
+  background-color: rgb(250,250,250);
   position: relative;
   top: -10px;
   padding: 2px 5px;
