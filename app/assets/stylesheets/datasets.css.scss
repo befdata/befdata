@@ -172,8 +172,8 @@ ul.switchers {
     &:first-child .switcher { border-radius: 3px 0 0 3px; }
     &:last-child .switcher { border-radius: 0 3px 3px 0; }
     .switcher.selected {
-      border: 1px solid rgba(24, 146, 30, 0.78);
-      background: rgba(24, 146, 30, 0.78);
+      border: 1px solid #4AA94E;
+      background: #4AA94E;
       color: #ffffff;
     }
   }
