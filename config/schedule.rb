@@ -16,7 +16,11 @@
 set :output, 'log/whenever_cron_errors.log'
 
 every 1.minutes do
-   runner "ExcelExport.regenerate_downloads_if_needed"
+  runner "ExcelExport.regenerate_downloads_if_needed"
+end
+
+every 1.day, :at => '0:10 am' do
+  runner "Paperproposal.revoke_old_download_rights"
 end
 
 # cleanup orphan datagroups and categories

@@ -43,8 +43,14 @@
           = form.submit 'Ask again', :confirm => 'Did you make your changes?'
 
     - if @paperproposal.board_state == 'final'
-      %p
-        Data request approved.
-        - unless @paperproposal.expiry_date.blank? || @paperproposal.datasets.empty?
-          Download rights will expire on #{@paperproposal.expiry_date.strftime('%a %d %b %Y')}.
+      - if @paperproposal.expiry_date.blank? && !@paperproposal.datasets.empty?
+        %p Download rights expired. To regain access you must request permission of the project board and data owners.
+        = form_for @paperproposal, :url => paperproposal_update_state_path(@paperproposal) do |form|
+          = form.submit 'Reset data request', :confirm => 'Are you sure?'
+      - else
+        %p
+          Data request approved.
+          - unless @paperproposal.datasets.empty?
+            Download rights will expire on #{@paperproposal.expiry_date.strftime('%a %d %b %Y')}.
+
 

@@ -82,7 +82,7 @@ class PaperproposalsController < ApplicationController
       v.update_attribute :vote, 'accept'
     end
     @paperproposal.check_votes
-    flash[:notice] = 'All current votes appreoved'
+    flash[:notice] = 'All current votes approved'
     redirect_to @paperproposal
   end
 
@@ -147,7 +147,7 @@ class PaperproposalsController < ApplicationController
     redirect_to @paperproposal
   end
 
-  # submit to board / re-request data
+  # submit to board / re-request data / reset when expired
   def update_state
     flash[:notice] = @paperproposal.user_changes_state
     redirect_to @paperproposal
@@ -165,7 +165,7 @@ class PaperproposalsController < ApplicationController
     redirect_to :back
   end
 
-  # ToDo Perhapse dont destroy a data request when he is final?! / let the user only delete in prep-state / otherwise flag for deletion
+  # let the user only delete in prep-state / otherwise flag for deletion, so admin can delete
   def safe_delete
     flash[:notice] = @paperproposal.safe_delete(current_user)
     redirect_to paperproposals_path

@@ -79,7 +79,8 @@ class Paperproposal < ActiveRecord::Base
     return 'rejected by project board' if self.board_state == 're_prep'
     return 'project board approved, requesting data' if self.board_state == 'accept'
     return 'data request rejected' if self.board_state == "data_rejected"
-    return 'final' if self.board_state == 'final'
+    return 'final' if self.board_state == 'final' && !self.expiry_date.blank?
+    return 'download rights expired' if self.board_state == 'final' && self.expiry_date.blank?
   end
 
   def author_list(include_pi=false)
@@ -272,6 +273,8 @@ class Paperproposal < ActiveRecord::Base
       submit_to_board
     elsif self.board_state == 'data_rejected'
       re_request_data
+    elsif self.board_state == 'final'
+      hard_reset
     else
       'Paperproposal state could not be changed'
     end
@@ -289,11 +292,11 @@ class Paperproposal < ActiveRecord::Base
   def hard_reset
     result = ''
     result = reset_download_rights if self.board_state == 'final'
-    self.lock = false
-    self.board_state = 'prep'
     result << "#{self.paperproposal_votes.count} votes deleted."
     self.paperproposal_votes.delete_all
-    self.save
+
+    self.board_state = 'prep'
+    finalize_votes_and_lock
     result
   end
 
@@ -304,6 +307,29 @@ class Paperproposal < ActiveRecord::Base
     else
       self.update_attribute :state, 'deletion'
       'Paperproposal flagged for deletion by an admin'
+    end
+  end
+
+  def reset_download_rights
+    return 'paperproposal is not final' unless self.board_state == 'final'
+
+    self.update_attribute(:expiry_date, '')
+    other_final_paperproposals = Paperproposal.where("board_state = 'final' AND author_id = ? AND id != ?", self.author_id, self.id)
+    other_downloadable_datasets = other_final_paperproposals.collect{|pp| pp.datasets}.flatten.uniq
+    unique_downloadable_datasets = (self.datasets - other_downloadable_datasets)
+
+    reverted_roles = []
+    unique_downloadable_datasets.each do |ds|
+      self.author.has_no_role! :proposer, ds
+      reverted_roles << ds.id
+    end
+    "Reverted proposer roles for datasets #{reverted_roles.to_s}. "
+  end
+
+  def self.revoke_old_download_rights
+    expired = Paperproposal.where('expiry_date < ?', Date.today.to_s)
+    expired.each do |pp|
+      puts Time.now.to_s + ' Paperproposal ' + pp.id.to_s + ': ' + pp.reset_download_rights
     end
   end
 
@@ -334,19 +360,6 @@ private
 
     finalize_votes_and_lock
     'Requesting data again'
-  end
-
-  def reset_download_rights
-    self.update_attribute(:expiry_date, '')
-    other_final_paperproposals = Paperproposal.where("board_state = 'final' AND author_id = ? AND id != ?", self.author_id, self.id)
-    other_downloadable_datasets = other_final_paperproposals.collect{|pp| pp.datasets}.flatten.uniq
-    unique_downloadable_datasets = (self.datasets - other_downloadable_datasets)
-    reverted_roles = []
-    unique_downloadable_datasets.each do |ds|
-      self.author.has_no_role! :proposer, ds
-      reverted_roles << ds.id
-    end
-    "Reverted proposer roles for datasets #{reverted_roles.to_s}. "
   end
 
   def all_votes_accepted
