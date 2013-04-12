@@ -60,7 +60,7 @@ paperproposals_004:
   rationale: This is a final paperproposal, owned by Martin Phdstudentproductivity. With added datasets contains freeformat and datafile
   envisaged_date: "2011-07-19"
   state: in prep
-  expiry_date: 
+  expiry_date: "2015-04-13"
   board_state: final
   external_data: ""
   lock: f
@@ -111,7 +111,7 @@ paperproposals_007:
   rationale: Production and diversity.
   envisaged_date: "2011-03-29"
   state: in prep
-  expiry_date: 
+  expiry_date:
   board_state: prep
   external_data: ""
   lock: f
