@@ -17,3 +17,22 @@
         = link_to approval_overview_datacolumn_url(c) do
           %span{:class => "approval-status approval-stage-#{c.approval_stage.to_s}"}= ''
           = c.columnheader
+  %h3 Color legend
+  %ul
+    %li
+      %span{:class => 'approval-status approval-stage-0'}= ''
+      Datacolumn untouched
+    %li
+      %span{:class => 'approval-status approval-stage-1'}= ''
+      Datagroup approved
+    %li
+      %span{:class => 'approval-status approval-stage-2'}= ''
+      Datatype approved
+    %li
+      %span{:class => 'approval-status approval-stage-3'}= ''
+      Invalid Values approved
+    %li
+      %span{:class => 'approval-status approval-stage-4'}= ''
+      Metadata approved, complete
+
+
