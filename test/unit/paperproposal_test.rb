@@ -18,4 +18,11 @@ class PaperproposalTest < ActiveSupport::TestCase
     pending "havn't test edited calc_authorship method"
   end
 
+  test "expired download rights are removed" do
+    old_roles_count = Role.count
+    Paperproposal.find(7).update_attribute(:expiry_date, Date.yesterday)
+    Paperproposal.revoke_old_download_rights
+    assert old_roles_count > Role.count
+  end
+
 end
