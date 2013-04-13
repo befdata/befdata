@@ -1,51 +1,47 @@
 class NotificationsController < ApplicationController
 
+  before_filter :load_notification, :except => [:index]
+
   skip_before_filter :deny_access_to_all
 
   access_control do
-    allow all, :to => [:index, :show, :mark_as_read, :destroy]
+    actions :index do
+      allow logged_in
+    end
+    actions :show, :mark_as_read, :destroy do
+      allow logged_in, :if => :notification_belongs_user?
+    end
   end
 
 
   def index
-    @notifications = Notification.all
-
-    respond_to do |format|
-      format.html # index.html.erb
-      format.json { render json: @notifications }
-    end
+    @notifications = current_user.notifications.order('created_at DESC')
   end
 
   def show
-    @notification = Notification.find(params[:id])
-
-    respond_to do |format|
-      format.html # show.html.erb
-      format.json { render json: @notification }
-    end
   end
 
   def mark_as_read
-    @notification = Notification.find(params[:id])
-
-    respond_to do |format|
-      if @notification.update_attribute(:read, params[:read])
-        format.html { redirect_to @notification, notice: 'Notification was successfully updated.' }
-        format.json { head :no_content }
-      else
-        format.html { redirect_to @notification, :alert =>  'Error'}
-        format.json { render json: @notification.errors, status: :unprocessable_entity }
-      end
+    if defined?(params[:read]) && @notification.update_attribute(:read, params[:read])
+      redirect_to notifications_url, notice: 'Notification was successfully updated.'
+    else
+      redirect_to notifications_url, alert: 'Error'
     end
   end
 
   def destroy
-    @notification = Notification.find(params[:id])
     @notification.destroy
-
-    respond_to do |format|
-      format.html { redirect_to notifications_url }
-      format.json { head :no_content }
-    end
+    redirect_to notifications_url
   end
+
+private
+
+  def load_notification
+    @notification = Notification.find(params[:id])
+  end
+
+  def notification_belongs_user?
+    defined?(current_user) && defined?(@notification) && current_user == @notification.user
+  end
+
 end
