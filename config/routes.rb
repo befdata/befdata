@@ -1,8 +1,5 @@
 Befchina::Application.routes.draw do
 
-  resources :notifications
-
-
   root :to => "pages#home"
 
   resource :user_session, :only => [:create]
@@ -13,6 +10,9 @@ Befchina::Application.routes.draw do
   resource :profile, :only => [:show, :edit, :update] do
     member do
       get :votes, :votes_history, :update_credentials
+      resources :notifications, :only => [:index, :show, :destroy] do
+        get :mark_as_read, :on => :member
+      end
     end
   end
 

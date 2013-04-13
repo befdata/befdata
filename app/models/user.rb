@@ -18,6 +18,8 @@ class User < ActiveRecord::Base
   has_many :for_paperproposal_votes, :class_name => "PaperproposalVote",
            :source => :paperproposal_votes, :conditions => {:project_board_vote => false }
 
+  has_many :notifications
+
   belongs_to :project
 
   # setting up avatar-image
