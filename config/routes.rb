@@ -1,5 +1,8 @@
 Befchina::Application.routes.draw do
 
+  resources :notifications
+
+
   root :to => "pages#home"
 
   resource :user_session, :only => [:create]

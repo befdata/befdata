@@ -209,6 +209,15 @@ ActiveRecord::Schema.define(:version => 20130425045913) do
 
   add_index "import_categories", ["datacolumn_id"], :name => "index_import_categories_on_datacolumn_id"
 
+  create_table "notifications", :force => true do |t|
+    t.integer  "user_id"
+    t.text     "subject"
+    t.text     "message"
+    t.boolean  "read",       :default => false
+    t.datetime "created_at",                    :null => false
+    t.datetime "updated_at",                    :null => false
+  end
+
   create_table "paperproposal_votes", :force => true do |t|
     t.integer  "paperproposal_id"
     t.integer  "user_id"
