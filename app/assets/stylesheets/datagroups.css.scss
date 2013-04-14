@@ -72,3 +72,49 @@
   background: image-url("spinner.gif") 10px 50% no-repeat #eee;
   border: 1px solid #ddd;
 }
+
+.datagroup-filter {
+  .group {
+    margin-right: 10px;
+    display: inline-block;
+    select, input {
+      margin: 0px;
+    }
+  }
+}
+
+table#datagroups-table {
+  width: 100%;
+  tr {
+    td {
+      vertical-align: top;
+      padding: 5px;
+      .expander {
+        width: 16px;
+        height: 16px;
+        background: image-url('tablesorter/desc.gif') 50% 50% no-repeat;
+      }
+      .collapsed {
+        background: image-url('tablesorter/asc.gif') 50% 50% no-repeat;
+      }
+    }
+    td.info {
+      max-width: 700px;
+      &:hover {
+        background-color: rgb(250,250,250);
+      }
+      .title a {
+        font-size: 1.1em;
+      }
+      .more {
+        margin-top: 5px;
+        border-top: solid 1px #DDD;
+        .time {
+          color: #AAA;
+          font-style: italic;
+          font-size: 0.9em;
+        }
+      }
+    }
+  }
+}

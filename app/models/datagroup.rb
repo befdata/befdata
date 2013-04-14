@@ -122,6 +122,14 @@ class Datagroup < ActiveRecord::Base
     update_overview
   end
 
+  def self.search(q)
+    if q
+      where('title iLike :q OR description iLike :q', :q => "%#{q}%")
+    else
+      scoped
+    end
+  end
+
 private
 
   def validate_and_reduce_categories_csv (csv_lines)

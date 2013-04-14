@@ -1,14 +1,71 @@
 %h2
   Datagroups
-%table#datagroups-table.tablesorter
+
+.datagroup-filter
+  .group
+    Sort:
+    = select_tag "sort", options_for_select({"Title" => datagroups_path(params.merge(sort: 'title', direction: 'asc')), "Type" => datagroups_path(params.merge(sort: 'methodvaluetype', direction: 'asc')), "Recently Added" => datagroups_path(params.merge(sort: 'created_at', direction: 'desc')), "Most used" => datagroups_path(params.merge(sort: 'datacolumns_count', direction: 'desc')), "Least Used" => datagroups_path(params.merge(sort: 'datacolumns_count', direction: 'asc'))}, selected: request.env['REQUEST_URI']), class: 'js-select-menu'
+  .group
+    = label_tag "hide_detail", "Hide description"
+    = check_box_tag "hide_detail", "yes", checked: true
+
+  .right#search_form
+    = form_tag datagroups_path, {:method => :get} do
+      - unless params[:search].blank?
+        = link_to "Clear search", datagroups_path(params.merge(search: nil, utf8: nil)), :id => "clear_search"
+      = search_field_tag :search, params[:search]
+      = submit_tag "Filter", :name => nil
+
+- authorized_to_edit_and_delete = current_user.admin or current_user.data_admin
+
+%table#datagroups-table
   %thead
     %tr
+      %th
       %th Title
       %th Type
-      %th Description
+      - if authorized_to_edit_and_delete
+        %th Action
   %tbody
     - @datagroups.each do |dg|
       %tr
-        %td= link_to dg.title, dg
+        %td
+          .expander.collapsed
+        %td.info
+          %div.title
+            = link_to dg do
+              = highlight dg.title, params[:search]
+            %span (#{dg.datacolumns_count} datacolumns)
+          .more.hidden
+            = highlight dg.description, params[:search]
+            .time.right Added at #{dg.created_at}
         %td= dg.methodvaluetype
-        %td= dg.description
+        - if authorized_to_edit_and_delete
+          %td
+            = link_to "Edit", edit_datagroup_path(dg)
+            - if dg.datacolumns_count.to_i == 0
+              = link_to 'Delete', datagroup_path(dg), :method => :delete, :confirm => "Are you sure to delete datagroup: #{dg.title} ?"
+
+= will_paginate @datagroups
+
+:javascript
+  $(function(){
+    $("#hide_detail").click(function(){
+      if($(this).is(":checked")){
+        $("td .more").hide();
+        $(".expander").addClass("collapsed");
+      }
+      else {
+        $("td .more").show();
+        $(".expander").removeClass("collapsed");
+      }
+    });
+    $(".expander").click(function(){
+      $(this).parent("td").next("td.info").find(".more").slideToggle('fast');
+      $(this).toggleClass("collapsed")
+    });
+    $(".js-select-menu").change(function(){
+      var value = $(this).val();
+      window.location.href = value;
+    });
+  })
