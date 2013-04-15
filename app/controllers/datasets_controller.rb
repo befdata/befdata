@@ -7,12 +7,14 @@ class DatasetsController < ApplicationController
   before_filter :redirect_if_unimported, :only => [:download, :edit, :approve, :approve_predefined, :destroy,
                                                    :approval_quick, :batch_update_columns, :keywords]
 
+  before_filter :redirect_if_without_workbook, :only => [:download_page, :download, :regenerate_download]
+
   skip_before_filter :deny_access_to_all
 
   access_control do
     allow all, :to => [:show, :index, :load_context, :download_excel_template, :importing, :keywords, :download_status]
 
-    actions :download, :download_page, :regenerate_download, :edit, :edit_files, :update, :approve, :approve_predefined,
+    actions :edit, :edit_files, :update, :approve, :approve_predefined,
       :approval_quick, :batch_update_columns do
       allow :admin
       allow :data_admin
@@ -25,7 +27,8 @@ class DatasetsController < ApplicationController
     end
 
     actions :download, :download_page, :regenerate_download do
-      allow :proposer, :of => :dataset
+      allow :admin, :data_admin
+      allow :owner, :proposer, :of => :dataset
       allow logged_in, :if => :dataset_is_free_for_members
       allow logged_in, :if => :dataset_is_free_for_project_of_user
       allow all, :if => :dataset_is_free_for_public
@@ -259,6 +262,13 @@ class DatasetsController < ApplicationController
   def redirect_if_unimported
     if @dataset.import_status != 'finished' && @dataset.has_research_data?
       redirect_to :action => 'show'
+    end
+  end
+
+  def redirect_if_without_workbook
+    unless @dataset.has_research_data?
+      flash[:error] = "There is no workbok for #{@dataset.title}"
+      redirect_to @dataset
     end
   end
 end
