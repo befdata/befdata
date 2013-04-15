@@ -85,35 +85,48 @@
 
 table#datagroups-table {
   width: 100%;
-  tr {
+  .indicator {width: 16px;}
+  col.action {width: 80px;}
+  col.type {width: 130px;}
+  tr.datagroup {
     td {
       vertical-align: top;
-      padding: 5px;
-      .expander {
+      .indicator-icon {
         width: 16px;
         height: 16px;
-        background: image-url('tablesorter/desc.gif') 50% 50% no-repeat;
-      }
-      .collapsed {
-        background: image-url('tablesorter/asc.gif') 50% 50% no-repeat;
+        background: #EEE image-url('tablesorter/asc.gif') 50% 50% no-repeat;
       }
     }
     td.info {
-      max-width: 700px;
       &:hover {
         background-color: rgb(250,250,250);
       }
-      .title a {
-        font-size: 1.1em;
+      .comment {
+        display: none;
+        color: gray;
+        font-style: italic;
+        font-size: 0.9em;
       }
-      .more {
-        margin-top: 5px;
-        border-top: solid 1px #DDD;
-        .time {
-          color: #AAA;
-          font-style: italic;
-          font-size: 0.9em;
-        }
+      .title-description {
+        width: 675px;
+        white-space: nowrap;
+        overflow: hidden;
+        -o-text-overflow: ellipsis;
+        text-overflow:    ellipsis;
+        a { font-size: 1.1em;}
+        .description { display: inline;}
+      }
+    }
+  }
+  tr.datagroup.expanded {
+    .indicator-icon {
+      background: #EEE image-url('tablesorter/desc.gif') 50% 50% no-repeat;
+    }
+    td.info {
+      .comment { display: block;}
+      .title-description {
+        white-space: normal;
+        .description { display: block;}
       }
     }
   }

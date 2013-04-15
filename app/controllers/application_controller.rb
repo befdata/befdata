@@ -87,4 +87,9 @@ private
     end
   end
 
+  def validate_sort_params(options = {})
+    return unless options[:collection] and options[:default]
+    params[:sort] = options[:default] unless options[:collection].include?(params[:sort])
+    params[:direction] = 'asc' unless ["desc", "asc"].include?(params[:direction])
+  end
 end

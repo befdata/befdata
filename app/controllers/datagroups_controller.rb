@@ -15,10 +15,11 @@ class DatagroupsController < ApplicationController
   end
 
   def index
+    validate_sort_params(collection: ['id', 'title', 'datacolumns_count', 'methodvaluetype'], default: 'title')
     @datagroups = Datagroup.joins('left join datacolumns on datagroups.id = datacolumns.datagroup_id').
                   select('datagroups.id, title, description, methodvaluetype, datagroups.created_at, count(datacolumns.id) as datacolumns_count').
                   group('datagroups.id').search(params[:search]).
-                  paginate(page: params[:page], per_page: 100, order: "#{params[:sort] || 'title'} #{params[:direction]}")
+                  paginate(page: params[:page], per_page: 100, order: "#{params[:sort]} #{params[:direction]}")
   end
 
   def show
@@ -26,7 +27,7 @@ class DatagroupsController < ApplicationController
       format.csv do
         send_data render_categories_csv, :type => "text/csv", :filename=>"#{@datagroup.title}_categories.csv", :disposition => 'attachment'
       end
-      validate_sort_params
+      validate_sort_params(collection: ['short', 'long', 'description', 'count'], default: 'short')
       @categories = @datagroup.categories.joins('left join sheetcells on categories.id = sheetcells.category_id').
           select('categories.id, short, long, description, count(sheetcells.id) as count').
           group('categories.id').search(params[:search]).
@@ -102,11 +103,6 @@ class DatagroupsController < ApplicationController
 
   def load_datagroup
     @datagroup = Datagroup.find(params[:id])
-  end
-
-  def validate_sort_params
-    params[:sort] = 'short' unless ['short', 'long', 'description', 'count'].include?(params[:sort])
-    params[:direction] = 'asc' unless ["desc", "asc"].include?(params[:direction])
   end
 
 end

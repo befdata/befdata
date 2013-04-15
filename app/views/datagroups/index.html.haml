@@ -6,8 +6,8 @@
     Sort:
     = select_tag "sort", options_for_select({"Title" => datagroups_path(params.merge(sort: 'title', direction: 'asc')), "Type" => datagroups_path(params.merge(sort: 'methodvaluetype', direction: 'asc')), "Recently Added" => datagroups_path(params.merge(sort: 'created_at', direction: 'desc')), "Most used" => datagroups_path(params.merge(sort: 'datacolumns_count', direction: 'desc')), "Least Used" => datagroups_path(params.merge(sort: 'datacolumns_count', direction: 'asc'))}, selected: request.env['REQUEST_URI']), class: 'js-select-menu'
   .group
-    = label_tag "hide_detail", "Hide description"
-    = check_box_tag "hide_detail", "yes", checked: true
+    = label_tag "hide_detail", "Compact View"
+    = check_box_tag "hide_detail", "yes", checked=true
 
   .right#search_form
     = form_tag datagroups_path, {:method => :get} do
@@ -16,9 +16,15 @@
       = search_field_tag :search, params[:search]
       = submit_tag "Filter", :name => nil
 
-- authorized_to_edit_and_delete = current_user.admin or current_user.data_admin
+- authorized_to_edit_and_delete = current_user.admin || current_user.data_admin
 
 %table#datagroups-table
+  %colgroup
+    %col.indicator
+    %col.title
+    %col.type
+    - if authorized_to_edit_and_delete
+      %col.action
   %thead
     %tr
       %th
@@ -28,17 +34,20 @@
         %th Action
   %tbody
     - @datagroups.each do |dg|
-      %tr
+      %tr.datagroup
         %td
-          .expander.collapsed
+          .indicator-icon
         %td.info
-          %div.title
+          .title-description
             = link_to dg do
               = highlight dg.title, params[:search]
-            %span (#{dg.datacolumns_count} datacolumns)
-          .more.hidden
-            = highlight dg.description, params[:search]
-            .time.right Added at #{dg.created_at}
+            .description
+              = highlight dg.description, params[:search]
+          .comment
+            = pluralize(dg.datacolumns_count, 'datacolumn')
+            in this datagroup
+            .right
+              Added at #{dg.created_at}
         %td= dg.methodvaluetype
         - if authorized_to_edit_and_delete
           %td
@@ -52,17 +61,14 @@
   $(function(){
     $("#hide_detail").click(function(){
       if($(this).is(":checked")){
-        $("td .more").hide();
-        $(".expander").addClass("collapsed");
+        $("tr.datagroup").removeClass("expanded");
       }
       else {
-        $("td .more").show();
-        $(".expander").removeClass("collapsed");
+        $("tr.datagroup").addClass("expanded");
       }
     });
-    $(".expander").click(function(){
-      $(this).parent("td").next("td.info").find(".more").slideToggle('fast');
-      $(this).toggleClass("collapsed")
+    $(".indicator-icon").click(function(){
+      $(this).closest("tr.datagroup").toggleClass("expanded");
     });
     $(".js-select-menu").change(function(){
       var value = $(this).val();
