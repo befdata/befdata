@@ -14,6 +14,7 @@ class PaperproposalsController < ApplicationController
     end
     actions :show do
       allow all, :if => :proposal_is_accepted?
+      allow logged_in
     end
     actions :new, :create, :index_csv do
       allow logged_in
