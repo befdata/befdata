@@ -26,9 +26,9 @@
     %dd= f.text_area :comment
 
     %h3 Authorship
-
-    %dt= f.label :author
-    %dd= f.select :author_id, User.all_users_names_and_ids_for_select
+    - unless limited_edit_of_final?
+      %dt= f.label :author
+      %dd= f.select :author_id, User.all_users_names_and_ids_for_select
 
     %dt= f.label :authored_by_project
     %dd= f.select :project_id, Project.all.map{|project| [project.to_label, project.id]}, { :include_blank => false }

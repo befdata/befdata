@@ -67,4 +67,8 @@ module PaperproposalsHelper
     current_user.has_role?(:admin) || current_user.has_role?(:data_admin)
   end
 
+  def limited_edit_of_final?
+    @paperproposal.board_state == 'final' && !may_administrate_paperproposals? && is_paperproposal_author?
+  end
+
 end
