@@ -4,7 +4,7 @@
 .datagroup-filter
   .group
     Sort:
-    = select_tag "sort", options_for_select({"Title" => datagroups_path(params.merge(sort: 'title', direction: 'asc')), "Type" => datagroups_path(params.merge(sort: 'methodvaluetype', direction: 'asc')), "Recently Added" => datagroups_path(params.merge(sort: 'created_at', direction: 'desc')), "Most used" => datagroups_path(params.merge(sort: 'datacolumns_count', direction: 'desc')), "Least Used" => datagroups_path(params.merge(sort: 'datacolumns_count', direction: 'asc'))}, selected: request.env['REQUEST_URI']), class: 'js-select-menu'
+    = select_tag "sort", options_for_select({"Title" => datagroups_path(params.merge(sort: 'title', direction: 'asc')), "Recently Added" => datagroups_path(params.merge(sort: 'created_at', direction: 'desc')), "Most used" => datagroups_path(params.merge(sort: 'datacolumns_count', direction: 'desc')), "Least Used" => datagroups_path(params.merge(sort: 'datacolumns_count', direction: 'asc'))}, selected: request.env['REQUEST_URI']), class: 'js-select-menu'
   .group
     = label_tag "hide_detail", "Compact View"
     = check_box_tag "hide_detail", "yes", checked=true
@@ -22,14 +22,12 @@
   %colgroup
     %col.indicator
     %col.title
-    %col.type
     - if authorized_to_edit_and_delete
       %col.action
   %thead
     %tr
       %th
       %th Title
-      %th Type
       - if authorized_to_edit_and_delete
         %th Action
   %tbody
@@ -48,7 +46,6 @@
             in this datagroup
             .right
               Added at #{dg.created_at}
-        %td= dg.methodvaluetype
         - if authorized_to_edit_and_delete
           %td
             = link_to "Edit", edit_datagroup_path(dg)

@@ -25,10 +25,6 @@
 
 %h2= "Datagroup: #{@datagroup.title}"
 
-- unless @datagroup.methodvaluetype.blank?
-  %h4 Type
-  %p= @datagroup.methodvaluetype
-
 - unless @datagroup.description.blank?
   %h4 Description
   %p= @datagroup.description
