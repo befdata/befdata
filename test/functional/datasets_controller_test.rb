@@ -45,6 +45,12 @@ class DatasetsControllerTest < ActionController::TestCase
     assert_match(/Access denied. Try to log in first./, flash[:error])
   end
 
+  test "download datasets freeformats csv" do
+    login_nadrowski
+    get :freeformats_csv, :id => 7
+    assert_success_no_error
+  end
+
   test "unlogged-in visitors can only download free_for_public datasets" do
     ds = Dataset.find_by_title "Test species name import second version"
     assert !ds.free_for_public?

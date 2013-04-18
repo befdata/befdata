@@ -24,16 +24,17 @@
     %li= link_to "Excel file" , "#xls"
     %li= link_to "CSV" , "#csv"
     %li= link_to "CSV2" , "#csv2"
+    %li= link_to "Files CSV", "#csv-files"
 
   #csv2
     %h3 CSV file with separate category columns
     %p Same as Regular CSV file, but the invalid values are stored in a separate column. For dataset that hasn't been approved yet, it's same with Regular CSV file.
-    %div#download
+    #download
       = link_to "Download", download_dataset_url(@dataset, :csv, :separate_category_columns => true), class: 'button'
   #csv
     %h3 Regular CSV file
     %p This correspondes to the raw data sheet of the Excel file, containing only data.
-    %div#download
+    #download
       = link_to "Download", download_dataset_path(@dataset, :csv), class: 'button'
   #xls
     %div.overflow
@@ -44,13 +45,18 @@
           = @dataset.download_status
       %span.right= image_tag "spinner.gif", :class => ['queued', 'started'].include?(@dataset.download_status) ? "" : 'hidden', :id => "indicator"
     - if @dataset.download_status == "outdated"
-      %div#warning This Excel file is outdated. Usually, it will be regenerated within at most 10 minutes. You could wait for a while, or you could also #{link_to("regenerated download", regenerate_download_dataset_path(@dataset))} manually rightnow.
+      #warning This Excel file is outdated. Usually, it will be regenerated within at most 10 minutes. You could wait for a while, or you could also #{link_to("regenerated download", regenerate_download_dataset_path(@dataset))} manually rightnow.
     - if @dataset.download_status == "queued"
-      %div#warning  This Excel file is being regenerated, please wait till it is finished.
+      #warning  This Excel file is being regenerated, please wait till it is finished.
     %p
       This is the same as the workbook the owner uploaded, including all the data and metadata.
-    %div#download
+    #download
       = link_to "Download", download_dataset_path(@dataset), class: 'button'
+  #csv-files
+    %h3 Files CSV
+    %p A CSV with direct links to the attached files and their description
+    #download
+      = link_to "Download", freeformats_csv_dataset_path(@dataset), class: 'button'
 
 
 
