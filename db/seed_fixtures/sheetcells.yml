@@ -2,7 +2,6 @@
 sheetcells_001:
   id: '3'
   datacolumn_id: '1'
-  comment: 
   import_value: '3'
   created_at: '2012-03-17 20:45:15.790058'
   updated_at: '2012-03-17 20:45:18.11186'
@@ -14,7 +13,6 @@ sheetcells_001:
 sheetcells_002:
   id: '2'
   datacolumn_id: '1'
-  comment: 
   import_value: '2'
   created_at: '2012-03-17 20:45:15.790058'
   updated_at: '2012-03-17 20:45:18.11186'
@@ -26,7 +24,6 @@ sheetcells_002:
 sheetcells_003:
   id: '1'
   datacolumn_id: '1'
-  comment: 
   import_value: '1'
   created_at: '2012-03-17 20:45:15.790058'
   updated_at: '2012-03-17 20:45:18.11186'
@@ -38,7 +35,6 @@ sheetcells_003:
 sheetcells_004:
   id: '6'
   datacolumn_id: '2'
-  comment: 
   import_value: '3'
   created_at: '2012-03-17 20:45:15.936064'
   updated_at: '2012-03-17 20:45:18.149735'
@@ -50,7 +46,6 @@ sheetcells_004:
 sheetcells_005:
   id: '5'
   datacolumn_id: '2'
-  comment: 
   import_value: '2.2'
   created_at: '2012-03-17 20:45:15.936064'
   updated_at: '2012-03-17 20:45:18.149735'
@@ -62,7 +57,6 @@ sheetcells_005:
 sheetcells_006:
   id: '4'
   datacolumn_id: '2'
-  comment: 
   import_value: '1.1'
   created_at: '2012-03-17 20:45:15.936064'
   updated_at: '2012-03-17 20:45:18.149735'
@@ -74,7 +68,6 @@ sheetcells_006:
 sheetcells_007:
   id: '9'
   datacolumn_id: '3'
-  comment: 
   import_value: '3'
   created_at: '2012-03-17 20:45:16.001647'
   updated_at: '2012-03-17 20:45:18.173528'
@@ -86,7 +79,6 @@ sheetcells_007:
 sheetcells_008:
   id: '8'
   datacolumn_id: '3'
-  comment: 
   import_value: '2'
   created_at: '2012-03-17 20:45:16.001647'
   updated_at: '2012-03-17 20:45:18.173528'
@@ -98,7 +90,6 @@ sheetcells_008:
 sheetcells_009:
   id: '7'
   datacolumn_id: '3'
-  comment: 
   import_value: '1'
   created_at: '2012-03-17 20:45:16.001647'
   updated_at: '2012-03-17 20:45:18.173528'
@@ -110,7 +101,6 @@ sheetcells_009:
 sheetcells_010:
   id: '12'
   datacolumn_id: '4'
-  comment: 
   import_value: '2010-01-03'
   created_at: '2012-03-17 20:45:16.067963'
   updated_at: '2012-03-17 20:45:18.200545'
@@ -122,7 +112,6 @@ sheetcells_010:
 sheetcells_011:
   id: '11'
   datacolumn_id: '4'
-  comment: 
   import_value: '2010-01-02'
   created_at: '2012-03-17 20:45:16.067963'
   updated_at: '2012-03-17 20:45:18.200545'
@@ -134,7 +123,6 @@ sheetcells_011:
 sheetcells_012:
   id: '10'
   datacolumn_id: '4'
-  comment: 
   import_value: '2010-01-01'
   created_at: '2012-03-17 20:45:16.067963'
   updated_at: '2012-03-17 20:45:18.200545'

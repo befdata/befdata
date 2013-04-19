@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130412221715) do
+ActiveRecord::Schema.define(:version => 20130419092407) do
 
   create_table "author_paperproposals", :force => true do |t|
     t.integer  "paperproposal_id"
@@ -271,7 +271,6 @@ ActiveRecord::Schema.define(:version => 20130412221715) do
 
   create_table "sheetcells", :force => true do |t|
     t.integer  "datacolumn_id"
-    t.text     "comment"
     t.string   "import_value"
     t.datetime "created_at"
     t.datetime "updated_at"
