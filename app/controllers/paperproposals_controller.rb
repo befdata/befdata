@@ -1,5 +1,4 @@
 class PaperproposalsController < ApplicationController
-  helper FreeformatsHelper
   include PaperproposalsHelper
   include DatasetsHelper
 
@@ -190,7 +189,7 @@ private
                 pp.rationale, pp.comment,
                 paperproposal_url(pp),
                 pp.freeformats.where('is_essential = TRUE').order('file_file_name ASC').map{|ff|
-                  "#{view_context.complete_freeformat_url(ff, true)} (#{ff.uri})"}.join(' / ')
+                  "#{download_freeformat_url(ff, user_credentials: current_user.try(:single_access_token))} (#{ff.uri})"}.join(' / ')
         ]
       end
     end

@@ -14,10 +14,9 @@
     -@freeformats.each do |ff|
       %tr
         %td
-          = link_to ff.file_file_name, ff.file.url
+          = link_to ff.file_file_name, download_freeformat_path(ff)
           .hidden{:id => "form_freeformat_change_#{ff.id}"}
-            = form_for ff, :url => {:controller => :freeformats, :action => :update, :id => ff.id},
-            :html => {:multipart => true} do |f|
+            = form_for ff, :url => freeformat_path(ff), :html => {:multipart => true} do |f|
               = render :partial => 'freeformats/form', :locals => {:form => f, :freeformat => ff, :freeformattable => ff.freeformattable}
         %td= ff.description
         %td= number_to_human_size ff.file_file_size
@@ -26,8 +25,7 @@
           %td= ff.is_essential ? "\u2713" : ''
         %td
           %a.showr{:id => "freeformat_change_#{ff.id}"} Edit
-          = link_to 'Delete', {:controller => :freeformats, :action => :destroy, :id => ff.id},
-            {:confirm => "Are you sure you want to delete #{ff.file_file_name}?", :method => :delete}
+          = link_to 'Delete', freeformat_path(ff), :confirm => "Are you sure you want to delete #{ff.file_file_name}?", :method => :delete
 
 :javascript
   $(function() {

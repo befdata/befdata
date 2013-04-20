@@ -1,6 +1,4 @@
 class DatasetsController < ApplicationController
-  helper FreeformatsHelper
-
   before_filter :load_dataset, :only => [:download, :download_page, :show, :edit, :edit_files, :update, :approve, :approve_predefined,
                                          :update_workbook, :destroy, :regenerate_download,
                                          :approval_quick, :batch_update_columns, :keywords, :download_status, :freeformats_csv]
@@ -261,10 +259,7 @@ class DatasetsController < ApplicationController
       csv << ['Filename', 'URL', 'Description']
       @dataset.freeformats.each do |ff|
         csv << [
-            ff.file_file_name,
-            view_context.complete_freeformat_url(ff, true).to_s,
-            ff.description
-        ]
+            ff.file_file_name, download_freeformat_url(ff, user_credentials: current_user.try(:single_access_token)), ff.description ]
       end
     end
   end

@@ -7,7 +7,7 @@
 - if only_essential_no_links
   = freeformat.file_file_name
 - else
-  = link_to freeformat.file_file_name, freeformat.file.url
+  = link_to freeformat.file_file_name, download_freeformat_path(freeformat)
   (#{number_to_human_size freeformat.file_file_size})
 
 - unless freeformat.description.blank?
