@@ -180,6 +180,11 @@ ul.switchers {
 }
 
 #approval-area {
+  #too-many-alert {
+    padding: 5px;
+    border: solid 1px #cdcdcd;
+    margin-bottom: 10px;
+  }
   .info{
     padding-bottom: 13px;
     border-bottom: solid 1px #cdcdcd;

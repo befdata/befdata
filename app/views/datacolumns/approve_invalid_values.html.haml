@@ -1,5 +1,16 @@
 %h3 Approve invalid values
 
+- if  @count_of_all_invalid_values > 200
+  #too-many-alert
+    %b Note:
+    There are
+    %b= number_with_delimiter(@count_of_all_invalid_values)
+    invalid values. If you think of them as self-explanatory, ie. Category information should
+    be copied from original imported value, we can auto-fill &amp; approve all of them for you.
+    = form_tag autofill_and_update_invalid_values_datacolumn_path(@datacolumn) do
+      = submit_tag "Yes, do it for me!", confirm: "Are you sure?"
+      = link_to "No, thanks", "#", id: 'close-too-many-alert'
+
 .info
   .right
     Approve
@@ -17,7 +28,9 @@
 
 #invalid-values-form
   - if  @count_of_all_invalid_values > 100
-    %i Displaying the first #{@invalid_values.count} of #{@count_of_all_invalid_values} invalid values
+    %b
+      %i
+        Displaying the first #{@invalid_values.count} of #{@count_of_all_invalid_values} invalid values
   = form_tag update_invalid_values_datacolumn_path(@datacolumn) do
     %table#invalid-values-table
       %thead
@@ -40,7 +53,6 @@
               = text_field_tag "invalid_values[][description]"
     - if  @count_of_all_invalid_values > 100
       = submit_tag 'Approve this page'
-      -#= submit_tag 'Approve All', name: "approve_all"
     - else
       = submit_tag "Approve"
 
@@ -50,7 +62,9 @@
     = link_to "Download CSV file of invalid values", approve_invalid_values_datacolumn_path(@datacolumn, :csv)
   .step
     %span Step 2
-    Describe invalid values in the CSV file
+    Describe invalid values in the CSV file.
+    %br
+    Delete rows of invalid values that you don't want to describe.
   .step
     %span Step 3
     Upload your CSV file
@@ -72,4 +86,8 @@
       $("#invalid-values-form").hide();
       $("#invalid-values-csv").show();
     });
+    $("#close-too-many-alert").click(function(e){
+      $("#too-many-alert").hide();
+      e.preventDefault();
+    })
   })

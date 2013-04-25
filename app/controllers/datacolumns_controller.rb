@@ -6,7 +6,7 @@ class DatacolumnsController < ApplicationController
   access_control do
     actions :approval_overview, :next_approval_step, :approve_datagroup, :approve_datatype, :approve_metadata,
             :approve_invalid_values, :update_datagroup, :create_and_update_datagroup, :update_datatype,
-            :update_metadata, :update_invalid_values, :update_invalid_values_with_csv, :update do
+            :update_metadata, :update_invalid_values, :update_invalid_values_with_csv, :autofill_and_update_invalid_values, :update do
       allow :admin
       allow :owner, :of => :dataset
       allow :proposer, :of => :dataset
@@ -183,6 +183,13 @@ class DatacolumnsController < ApplicationController
       flash[:error] = e.message
       redirect_to :back and return
     end
+  end
+
+  def autofill_and_update_invalid_values
+    @datacolumn.batch_approve_invalid_values(current_user)
+    @datacolumn.touch
+    flash[:notice] = "The invalid values have been successfully approved"
+    next_approval_step
   end
 
   private
