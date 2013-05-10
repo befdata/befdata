@@ -9,7 +9,7 @@
       %span.time= n.created_at
       %span.read-status= link_to read_string, mark_as_read_notification_url(n, :read => !n.read)
 
-    .message.hidden= n.message # TODO we gonna load this via ajax maybe
+    .message.hidden= raw n.message
 
 :javascript
   $(function(){

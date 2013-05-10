@@ -11,6 +11,7 @@
 # Datasets can be of main or side aspect for the proposal. Dataset owners of main aspect datasets
 # should be offered a co-authorship in the resulting paper.
 class Paperproposal < ActiveRecord::Base
+
   belongs_to :author, :class_name => "User", :foreign_key => "author_id"
   belongs_to :authored_by_project, :class_name => "Project", :foreign_key => :project_id
 
@@ -382,6 +383,7 @@ private
                          when 'accept' then 'data_rejected'
                          else self.board_state
                        end
+    NotificationMailer.data_request_rejected(self)
     set_lock_status
     self.save
   end

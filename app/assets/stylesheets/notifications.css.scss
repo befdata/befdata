@@ -14,6 +14,9 @@
     font-weight: bold;
     font-size: 1.1em;
   }
+  .subject:hover {
+    color: #18921e;
+  }
   .read-status, .time, .delete {
     float: right;
   }
@@ -33,16 +36,19 @@
   }
 }
 
-.notification.unread {
+.notification.read {
   .time, .subject, .read-status a{
     color: #cdcdcd;
+  }
+  .subject:hover {
+    color: #18921e;
   }
   .read-status a:hover {
     color: #cdcdcd;
   }
 }
 
-.notification.read {
+.notification.unread {
   .time, .subject a {
     color: black;
   }

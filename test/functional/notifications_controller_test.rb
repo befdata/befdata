@@ -1,49 +1,25 @@
 require 'test_helper'
 
 class NotificationsControllerTest < ActionController::TestCase
-  setup do
-    @notification = notifications(:one)
-  end
+  setup :activate_authlogic
 
   test "should get index" do
-    get :index
-    assert_response :success
+    login_nadrowski
+    get :index, :user => User.find(1)
+    assert_success_no_error
     assert_not_nil assigns(:notifications)
   end
 
-  test "should get new" do
-    get :new
-    assert_response :success
-  end
-
-  test "should create notification" do
-    assert_difference('Notification.count') do
-      post :create, notification: { message: @notification.message, read: @notification.read, subject: @notification.subject, user_id: @notification.user_id }
-    end
-
-    assert_redirected_to notification_path(assigns(:notification))
-  end
-
-  test "should show notification" do
-    get :show, id: @notification
-    assert_response :success
-  end
-
-  test "should get edit" do
-    get :edit, id: @notification
-    assert_response :success
-  end
-
-  test "should update notification" do
-    put :update, id: @notification, notification: { message: @notification.message, read: @notification.read, subject: @notification.subject, user_id: @notification.user_id }
-    assert_redirected_to notification_path(assigns(:notification))
+  test "should mark as read" do
+    pending "TODO, create fixtures"
   end
 
   test "should destroy notification" do
-    assert_difference('Notification.count', -1) do
-      delete :destroy, id: @notification
-    end
-
-    assert_redirected_to notifications_path
+    pending "TODO, create fixtures"
+    #assert_difference('Notification.count', -1) do
+    #  delete :destroy, id: @notification
+    #end
+    #
+    #assert_redirected_to notifications_path
   end
 end
