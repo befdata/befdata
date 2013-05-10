@@ -311,3 +311,22 @@ ul#downloaders {
     top: 3px;
   }
 }
+
+// dataset edit log
+
+h4.last-edits {
+  margin-bottom: 3px;
+}
+
+.dataset-edit {
+  .edit-metadata {
+    margin-bottom: 0;
+  }
+  .edit-description, .submitted {
+    color: #8a8a8a;
+  }
+  .edit-description {
+    font-size: 0.9em;
+    line-height: 1.2em;
+  }
+}

@@ -20,17 +20,15 @@
       Last update
     %p= @dataset.last_update.localtime.strftime "%Y-%m-%d %H:%M"
 
-    %h4 Save current edit oder so
-
-    %h4 Last edits
+    %h4.last-edits Last edits
     - @dataset.dataset_edits.limit(3).each do |edt|
       .dataset-edit
         %p.edit-metadata
-          = edt.updated_at
-          = edt.submitted ? '' : 'unsubmitted'
-        %p.edit-description
+          %span.updated= edt.updated_at.localtime.strftime "%Y-%m-%d %H:%M"
+          %span.submitted= edt.submitted ? '' : 'unsubmitted'
+          %span.save save
+        .edit-description
           = simple_format edt.description
-
 
     - if !@dataset.comment.blank? && may_see_comment?(@dataset)
       %h3
