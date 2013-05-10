@@ -30,6 +30,13 @@
         .edit-description
           = simple_format edt.description
 
+    :javascript
+      $(function(){
+        $('.updated').click(function() {
+          $(this).parent('.edit-metadata').next('.edit-description').toggle();
+        });
+      });
+
     - if !@dataset.comment.blank? && may_see_comment?(@dataset)
       %h3
         Comment
