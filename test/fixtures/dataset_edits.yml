@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  dataset: 
+  description: MyText
+  submitted: false
+
+two:
+  dataset: 
+  description: MyText
+  submitted: false

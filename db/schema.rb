@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130425045913) do
+ActiveRecord::Schema.define(:version => 20130510043835) do
 
   create_table "author_paperproposals", :force => true do |t|
     t.integer  "paperproposal_id"
@@ -111,6 +111,16 @@ ActiveRecord::Schema.define(:version => 20130425045913) do
   end
 
   add_index "dataset_downloads", ["user_id", "dataset_id"], :name => "index_dataset_downloads_on_user_id_and_dataset_id"
+
+  create_table "dataset_edits", :force => true do |t|
+    t.integer  "dataset_id"
+    t.text     "description"
+    t.boolean  "submitted",   :default => false
+    t.datetime "created_at",                     :null => false
+    t.datetime "updated_at",                     :null => false
+  end
+
+  add_index "dataset_edits", ["dataset_id"], :name => "index_dataset_edits_on_dataset_id"
 
   create_table "dataset_paperproposals", :force => true do |t|
     t.string   "aspect"
