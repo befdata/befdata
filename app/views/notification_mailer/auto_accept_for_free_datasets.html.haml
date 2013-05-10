@@ -1,0 +1,10 @@
+%p
+  We would like to inform you that your datasets, which are free (for members)
+%ul
+  - (@user.datasets_owned & @paperproposal.datasets).each do |ds|
+    %li
+      = link_to ds.title, dataset_path(ds)
+%p
+  are used in the following paperproposal:
+%p
+  = link_to @paperproposal.title, paperproposal_path(@paperproposal)

@@ -7,4 +7,12 @@ class NotificationMailerTest < ActionMailer::TestCase
 
     assert_true Notification.count > old_notification_count
   end
+
+  test "auto_accept_for_free_datasets" do
+    old_notification_count = Notification.count
+
+    NotificationMailer.auto_accept_for_free_datasets(User.first, Paperproposal.first)
+
+    assert_true Notification.count > old_notification_count
+  end
 end

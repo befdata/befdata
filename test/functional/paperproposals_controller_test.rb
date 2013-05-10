@@ -66,14 +66,21 @@ class PaperproposalsControllerTest < ActionController::TestCase
     assert_not_nil Paperproposal.find(paperproposal.id)
   end
 
-  test "automatic project board and data request vote if it's your paperproposal" do
+  test "automatic vote for author and free dataset owners" do
     paperproposal = Paperproposal.find 6
     login_nadrowski
+    old_notification_count = Notification.count
+
     post :update_state, :id => paperproposal.id, :paperproposal => {:board_state => "submit"}
+
     paperproposal.reload
     assert_equal 1, paperproposal.project_board_votes.where("vote = 'accept'").count
+
     get :admin_approve_all_votes, :id => paperproposal.id
-    assert_equal 1, paperproposal.for_data_request_votes.where("vote = 'accept'").count
+
+    paperproposal.reload
+    assert_equal paperproposal.board_state, 'final'
+    assert_true Notification.count == (old_notification_count + 1)
   end
 
   test "rejecting paperproposal data request" do

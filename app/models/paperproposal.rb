@@ -404,9 +404,33 @@ private
     self.save
   end
 
-  def auto_author_vote
-    self.paperproposal_votes.where(:user_id => self.author_id).each do |v|
-      v.update_attribute :vote, 'accept'
+  def auto_vote
+    auto_voters = []
+
+    case self.board_state
+      when 'accept'
+        # search data owners who only contribute free (in general + for members) datasets
+        auto_voters = self.main_aspect_dataset_owners + self.side_aspect_dataset_owners
+        auto_voters.delete self.author
+        self.datasets.each do |ds|
+          unless ds.free_for_members || ds.free_for_public
+            auto_voters = auto_voters - ds.owners
+          end
+        end
+        auto_voters << self.author # add paperproposal author
+
+        # accept data request votes
+        auto_voters.uniq!
+        self.for_data_request_votes.where('user_id IN (?)', auto_voters).each do |v|
+          unless v.vote == 'accept'
+            v.update_attribute(:vote, 'accept')
+            NotificationMailer.auto_accept_for_free_datasets(v.user, self) unless v.user == self.author
+          end
+        end
+      when 'submit'
+        self.project_board_votes.where(:user_id => self.author).each do |v|
+          v.update_attribute(:vote, 'accept') unless v.vote == 'accept'
+        end
     end
   end
 
@@ -417,7 +441,7 @@ private
   def finalize_votes_and_lock
     set_lock_status
     self.save
-    auto_author_vote
+    auto_vote
     check_votes
   end
 

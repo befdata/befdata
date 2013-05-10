@@ -78,5 +78,4 @@ private
     @paperproposal && @paperproposal.author == current_user
   end
 
-
 end

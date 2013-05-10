@@ -20,7 +20,7 @@ class NotificationsController < ApplicationController
 
   def mark_as_read
     if defined?(params[:read]) && @notification.update_attribute(:read, params[:read])
-      redirect_to notifications_url, notice: 'Notification was successfully updated.'
+      redirect_to notifications_url
     else
       redirect_to notifications_url, alert: 'Error'
     end
