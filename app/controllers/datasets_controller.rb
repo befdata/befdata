@@ -10,6 +10,8 @@ class DatasetsController < ApplicationController
 
   before_filter :redirect_if_without_workbook, :only => [:download_page, :download, :regenerate_download]
 
+  after_filter :edit_message_datacolumns, :only => [:batch_update_columns, :approve_predefined]
+
   skip_before_filter :deny_access_to_all
 
   access_control do
@@ -90,6 +92,7 @@ class DatasetsController < ApplicationController
 
     if @dataset.update_attributes(params[:dataset]) then
       redirect_to dataset_path, notice: "Sucessfully Saved"
+      @dataset.log_edit('Metadata updated')
     else
       last_request = request.env["HTTP_REFERER"]
       render :action => (last_request == edit_dataset_url(@dataset) ? :edit : :create)
@@ -135,7 +138,6 @@ class DatasetsController < ApplicationController
         datacolumn.approve_datatype datatype, current_user
       end
     end
-
     flash[:notice] = "Successfully approved #{changes} properties."
     redirect_to approve_dataset_url(@dataset)
   end
@@ -225,6 +227,8 @@ class DatasetsController < ApplicationController
       @dataset.filename = new_datafile.file_file_name
       @dataset.import_status = 'new'
       @dataset.save
+
+      @dataset.log_edit('Dataworkbook updated')
       flash[:notice] = "Research data has been replaced."
       redirect_to(:action => 'show')
     else
@@ -291,5 +295,9 @@ class DatasetsController < ApplicationController
       flash[:error] = "There is no workbok for #{@dataset.title}"
       redirect_to @dataset
     end
+  end
+
+  def edit_message_datacolumns
+    @dataset.log_edit('Datacolumns approved')
   end
 end

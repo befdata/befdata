@@ -1,6 +1,9 @@
 class DatacolumnsController < ApplicationController
 
   before_filter :load_datacolumn_and_dataset
+  after_filter  :dataset_edit_message,
+                :only => [:create_and_update_datagroup, :update_datagroup, :update_datatype, :update_metadata,
+                :update_invalid_values, :update_invalid_values_with_csv, :autofill_and_update_invalid_values]
 
   skip_before_filter :deny_access_to_all
   access_control do
@@ -207,6 +210,10 @@ class DatacolumnsController < ApplicationController
   def load_datacolumn_and_dataset
     @datacolumn = Datacolumn.find(params[:id])
     @dataset = @datacolumn.dataset
+  end
+
+  def dataset_edit_message
+    @dataset.log_edit('Datacolumns approved')
   end
 
 end

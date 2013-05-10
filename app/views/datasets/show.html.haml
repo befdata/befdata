@@ -15,9 +15,22 @@
     - unless @tags.blank?
       %h3= link_to "Keywords", keywords_dataset_path(@dataset)
       = raw  @tags.sort_by(&:name).map{|t| link_to t.name, keyword_path(t.id)}.join(", ")
+
     %h3
       Last update
     %p= @dataset.last_update.localtime.strftime "%Y-%m-%d %H:%M"
+
+    %h4 Save current edit oder so
+
+    %h4 Last edits
+    - @dataset.dataset_edits.limit(3).each do |edt|
+      .dataset-edit
+        %p.edit-metadata
+          = edt.updated_at
+          = edt.submitted ? '' : 'unsubmitted'
+        %p.edit-description
+          = simple_format edt.description
+
 
     - if !@dataset.comment.blank? && may_see_comment?(@dataset)
       %h3
