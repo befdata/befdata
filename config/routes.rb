@@ -10,7 +10,7 @@ Befchina::Application.routes.draw do
   resource :profile, :only => [:show, :edit, :update] do
     member do
       get :votes, :votes_history, :update_credentials
-      resources :notifications, :only => [:index, :show, :destroy] do
+      resources :notifications, :only => [:index, :destroy] do
         get :mark_as_read, :on => :member
       end
     end

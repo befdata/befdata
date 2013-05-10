@@ -8,7 +8,7 @@ class NotificationsController < ApplicationController
     actions :index do
       allow logged_in
     end
-    actions :show, :mark_as_read, :destroy do
+    actions :mark_as_read, :destroy do
       allow logged_in, :if => :notification_belongs_user?
     end
   end
@@ -16,9 +16,6 @@ class NotificationsController < ApplicationController
 
   def index
     @notifications = current_user.notifications.order('created_at DESC')
-  end
-
-  def show
   end
 
   def mark_as_read

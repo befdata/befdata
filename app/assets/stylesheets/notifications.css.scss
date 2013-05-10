@@ -7,24 +7,20 @@
 
 
 .notification {
-  border-top: 1px solid lightgrey;
+  border-top: 1px solid #cdcdcd;
   padding: 12px;
 
   .subject {
     font-weight: bold;
     font-size: 1.1em;
-    a:hover {
-      color: darkgreen !important;
-      text-decoration: none;
-    }
   }
   .read-status, .time, .delete {
     float: right;
   }
   .time {
     padding: 0 10px;
-    border-left: 1px solid lightgray;
-    border-right: 1px solid lightgray;
+    border-left: 1px solid #cdcdcd;
+    border-right: 1px solid #cdcdcd;
   }
   .delete {
     margin-left: 10px;
@@ -38,8 +34,11 @@
 }
 
 .notification.unread {
-  .time, .subject a {
-    color: grey;
+  .time, .subject, .read-status a{
+    color: #cdcdcd;
+  }
+  .read-status a:hover {
+    color: #cdcdcd;
   }
 }
 

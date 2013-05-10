@@ -4,9 +4,16 @@
   - read_string = n.read ? 'read' : 'unread'
   .notification{:id => "notification-#{n.id}", :class => read_string}
     .heading
-      %span.subject= link_to n.subject, n
+      %span.subject= n.subject
       %span.delete= link_to 'del', n, method: :delete, data: { confirm: 'Are you sure?' }
       %span.time= n.created_at
       %span.read-status= link_to read_string, mark_as_read_notification_url(n, :read => !n.read)
 
-      .message= n.message # TODO we gonna load this via ajax!
+    .message.hidden= n.message # TODO we gonna load this via ajax maybe
+
+:javascript
+  $(function(){
+    $('.subject').click(function() {
+      $(this).parent('.heading').next('.message').toggle();
+    });
+  });
