@@ -6,20 +6,27 @@ class NotificationsControllerTest < ActionController::TestCase
   test "should get index" do
     login_nadrowski
     get :index, :user => User.find(1)
+
     assert_success_no_error
     assert_not_nil assigns(:notifications)
   end
 
   test "should mark as read" do
-    pending "TODO, create fixtures"
+    login_nadrowski
+    n_id = 1
+
+    get :mark_as_read, :id => n_id, :read => true
+
+    assert_nil flash[:error]
+    assert_equal Notification.find(n_id).read, true
   end
 
   test "should destroy notification" do
-    pending "TODO, create fixtures"
-    #assert_difference('Notification.count', -1) do
-    #  delete :destroy, id: @notification
-    #end
-    #
-    #assert_redirected_to notifications_path
+    login_nadrowski
+    old_notification_count = Notification.count
+
+    get :destroy, :id => 1
+
+    assert_true Notification.count < old_notification_count
   end
 end

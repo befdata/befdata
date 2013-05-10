@@ -1,13 +1,15 @@
 one:
   id: 1
   user_id: 1
-  subject: MyText
-  message: MyText
+  subject: First Notification
+  message: This is the text of the first notification, it's unread
   read: false
+  created_at: 2011-11-07 18:06:35.419133
 
 two:
   id: 2
   user_id: 1
-  subject: MyText
-  message: MyText
-  read: false
+  subject: Second Notification
+  message: This is the text of the first notification, it is read
+  created_at: 2011-06-01 15:02:01.648
+  read: true
