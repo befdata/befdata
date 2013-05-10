@@ -8,4 +8,5 @@ before_script:
   - cp config/configuration.yml.dist config/configuration.yml
   - cp config/database.yml.travis config/database.yml
   - cp config/application.yml.dist config/application.yml
+  - cp config/mailers.yml.dist config/mailers.yml 
   - psql -c 'create database befdata_test;' -U postgres
