@@ -66,7 +66,7 @@ class PaperproposalsControllerTest < ActionController::TestCase
     assert_not_nil Paperproposal.find(paperproposal.id)
   end
 
-  test "automatical project board and data request vote if it's your paperproposal" do
+  test "automatic project board and data request vote if it's your paperproposal" do
     paperproposal = Paperproposal.find 6
     login_nadrowski
     post :update_state, :id => paperproposal.id, :paperproposal => {:board_state => "submit"}
@@ -80,12 +80,15 @@ class PaperproposalsControllerTest < ActionController::TestCase
     @request.env['HTTP_REFERER'] = root_url
     paperproposal = Paperproposal.find 5
     user = login_nadrowski
+    old_notifications_count = Notification.count
+
     get :admin_approve_all_votes, :id => paperproposal.id #bring to next stage
 
     get :update_vote, :id => user.paperproposal_votes.where(:vote => 'none').first.id, :paperproposal_vote => {:vote => 'reject'}
 
     paperproposal.reload
     assert_equal 'data_rejected', paperproposal.board_state
+    assert_true Notification.count > old_notifications_count
   end
 
   test "changing datasets recalculates votes and resets if neccesary" do
