@@ -1,0 +1,35 @@
+-# this partial renders a modal, which will allow you to submit dataset_edits
+-# please gimme a variable called dataset_edit so we know what this is about
+
+%span.save
+  %a{:href => '#', :id => 'dataset_edit_submit_link'} submit+notify
+
+.hidden{:class => 'hidden', :id => 'dataset_edit_submit_modal'}
+  .form-whole
+    = form_for dataset_edit, :url => submit_dataset_dataset_edit_path(@dataset,dataset_edit), :method => :post do |f|
+      .form-annotate
+        %h3 Annotate changes
+        = f.text_area :description
+
+      .form-notify
+        %h3 Notify connected users
+        %p
+          = check_box_tag('notify[downloaders]', true)
+          = label_tag 'notify[downloaders]', 'Downloaders'
+        %p
+          = check_box_tag('notify[proposers]', true)
+          = label_tag 'notify[proposers]', 'Paperproposal authors'
+        = f.submit 'Submit and notify'
+  %p.close_hint
+    Click somewhere outside or press ESC to cancel
+
+:javascript
+  $('#dataset_edit_submit_link').click(function(e) {
+    $('#dataset_edit_submit_modal').modal(
+      {
+        overlayClose:true,
+        persist:true
+      }
+    );
+    e.preventDefault();
+  });

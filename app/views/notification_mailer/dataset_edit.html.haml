@@ -1,0 +1,12 @@
+%p
+  The dataset
+  = link_to @dataset_edit.dataset.title, @dataset_edit.dataset
+  you
+  - case @user_function
+    - when :proposer
+      = 'are using in one of your paperproposals'
+    - when :downloader
+      = 'have been downloading'
+  was edited. Here is the description of the change:
+%p
+  = sanitize(simple_format(@dataset_edit.description), :tags => %w(br p))

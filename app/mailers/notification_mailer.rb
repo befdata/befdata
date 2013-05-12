@@ -19,6 +19,16 @@ class NotificationMailer < ActionMailer::Base
     create_notification(user, subject, message)
   end
 
+  def dataset_edit(user, dataset_edit, user_function)
+    @user = user
+    @dataset_edit = dataset_edit
+    @user_function = user_function
+    subject = 'Dataset was edited'
+    message = render_to_string 'dataset_edit'
+
+    create_notification(user, subject, message)
+  end
+
 private
 
   def create_notification(user, subject, message)

@@ -1,10 +1,10 @@
 - if current_user
   %ul
     %li
-      = link_to "Notifications #{current_user.notifications.where(:read => false).count}", notifications_path
+      = link_to "Notifications (#{current_user.notifications.where(:read => false).count})", notifications_path
     - if current_user.open_votes_count > 0
       %li
-        = link_to "Data requests #{current_user.open_votes_count}", votes_profile_path
+        = link_to "Data requests (#{current_user.open_votes_count})", votes_profile_path
     %li
       = link_to 'Profile', profile_path
     %li

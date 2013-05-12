@@ -1,0 +1,15 @@
+%h2
+  Edit history for
+  = link_to @dataset.title, @dataset
+
+%ul
+  - @dataset.dataset_edits.each do |e|
+    %li
+      .dataset-edit
+        %p.edit-metadata
+          %h3.updated= e.updated_at.localtime.strftime "%Y-%m-%d %H:%M"
+          - unless e.submitted
+            %span.save
+              %a{:href => '#'} edit/save/notifiy
+        .edit-description
+          = sanitize(simple_format(e.description), :tags => %w(br p))

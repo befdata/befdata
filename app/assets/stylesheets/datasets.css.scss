@@ -314,16 +314,28 @@ ul#downloaders {
 
 // dataset edit log
 
-h4.last-edits {
-  margin-bottom: 3px;
-}
-
-.dataset-edit {
+.last-edits {
+  h4 {
+    margin-bottom: 3px;
+    display: inline;
+  }
   .updated:hover {
     color: #18921e;;
   }
+  .edit-description p {
+    margin-bottom: 5px;
+  }
+
+}
+
+.dataset-edit {
+  ul {list-style: none;}
+
+  h3 {display: inline}
+
   .edit-metadata {
     margin-bottom: 0;
+    display: inline;
   }
   .edit-description, .submitted {
     color: #8a8a8a;
@@ -333,3 +345,40 @@ h4.last-edits {
     line-height: 1.2em;
   }
 }
+
+#dataset_edit_submit_modal {
+  position: relative;
+  height:  375px;
+  .form-annotate {
+    width: 400px;
+    float: left;
+    padding-right: 10px;
+    margin-right: 10px;
+    textarea {
+      height: 300px;
+      width: 380px;
+      outline-color: #8A8A8A;
+      resize: none;
+    }
+  }
+  .form-notify {
+    position: absolute;
+    bottom: 23px;
+    left: 405px;
+    label {
+      position: relative;
+      top: -3px;
+    }
+    input[type=submit] {
+      margin-top: 15px;
+    }
+  }
+
+  .close_hint {
+    clear: both;
+    margin-top: 10px;
+    color: #8A8A8A;
+  }
+
+}
+

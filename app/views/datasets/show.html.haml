@@ -20,22 +20,7 @@
       Last update
     %p= @dataset.last_update.localtime.strftime "%Y-%m-%d %H:%M"
 
-    %h4.last-edits Last edits
-    - @dataset.dataset_edits.limit(3).each do |edt|
-      .dataset-edit
-        %p.edit-metadata
-          %span.updated= edt.updated_at.localtime.strftime "%Y-%m-%d %H:%M"
-          %span.submitted= edt.submitted ? '' : 'unsubmitted'
-          %span.save save
-        .edit-description
-          = simple_format edt.description
-
-    :javascript
-      $(function(){
-        $('.updated').click(function() {
-          $(this).parent('.edit-metadata').next('.edit-description').toggle();
-        });
-      });
+    = render :partial => 'dataset_edits/last_edits_in_sidebar' if current_user
 
     - if !@dataset.comment.blank? && may_see_comment?(@dataset)
       %h3
