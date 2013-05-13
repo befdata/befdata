@@ -160,11 +160,13 @@ class DatacolumnsController < ApplicationController
   # creates categories for all invalid values completed in the form and assigns the category to the sheetcell
   def update_invalid_values
     invalid_values = params[:invalid_values]
-    invalid_values.each do |h|
-      next if h['short'].blank?
-      @datacolumn.update_invalid_value(h['import_value'], h['short'], h['long'], h['description'], current_user, @dataset)
+    unless invalid_values.blank?
+      invalid_values.each do |h|
+        next if h['short'].blank?
+        @datacolumn.update_invalid_value(h['import_value'], h['short'], h['long'], h['description'], current_user, @dataset)
+      end
+      @datacolumn.touch
     end
-    @datacolumn.touch
     flash[:notice] = "The invalid values have been successfully approved"
     next_approval_step
   end

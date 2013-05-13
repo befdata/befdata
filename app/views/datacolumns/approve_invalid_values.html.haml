@@ -54,7 +54,7 @@
     - if  @count_of_all_invalid_values > 100
       = submit_tag 'Approve this page'
     - else
-      = submit_tag "Approve"
+      = submit_tag "Approve", :disabled => @count_of_all_invalid_values == 0
 
 #invalid-values-csv.prepend-1.hidden
   .step
@@ -69,8 +69,8 @@
     %span Step 3
     Upload your CSV file
     = form_tag update_invalid_values_with_csv_datacolumn_path(@datacolumn), :multipart => true do
-      = file_field_tag :csvfile, :accept => 'text/csv'
-      = submit_tag "upload"
+      = file_field_tag :csvfile, :accept => 'text/csv', :disabled => @count_of_all_invalid_values == 0
+      = submit_tag "upload", :disabled => @count_of_all_invalid_values == 0
 
 :javascript
   $(function(){
