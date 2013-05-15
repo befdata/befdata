@@ -38,7 +38,7 @@
       %ul
         %li
           = render :partial => "users/email_list_modal",
-            :locals => {:list => User.email_list(@dataset.owners), :css => "dataset_owners", :caption => 'Dataset owners'}
+            :locals => {:list => User.email_list(@contacts), :css => "dataset_owners", :caption => 'Dataset owners'}
  
     - unless @projects.blank?
       %h3
@@ -88,19 +88,20 @@
       .span-4.dataset_columns{:class => cycle('border', 'last', :name => 'display_in_columns')}
         .columnheader= column.columnheader
         = column.definition
+        - unless column.unit.blank?
+          %br
+          %i
+            Unit:
+            = column.unit
         %br
         %i
           Data group:
-          - if current_user
-            = link_to column.datagroup.title, column.datagroup
-          - else
-            = column.datagroup.title
-        %br
+          = link_to_if current_user, column.datagroup.title, column.datagroup
         - unless column.tags.empty?
+          %br
           %i
             Keywords:
             = raw column.tags.map{|t| link_to t.name, keyword_path(t.id)}.join(", ")
-        %br
         - if column.values_stored?
           %table.import_values
             %tr
@@ -109,6 +110,7 @@
               %tr
                 %td.span-4.last{:class => cycle('even', 'odd')} #{sc.accepted_value}
         - else
+          %br
           = image_tag 'alert.png'
           = "No values yet imported for this data column"
 
