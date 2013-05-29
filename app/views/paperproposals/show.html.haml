@@ -107,7 +107,7 @@
 %p
   %span.comma-separated-list
     - @paperproposal.all_authors_ordered.each do |u|
-      %span= link_to u.to_label, user_path(u.path_name)
+      %span= link_to u, u
 
 - unless @freeformats.blank?
   %h3 Files (#{@freeformats.length})

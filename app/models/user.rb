@@ -71,8 +71,7 @@ class User < ActiveRecord::Base
     self.roles_for(Project).map(&:authorizable)
   end
 
-  # This method provides a nice look of Person on some pages
-  def path_name
+  def to_param
     "#{id}-#{firstname}_#{lastname}".gsub(/[\s]/, '')
   end
 

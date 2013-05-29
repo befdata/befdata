@@ -117,4 +117,4 @@
         - u = column.users
         - unless u.blank?
           %i Members involved with this Data Column:
-          = u.map{|person| link_to person, user_path(person.path_name)}.to_sentence.html_safe
+          = u.map{|person| link_to person, person}.to_sentence.html_safe
