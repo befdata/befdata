@@ -383,7 +383,7 @@ private
                          when 'accept' then 'data_rejected'
                          else self.board_state
                        end
-    NotificationMailer.data_request_rejected(self)
+    NotificationMailer.delay.data_request_rejected(self)
     set_lock_status
     self.save
   end
@@ -424,7 +424,7 @@ private
         self.for_data_request_votes.where('user_id IN (?)', auto_voters).each do |v|
           unless v.vote == 'accept'
             v.update_attribute(:vote, 'accept')
-            NotificationMailer.auto_accept_for_free_datasets(v.user, self) unless v.user == self.author
+            NotificationMailer.delay.auto_accept_for_free_datasets(v.user, self) unless v.user == self.author
           end
         end
       when 'submit'

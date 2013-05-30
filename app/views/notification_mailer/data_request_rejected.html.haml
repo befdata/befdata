@@ -2,6 +2,6 @@
   - rejectors_class = @paperproposal.board_state == 're_prep' ? 'project board' : 'data owners'
   = "Your data request for the following paperproposal was rejected by the #{rejectors_class}:"
 %p
-  = link_to @paperproposal.title, paperproposal_path(@paperproposal)
+  = link_to @paperproposal.title, url_for(:host => @host, :controller => 'paperproposals', :action => 'show', :id => @paperproposal.id)
 %p
   Please make changes, communicate with the proponents and resubmit.
