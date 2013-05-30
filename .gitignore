@@ -39,4 +39,4 @@ ext/database-and-file-backup.sh
 
 tags
 config/application.yml
-config/mailers.yml
+
