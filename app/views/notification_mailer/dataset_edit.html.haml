@@ -1,6 +1,6 @@
 %p
   The dataset
-  = link_to @dataset_edit.dataset.title, @dataset_edit.dataset
+  = link_to @dataset_edit.dataset.title, url_for(:host => @host, :controller => 'datasets', :action => 'show', :id => @dataset_edit.dataset.id)
   you
   - case @user_function
     - when :proposer

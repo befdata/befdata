@@ -51,6 +51,9 @@ Befchina::Application.configure do
 
   # Disable delivery errors, bad email addresses will be ignored
   # config.action_mailer.raise_delivery_errors = false
+  config.action_mailer.delivery_method = :smtp
+  ActionMailer::Base.smtp_settings = YAML.load_file(
+      Rails.root.join('config', 'mailers.yml')).try(:to_options)
 
   # Enable threaded mode
   # config.threadsafe!

@@ -43,8 +43,8 @@ class DatasetEdit < ActiveRecord::Base
     downloaders = downloaders - proposers # proposers are more important
 
     #send notification
-    proposers.each{|u| NotificationMailer.dataset_edit(u, self, :proposer)}
-    downloaders.each{|u| NotificationMailer.dataset_edit(u, self, :downloader)}
+    proposers.each{|u| NotificationMailer.delay.dataset_edit(u, self, :proposer)}
+    downloaders.each{|u| NotificationMailer.delay.dataset_edit(u, self, :downloader)}
 
     'p/d' + proposers.collect{|u|u.id}.to_s + downloaders.collect{|u|u.id}.to_s
   end
