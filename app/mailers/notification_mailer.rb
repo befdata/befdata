@@ -47,6 +47,8 @@ private
   end
 
   def send_mail(user, subject)
+    return unless user.receive_emails
+
     recipient = Rails.env == 'development' ? self.smtp_settings[:default_from] : user.email # dev mode sends maisl to notification address
 
     mail(:to => recipient, :subject => subject) do |format|

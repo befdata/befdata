@@ -16,6 +16,9 @@
   = u.text_field :lastname
   = u.label :email,:class=>"required"
   = u.text_field :email
+  .receive-emails
+    = u.label :receive_emails, 'Email notifications'
+    = u.check_box :receive_emails
   = u.label :salutation
   = u.text_field :salutation
   = u.label :institution_name
@@ -40,5 +43,4 @@
     = u.label :avatar,"Change Avatar"
     = image_tag @user.avatar.url(:small)
     = u.file_field :avatar
-
   = u.submit "Save"
