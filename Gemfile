@@ -37,6 +37,7 @@ group :test, :development do
   # gem 'debugger'
   gem 'better_errors'  
   gem 'binding_of_caller'
+  gem 'coveralls', require: false       #Coverage reporting badge
 end 
 
 group :assets do
