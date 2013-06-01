@@ -55,7 +55,8 @@ class Paperproposal < ActiveRecord::Base
     'accepted' => 1,
     'in review' => 2,
     'manuscript avaible' => 3,
-    'in prep' => 4
+    'in prep' => 4,
+    'deletion' => 5
   }
   KIND = {"user"=>"Proponent",
           "main"=>"Main aspect data provider",
