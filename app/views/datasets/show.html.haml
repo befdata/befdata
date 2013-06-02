@@ -53,13 +53,13 @@
     %p= @dataset.usagerights
   - unless @dataset.abstract.blank?
     %h4 Dataset Abstract
-    %p= @dataset.abstract
+    %p= simple_format @dataset.abstract
   - unless @dataset.design.blank?
     %h4 Dataset Design
-    %p= @dataset.design
+    %p= simple_format @dataset.design
   - unless @dataset.spatialextent.blank?
     %h4 Spatial Extent
-    %p= @dataset.spatialextent
+    %p= simple_format @dataset.spatialextent
   - unless @dataset.published.blank?
     %h4 Published
     %p= @dataset.published
@@ -71,10 +71,10 @@
     %p= @dataset.taxonomicextent
   - unless @dataset.circumstances.blank?
     %h4 Measurement Circumstances
-    %p= @dataset.circumstances
+    %p= simple_format @dataset.circumstances
   - unless @dataset.dataanalysis.blank?
     %h4 Data Analysis
-    %p= @dataset.dataanalysis
+    %p= simple_format @dataset.dataanalysis
 
   - unless @freeformats.blank?
     %h4 Freeformat files (#{@freeformats.length})

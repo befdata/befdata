@@ -1,10 +1,7 @@
 source 'http://rubygems.org'
 
 gem 'rails'
-gem 'rake'
 gem 'pg'
-gem 'bundler'
-
 gem 'haml'
 gem 'authlogic'
 gem 'acl9'

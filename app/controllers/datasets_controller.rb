@@ -167,9 +167,7 @@ class DatasetsController < ApplicationController
 
     respond_to do |format|
       format.html
-      format.eml do
-        render_to_string(params[:separate_category_columns], :template=>"datasets/show.eml")
-      end
+      format.eml
     end
   end
 

@@ -13,10 +13,7 @@ class Project < ActiveRecord::Base
   def to_label
     "#{name}"
   end
-
-  def to_s # :nodoc:
-    to_label
-  end
+  alias to_s to_label
 
   def self.all_projects_for_select
     Project.all(:order => :shortname).collect{|p| [p.to_label, p.id]}

@@ -2,12 +2,8 @@ class ProjectsController < ApplicationController
   before_filter :load_project, :only => [:show, :edit, :update, :destroy]
   skip_before_filter :deny_access_to_all
   access_control do
-    actions :index, :show do
-      allow all
-    end
-    actions :new, :create, :edit, :update, :destroy do
-      allow :admin
-    end
+    allow all, :to => [:index, :show]
+    allow :admin, :to => [:new, :create, :edit, :update, :destroy]
   end
 
   def index

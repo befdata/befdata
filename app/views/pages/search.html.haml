@@ -1,5 +1,7 @@
 - if @datasets
-  %h2= "#{@datasets.count} results found for \"#{params[:q]}\""
+  %h2
+    = pluralize(@datasets.count, 'result')
+    found for "#{params[:q]}"
   %ul.datasets
     - @datasets.each do |d|
       %li.dataset

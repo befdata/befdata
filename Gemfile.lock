@@ -199,7 +199,6 @@ DEPENDENCIES
   authlogic
   better_errors
   binding_of_caller
-  bundler
   coffee-rails (~> 3.2.1)
   coveralls
   daemons
@@ -217,7 +216,6 @@ DEPENDENCIES
   pg
   pg_search
   rails
-  rake
   rb-inotify
   ruby_parser
   sass-rails (~> 3.2.3)

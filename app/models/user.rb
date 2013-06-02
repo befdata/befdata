@@ -61,10 +61,7 @@ class User < ActiveRecord::Base
       "#{firstname} #{lastname}"
     end
   end
-
-  def to_s # :nodoc:
-    to_label
-  end
+  alias to_s to_label
 
   def projects
   # die conditions greifen nicht in dieser Abfrage ...
@@ -97,7 +94,6 @@ class User < ActiveRecord::Base
       self.has_no_role! :admin
     end
   end
-
 
   def project_board
     self.has_role? :project_board

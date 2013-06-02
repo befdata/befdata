@@ -260,7 +260,7 @@ class Dataset < ActiveRecord::Base
       column[0] = dc.columnheader
       category_column[0] = "#{dc.columnheader}_Categories"
 
-      dc.sheetcells.each do |sc|
+      dc.sheetcells.find_each do |sc|
         if !separate_category_columns || dc.import_data_type == 'category' || !(sc.datatype && sc.datatype.is_category? && sc.category)
           column[sc.row_number - 1] = sc.export_value
         else
