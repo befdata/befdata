@@ -1,42 +1,37 @@
 .bundle
 db/*.sqlite3
-log/*.log
-tmp/
+
 doc_from_rdoc/*
 doc/app/*
 
 *~
-index/*
+*.DS_Store
 *.svn*
 *tuneup*
 
 public/assets/*
-public/files/*
-public/downloads/*
 public/images/user_avatars/*
 
-log/*
+log/*.log
+tmp/
 xls/*
-config/database.yml
+config/application.yml
 config/configuration.yml
+config/database.yml
+config/mailers.yml
 config/newrelic.yml
+
 .idea/*
-tmp/*
 index/*
 files/*
 
 .project
 .rvmrc
 test/fixtures_dump
-.bundle/config
 
-*.DS_Store
-
-.bundle
 .config
 
 ext/database-and-file-backup.sh
 
 tags
-config/application.yml
-config/mailers.yml
+coverage/
