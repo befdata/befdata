@@ -45,11 +45,13 @@ class PaperproposalsController < ApplicationController
   end
 
   def index
-    @paperproposals = Paperproposal.all
-  end
-
-  def index_csv
-    send_data generate_csv_index, :type => "text/csv", :filename=>"paperproposals-list-for-#{current_user.login}.csv", :disposition => 'attachment'
+    respond_to do |format|
+      format.html { @paperproposals = Paperproposal.all }
+      format.csv {
+        send_data generate_csv_index, :type => "text/csv", :disposition => 'attachment',
+                  :filename=>"paperproposals-list-for-#{current_user.login}.csv"
+      }
+    end
   end
 
   def show

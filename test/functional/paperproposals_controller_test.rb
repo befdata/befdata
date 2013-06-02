@@ -10,7 +10,7 @@ class PaperproposalsControllerTest < ActionController::TestCase
 
   test "should get index as csv" do
     login_nadrowski
-    get :index_csv
+    get :index, format: :csv
     assert_success_no_error
   end
 
