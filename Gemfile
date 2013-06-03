@@ -49,6 +49,6 @@ group :tools do
   gem 'guard'
   gem 'guard-test'
   gem 'hpricot' 
-  gem 'ruby_parser'
+  gem 'ruby_parser', '>= 3.1.2'
 end
 
