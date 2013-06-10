@@ -103,7 +103,7 @@
         - @datacolumns.each do |column|
           - unless column.split_me?(params[:separate_category_columns])
             %attribute{:id => column.columnheader}
-              %attributeName= "#{column.datagroup.title} (#{column.columnheader}) Unit: #{column.unit}"
+              %attributeName= "#{column.datagroup.title} (#{column.columnheader}), #{column.unit ||= 'dimensionless'}"
               %attributeLabel= column.columnheader
               %attributeDefinition= "#{column.datagroup.description} (#{column.columnheader}: #{column.definition})"
               %measurementScale
