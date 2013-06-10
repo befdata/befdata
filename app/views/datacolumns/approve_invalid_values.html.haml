@@ -27,10 +27,6 @@
   (#{@datacolumn.datagroup.categories.count} categories)
 
 #invalid-values-form
-  - if  @count_of_all_invalid_values > 100
-    %b
-      %i
-        Displaying the first #{@invalid_values.count} of #{@count_of_all_invalid_values} invalid values
   = form_tag update_invalid_values_datacolumn_path(@datacolumn) do
     %table#invalid-values-table
       %thead
@@ -45,16 +41,17 @@
             %td
               = value.import_value
               = hidden_field_tag 'invalid_values[][import_value]', value.import_value
-            %td
-              = text_field_tag "invalid_values[][short]", value.import_value
-            %td
-              = text_field_tag "invalid_values[][long]"
-            %td
-              = text_field_tag "invalid_values[][description]"
-    - if  @count_of_all_invalid_values > 100
+            %td= text_field_tag "invalid_values[][short]", value.import_value
+            %td= text_field_tag "invalid_values[][long]"
+            %td= text_field_tag "invalid_values[][description]"
+
+    - if  @count_of_all_invalid_values > @invalid_values.per_page
+      %div
+        Displaying  #{@invalid_values.length} of #{@count_of_all_invalid_values} invalid values
+        .right= will_paginate @invalid_values
       = submit_tag 'Approve this page'
     - else
-      = submit_tag "Approve", :disabled => @count_of_all_invalid_values == 0
+      = submit_tag "Approve", :disabled => @count_of_all_invalid_values.zero?
 
 #invalid-values-csv.prepend-1.hidden
   .step
@@ -69,8 +66,8 @@
     %span Step 3
     Upload your CSV file
     = form_tag update_invalid_values_with_csv_datacolumn_path(@datacolumn), :multipart => true do
-      = file_field_tag :csvfile, :accept => 'text/csv', :disabled => @count_of_all_invalid_values == 0
-      = submit_tag "upload", :disabled => @count_of_all_invalid_values == 0
+      = file_field_tag :csvfile, :accept => 'text/csv', :disabled => @count_of_all_invalid_values.zero?
+      = submit_tag "upload", :disabled => @count_of_all_invalid_values.zero?
 
 :javascript
   $(function(){
