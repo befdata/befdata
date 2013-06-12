@@ -4,12 +4,12 @@ class UploadADatasetTest < ActionDispatch::IntegrationTest
   fixtures :all
 
   test "upload a workbook should load metadata correctly" do
-    @user = User.find_by_login('nadrowski')
-    post user_session_path, {:user_session=>{:login=>@user.login, :password=>"test"}}
+    user = User.find_by_login('nadrowski')
+    post user_session_path, {:user_session => {:login => user.login, :password => "test"}}
 
     uploadedfile = test_file_for_upload("UnitTestSpreadsheetForUpload_new.xls")
 
-    post datasets_path, {:datafile=>{:file=>uploadedfile}},{"HTTP_REFERER"=>new_dataset_path}
+    post datasets_path, {:datafile => {:file => uploadedfile}}
     #now it's on views/create pages
     assert_nil flash[:error]
     assert_template :create

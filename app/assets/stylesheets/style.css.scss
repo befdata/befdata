@@ -404,6 +404,11 @@ button img, a.button img {
 
 button.inline { float: right; }
 
+input[disabled], input[disabled]:hover, input[disabled]:focus {
+  color: gray;
+  outline-color: gray;
+}
+
 input[type='search'] {
     -webkit-appearance: none;
     border: none;
@@ -491,7 +496,7 @@ form .required:after {
 #login {
     float: right;
     font-size: 0.9em;
-    margin-top: -12px;
+    margin-top: 0;
 }
 
 #login label {

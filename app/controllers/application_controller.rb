@@ -34,12 +34,8 @@ class ::ApplicationController < ActionController::Base
   end
 
   def get_all_paperproposal_years
-    years = []
-    Paperproposal.all.each do |pp|
-      years << pp.created_at.year
-    end
-    y = years.uniq.sort.reverse
-    return y
+    years = Paperproposal.pluck(:created_at).map(&:year)
+    years.uniq.sort.reverse
   end
 
 protected

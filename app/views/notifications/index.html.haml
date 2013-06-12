@@ -1,0 +1,19 @@
+%h2 Notifications
+
+- @notifications.each do |n|
+  - read_string = n.read ? 'read' : 'unread'
+  = div_for n, class: read_string do
+    .heading
+      %span.subject= n.subject
+      %span.delete= link_to 'del', n, method: :delete, data: { confirm: 'Are you sure?' }
+      %span.time= n.created_at
+      %span.read-status= link_to read_string, mark_as_read_notification_url(n, :read => !n.read)
+
+    .message.hidden= raw n.message
+
+:javascript
+  $(function(){
+    $('.subject').click(function() {
+      $(this).parent('.heading').next('.message').toggle();
+    });
+  });

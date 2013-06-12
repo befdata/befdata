@@ -7,7 +7,7 @@
   - unless no_heading
     %h3 Paper proposal submissions
 
-  - if current_user.has_role?(:admin) || current_user.has_role?(:data_admin)
+  - if current_user && (current_user.has_role?(:admin) || current_user.has_role?(:data_admin))
     - pp_select = paperproposals.select{|p| p.state == 'deletion'}.sort
     - unless pp_select.blank?
       %h4 Flagged for deletion

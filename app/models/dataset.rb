@@ -42,6 +42,8 @@ class Dataset < ActiveRecord::Base
   has_many :freeformats, :as => :freeformattable, :dependent => :destroy
 
   has_many :dataset_downloads
+  has_many :dataset_edits, :order => 'updated_at DESC', :dependent => :destroy
+  has_one :unsubmitted_edit, :class_name => 'DatasetEdit', :conditions => ['submitted=?',false]
 
   has_and_belongs_to_many :projects
   has_many :dataset_paperproposals
@@ -258,7 +260,7 @@ class Dataset < ActiveRecord::Base
       column[0] = dc.columnheader
       category_column[0] = "#{dc.columnheader}_Categories"
 
-      dc.sheetcells.each do |sc|
+      dc.sheetcells.find_each do |sc|
         if !separate_category_columns || dc.import_data_type == 'category' || !(sc.datatype && sc.datatype.is_category? && sc.category)
           column[sc.row_number - 1] = sc.export_value
         else
@@ -329,13 +331,29 @@ class Dataset < ActiveRecord::Base
     end
     return(rel)
   end
- # acl9 role related staff: different kinds of user
 
+  # acl9 role related staff: different kinds of user
   def owners
     get_user_with_role(:owner)
   end
+
   def owners= (people)
     set_user_with_role(:owner, people)
+  end
+
+  # keep log of edits
+  def create_or_use_unsubmitted_edit
+    if !self.unsubmitted_edit.nil?
+      self.unsubmitted_edit
+    else
+      self.dataset_edits.new
+    end
+  end
+
+  def log_edit(string)
+    unless self.unsubmitted_edit.nil? && (Time.now - 10.minutes) < self.created_at
+      self.create_or_use_unsubmitted_edit.add_line!(string)
+    end
   end
 
 end

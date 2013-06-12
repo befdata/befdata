@@ -2,6 +2,7 @@ class FreeformatsController < ApplicationController
 
   before_filter :load_freeformat_and_freeformattable, :except => :create
   before_filter :load_freeformattable, :only => :create
+  after_filter  :dataset_edit_message, :except => [:download]
 
   skip_before_filter :deny_access_to_all
 
@@ -78,5 +79,10 @@ private
     @paperproposal && @paperproposal.author == current_user
   end
 
+  def dataset_edit_message
+    if @freeformattable.is_a? Dataset
+      @freeformattable.log_edit('Files changed')
+    end
+  end
 
 end

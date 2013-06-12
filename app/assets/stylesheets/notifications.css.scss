@@ -1,0 +1,55 @@
+// Place all the styles related to the Notifications controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+
+// TODO Corporate identity farben, variable
+
+
+.notification {
+  border-top: 1px solid #cdcdcd;
+  padding: 12px;
+
+  .subject {
+    font-weight: bold;
+    font-size: 1.1em;
+  }
+  .subject:hover {
+    color: #18921e;
+  }
+  .read-status, .time, .delete {
+    float: right;
+  }
+  .time {
+    padding: 0 10px;
+    border-left: 1px solid #cdcdcd;
+    border-right: 1px solid #cdcdcd;
+  }
+  .delete {
+    margin-left: 10px;
+  }
+  .read-status {
+    margin-right: 10px;
+  }
+  .message {
+    margin-top: 10px;
+  }
+}
+
+.notification.read {
+  .time, .subject, .read-status a{
+    color: #cdcdcd;
+  }
+  .subject:hover {
+    color: #18921e;
+  }
+  .read-status a:hover {
+    color: #cdcdcd;
+  }
+}
+
+.notification.unread {
+  .time, .subject a {
+    color: black;
+  }
+}

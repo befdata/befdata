@@ -8,7 +8,7 @@ class UsersControllerTest < ActionController::TestCase
   end
 
   test "should get show user" do
-    get :show, {:id => User.first.path_name}
+    get :show, {:id => User.first}
     assert_success_no_error
   end
 

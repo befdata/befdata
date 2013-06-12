@@ -10,6 +10,9 @@ Befchina::Application.routes.draw do
   resource :profile, :only => [:show, :edit, :update] do
     member do
       get :votes, :votes_history, :update_credentials
+      resources :notifications, :only => [:index, :destroy] do
+        get :mark_as_read, :on => :member
+      end
     end
   end
 
@@ -22,18 +25,23 @@ Befchina::Application.routes.draw do
     resources :datafiles, :only => [:destroy] do
       get :download, :on => :member
     end
+    resources :dataset_edits, :only => [:index] do
+      post :submit, :on => :member
+    end
     member do
       post :update_workbook, :approve_predefined, :batch_update_columns
-      get :download, :edit_files, :importing, :regenerate_download, :approve, :approval_quick, :keywords, :download_page, :download_status
+      get :download, :edit_files, :importing, :regenerate_download, :approve, :approval_quick,
+          :keywords, :download_page, :download_status, :freeformats_csv
     end
   end
 
   match 'download_excel_template' => 'datasets#download_excel_template'
 
-  match 'files/freeformats/:id/download' => 'freeformats#download'
-  match 'files/freeformats/:id/destroy' => 'freeformats#destroy'
-  match 'files/freeformats/create' => 'freeformats#create'
-  match 'files/freeformats/:id/update' => 'freeformats#update'
+  scope :path => "/files" do
+    resources :freeformats, :only => [:create, :update, :destroy] do
+      get :download, :on => :member
+    end
+  end
 
   resources :keywords, :controller => 'tags'
 
@@ -43,8 +51,8 @@ Befchina::Application.routes.draw do
     member do
       get :approval_overview, :next_approval_step,
           :approve_datagroup, :approve_datatype, :approve_metadata, :approve_invalid_values
-      post :update_datagroup, :create_and_update_datagroup, :update_datatype,
-          :update_metadata, :update_invalid_values, :update_invalid_values_with_csv
+      post :update_datagroup, :create_and_update_datagroup, :update_datatype, :update_metadata, :update_invalid_values,
+           :update_invalid_values_with_csv, :autofill_and_update_invalid_values
     end
   end
 
@@ -55,7 +63,6 @@ Befchina::Application.routes.draw do
       post :update_datasets
     end
   end
-  match 'index_csv' => 'paperproposals#index_csv'
   match 'paperproposals/update_vote/:id' => 'paperproposals#update_vote', :as => :update_vote
   match 'paperproposals/update_state/:id' => 'paperproposals#update_state', :as => :paperproposal_update_state
 

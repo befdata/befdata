@@ -45,6 +45,12 @@ class DatasetsControllerTest < ActionController::TestCase
     assert_match(/Access denied. Try to log in first./, flash[:error])
   end
 
+  test "download datasets freeformats csv" do
+    login_nadrowski
+    get :freeformats_csv, :id => 7
+    assert_success_no_error
+  end
+
   test "unlogged-in visitors can only download free_for_public datasets" do
     ds = Dataset.find_by_title "Test species name import second version"
     assert !ds.free_for_public?
@@ -220,5 +226,21 @@ class DatasetsControllerTest < ActionController::TestCase
     assert_success_no_error
   end
 
+  test "upload a workbook with duplicated column headers should fail" do
+    login_nadrowski
+    uploaded_file = test_file_for_upload("problem_workbook-1.xls")
+
+    # create a new dataset using this problematic workbook
+    @request.env['HTTP_REFERER'] = new_dataset_path
+    post :create, :datafile => {:file => uploaded_file}
+    assert_redirected_to new_dataset_path
+    assert_equal 'File column headers in the raw data sheet must be unique', flash[:error]
+
+    # update workbook of a dataset with this problematic workbook
+    @request.env['HTTP_REFERER'] = edit_files_dataset_path(5)
+    post :update_workbook, :id => 5, :datafile => {:file => uploaded_file}
+    assert_redirected_to edit_files_dataset_path(5)
+    assert_equal 'File column headers in the raw data sheet must be unique', flash[:error]
+  end
 
 end

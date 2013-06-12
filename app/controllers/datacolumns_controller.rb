@@ -1,12 +1,15 @@
 class DatacolumnsController < ApplicationController
 
   before_filter :load_datacolumn_and_dataset
+  after_filter  :dataset_edit_message,
+                :only => [:create_and_update_datagroup, :update_datagroup, :update_datatype, :update_metadata,
+                :update_invalid_values, :update_invalid_values_with_csv, :autofill_and_update_invalid_values]
 
   skip_before_filter :deny_access_to_all
   access_control do
     actions :approval_overview, :next_approval_step, :approve_datagroup, :approve_datatype, :approve_metadata,
             :approve_invalid_values, :update_datagroup, :create_and_update_datagroup, :update_datatype,
-            :update_metadata, :update_invalid_values, :update_invalid_values_with_csv, :update do
+            :update_metadata, :update_invalid_values, :update_invalid_values_with_csv, :autofill_and_update_invalid_values, :update do
       allow :admin
       allow :owner, :of => :dataset
       allow :proposer, :of => :dataset
@@ -57,7 +60,7 @@ class DatacolumnsController < ApplicationController
   def approve_invalid_values
     respond_to do |format|
       format.html {
-        @invalid_values = @datacolumn.invalid_values.limit(100)
+        @invalid_values = @datacolumn.invalid_values.paginate(page: params[:page], per_page: 50)
         @count_of_all_invalid_values = @datacolumn.invalid_values.count
       }
       format.csv {
@@ -157,11 +160,13 @@ class DatacolumnsController < ApplicationController
   # creates categories for all invalid values completed in the form and assigns the category to the sheetcell
   def update_invalid_values
     invalid_values = params[:invalid_values]
-    invalid_values.each do |h|
-      next if h['short'].blank?
-      @datacolumn.update_invalid_value(h['import_value'], h['short'], h['long'], h['description'], current_user, @dataset)
+    unless invalid_values.blank?
+      invalid_values.each do |h|
+        next if h['short'].blank?
+        @datacolumn.update_invalid_value(h['import_value'], h['short'], h['long'], h['description'], current_user, @dataset)
+      end
+      @datacolumn.touch
     end
-    @datacolumn.touch
     flash[:notice] = "The invalid values have been successfully approved"
     next_approval_step
   end
@@ -185,6 +190,13 @@ class DatacolumnsController < ApplicationController
     end
   end
 
+  def autofill_and_update_invalid_values
+    @datacolumn.batch_approve_invalid_values(current_user)
+    @datacolumn.touch
+    flash[:notice] = "The invalid values have been successfully approved"
+    next_approval_step
+  end
+
   private
 
   def choose_layout
@@ -200,6 +212,10 @@ class DatacolumnsController < ApplicationController
   def load_datacolumn_and_dataset
     @datacolumn = Datacolumn.find(params[:id])
     @dataset = @datacolumn.dataset
+  end
+
+  def dataset_edit_message
+    @dataset.log_edit('Datacolumns approved')
   end
 
 end

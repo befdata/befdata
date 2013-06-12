@@ -15,9 +15,12 @@
     - unless @tags.blank?
       %h3= link_to "Keywords", keywords_dataset_path(@dataset)
       = raw  @tags.sort_by(&:name).map{|t| link_to t.name, keyword_path(t.id)}.join(", ")
+
     %h3
       Last update
     %p= @dataset.last_update.localtime.strftime "%Y-%m-%d %H:%M"
+
+    = render :partial => 'dataset_edits/last_edits_in_sidebar' if current_user
 
     - if !@dataset.comment.blank? && may_see_comment?(@dataset)
       %h3
@@ -35,7 +38,7 @@
       %ul
         %li
           = render :partial => "users/email_list_modal",
-            :locals => {:list => User.email_list(@dataset.owners), :css => "dataset_owners", :caption => 'Dataset owners'}
+            :locals => {:list => User.email_list(@contacts), :css => "dataset_owners", :caption => 'Dataset owners'}
  
     - unless @projects.blank?
       %h3
@@ -50,13 +53,13 @@
     %p= @dataset.usagerights
   - unless @dataset.abstract.blank?
     %h4 Dataset Abstract
-    %p= @dataset.abstract
+    %p= simple_format @dataset.abstract
   - unless @dataset.design.blank?
     %h4 Dataset Design
-    %p= @dataset.design
+    %p= simple_format @dataset.design
   - unless @dataset.spatialextent.blank?
     %h4 Spatial Extent
-    %p= @dataset.spatialextent
+    %p= simple_format @dataset.spatialextent
   - unless @dataset.published.blank?
     %h4 Published
     %p= @dataset.published
@@ -68,10 +71,10 @@
     %p= @dataset.taxonomicextent
   - unless @dataset.circumstances.blank?
     %h4 Measurement Circumstances
-    %p= @dataset.circumstances
+    %p= simple_format @dataset.circumstances
   - unless @dataset.dataanalysis.blank?
     %h4 Data Analysis
-    %p= @dataset.dataanalysis
+    %p= simple_format @dataset.dataanalysis
 
   - unless @freeformats.blank?
     %h4 Freeformat files (#{@freeformats.length})
@@ -85,19 +88,20 @@
       .span-4.dataset_columns{:class => cycle('border', 'last', :name => 'display_in_columns')}
         .columnheader= column.columnheader
         = column.definition
+        - unless column.unit.blank?
+          %br
+          %i
+            Unit:
+            = column.unit
         %br
         %i
           Data group:
-          - if current_user
-            = link_to column.datagroup.title, column.datagroup
-          - else
-            = column.datagroup.title
-        %br
+          = link_to_if current_user, column.datagroup.title, column.datagroup
         - unless column.tags.empty?
+          %br
           %i
             Keywords:
             = raw column.tags.map{|t| link_to t.name, keyword_path(t.id)}.join(", ")
-        %br
         - if column.values_stored?
           %table.import_values
             %tr
@@ -106,10 +110,11 @@
               %tr
                 %td.span-4.last{:class => cycle('even', 'odd')} #{sc.accepted_value}
         - else
+          %br
           = image_tag 'alert.png'
           = "No values yet imported for this data column"
 
         - u = column.users
         - unless u.blank?
           %i Members involved with this Data Column:
-          = u.map{|person| link_to person, user_path(person.path_name)}.to_sentence.html_safe
+          = u.map{|person| link_to person, person}.to_sentence.html_safe

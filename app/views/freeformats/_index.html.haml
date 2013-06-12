@@ -1,3 +1,6 @@
+- only_essential_no_links ||= false
+
 %ul
   - @freeformats.each do |ff|
-    %li= render :partial => 'freeformats/show', :locals => {:freeformat => ff}
+    - unless only_essential_no_links && !ff.is_essential
+      %li= render :partial => 'freeformats/show', :locals => {:freeformat => ff, :only_essential_no_links => only_essential_no_links}

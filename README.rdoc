@@ -22,7 +22,8 @@ Main features of the BEFdata platform are:
 BEFdata was developed withi the Chinese-European DFG Research Unit “BEF China” (FOR 891), a new forest Biodiversity and Ecosystem Functioning (BEF) experiment in subtropical forests in China.
 
 {<img src="https://secure.travis-ci.org/befdata/befdata.png" />}[http://travis-ci.org/#!/befdata/befdata]
-{<img src="https://codeclimate.com/badge.png" />}[https://codeclimate.com/github/befdata/befdata]
+{<img src="https://coveralls.io/repos/befdata/befdata/badge.png" alt="Coverage Status" />}[https://coveralls.io/r/befdata/befdata]
+{<img src="https://codeclimate.com/github/befdata/befdata.png" />}[https://codeclimate.com/github/befdata/befdata]
 
 == Getting Started
 

@@ -1,13 +1,14 @@
 class DatasetsController < ApplicationController
-
   before_filter :load_dataset, :only => [:download, :download_page, :show, :edit, :edit_files, :update, :approve, :approve_predefined,
                                          :update_workbook, :destroy, :regenerate_download,
-                                         :approval_quick, :batch_update_columns, :keywords, :download_status]
+                                         :approval_quick, :batch_update_columns, :keywords, :download_status, :freeformats_csv]
 
   before_filter :redirect_if_unimported, :only => [:download, :edit, :approve, :approve_predefined, :destroy,
                                                    :approval_quick, :batch_update_columns, :keywords]
 
   before_filter :redirect_if_without_workbook, :only => [:download_page, :download, :regenerate_download]
+
+  after_filter :edit_message_datacolumns, :only => [:batch_update_columns, :approve_predefined]
 
   skip_before_filter :deny_access_to_all
 
@@ -26,7 +27,7 @@ class DatasetsController < ApplicationController
       allow :owner, :of => :dataset
     end
 
-    actions :download, :download_page, :regenerate_download do
+    actions :download, :download_page, :regenerate_download, :freeformats_csv do
       allow :admin, :data_admin
       allow :owner, :proposer, :of => :dataset
       allow logged_in, :if => :dataset_is_free_for_members
@@ -89,6 +90,7 @@ class DatasetsController < ApplicationController
 
     if @dataset.update_attributes(params[:dataset]) then
       redirect_to dataset_path, notice: "Sucessfully Saved"
+      @dataset.log_edit('Metadata updated')
     else
       last_request = request.env["HTTP_REFERER"]
       render :action => (last_request == edit_dataset_url(@dataset) ? :edit : :create)
@@ -134,7 +136,6 @@ class DatasetsController < ApplicationController
         datacolumn.approve_datatype datatype, current_user
       end
     end
-
     flash[:notice] = "Successfully approved #{changes} properties."
     redirect_to approve_dataset_url(@dataset)
   end
@@ -164,9 +165,7 @@ class DatasetsController < ApplicationController
 
     respond_to do |format|
       format.html
-      format.eml do
-        render_to_string(params[:separate_category_columns], :template=>"datasets/show.eml")
-      end
+      format.eml
     end
   end
 
@@ -187,6 +186,7 @@ class DatasetsController < ApplicationController
     @dataset.enqueue_to_generate_download(:high)
     redirect_back_or_default dataset_path(@dataset)
   end
+
   def download_status
     render :text => "Status: <span id = #{@dataset.download_status} >" + @dataset.download_status + "</span>"
   end
@@ -195,6 +195,12 @@ class DatasetsController < ApplicationController
     send_file Rails.root.join('files', 'template','befdata_workbook_empty.xls'),
         :filename=>'emtpy_excel_template.xls',
         :disposition => 'attachment'
+  end
+
+  def freeformats_csv
+    filename = "dataset-#{@dataset.id.to_s}-files" + (current_user ? "-for-#{current_user.login}" : '') + '.csv'
+    send_data generate_freeformats_csv(true), :type => 'text/csv',
+              :disposition => 'attachment', :filename => filename
   end
 
   def edit_files
@@ -217,6 +223,8 @@ class DatasetsController < ApplicationController
       @dataset.filename = new_datafile.file_file_name
       @dataset.import_status = 'new'
       @dataset.save
+
+      @dataset.log_edit('Dataworkbook updated')
       flash[:notice] = "Research data has been replaced."
       redirect_to(:action => 'show')
     else
@@ -246,6 +254,16 @@ class DatasetsController < ApplicationController
 
   private
 
+  def generate_freeformats_csv(user)
+    CSV.generate do |csv|
+      csv << ['Filename', 'URL', 'Description']
+      @dataset.freeformats.each do |ff|
+        csv << [
+            ff.file_file_name, download_freeformat_url(ff, user_credentials: current_user.try(:single_access_token)), ff.description ]
+      end
+    end
+  end
+
   def load_dataset
     @dataset = Dataset.find(params[:id])
   end
@@ -270,5 +288,9 @@ class DatasetsController < ApplicationController
       flash[:error] = "There is no workbok for #{@dataset.title}"
       redirect_to @dataset
     end
+  end
+
+  def edit_message_datacolumns
+    @dataset.log_edit('Datacolumns approved')
   end
 end

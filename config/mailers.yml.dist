@@ -1,0 +1,12 @@
+address:              smtp.gmail.com
+port:                 587
+user_name:            xxx
+password:             xxx
+authentication:       plain
+enable_starttls_auto: true
+
+# default from field for notification mails
+default_from:         xxx
+
+# this is needed to generate absolute urls, use the url of your befdata instance
+application_host:     localhost

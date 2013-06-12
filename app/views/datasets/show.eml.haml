@@ -3,7 +3,7 @@
   %dataset{:id => @dataset.id}
     %alternateIdentifier= dataset_url(@dataset)
     %title= @dataset.title
-    - @dataset.owners.each do |creator|
+    - @contacts.each do |creator|
       %creator{:id => creator.login}
         %individualName
           %givenName= creator.firstname
@@ -27,9 +27,9 @@
         - @dataset.tags.each do |tag|
           %keyword= tag.name
         %keywordThesaurus Portal Tags
-    - unless @dataset.datacolumns.empty?
+    - unless @datacolumns.empty?
       %keywordSet
-        - @dataset.datacolumns.each do |datacolumn|
+        - @datacolumns.each do |datacolumn|
           %keyword= datacolumn.columnheader
         %keywordThesaurus Dataset Data Columns
     - unless @dataset.usagerights.blank?
@@ -64,7 +64,7 @@
             %taxonomicClassification
               %commonName
                 = @dataset.taxonomicextent
-    - @dataset.owners.each do |contact|
+    - @contacts.each do |contact|
       %contact
         %references= contact.login
     %methods
@@ -100,10 +100,10 @@
             %url= download_dataset_url(@dataset, :csv, :separate_category_columns => true,
                                             :user_credentials => current_user.try(:single_access_token))
       %attributeList
-        - @dataset.datacolumns.each do |column|
+        - @datacolumns.each do |column|
           - unless column.split_me?(params[:separate_category_columns])
             %attribute{:id => column.columnheader}
-              %attributeName= "#{column.datagroup.title} (#{column.columnheader})"
+              %attributeName= "#{column.datagroup.title} (#{column.columnheader}), #{column.unit ||= 'dimensionless'}"
               %attributeLabel= column.columnheader
               %attributeDefinition= "#{column.datagroup.description} (#{column.columnheader}: #{column.definition})"
               %measurementScale
@@ -131,7 +131,7 @@
                   = content_tag_unless_blank :instrumentation, column.datagroup.instrumentation
           - else
             %attribute{:id => column.columnheader}
-              %attributeName= "#{column.datagroup.title} (#{column.columnheader})"
+              %attributeName= "#{column.datagroup.title} (#{column.columnheader}), #{column.unit ||= 'dimensionless'}"
               %attributeLabel= column.columnheader
               %attributeDefinition= "#{column.datagroup.description} (#{column.columnheader}: #{column.definition})"
               %measurementScale
@@ -175,7 +175,7 @@
                   = content_tag_unless_blank :instrumentation, column.datagroup.instrumentation
       %caseSensitive yes
       %numberOfRecords= @dataset.number_of_observations
-    - @dataset.freeformats.each do |freeformat|
+    - @freeformats.each do |freeformat|
       %otherEntity{:id => freeformat.id}
         %alternateIdentifier= freeformat.file.url
         %entityName= freeformat.file_file_name

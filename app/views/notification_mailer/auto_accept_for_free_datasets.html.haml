@@ -1,0 +1,10 @@
+%p
+  We would like to inform you that your datasets, which are free (for members)
+%ul
+  - (@user.datasets_owned & @paperproposal.datasets).each do |ds|
+    %li
+      = link_to ds.title, url_for(:host => @host, :controller => 'datasets', :action => 'show', :id => ds.id)
+%p
+  are used in the following paperproposal:
+%p
+  = link_to @paperproposal.title, url_for(:host => @host, :controller => 'paperproposals', :action => 'show', :id => @paperproposal.id)

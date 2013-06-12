@@ -1,6 +1,7 @@
 - paperproposals ||= @paperproposals
 - with_lock ||= false
 - authorship_user ||= false
+
 - slect_pps_with_project = paperproposals.select{ |p| p.authored_by_project != nil}
 - sort_pps_with_project = slect_pps_with_project.sort{ |a,b| a.authored_by_project.shortname <=> b.authored_by_project.shortname}
 - select_pps_without_project = paperproposals.select{ |p| p.authored_by_project == nil}
@@ -19,9 +20,6 @@
           - if with_lock
             .paperproposal-lock
               = pp.lock ? image_tag("lock-closed.png") :image_tag("lock-open.png")
-          - if current_user
-            = link_to pp.beautiful_title, paperproposal_path(pp)
-          - else
-            = pp.beautiful_title
+          = link_to pp.beautiful_title, paperproposal_path(pp)
           - if authorship_user
             = "(#{pp.calc_authorship(@user)})" unless pp.calc_authorship(@user).blank?

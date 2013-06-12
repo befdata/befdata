@@ -8,4 +8,4 @@
   %strong Main authors:
   %span.comma-separated-list
     - paperproposal.all_authors_ordered(:without_data).each do |u|
-      %span= link_to u.to_label, user_path(u.path_name)
+      %span= link_to u, u

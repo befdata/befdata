@@ -1,13 +1,11 @@
 - if current_user
   = content_for :actions do
-    %p
-      = link_to :new_paperproposal do
-        = image_tag("document.png")
-        Create new Paperproposal
-    %p
-      = link_to :index_csv do
-        = image_tag("save.png")
-        Download list as CSV
+    = link_to :new_paperproposal do
+      = image_tag("document.png")
+      Create new Paperproposal
+    = link_to paperproposals_path(:csv) do
+      = image_tag("save.png")
+      Download list as CSV
 
 %h2 Paper Proposals
 

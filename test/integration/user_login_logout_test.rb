@@ -1,7 +1,7 @@
 require 'test_helper'
 
 class UserLoginTest < ActionDispatch::IntegrationTest
-  fixtures :all
+  fixtures :users
 
   def setup
     @user = User.find_by_login('nadrowski')

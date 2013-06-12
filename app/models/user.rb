@@ -18,6 +18,8 @@ class User < ActiveRecord::Base
   has_many :for_paperproposal_votes, :class_name => "PaperproposalVote",
            :source => :paperproposal_votes, :conditions => {:project_board_vote => false }
 
+  has_many :notifications
+
   belongs_to :project
 
   # setting up avatar-image
@@ -59,18 +61,14 @@ class User < ActiveRecord::Base
       "#{firstname} #{lastname}"
     end
   end
-
-  def to_s # :nodoc:
-    to_label
-  end
+  alias to_s to_label
 
   def projects
   # die conditions greifen nicht in dieser Abfrage ...
     self.roles_for(Project).map(&:authorizable)
   end
 
-  # This method provides a nice look of Person on some pages
-  def path_name
+  def to_param
     "#{id}-#{firstname}_#{lastname}".gsub(/[\s]/, '')
   end
 
@@ -96,7 +94,6 @@ class User < ActiveRecord::Base
       self.has_no_role! :admin
     end
   end
-
 
   def project_board
     self.has_role? :project_board

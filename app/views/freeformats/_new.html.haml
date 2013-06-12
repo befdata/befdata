@@ -1,4 +1,3 @@
-= form_for Freeformat.new, :url => {:controller => :freeformats, :action => :create,
-:freeformattable_id => freeformattable.id, :freeformattable_type => freeformattable.class},
-:html => {:multipart => true} do |f|
+= form_for Freeformat.new, :url => freeformats_path(:freeformattable_id => freeformattable.id,
+                  :freeformattable_type => freeformattable.class), :html => {:multipart => true} do |f|
   = render :partial => 'freeformats/form', :locals => {:form => f, :freeformat => f.object, :freeformattable => freeformattable}

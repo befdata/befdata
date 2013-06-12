@@ -1,10 +1,7 @@
 source 'http://rubygems.org'
 
 gem 'rails'
-gem 'rake'
 gem 'pg'
-gem 'bundler'
-
 gem 'haml'
 gem 'authlogic'
 gem 'acl9'
@@ -37,6 +34,7 @@ group :test, :development do
   # gem 'debugger'
   gem 'better_errors'  
   gem 'binding_of_caller'
+  gem 'coveralls', require: false       #Coverage reporting badge
 end 
 
 group :assets do
@@ -51,6 +49,6 @@ group :tools do
   gem 'guard'
   gem 'guard-test'
   gem 'hpricot' 
-  gem 'ruby_parser'
+  gem 'ruby_parser', '>= 3.1.2'
 end
 

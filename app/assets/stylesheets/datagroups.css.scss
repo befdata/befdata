@@ -87,7 +87,6 @@ table#datagroups-table {
   width: 100%;
   .indicator {width: 16px;}
   col.action {width: 80px;}
-  col.type {width: 130px;}
   tr.datagroup {
     td {
       vertical-align: top;
@@ -108,7 +107,7 @@ table#datagroups-table {
         font-size: 0.9em;
       }
       .title-description {
-        width: 675px;
+        width: 800px;
         white-space: nowrap;
         overflow: hidden;
         -o-text-overflow: ellipsis;

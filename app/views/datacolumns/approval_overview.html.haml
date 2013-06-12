@@ -41,7 +41,7 @@
   %strong People:
   %span.comma-separated-list
     - @datacolumn.users.each do |u|
-      %span= link_to u.to_label, user_path(u.path_name)
+      %span= link_to u, u
   - unless @datacolumn.informationsource.blank?
     %br
     = @datacolumn.informationsource

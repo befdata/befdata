@@ -163,8 +163,10 @@ class Datacolumn < ActiveRecord::Base
     self.finished = false
   end
 
-  def batch_approve_invalid_values
-
+  def batch_approve_invalid_values(user)
+    sql = "select accept_invalid_values(#{id}, #{datagroup_id}, #{user.id}, '#{dataset.title}')"
+    connection = ActiveRecord::Base.connection()
+    connection.execute(sql)
   end
 
   # this should not be happen but we thought it might be a good last step before we can

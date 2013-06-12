@@ -1,5 +1,4 @@
 class PaperproposalsController < ApplicationController
-  helper FreeformatsHelper
   include PaperproposalsHelper
   include DatasetsHelper
 
@@ -13,7 +12,7 @@ class PaperproposalsController < ApplicationController
       allow all
     end
     actions :show do
-      #allow all, :if => :proposal_is_accepted?  TODO - see Question in #224
+      allow all, :if => :proposal_is_accepted?
       allow logged_in
     end
     actions :new, :create, :index_csv do
@@ -46,11 +45,13 @@ class PaperproposalsController < ApplicationController
   end
 
   def index
-    @paperproposals = Paperproposal.all
-  end
-
-  def index_csv
-    send_data generate_csv_index, :type => "text/csv", :filename=>"paperproposals-list-for-#{current_user.login}.csv", :disposition => 'attachment'
+    respond_to do |format|
+      format.html { @paperproposals = Paperproposal.all }
+      format.csv {
+        send_data generate_csv_index, :type => "text/csv", :disposition => 'attachment',
+                  :filename=>"paperproposals-list-for-#{current_user.login}.csv"
+      }
+    end
   end
 
   def show
@@ -190,7 +191,7 @@ private
                 pp.rationale, pp.comment,
                 paperproposal_url(pp),
                 pp.freeformats.where('is_essential = TRUE').order('file_file_name ASC').map{|ff|
-                  "#{view_context.complete_freeformat_url(ff, true)} (#{ff.uri})"}.join(' / ')
+                  "#{download_freeformat_url(ff, user_credentials: current_user.try(:single_access_token))} (#{ff.uri})"}.join(' / ')
         ]
       end
     end

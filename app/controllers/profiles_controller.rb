@@ -16,7 +16,7 @@ class ProfilesController < ApplicationController
   def update
     if @user.update_attributes(params[:user].slice(:login, :password, :password_confirmation, :firstname,
             :middlenames, :lastname, :email, :salutation, :institution_name, :institution_url, :institution_phone,
-            :institution_fax, :url, :country, :city, :street, :comment, :avatar))
+            :institution_fax, :url, :country, :city, :street, :comment, :avatar, :receive_emails))
       redirect_to profile_path, :notice => "Saved successfully"
     else
       render :edit
