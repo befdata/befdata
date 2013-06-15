@@ -244,12 +244,9 @@ class DatasetsController < ApplicationController
   end
 
   def keywords
-    # keywords of dataset
     @dataset_keywords = @dataset.tags
-    # keywords of datacolumns
-    @datacolumn_keywords = @dataset.datacolumns.includes(:tags)
-    # related datasets
-    @datasets = @dataset.find_related_datasets
+    @datacolumns = @dataset.datacolumns.includes(:tags)
+    @related_datasets = @dataset.find_related_datasets
   end
 
   private

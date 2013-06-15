@@ -15,7 +15,7 @@
 %p
   %i=  @dataset_keywords.empty? ? "No keywords" : raw(@dataset_keywords.collect{|k| link_to k.name, keyword_path(k)}.join(", "))
 
-- unless @datacolumn_keywords.empty?
+- unless @datacolumns.empty?
   %h3 Datacolumn Keywords
   %table.tablesorter
     %thead
@@ -24,7 +24,7 @@
         %th keywords
         - if editable
           %th edit
-    - @datacolumn_keywords.each do |dc|
+    - @datacolumns.each do |dc|
       %tr
         %td= dc.columnheader
         %td
@@ -33,9 +33,9 @@
           %td= link_to "edit", approve_metadata_datacolumn_path(dc)
 
 %h3 Related Datasets
-- unless @datasets.blank?
+- unless @related_datasets.blank?
   %ul
-    - @datasets.each do |ds|
+    - @related_datasets.each do |ds|
       %li.dataset
         = render :partial => ds, :locals => {:with_cart => true, :with_comment => false}
 - else
