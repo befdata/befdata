@@ -28,7 +28,7 @@
     %h3 Authorship
     - unless limited_edit_of_final?
       %dt= f.label :author
-      %dd= f.select :author_id, User.all_users_names_and_ids_for_select
+      %dd= f.select :author_id, all_users_names_and_ids_for_select
 
     %dt= f.label :authored_by_project
     %dd= f.select :project_id, Project.all.map{|project| [project.to_label, project.id]}, { :include_blank => false }
@@ -36,7 +36,7 @@
     %h4 Main Proponents
     %p (Main proponents are those authors, that contribute major aspects to the analysis.)
 
-    %p= select "not_needed", "param", User.all_users_names_and_ids_for_select, {:prompt => 'Select Member'}, {:onchange => 'selectPeople(this)'}
+    %p= select "not_needed", "param", all_users_names_and_ids_for_select, {:prompt => 'Select Member'}, {:onchange => 'selectPeople(this)'}
     %ul#people-list
       - proponents = defined?(@temp_proponents) ? @temp_proponents : @paperproposal.proponents
       - proponents.each do |user|

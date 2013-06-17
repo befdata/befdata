@@ -12,7 +12,7 @@
       = @unfound_usernames.join(', ')
   %dl
     %dt= label_tag 'Owners', nil
-    %dd= select "person", "person_id", User.all_users_names_and_ids_for_select, {:prompt => 'Select Member'}, {:onchange => 'selectPeople(this)'}
+    %dd= select "person", "person_id", all_users_names_and_ids_for_select, {:prompt => 'Select Member'}, {:onchange => 'selectPeople(this)'}
   %ul#people-list
     - @dataset.owners.each do |user|
       %li{:onclick => "this.parentNode.removeChild(this);"}

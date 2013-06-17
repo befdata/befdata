@@ -25,7 +25,7 @@
         = @datacolumn.informationsource
         = link_to "Delete this message", "#", {:id => "unmatched-persons-delete"}
     %dd
-      = select "person", "person_id", User.all_users_names_and_ids_for_select, {:prompt => 'Select Member'}, {:onchange => 'selectPeople(this)'}
+      = select "person", "person_id", all_users_names_and_ids_for_select, {:prompt => 'Select Member'}, {:onchange => 'selectPeople(this)'}
       %ul#people-list.metadata-approve-people{:style => 'list-style: none;'}
         - @ppl.each do |person|
           %li{:onclick => "this.parentNode.removeChild(this);"}

@@ -38,7 +38,7 @@
       %ul
         %li
           = render :partial => "users/email_list_modal",
-            :locals => {:list => User.email_list(@contacts), :css => "dataset_owners", :caption => 'Dataset owners'}
+            :locals => {:contacts => @contacts, :css => "dataset_owners", :caption => 'Dataset owners'}
  
     - unless @projects.blank?
       %h3

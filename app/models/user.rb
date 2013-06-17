@@ -54,33 +54,31 @@ class User < ActiveRecord::Base
     end
   end
 
-  def to_label
-    if !salutation.blank?
-      "#{firstname} #{lastname}, #{salutation}"
-    else
+  def to_s
+    if salutation.blank?
       "#{firstname} #{lastname}"
+    else
+      "#{firstname} #{lastname}, #{salutation}"
     end
   end
-  alias to_s to_label
-
-  def projects
-  # die conditions greifen nicht in dieser Abfrage ...
-    self.roles_for(Project).map(&:authorizable)
-  end
+  alias to_label to_s
 
   def to_param
-    "#{id}-#{firstname}_#{lastname}".gsub(/[\s]/, '')
+    "#{id}-#{firstname}_#{lastname}".gsub(/\s/, '')
   end
 
-  # This method provides a nice look of Person on some pages
   def full_name
-    "#{lastname}, #{firstname} - #{salutation}"
+    "#{firstname} #{lastname}"
   end
 
   # nice strings for citations etc.
   def short_name
     firstnames_short = firstname.split(" ").collect{|fn| "#{fn[0]}."}.join(", ")
     "#{lastname}, #{firstnames_short}"
+  end
+
+  def email_with_name
+    "#{full_name} <#{email}>"
   end
 
   def admin
@@ -100,11 +98,11 @@ class User < ActiveRecord::Base
   end
 
   def project_board=(string_boolean)
-      if string_boolean == "1"
-        self.has_role! :project_board
-      else
-        self.has_no_role! :project_board
-      end
+    if string_boolean == "1"
+      self.has_role! :project_board
+    else
+      self.has_no_role! :project_board
+    end
   end
 
   def data_admin
@@ -136,6 +134,22 @@ class User < ActiveRecord::Base
     owning_paperproposals | paperproposals_author_table
   end
 
+  def destroyable?
+    (datasets_owned.count + paperproposals.count + datasets_with_responsible_datacolumns.count).zero?
+  end
+
+  before_destroy :check_destroyable
+  def check_destroyable
+    unless destroyable?
+      errors.add(:base, "#{full_name} still owns some resources, thus can not be deleted!")
+      return false
+    end
+  end
+
+  def projects
+    roles_for(Project).map(&:authorizable)
+  end
+
   def projectroles
     self.roles_for(Project)
   end
@@ -148,32 +162,7 @@ class User < ActiveRecord::Base
     end
   end
 
-  def authorized_for_update?
-    if (self == current_user || current_user.has_role?("admin")) then
-      true
-    else
-      false
-    end
-  end
-
   def open_votes_count
     self.paperproposal_votes.where("vote = 'none'").count
   end
-
-  def self.all_users_names_and_ids_for_select
-    User.all(:order => :lastname).collect {|person| [person.to_label, person.id]}
-  end
-
-  def pi
-    projects = self.roles_for(Project).map(&:authorizable)
-    projects.map(&:pi).flatten
-  end
-
-  def self.email_list(users_array)
-    users_array.collect{|u| Hash[:name, "#{u.firstname} #{u.lastname}", :mail, "#{u.email}"]}
-  end
-
 end
-
-
-
