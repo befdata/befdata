@@ -65,7 +65,7 @@ function selectDatasets(select) {
 
     var input = document.createElement('input');
     input.type = 'hidden';
-    input.name = 'dataset_ids[]';
+    input.name = 'datasets[][id]';
     input.value = option.value;
 
     var text = document.createTextNode(option.firstChild.data);
@@ -73,7 +73,7 @@ function selectDatasets(select) {
 
     var aspect_select = document.createElement('select');
     aspect_select.id = "aspect_" + id
-    aspect_select.name = "aspect[" + id + "]";
+    aspect_select.name = "datasets[][aspect]";
     var option_1 = document.createElement('option');
     option_1.value = 'main';
     var option_1_text = document.createTextNode('main');

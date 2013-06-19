@@ -12,10 +12,10 @@
     %tbody#collect-datasets-tbody
       - @datasets.each do |ds|
         %tr
-          %input{:name => "dataset_ids[]", :type => "hidden", :value => ds.id}
+          %input{:name => "datasets[][id]", :type => "hidden", :value => ds.id}
           %td= ds.title
           - ds_pp = @paperproposal.dataset_paperproposals.where('dataset_id = ?', ds.id).first
-          %td= select "aspect", ds.id, options_for_select(['main','side'], :selected => ds_pp.nil? ? nil : ds_pp.aspect)
+          %td= select_tag "datasets[][aspect]", options_for_select(['main','side'], :selected => ds_pp.nil? ? nil : ds_pp.aspect)
           %td
             %a{:onclick => "this.parentNode.parentNode.parentNode.removeChild(this.parentNode.parentNode);"} Remove
   %h4 Add dataset

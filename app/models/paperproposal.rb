@@ -48,7 +48,7 @@ class Paperproposal < ActiveRecord::Base
   scope :has_state, lambda{|s| where(:state=>s)}
   accepts_nested_attributes_for :authors
 
-  validates_presence_of :title, :rationale
+  validates_presence_of :title, :rationale, :author_id
 
   STATES = {
     # for the sorting
@@ -209,7 +209,8 @@ class Paperproposal < ActiveRecord::Base
     end
   end
 
-  def update_datasets(dataset_ids, aspects)
+  # datasets_array in form of [{id: 6, aspect: 'main'}, {id: 7, aspect: 'side'}]
+  def update_datasets(datasets_array=[])
     old_datasets = self.datasets.to_a
 
     if self.board_state == 'final'
@@ -217,13 +218,8 @@ class Paperproposal < ActiveRecord::Base
       download_rights_message = reset_download_rights
     end
 
-    self.update_attributes(:dataset_ids => dataset_ids)
-    if aspects
-      aspects.each do |k, v|
-        ds_pp = self.dataset_paperproposals.where('dataset_id = ?', k).first
-        ds_pp.aspect = v
-        ds_pp.save
-      end
+    self.dataset_paperproposals = datasets_array.collect do |da|
+      DatasetPaperproposal.new(dataset_id: da[:id], aspect: da[:aspect], paperproposal_id: self.id)
     end
 
     self.reload
