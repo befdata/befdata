@@ -21,7 +21,7 @@
         = user.to_label
   %dl
     %dt= label_tag 'Select projects', nil
-    %dd= select "project", "project_id", Project.all_projects_for_select, {:prompt => 'Select Project'}, {:onchange => 'selectProjects(this)'}
+    %dd= select "project", "project_id", all_projects_for_select, {:prompt => 'Select Project'}, {:onchange => 'selectProjects(this)'}
   %ul#projects-list{:style => 'list-style: none;'}
     - @dataset.projects.each do |project|
       %li{:onclick => "this.parentNode.removeChild(this);"}

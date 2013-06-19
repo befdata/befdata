@@ -12,7 +12,6 @@ class ProjectsController < ApplicationController
 
   def show
     @project_datasets = @project.datasets.order(:title).uniq
-    @deletable = (@project_datasets.count + @project.users.count + @project.authored_paperproposals.count) == 0
   end
 
   def new

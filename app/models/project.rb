@@ -10,14 +10,10 @@ class Project < ActiveRecord::Base
   validates_presence_of :shortname, :name
   validates_uniqueness_of :shortname, :name
 
-  def to_label
+  def to_s
     "#{name}"
   end
-  alias to_s to_label
-
-  def self.all_projects_for_select
-    Project.all(:order => :shortname).collect{|p| [p.to_label, p.id]}
-  end
+  alias to_label to_s
 
   def to_tag
     Project.create_tag self.shortname
@@ -37,4 +33,17 @@ class Project < ActiveRecord::Base
   def pi
     get_user_with_role(:pi)
   end
+
+  def destroyable?
+    (self.datasets.count + self.users.count + self.authored_paperproposals.count) == 0
+  end
+
+  before_destroy :check_destroyable
+  def check_destroyable
+    unless destroyable?
+      errors.add(:base, "#{shortname} still owns some resources, thus can not be deleted!")
+      return false
+    end
+  end
+
 end
