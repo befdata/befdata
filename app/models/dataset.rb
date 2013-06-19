@@ -248,7 +248,7 @@ class Dataset < ActiveRecord::Base
   end
 
   def refresh_paperproposal_authors
-    self.paperproposals.each {|pp| pp.calculate_datasets_proponents}
+    self.paperproposals.each {|pp| pp.update_datasets_providers}
   end
   
   def to_csv (separate_category_columns = false)

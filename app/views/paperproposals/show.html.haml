@@ -95,7 +95,7 @@
     =@paperproposal.envisaged_date
 
 %h3 Rationale
-%p= @paperproposal.rationale
+= simple_format @paperproposal.rationale
 
 %h3 Datasets #{"(" + @paperproposal.dataset_paperproposals.count.to_s + ")" unless @paperproposal.dataset_paperproposals.empty? }
 - if !@paperproposal.dataset_paperproposals.empty?

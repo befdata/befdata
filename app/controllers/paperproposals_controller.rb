@@ -54,6 +54,23 @@ class PaperproposalsController < ApplicationController
     end
   end
 
+  def new
+    @paperproposal = Paperproposal.new
+    @paperproposal.author = current_user
+    @paperproposal.authored_by_project = current_user.projects.first
+  end
+
+  def create
+    @paperproposal = Paperproposal.new(params[:paperproposal])
+    @temp_proponents = User.where(id: params[:people]) #doesn't save it - workaround so they don't get lost when form is not filled correctly
+    if @paperproposal.save
+      @paperproposal.proponents = User.where(id: params[:people])
+      redirect_to edit_datasets_paperproposal_path(@paperproposal)
+    else
+      render :action => :new
+    end
+  end
+
   def show
     respond_to do |format|
       format.html
@@ -64,6 +81,36 @@ class PaperproposalsController < ApplicationController
         send_data hash[:csv], :type => 'text/csv', :filename => filename, :disposition => 'attachment'
       end
     end
+  end
+
+  def edit
+  end
+
+  def update
+    @paperproposal.update_attributes(params[:paperproposal])
+    @temp_proponents = User.where(id: params[:people]) #doesn't save it - workaround so they don't get lost when form is not filled correctly
+    if @paperproposal.save
+      @paperproposal.proponents = User.where(id: params[:people])
+      redirect_to paperproposal_path(@paperproposal)
+    else
+      render :action => :edit
+    end
+  end
+
+  def edit_files
+    @freeformats = @paperproposal.freeformats
+  end
+
+  def edit_datasets
+    @datasets = @paperproposal.datasets.empty? ? current_cart.datasets : @paperproposal.datasets
+    @datasets = @datasets.sort_by(&:title)
+    @all_datasets = Dataset.all :order => 'title'
+  end
+
+  def update_datasets
+    msg = @paperproposal.update_datasets params[:dataset_ids] || [], params[:aspect]
+    flash[:notice] = 'Datasets have been updated. ' + msg.to_s
+    redirect_to @paperproposal
   end
 
   def administrate_votes
@@ -97,54 +144,6 @@ class PaperproposalsController < ApplicationController
 
   def admin_hard_reset
     flash[:notice] = 'Paperproposal has been resetted: ' + @paperproposal.hard_reset
-    redirect_to @paperproposal
-  end
-
-  def new
-    @paperproposal = Paperproposal.new
-    @paperproposal.author = current_user
-    @paperproposal.authored_by_project = current_user.projects.first
-  end
-
-  def create
-    @paperproposal = Paperproposal.new(params[:paperproposal])
-    @paperproposal.initial_title = @paperproposal.title
-    @temp_proponents = User.find_all_by_id(params[:people]) #doesn't save it - workaround so they don't get lost when form is not filled correctly
-    if @paperproposal.save
-      @paperproposal.update_proponents params[:people]
-      redirect_to edit_datasets_paperproposal_path(@paperproposal)
-    else
-      render :action => :new
-    end
-  end
-
-  def edit
-  end
-
-  def update
-    @paperproposal.update_attributes(params[:paperproposal])
-    @temp_proponents = User.find_all_by_id(params[:people]) #doesn't save it - workaround so they don't get lost when form is not filled correctly
-    if @paperproposal.save
-      @paperproposal.update_proponents params[:people]
-      redirect_to paperproposal_path(@paperproposal)
-    else
-      render :action => :edit
-    end
-  end
-
-  def edit_files
-    @freeformats = @paperproposal.freeformats
-  end
-
-  def edit_datasets
-    @datasets = @paperproposal.datasets.empty? ? current_cart.datasets : @paperproposal.datasets
-    @datasets = @datasets.sort_by(&:title)
-    @all_datasets = Dataset.all :order => 'title'
-  end
-
-  def update_datasets
-    msg = @paperproposal.update_datasets params[:dataset_ids] || [], params[:aspect]
-    flash[:notice] = 'Datasets have been updated. ' + msg.to_s
     redirect_to @paperproposal
   end
 
