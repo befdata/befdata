@@ -78,7 +78,7 @@ class Paperproposal < ActiveRecord::Base
     # sort by state, then by year if published, then title
     x = STATES[self.state] <=> STATES[other.state]
     x = (x != 0 ? x : self.envisaged_date.year <=> other.envisaged_date.year) if self.state == 'accepted'
-    x = (x != 0 ? x : self.beautiful_title(true) <=> other.beautiful_title(true))
+    x = (x != 0 ? x : self.beautiful_title <=> other.beautiful_title)
     x = (x != 0 ? x : self.title.downcase <=> other.title.downcase)
     x
   end
@@ -119,27 +119,16 @@ class Paperproposal < ActiveRecord::Base
     return authorship.uniq.to_sentence
   end
 
-  def beautiful_title (only_authors = false)
-    # gives back a nice string to display, like: Kraft, N. J., Comita, L. S. (2011): DisentanglingAlong Latitudinal and Elevational Gradients. Science, 333(6050).
-
-    pp_hash = Hash.new
-    pp_hash['pp_project_short_name'] = self.authored_by_project.blank? ? "" : "#{self.authored_by_project.shortname}, "
-    pp_hash['pp_author'] = "#{self.author.short_name}: "
-    return authors if only_authors
-
-    pp_hash['pp_year'] = "#{self.created_at.year}, "
-    pp_hash['pp_title'] = "#{self.title}, "
-    pp_hash['pp_journal'] = self.envisaged_journal.blank? ? "" : ", <i>Citation</i>: #{envisaged_journal}".html_safe
-
-    proponents_and_dataowners_array = []
-    self.authors_selection(:proponents_and_all_owners).each do |p|
-      proponents_and_dataowners_array << p.full_name
+  def beautiful_title
+    str = "#{author.short_name}: #{created_at.year}, #{title}, "
+    str = "#{authored_by_project.shortname}, " + str if authored_by_project.present?
+    proponents_and_dataowners = self.authors_selection(:proponents_and_all_owners)
+    unless proponents_and_dataowners.empty?
+      str << "<i>Proponents and dataowners</i>: "
+      str << proponents_and_dataowners.collect(&:full_name).sort.join(', ')
     end
-
-    proponents_and_dataowners_array = proponents_and_dataowners_array.sort
-    pp_hash['pp_proponents_and_dataowners'] = proponents_and_dataowners_array.blank? ? "" : "<i>Proponents and dataowners</i>: #{proponents_and_dataowners_array.join(", ")}".html_safe
-
-    "#{ pp_hash["pp_project_short_name"]} #{pp_hash["pp_author"]} #{pp_hash["pp_year"]} #{pp_hash["pp_title"]} #{pp_hash["pp_proponents_and_dataowners"]} #{pp_hash["pp_journal"]}".html_safe
+    str << ", <i>Citation</i>: #{envisaged_journal}" if envisaged_journal.present?
+    return str.html_safe
   end
 
   def calculate_data_providers
