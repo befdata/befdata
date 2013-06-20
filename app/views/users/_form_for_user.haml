@@ -1,29 +1,21 @@
 = form_for @user do |f|
   = f.error_messages
-  .group
-    = f.label :login, class: "required"
-    = f.text_field :login
-  .group
-    = f.label :password
-    = f.password_field :password
-  .group
-    = f.label :password_confirmation
-    = f.password_field :password_confirmation
-  .group
-    = f.label :firstname, class: "required"
-    = f.text_field :firstname
-  .group
-    = f.label :middlenames
-    = f.text_field :middlenames
-  .group
-    = f.label :lastname, class: "required"
-    = f.text_field :lastname
-  .group
-    = f.label :salutation
-    = f.text_field :salutation
-  .group
-    = f.label :email, class: "required"
-    = f.text_field :email
+  = f.label :login, class: "required"
+  = f.text_field :login
+  = f.label :password
+  = f.password_field :password
+  = f.label :password_confirmation
+  = f.password_field :password_confirmation
+  = f.label :firstname, class: "required"
+  = f.text_field :firstname
+  = f.label :middlenames
+  = f.text_field :middlenames
+  = f.label :lastname, class: "required"
+  = f.text_field :lastname
+  = f.label :salutation
+  = f.text_field :salutation
+  = f.label :email, class: "required"
+  = f.text_field :email
   .group
     = f.label :project_board
     = f.check_box :project_board
@@ -33,6 +25,10 @@
   .group
     = f.label :data_admin
     = f.check_box :data_admin
+  .avatar
+    = f.label :avatar,"Change Avatar"
+    = image_tag @user.avatar.url(:small)
+    = f.file_field :avatar
   = field_set_tag "Belongs to project" do
     #roles
       %noscript
