@@ -77,7 +77,7 @@ class PaperproposalsController < ApplicationController
         @freeformats = @paperproposal.freeformats.order('is_essential DESC, file_file_name ASC')
       format.csv do
         hash = generate_datasets_csv
-        filename = "pp-#{@paperproposal.id}_#{hash[:count]}-of-#{@paperproposal.datasets.count}-datasets_for-#{current_user.login}.csv"
+        filename = "pp-#{@paperproposal.id}_#{hash[:count]}-of-#{@paperproposal.datasets.count}-datasets.csv"
         send_data hash[:csv], :type => 'text/csv', :filename => filename, :disposition => 'attachment'
       end
     end
