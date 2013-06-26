@@ -77,7 +77,8 @@ class PaperproposalsController < ApplicationController
         @freeformats = @paperproposal.freeformats.order('is_essential DESC, file_file_name ASC')
       format.csv do
         hash = generate_datasets_csv
-        filename = "pp-#{@paperproposal.id}_#{hash[:count]}-of-#{@paperproposal.datasets.count}-datasets.csv"
+        user = current_user.try(:login) || "Anonymous-user"
+        filename = "pp-#{@paperproposal.id}_#{hash[:count]}-of-#{@paperproposal.datasets.count}-datasets_for-#{user}.csv"
         send_data hash[:csv], :type => 'text/csv', :filename => filename, :disposition => 'attachment'
       end
     end
@@ -203,7 +204,7 @@ private
       @paperproposal.datasets.order('title ASC').each do |ds|
         if may_download_dataset?(ds)
           csv << [ds.id, ds.title, dataset_url(ds),
-                  download_dataset_url(ds, :csv, :separate_category_columns => true, :user_credentials => current_user.single_access_token)]
+                  download_dataset_url(ds, :csv, separate_category_columns: true, user_credentials: current_user.try(:single_access_token))]
           ds_count += 1
         end
       end
