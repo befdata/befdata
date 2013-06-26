@@ -93,6 +93,10 @@ class User < ActiveRecord::Base
     end
   end
 
+  def self.all_admins
+    Role.find_by_name('admin').users
+  end
+
   def project_board
     self.has_role? :project_board
   end
@@ -103,6 +107,10 @@ class User < ActiveRecord::Base
     else
       self.has_no_role! :project_board
     end
+  end
+
+  def self.all_project_boards
+    Role.find_by_name('project_board').users
   end
 
   def data_admin

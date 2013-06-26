@@ -15,9 +15,7 @@
     %h4 Your Vote
     %dl
       %dt= form.label :vote, 'Accept or reject?'
-      - vote_choices = ['accept', 'reject']
-      - vote_choices << 'none' if current_user.has_role?(:admin)
-      %dd= form.select :vote, vote_choices
+      %dd= form.select :vote, votes_choices_for_select
     %dl
       %dt= form.label :comment
       %dd= form.text_area :comment

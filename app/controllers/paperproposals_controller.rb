@@ -46,7 +46,7 @@ class PaperproposalsController < ApplicationController
 
   def index
     respond_to do |format|
-      format.html { @paperproposals = Paperproposal.all }
+      format.html { @paperproposals = Paperproposal.includes(:author, :proponents, :main_aspect_dataset_owners, :side_aspect_dataset_owners) }
       format.csv {
         send_data generate_csv_index, :type => "text/csv", :disposition => 'attachment',
                   :filename=>"paperproposals-list-for-#{current_user.login}.csv"
@@ -103,7 +103,7 @@ class PaperproposalsController < ApplicationController
   end
 
   def edit_datasets
-    @datasets = @paperproposal.datasets.empty? ? current_cart.datasets : @paperproposal.datasets
+    @datasets = @paperproposal.includes_datasets? ? @paperproposal.datasets : current_cart.datasets
     @datasets = @datasets.sort_by(&:title)
     @all_datasets = Dataset.all :order => 'title'
   end

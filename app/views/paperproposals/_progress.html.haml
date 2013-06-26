@@ -8,7 +8,7 @@
     - if @paperproposal.board_state == 'data_rejected'
       %span{:class => compare_progress_class(3)}
         Edit
-    - unless @paperproposal.datasets.empty?
+    - if @paperproposal.includes_datasets?
       %span{:class => compare_progress_class(4)}
         Data Requests
     %span{:class => compare_progress_class(5)}
@@ -18,16 +18,13 @@
 
   - if may_administrate_paperproposals? || is_paperproposal_author?
 
-    - if @paperproposal.calc_board_state == 'still no aspects set'
-      %p Too proceed please make sure that the aspect is set for all selected datasets
-
-    - if @paperproposal.board_state == 'prep' && (@paperproposal.calc_board_state == 'can be send to project board' || @paperproposal.datasets.empty?)
+    - if @paperproposal.board_state == 'prep'
       %p Please prepare your paperproposal and submit to project board when you are ready.
       = form_for @paperproposal, :url => paperproposal_update_state_path(@paperproposal) do |form|
-        - if @paperproposal.datasets.empty?
-          = form.submit 'Send to board', :confirm => 'Continue without datasets?'
-        - else
+        - if @paperproposal.includes_datasets?
           = form.submit 'Send to board', :confirm => 'Are you sure?'
+        - else
+          = form.submit 'Send to board', :confirm => 'Continue without datasets?'
 
     - if @paperproposal.board_state == 're_prep'
       %p Your paperproposal was rejected by the project board. Please make changes and resubmit.
@@ -37,20 +34,20 @@
     - if @paperproposal.board_state == 'data_rejected'
       %p At least one data request was rejected. Please communicate with the data-owners, edit your paperproposal and ask again.
       = form_for @paperproposal, :url => paperproposal_update_state_path(@paperproposal) do |form|
-        - if @paperproposal.datasets.empty?
-          = form.submit 'Finish data request', :confirm => 'Continue without datasets?'
-        - else
+        - if @paperproposal.includes_datasets?
           = form.submit 'Ask again', :confirm => 'Did you make your changes?'
+        - else
+          = form.submit 'Finish data request', :confirm => 'Continue without datasets?'
 
     - if @paperproposal.board_state == 'final'
-      - if @paperproposal.expiry_date.blank? && !@paperproposal.datasets.empty?
+      - if @paperproposal.expiry_date.blank? && @paperproposal.includes_datasets?
         %p Download rights expired. To regain access you must request permission of the project board and data owners.
         = form_for @paperproposal, :url => paperproposal_update_state_path(@paperproposal) do |form|
           = form.submit 'Reset data request', :confirm => 'Are you sure?'
       - else
         %p
           Data request approved.
-          - unless @paperproposal.datasets.empty?
+          - if @paperproposal.includes_datasets?
             Download rights will expire on #{@paperproposal.expiry_date.strftime('%a %d %b %Y')}.
 
 

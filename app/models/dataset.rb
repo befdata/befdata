@@ -356,4 +356,12 @@ class Dataset < ActiveRecord::Base
     end
   end
 
+  def free_for?(user)
+    return true if self.free_for_public
+    if user && (self.free_for_members || self.free_within_projects && !(user.projects & self.projects).empty?)
+      return true
+    end
+    false
+  end
+
 end

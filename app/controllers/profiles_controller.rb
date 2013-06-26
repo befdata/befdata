@@ -32,12 +32,14 @@ class ProfilesController < ApplicationController
   end
 
   def votes
-    @project_board_votes = @user.project_board_votes.select{|vote|
-      (vote.paperproposal.board_state == 'submit' || 're_prep') && (vote.vote == 'none')}
+    @project_board_votes = @user.project_board_votes.includes(:paperproposal).pending.select do |vote|
+      %w{submit, re_prep}.include? vote.paperproposal.board_state
+    end
     @project_board_votes.sort_by!(&:paperproposal)
 
-    @dataset_votes = @user.for_paperproposal_votes.select{|vote|
-      vote.paperproposal.board_state == 'accept' && (vote.vote == 'none')}
+    @dataset_votes = @user.for_paperproposal_votes.includes(:paperproposal).pending.select do |vote|
+      vote.paperproposal.board_state == 'accept'
+    end
     @dataset_votes.sort_by!(&:paperproposal)
   end
 
