@@ -82,13 +82,12 @@ class DatasetsController < ApplicationController
   end
 
   def update
-    # set owners from the drop-down select box. if no one is specified, current user is used
     users_given_as_provenance = params[:people].blank? ? [current_user] : User.find(params[:people])
     @dataset.owners = users_given_as_provenance
 
     @dataset.refresh_paperproposal_authors
 
-    if @dataset.update_attributes(params[:dataset]) then
+    if @dataset.update_attributes(params[:dataset].reverse_merge("project_ids" => []))
       redirect_to dataset_path, notice: "Sucessfully Saved"
       @dataset.log_edit('Metadata updated')
     else
