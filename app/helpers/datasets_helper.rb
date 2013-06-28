@@ -37,4 +37,11 @@ module DatasetsHelper
     false
   end
 
+  def dropdown_list_to_sort_datasets
+    options_for_select(
+      {"Title" => data_path(params.merge(sort: 'title', direction: 'asc')),
+        "Newest" => data_path(params.merge(sort: 'id', direction: 'desc')),
+        "Recently Updated" => data_path(params.merge(sort: 'last_update', direction: 'desc'))
+      }, selected: data_path(params))
+  end
 end
