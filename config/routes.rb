@@ -3,7 +3,6 @@ Befchina::Application.routes.draw do
   root :to => "pages#home"
 
   resource :user_session, :only => [:create]
-  match 'login' => 'user_sessions#new', :as => :login
   match 'logout' => 'user_sessions#destroy', :as => :logout
 
   resources :users
@@ -21,7 +20,7 @@ Befchina::Application.routes.draw do
   match 'data' => 'pages#data', :as => :data
   match 'search' => 'pages#search'
 
-  resources :datasets do
+  resources :datasets, :except => [:index] do
     resources :datafiles, :only => [:destroy] do
       get :download, :on => :member
     end
@@ -43,7 +42,7 @@ Befchina::Application.routes.draw do
     end
   end
 
-  resources :keywords, :controller => 'tags'
+  resources :keywords, :controller => 'tags', :only => [:index, :show]
 
   resources :projects
 
@@ -66,19 +65,18 @@ Befchina::Application.routes.draw do
   match 'paperproposals/update_vote/:id' => 'paperproposals#update_vote', :as => :update_vote
   match 'paperproposals/update_state/:id' => 'paperproposals#update_state', :as => :paperproposal_update_state
 
-  resources :carts
   match 'create_cart_context/:dataset_id' => 'carts#create_cart_context', :as => :create_cart_context
   match 'delete_cart_context/:dataset_id' => 'carts#delete_cart_context', :as => :delete_cart_context
   match 'cart' => 'carts#show', :as => 'current_cart'
 
-  resources :datagroups do
+  resources :datagroups, :except => [:new, :create] do
     member do
       get :upload_categories, :datacolumns
       post :update_categories
     end
   end
 
-  resources :categories do
+  resources :categories, :only => [:show] do
     member do
       get :upload_sheetcells
       post :update_sheetcells

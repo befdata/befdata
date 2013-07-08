@@ -13,7 +13,7 @@ class DatasetsController < ApplicationController
   skip_before_filter :deny_access_to_all
 
   access_control do
-    allow all, :to => [:show, :index, :load_context, :download_excel_template, :importing, :keywords, :download_status]
+    allow all, :to => [:show, :load_context, :download_excel_template, :importing, :keywords, :download_status]
 
     actions :edit, :edit_files, :update, :approve, :approve_predefined,
       :approval_quick, :batch_update_columns do

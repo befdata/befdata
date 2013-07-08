@@ -10,7 +10,7 @@ class DatafilesController < ApplicationController
   end
 
   def download
-   send_file @datafile.file.path
+    send_file @datafile.file.path
   end
 
   def destroy

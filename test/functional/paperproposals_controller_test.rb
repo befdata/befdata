@@ -15,7 +15,7 @@ class PaperproposalsControllerTest < ActionController::TestCase
   end
 
   test "without login should not be able to edit" do
-    @request.env['HTTP_REFERER'] = login_url
+    @request.env['HTTP_REFERER'] = root_url
     get :edit, :id => Paperproposal.first.id
     assert_match /.*Access denied.*/, flash[:error]
   end

@@ -60,7 +60,7 @@ class FreeformatsControllerTest < ActionController::TestCase
     user = User.find_by_login "pinutrientcycling"
 
     login_user user.login
-    @request.env['HTTP_REFERER'] = login_url
+    @request.env['HTTP_REFERER'] = root_url
 
     assert ds.freeformats.count > 0
     assert !user.has_roles_for?(ds) && !user.has_role?(:admin)
@@ -70,7 +70,7 @@ class FreeformatsControllerTest < ActionController::TestCase
   end
 
   test "freeformat download failure if dataset not for public" do
-    @request.env['HTTP_REFERER'] = login_url
+    @request.env['HTTP_REFERER'] = root_url
     ds = Dataset.find_by_title "Unit tests"
     f = ds.freeformats.first
     get :download, :id => f.id
@@ -90,7 +90,7 @@ class FreeformatsControllerTest < ActionController::TestCase
 
   # ToDo: this has to be changed with better acl9 for paperproposal
   test "public user may not download freeformat from paperproposal" do
-    @request.env['HTTP_REFERER'] = login_url
+    @request.env['HTTP_REFERER'] = root_url
     f = Freeformat.find_by_file_file_name "8346952459374534ppNutrientCyclingtest.doc"
 
     get :download, :id => f.id
