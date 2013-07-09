@@ -4,8 +4,10 @@ class DatasetsController < ApplicationController
                                          :update_workbook, :destroy, :regenerate_download,
                                          :approval_quick, :batch_update_columns, :keywords, :download_status, :freeformats_csv]
 
-  before_filter :redirect_if_unimported, :only => [:download_page, :download, :regenerate_download, :approve,
-                          :approve_predefined, :approval_quick, :batch_update_columns]
+  before_filter :redirect_if_without_workbook, :only => [:download, :download_page, :regenerate_download,
+                          :approve, :approve_predefined, :batch_update_columns, :approval_quick]
+  before_filter :redirect_unless_import_succeed, :only => [:download_page, :download, :regenerate_download,
+                          :approve, :approve_predefined, :approval_quick, :batch_update_columns]
   before_filter :redirect_while_importing, :only => [:edit_files, :update_workbook, :destroy]
   after_filter :edit_message_datacolumns, :only => [:batch_update_columns, :approve_predefined]
 
@@ -270,9 +272,16 @@ class DatasetsController < ApplicationController
     end
   end
 
-  def redirect_if_unimported
-    unless @dataset.import_status == 'finished' && @dataset.has_research_data?
-      flash[:error] = "This dataset has no workbook or the importing is not finished yet."
+  def redirect_if_without_workbook
+    unless @dataset.has_research_data?
+      flash[:error] = "The operation requires the dataset to have a workbook, but it doesn't."
+      redirect_to :action => 'show' and return
+    end
+  end
+
+  def redirect_unless_import_succeed
+    unless @dataset.import_status == 'finished'
+      flash[:error] = "The dataset hasn't been successfully imported!"
       redirect_to :action => 'show' and return
     end
   end
