@@ -1,16 +1,13 @@
 class DatasetsController < ApplicationController
+  skip_before_filter :deny_access_to_all
   before_filter :load_dataset, :only => [:download, :download_page, :show, :edit, :edit_files, :update, :approve, :approve_predefined,
                                          :update_workbook, :destroy, :regenerate_download,
                                          :approval_quick, :batch_update_columns, :keywords, :download_status, :freeformats_csv]
 
-  before_filter :redirect_if_unimported, :only => [:download, :edit, :approve, :approve_predefined, :destroy,
-                                                   :approval_quick, :batch_update_columns, :keywords]
-
-  before_filter :redirect_if_without_workbook, :only => [:download_page, :download, :regenerate_download]
-
+  before_filter :redirect_if_unimported, :only => [:download_page, :download, :regenerate_download, :approve,
+                          :approve_predefined, :approval_quick, :batch_update_columns]
+  before_filter :redirect_while_importing, :only => [:edit_files, :update_workbook, :destroy]
   after_filter :edit_message_datacolumns, :only => [:batch_update_columns, :approve_predefined]
-
-  skip_before_filter :deny_access_to_all
 
   access_control do
     allow all, :to => [:show, :load_context, :download_excel_template, :importing, :keywords, :download_status]
@@ -274,15 +271,16 @@ class DatasetsController < ApplicationController
   end
 
   def redirect_if_unimported
-    if @dataset.import_status != 'finished' && @dataset.has_research_data?
-      redirect_to :action => 'show'
+    unless @dataset.import_status == 'finished' && @dataset.has_research_data?
+      flash[:error] = "This dataset has no workbook or the importing is not finished yet."
+      redirect_to :action => 'show' and return
     end
   end
 
-  def redirect_if_without_workbook
-    unless @dataset.has_research_data?
-      flash[:error] = "There is no workbok for #{@dataset.title}"
-      redirect_to @dataset
+  def redirect_while_importing
+    if @dataset.being_imported?
+      flash[:error] = "Please wait till the importing finishes"
+      redirect_to :action => 'show' and return
     end
   end
 

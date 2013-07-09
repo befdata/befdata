@@ -14,9 +14,12 @@
     = @dataset.import_status
   - if may_edit
     %p#import-error-hint{:class => !is_error && 'hidden'}
-      - link_to edit_files_dataset_path(@dataset) do
+      = link_to edit_files_dataset_path(@dataset) do
         = image_tag("edit.png")
         Exchange the workbook
+      = link_to dataset_path(@dataset), :method => :delete, :confirm => "Do you really want to delete this dataset?" do
+        = image_tag("trash.png")
+        Delete
   %noscript
     %p
       Javascript is disabled - Reload the page to see updates.

@@ -225,6 +225,11 @@ class Dataset < ActiveRecord::Base
     self.import_status.to_s == 'finished' || !self.has_research_data?
   end
 
+  def being_imported?   # TODO: this relies too much on the message
+    return false unless self.has_research_data?
+    ['queued', 'started importing'].include?(import_status) || import_status.starts_with?("processing")
+  end
+
   def enqueue_to_generate_download(priority = :low)
     priority = 10 if priority.eql?(:low)
     priority = 0 if priority.eql?(:high)
