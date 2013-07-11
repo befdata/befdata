@@ -1,5 +1,5 @@
 %ul
-  - if may_download_dataset?
+  - if @dataset.can_download_by? current_user
     %li
       = link_to download_page_dataset_path(@dataset) do
         = image_tag("save.png")
@@ -13,21 +13,20 @@
       = link_to create_cart_context_path(:dataset_id => @dataset.id), :method => :post do
         = image_tag("cart.png")
         Add to Cart
-    - if current_user.has_role?(:owner, @dataset) || current_user.has_role?(:admin)
+    - if @dataset.can_edit_by? current_user
       %li
         = link_to edit_dataset_path(@dataset) do
           = image_tag("edit.png")
           Edit Metadata
-    - if current_user.has_role?(:owner, @dataset) || current_user.has_role?(:admin)
       %li
         = link_to edit_files_dataset_path(@dataset) do
           = image_tag("edit.png")
           Edit Files
-    - if @dataset.has_research_data? && (current_user.has_role?(:owner, @dataset) || current_user.has_role?(:admin))
-      %li
-        = link_to approve_dataset_path(@dataset) do
-          = image_tag("checkbox.png")
-          Approve Data Columns
+      - if @dataset.has_research_data?
+        %li
+          = link_to approve_dataset_path(@dataset) do
+            = image_tag("checkbox.png")
+            Approve Data Columns
     - if current_user.has_role?(:admin) && (@dataset.paperproposals.empty?)
       %li
         = link_to dataset_path(@dataset), :method => :delete, :confirm => "Do you really want to delete this dataset?" do

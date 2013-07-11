@@ -1,6 +1,5 @@
 class PaperproposalsController < ApplicationController
   include PaperproposalsHelper
-  include DatasetsHelper
 
   before_filter :load_proposal, :except => [:index, :index_csv, :new, :create, :update_vote]
   before_filter :load_vote, :only => [:update_vote]
@@ -19,28 +18,23 @@ class PaperproposalsController < ApplicationController
       allow logged_in
     end
     actions :edit, :update, :edit_files, :update_state do
-      allow :admin
-      allow :data_admin
+      allow :admin, :data_admin
       allow logged_in, :if => :author_may_edit?
     end
     actions :edit_datasets, :update_datasets do
-      allow :admin
-      allow :data_admin
+      allow :admin, :data_admin
       allow logged_in, :if => :author_may_edit_datasets?
     end
     actions :safe_delete do
-      allow :admin
-      allow :data_admin
+      allow :admin, :data_admin
       allow logged_in, :if => :is_paperproposal_author?
     end
     actions :update_vote do
-      allow :admin
-      allow :data_admin
+      allow :admin, :data_admin
       allow logged_in, :if => :is_users_vote
     end
     actions :administrate_votes, :admin_approve_all_votes, :admin_reset_all_votes, :admin_hard_reset do
-      allow :admin
-      allow :data_admin
+      allow :admin, :data_admin
     end
   end
 
@@ -88,9 +82,8 @@ class PaperproposalsController < ApplicationController
   end
 
   def update
-    @paperproposal.update_attributes(params[:paperproposal])
     @temp_proponents = User.where(id: params[:people]) #doesn't save it - workaround so they don't get lost when form is not filled correctly
-    if @paperproposal.save
+    if @paperproposal.update_attributes(params[:paperproposal])
       @paperproposal.proponents = User.where(id: params[:people])
       redirect_to paperproposal_path(@paperproposal)
     else
@@ -202,7 +195,7 @@ private
     csv = CSV.generate(:force_quotes => true) do |csv|
       csv << ['ID', 'Title', 'Dataset Url', 'CSV download']
       @paperproposal.datasets.order('title ASC').each do |ds|
-        if may_download_dataset?(ds)
+        if ds.can_download_by?(current_user)
           csv << [ds.id, ds.title, dataset_url(ds),
                   download_dataset_url(ds, :csv, separate_category_columns: true, user_credentials: current_user.try(:single_access_token))]
           ds_count += 1

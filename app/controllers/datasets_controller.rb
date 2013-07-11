@@ -12,16 +12,15 @@ class DatasetsController < ApplicationController
   after_filter :edit_message_datacolumns, :only => [:batch_update_columns, :approve_predefined]
 
   access_control do
-    allow all, :to => [:show, :load_context, :download_excel_template, :importing, :keywords, :download_status]
+    allow all, :to => [:show, :download_excel_template, :importing, :keywords, :download_status]
 
-    actions :edit, :edit_files, :update, :approve, :approve_predefined,
+    actions :edit, :update, :edit_files, :update_workbook, :approve, :approve_predefined,
       :approval_quick, :batch_update_columns do
-      allow :admin
-      allow :data_admin
+      allow :admin, :data_admin
       allow :owner, :of => :dataset
     end
 
-    actions :update_workbook, :destroy do
+    actions :destroy do
       allow :admin
       allow :owner, :of => :dataset
     end

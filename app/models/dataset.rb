@@ -363,9 +363,24 @@ class Dataset < ActiveRecord::Base
 
   def free_for?(user)
     return true if self.free_for_public
-    if user && (self.free_for_members || self.free_within_projects && !(user.projects & self.projects).empty?)
-      return true
-    end
+    return false unless user
+    return true if self.free_for_members
+    return true if self.free_within_projects && !(user.projects & self.projects).empty?
+    false
+  end
+
+  def can_download_by?(user)
+    return false unless self.upload_spreadsheet
+    return true if self.free_for?(user)
+    return false unless user
+    return true if user.has_role?(:proposer, self) || user.has_role?(:owner, self)
+    return true if user.has_role?(:admin) || user.has_role?(:data_admin)
+    false
+  end
+
+  def can_edit_by?(user)
+    return false unless user
+    return true if user.has_role?(:owner, self) || user.has_role?(:admin) || user.has_role?(:data_admin)
     false
   end
 
