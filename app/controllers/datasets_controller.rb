@@ -74,7 +74,10 @@ class DatasetsController < ApplicationController
       end
     else
       flash[:error] = @dataset.errors.full_messages.to_sentence
-      flash[:error] << datafile.errors.full_messages.to_sentence if datafile
+      if datafile
+        datafile.destroy
+        flash[:error] << datafile.errors.full_messages.to_sentence
+      end
       redirect_to :back
     end
   end
