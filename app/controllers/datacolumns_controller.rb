@@ -10,9 +10,8 @@ class DatacolumnsController < ApplicationController
     actions :approval_overview, :next_approval_step, :approve_datagroup, :approve_datatype, :approve_metadata,
             :approve_invalid_values, :update_datagroup, :create_and_update_datagroup, :update_datatype,
             :update_metadata, :update_invalid_values, :update_invalid_values_with_csv, :autofill_and_update_invalid_values, :update do
-      allow :admin
+      allow :admin, :data_admin
       allow :owner, :of => :dataset
-      allow :proposer, :of => :dataset
     end
   end
 

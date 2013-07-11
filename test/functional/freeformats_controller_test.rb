@@ -57,13 +57,13 @@ class FreeformatsControllerTest < ActionController::TestCase
   test "freeformat download error message if inappropriate rights" do
     ds = Dataset.find_by_title "Unit tests"
     f = ds.freeformats.first
-    user = User.find_by_login "pinutrientcycling"
+    user = User.find_by_login "Pidata"
 
     login_user user.login
     @request.env['HTTP_REFERER'] = root_url
 
     assert ds.freeformats.count > 0
-    assert !user.has_roles_for?(ds) && !user.has_role?(:admin)
+    assert !ds.free_for?(user) && !user.has_roles_for?(ds) && !user.has_role?(:admin) && !user.has_role?(:data_admin)
 
     get :download, :id => f.id
     assert_match /.*Access denied.*/, flash[:error]
