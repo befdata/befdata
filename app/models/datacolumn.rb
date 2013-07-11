@@ -202,22 +202,9 @@ class Datacolumn < ActiveRecord::Base
 
   def split_me?(separate_category_columns = false)
     # This method returns true for a column when it requires splitting.
-
-    collect_column_sheetcells_boolean_values = []
-
-    self.sheetcells.each do |sc|
-      if self.import_data_type == 'category' || !(sc.datatype && sc.datatype.is_category? && sc.category)
-        collect_column_sheetcells_boolean_values << false
-      else
-        collect_column_sheetcells_boolean_values << true
-      end
-    end
-
-    if collect_column_sheetcells_boolean_values.include?(true)
-      return true
-    else
-      return false
-    end
+    return false unless self.datatype_approved
+    return false if %w{category text}.include? self.import_data_type
+    self.sheetcells.joins(:category).where(["categories.datagroup_id = ?", self.datagroup_id]).exists?
   end
 
   # users of a datacolumn are those who are responsible for it
