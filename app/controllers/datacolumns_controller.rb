@@ -49,7 +49,7 @@ class DatacolumnsController < ApplicationController
   end
 
   def approve_datagroup
-    @data_groups_available = Datagroup.all(:order => "title", :conditions => ["id <> ?", @datacolumn.datagroup.id])
+    @data_groups_available = Datagroup.order("title").where(["id <> ?", @datacolumn.datagroup.id])
   end
 
   def approve_datatype

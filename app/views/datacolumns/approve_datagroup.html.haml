@@ -62,15 +62,15 @@
                 %p.datagroup-description
                   %strong Description:
                   = datagroup.description
-                - unless datagroup.datacolumns.blank?
+                - unless datagroup.datacolumns.empty?
                   %p.datagroup-description
                     %strong Already assigned datacolumns:
-                    = datagroup.datacolumns.map{|c| c.columnheader}.join(', ')
-        = submit_tag "Save chosen data group"
+                    = datagroup.datacolumns.pluck(:columnheader).join(', ')
+        = submit_tag 'Save chosen data group'
 
 :javascript
   jQuery(document).ready(function(){
-    $( "#accordion" ).accordion({
+    $("#accordion").accordion({
       header: 'h4',
       heightStyle: 'content',
       icons:false,

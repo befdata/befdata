@@ -138,7 +138,7 @@ class Dataset < ActiveRecord::Base
   # During the import routine, we step through each of the data
   # columns using their header.
   def headers
-    self.datacolumns.collect{|dc| dc.columnheader}
+    self.datacolumns.pluck(:columnheader)
   end
 
   def finished_datacolumns
@@ -203,7 +203,7 @@ class Dataset < ActiveRecord::Base
     dates = Array.new
       dates << self.updated_at
     dates << self.upload_spreadsheet.updated_at unless self.upload_spreadsheet.nil?
-    dates += self.freeformats.collect {|x| x.updated_at}
+    dates += self.freeformats.pluck(:updated_at)
     dates.max
   end
 

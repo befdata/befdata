@@ -126,7 +126,7 @@ class Datacolumn < ActiveRecord::Base
   end
 
   def has_invalid_values?
-    self.sheetcells.where(status_id: Sheetcellstatus::INVALID).count > 0
+    self.sheetcells.where(status_id: Sheetcellstatus::INVALID).exists?
   end
 
   # returns the unique invalid uploaded sheetcells
@@ -200,9 +200,9 @@ class Datacolumn < ActiveRecord::Base
     approval_stage == '0' && finished == false
   end
 
-  def split_me?(separate_category_columns = false)
+  def split_me?
     # This method returns true for a column when it requires splitting.
-    return false unless self.datatype_approved
+    return false if self.approval_stage < 2
     return false if %w{category text}.include? self.import_data_type
     self.sheetcells.joins(:category).where(["categories.datagroup_id = ?", self.datagroup_id]).exists?
   end

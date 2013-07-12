@@ -1,15 +1,10 @@
-- if may_administrate_paperproposals? || is_paperproposal_author? || (current_user && @paperproposal.includes_datasets?)
+- if may_administrate_paperproposals? || is_paperproposal_author?
   = content_for :actions do
     %ul
       - if @paperproposal.lock
         %li
           = image_tag("lock-closed.png")
           Locked
-      - if current_user && @paperproposal.includes_datasets?
-        %li
-          = link_to paperproposal_url @paperproposal, :csv do
-            = image_tag("save.png")
-            Download Datasets CSV
       - if may_administrate_paperproposals? || author_may_edit?
         %li
           = link_to edit_paperproposal_path(@paperproposal) do
