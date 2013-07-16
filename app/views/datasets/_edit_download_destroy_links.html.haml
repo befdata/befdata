@@ -27,8 +27,8 @@
           = link_to approve_dataset_path(@dataset) do
             = image_tag("checkbox.png")
             Approve Data Columns
-    - if current_user.has_role?(:admin) && (@dataset.paperproposals.empty?)
-      %li
-        = link_to dataset_path(@dataset), :method => :delete, :confirm => "Do you really want to delete this dataset?" do
-          = image_tag("trash.png")
-          Delete
+      - if @dataset.paperproposals.empty?
+        %li
+          = link_to dataset_path(@dataset), :method => :delete, :confirm => "Do you really want to delete this dataset?" do
+            = image_tag("trash.png")
+            Delete
