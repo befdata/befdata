@@ -18,8 +18,8 @@
         = hidden_field_tag "datacolumn[][id]", c.id
         %tr
           %td= c.columnnr
-          %td{:class => "approval-status approval-stage-#{c.approval_stage.to_s}"}
-            = c.approval_stage.to_s
+          %td{:class => "approval-status approval-stage-#{c.approval_stage}"}
+            = c.approval_stage
           %td= link_to c.columnheader, approval_overview_datacolumn_url(c)
 
           %td.datagroup-cell

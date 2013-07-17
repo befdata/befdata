@@ -188,21 +188,21 @@ class Datacolumn < ActiveRecord::Base
   end
 
   def approval_stage
-    stage = '0'
-    stage = '1' if self.datagroup_approved
-    stage = '2' if self.datagroup_approved && self.datatype_approved
-    stage = '3' if self.datagroup_approved && self.datatype_approved && !self.has_invalid_values?
-    stage = '4' if self.datagroup_approved && self.datatype_approved && !self.has_invalid_values? && self.finished
+    stage = 0
+    stage = 1 if self.datagroup_approved
+    stage = 2 if self.datagroup_approved && self.datatype_approved
+    stage = 3 if self.datagroup_approved && self.datatype_approved && !self.has_invalid_values?
+    stage = 4 if self.datagroup_approved && self.datatype_approved && !self.has_invalid_values? && self.finished
     stage
   end
 
   def untouched?
-    approval_stage == '0' && finished == false
+    approval_stage == 0 && finished == false
   end
 
   def split_me?
     # This method returns true for a column when it requires splitting.
-    return false if self.approval_stage.to_i < 2
+    return false if self.approval_stage < 2
     return false if %w{category text}.include? self.import_data_type
     self.sheetcells.joins(:category).where(["categories.datagroup_id = ?", self.datagroup_id]).exists?
   end

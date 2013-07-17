@@ -12,7 +12,7 @@
     -@dataset.datacolumns.each do |c|
       %tr
         %td= c.columnnr
-        %td{:class => "approval-status approval-stage-#{c.approval_stage.to_s}"}
+        %td{:class => "approval-status approval-stage-#{c.approval_stage}"}
           = c.approval_stage.to_s
         %td= link_to c.columnheader, approval_overview_datacolumn_url(c)
         %td{:class => !c.datagroup_approved? ? 'unapproved' : ''}

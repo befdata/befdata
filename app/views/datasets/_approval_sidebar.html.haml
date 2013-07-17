@@ -15,7 +15,7 @@
     - @dataset.datacolumns.each do |c|
       %li
         = link_to approval_overview_datacolumn_url(c) do
-          %span{:class => "approval-status approval-stage-#{c.approval_stage.to_s}"}= ''
+          %span{:class => "approval-status approval-stage-#{c.approval_stage}"}= ''
           = c.columnheader
   %h3 Color legend
   %ul
