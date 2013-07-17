@@ -202,7 +202,7 @@ class Datacolumn < ActiveRecord::Base
 
   def split_me?
     # This method returns true for a column when it requires splitting.
-    return false if self.approval_stage < 2
+    return false if self.approval_stage.to_i < 2
     return false if %w{category text}.include? self.import_data_type
     self.sheetcells.joins(:category).where(["categories.datagroup_id = ?", self.datagroup_id]).exists?
   end
