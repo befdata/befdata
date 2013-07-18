@@ -14,7 +14,7 @@
         %th Datagroup
         %th Datatype
     %tbody
-      -@dataset.datacolumns.each do |c|
+      -@dataset.datacolumns.includes(:datagroup).each do |c|
         = hidden_field_tag "datacolumn[][id]", c.id
         %tr
           %td= c.columnnr

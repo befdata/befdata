@@ -202,9 +202,9 @@ class Datacolumn < ActiveRecord::Base
 
   def split_me?
     # This method returns true for a column when it requires splitting.
-    return false if self.approval_stage < 2
+    return false unless datagroup_approved && datatype_approved
     return false if %w{category text}.include? self.import_data_type
-    self.sheetcells.where(["category_id is not null and exists(select 1 from categories AS c where c.datagroup_id = ? and c.id = sheetcells.category_id)", self.datagroup_id]).exists?
+    self.sheetcells.where("category_id is not null").exists?
   end
 
   # users of a datacolumn are those who are responsible for it

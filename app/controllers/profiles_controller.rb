@@ -14,9 +14,7 @@ class ProfilesController < ApplicationController
   end
 
   def update
-    if @user.update_attributes(params[:user].slice(:login, :password, :password_confirmation, :firstname,
-            :middlenames, :lastname, :email, :salutation, :institution_name, :institution_url, :institution_phone,
-            :institution_fax, :url, :country, :city, :street, :comment, :avatar, :receive_emails))
+    if @user.update_attributes(user_params)
       redirect_to profile_path, :notice => "Saved successfully"
     else
       render :edit
@@ -50,5 +48,12 @@ class ProfilesController < ApplicationController
 private
   def load_current_user
     @user = current_user
+  end
+
+  def user_params
+    params[:user].slice(:login, :password, :password_confirmation, :firstname,
+          :middlenames, :lastname, :email, :salutation, :institution_name,
+          :institution_url, :institution_phone, :institution_fax, :url, :country,
+          :city, :street, :comment, :avatar, :receive_emails)
   end
 end
