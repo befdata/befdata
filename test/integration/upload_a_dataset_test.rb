@@ -9,7 +9,7 @@ class UploadADatasetTest < ActionDispatch::IntegrationTest
 
     uploadedfile = test_file_for_upload("UnitTestSpreadsheetForUpload_new.xls")
 
-    post datasets_path, {:datafile => {:file => uploadedfile}}
+    post create_with_workbook_datasets_path, {:datafile => {:file => uploadedfile}}
     #now it's on views/create pages
     assert_nil flash[:error]
     assert_template :create

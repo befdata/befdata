@@ -33,51 +33,43 @@ class DatasetsController < ApplicationController
       allow all, :if => :dataset_is_free_for_public
     end
 
-    actions :new, :create do
+    actions :new, :create, :create_with_workbook do
       allow logged_in
     end
   end
 
+  def create # create dataset with only a title
+    @dataset = Dataset.new(title: params[:dataset][:title].squish)
+    if @dataset.save
+      current_user.has_role! :owner, @dataset
+    else
+      flash[:error] = @dataset.errors.full_messages.to_sentence
+      redirect_to :back
+    end
+  end
 
-  def create
-    # submitting neither title nor datafile
-    if !params[:dataset] && !params[:datafile]
+  def create_with_workbook
+    unless params[:datafile]
       flash[:error] = "No workbook given for upload"
       redirect_to :back and return
     end
 
-    @dataset = Dataset.new
-
-    # Upload option A - from workbook
-    if params[:datafile]
-      datafile = Datafile.new(params[:datafile])
-      @dataset.upload_spreadsheet = datafile
-      @dataset.import_status = 'new'
-      unless datafile.save
-        flash[:error] = datafile.errors.full_messages.to_sentence
-        redirect_to(:back) and return
-      end
+    datafile = Datafile.new(params[:datafile])
+    unless datafile.save
+      flash[:error] = datafile.errors.full_messages.to_sentence
+      redirect_to :back and return
     end
 
-    # Upload option B - empty, only given title
-    if params[:dataset] && !params[:datafile]
-      @dataset.title = params[:dataset][:title]
-    end
-
+    @dataset = Dataset.new(datafile.general_metadata_hash.merge(import_status: 'new'))
     if @dataset.save
+      @dataset.upload_spreadsheet = datafile
+      @dataset.load_projects_and_authors_from_spreadsheet
       current_user.has_role! :owner, @dataset
-      if datafile then
-        @dataset.dataworkbook.members_listed_as_responsible[:found_users].each do |user|
-          user.has_role!(:owner, @dataset)
-        end
-        @unfound_usernames = @dataset.dataworkbook.members_listed_as_responsible[:unfound_usernames]
-      end
+      @unfound_usernames = datafile.members_listed_as_responsible[:unfound_usernames]
+      render :action => :create
     else
+      datafile.destroy
       flash[:error] = @dataset.errors.full_messages.to_sentence
-      if datafile
-        datafile.destroy
-        flash[:error] << datafile.errors.full_messages.to_sentence
-      end
       redirect_to :back
     end
   end
@@ -266,10 +258,8 @@ class DatasetsController < ApplicationController
   end
 
   def trigger_import_if_nessecary
-    if @dataset.import_status == 'new'
-      @book = Dataworkbook.new(@dataset.upload_spreadsheet)
-      @dataset.import_status = 'queued'
-      @dataset.save
+    if @dataset.import_status.eql? 'new'
+      @dataset.update_attribute(:import_status, 'queued')
       @dataset.delay.import_data
     end
   end

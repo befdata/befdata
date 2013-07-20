@@ -20,38 +20,38 @@ require "dataworkbook_format"
 class Dataworkbook
   include DataworkbookFormat
 
-  attr_reader :datafile, :book
+  include ActiveModel::Validations
+  validates_with WorkbookValidator
+
+  attr_reader  :book
 
   def initialize(datafile)
-    @datafile = datafile
-    @dataset = @datafile.dataset
-    open_datafile_from_disk
-  end
-
-  def open_datafile_from_disk
-    @book = Spreadsheet.open @datafile.file.path
-    # Close after reading, for memorys sake.#Todo is this really necessary?
-    @book.io.close
+    # file: a Datafile object, IO, path(string)
+    path = datafile.instance_of?(Datafile) ? datafile.path : datafile
+    @dataset = datafile.dataset if datafile.respond_to?(:dataset)
+    @book = Spreadsheet.open(path) and @book.io.close rescue nil # Close after reading, for memorys sake.#Todo is this really necessary?
   end
 
   # The general metadata sheet contains information about the data set
   # as a whole. The general_metadata method gathers the
   # contents of the text cells within this sheet.
   def general_metadata_hash
-    metadata = Hash.new
-    metadata[:filename] = @datafile.file_file_name
-    metadata[:title] = clean_string(general_metadata_sheet[*WBF[:meta_title_pos]])
-    metadata[:abstract] = clean_string(general_metadata_sheet[*WBF[:meta_abstract_pos]])
-    metadata[:comment] = clean_string(general_metadata_sheet[*WBF[:meta_comment_pos]])
-    metadata[:usagerights] = clean_string(general_metadata_sheet[*WBF[:meta_usagerights_pos]])
-    metadata[:published] = clean_string(general_metadata_sheet[*WBF[:meta_published_pos]])
-    metadata[:spatialextent] = clean_string(general_metadata_sheet[*WBF[:meta_spatial_extent_pos]])
-    metadata[:temporalextent] = clean_string(general_metadata_sheet[*WBF[:meta_temporalextent_pos]])
-    metadata[:taxonomicextent] = clean_string(general_metadata_sheet[*WBF[:meta_taxonomicextent_pos]])
-    metadata[:design] = clean_string(general_metadata_sheet[*WBF[:meta_design_pos]])
-    metadata[:dataanalysis] = clean_string(general_metadata_sheet[*WBF[:meta_dataanalysis_pos]])
-    metadata[:circumstances] = clean_string(general_metadata_sheet[*WBF[:meta_circumstances_pos]])
-    return metadata
+    {
+      # filename: @datafile.file_file_name,
+      title: clean_string(general_metadata_sheet[*WBF[:meta_title_pos]]),
+      abstract: clean_string(general_metadata_sheet[*WBF[:meta_abstract_pos]]),
+      comment: clean_string(general_metadata_sheet[*WBF[:meta_comment_pos]]),
+      usagerights: clean_string(general_metadata_sheet[*WBF[:meta_usagerights_pos]]),
+      published: clean_string(general_metadata_sheet[*WBF[:meta_published_pos]]),
+      spatialextent: clean_string(general_metadata_sheet[*WBF[:meta_spatial_extent_pos]]),
+      temporalextent: clean_string(general_metadata_sheet[*WBF[:meta_temporalextent_pos]]),
+      taxonomicextent: clean_string(general_metadata_sheet[*WBF[:meta_taxonomicextent_pos]]),
+      design: clean_string(general_metadata_sheet[*WBF[:meta_design_pos]]),
+      dataanalysis: clean_string(general_metadata_sheet[*WBF[:meta_dataanalysis_pos]]),
+      circumstances: clean_string(general_metadata_sheet[*WBF[:meta_circumstances_pos]]),
+      datemin: self.datemin,
+      datemax: self.datemax
+    }
   end
 
   # Returns the object representing the general metadata sheet.

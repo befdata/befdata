@@ -16,7 +16,7 @@
     #{link_to "here", help_url}.
 
 
-  = form_for Datafile.new, :url => {:controller => :datasets, :action => :create}, :html => {:multipart => true} do |f|
+  = form_for Datafile.new, :url => {:controller => :datasets, :action => :create_with_workbook}, :html => {:multipart => true} do |f|
     %h4
       Excel workbook
     = f.error_messages

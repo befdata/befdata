@@ -49,11 +49,9 @@ class Dataset < ActiveRecord::Base
   has_many :dataset_paperproposals
   has_many :paperproposals, :through => :dataset_paperproposals
 
-  validates :title, :presence => true, :uniqueness => true
+  validates :title, :presence => true, :uniqueness => { case_sensitive: false }
 
   # validates_associated :upload_spreadsheet, :if => "upload_spreadsheet_id_changed?"
-
-  before_validation(:load_metadata_from_spreadsheet, :on => :create)
 
   before_save :add_xls_extension_to_filename
   before_destroy :check_for_paperproposals
@@ -89,30 +87,22 @@ class Dataset < ActiveRecord::Base
     end
   end
 
-  def load_metadata_from_spreadsheet
-    return if upload_spreadsheet.nil?
-
-    book = dataworkbook
-    self.attributes = book.general_metadata_hash
-    self.set_start_and_end_dates_of_research(book)
-    try_retrieving_projects_from_tag_list(book)
-  end
-
-  def try_retrieving_projects_from_tag_list(book)
-    return if book.tag_list.blank?
-    book.tag_list.split(",").each do |t|
+  def load_projects_and_authors_from_spreadsheet
+    return unless upload_spreadsheet
+    upload_spreadsheet.members_listed_as_responsible[:found_users].each do |user|
+      user.has_role!(:owner, self)
+    end
+    return if upload_spreadsheet.tag_list.blank?
+    upload_spreadsheet.tag_list.split(",").each do |t|
       Project.find_by_converting_to_tag(t).each do |p|
         self.projects << p unless self.projects.include? p
       end
     end
   end
 
+
   def has_research_data?
     !upload_spreadsheet.blank?
-  end
-
-  def dataworkbook
-    Dataworkbook.new(upload_spreadsheet)
   end
 
   def abstract_with_freeformats
@@ -122,10 +112,6 @@ class Dataset < ActiveRecord::Base
     self.abstract + (f_strings.empty? ? "" : (" - " + f_strings.join(" - ")))
   end
 
-  def set_start_and_end_dates_of_research(book)
-    self.datemin = book.datemin
-    self.datemax = book.datemax
-  end
   def download_status
     return "outdated" if download_generation_status == 'finished' && download_generated_at < updated_at
     return download_generation_status
@@ -210,8 +196,7 @@ class Dataset < ActiveRecord::Base
   def import_data
     begin
       self.update_attribute(:import_status, 'started importing')
-      book = Dataworkbook.new(upload_spreadsheet)
-      book.import_data
+      upload_spreadsheet.import_data
       self.update_attribute(:import_status, 'finished')
       self.enqueue_to_generate_download(:high)
     rescue Exception => e
