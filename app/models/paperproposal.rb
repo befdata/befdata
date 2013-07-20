@@ -78,7 +78,7 @@ class Paperproposal < ActiveRecord::Base
       str << proponents_and_dataowners.collect(&:full_name).sort.join(', ')
     end
     str << ", <i>Citation</i>: #{envisaged_journal}" if envisaged_journal.present?
-    return str.html_safe
+    return str
   end
 
   def <=>(other)

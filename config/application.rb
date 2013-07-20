@@ -66,6 +66,6 @@ module Befchina
     config.assets.version = '1.0'
 
     ActsAsTaggableOn.remove_unused_tags = true
-
+    config.action_view.sanitized_allowed_tags = %W{strong em i b sup sub}
   end
 end
