@@ -37,7 +37,6 @@ class Dataworkbook
   # contents of the text cells within this sheet.
   def general_metadata_hash
     {
-      # filename: @datafile.file_file_name,
       title: clean_string(general_metadata_sheet[*WBF[:meta_title_pos]]),
       abstract: clean_string(general_metadata_sheet[*WBF[:meta_abstract_pos]]),
       comment: clean_string(general_metadata_sheet[*WBF[:meta_comment_pos]]),

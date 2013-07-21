@@ -60,9 +60,9 @@ class DatasetsController < ApplicationController
       redirect_to :back and return
     end
 
-    @dataset = Dataset.new(datafile.general_metadata_hash.merge(import_status: 'new'))
+    @dataset = Dataset.new(datafile.general_metadata_hash)
     if @dataset.save
-      @dataset.upload_spreadsheet = datafile
+      @dataset.add_datafile(datafile)
       @dataset.load_projects_and_authors_from_spreadsheet
       current_user.has_role! :owner, @dataset
       @unfound_usernames = datafile.authors_list[:unfound_usernames]
@@ -165,7 +165,7 @@ class DatasetsController < ApplicationController
     @dataset.log_download(current_user)
     respond_to do |format|
       format.html do
-        send_file @dataset.generated_spreadsheet.path, :filename => "#{@dataset.filename}"
+        send_file @dataset.generated_spreadsheet.path, :filename => "#{@dataset.filename}.xls"
       end
       format.csv do
         send_data @dataset.to_csv(params[:separate_category_columns] =~ /true/i), :type => "text/csv",
@@ -205,17 +205,14 @@ class DatasetsController < ApplicationController
 
 
   def update_workbook
-    if !params[:datafile] then
+    unless params[:datafile]
       flash[:error] = "No filename given"
       redirect_to :back and return
     end
-    new_datafile = @dataset.upload_spreadsheets.build(params[:datafile])
+    new_datafile = Datafile.new(params[:datafile])
     if new_datafile.save
       @dataset.delete_imported_research_data
-      @dataset.filename = new_datafile.file_file_name
-      @dataset.import_status = 'new'
-      @dataset.save
-
+      @dataset.add_datafile(new_datafile)
       @dataset.log_edit('Dataworkbook updated')
       flash[:notice] = "Research data has been replaced."
       redirect_to(:action => 'show')

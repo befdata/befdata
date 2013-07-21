@@ -53,7 +53,6 @@ class Dataset < ActiveRecord::Base
 
   # validates_associated :upload_spreadsheet, :if => "upload_spreadsheet_id_changed?"
 
-  before_save :add_xls_extension_to_filename
   before_destroy :check_for_paperproposals
 
   pg_search_scope :search, against: {
@@ -74,11 +73,6 @@ class Dataset < ActiveRecord::Base
     }
   }
 
-  def add_xls_extension_to_filename
-    if self.filename
-      /\.xls$/.match(self.filename) ? self.filename : self.filename = "#{self.filename}.xls"
-    end
-  end
   def check_for_paperproposals
     if paperproposals.count > 0
       errors.add(:dataset,
@@ -91,6 +85,11 @@ class Dataset < ActiveRecord::Base
     return unless upload_spreadsheet
     upload_spreadsheet.authors_list[:found_users].each {|user| user.has_role!(:owner, self) }
     self.projects = upload_spreadsheet.projects_list if upload_spreadsheet.projects_list.present?
+  end
+
+  def add_datafile(datafile)
+    datafile.update_attribute(:dataset_id, self.id)
+    self.update_attributes(filename: datafile.basename, import_status: 'new')
   end
 
   def has_research_data?
