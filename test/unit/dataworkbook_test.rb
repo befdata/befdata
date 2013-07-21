@@ -31,8 +31,8 @@ class DataworkbookTest < ActiveSupport::TestCase
   end
   
   test "workbook should contain two people" do
-    assert_equal 1, @book.members_listed_as_responsible[:found_users].length
-    assert_equal 1, @book.members_listed_as_responsible[:unfound_usernames].length
+    assert_equal 1, @book.authors_list[:found_users].length
+    assert_equal 1, @book.authors_list[:unfound_usernames].length
   end
   
   test "start date of workbook should be April 18th, 2011" do
@@ -50,9 +50,9 @@ class DataworkbookTest < ActiveSupport::TestCase
   end
 
   test "hash of people named in the workbook is correct" do
-    assert_equal 2, @book.members_listed_as_responsible[:found_users].length + @book.members_listed_as_responsible[:unfound_usernames].length
-    assert_equal "Karin", @book.members_listed_as_responsible[:found_users].first.firstname
-    assert_match "Verena", @book.members_listed_as_responsible[:unfound_usernames].first
+    assert_equal 2, @book.authors_list[:found_users].length + @book.authors_list[:unfound_usernames].length
+    assert_equal "Karin", @book.authors_list[:found_users].first.firstname
+    assert_match "Verena", @book.authors_list[:unfound_usernames].first
   end
   
   test "method index for a specific columnheader is correct" do

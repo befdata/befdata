@@ -65,7 +65,7 @@ class DatasetsController < ApplicationController
       @dataset.upload_spreadsheet = datafile
       @dataset.load_projects_and_authors_from_spreadsheet
       current_user.has_role! :owner, @dataset
-      @unfound_usernames = datafile.members_listed_as_responsible[:unfound_usernames]
+      @unfound_usernames = datafile.authors_list[:unfound_usernames]
       render :action => :create
     else
       datafile.destroy

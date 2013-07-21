@@ -89,17 +89,9 @@ class Dataset < ActiveRecord::Base
 
   def load_projects_and_authors_from_spreadsheet
     return unless upload_spreadsheet
-    upload_spreadsheet.members_listed_as_responsible[:found_users].each do |user|
-      user.has_role!(:owner, self)
-    end
-    return if upload_spreadsheet.tag_list.blank?
-    upload_spreadsheet.tag_list.split(",").each do |t|
-      Project.find_by_converting_to_tag(t).each do |p|
-        self.projects << p unless self.projects.include? p
-      end
-    end
+    upload_spreadsheet.authors_list[:found_users].each {|user| user.has_role!(:owner, self) }
+    self.projects = upload_spreadsheet.projects_list if upload_spreadsheet.projects_list.present?
   end
-
 
   def has_research_data?
     !upload_spreadsheet.blank?

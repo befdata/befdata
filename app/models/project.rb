@@ -21,13 +21,13 @@ class Project < ActiveRecord::Base
 
   def self.find_by_converting_to_tag (project_tag)
     project_tag = Project.create_tag project_tag
-    Project.select {|p| p.to_tag == project_tag}
+    Project.all.detect {|p| p.to_tag == project_tag}
   end
 
   def self.create_tag (string)
     # "P1 Europe productivity" becomes "p1e"
     # downcase, erase non-numbers and non-letters, cut after first letter behind possible numbers
-    string.downcase.scan(/[^\W]/).join.slice(/^\D+\d*\D/)
+    string.downcase.scan(/\w/).join.slice(/^\D+\d*\D/)
   end
 
   def pi

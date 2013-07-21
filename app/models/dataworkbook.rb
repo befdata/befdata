@@ -91,7 +91,7 @@ class Dataworkbook
     columnheaders_raw.length == columnheaders_raw.uniq.length
   end
 
-  def members_listed_as_responsible
+  def authors_list
     given_names = general_metadata_sheet.row(*WBF[:meta_owners_start_row])
     surnames  = general_metadata_sheet.row(*WBF[:meta_owners_start_row]+1)
     emails = general_metadata_sheet.row(*WBF[:meta_owners_start_row]+2)
@@ -102,8 +102,13 @@ class Dataworkbook
   end
 
   # Returns the tags that were in the respective cell.
-  def tag_list
-    clean_string(general_metadata_sheet[*WBF[:meta_projects_pos]])
+  def projects_list
+    project_string = general_metadata_sheet[*WBF[:meta_projects_pos]]
+    return [] if project_string.blank?
+    projects = project_string.split(',').map(&:squish).uniq.collect do |p|
+      Project.find_by_converting_to_tag(p)
+    end
+    projects.compact
   end
 
   # Helper method to determine the correct minimal date value from the string given in the Workbook.

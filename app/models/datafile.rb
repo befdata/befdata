@@ -22,7 +22,7 @@ class Datafile < ActiveRecord::Base
       else nil
     end
   end
-  delegate :import_data, :general_metadata_hash, :members_listed_as_responsible, :tag_list, :to => :spreadsheet, :allow_nil => true
+  delegate :import_data, :general_metadata_hash, :authors_list, :projects_list, :to => :spreadsheet, :allow_nil => true
 
   validate :check_spreadsheet, :if => Proc.new {file.present?}
   def check_spreadsheet
