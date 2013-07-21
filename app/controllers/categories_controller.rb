@@ -35,7 +35,7 @@ class CategoriesController < ApplicationController
       flash[:error] = "No File given"
       redirect_to :back and return
     end
-    f = params[:csvfile][:file].tempfile
+    f = params[:csvfile][:file].path
 
     @changes = @category.update_sheetcells_with_csv(f, current_user)
 

@@ -174,7 +174,7 @@ class DatacolumnsController < ApplicationController
     if !params[:csvfile]
       redirect_to :back, :error => "No File given" and return
     end
-    f = params[:csvfile].tempfile
+    f = params[:csvfile].path
     begin
       CSV.foreach(f, headers: true, skip_blanks: true) do |row|
         next if row['import value'].blank? or row['category short'].blank?
