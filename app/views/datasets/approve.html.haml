@@ -9,7 +9,7 @@
       - if !@predefined_columns.blank? || flash[:non_auto_approved]
         %th Auto-approvable
   %tbody
-    -@dataset.datacolumns.each do |c|
+    -@dataset.datacolumns.includes(:datagroup).each do |c|
       %tr
         %td= c.columnnr
         %td{:class => "approval-status approval-stage-#{c.approval_stage}"}

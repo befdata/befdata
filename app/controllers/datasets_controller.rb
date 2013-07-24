@@ -50,7 +50,7 @@ class DatasetsController < ApplicationController
 
   def create_with_workbook
     unless params[:datafile]
-      flash[:error] = "No workbook given for upload"
+      flash[:error] = "No data file given for upload"
       redirect_to :back and return
     end
 

@@ -8,6 +8,7 @@ class Datatypehelper
                          Datatype.new(7, "number", ""),
                          Datatype.new(8, "unknown", "")
                         ]
+  UNKNOWN = DATATYPE_COLLECTION.detect {|dt| dt.name == 'unknown'}
 
   def self.known
     DATATYPE_COLLECTION.reject{|dt| dt.name == 'unknown'}
@@ -15,11 +16,11 @@ class Datatypehelper
   
   def self.find_by_name(name)
     DATATYPE_COLLECTION.each{ |dt| return dt if dt.name == name }
-    return find_by_name('unknown')
+    return UNKNOWN
   end
 
   def self.find_by_id(id)
     DATATYPE_COLLECTION.each{ |dt| return dt if dt.id == id }
-    return find_by_id(8)
+    return UNKNOWN
   end
 end

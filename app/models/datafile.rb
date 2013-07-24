@@ -26,7 +26,7 @@ class Datafile < ActiveRecord::Base
 
   validate :check_spreadsheet, :if => Proc.new {file.present?}
   def check_spreadsheet
-    self.errors[:base] = "We currently only support uploading Excel-2003 and CSV files." and return if spreadsheet.nil?
+    self.errors[:base] = 'We currently only support Excel-2003 and CSV files.' and return if spreadsheet.nil?
     unless spreadsheet.valid?
       spreadsheet.errors.to_hash.each do |k, v|
         self.errors.add k, v

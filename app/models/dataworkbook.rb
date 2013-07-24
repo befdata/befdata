@@ -26,10 +26,8 @@ class Dataworkbook
   attr_reader  :book
 
   def initialize(datafile)
-    # file: a Datafile object, IO, path(string)
-    path = datafile.instance_of?(Datafile) ? datafile.path : datafile
-    @dataset = datafile.dataset if datafile.respond_to?(:dataset)
-    @book = Spreadsheet.open(path) and @book.io.close rescue nil # Close after reading, for memorys sake.#Todo is this really necessary?
+    @dataset = datafile.dataset
+    @book = Spreadsheet.open(datafile.path) and @book.io.close rescue nil # Close after reading, for memorys sake. (TODO: is this really necessary?)
   end
 
   # The general metadata sheet contains information about the data set
@@ -112,40 +110,12 @@ class Dataworkbook
 
   # Helper method to determine the correct minimal date value from the string given in the Workbook.
   def datemin
-    # Retrieve the value from the Workbook.
-    value = general_metadata_sheet[*WBF[:meta_datemin_pos]].to_s
-    begin
-      # Try to parse it as a date.
-      date = Date.parse(value)
-    rescue ArgumentError
-      # When parse did not succeed, we have to guesstimate.
-      # Is the string usable as year? If yes, use it. If no, fall back to the current year.
-      year = value.to_i > 2000 ? value.to_i : Date.today.year
-
-      # Create a new date object from the guesstimated year.
-      # Use the first of January as day and month values.
-      date = Date.new(year, 1, 1)
-    end
-    return date
+    parse_date(general_metadata_sheet[*WBF[:meta_datemin_pos]].to_s) {|year| Date.new(year, 1, 1) }
   end
 
-# Helper method to determine the correct maximal date value from the string given in the Workbook.
+  # Helper method to determine the correct maximal date value from the string given in the Workbook.
   def datemax
-    # Retrieve the value from the Workbook.
-    value = general_metadata_sheet[*WBF[:meta_datemax_pos]].to_s
-    begin
-      # Try to parse it as a date.
-      date = Date.parse(value)
-    rescue ArgumentError
-      # When parse did not succeed, we have to guesstimate.
-      # Is the string usable as year? If yes, use it. If no, fall back to the current year.
-      year = value.to_i > 2000 ? value.to_i : Date.today.year
-      
-      # Create a new date object from the guesstimated year.
-      # Use the last of December as day and month values.
-      date = Date.new(year, 12, 31)
-    end
-    return date
+    parse_date(general_metadata_sheet[*WBF[:meta_datemax_pos]].to_s) {|year| Date.new(year, 12, 31) }
   end
 
   # The method that loads the Workbook into the database.
@@ -428,6 +398,12 @@ class Dataworkbook
        return true
      end
     return false
+  end
+
+  def parse_date(date)
+    # When parse did not succeed, we have to guesstimate.
+-   # Is the string usable as year? If yes, use it. If no, fall back to the current year.
+    Date.parse(date) rescue yield(date.to_i > 2000 ? date.to_i : Date.today.year)
   end
 
   # gives found and unfound users

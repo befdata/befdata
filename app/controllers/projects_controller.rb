@@ -32,7 +32,7 @@ class ProjectsController < ApplicationController
     end
   end
   def edit
-    @roles = @project.accepted_roles.collect{|r| {name: r.name, id: r.users.map(&:id)}}
+    @roles = @project.accepted_roles.includes(:users).collect{|r| {name: r.name, id: r.users.map(&:id)}}
   end
   def update
     if @project.update_attributes(params[:project])

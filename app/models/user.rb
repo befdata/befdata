@@ -64,7 +64,7 @@ class User < ActiveRecord::Base
   alias to_label to_s
 
   def to_param
-    "#{id}-#{firstname}_#{lastname}".gsub(/\s/, '')
+    "#{id}-#{full_name.parameterize}"
   end
 
   def full_name
