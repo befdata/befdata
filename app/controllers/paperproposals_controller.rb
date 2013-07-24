@@ -40,7 +40,7 @@ class PaperproposalsController < ApplicationController
 
   def index
     respond_to do |format|
-      format.html { @paperproposals = Paperproposal.includes(:author, :proponents, :main_aspect_dataset_owners, :side_aspect_dataset_owners) }
+      format.html { @paperproposals = Paperproposal.includes(:author, :proponents, :main_aspect_dataset_owners, :side_aspect_dataset_owners, :authored_by_project) }
       format.csv {
         send_data generate_csv_index, :type => "text/csv", :disposition => 'attachment',
                   :filename=>"paperproposals-list-for-#{current_user.login}.csv"

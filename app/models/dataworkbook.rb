@@ -402,7 +402,7 @@ class Dataworkbook
 
   def parse_date(date)
     # When parse did not succeed, we have to guesstimate.
--   # Is the string usable as year? If yes, use it. If no, fall back to the current year.
+    # Is the string usable as year? If yes, use it. If no, fall back to the current year.
     Date.parse(date) rescue yield(date.to_i > 2000 ? date.to_i : Date.today.year)
   end
 

@@ -7,7 +7,6 @@ class Category < ActiveRecord::Base
   belongs_to :datagroup, :class_name => "Datagroup", :foreign_key => "datagroup_id"
   has_many :sheetcells
 
-
   validates_presence_of :short, :long, :description
   before_validation :try_filling_missing_values
 
