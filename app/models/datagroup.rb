@@ -17,7 +17,7 @@ class Datagroup < ActiveRecord::Base
   #acts_as_taggable
 
   validates_presence_of :title, :description
-  validates_uniqueness_of :title
+  validates_uniqueness_of :title, :case_sensitive => false
 
   before_destroy :check_if_destroyable
   before_validation :fill_missing_description

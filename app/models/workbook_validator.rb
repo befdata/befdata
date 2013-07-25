@@ -1,16 +1,11 @@
 class WorkbookValidator < ActiveModel::Validator
   def validate(record)
-    unless record.book
-      record.errors.add :file, "could not be read." and return
-    end
     ss = record.book
 
-    unless ss && !ss.worksheet(Dataworkbook::WBF[:sheet_count]-1).nil? && ss.worksheet(Dataworkbook::WBF[:sheet_count]).nil?
-      record.errors.add :file, "is no valid workbook - has wrong number of pages"
-      return
-    end
+    record.errors.add :file, "could not be read." and return unless ss
+    record.errors.add :file, "is no valid workbook - has wrong number of pages" and return if ss.worksheets.count != 5
 
-    wb_version = ss.worksheet(Dataworkbook::WBF[:metadata_sheet])[*Dataworkbook::WBF[:meta_version_pos]]
+    wb_version = record.wb_version
     record.errors.add :file, "workbook version number not found" and return if wb_version.blank?
 
     # check if first two numbers of version information match
@@ -20,8 +15,7 @@ class WorkbookValidator < ActiveModel::Validator
     end
 
     # check for unique column headers
-    column_headers = ss.worksheet(Dataworkbook::WBF[:data_sheet]).row(0).compact.map(&:strip).reject(&:empty?)
-    unless column_headers.uniq_by(&:downcase).length == column_headers.length
+    unless record.columnheaders_unique?
       record.errors.add :file, "column headers in the raw data sheet must be unique" and return
     end
   end

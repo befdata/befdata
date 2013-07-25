@@ -76,16 +76,20 @@ class Dataworkbook
     @book.worksheet(WBF[:data_sheet])
   end
 
+  def wb_version
+    general_metadata_sheet[*WBF[:meta_version_pos]]
+  end
+
   # Provides an array with the headers of all raw data columns.
   def columnheaders_raw
-    columns = Array(raw_data_sheet.row(0)).compact
-    columns = columns.collect!{ |col| clean_string(col) } unless columns.nil?
-    columns
+    return @headers if defined? @headers
+    @headers = raw_data_sheet.row(0).compact.map(&:strip).reject {|h| h.blank?}
+    return @headers
   end
 
   # Checks whether the raw data headers are unique.
   def columnheaders_unique?
-    columnheaders_raw.length == columnheaders_raw.uniq.length
+    columnheaders_raw.length == columnheaders_raw.uniq_by(&:downcase).length
   end
 
   def authors_list

@@ -10,7 +10,7 @@
     = check_box_tag "hide_detail", "yes", checked=true
 
   .right#search_form
-    = form_tag datagroups_path, {:method => :get} do
+    = form_tag datagroups_path, :method => :get do
       - unless params[:search].blank?
         = link_to "Clear search", datagroups_path(params.merge(search: nil, utf8: nil)), :id => "clear_search"
       = search_field_tag :search, params[:search]
