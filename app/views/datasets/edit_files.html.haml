@@ -20,7 +20,11 @@
             = link_to_if(index > 0, "delete", dataset_datafile_path(@dataset, datafile), :method => :delete, :confirm => "Are you sure to delete this workbook ?") do
               protected
 
-%h3 Upload Excel workbook
+%h3 Upload Datafile
+
+%p
+  %b Note:
+  Only Excel-2003 and CSV files are supported.
 
 = form_for :datafile,
           :url => update_workbook_dataset_path(@dataset),

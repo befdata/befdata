@@ -19,6 +19,7 @@ class Datafile < ActiveRecord::Base
     return @spreadsheet if defined? @spreadsheet
     @spreadsheet = case File.extname(path)
       when '.xls' then Dataworkbook.new(self)
+      when '.csv' then CsvData.new(self)
       else nil
     end
   end

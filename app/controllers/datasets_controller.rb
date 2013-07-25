@@ -33,7 +33,7 @@ class DatasetsController < ApplicationController
       allow all, :if => :dataset_is_free_for_public
     end
 
-    actions :new, :create, :create_with_workbook do
+    actions :new, :create, :create_with_datafile do
       allow logged_in
     end
   end
@@ -48,7 +48,7 @@ class DatasetsController < ApplicationController
     end
   end
 
-  def create_with_workbook
+  def create_with_datafile
     unless params[:datafile]
       flash[:error] = "No data file given for upload"
       redirect_to :back and return
@@ -60,7 +60,9 @@ class DatasetsController < ApplicationController
       redirect_to :back and return
     end
 
-    @dataset = Dataset.new(datafile.general_metadata_hash)
+    attributes = datafile.general_metadata_hash
+    attributes.merge!(title: params[:title].squish.capitalize) if params[:title]
+    @dataset = Dataset.new(attributes)
     if @dataset.save
       @dataset.add_datafile(datafile)
       @dataset.load_projects_and_authors_from_spreadsheet

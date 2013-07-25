@@ -16,7 +16,7 @@
     #{link_to "here", help_url}.
 
 
-  = form_for Datafile.new, :url => {:controller => :datasets, :action => :create_with_workbook}, :html => {:multipart => true} do |f|
+  = form_for Datafile.new, :url => {:controller => :datasets, :action => :create_with_datafile}, :html => {:multipart => true} do |f|
     %h4
       Excel workbook
     = f.error_messages
@@ -38,3 +38,13 @@
     %br
     = f.submit "Submit"
 
+.row
+  .dataset-create-option.span-6
+    %h3 Option C: Create dataset with CSV file
+    = form_for Datafile.new, url: create_with_workbook_datasets_path, html: {multipart: true} do |f|
+      %dl
+        %dt Title
+        %dd= text_field_tag 'title'
+      = f.file_field :file
+      %br
+      = f.submit 'Submit'

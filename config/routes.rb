@@ -21,7 +21,7 @@ Befchina::Application.routes.draw do
   match 'search' => 'pages#search'
 
   resources :datasets, :except => [:index] do
-    post :create_with_workbook, :on => :collection
+    post :create_with_datafile, :on => :collection
     resources :datafiles, :only => [:destroy] do
       get :download, :on => :member
     end
