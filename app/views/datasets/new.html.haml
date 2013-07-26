@@ -41,7 +41,7 @@
 .row
   .dataset-create-option.span-6
     %h3 Option C: Create dataset with CSV file
-    = form_for Datafile.new, url: create_with_workbook_datasets_path, html: {multipart: true} do |f|
+    = form_for Datafile.new, url: create_with_datafile_datasets_path, html: {multipart: true} do |f|
       %dl
         %dt Title
         %dd= text_field_tag 'title'
