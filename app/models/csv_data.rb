@@ -50,9 +50,18 @@ class CsvData
 private
 
   def check_csvfile
+    begin
+      headers
+    rescue CSV::MalformedCSVError => e
+      errors.add :file, "is not valid CSV file." and return
+    end
     errors.add :base, 'Failed to find data in your file' and return unless headers.present?
-    errors.add :base, 'It seems one or more columns have not a header' and return if headers.any? {|h| h.blank? }
-    errors.add :file, 'column headers must be uniq' unless headers.uniq_by(&:downcase).length == headers.length
+    errors.add :base, 'It seems one or more columns do not have a header' and return if headers.any? {|h| h.blank? }
+    errors.add :file, 'column headers must be uniq' unless headers_unique?
+  end
+
+  def headers_unique?
+    headers.uniq_by(&:downcase).length == headers.length
   end
 
   def save_datacolumns
@@ -71,6 +80,12 @@ private
     end
   end
 
+  def assign_datagroup_to_column(columnheader)
+    datagroup = Datagroup.where(["title iLike ?", columnheader]).first
+    return datagroup if datagroup
+    return Datagroup.create!(title: columnheader)
+  end
+
   def import_sheetcells
     id_for_header = header_id_lookup_table
     counter = 0
@@ -81,22 +96,15 @@ private
         next if v.blank?
         sheetcells_in_queue << [ id_for_header[k], v, $INPUT_LINE_NUMBER,
             Datatypehelper::UNKNOWN.id, Sheetcellstatus::UNPROCESSED ]
-
         counter += 1
-        if counter == 1000
-          save_data_into_database(sheetcells_in_queue)
-          counter = 0
-          sheetcells_in_queue.clear
-        end
+      end
+      if counter >= 1000
+        save_data_into_database(sheetcells_in_queue)
+        counter = 0
+        sheetcells_in_queue.clear
       end
     end
     save_data_into_database(sheetcells_in_queue)
-  end
-
-  def assign_datagroup_to_column(columnheader)
-    datagroup = Datagroup.where(["title iLike ?", columnheader]).first
-    return datagroup if datagroup
-    return Datagroup.create!(title: columnheader)
   end
 
   def header_id_lookup_table
@@ -109,8 +117,9 @@ private
   end
 
   def save_data_into_database(sheetcells)
-    columns = [:datacolumn_id, :import_value, :row_number, :datatype_id, :status_id] 
+    columns = [:datacolumn_id, :import_value, :row_number, :datatype_id, :status_id]
     Sheetcell.import columns, sheetcells, :validate => false
+    @dataset.update_attribute(:import_status, "Imported #{$INPUT_LINE_NUMBER} rows")
   end
 
 end
