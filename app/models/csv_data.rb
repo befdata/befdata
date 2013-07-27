@@ -17,6 +17,7 @@ class CsvData
   def initialize(datafile)
     @dataset = datafile.dataset
     @path = datafile.path
+    @delimitor = detect_separator
   end
 
   def general_metadata_hash
@@ -36,7 +37,7 @@ class CsvData
 
   def headers
     return @headers if defined? @headers
-    CSV.open @path, OPTS do |csv|
+    CSV.open @path, OPTS.merge(col_sep: @delimitor) do |csv|
       @headers = csv.first.headers
     end
     return @headers
@@ -46,8 +47,15 @@ class CsvData
     save_datacolumns
     import_sheetcells
   end
-  
+
 private
+
+  def detect_separator # TODO: this rule is not strict
+    first_row = File.open(@path) {|f| f.readline }
+    # because TAB is rarely part of data, if tabs are detected in the header,
+    # it's very possible that it's the delimitor.
+    first_row.count("\t") > 0 ? "\t" : ","
+  end
 
   def check_csvfile
     begin
@@ -91,7 +99,7 @@ private
     counter = 0
     sheetcells_in_queue = []
 
-    CSV.foreach @path, OPTS do |row|
+    CSV.foreach @path, OPTS.merge(col_sep: @delimitor) do |row|
       row.to_hash.each do |k, v|
         next if v.blank?
         sheetcells_in_queue << [ id_for_header[k], v, $INPUT_LINE_NUMBER,
