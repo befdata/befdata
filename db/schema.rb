@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130721170936) do
+ActiveRecord::Schema.define(:version => 20130729131516) do
 
   create_table "author_paperproposals", :force => true do |t|
     t.integer  "paperproposal_id"
@@ -52,6 +52,7 @@ ActiveRecord::Schema.define(:version => 20130721170936) do
   end
 
   add_index "categories", ["datagroup_id"], :name => "index_categories_on_datagroup_id"
+  add_index "categories", ["long"], :name => "index_categories_on_long"
   add_index "categories", ["short"], :name => "index_categoricvalues_on_short"
   add_index "categories", ["status_id"], :name => "index_categories_on_status_id"
 
@@ -218,6 +219,8 @@ ActiveRecord::Schema.define(:version => 20130721170936) do
   end
 
   add_index "import_categories", ["datacolumn_id"], :name => "index_import_categories_on_datacolumn_id"
+  add_index "import_categories", ["long"], :name => "index_import_categories_on_long"
+  add_index "import_categories", ["short"], :name => "index_import_categories_on_short"
 
   create_table "notifications", :force => true do |t|
     t.integer  "user_id"
