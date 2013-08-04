@@ -228,10 +228,21 @@ class Dataset < ActiveRecord::Base
     save
   end
 
+
+  def index_response
+    datasets = Dataset.all
+    response = Array.new
+    datasets.each do |ds|
+      response << { :id => ds.id, :title => ds.title }
+    end
+    return(response)
+  end
+
+
   def refresh_paperproposal_authors
     self.paperproposals.each {|pp| pp.update_datasets_providers}
   end
-  
+
   def to_csv (separate_category_columns = false)
     # gather columns and values
     all_columns = []

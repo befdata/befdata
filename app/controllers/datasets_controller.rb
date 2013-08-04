@@ -12,7 +12,7 @@ class DatasetsController < ApplicationController
   after_filter :edit_message_datacolumns, :only => [:batch_update_columns, :approve_predefined]
 
   access_control do
-    allow all, :to => [:show, :download_excel_template, :importing, :keywords, :download_status]
+    allow all, :to => [:show, :index, :download_excel_template, :importing, :keywords, :download_status]
 
     actions :edit, :update, :edit_files, :update_workbook, :approve, :approve_predefined,
       :approval_quick, :batch_update_columns do
@@ -160,6 +160,19 @@ class DatasetsController < ApplicationController
     respond_to do |format|
       format.html
       format.eml
+    end
+  end
+
+  def index
+    datasets = Dataset.all
+    response = Array.new
+    datasets.each do |ds|
+      response << { :id => ds.id, :title => ds.title }
+    end
+
+    respond_to do |format|
+      format.json { render :json=> response}
+      format.xml { render :xml=> response}
     end
   end
 

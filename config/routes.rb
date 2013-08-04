@@ -20,7 +20,8 @@ Befchina::Application.routes.draw do
   match 'data' => 'pages#data', :as => :data
   match 'search' => 'pages#search'
 
-  resources :datasets, :except => [:index] do
+  # resources :datasets, :except => [:index] do
+  resources :datasets do
     post :create_with_datafile, :on => :collection
     resources :datafiles, :only => [:destroy] do
       get :download, :on => :member
