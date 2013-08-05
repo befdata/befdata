@@ -10,8 +10,8 @@ class TagsController < ApplicationController
     @tags = Dataset.tag_counts.where("name iLike ?", "%#{params[:q]}%").order("tags.name")
     respond_to do |format|
       format.html
-      format.json { render :json=> @tags.map(&:attributes)}
-      format.xml { render :xml=> @tags.map(&:attributes)}
+      format.json { render :json => @tags}
+      format.xml { render :xml => @tags.map(&:attributes) }
     end
   end
 

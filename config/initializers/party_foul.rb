@@ -1,5 +1,5 @@
 # PartyFoul.configure do |config|
-  # config.blacklisted_exceptions = ['ActiveRecord::RecordNotFound', 'ActionController::RoutingError']
+  # config.blacklisted_exceptions = ['ActiveRecord::RecordNotFound', 'ActionController::RoutingError', 'AbstractController::ActionNotFound']
   # config.oauth_token            = CONFIG[:party_foul_github_oauth_token]
   # config.endpoint               = 'https://api.github.com'
   # config.web_url                = 'https://github.com'

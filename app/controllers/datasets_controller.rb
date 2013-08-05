@@ -51,17 +51,17 @@ class DatasetsController < ApplicationController
   def create_with_datafile
     unless params[:datafile]
       flash[:error] = "No data file given for upload"
-      redirect_to :back and return
+      redirect_back_or_default root_url and return
     end
 
     datafile = Datafile.new(params[:datafile])
     unless datafile.save
       flash[:error] = datafile.errors.full_messages.to_sentence
-      redirect_to :back and return
+      redirect_back_or_default root_url and return
     end
 
     attributes = datafile.general_metadata_hash
-    attributes.merge!(title: params[:title].squish.capitalize) if params[:title]
+    attributes.merge!(title: params[:title].squish) if params[:title]
     @dataset = Dataset.new(attributes)
     if @dataset.save
       @dataset.add_datafile(datafile)
@@ -72,7 +72,7 @@ class DatasetsController < ApplicationController
     else
       datafile.destroy
       flash[:error] = @dataset.errors.full_messages.to_sentence
-      redirect_to :back
+      redirect_back_or_default root_url
     end
   end
 
@@ -164,15 +164,11 @@ class DatasetsController < ApplicationController
   end
 
   def index
-    datasets = Dataset.all
-    response = Array.new
-    datasets.each do |ds|
-      response << { :id => ds.id, :title => ds.title }
-    end
+    datasets = Dataset.select("id, title")
 
     respond_to do |format|
-      format.json { render :json=> response}
-      format.xml { render :xml=> response}
+      format.json { render :json => datasets }
+      format.xml { render :xml => datasets }
     end
   end
 
