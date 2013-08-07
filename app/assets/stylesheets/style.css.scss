@@ -14,7 +14,7 @@ del { text-decoration: line-through }
 abbr[title], dfn[title] { border-bottom: 1px dotted; cursor: help; }
 /* tables still need cellspacing="0" in the markup */
 table { border-collapse: collapse; border-spacing: 0; }
-hr { display: block; height: 1px; border: 0; border-top: 1px solid #ccc; margin: 1em 0; padding: 0; }
+hr { display: block; height: 1px; border: 0; border-top: 1px solid #ddd; margin: 1em 0; padding: 0; }
 input, select, textarea { vertical-align: middle; background-color: #ddd; }
 label, input[type=button], input[type=submit], button { cursor: pointer }
 body * {outline: none;}
@@ -58,12 +58,10 @@ Blueprint Grid
   margin: 0 auto;
 }
 
-
 /* Body margin for a sensile default look. */
 body {
   margin:0;	
 }
-
 
 /* Columns
 -------------------------------------------------------------- */
@@ -75,10 +73,7 @@ body {
 div.last { margin-right: 0; }
 
 /* Use these classes to set the width of a column. */
-.span-1  {
-  width: 48px;
-  clear: left;
-}
+.span-1  { width: 48px; clear: left;}
 .span-2  { width: 128px;}
 .span-3  { width: 208px;}
 .span-4  { width: 288px;}
@@ -90,7 +85,6 @@ div.last { margin-right: 0; }
 .span-10 { width: 768px;}
 .span-11 { width: 848px;}
 .span-12, div.span-12 { width: 928px; margin: 0; }
-
 
 /* Add these to a column to append empty cols. */
 .append-1  { padding-right: 80px;}
@@ -105,7 +99,6 @@ div.last { margin-right: 0; }
 .append-10 { padding-right: 800px;}
 .append-11 { padding-right: 880px;}
 
-
 /* Add these to a column to prepend empty cols. */
 .prepend-1  { padding-left: 80px;}
 .prepend-2  { padding-left: 160px;}
@@ -118,8 +111,6 @@ div.last { margin-right: 0; }
 .prepend-9  { padding-left: 720px;}
 .prepend-10 { padding-left: 800px;}
 .prepend-11 { padding-left: 880px;}
-
-
 
 /* Border on right hand side of a column. */
 div.border {
@@ -152,7 +143,6 @@ div.colborder {
 .pull-12 { margin-left: -960px;}
 
 .pull-1, .pull-2, .pull-3, .pull-4, .pull-5, .pull-6, .pull-7, .pull-8, .pull-9, .pull-10, .pull-11, .pull-12 {float:left;position:relative;}
-
 
 .push-1 { margin: 0 -80px 1.5em 80px;}
 .push-2 { margin: 0 -160px 1.5em 160px;}
