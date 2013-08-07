@@ -22,9 +22,9 @@
       %abstract
         = content_tag_unless_blank :para, @dataset.abstract
         = content_tag_unless_blank :para, @dataset.circumstances
-    - unless @dataset.tags.empty?
+    - unless @tags.empty?
       %keywordSet
-        - @dataset.tags.each do |tag|
+        - @tags.each do |tag|
           %keyword= tag.name
         %keywordThesaurus Portal Tags
     - unless @datacolumns.empty?
