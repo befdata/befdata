@@ -1,6 +1,2 @@
 %h2 Edit meta data of #{link_to @dataset.title, @dataset}
-%p
-  For more information, please contact #{link_to @dataset.owners.first, user_path(@dataset.owners.first)} of project
-  = link_to(@dataset.projects.first, project_path(@dataset.projects.first)) unless @dataset.projects.empty?
-
 = render :partial => "form_for_metadata"
