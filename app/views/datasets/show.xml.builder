@@ -21,9 +21,10 @@ xml.dataset(:id => @dataset.id) {
     }
     xml.projects {
       @projects.each do |p|
-        xml.name p.name, id: p.id
+        xml.name p.shortname, id: p.id
       end
     }
+    xml.accessRight @dataset.access_rights, :code => @dataset.access_code
     xml.columns {
       @datacolumns.each do |dc|
         xml.column {
@@ -36,6 +37,11 @@ xml.dataset(:id => @dataset.id) {
           xml.datagroup(id: dc.datagroup_id) {
             xml.title dc.datagroup.title
             xml.description dc.datagroup.description
+          }
+          xml.keywordSet {
+            dc.tags.each do |t|
+              xml.keyword t.name, :id => t.id
+            end
           }
         }
         if params[:separate_category_columns].to_s.downcase.eql?("true")  && dc.split_me?
@@ -50,6 +56,11 @@ xml.dataset(:id => @dataset.id) {
               xml.title dc.datagroup.title
               xml.description dc.datagroup.description
             }
+            xml.keywordSet {
+              dc.tags.each do |t|
+                xml.keyword t.name, :id => t.id
+              end
+            }
           }
         end
       end
@@ -58,9 +69,9 @@ xml.dataset(:id => @dataset.id) {
       xml.xls download_dataset_url(@dataset, user_credentials: current_user.try(:single_access_token))
       xml.csv download_dataset_url(@dataset, format: :csv, separate_category_columns: true, user_credentials: current_user.try(:single_access_token))
     }
-    xml.keywords {
-      @tags.each do |t|
-        xml.keyword t.name, id: t.id
+    xml.keywordSet {
+      @dataset.tags.each do |t|
+        xml.keyword t.name, :id => t.id
       end
     }
     xml.attachments {

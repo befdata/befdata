@@ -335,6 +335,21 @@ class Dataset < ActiveRecord::Base
     end
   end
 
+  def access_code
+    return 3 if free_for_public
+    return 2 if free_for_members
+    return 1 if free_within_projects
+    return 0
+  end
+
+  def access_rights
+    ["Private",
+      "Free within project",
+      "Free for members",
+      "Free for public"
+    ][access_code]
+  end
+
   def free_for?(user)
     return true if self.free_for_public
     return false unless user
