@@ -10,12 +10,12 @@ self.use_transactional_fixtures = false
     assert_true datafile.save, datafile.errors
 
     dataset = Dataset.create(:title => "just4testing")
-    dataset.upload_spreadsheet = datafile
+    dataset.current_datafile = datafile
 
     assert_true dataset.save, dataset.errors
 
     ##import dataset
-    book = Dataworkbook.new(dataset.upload_spreadsheet)
+    book = Dataworkbook.new(dataset.current_datafile)
     book.import_data
 
     # the first number column: number1
@@ -79,7 +79,7 @@ self.use_transactional_fixtures = false
     assert_equal datacolumn.invalid_values.count, 4, "column number1 does not have 4 invalid values"
 
     #clean up
-    dataset.upload_spreadsheet.destroy
+    dataset.current_datafile.destroy
   end
 
   test "cleanstring_several_spaces" do
@@ -100,22 +100,22 @@ self.use_transactional_fixtures = false
     datafile2 = Datafile.create(:file => File.new(File.join(fixture_path, 'test_files_for_uploads',
                                                                'UnitTestSpreadsheetForUpload_Datagroups.xls')))
     dataset1 = Dataset.create(:title => "just4testing_datagroups_1")
-    dataset1.upload_spreadsheet = datafile1
+    dataset1.current_datafile = datafile1
 
     assert_true dataset1.save, dataset1.errors
 
-    book1 = Dataworkbook.new(dataset1.upload_spreadsheet)
+    book1 = Dataworkbook.new(dataset1.current_datafile)
     book1.import_data
 
     #count number of datagroups
     datagroup_count = Datagroup.all.count
 
     dataset2 = Dataset.create(:title => "just4testing_datagroups_2")
-    dataset2.upload_spreadsheet = datafile2
+    dataset2.current_datafile = datafile2
 
     assert_true dataset2.save, dataset2.errors
 
-    book2 = Dataworkbook.new(dataset2.upload_spreadsheet)
+    book2 = Dataworkbook.new(dataset2.current_datafile)
     book2.import_data
 
     #check that no more datagroups were added

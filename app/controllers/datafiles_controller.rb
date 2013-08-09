@@ -21,6 +21,6 @@ class DatafilesController < ApplicationController
 private
   def load_dataset_and_datafile
     @dataset = Dataset.find(params[:dataset_id])
-    @datafile = @dataset.upload_spreadsheets.find(params[:id])
+    @datafile = @dataset.datafiles.find(params[:id])
   end
 end

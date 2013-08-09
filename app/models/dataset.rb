@@ -33,8 +33,8 @@ class Dataset < ActiveRecord::Base
   has_attached_file :generated_spreadsheet,
     :path => ":rails_root/files/:id_generated-download.xls"
 
-  has_many :upload_spreadsheets, :class_name => "Datafile", :order => 'id DESC', :dependent => :destroy
-  has_one  :upload_spreadsheet,  :class_name => "Datafile", :order => 'id DESC'
+  has_many :datafiles, :class_name => "Datafile", :order => 'id DESC', :dependent => :destroy
+  has_one  :current_datafile,  :class_name => "Datafile", :order => 'id DESC'
 
   has_many :datacolumns, :dependent => :destroy, :order => "columnnr"
   has_many :sheetcells, :through => :datacolumns
@@ -50,8 +50,6 @@ class Dataset < ActiveRecord::Base
   has_many :paperproposals, :through => :dataset_paperproposals
 
   validates :title, :presence => true, :uniqueness => { case_sensitive: false }
-
-  # validates_associated :upload_spreadsheet, :if => "upload_spreadsheet_id_changed?"
 
   before_destroy :check_for_paperproposals
 
@@ -81,10 +79,10 @@ class Dataset < ActiveRecord::Base
     end
   end
 
-  def load_projects_and_authors_from_spreadsheet
-    return unless upload_spreadsheet
-    upload_spreadsheet.authors_list[:found_users].each {|user| user.has_role!(:owner, self) }
-    self.projects = upload_spreadsheet.projects_list if upload_spreadsheet.projects_list.present?
+  def load_projects_and_authors_from_current_datafile
+    return unless current_datafile
+    current_datafile.authors_list[:found_users].each {|user| user.has_role!(:owner, self) }
+    self.projects = current_datafile.projects_list if current_datafile.projects_list.present?
   end
 
   def add_datafile(datafile)
@@ -93,7 +91,7 @@ class Dataset < ActiveRecord::Base
   end
 
   def has_research_data?
-    !upload_spreadsheet.blank?
+    current_datafile.present?
   end
 
   def abstract_with_freeformats
@@ -178,8 +176,8 @@ class Dataset < ActiveRecord::Base
 
   def last_update
     dates = Array.new
-      dates << self.updated_at
-    dates << self.upload_spreadsheet.updated_at unless self.upload_spreadsheet.nil?
+    dates << self.updated_at
+    dates << self.current_datafile.updated_at if self.current_datafile
     dates += self.freeformats.pluck(:updated_at)
     dates.max
   end
@@ -187,7 +185,7 @@ class Dataset < ActiveRecord::Base
   def import_data
     begin
       self.update_attribute(:import_status, 'started importing')
-      upload_spreadsheet.import_data
+      current_datafile.import_data
       self.update_attribute(:import_status, 'finished')
       self.enqueue_to_generate_download(:high)
     rescue Exception => e
@@ -346,7 +344,7 @@ class Dataset < ActiveRecord::Base
   end
 
   def can_download_by?(user)
-    return false unless self.upload_spreadsheet
+    return false unless self.current_datafile
     return true if self.free_for?(user)
     return false unless user
     return true if user.has_role?(:proposer, self) || user.has_role?(:owner, self)

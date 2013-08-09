@@ -5,9 +5,9 @@ class DataworkbookTest < ActiveSupport::TestCase
 
   def setup
     @dataset = Dataset.find(5)
-    @spreadsheet = Spreadsheet.open @dataset.upload_spreadsheet.file.path
+    @spreadsheet = Spreadsheet.open @dataset.current_datafile.file.path
     @spreadsheet.io.close
-    @book = Dataworkbook.new(@dataset.upload_spreadsheet)
+    @book = Dataworkbook.new(@dataset.current_datafile)
   end
 
   test "workbook was loaded correctly" do

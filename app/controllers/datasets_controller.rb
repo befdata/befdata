@@ -65,7 +65,7 @@ class DatasetsController < ApplicationController
     @dataset = Dataset.new(attributes)
     if @dataset.save
       @dataset.add_datafile(datafile)
-      @dataset.load_projects_and_authors_from_spreadsheet
+      @dataset.load_projects_and_authors_from_current_datafile
       current_user.has_role! :owner, @dataset
       @unfound_usernames = datafile.authors_list[:unfound_usernames]
       render :action => :create
@@ -212,7 +212,7 @@ class DatasetsController < ApplicationController
       redirect_to(:action => 'show') and return
     end
     @freeformats = @dataset.freeformats :order => :file_file_name
-    @workbooks = @dataset.upload_spreadsheets
+    @datafiles = @dataset.datafiles
   end
 
 

@@ -200,7 +200,7 @@ class DatasetsControllerTest < ActionController::TestCase
     assert_nil flash[:error]
     assert_redirected_to dataset_path(@dataset)
     @dataset.reload
-    assert_equal Dataworkbook.new(@dataset.upload_spreadsheet).columnheaders_raw,old_workbook
+    assert_equal Dataworkbook.new(@dataset.current_datafile).columnheaders_raw,old_workbook
 
 
     #upload another workbook
@@ -212,10 +212,10 @@ class DatasetsControllerTest < ActionController::TestCase
     assert_redirected_to dataset_path(@dataset)
 
     @dataset.reload
-    assert_not_equal Dataworkbook.new(@dataset.upload_spreadsheet).columnheaders_raw, old_workbook
+    assert_not_equal Dataworkbook.new(@dataset.current_datafile).columnheaders_raw, old_workbook
 
     #clean and recover
-    @dataset.upload_spreadsheet.destroy
+    @dataset.current_datafile.destroy
     FileUtils.copy("#{Rails.root}/files/4_8346952459374534species first test.xls.tmp",
                      "#{Rails.root}/files/4_8346952459374534species first test.xls")
   end
