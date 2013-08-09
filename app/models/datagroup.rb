@@ -32,7 +32,7 @@ class Datagroup < ActiveRecord::Base
 
   def check_if_destroyable
     unless !self.is_system_datagroup &&
-        (self.datacolumns.empty? || (self.datacolumns.count == 1 && self.datacolumns.first.destroyed?))
+        (self.datacolumns.empty? || (self.datacolumns_count == 1 && self.datacolumns.first.destroyed?))
       false
     end
   end
@@ -48,8 +48,7 @@ class Datagroup < ActiveRecord::Base
 
   def self.delete_orphan_datagroups
     # delete non-system orphan datagroups that has no associated datacolumns
-    to_be_deleted = Datagroup.joins('left outer join datacolumns on datagroups.id = datacolumns.datagroup_id').
-              where("datacolumns.datagroup_id is NULL and datagroups.type_id = #{Datagrouptype::DEFAULT}")
+    to_be_deleted = Datagroup.where(datacolumns_count: 0, type_id: Datagrouptype::DEFAULT)
     puts "#{to_be_deleted.count} datagroups is deleted at #{Time.now.utc}" unless to_be_deleted.empty?
     Datagroup.delete(to_be_deleted)
   end

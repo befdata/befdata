@@ -16,10 +16,8 @@ class DatagroupsController < ApplicationController
 
   def index
     validate_sort_params(collection: ['id', 'title', 'datacolumns_count'], default: 'title')
-    @datagroups = Datagroup.joins('left join datacolumns on datagroups.id = datacolumns.datagroup_id').
-                  select('datagroups.id, title, description, datagroups.created_at, count(datacolumns.id) as datacolumns_count').
-                  group('datagroups.id').search(params[:search]).
-                  paginate(page: params[:page], per_page: 100, order: "#{params[:sort]} #{params[:direction]}")
+    @datagroups = Datagroup.select('id, title, description, created_at, datacolumns_count').
+                  search(params[:search]).paginate(page: params[:page], per_page: 100, order: "#{params[:sort]} #{params[:direction]}")
   end
 
   def show

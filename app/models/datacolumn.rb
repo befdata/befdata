@@ -20,7 +20,7 @@ class Datacolumn < ActiveRecord::Base
   acts_as_authorization_object :subject_class_name => 'User'
   acts_as_taggable
 
-  belongs_to :datagroup
+  belongs_to :datagroup, :counter_cache => true
   has_many :categories, :through => :datagroup
   belongs_to :dataset, :touch => true
 

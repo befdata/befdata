@@ -10,6 +10,7 @@ datagroups_001:
   created_at: 2011-09-01 09:02:33.993429
   updated_at: 2011-09-01 09:02:33.993429
   type_id: "1"
+  datacolumns_count: '1'
 datagroups_002: 
   id: "32"
   informationsource: 
@@ -21,6 +22,7 @@ datagroups_002:
   created_at: 2011-09-01 09:02:34.303446
   updated_at: 2011-09-01 09:02:34.303446
   type_id: "1"
+  datacolumns_count: '1'
 datagroups_003: 
   id: "33"
   informationsource: 
@@ -32,6 +34,7 @@ datagroups_003:
   created_at: 2011-09-01 09:02:35.388508
   updated_at: 2011-09-01 09:02:35.388508
   type_id: "1"
+  datacolumns_count: '1'
 datagroups_004: 
   id: "34"
   informationsource: 
@@ -43,6 +46,7 @@ datagroups_004:
   created_at: 2011-09-01 09:02:35.679525
   updated_at: 2011-09-01 09:02:35.679525
   type_id: "1"
+  datacolumns_count: '1'
 datagroups_005: 
   id: "35"
   informationsource: 
@@ -54,6 +58,7 @@ datagroups_005:
   created_at: 2011-09-01 09:02:36.255558
   updated_at: 2011-09-01 09:02:36.255558
   type_id: "1"
+  datacolumns_count: '1'
 datagroups_006: 
   id: "1"
   informationsource: Flora of China, Helge Bruelheide
@@ -65,6 +70,7 @@ datagroups_006:
   created_at: 2011-03-28 13:59:34.1444
   updated_at: 2011-03-28 13:59:34.1444
   type_id: "1"
+  datacolumns_count: '2'
 datagroups_007: 
   id: "19"
   informationsource: 
@@ -76,6 +82,7 @@ datagroups_007:
   created_at: 2011-06-01 13:47:45.502
   updated_at: 2011-06-01 13:47:45.502
   type_id: "1"
+  datacolumns_count: '2'
 datagroups_008: 
   id: "7"
   informationsource: 
@@ -87,6 +94,7 @@ datagroups_008:
   created_at: 2011-03-28 13:59:35.8384
   updated_at: 2011-03-28 13:59:35.8384
   type_id: "1"
+  datacolumns_count: '0'
 datagroups_010:
   id: "4"
   informationsource:
@@ -98,6 +106,7 @@ datagroups_010:
   created_at: 2011-03-28 13:59:35.4144
   updated_at: 2011-03-28 13:59:35.4144
   type_id: "1"
+  datacolumns_count: '0'
 datagroups_012: 
   id: "18"
   informationsource: 
@@ -109,6 +118,7 @@ datagroups_012:
   created_at: 2011-05-01 12:51:22.491656
   updated_at: 2011-05-01 12:51:22.491656
   type_id: "1"
+  datacolumns_count: '0'
 datagroups_013: 
   id: "2"
   informationsource: 
@@ -120,6 +130,7 @@ datagroups_013:
   created_at: 2011-03-28 13:59:35.0964
   updated_at: 2011-03-28 13:59:35.0964
   type_id: "1"
+  datacolumns_count: '0'
 datagroups_015: 
   id: "20"
   informationsource: 
@@ -131,6 +142,7 @@ datagroups_015:
   created_at: 2011-06-01 13:47:47.767
   updated_at: 2011-06-01 13:47:47.767
   type_id: "1"
+  datacolumns_count: '2'
 datagroups_016: 
   id: "3"
   informationsource: 
@@ -142,6 +154,7 @@ datagroups_016:
   created_at: 2011-03-28 13:59:35.2564
   updated_at: 2011-03-28 13:59:35.2564
   type_id: "1"
+  datacolumns_count: '0'
 datagroups_017: 
   id: "5"
   informationsource: 
@@ -153,6 +166,7 @@ datagroups_017:
   created_at: 2011-03-28 13:59:35.5574
   updated_at: 2011-03-28 13:59:35.5574
   type_id: "1"
+  datacolumns_count: '1'
 datagroups_021:
   id: "21"
   informationsource: 
@@ -164,6 +178,7 @@ datagroups_021:
   created_at: 2011-06-01 13:47:47.992
   updated_at: 2011-06-01 13:47:47.992
   type_id: "1"
+  datacolumns_count: '3'
 datagroups_022: 
   id: "6"
   informationsource: 
@@ -175,6 +190,7 @@ datagroups_022:
   created_at: 2011-03-28 13:59:35.7254
   updated_at: 2011-03-28 13:59:35.7254
   type_id: "1"
+  datacolumns_count: '4'
 datagroups_027:
   id: "22"
   informationsource: 
@@ -186,6 +202,7 @@ datagroups_027:
   created_at: 2011-06-29 11:46:40.633028
   updated_at: 2011-06-29 11:46:40.633028
   type_id: "3"
+  datacolumns_count: '0'
 datagroups_028: 
   id: "23"
   informationsource: 
@@ -197,6 +214,7 @@ datagroups_028:
   created_at: 2011-07-01 11:46:40.633028
   updated_at: 2011-07-01 11:46:40.633028
   type_id: "1"
+  datacolumns_count: '1'
 datagroups_029: 
   id: "24"
   informationsource: 
@@ -208,6 +226,7 @@ datagroups_029:
   created_at: 2011-07-01 11:46:40.633028
   updated_at: 2011-07-01 11:46:40.633028
   type_id: "1"
+  datacolumns_count: '3'
 datagroups_030: 
   id: "25"
   informationsource: 
@@ -219,6 +238,7 @@ datagroups_030:
   created_at: 2011-07-01 11:46:40.633028
   updated_at: 2011-07-01 11:46:40.633028
   type_id: "1"
+  datacolumns_count: '1'
 datagroups_031: 
   id: "26"
   informationsource: 
@@ -230,6 +250,7 @@ datagroups_031:
   created_at: 2011-07-01 11:46:40.633028
   updated_at: 2011-07-01 11:46:40.633028
   type_id: "1"
+  datacolumns_count: '1'
 datagroups_032: 
   id: "27"
   informationsource: 
@@ -241,6 +262,7 @@ datagroups_032:
   created_at: 2011-07-01 11:46:40.633028
   updated_at: 2011-07-01 11:46:40.633028
   type_id: "1"
+  datacolumns_count: '1'
 datagroups_033: 
   id: "28"
   informationsource: 
@@ -252,6 +274,7 @@ datagroups_033:
   created_at: 2011-07-01 11:46:40.633028
   updated_at: 2011-07-01 11:46:40.633028
   type_id: "1"
+  datacolumns_count: '1'
 datagroups_034: 
   id: "29"
   informationsource: 
@@ -263,6 +286,7 @@ datagroups_034:
   created_at: 2011-07-01 11:46:40.633028
   updated_at: 2011-07-01 11:46:40.633028
   type_id: "1"
+  datacolumns_count: '1'
 datagroups_035: 
   id: "36"
   informationsource: DG_INFORMATION_SOURCE_1
@@ -274,6 +298,7 @@ datagroups_035:
   created_at: 2011-12-12 13:35:20.454189
   updated_at: 2011-12-12 13:35:20.454189
   type_id: "1"
+  datacolumns_count: '1'
 datagroups_036: 
   id: "37"
   informationsource: DG_INFORMATION_SOURCE_2
@@ -285,3 +310,4 @@ datagroups_036:
   created_at: 2011-12-12 13:35:20.784521
   updated_at: 2011-12-12 13:35:20.784521
   type_id: "1"
+  datacolumns_count: '1'
