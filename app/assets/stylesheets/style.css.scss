@@ -969,7 +969,7 @@ Custom JQuery Tweaking
 .ui-tabs-nav .approved_true a { color: #9bc56f; }
 .ui-corner-all, .ui-corner-top, .ui-corner-left, .ui-corner-tl { border-bottom-right-radius: 0; border-bottom-left-radius: 0; border-top-right-radius: 0px; border-top-left-radius: 0px; }
 
-a.close {
+a.remove_parent, a.hide_parent {
   display: block;
   float: right;
   font-weight: bold;

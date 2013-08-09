@@ -22,14 +22,12 @@
         #login
           = render :partial => 'user_sessions/login'
       #content
-        - if flash[:error]
-          #error
-            = flash[:error]
-            = link_to  "", "#", class: "close"
-        - if flash[:notice]
-          #notice
-            = flash[:notice]
-            = link_to  "", "#", class: "close"
+        #error{class: flash[:error].present? ? nil : 'hidden'}
+          = flash[:error]
+          = link_to  "", "#", class: "hide_parent"
+        #notice{class: flash[:notice].present? ? nil : 'hidden'}
+          = flash[:notice]
+          = link_to  "", "#", class: "hide_parent"
 
         - sidebar_exists = content_for?(:actions) || content_for?(:info)
         #main{:class => sidebar_exists ? "span-8 append-1" : "span-12"}

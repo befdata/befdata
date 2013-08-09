@@ -128,8 +128,12 @@ function clone_me() {
 
 $(function(){
   $("table.tablesorter").tablesorter();
-  $("#content").on("click","a.close", function(){
+  $("#content").on("click","a.remove_parent", function(){
     $(this).parent().remove();
+    return(false);
+  });
+  $("#content").on("click","a.hide_parent", function(){
+    $(this).parent().hide();
     return(false);
   });
   $("#search_term").parent("form").submit(function(){
