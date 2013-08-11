@@ -13,7 +13,7 @@ xml.dataset(:id => @dataset.id) {
     xml.uploaded_at @dataset.created_at
     xml.authors {
       @contacts.each do |u|
-        xml.author(id: u.id) {
+        xml.person(id: u.id) {
           xml.name u.full_name
           xml.email u.email
         }
