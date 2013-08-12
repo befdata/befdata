@@ -67,6 +67,7 @@ class PaperproposalsController < ApplicationController
 
   def show
     respond_to do |format|
+      format.xml
       format.html
         @freeformats = @paperproposal.freeformats.order('is_essential DESC, file_file_name ASC')
       format.csv do
