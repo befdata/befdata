@@ -28,10 +28,6 @@ class Category < ActiveRecord::Base
     end
   end
 
-  def verbose
-    "#{short} -- #{long} -- #{description}"
-  end
-
   def show_value
     "#{long} (#{short})"
   end

@@ -1,5 +1,12 @@
 %h3 Quick Approve
 %p Only do this, if you know what you do, this changes a lot at once.
+- if @dataset.number_of_observations > 10000
+  #too-many-alert
+    %b HEADS UP!
+    %p
+      This dataset has too many rows than we can handle. This
+      %tt Quick Approve
+      process can be too slow to be tolerable. We suggest you approving the data columns one by one.
 %p
   Below the select box you find the previosly assigned values. Grey values means they are not approved and are
   automatically filled in if possible. Empty boxes will be left unchanged.

@@ -52,7 +52,7 @@
   %h4 General Metadata
   %dl
     %dt= f.label :tag_list, "Keywords(separated by comma)"
-    %dd= f.text_field :tag_list,{:id => "tag_list", :class => "metadata-text-input", "data-tags"=> ActsAsTaggableOn::Tag.all.map(&:name).sort.to_json}
+    %dd= f.text_field :tag_list,{:id => "tag_list", :class => "metadata-text-input", "data-tags"=> all_tags_for_select2}
 
     %dt= label_tag 'abstract'
     %dd= f.text_area :abstract

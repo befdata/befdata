@@ -199,9 +199,9 @@ class Dataset < ActiveRecord::Base
     self.import_status.to_s == 'finished' || !self.has_research_data?
   end
 
-  def being_imported?   # TODO: this relies too much on the message
+  def being_imported?   # TODO: this is prone to be out of sync if new status added
     return false unless self.has_research_data?
-    ['queued', 'started importing'].include?(import_status) || import_status.starts_with?("processing")
+    %w{new finished}.exclude?(import_status) && !import_status.start_with?('error')
   end
 
   def enqueue_to_generate_download(priority = :low)

@@ -53,26 +53,6 @@ class Datagroup < ActiveRecord::Base
     Datagroup.delete(to_be_deleted)
   end
 
-  def abbr_method
-    text = "#{self.title}: #{self.description}"
-    if text.length > 200
-      [text[0..200], " ... (continued)"].join
-    else
-      text
-    end
-  end
-
-  def helper_method
-    helper = Datagroup.find_all_by_type_id(Datagrouptype::HELPER)
-
-    unless helper
-      helper = Datagroup.create(:title => "Helper",
-                                :description => "Helper Method for something",
-                                :type_id => Datagrouptype::HELPER)
-    end
-    helper
-  end
-
   def update_categories_with_csv (file, user)
     begin
       lines = CSV.read file

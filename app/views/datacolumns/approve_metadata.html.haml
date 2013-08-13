@@ -10,7 +10,7 @@
     %dd= text_area_tag 'datacolumn[definition]', @datacolumn.definition, {:class => "metadata-text-input"}
 
     %dt= label_tag "datacolumn[tag_list]", 'Keywords (Comma separated)'
-    %dd= text_field_tag "datacolumn[tag_list]", @datacolumn.tag_list.join(", "), {:class => "metadata-text-input",:id =>"tag_list", "data-tags"=> ActsAsTaggableOn::Tag.all.map(&:name).sort.to_json}
+    %dd= text_field_tag "datacolumn[tag_list]", @datacolumn.tag_list.join(", "), {:class => "metadata-text-input",:id =>"tag_list", "data-tags"=> all_tags_for_select2}
   %dl
     %dt= label_tag 'datacolumn[comment]',"Comment"
     %dd= text_area_tag 'datacolumn[comment]', @datacolumn.comment, {:class => "metadata-text-input"}
