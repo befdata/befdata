@@ -129,10 +129,7 @@ class Dataset < ActiveRecord::Base
   end
 
   def predefined_columns
-    # To be predefined, a column must have a datagroup and a datatype that is not 'unknown'.
-    # The datagroup is created at import, so we only have to check for the datatype.
-    # Furthermore, the datacolumn approval process must not have already started.
-    datacolumns.select{|dc| Datatypehelper.find_by_name(dc.import_data_type).name != 'unknown' && dc.untouched?}
+    datacolumns.select{|dc| dc.predefined? }
   end
 
   def approve_predefined_columns(approving_user)

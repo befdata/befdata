@@ -27,7 +27,7 @@ class Datacolumn < ActiveRecord::Base
   has_many :sheetcells, :dependent => :delete_all
   has_many :import_categories, :dependent => :delete_all
 
-  validates_presence_of :datagroup_id, :dataset_id, :columnheader, :columnnr, :definition
+  validates_presence_of :dataset_id, :columnheader, :columnnr, :definition
   validates_uniqueness_of :columnheader, :columnnr, :scope => :dataset_id, :case_sensitive => false
 
   pg_search_scope :search, against: {
@@ -43,9 +43,33 @@ class Datacolumn < ActiveRecord::Base
     }
   }
 
+  before_validation :fill_missing_definition
+  def fill_missing_definition
+    self.definition = self.columnheader if self.definition.blank?
+  end
+
   # Are there data values associated to the measurements of this data column instance?
   def values_stored?
     self.sheetcells.exists?(["accepted_value IS NOT NULL OR accepted_value !='' OR category_id > 0"])
+  end
+
+  def predefined?
+    # To be predefined, a column must have datatype that is not 'unknown'.
+    return false if Datatypehelper.find_by_name(import_data_type).name == 'unknown'
+
+    # To be predefined, a column must belongs to a datagroup
+    # Furthermore, the datacolumn approval process must not have already started.
+    self.datagroup_id && self.untouched?
+  end
+
+  # override the datagroup method.
+  # when datagroup is not assigned, used NullDatagroup instead.
+  def datagroup
+    if self.datagroup_id
+      Datagroup.where(id: datagroup_id).first
+    else
+      NullDatagroup.new
+    end
   end
 
   # returns the first 'count' number unique imported values
@@ -197,7 +221,7 @@ class Datacolumn < ActiveRecord::Base
   end
 
   def untouched?
-    approval_stage == 0 && finished == false
+    approval_stage == 0 && !finished?
   end
 
   def split_me?

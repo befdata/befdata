@@ -31,7 +31,7 @@
 
           %td.datagroup-cell
             = select_tag "datacolumn[][datagroup]", options_from_collection_for_select(@datagroups,"id","title",
-              (c.datagroup.id unless c.datagroup_approved?)), {:include_blank => true}
+              (c.datagroup_id unless c.datagroup_approved?)), {:include_blank => true}
             %p.datagroup-description.clear-value
               clear
             %p.datagroup-description.reset-old-datagroup-value{:class => !c.datagroup_approved? ? 'unapproved' : ''}

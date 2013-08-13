@@ -10,7 +10,10 @@
   Datagroup
   = "(not yet approved)" unless @datacolumn.datagroup_approved?
 %p
-  = link_to @datacolumn.datagroup.title, @datacolumn.datagroup
+  - if @datacolumn.datagroup_id
+    = link_to @datacolumn.datagroup.title, @datacolumn.datagroup
+  - else
+    Not specified yet.
 
 %h4
   Datatype

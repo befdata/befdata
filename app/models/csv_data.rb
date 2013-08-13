@@ -74,7 +74,6 @@ private
 
   def save_datacolumns
     @datacolumns = headers.map.with_index do |h, i|
-      datagroup = assign_datagroup_to_column(h)
       Datacolumn.create! do |dc|
         dc.columnheader = h
         dc.definition = h
@@ -83,15 +82,8 @@ private
         dc.datatype_approved = false
         dc.datagroup_approved = false
         dc.finished = false
-        dc.datagroup_id = datagroup.id
       end
     end
-  end
-
-  def assign_datagroup_to_column(columnheader)
-    datagroup = Datagroup.where(["title iLike ?", columnheader]).first
-    return datagroup if datagroup
-    return Datagroup.create!(title: columnheader)
   end
 
   def import_sheetcells

@@ -58,15 +58,14 @@ class DataworkbookTest < ActiveSupport::TestCase
   test "method index for a specific columnheader is correct" do
     assert_equal 1, @book.method_index_for_columnheader('height')
   end
-  
-  test "column info for columnheader is correct" do
-    assert_equal 6, @book.data_column_info_for_columnheader('height').keys.length
-    assert_equal 'height in m', @book.data_column_info_for_columnheader('height')[:definition]
-  end
-  
-  test "datagroup information for columnheader is correct" do
-    assert_equal 5, @book.methodsheet_datagroup('height').keys.length
-    assert_equal 'number', @book.methodsheet_datagroup('height')[:methodvaluetype]
+
+  test 'row in method sheet is recognized correctly' do
+    column_info, datagroup_info = @book.parse_method_row('height')
+    assert_equal 11, column_info.keys.length
+    assert_equal 5, datagroup_info.keys.length
+
+    assert_equal 'height in m', column_info[:definition]
+    assert_equal 'number', datagroup_info[:methodvaluetype]
   end
   
   test "data with head is correct for columnheader" do
