@@ -241,7 +241,7 @@ class Dataworkbook
     end
     unless ppl[:unfound_usernames].blank?
       message = "These persons could not be matched within the portal: #{ppl[:unfound_usernames].join(', ')}"
-      data_column_new.informationsource = message
+      data_column_new.update_attribute :informationsource, message
     end
   end
 

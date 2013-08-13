@@ -1,5 +1,5 @@
 %h3 Approve invalid values
-- if @datacolumn.datagroup.present?
+- if @datacolumn.datagroup.blank?
   %p
     Please #{link_to 'Approve the datagroup', approve_datagroup_datacolumn_path(@datacolumn)} first.
 - else

@@ -216,7 +216,7 @@ class DatacolumnsController < ApplicationController
   end
 
   def redirect_if_datagroup_unapproved
-    unless datagroup_id
+    unless @datacolumn.datagroup_id
       flash[:error] = "Please approve the datagroup before approving invalid values"
       redirect_to approve_datagroup_datacolumn_path(@datacolumn)
     end
