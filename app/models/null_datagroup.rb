@@ -11,4 +11,8 @@ class NullDatagroup
       nil
     end
   end
+
+  def self.decrement_counter(counter_name, id); ; end
+  def self.increment_counter(counter_name, id); ; end
+
 end

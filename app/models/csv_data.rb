@@ -54,7 +54,7 @@ private
     first_row = File.open(@path) {|f| f.readline }
     # because TAB is rarely part of data, if tabs are detected in the header,
     # it's very possible that it's the delimitor.
-    first_row.count("\t") > 0 ? "\t" : ","
+    first_row.count("\t") > 0 ? "\t" : "," rescue nil
   end
 
   def check_csvfile
@@ -62,6 +62,8 @@ private
       headers
     rescue CSV::MalformedCSVError => e
       errors.add :file, "is not valid CSV file." and return
+    rescue ArgumentError => e
+      errors.add :base, "File with non-english characters should be in UTF-8 encoding" and return if e.message =~ /invalid byte sequence in UTF-8/
     end
     errors.add :base, 'Failed to find data in your file' and return unless headers.present?
     errors.add :base, 'It seems one or more columns do not have a header' and return if headers.any? {|h| h.blank? }
