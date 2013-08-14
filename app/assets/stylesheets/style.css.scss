@@ -764,9 +764,15 @@ div#actions + div#info {
     margin-bottom: 7px;
 }
 
-.show_download_link_modal .close_hint {
+.show_download_link_modal {
+  .security-alert {
+    color: red;
+    margin: 0px;
+  }
+  .close_hint {
     color: #8A8A8A;
     margin: 5px 0 0 0;
+  }
 }
 
 #modal { top: 20px; }

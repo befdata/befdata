@@ -64,12 +64,10 @@ class Datacolumn < ActiveRecord::Base
 
   # override the datagroup method.
   # when datagroup is not assigned, used NullDatagroup instead.
+  alias fetch_datagroup_via_datagroup_id datagroup
+  private :fetch_datagroup_via_datagroup_id
   def datagroup
-    if self.datagroup_id
-      Datagroup.where(id: datagroup_id).first
-    else
-      NullDatagroup.new
-    end
+    fetch_datagroup_via_datagroup_id || NullDatagroup.new
   end
 
   # returns the first 'count' number unique imported values

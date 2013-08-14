@@ -33,9 +33,6 @@ class Paperproposal < ActiveRecord::Base
            :source => :paperproposal_votes, :conditions => {:project_board_vote => true }
   has_many :for_data_request_votes, :class_name => "PaperproposalVote",
            :source => :paperproposal_votes, :conditions => {:project_board_vote => false }
-  # has_many through association with User model via paperproposal_votes joint table.
-  has_many :coordinators, :class_name => "User", :source => :user, :through => :paperproposal_votes,
-           :conditions => ['project_board_vote = ?',true]
 
   # habtm association with Dataset model.
   before_destroy :reset_download_rights # needs to be before association definition,see https://rails.lighthouseapp.com/projects/8994/tickets/4386
@@ -44,9 +41,6 @@ class Paperproposal < ActiveRecord::Base
 
   # one-to-many association with Freeformat model.
   has_many :freeformats, :as => :freeformattable, :dependent => :destroy
-
-  scope :has_state, lambda{|s| where(:state=>s)}
-  accepts_nested_attributes_for :authors
 
   validates_presence_of :title, :rationale, :author_id
 

@@ -25,12 +25,22 @@
     \|
     %a{:href => '#', :class => 'show_eml_url'}
       EML
+  - if current_user
+    %p.security-alert The link contains your user credentials, Please DO NOT share with others.
   %textarea.download_urls{:readonly => 'readonly', :onclick => 'this.focus();this.select()'}
     = url_csv_categories
   %p.close_hint
     Click somewhere outside or press ESC to close
 
 :javascript
+  function alert_if_with_user_credential() {
+    if($("##{modal_id} .download_urls").val().indexOf("user_credential") != -1 ) {
+      $(".security-alert").fadeIn('fast');
+    }
+    else {
+      $(".security-alert").fadeOut('fast');
+    }
+  }
   $("##{link_id}").click(function(e) {
     $("##{modal_id}").modal(
       {
@@ -40,14 +50,17 @@
     );
     $("##{modal_id} .show_csv_url_with_categories").click(function(e) {
       $("##{modal_id} .download_urls").val("#{url_csv_categories}");
+      alert_if_with_user_credential()
       e.preventDefault();
     });
     $("##{modal_id} .show_csv_url_without_categories").click(function(e) {
       $("##{modal_id} .download_urls").val("#{url_csv_plain}");
+      alert_if_with_user_credential()
       e.preventDefault();
     });
     $("##{modal_id} .show_eml_url").click(function(e) {
       $("##{modal_id} .download_urls").val("#{url_eml}");
+      alert_if_with_user_credential()
       e.preventDefault();
     });
     e.preventDefault();

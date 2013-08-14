@@ -165,7 +165,7 @@ class DatasetsController < ApplicationController
   end
 
   def index
-    datasets = Dataset.select("id, title")
+    datasets = Dataset.select("id, title").order(:id)
 
     respond_to do |format|
       format.json { render :json => datasets }
