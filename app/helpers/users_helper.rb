@@ -1,5 +1,5 @@
 module UsersHelper
   def all_users_names_and_ids_for_select
-    User.order(:lastname).collect {|person| [person.to_s, person.id]}
+    User.select('id, salutation, firstname, lastname').order('lower(firstname), lower(lastname)').collect {|u| [u.to_s, u.id]}
   end
 end

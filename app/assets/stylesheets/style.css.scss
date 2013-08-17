@@ -638,19 +638,16 @@ span.dataset-comment {
     font-size: 0.8em;
 }
 
-.dataset-create-form textarea, .paperproposal-metadata-form textarea {
+.dataset-create-form, .paperproposal-metadata-form {
+  textarea {
     width: 70%;
     height: 200px;
+    resize: vertical;
+  }
+  input[type=text] {width: 70%; }
+  p { width: 70%; }
+  select { max-width: 70%; }
 }
-
-.dataset-create-form p, .paperproposal-metadata-form p {
-    width: 70%;
-}
-
-.dataset-metadata-form textarea {
-    height: 120px;
-}
-
 
 /* --- Sidebar ----------------------------------------------- */
 

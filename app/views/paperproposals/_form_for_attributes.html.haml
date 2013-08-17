@@ -1,4 +1,4 @@
-= form_for @paperproposal, :html => {:class => 'dataset-metadata-form'} do |f|
+= form_for @paperproposal, :html => {:class => 'paperproposal-metadata-form '} do |f|
   = f.error_messages
   %dl
     %dt= f.label :title, class: 'required'
@@ -8,7 +8,7 @@
       %p Initial title was: #{@paperproposal.initial_title}
 
     %dt= f.label :envisaged_journal
-    %dd= f.text_area :envisaged_journal
+    %dd= f.text_area :envisaged_journal, rows: 2, :style => 'height: auto'
 
     %dt= f.label :envisaged_date
     %dd= f.date_select :envisaged_date
@@ -31,7 +31,7 @@
       %dd= f.select :author_id, all_users_names_and_ids_for_select
 
     %dt= f.label :authored_by_project
-    %dd= f.select :project_id, Project.all.map{|project| [project.to_label, project.id]}, { :include_blank => false }
+    %dd= f.select :project_id, all_projects_for_select, { :include_blank => false }
 
     %h4 Main Proponents
     %p (Main proponents are those authors, that contribute major aspects to the analysis.)
