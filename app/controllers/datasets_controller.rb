@@ -122,12 +122,12 @@ class DatasetsController < ApplicationController
         changes += 1
         datagroup = Datagroup.find(hash[:datagroup])
         datacolumn.approve_datagroup(datagroup)
-      end
 
-      unless hash[:import_data_type].blank?
-        changes += 1
-        datatype = hash[:import_data_type]
-        datacolumn.approve_datatype datatype, current_user
+        unless hash[:import_data_type].blank?
+          changes += 1
+          datatype = hash[:import_data_type]
+          datacolumn.approve_datatype datatype, current_user
+        end
       end
     end
     flash[:notice] = "Successfully approved #{changes} properties."
