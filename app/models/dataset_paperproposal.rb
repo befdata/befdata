@@ -10,4 +10,6 @@
 class DatasetPaperproposal < ActiveRecord::Base
   belongs_to :paperproposal
   belongs_to :dataset
+
+  validates :aspect, :presence => true, :inclusion => { :in => %w{main side} }
 end

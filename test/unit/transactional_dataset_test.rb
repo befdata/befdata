@@ -25,9 +25,9 @@ class TransactionalDatasetTest < ActiveSupport::TestCase
                                                            'z2_SiteB_PLOTS 1mGIS meta_kn_for  testing.xls')))
     datafile.save
     dataset = Dataset.create(:title => 'just4testing')
-    dataset.upload_spreadsheet = datafile
+    dataset.current_datafile = datafile
     dataset.save
-    book = Dataworkbook.new(dataset.upload_spreadsheet)
+    book = Dataworkbook.new(dataset.current_datafile)
     book.import_data
     dataset.approve_predefined_columns(users(:users_003))
     dataset.destroy

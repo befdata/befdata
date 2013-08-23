@@ -209,3 +209,39 @@ users_006:
   avatar_file_name: 
   avatar_content_type: 
   avatar_file_size: 
+users_007:
+  id: '7'
+  login: admin
+  email: admin@admin.com
+  crypted_password: 0d52cea04bdc1edc91688ee7101e2b91cc191c8f478a922c68e3ad0094fa75fd3ac46f3d77ad1c6976d6772125c1a98f9bf8189f4944d68ca7cf25fbb4cfb998
+  password_salt: k4mShyvkCljBHc71pH
+  persistence_token: 60f4122784b15606da91b5e6c44ca4ccfef8adb82f2db77de90388cdff21d29f6e1307347b589ccfaaa2855f04d9327ea173c262460817b1fc38d9c4d2124091
+  single_access_token: Wa9cVdWet9GQAt7jD4Qo
+  perishable_token: xA6PUxZ1VsRjntDnLMF1
+  login_count: '0'
+  failed_login_count: '0'
+  last_request_at: 
+  current_login_at: 
+  last_login_at: 
+  current_login_ip: 
+  last_login_ip: 
+  firstname: admin
+  middlenames: ''
+  lastname: Admin
+  salutation: ''
+  comment: 
+  url: 
+  institution_name: 
+  affiliation: 
+  institution_url: 
+  institution_phone: 
+  institution_fax: 
+  street: 
+  city: 
+  country: 
+  created_at: '2013-06-19 09:49:53.952667'
+  updated_at: '2013-06-19 09:49:53.952667'
+  avatar_file_name: 
+  avatar_content_type: 
+  avatar_file_size: 
+  receive_emails: f

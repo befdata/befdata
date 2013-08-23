@@ -89,9 +89,9 @@ private
       sheet[row,WBF[:group_title_col]] = datacolumn.datagroup.title if datacolumn.datagroup.title
       sheet[row,WBF[:group_description_col]] = datacolumn.datagroup.description if datacolumn.datagroup.description
 
-      sheet[row,WBF[:group_methodvaluetype_col]] = datacolumn_datagroup_fallback(datacolumn, :import_data_type, :methodvaluetype)
-      sheet[row,WBF[:group_instrumentation_col]] = datacolumn_datagroup_fallback(datacolumn, :instrumentation)
-      sheet[row,WBF[:group_informationsource_col]] = datacolumn_datagroup_fallback(datacolumn, :informationsource)
+      sheet[row,WBF[:group_methodvaluetype_col]] = alternate_if_blank(datacolumn.import_data_type, datacolumn.datagroup.methodvaluetype)
+      sheet[row,WBF[:group_instrumentation_col]] = alternate_if_blank(datacolumn.instrumentation, datacolumn.datagroup.instrumentation)
+      sheet[row,WBF[:group_informationsource_col]] = alternate_if_blank(datacolumn.informationsource, datacolumn.informationsource)
     end
   end
 
@@ -188,14 +188,11 @@ private
   end
 
 private
-
-  def datacolumn_datagroup_fallback(datacolumn = nil, datacolumn_attribute = nil, datagroup_attribute = nil)
-    datagroup_attribute ||= datacolumn_attribute
-
-    if !datacolumn.read_attribute(datacolumn_attribute).blank?
-      datacolumn.read_attribute(datacolumn_attribute)
-    elsif !datacolumn.datagroup.read_attribute(datagroup_attribute).blank?
-      datacolumn.datagroup.read_attribute(datagroup_attribute) + " (derived from datagroup)"
+  def alternate_if_blank(column_attr, datagroup_attr)
+    if column_attr.present?
+      column_attr
+    elsif datagroup_attr.present?
+      datagroup_attr + " (derived from datagroup)"
     end
   end
 

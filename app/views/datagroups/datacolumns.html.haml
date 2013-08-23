@@ -47,8 +47,8 @@
           alert(data.error);
         }
         else{
-          $(".columnheader",info).text(data.datacolumn.columnheader);
-          $(".definition",info).text(data.datacolumn.definition);
+          $(".columnheader",info).text(data.columnheader);
+          $(".definition",info).text(data.definition);
           $(this).toggle().prevAll(".info, #loader").toggle();
         }
       });

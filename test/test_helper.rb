@@ -37,15 +37,10 @@ class ActiveSupport::TestCase
   end
 
   def test_file_for_upload(filename)
-    # make Rack::Test::UploadedFile behaves like ActionDispatch::Http::UploadedFile by exposing tempfile accessor
     # please put all files for uploading under 'test_file_for_uploads' directory
     # used only for uploading files through form in functional or integration test
-    f = fixture_file_upload(File.join('test_files_for_uploads', filename))
-    class << f
-      attr_accessor :tempfile
-    end
-    f
-  end
+    fixture_file_upload(File.join('test_files_for_uploads', filename))
+   end
 
   def login_and_load_category (user = "nadrowski", long = "Mahonia bealei")
     login_user user

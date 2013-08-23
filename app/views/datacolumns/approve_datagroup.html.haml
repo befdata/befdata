@@ -1,7 +1,7 @@
 %h3 Approve Datagroup
 
 %p
-  - if !@datacolumn.datagroup_approved?
+  - unless @datacolumn.datagroup_approved?
     The datagroup
     %strong= @datacolumn.datagroup.title
     has not been approved. Please approve the uploaded data group or select one from the available data groups and click on
@@ -13,16 +13,19 @@
 
 #accordion
   %h4 Uploaded Datagroup
-  = form_tag :action => 'update_datagroup', :controller => 'datacolumns' do |form|
-    #datagroup-existing.datagroup-selectable
-      = hidden_field_tag :id, @datacolumn.id
-      = radio_button_tag 'datagroup', @datacolumn.datagroup.id, true, {:class => 'span-1'}
-      = label "datagroup", @datacolumn.datagroup.id, {:class => "span-6 last datagroup-radio-label"} do
-        %strong= @datacolumn.datagroup.title
-        %p.datagroup-description
-          %strong Description:
-          = @datacolumn.datagroup.description
-      = submit_tag "Save uploaded data group"
+  - if @datacolumn.datagroup.present?
+    = form_tag :action => 'update_datagroup', :controller => 'datacolumns' do |form|
+      #datagroup-existing.datagroup-selectable
+        = hidden_field_tag :id, @datacolumn.id
+        = radio_button_tag 'datagroup', @datacolumn.datagroup.id, true, {:class => 'span-1'}
+        = label "datagroup", @datacolumn.datagroup.id, {:class => "span-6 last datagroup-radio-label"} do
+          %strong= @datacolumn.datagroup.title
+          %p.datagroup-description
+            %strong Description:
+            = @datacolumn.datagroup.description
+        = submit_tag "Save uploaded data group"
+  - else
+    %p No datagroup specified while importing.
 
   %h4 Create a new data group
   = form_tag :action => 'create_and_update_datagroup', :controller => 'datacolumns' do |form|
@@ -62,15 +65,15 @@
                 %p.datagroup-description
                   %strong Description:
                   = datagroup.description
-                - unless datagroup.datacolumns.blank?
+                - unless datagroup.datacolumns.empty?
                   %p.datagroup-description
                     %strong Already assigned datacolumns:
-                    = datagroup.datacolumns.map{|c| c.columnheader}.join(', ')
-        = submit_tag "Save chosen data group"
+                    = datagroup.datacolumns.pluck(:columnheader).join(', ')
+        = submit_tag 'Save chosen data group'
 
 :javascript
   jQuery(document).ready(function(){
-    $( "#accordion" ).accordion({
+    $("#accordion").accordion({
       header: 'h4',
       heightStyle: 'content',
       icons:false,

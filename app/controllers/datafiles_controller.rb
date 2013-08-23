@@ -10,7 +10,7 @@ class DatafilesController < ApplicationController
   end
 
   def download
-   send_file @datafile.file.path
+    send_file @datafile.file.path
   end
 
   def destroy
@@ -21,6 +21,6 @@ class DatafilesController < ApplicationController
 private
   def load_dataset_and_datafile
     @dataset = Dataset.find(params[:dataset_id])
-    @datafile = @dataset.upload_spreadsheets.find(params[:id])
+    @datafile = @dataset.datafiles.find(params[:id])
   end
 end

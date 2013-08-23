@@ -17,18 +17,6 @@ module DatasetsHelper
     end
   end
 
-  def may_download_dataset?(dataset = @dataset)
-    return false unless dataset.upload_spreadsheet
-
-    return true if dataset.free_for_public
-    return false unless current_user
-
-    return true if dataset.free_for_members || current_user.has_role?(:admin) || current_user.has_role?(:data_admin) || current_user.has_role?(:owner, dataset)
-    return true if current_user.has_role?(:proposer, dataset)
-    return true if dataset.free_within_projects && !(current_user.projects & dataset.projects).empty?
-    false
-  end
-
   def may_see_comment?(dataset = @dataset)
     return false unless current_user
     return true if current_user.has_role? :admin
@@ -37,4 +25,11 @@ module DatasetsHelper
     false
   end
 
+  def dropdown_list_to_sort_datasets
+    options_for_select(
+      { "Title" => data_path(params.merge(sort: 'title', direction: 'asc')),
+        "Newest" => data_path(params.merge(sort: 'id', direction: 'desc')),
+        "Recently Updated" => data_path(params.merge(sort: 'last_update', direction: 'desc'))
+      }, selected: data_path(params))
+  end
 end

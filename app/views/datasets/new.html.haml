@@ -1,40 +1,68 @@
 %h2
   Create a new dataset page
 
-.dataset-create-option.span-6
-  %h3 Option A: Create from Excel workbook
-  %p
-    All data and metadata is imported automatically from the workbook.
-    Details including metadata and the underlying Excel workbook can be changed later.
-    You will also be able to attach other files to the dataset.
-  %p
-    %strong
-      Need Help?
-    If you want to create your own workbook for upload from scratch you can download the
-    #{link_to "empty excel template file", download_excel_template_url}.
-    Documentation and examples can be found
-    #{link_to "here", help_url}.
+.dataset-create-option
+  %h3 Option A: Create from Excel workbook (Recommended)
+  .span-6.colborder
+    = form_for Datafile.new, :url => create_with_datafile_datasets_path, :html => {:multipart => true} do |f|
+      %dl
+        %dt= f.label :file, 'Excel workbook'
+        %dd
+          = f.file_field :file
+          .help-text This should be a Excel-2003(.xls) file
+      = f.submit "Submit", :value => 'Upload'
 
+  .span-5.last
+    %p
+      A
+      %b workbook
+      is a customized Excel-2003(.xls) file which contains both the metadata and raw data. You can download the #{link_to "empty workbook template", download_excel_template_url}. Documentation and examples can be found  #{link_to "here", help_url}.
+    %p
+      Later, you can
+      %ul
+        %li Confirm the metadata of this dataset
+        %li Approve the data columns
+        %li Attach freeformat files
 
-  = form_for Datafile.new, :url => {:controller => :datasets, :action => :create}, :html => {:multipart => true} do |f|
-    %h4
-      Excel workbook
-    = f.error_messages
-    = f.file_field :file
-    %br
-    = f.submit "Submit"
+.dataset-create-option
+  %h3 Option B: Create dataset from CSV file
+  .span-6.colborder
+    = form_for Datafile.new, url: create_with_datafile_datasets_path, html: {multipart: true} do |f|
+      %dl
+        %dt= label_tag :title, 'Title'
+        %dd= text_field_tag :title
+        %dt= f.label :file, 'CSV file'
+        %dd
+          = f.file_field :file
+          .help-text This should be a valid CSV file
+      = f.submit 'Submit', :value => 'Upload'
 
-.dataset-create-option.span-6.last
-  %h3 Option B: Create a document page without data
-  %p
-    This will create a dataset page with metadata, but no data.
-    Of course you can upload an Excel workbook later.
-    Choose this option if your workbook is not prepared right now or you only want to attach files in other formats.
-  = form_for Dataset.new, :url => {:controller => :datasets, :action => :create} do |f|
-    %h4
-      Title
-    = f.error_messages
-    = f.text_field :title
-    %br
-    = f.submit "Submit"
+  .span-5.last
+    %p A CSV file contains the raw data, of which the first row stores column headers.
+    %p
+      Later, you can
+      %ul
+        %li Fill the metadata of this dataset
+        %li Approve the data columns
+        %li Attach freeformat files
 
+.dataset-create-option
+  %h3 Option C: Create a document page without data
+  .span-6.colborder
+    = form_for Dataset.new, :url => {:controller => :datasets, :action => :create} do |f|
+      %dl
+        %dt= f.label :title, 'Title'
+        %dd= f.text_field :title
+      = f.submit "Submit"
+
+  .span-5.last
+    %p
+      This will create a dataset page with metadata, but no data.
+      Choose this option if your workbook is not prepared right now or you only want to attach files in other formats.
+
+    %p
+      Later, you can
+      %ul
+        %li Fill the metadata of this dataset
+        %li Attach freeformat files
+        %li Upload Excel-2003 workbook or CSV data file

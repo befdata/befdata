@@ -12,7 +12,6 @@ class ProjectsController < ApplicationController
 
   def show
     @project_datasets = @project.datasets.order(:title).uniq
-    @deletable = (@project_datasets.count + @project.users.count + @project.authored_paperproposals.count) == 0
   end
 
   def new
@@ -33,7 +32,7 @@ class ProjectsController < ApplicationController
     end
   end
   def edit
-    @roles = @project.accepted_roles.collect{|r| {name: r.name, id: r.users.map(&:id)}}
+    @roles = @project.accepted_roles.includes(:users).collect{|r| {name: r.name, id: r.users.map(&:id)}}
   end
   def update
     if @project.update_attributes(params[:project])

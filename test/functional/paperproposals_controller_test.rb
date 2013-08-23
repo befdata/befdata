@@ -15,7 +15,7 @@ class PaperproposalsControllerTest < ActionController::TestCase
   end
 
   test "without login should not be able to edit" do
-    @request.env['HTTP_REFERER'] = login_url
+    @request.env['HTTP_REFERER'] = root_url
     get :edit, :id => Paperproposal.first.id
     assert_match /.*Access denied.*/, flash[:error]
   end
@@ -106,7 +106,7 @@ class PaperproposalsControllerTest < ActionController::TestCase
     vote = user.paperproposal_votes.where(:vote => 'none').first
 
     get :update_vote, :id => vote.id, :paperproposal_vote => {:vote => 'accept'}
-    post :update_datasets, :id => paperproposal.id, :dataset_ids => [6, 7, 8], :aspect => {6 => 'main', 7 => 'main', 8 => 'side'}
+    post :update_datasets, :id => paperproposal.id, :datasets => [{id: 6, aspect: 'main'}, {id: 7, aspect: 'main'}, {id: 8, aspect: 'side'}]
 
     voters = paperproposal.for_data_request_votes(true).collect{|v| v.user_id}.sort
     vote.reload
@@ -124,7 +124,8 @@ class PaperproposalsControllerTest < ActionController::TestCase
   test "create new paperproposal" do
     login_nadrowski
     
-    post :create, :paperproposal => {:title => "Test", :rationale => "Rational"}
+    post :create, :paperproposal => {:title => "Test", :rationale => "Rational", :author_id => 1}
+    assert_success_no_error
     paperproposal = Paperproposal.find_by_title("Test")
 
     assert_redirected_to edit_datasets_paperproposal_path(paperproposal)
@@ -133,7 +134,8 @@ class PaperproposalsControllerTest < ActionController::TestCase
   test "should have initital title same as the title after creation process" do
     login_nadrowski
 
-    post :create, :paperproposal => {:title => "Test", :rationale => "Rational"}
+    post :create, :paperproposal => {:title => "Test", :rationale => "Rational", :author_id => 1}
+    assert_success_no_error
     paperproposal = Paperproposal.find_by_title("Test")
 
     assert_equal "Test", paperproposal.initial_title
@@ -183,6 +185,16 @@ class PaperproposalsControllerTest < ActionController::TestCase
     assert_select 'img[alt="Arrow_right_accept"]'
   end
 
+  test "should be able to remove all datasets" do
+    login_and_load_paperproposal "nadrowski", "Step 3 Paperproposal"
+    dataset_count_before = @paperproposal.datasets.count
+    assert dataset_count_before > 0
+    post :update_datasets, :id => @paperproposal.id
+    @paperproposal.reload
+    dataset_count_after = @paperproposal.datasets.count
+    assert_equal dataset_count_after, 0
+  end
+
   test "should add datasets to paperproposal and the author list is changed" do
     login_and_load_paperproposal "nadrowski", "Step 1 Paperproposal"
     @dataset_with_michael = Dataset.find_by_title("Test species name import second version")
@@ -191,7 +203,7 @@ class PaperproposalsControllerTest < ActionController::TestCase
     get :edit_datasets, :id => @paperproposal.id
     assert_select "tbody tr", {:count => 0}
 
-    post :update_datasets, :id => @paperproposal.id, :dataset_ids => [@dataset_with_michael.id], :aspect => {@dataset_with_michael.id.to_s => "main"}
+    post :update_datasets, :id => @paperproposal.id, :datasets => [{id: @dataset_with_michael.id, aspect: 'main'}]
     assert_redirected_to paperproposal_path(@paperproposal)
 
     @paperproposal.reload

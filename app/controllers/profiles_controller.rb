@@ -14,9 +14,7 @@ class ProfilesController < ApplicationController
   end
 
   def update
-    if @user.update_attributes(params[:user].slice(:login, :password, :password_confirmation, :firstname,
-            :middlenames, :lastname, :email, :salutation, :institution_name, :institution_url, :institution_phone,
-            :institution_fax, :url, :country, :city, :street, :comment, :avatar, :receive_emails))
+    if @user.update_attributes(user_params)
       redirect_to profile_path, :notice => "Saved successfully"
     else
       render :edit
@@ -32,12 +30,14 @@ class ProfilesController < ApplicationController
   end
 
   def votes
-    @project_board_votes = @user.project_board_votes.select{|vote|
-      (vote.paperproposal.board_state == 'submit' || 're_prep') && (vote.vote == 'none')}
+    @project_board_votes = @user.project_board_votes.includes(:paperproposal).pending.select do |vote|
+      %w{submit, re_prep}.include? vote.paperproposal.board_state
+    end
     @project_board_votes.sort_by!(&:paperproposal)
 
-    @dataset_votes = @user.for_paperproposal_votes.select{|vote|
-      vote.paperproposal.board_state == 'accept' && (vote.vote == 'none')}
+    @dataset_votes = @user.for_paperproposal_votes.includes(:paperproposal).pending.select do |vote|
+      vote.paperproposal.board_state == 'accept'
+    end
     @dataset_votes.sort_by!(&:paperproposal)
   end
 
@@ -48,5 +48,12 @@ class ProfilesController < ApplicationController
 private
   def load_current_user
     @user = current_user
+  end
+
+  def user_params
+    params[:user].slice(:login, :password, :password_confirmation, :firstname,
+          :middlenames, :lastname, :email, :salutation, :institution_name,
+          :institution_url, :institution_phone, :institution_fax, :url, :country,
+          :city, :street, :comment, :avatar, :receive_emails)
   end
 end

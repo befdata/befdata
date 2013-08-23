@@ -17,7 +17,7 @@ class Datagroup < ActiveRecord::Base
   #acts_as_taggable
 
   validates_presence_of :title, :description
-  validates_uniqueness_of :title
+  validates_uniqueness_of :title, :case_sensitive => false
 
   before_destroy :check_if_destroyable
   before_validation :fill_missing_description
@@ -32,7 +32,7 @@ class Datagroup < ActiveRecord::Base
 
   def check_if_destroyable
     unless !self.is_system_datagroup &&
-        (self.datacolumns.empty? || (self.datacolumns.count == 1 && self.datacolumns.first.destroyed?))
+        (self.datacolumns.empty? || (self.datacolumns_count == 1 && self.datacolumns.first.destroyed?))
       false
     end
   end
@@ -48,30 +48,9 @@ class Datagroup < ActiveRecord::Base
 
   def self.delete_orphan_datagroups
     # delete non-system orphan datagroups that has no associated datacolumns
-    to_be_deleted = Datagroup.joins('left outer join datacolumns on datagroups.id = datacolumns.datagroup_id').
-              where("datacolumns.datagroup_id is NULL and datagroups.type_id = #{Datagrouptype::DEFAULT}")
+    to_be_deleted = Datagroup.where(datacolumns_count: 0, type_id: Datagrouptype::DEFAULT)
     puts "#{to_be_deleted.count} datagroups is deleted at #{Time.now.utc}" unless to_be_deleted.empty?
     Datagroup.delete(to_be_deleted)
-  end
-
-  def abbr_method
-    text = "#{self.title}: #{self.description}"
-    if text.length > 200
-      [text[0..200], " ... (continued)"].join
-    else
-      text
-    end
-  end
-
-  def helper_method
-    helper = Datagroup.find_all_by_type_id(Datagrouptype::HELPER)
-
-    unless helper
-      helper = Datagroup.create(:title => "Helper",
-                                :description => "Helper Method for something",
-                                :type_id => Datagrouptype::HELPER)
-    end
-    helper
   end
 
   def update_categories_with_csv (file, user)

@@ -12,7 +12,7 @@
       = @unfound_usernames.join(', ')
   %dl
     %dt= label_tag 'Owners', nil
-    %dd= select "person", "person_id", User.all_users_names_and_ids_for_select, {:prompt => 'Select Member'}, {:onchange => 'selectPeople(this)'}
+    %dd= select "person", "person_id", all_users_names_and_ids_for_select, {:prompt => 'Select Member'}, {:onchange => 'selectPeople(this)'}
   %ul#people-list
     - @dataset.owners.each do |user|
       %li{:onclick => "this.parentNode.removeChild(this);"}
@@ -21,7 +21,7 @@
         = user.to_label
   %dl
     %dt= label_tag 'Select projects', nil
-    %dd= select "project", "project_id", Project.all_projects_for_select, {:prompt => 'Select Project'}, {:onchange => 'selectProjects(this)'}
+    %dd= select "project", "project_id", all_projects_for_select, {:prompt => 'Select Project'}, {:onchange => 'selectProjects(this)'}
   %ul#projects-list{:style => 'list-style: none;'}
     - @dataset.projects.each do |project|
       %li{:onclick => "this.parentNode.removeChild(this);"}
@@ -52,7 +52,7 @@
   %h4 General Metadata
   %dl
     %dt= f.label :tag_list, "Keywords(separated by comma)"
-    %dd= f.text_field :tag_list,{:id => "tag_list", :class => "metadata-text-input", "data-tags"=> ActsAsTaggableOn::Tag.all.map(&:name).sort.to_json}
+    %dd= f.text_field :tag_list,{:id => "tag_list", :class => "metadata-text-input", "data-tags"=> all_tags_for_select2}
 
     %dt= label_tag 'abstract'
     %dd= f.text_area :abstract

@@ -16,7 +16,7 @@ gem 'whenever', :require => false
 gem 'activerecord-import'
 gem 'pg_search'
 gem 'jquery-rails'
-gem 'jquery-ui-rails' 
+gem 'jquery-ui-rails'
 gem 'will_paginate'
 
 # group :production do
@@ -32,10 +32,10 @@ group :test, :development do
   gem 'rb-inotify'
   gem 'thin'    
   # gem 'debugger'
-  gem 'better_errors'  
+  gem 'better_errors'
   gem 'binding_of_caller'
   gem 'coveralls', require: false       #Coverage reporting badge
-end 
+end
 
 group :assets do
   gem 'sass-rails',   '~> 3.2.3'

@@ -10,7 +10,8 @@ class TagsController < ApplicationController
     @tags = Dataset.tag_counts.where("name iLike ?", "%#{params[:q]}%").order("tags.name")
     respond_to do |format|
       format.html
-      format.json { render :json=> @tags.map(&:attributes)}
+      format.json { render :json => @tags}
+      format.xml { render :xml => @tags.map(&:attributes) }
     end
   end
 
@@ -26,7 +27,7 @@ class TagsController < ApplicationController
           user_api = current_user.try(:single_access_token)
           @datasets.each do |d|
             csv << [d.id, d.title, dataset_url(d, :eml),
-                    download_dataset_url(d, user_credentials: user_api), 
+                    download_dataset_url(d, user_credentials: user_api),
                     download_dataset_url(d, :csv, user_credentials: user_api),
                     download_dataset_url(d, :csv, separate_category_columns: true, user_credentials: user_api)
                    ]

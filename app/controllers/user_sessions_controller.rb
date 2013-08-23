@@ -3,7 +3,7 @@ class UserSessionsController < ApplicationController
 
   skip_before_filter :deny_access_to_all
   access_control do
-    actions :new, :create do
+    actions :create do
       allow anonymous
     end
     action :destroy do
@@ -11,10 +11,6 @@ class UserSessionsController < ApplicationController
     end
   end
 
-  def new
-    @user_session = UserSession.new
-  end
-  
   def create
     @user_session = UserSession.new(params[:user_session])
     if @user_session.save

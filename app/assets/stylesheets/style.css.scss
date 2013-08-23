@@ -14,7 +14,7 @@ del { text-decoration: line-through }
 abbr[title], dfn[title] { border-bottom: 1px dotted; cursor: help; }
 /* tables still need cellspacing="0" in the markup */
 table { border-collapse: collapse; border-spacing: 0; }
-hr { display: block; height: 1px; border: 0; border-top: 1px solid #ccc; margin: 1em 0; padding: 0; }
+hr { display: block; height: 1px; border: 0; border-top: 1px solid #ddd; margin: 1em 0; padding: 0; }
 input, select, textarea { vertical-align: middle; background-color: #ddd; }
 label, input[type=button], input[type=submit], button { cursor: pointer }
 body * {outline: none;}
@@ -58,12 +58,10 @@ Blueprint Grid
   margin: 0 auto;
 }
 
-
 /* Body margin for a sensile default look. */
 body {
   margin:0;	
 }
-
 
 /* Columns
 -------------------------------------------------------------- */
@@ -75,10 +73,7 @@ body {
 div.last { margin-right: 0; }
 
 /* Use these classes to set the width of a column. */
-.span-1  {
-  width: 48px;
-  clear: left;
-}
+.span-1  { width: 48px; clear: left;}
 .span-2  { width: 128px;}
 .span-3  { width: 208px;}
 .span-4  { width: 288px;}
@@ -90,7 +85,6 @@ div.last { margin-right: 0; }
 .span-10 { width: 768px;}
 .span-11 { width: 848px;}
 .span-12, div.span-12 { width: 928px; margin: 0; }
-
 
 /* Add these to a column to append empty cols. */
 .append-1  { padding-right: 80px;}
@@ -105,7 +99,6 @@ div.last { margin-right: 0; }
 .append-10 { padding-right: 800px;}
 .append-11 { padding-right: 880px;}
 
-
 /* Add these to a column to prepend empty cols. */
 .prepend-1  { padding-left: 80px;}
 .prepend-2  { padding-left: 160px;}
@@ -118,8 +111,6 @@ div.last { margin-right: 0; }
 .prepend-9  { padding-left: 720px;}
 .prepend-10 { padding-left: 800px;}
 .prepend-11 { padding-left: 880px;}
-
-
 
 /* Border on right hand side of a column. */
 div.border {
@@ -152,7 +143,6 @@ div.colborder {
 .pull-12 { margin-left: -960px;}
 
 .pull-1, .pull-2, .pull-3, .pull-4, .pull-5, .pull-6, .pull-7, .pull-8, .pull-9, .pull-10, .pull-11, .pull-12 {float:left;position:relative;}
-
 
 .push-1 { margin: 0 -80px 1.5em 80px;}
 .push-2 { margin: 0 -160px 1.5em 160px;}
@@ -648,19 +638,16 @@ span.dataset-comment {
     font-size: 0.8em;
 }
 
-.dataset-create-form textarea, .paperproposal-metadata-form textarea {
+.dataset-create-form, .paperproposal-metadata-form {
+  textarea {
     width: 70%;
     height: 200px;
+    resize: vertical;
+  }
+  input[type=text] {width: 70%; }
+  p { width: 70%; }
+  select { max-width: 70%; }
 }
-
-.dataset-create-form p, .paperproposal-metadata-form p {
-    width: 70%;
-}
-
-.dataset-metadata-form textarea {
-    height: 120px;
-}
-
 
 /* --- Sidebar ----------------------------------------------- */
 
@@ -774,9 +761,15 @@ div#actions + div#info {
     margin-bottom: 7px;
 }
 
-.show_download_link_modal .close_hint {
+.show_download_link_modal {
+  .security-alert {
+    color: red;
+    margin: 0px;
+  }
+  .close_hint {
     color: #8A8A8A;
     margin: 5px 0 0 0;
+  }
 }
 
 #modal { top: 20px; }
@@ -979,7 +972,7 @@ Custom JQuery Tweaking
 .ui-tabs-nav .approved_true a { color: #9bc56f; }
 .ui-corner-all, .ui-corner-top, .ui-corner-left, .ui-corner-tl { border-bottom-right-radius: 0; border-bottom-left-radius: 0; border-top-right-radius: 0px; border-top-left-radius: 0px; }
 
-a.close {
+a.remove_parent, a.hide_parent {
   display: block;
   float: right;
   font-weight: bold;
@@ -992,7 +985,7 @@ a.close {
     content: "×";
   }
 }
-#error a.close {
+#error a.hide_parent {
   color: #f00;
 }
 noscript {

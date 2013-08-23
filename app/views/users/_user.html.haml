@@ -1,16 +1,15 @@
-- # customize output of user partial by using locals for avatar and name
-- # example: render :partial => @user, :locals => {:avatar => :large, :name => :full}
-- # possible parameters for avatar: small, medium, large / name: show, full, none
+- # possible parameters for avatar: :none, :small, :medium, :large
+- # possible parameters for name: :show, :full
 - # extra text like role names can also be included
 .user
   - avatar ||= :small
   - name ||= :show
   = link_to user do
-    - if (avatar != :none) then
+    - if (avatar != :none)
       = image_tag(user.avatar.url(avatar))
-    - if (name == :show) then
+    - if (name == :show)
       %span.username= user
-    - if (name == :full) then
+    - if (name == :full)
       %span.username= user.full_name
   - if defined?(extra)
     %span.userextra= extra

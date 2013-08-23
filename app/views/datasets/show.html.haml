@@ -38,7 +38,7 @@
       %ul
         %li
           = render :partial => "users/email_list_modal",
-            :locals => {:list => User.email_list(@contacts), :css => "dataset_owners", :caption => 'Dataset owners'}
+            :locals => {:contacts => @contacts, :css => "dataset_owners", :caption => 'Dataset owners'}
  
     - unless @projects.blank?
       %h3
@@ -96,7 +96,10 @@
         %br
         %i
           Data group:
-          = link_to_if current_user, column.datagroup.title, column.datagroup
+          - if column.datagroup_id
+            = link_to_if current_user, column.datagroup.title, column.datagroup
+          - else
+            Not specified
         - unless column.tags.empty?
           %br
           %i
@@ -112,7 +115,7 @@
         - else
           %br
           = image_tag 'alert.png'
-          = "No values yet imported for this data column"
+          This column need to be approved to display the sample values.
 
         - u = column.users
         - unless u.blank?

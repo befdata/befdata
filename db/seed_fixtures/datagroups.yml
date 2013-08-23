@@ -19,3 +19,4 @@ datagroups_001:
   created_at: '2012-03-17 20:45:15.723376'
   updated_at: '2012-03-17 20:45:15.723376'
   type_id: '1'
+  datacolumns_count: '4'

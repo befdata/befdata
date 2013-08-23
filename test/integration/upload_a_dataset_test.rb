@@ -9,7 +9,7 @@ class UploadADatasetTest < ActionDispatch::IntegrationTest
 
     uploadedfile = test_file_for_upload("UnitTestSpreadsheetForUpload_new.xls")
 
-    post datasets_path, {:datafile => {:file => uploadedfile}}
+    post create_with_datafile_datasets_path, {:datafile => {:file => uploadedfile}}
     #now it's on views/create pages
     assert_nil flash[:error]
     assert_template :create
@@ -18,7 +18,7 @@ class UploadADatasetTest < ActionDispatch::IntegrationTest
     assert assigns(:dataset)
     dataset = assigns(:dataset)
     assert_instance_of(Dataset,dataset)
-    assert_equal dataset.upload_spreadsheet.file_file_name, "UnitTestSpreadsheetForUpload_new.xls"
+    assert_equal dataset.current_datafile.file_file_name, "UnitTestSpreadsheetForUpload_new.xls"
 
 
     #test metadata is correctly loaded.
@@ -31,6 +31,6 @@ class UploadADatasetTest < ActionDispatch::IntegrationTest
     # import and approve process is already tested in "import_test.rb"
     #data rights is tested in "datasets_controller_test.rb"
     # reuploading a dataworkbook is tested in  "datasets_controller_test"
-    dataset.upload_spreadsheet.destroy
+    dataset.current_datafile.destroy
   end
  end

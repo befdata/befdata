@@ -8,31 +8,19 @@ class Datatypehelper
                          Datatype.new(7, "number", ""),
                          Datatype.new(8, "unknown", "")
                         ]
+  UNKNOWN = DATATYPE_COLLECTION.detect {|dt| dt.name == 'unknown'}
 
-  # This method returns all known datatypes (i.e. all datatypes except 'unknown').
   def self.known
     DATATYPE_COLLECTION.reject{|dt| dt.name == 'unknown'}
   end
   
-  # A little helper method to extract a datatype from the collection by name
   def self.find_by_name(name)
-    found = nil
-    DATATYPE_COLLECTION.each{ |dt| found = dt if dt.name == name }
-      
-    # Fallback for the event of not finding a datatype for this name
-    found = find_by_name('unknown') unless found
-      
-    return found
+    DATATYPE_COLLECTION.each{ |dt| return dt if dt.name == name }
+    return UNKNOWN
   end
 
-  # A little helper method to extract a datatype from the collection by id
   def self.find_by_id(id)
-    found = nil
-    DATATYPE_COLLECTION.each{ |dt| found = dt if dt.id == id }
-
-    # Fallback for the event of not finding a datatype for this id
-    found = find_by_id(8) unless found
-
-    return found
+    DATATYPE_COLLECTION.each{ |dt| return dt if dt.id == id }
+    return UNKNOWN
   end
 end

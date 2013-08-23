@@ -33,8 +33,8 @@ class Dataset < ActiveRecord::Base
   has_attached_file :generated_spreadsheet,
     :path => ":rails_root/files/:id_generated-download.xls"
 
-  has_many :upload_spreadsheets, :class_name => "Datafile", :order => 'id DESC', :dependent => :destroy
-  has_one  :upload_spreadsheet,  :class_name => "Datafile", :order => 'id DESC'
+  has_many :datafiles, :class_name => "Datafile", :order => 'id DESC', :dependent => :destroy
+  has_one  :current_datafile,  :class_name => "Datafile", :order => 'id DESC'
 
   has_many :datacolumns, :dependent => :destroy, :order => "columnnr"
   has_many :sheetcells, :through => :datacolumns
@@ -49,13 +49,8 @@ class Dataset < ActiveRecord::Base
   has_many :dataset_paperproposals
   has_many :paperproposals, :through => :dataset_paperproposals
 
-  validates :title, :presence => true, :uniqueness => true
+  validates :title, :presence => true, :uniqueness => { case_sensitive: false }
 
-  # validates_associated :upload_spreadsheet, :if => "upload_spreadsheet_id_changed?"
-
-  before_validation(:load_metadata_from_spreadsheet, :on => :create)
-
-  before_save :add_xls_extension_to_filename
   before_destroy :check_for_paperproposals
 
   pg_search_scope :search, against: {
@@ -76,11 +71,6 @@ class Dataset < ActiveRecord::Base
     }
   }
 
-  def add_xls_extension_to_filename
-    if self.filename
-      /\.xls$/.match(self.filename) ? self.filename : self.filename = "#{self.filename}.xls"
-    end
-  end
   def check_for_paperproposals
     if paperproposals.count > 0
       errors.add(:dataset,
@@ -89,43 +79,28 @@ class Dataset < ActiveRecord::Base
     end
   end
 
-  def load_metadata_from_spreadsheet
-    return if upload_spreadsheet.nil?
-
-    book = dataworkbook
-    self.attributes = book.general_metadata_hash
-    self.set_start_and_end_dates_of_research(book)
-    try_retrieving_projects_from_tag_list(book)
+  def load_projects_and_authors_from_current_datafile
+    return unless current_datafile
+    current_datafile.authors_list[:found_users].each {|user| user.has_role!(:owner, self) }
+    self.projects = current_datafile.projects_list if current_datafile.projects_list.present?
   end
 
-  def try_retrieving_projects_from_tag_list(book)
-    return if book.tag_list.blank?
-    book.tag_list.split(",").each do |t|
-      Project.find_by_converting_to_tag(t).each do |p|
-        self.projects << p unless self.projects.include? p
-      end
-    end
+  def add_datafile(datafile)
+    datafile.update_attribute(:dataset_id, self.id)
+    self.update_attributes(filename: datafile.basename, import_status: 'new')
   end
 
   def has_research_data?
-    !upload_spreadsheet.blank?
-  end
-
-  def dataworkbook
-    Dataworkbook.new(upload_spreadsheet)
+    current_datafile.present?
   end
 
   def abstract_with_freeformats
     f_strings = self.freeformats.collect do |f|
       "File asset " + f.file_file_name + (f.description.blank? ? "" : (": " + f.description))
     end
-    self.abstract + (f_strings.empty? ? "" : (" - " + f_strings.join(" - ")))
+    self.abstract.to_s + (f_strings.empty? ? "" : (" - " + f_strings.join(" - ")))
   end
 
-  def set_start_and_end_dates_of_research(book)
-    self.datemin = book.datemin
-    self.datemax = book.datemax
-  end
   def download_status
     return "outdated" if download_generation_status == 'finished' && download_generated_at < updated_at
     return download_generation_status
@@ -138,7 +113,7 @@ class Dataset < ActiveRecord::Base
   # During the import routine, we step through each of the data
   # columns using their header.
   def headers
-    self.datacolumns.collect{|dc| dc.columnheader}
+    self.datacolumns.pluck(:columnheader)
   end
 
   def finished_datacolumns
@@ -154,10 +129,7 @@ class Dataset < ActiveRecord::Base
   end
 
   def predefined_columns
-    # To be predefined, a column must have a datagroup and a datatype that is not 'unknown'.
-    # The datagroup is created at import, so we only have to check for the datatype.
-    # Furthermore, the datacolumn approval process must not have already started.
-    datacolumns.select{|dc| Datatypehelper.find_by_name(dc.import_data_type).name != 'unknown' && dc.untouched?}
+    datacolumns.select{|dc| dc.predefined? }
   end
 
   def approve_predefined_columns(approving_user)
@@ -201,17 +173,16 @@ class Dataset < ActiveRecord::Base
 
   def last_update
     dates = Array.new
-      dates << self.updated_at
-    dates << self.upload_spreadsheet.updated_at unless self.upload_spreadsheet.nil?
-    dates += self.freeformats.collect {|x| x.updated_at}
+    dates << self.updated_at
+    dates << self.current_datafile.updated_at if self.current_datafile
+    dates += self.freeformats.pluck(:updated_at)
     dates.max
   end
 
   def import_data
     begin
       self.update_attribute(:import_status, 'started importing')
-      book = Dataworkbook.new(upload_spreadsheet)
-      book.import_data
+      current_datafile.import_data
       self.update_attribute(:import_status, 'finished')
       self.enqueue_to_generate_download(:high)
     rescue Exception => e
@@ -223,6 +194,11 @@ class Dataset < ActiveRecord::Base
 
   def finished_import?
     self.import_status.to_s == 'finished' || !self.has_research_data?
+  end
+
+  def being_imported?   # TODO: this is prone to be out of sync if new status added
+    return false unless self.has_research_data?
+    %w{new finished}.exclude?(import_status) && !import_status.start_with?('error')
   end
 
   def enqueue_to_generate_download(priority = :low)
@@ -248,9 +224,9 @@ class Dataset < ActiveRecord::Base
   end
 
   def refresh_paperproposal_authors
-    self.paperproposals.each {|pp| pp.calculate_datasets_proponents}
+    self.paperproposals.each {|pp| pp.update_datasets_providers}
   end
-  
+
   def to_csv (separate_category_columns = false)
     # gather columns and values
     all_columns = []
@@ -354,6 +330,44 @@ class Dataset < ActiveRecord::Base
     unless self.unsubmitted_edit.nil? && (Time.now - 10.minutes) < self.created_at
       self.create_or_use_unsubmitted_edit.add_line!(string)
     end
+  end
+
+  def access_code
+    return 3 if free_for_public
+    return 2 if free_for_members
+    return 1 if free_within_projects
+    return 0
+  end
+
+  def access_rights
+    ["Private",
+      "Free within project",
+      "Free for members",
+      "Free for public"
+    ][access_code]
+  end
+
+  def free_for?(user)
+    return true if self.free_for_public
+    return false unless user
+    return true if self.free_for_members
+    return true if self.free_within_projects && !(user.projects & self.projects).empty?
+    false
+  end
+
+  def can_download_by?(user)
+    return false unless self.current_datafile
+    return true if self.free_for?(user)
+    return false unless user
+    return true if user.has_role?(:proposer, self) || user.has_role?(:owner, self)
+    return true if user.has_role?(:admin) || user.has_role?(:data_admin)
+    false
+  end
+
+  def can_edit_by?(user)
+    return false unless user
+    return true if user.has_role?(:owner, self) || user.has_role?(:admin) || user.has_role?(:data_admin)
+    false
   end
 
 end

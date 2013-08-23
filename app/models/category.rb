@@ -7,7 +7,6 @@ class Category < ActiveRecord::Base
   belongs_to :datagroup, :class_name => "Datagroup", :foreign_key => "datagroup_id"
   has_many :sheetcells
 
-
   validates_presence_of :short, :long, :description
   before_validation :try_filling_missing_values
 
@@ -27,10 +26,6 @@ class Category < ActiveRecord::Base
       self.long = self.short if self.long.blank?
       self.description = self.long if self.description.blank?
     end
-  end
-
-  def verbose
-    "#{short} -- #{long} -- #{description}"
   end
 
   def show_value

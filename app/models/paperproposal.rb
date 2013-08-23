@@ -33,9 +33,6 @@ class Paperproposal < ActiveRecord::Base
            :source => :paperproposal_votes, :conditions => {:project_board_vote => true }
   has_many :for_data_request_votes, :class_name => "PaperproposalVote",
            :source => :paperproposal_votes, :conditions => {:project_board_vote => false }
-  # has_many through association with User model via paperproposal_votes joint table.
-  has_many :coordinators, :class_name => "User", :source => :user, :through => :paperproposal_votes,
-           :conditions => ['project_board_vote = ?',true]
 
   # habtm association with Dataset model.
   before_destroy :reset_download_rights # needs to be before association definition,see https://rails.lighthouseapp.com/projects/8994/tickets/4386
@@ -45,10 +42,7 @@ class Paperproposal < ActiveRecord::Base
   # one-to-many association with Freeformat model.
   has_many :freeformats, :as => :freeformattable, :dependent => :destroy
 
-  scope :has_state, lambda{|s| where(:state=>s)}
-  accepts_nested_attributes_for :authors
-
-  validates_presence_of :title, :rationale
+  validates_presence_of :title, :rationale, :author_id
 
   STATES = {
     # for the sorting
@@ -64,19 +58,35 @@ class Paperproposal < ActiveRecord::Base
           "ack" =>"Acknowledged"
   }
 
+  before_create :set_initial_title
+  def set_initial_title
+    self.initial_title = self.title
+  end
+
+  def beautiful_title
+    str = "#{author.short_name}: #{created_at.year}, #{title}, "
+    str = "#{authored_by_project.shortname}, " + str if authored_by_project.present?
+    proponents_and_dataowners = self.authors_selection(:proponents_and_all_owners)
+    unless proponents_and_dataowners.empty?
+      str << "<i>Proponents and dataowners</i>: "
+      str << proponents_and_dataowners.collect(&:full_name).sort.join(', ')
+    end
+    str << ", <i>Citation</i>: #{envisaged_journal}" if envisaged_journal.present?
+    return str
+  end
+
   def <=>(other)
     # sort by state, then by year if published, then title
     x = STATES[self.state] <=> STATES[other.state]
     x = (x != 0 ? x : self.envisaged_date.year <=> other.envisaged_date.year) if self.state == 'accepted'
-    x = (x != 0 ? x : self.beautiful_title(true) <=> other.beautiful_title(true))
+    x = (x != 0 ? x : self.beautiful_title <=> other.beautiful_title)
     x = (x != 0 ? x : self.title.downcase <=> other.title.downcase)
     x
   end
 
   def calc_board_state
-    return 'in preparation, no data selected' if self.board_state == 'prep' && self.datasets.length == 0
-    return 'still no aspects set' if self.board_state == 'prep' && !check_aspects_for_contexts
-    return 'can be send to project board' if self.board_state == 'prep' && check_aspects_for_contexts
+    return 'can be send to project board' if self.board_state == 'prep' && self.includes_datasets?
+    return 'in preparation, no data selected' if self.board_state == 'prep'
     return 'submitted to board, waiting for acceptance' if self.board_state == 'submit'
     return 'rejected by project board' if self.board_state == 're_prep'
     return 'project board approved, requesting data' if self.board_state == 'accept'
@@ -85,89 +95,11 @@ class Paperproposal < ActiveRecord::Base
     return 'download rights expired' if self.board_state == 'final' && self.expiry_date.blank?
   end
 
-  def author_list(include_pi=false)
-    # Do we still need senior author in author list?
-    senior_author = include_pi ? self.author.try(:pi) : []
-    ack = self.acknowledgements_from_datasets
-    middle_block = self.authors - ack - [self.author] - senior_author
-    middle_block.uniq!
-    middle_block.sort!{|a,b| a.lastname <=> b.lastname}
-
-    author_list = [self.author, middle_block, senior_author]
-    author_list.flatten!
-    author_list.uniq!
-
-    ack -= author_list
-    ack = ack.uniq.sort{|a,b| a.lastname <=> b.lastname}
-
-    {:author_list => author_list, :ack => ack}
-  end
-
   def calc_authorship(user)
     authorship = []
-    if(user.id == self.author_id)
-      authorship << "Author"
-    end
-    roles = self.author_paperproposals.where(:user_id=>user.id).map(&:kind)
-    roles.each{|r| authorship<< KIND[r]}
-    return authorship.to_sentence
-  end
-
-  def beautiful_title (only_authors = false)
-    # gives back a nice string to display, like: Kraft, N. J., Comita, L. S. (2011): DisentanglingAlong Latitudinal and Elevational Gradients. Science, 333(6050).
-
-    pp_hash = Hash.new
-    pp_hash['pp_project_short_name'] = self.authored_by_project.blank? ? "" : "#{self.authored_by_project.shortname}, "
-    pp_hash['pp_author'] = "#{self.author.short_name}: "
-    return authors if only_authors
-
-    pp_hash['pp_year'] = self.created_at.year.blank? ? "" : "#{self.created_at.year}, "
-    pp_hash['pp_title'] = self.title.blank? ? "" : "#{self.title}, "
-    pp_hash['pp_journal'] = self.envisaged_journal.blank? ? "" : ", <i>Citation</i>: #{envisaged_journal}".html_safe
-
-    proponents_and_dataowners_array = []
-    self.authors_selection(:proponents_and_all_owners).each do |p|
-      proponents_and_dataowners_array << p.firstname + " " + p.lastname
-    end
-
-    proponents_and_dataowners_array = proponents_and_dataowners_array.sort
-    pp_hash['pp_proponents_and_dataowners'] = proponents_and_dataowners_array.blank? ? "" : "<i>Proponents and dataowners</i>: #{proponents_and_dataowners_array.split.join(", ")}".html_safe
-
-    "#{ pp_hash["pp_project_short_name"]} #{pp_hash["pp_author"]} #{pp_hash["pp_year"]} #{pp_hash["pp_title"]} #{pp_hash["pp_proponents_and_dataowners"]} #{pp_hash["pp_journal"]}".html_safe
-  end
-
-  def self.get_all_pp_years
-    years = []
-    self.all.each do |pp|
-      years << pp.created_at.year
-    end
-    return years.uniq
-  end
-
-  def calculate_datasets_proponents
-    all_proponents = {:main => [], :side => [], :ack => []}
-    # collect relevant users
-    self.dataset_paperproposals.each do |ds_pp|
-      dataset = ds_pp.dataset
-      ds_pp.aspect = 'main' if ds_pp.aspect.blank? #some have no aspect set
-      all_proponents[ds_pp.aspect.to_sym] << dataset.owners
-      all_proponents[:ack] << dataset.datacolumns.map{|dc| dc.users}
-    end
-
-    #clear out the old ones
-    AuthorPaperproposal.delete_all(["paperproposal_id = ? AND (kind = ? OR kind = ? OR kind = ?)", self.id, 'main', 'side', 'ack'])
-
-    #reassign
-    new_author_paperproposals = []
-    all_proponents.each do |aspect, user_array|
-      user_array.flatten!
-      user_array.uniq!
-      new_author_paperproposals <<
-          user_array.map{ |u| AuthorPaperproposal.new(:user => u, :paperproposal => self, :kind => aspect.to_s)}
-    end
-    new_author_paperproposals.flatten!
-    self.author_paperproposals << new_author_paperproposals
-    self.save
+    authorship << "Author" if user.id == self.author_id
+    authorship += author_paperproposals.where(:user_id=>user.id).collect{|r| KIND[r.kind] }
+    return authorship.uniq.to_sentence
   end
 
   def all_authors_ordered(focus = nil)
@@ -197,6 +129,71 @@ class Paperproposal < ActiveRecord::Base
     result.flatten.uniq
   end
 
+  def proponents=(proponents_array)
+    self.author_paperproposals.where(kind: 'user').destroy_all
+    self.author_paperproposals << proponents_array.map{|person| AuthorPaperproposal.new(:user => person, :kind => "user")}
+  end
+
+  def calculate_data_providers
+    all_proponents = {:main => [], :side => [], :ack => []}
+    # collect relevant users
+    self.dataset_paperproposals.includes(:dataset).each do |ds_pp|
+      dataset = ds_pp.dataset
+      all_proponents[ds_pp.aspect.to_sym] << dataset.owners
+      all_proponents[:ack] << dataset.datacolumns.map{|dc| dc.users}
+    end
+    return all_proponents
+  end
+
+  def update_datasets_providers
+    all_proponents = self.calculate_data_providers
+    #clear out the old ones
+    self.author_paperproposals.where(:kind => %w{main side ack}).delete_all
+
+    #reassign
+    new_author_paperproposals = []
+    all_proponents.each do |aspect, user_array|
+      user_array.flatten!
+      user_array.uniq!
+      new_author_paperproposals <<
+          user_array.map{ |u| AuthorPaperproposal.new(:user => u, :paperproposal => self, :kind => aspect.to_s)}
+    end
+    new_author_paperproposals.flatten!
+    self.author_paperproposals << new_author_paperproposals
+    self.save
+  end
+
+  def data_providers
+    main_aspect_dataset_owners | side_aspect_dataset_owners
+  end
+
+  def non_free_data_providers
+    non_free_data_owner_voters = self.datasets.collect do |dt|
+      dt.owners unless dt.free_for?(self.author) || self.author.has_role?(:owner, dt)
+    end
+    non_free_data_owner_voters.flatten.uniq
+  end
+
+  def auto_voters
+    self.data_providers - non_free_data_providers
+  end
+
+  def project_board_voters
+    User.all_project_boards
+  end
+
+  def includes_datasets?
+    !self.datasets.empty?
+  end
+
+  def all_votes_accepted?
+    self.paperproposal_votes.all?(&:accepted?)
+  end
+
+  def has_been_rejected?
+    self.paperproposal_votes.any?(&:rejected?)
+  end
+
   def current_votes
     case self.board_state
       when 're_prep', 'submit'
@@ -208,13 +205,8 @@ class Paperproposal < ActiveRecord::Base
     end
   end
 
-  def update_proponents proponents_array
-    proponents = User.find_all_by_id(proponents_array).map{|person| AuthorPaperproposal.new(:user => person, :kind => "user")}
-    AuthorPaperproposal.delete_all(['paperproposal_id = ? AND kind = ?', self.id, 'user'])
-    self.author_paperproposals << proponents
-  end
-
-  def update_datasets(dataset_ids, aspects)
+  # datasets_array in form of [{id: 6, aspect: 'main'}, {id: 7, aspect: 'side'}]
+  def update_datasets(datasets_array=[])
     old_datasets = self.datasets.to_a
 
     if self.board_state == 'final'
@@ -222,17 +214,12 @@ class Paperproposal < ActiveRecord::Base
       download_rights_message = reset_download_rights
     end
 
-    self.update_attributes(:dataset_ids => dataset_ids)
-    if aspects
-      aspects.each do |k, v|
-        ds_pp = self.dataset_paperproposals.where('dataset_id = ?', k).first
-        ds_pp.aspect = v
-        ds_pp.save
-      end
+    self.dataset_paperproposals = datasets_array.collect do |da|
+      DatasetPaperproposal.new(dataset_id: da[:id], aspect: da[:aspect], paperproposal_id: self.id)
     end
 
     self.reload
-    calculate_datasets_proponents
+    update_datasets_providers
 
     if %w'prep re_prep submit'.include?(self.board_state)
       set_lock_status
@@ -284,9 +271,9 @@ class Paperproposal < ActiveRecord::Base
 
   def check_votes
     self.reload
-    if self.paperproposal_votes.where(:vote => 'accept').count == self.paperproposal_votes.count
+    if all_votes_accepted?
       all_votes_accepted
-    elsif !self.paperproposal_votes.where(:vote => 'reject').empty?
+    elsif has_been_rejected?
       reject_data_request
     end
   end
@@ -344,7 +331,7 @@ private
     if pre_state == 're_prep'
       self.project_board_votes.each{|vote| vote.update_attribute(:vote, 'none')}
     else
-      Role.find_by_name('project_board').users.each do |user|
+      project_board_voters.each do |user|
         self.paperproposal_votes << PaperproposalVote.new(:user => user, :project_board_vote => true)
       end
     end
@@ -367,10 +354,10 @@ private
   def all_votes_accepted
     case self.board_state
       when 'submit'
-        if self.datasets.length == 0
-          make_data_request_final
-        else
+        if self.includes_datasets?
           make_data_request_accepted
+        else
+          make_data_request_final
         end
       when 'accept'
         make_data_request_final
@@ -406,22 +393,9 @@ private
   end
 
   def auto_vote
-    auto_voters = []
-
     case self.board_state
       when 'accept'
-        # search data owners who only contribute free (in general + for members) datasets
-        auto_voters = self.main_aspect_dataset_owners + self.side_aspect_dataset_owners
-        auto_voters.delete self.author
-        self.datasets.each do |ds|
-          unless ds.free_for_members || ds.free_for_public
-            auto_voters = auto_voters - ds.owners
-          end
-        end
-        auto_voters << self.author # add paperproposal author
-
         # accept data request votes
-        auto_voters.uniq!
         self.for_data_request_votes.where('user_id IN (?)', auto_voters).each do |v|
           unless v.vote == 'accept'
             v.update_attribute(:vote, 'accept')
@@ -445,15 +419,4 @@ private
     auto_vote
     check_votes
   end
-
-  def check_aspects_for_contexts
-    if self.datasets.length >= 0
-      self.dataset_paperproposals.each do |dgdr|
-        return false if dgdr.blank?
-      end
-      return true
-    end
-    return false
-  end
-
 end

@@ -25,7 +25,7 @@ datasets_001:
   circumstances: Are there circumstances that explain the precision of your measurements?
     Could it be that a sandstorm destroyed part of the plots in a given year?
   submission_at: 
-  filename: befdata_workbook_howto.xls
+  filename: befdata_workbook_howto
   comment: Comments on the file will be displayed to the owners, to the administrators,
     and to members of the Project board. You will then see the comments alongside
     the title in each list displaying the title of the data set.

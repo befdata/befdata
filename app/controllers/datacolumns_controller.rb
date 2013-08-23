@@ -1,6 +1,7 @@
 class DatacolumnsController < ApplicationController
 
   before_filter :load_datacolumn_and_dataset
+  before_filter :redirect_if_datagroup_unapproved, :only => [:update_invalid_values, :update_invalid_values_with_csv, :autofill_and_update_invalid_values]
   after_filter  :dataset_edit_message,
                 :only => [:create_and_update_datagroup, :update_datagroup, :update_datatype, :update_metadata,
                 :update_invalid_values, :update_invalid_values_with_csv, :autofill_and_update_invalid_values]
@@ -10,9 +11,8 @@ class DatacolumnsController < ApplicationController
     actions :approval_overview, :next_approval_step, :approve_datagroup, :approve_datatype, :approve_metadata,
             :approve_invalid_values, :update_datagroup, :create_and_update_datagroup, :update_datatype,
             :update_metadata, :update_invalid_values, :update_invalid_values_with_csv, :autofill_and_update_invalid_values, :update do
-      allow :admin
+      allow :admin, :data_admin
       allow :owner, :of => :dataset
-      allow :proposer, :of => :dataset
     end
   end
 
@@ -50,7 +50,11 @@ class DatacolumnsController < ApplicationController
   end
 
   def approve_datagroup
-    @data_groups_available = Datagroup.all(:order => "title", :conditions => ["id <> ?", @datacolumn.datagroup.id])
+    if @datacolumn.datagroup_id
+      @data_groups_available = Datagroup.order(:title).where(["id <> ?", @datacolumn.datagroup_id])
+    else  # no datagroup assigned
+      @data_groups_available = Datagroup.order(:title)
+    end
   end
 
   def approve_datatype
@@ -81,21 +85,14 @@ class DatacolumnsController < ApplicationController
   end
 
   def create_and_update_datagroup
-    begin
-      @datagroup = Datagroup.new(params[:new_datagroup])
-      Datacolumn.transaction do
-        if @datagroup.save
-          @datacolumn.approve_datagroup(@datagroup)
-          flash[:notice] = "Data group successfully saved."
-          next_approval_step
-        else
-          flash[:error] = "#{@datagroup.errors.to_a.first.capitalize}"
-          redirect_to :back
-        end
-      end
-        # This Exception is thrown by 'save' when the record-to-save could not be validated.
-    rescue ActiveRecord::RecordInvalid => invalid
-      flash[:error] = "#{invalid.errors.to_a.first.capitalize}"
+    @datagroup = Datagroup.new(params[:new_datagroup])
+
+    if @datagroup.save
+      @datacolumn.approve_datagroup(@datagroup)
+      flash[:notice] = "Data group successfully saved."
+      next_approval_step
+    else
+      flash[:error] = @datagroup.errors.full_messages.to_sentence
       redirect_to :back
     end
   end
@@ -175,7 +172,7 @@ class DatacolumnsController < ApplicationController
     if !params[:csvfile]
       redirect_to :back, :error => "No File given" and return
     end
-    f = params[:csvfile].tempfile
+    f = params[:csvfile].path
     begin
       CSV.foreach(f, headers: true, skip_blanks: true) do |row|
         next if row['import value'].blank? or row['category short'].blank?
@@ -218,4 +215,10 @@ class DatacolumnsController < ApplicationController
     @dataset.log_edit('Datacolumns approved')
   end
 
+  def redirect_if_datagroup_unapproved
+    unless @datacolumn.datagroup_id
+      flash[:error] = "Please approve the datagroup before approving invalid values"
+      redirect_to approve_datagroup_datacolumn_path(@datacolumn)
+    end
+  end
 end

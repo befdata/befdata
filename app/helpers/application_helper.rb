@@ -18,4 +18,8 @@ module ApplicationHelper
                     :technician, :student).invert
   end
 
+  def all_tags_for_select2
+    ActsAsTaggableOn::Tag.pluck(:name).sort.to_json
+  end
+
 end

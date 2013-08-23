@@ -373,12 +373,22 @@ ul#downloaders {
       margin-top: 15px;
     }
   }
-
   .close_hint {
     clear: both;
     margin-top: 10px;
     color: #8A8A8A;
   }
-
 }
-
+.dataset-create-option {
+  border-top: solid 1px #ddd;
+  padding: 15px 0px 10px;
+  dl {
+    margin-bottom: 0.7em;
+    dt {font-weight: bold;}
+  }
+  input[type=text] { width: 80%;}
+  input[type=file] { margin-bottom: 0px;}
+  .help-text {display: block; color: #737373; }
+  &:after {content: ''; clear: both; display: block; }
+  ul>li {list-style-type: disc; list-style-position: inside; line-height: 0.7em;}
+}

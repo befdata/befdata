@@ -5,9 +5,9 @@ class DataworkbookTest < ActiveSupport::TestCase
 
   def setup
     @dataset = Dataset.find(5)
-    @spreadsheet = Spreadsheet.open @dataset.upload_spreadsheet.file.path
+    @spreadsheet = Spreadsheet.open @dataset.current_datafile.file.path
     @spreadsheet.io.close
-    @book = Dataworkbook.new(@dataset.upload_spreadsheet)
+    @book = Dataworkbook.new(@dataset.current_datafile)
   end
 
   test "workbook was loaded correctly" do
@@ -31,8 +31,8 @@ class DataworkbookTest < ActiveSupport::TestCase
   end
   
   test "workbook should contain two people" do
-    assert_equal 1, @book.members_listed_as_responsible[:found_users].length
-    assert_equal 1, @book.members_listed_as_responsible[:unfound_usernames].length
+    assert_equal 1, @book.authors_list[:found_users].length
+    assert_equal 1, @book.authors_list[:unfound_usernames].length
   end
   
   test "start date of workbook should be April 18th, 2011" do
@@ -50,23 +50,22 @@ class DataworkbookTest < ActiveSupport::TestCase
   end
 
   test "hash of people named in the workbook is correct" do
-    assert_equal 2, @book.members_listed_as_responsible[:found_users].length + @book.members_listed_as_responsible[:unfound_usernames].length
-    assert_equal "Karin", @book.members_listed_as_responsible[:found_users].first.firstname
-    assert_match "Verena", @book.members_listed_as_responsible[:unfound_usernames].first
+    assert_equal 2, @book.authors_list[:found_users].length + @book.authors_list[:unfound_usernames].length
+    assert_equal "Karin", @book.authors_list[:found_users].first.firstname
+    assert_match "Verena", @book.authors_list[:unfound_usernames].first
   end
   
   test "method index for a specific columnheader is correct" do
     assert_equal 1, @book.method_index_for_columnheader('height')
   end
-  
-  test "column info for columnheader is correct" do
-    assert_equal 6, @book.data_column_info_for_columnheader('height').keys.length
-    assert_equal 'height in m', @book.data_column_info_for_columnheader('height')[:definition]
-  end
-  
-  test "datagroup information for columnheader is correct" do
-    assert_equal 5, @book.methodsheet_datagroup('height').keys.length
-    assert_equal 'number', @book.methodsheet_datagroup('height')[:methodvaluetype]
+
+  test 'row in method sheet is recognized correctly' do
+    column_info, datagroup_info = @book.parse_method_row('height')
+    assert_equal 12, column_info.keys.length
+    assert_equal 5, datagroup_info.keys.length
+
+    assert_equal 'height in m', column_info[:definition]
+    assert_equal 'number', datagroup_info[:methodvaluetype]
   end
   
   test "data with head is correct for columnheader" do

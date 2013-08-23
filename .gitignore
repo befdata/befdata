@@ -34,4 +34,6 @@ test/fixtures_dump
 ext/database-and-file-backup.sh
 
 tags
+.tags
+.tags_sorted_by_file
 coverage/

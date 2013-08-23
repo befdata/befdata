@@ -6,17 +6,17 @@
     - if @datacolumn
       %ul.approval-line
         %li
-          %span{:class => "approval-status approval-stage-#{@datacolumn.approval_stage.to_s}"}= ''
+          %span{:class => "approval-status approval-stage-#{@datacolumn.approval_stage}"}= ''
         %li= link_to "Overview", approval_overview_datacolumn_url(@datacolumn),
-          {:class => "#{'active' if params[:action] == 'approval_overview'} #{'unvisited' if @datacolumn.approval_stage.to_i < 0}"}
+          {:class => "#{'active' if params[:action] == 'approval_overview'} #{'unvisited' if @datacolumn.approval_stage < 0}"}
         %li= link_to "Datagroup", approve_datagroup_datacolumn_url(@datacolumn),
-          {:class => "#{'active' if params[:action] == 'approve_datagroup'} #{'unvisited' if @datacolumn.approval_stage.to_i < 1}"}
+          {:class => "#{'active' if params[:action] == 'approve_datagroup'} #{'unvisited' if @datacolumn.approval_stage < 1}"}
         %li= link_to "Datatype", approve_datatype_datacolumn_url(@datacolumn),
-          {:class => "#{'active' if params[:action] == 'approve_datatype'} #{'unvisited' if @datacolumn.approval_stage.to_i < 2}"}
+          {:class => "#{'active' if params[:action] == 'approve_datatype'} #{'unvisited' if @datacolumn.approval_stage < 2}"}
         %li= link_to "Invalid Values", approve_invalid_values_datacolumn_url(@datacolumn),
-          {:class => "#{'active' if params[:action] == 'approve_invalid_values'} #{'unvisited' if @datacolumn.approval_stage.to_i < 3}"}
+          {:class => "#{'active' if params[:action] == 'approve_invalid_values'} #{'unvisited' if @datacolumn.approval_stage < 3}"}
         %li= link_to "Metadata", approve_metadata_datacolumn_url(@datacolumn),
-          {:class => "#{'active' if params[:action] == 'approve_metadata'} #{'unvisited' if @datacolumn.approval_stage.to_i < 4}"}
+          {:class => "#{'active' if params[:action] == 'approve_metadata'} #{'unvisited' if @datacolumn.approval_stage < 4}"}
     = yield
 
 = render :partial => 'datasets/approval_sidebar'

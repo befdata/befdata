@@ -1,5 +1,12 @@
 %h3 Quick Approve
 %p Only do this, if you know what you do, this changes a lot at once.
+- if @dataset.number_of_observations > 10000
+  #too-many-alert
+    %b HEADS UP!
+    %p
+      This dataset has too many rows than we can handle. This
+      %tt Quick Approve
+      process can be too slow to be tolerable. We suggest you approving the data columns one by one.
 %p
   Below the select box you find the previosly assigned values. Grey values means they are not approved and are
   automatically filled in if possible. Empty boxes will be left unchanged.
@@ -14,17 +21,17 @@
         %th Datagroup
         %th Datatype
     %tbody
-      -@dataset.datacolumns.each do |c|
+      -@dataset.datacolumns.includes(:datagroup).each do |c|
         = hidden_field_tag "datacolumn[][id]", c.id
         %tr
           %td= c.columnnr
-          %td{:class => "approval-status approval-stage-#{c.approval_stage.to_s}"}
-            = c.approval_stage.to_s
+          %td{:class => "approval-status approval-stage-#{c.approval_stage}"}
+            = c.approval_stage
           %td= link_to c.columnheader, approval_overview_datacolumn_url(c)
 
           %td.datagroup-cell
             = select_tag "datacolumn[][datagroup]", options_from_collection_for_select(@datagroups,"id","title",
-              (c.datagroup.id unless c.datagroup_approved?)), {:include_blank => true}
+              (c.datagroup_id unless c.datagroup_approved?)), {:include_blank => true}
             %p.datagroup-description.clear-value
               clear
             %p.datagroup-description.reset-old-datagroup-value{:class => !c.datagroup_approved? ? 'unapproved' : ''}

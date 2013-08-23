@@ -24,7 +24,6 @@
     %li= link_to "Excel file" , "#xls"
     %li= link_to "CSV" , "#csv"
     %li= link_to "CSV2" , "#csv2"
-    %li= link_to "Files CSV", "#csv-files"
 
   #csv2
     %h3 CSV file with separate category columns
@@ -52,13 +51,6 @@
       This is the same as the workbook the owner uploaded, including all the data and metadata.
     #download
       = link_to "Download", download_dataset_path(@dataset), class: 'button'
-  #csv-files
-    %h3 Files CSV
-    %p A CSV with direct links to the attached files and their description
-    #download
-      = link_to "Download", freeformats_csv_dataset_path(@dataset), class: 'button'
-
-
 
 :javascript
   $(function(){

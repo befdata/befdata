@@ -3,7 +3,7 @@
     = link_to edit_project_path(@project) do
       = image_tag "edit.png"
       Edit
-    - if @deletable
+    - if @project.destroyable?
       = link_to project_path(@project), {:method => :delete, :confirm => "Are you sure to delete project: #{@project.shortname}?"} do
         = image_tag "trash.png"
         Delete this Project
@@ -17,7 +17,7 @@
     %ul
       %li
         = render :partial => "users/email_list_modal",
-          :locals => {:list => User.email_list(@project.users), :css => "project_members", :caption => 'Project members'}
+          :locals => {:contacts => @project.users, :css => "project_members", :caption => 'Project members'}
 
 
 %h2

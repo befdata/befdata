@@ -21,8 +21,6 @@ class UsersController < ApplicationController
     @datasets_with_responsible_datacolumns_not_owned = @user.datasets_with_responsible_datacolumns - @datasets_owned
     @project_roles = @user.projectroles
     @paperproposals = @user.paperproposals
-    @deletable = (@datasets_owned.count + @paperproposals.count +
-                  @datasets_with_responsible_datacolumns_not_owned.count) == 0
   end
 
   def new
@@ -53,11 +51,12 @@ class UsersController < ApplicationController
   end
 
   def destroy
-    name = @user.to_label
+    user_name = @user.full_name
     if @user.destroy
-      redirect_to users_path, :notice => "Successfully deleted #{name}"
+      redirect_to users_path, :notice => "Successfully deleted #{user_name}"
     else
-      redirect_to :back, :error => @user.errors.full_messages.to_sentence
+      flash[:error] = @user.errors.full_messages.to_sentence
+      redirect_to :back
     end
   end
 

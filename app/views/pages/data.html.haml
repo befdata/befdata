@@ -26,7 +26,7 @@
       = link_to "Without Workbook", data_path(sort: params[:sort], direction: params[:direction], workbook: false), :class => params[:workbook] == 'false' ? 'switcher selected' : 'switcher'
   .right
     Sort #{@datasets.length} of #{Dataset.count} datasets by
-    = select_tag "Sort", options_for_select({"Title" => data_path(sort: 'title', direction: 'asc', workbook: params[:workbook]), "Newest" => data_path(sort: 'id', direction: 'desc', workbook: params[:workbook]), "Recently Updated" => data_path(sort: 'last_update', direction: 'desc', workbook: params[:workbook])}, selected: request.env['REQUEST_URI']), :class => 'js-select-menu'
+    = select_tag "Sort", dropdown_list_to_sort_datasets, :class => 'js-select-menu'
 
 - if @datasets.empty?
   %i No Datasets Found.

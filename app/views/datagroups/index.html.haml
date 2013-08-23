@@ -4,13 +4,13 @@
 .datagroup-filter
   .group
     Sort:
-    = select_tag "sort", options_for_select({"Title" => datagroups_path(params.merge(sort: 'title', direction: 'asc')), "Recently Added" => datagroups_path(params.merge(sort: 'created_at', direction: 'desc')), "Most used" => datagroups_path(params.merge(sort: 'datacolumns_count', direction: 'desc')), "Least Used" => datagroups_path(params.merge(sort: 'datacolumns_count', direction: 'asc'))}, selected: request.env['REQUEST_URI']), class: 'js-select-menu'
+    = select_tag "sort", dropdown_list_to_sort_datagroups, class: 'js-select-menu'
   .group
     = label_tag "hide_detail", "Compact View"
     = check_box_tag "hide_detail", "yes", checked=true
 
   .right#search_form
-    = form_tag datagroups_path, {:method => :get} do
+    = form_tag datagroups_path, :method => :get do
       - unless params[:search].blank?
         = link_to "Clear search", datagroups_path(params.merge(search: nil, utf8: nil)), :id => "clear_search"
       = search_field_tag :search, params[:search]

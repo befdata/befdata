@@ -20,38 +20,35 @@ require "dataworkbook_format"
 class Dataworkbook
   include DataworkbookFormat
 
-  attr_reader :datafile, :book
+  include ActiveModel::Validations
+  validates_with WorkbookValidator
+
+  attr_reader  :book
 
   def initialize(datafile)
-    @datafile = datafile
-    @dataset = @datafile.dataset
-    open_datafile_from_disk
-  end
-
-  def open_datafile_from_disk
-    @book = Spreadsheet.open @datafile.file.path
-    # Close after reading, for memorys sake.#Todo is this really necessary?
-    @book.io.close
+    @dataset = datafile.dataset
+    @book = Spreadsheet.open(datafile.path) and @book.io.close rescue nil # Close after reading, for memorys sake. (TODO: is this really necessary?)
   end
 
   # The general metadata sheet contains information about the data set
   # as a whole. The general_metadata method gathers the
   # contents of the text cells within this sheet.
   def general_metadata_hash
-    metadata = Hash.new
-    metadata[:filename] = @datafile.file_file_name
-    metadata[:title] = clean_string(general_metadata_sheet[*WBF[:meta_title_pos]])
-    metadata[:abstract] = clean_string(general_metadata_sheet[*WBF[:meta_abstract_pos]])
-    metadata[:comment] = clean_string(general_metadata_sheet[*WBF[:meta_comment_pos]])
-    metadata[:usagerights] = clean_string(general_metadata_sheet[*WBF[:meta_usagerights_pos]])
-    metadata[:published] = clean_string(general_metadata_sheet[*WBF[:meta_published_pos]])
-    metadata[:spatialextent] = clean_string(general_metadata_sheet[*WBF[:meta_spatial_extent_pos]])
-    metadata[:temporalextent] = clean_string(general_metadata_sheet[*WBF[:meta_temporalextent_pos]])
-    metadata[:taxonomicextent] = clean_string(general_metadata_sheet[*WBF[:meta_taxonomicextent_pos]])
-    metadata[:design] = clean_string(general_metadata_sheet[*WBF[:meta_design_pos]])
-    metadata[:dataanalysis] = clean_string(general_metadata_sheet[*WBF[:meta_dataanalysis_pos]])
-    metadata[:circumstances] = clean_string(general_metadata_sheet[*WBF[:meta_circumstances_pos]])
-    return metadata
+    {
+      title: clean_string(general_metadata_sheet[*WBF[:meta_title_pos]]),
+      abstract: clean_string(general_metadata_sheet[*WBF[:meta_abstract_pos]]),
+      comment: clean_string(general_metadata_sheet[*WBF[:meta_comment_pos]]),
+      usagerights: clean_string(general_metadata_sheet[*WBF[:meta_usagerights_pos]]),
+      published: clean_string(general_metadata_sheet[*WBF[:meta_published_pos]]),
+      spatialextent: clean_string(general_metadata_sheet[*WBF[:meta_spatial_extent_pos]]),
+      temporalextent: clean_string(general_metadata_sheet[*WBF[:meta_temporalextent_pos]]),
+      taxonomicextent: clean_string(general_metadata_sheet[*WBF[:meta_taxonomicextent_pos]]),
+      design: clean_string(general_metadata_sheet[*WBF[:meta_design_pos]]),
+      dataanalysis: clean_string(general_metadata_sheet[*WBF[:meta_dataanalysis_pos]]),
+      circumstances: clean_string(general_metadata_sheet[*WBF[:meta_circumstances_pos]]),
+      datemin: self.datemin,
+      datemax: self.datemax
+    }
   end
 
   # Returns the object representing the general metadata sheet.
@@ -79,19 +76,23 @@ class Dataworkbook
     @book.worksheet(WBF[:data_sheet])
   end
 
+  def wb_version
+    general_metadata_sheet[*WBF[:meta_version_pos]]
+  end
+
   # Provides an array with the headers of all raw data columns.
   def columnheaders_raw
-    columns = Array(raw_data_sheet.row(0)).compact
-    columns = columns.collect!{ |col| clean_string(col) } unless columns.nil?
-    columns
+    return @headers if defined? @headers
+    @headers = raw_data_sheet.row(0).compact.map(&:strip).reject {|h| h.blank?}
+    return @headers
   end
 
   # Checks whether the raw data headers are unique.
   def columnheaders_unique?
-    columnheaders_raw.length == columnheaders_raw.uniq.length
+    columnheaders_raw.length == columnheaders_raw.uniq_by(&:downcase).length
   end
 
-  def members_listed_as_responsible
+  def authors_list
     given_names = general_metadata_sheet.row(*WBF[:meta_owners_start_row])
     surnames  = general_metadata_sheet.row(*WBF[:meta_owners_start_row]+1)
     emails = general_metadata_sheet.row(*WBF[:meta_owners_start_row]+2)
@@ -102,46 +103,23 @@ class Dataworkbook
   end
 
   # Returns the tags that were in the respective cell.
-  def tag_list
-    clean_string(general_metadata_sheet[*WBF[:meta_projects_pos]])
+  def projects_list
+    project_string = general_metadata_sheet[*WBF[:meta_projects_pos]]
+    return [] if project_string.blank?
+    projects = project_string.split(',').map(&:squish).uniq.collect do |p|
+      Project.find_by_converting_to_tag(p)
+    end
+    projects.compact
   end
 
   # Helper method to determine the correct minimal date value from the string given in the Workbook.
   def datemin
-    # Retrieve the value from the Workbook.
-    value = general_metadata_sheet[*WBF[:meta_datemin_pos]].to_s
-    begin
-      # Try to parse it as a date.
-      date = Date.parse(value)
-    rescue ArgumentError
-      # When parse did not succeed, we have to guesstimate.
-      # Is the string usable as year? If yes, use it. If no, fall back to the current year.
-      year = value.to_i > 2000 ? value.to_i : Date.today.year
-
-      # Create a new date object from the guesstimated year.
-      # Use the first of January as day and month values.
-      date = Date.new(year, 1, 1)
-    end
-    return date
+    parse_date(general_metadata_sheet[*WBF[:meta_datemin_pos]].to_s) {|year| Date.new(year, 1, 1) }
   end
 
-# Helper method to determine the correct maximal date value from the string given in the Workbook.
+  # Helper method to determine the correct maximal date value from the string given in the Workbook.
   def datemax
-    # Retrieve the value from the Workbook.
-    value = general_metadata_sheet[*WBF[:meta_datemax_pos]].to_s
-    begin
-      # Try to parse it as a date.
-      date = Date.parse(value)
-    rescue ArgumentError
-      # When parse did not succeed, we have to guesstimate.
-      # Is the string usable as year? If yes, use it. If no, fall back to the current year.
-      year = value.to_i > 2000 ? value.to_i : Date.today.year
-      
-      # Create a new date object from the guesstimated year.
-      # Use the last of December as day and month values.
-      date = Date.new(year, 12, 31)
-    end
-    return date
+    parse_date(general_metadata_sheet[*WBF[:meta_datemax_pos]].to_s) {|year| Date.new(year, 12, 31) }
   end
 
   # The method that loads the Workbook into the database.
@@ -151,53 +129,72 @@ class Dataworkbook
     processing_column = 1
     columnheaders_raw.each do |columnheader|
       @dataset.update_attribute(:import_status, "processing column #{processing_column} of #{number_of_columns}")
-      data_column_information = initialize_data_column_information(columnheader)
-      data_column_new = Datacolumn.create!(data_column_information)
-      all_cells_for_one_column = data_for_columnheader(columnheader)[:data]
-      datatype = Datatypehelper.find_by_name(data_column_information[:import_data_type])
+      data_column_new = save_data_column(columnheader)
+      datatype = Datatypehelper.find_by_name(data_column_new.import_data_type)
 
+      all_cells_for_one_column = data_for_columnheader(columnheader)[:data]
       unless all_cells_for_one_column.blank?
         save_all_cells_to_database(data_column_new, datatype, all_cells_for_one_column)
         add_any_sheet_categories_included_for_this_column(columnheader, data_column_new)
         add_acknowledged_people(columnheader, data_column_new)
       end
-      data_column_new.save
 
       processing_column += 1
     end
   end
 
-  def initialize_data_column_information(columnheader)
-    data_group_ch = methodsheet_datagroup(columnheader)
-    data_group = Datagroup.where(["title iLike ?", data_group_ch[:title]]).first
-    if data_group.blank?
-      data_group = Datagroup.create(data_group_ch)
-    else
-      # if the datagroup exists check that the Method step description, Instrumentation and Identification source
-      # fields are the same. If they aren't then append them to the column definition.
-      column_description = ""
-      if compare_strings(data_group.description,data_group_ch[:description])
-        column_description = "; Datagroup description: #{data_group_ch[:description]}"
+  def save_data_column(columnheader)
+    data_column_info, data_group_ch = parse_method_row(columnheader)
+
+    unless data_group_ch.blank?
+      datagroup = Datagroup.where(["title iLike ?", data_group_ch[:title]]).first
+      if datagroup
+        # if the datagroup exists check that the Method step description, Instrumentation and Identification source
+        # fields are the same. If they aren't then append them to the column definition.
+        column_description = ""
+        if compare_strings(datagroup.description, data_group_ch[:description])
+          column_description = "; Datagroup description: #{data_group_ch[:description]}"
+        end
+        if compare_strings(datagroup.instrumentation, data_group_ch[:instrumentation])
+          column_description = "#{column_description}; Instrumentation: #{data_group_ch[:instrumentation]}"
+        end
+        if compare_strings(datagroup.informationsource, data_group_ch[:informationsource])
+          column_description = "#{column_description}; Source: #{data_group_ch[:informationsource]}"
+        end
+        data_column_info[:definition] = "#{data_column_info[:definition]}#{column_description}" unless column_description.blank?
+      else  # if there is no existing datagroup. create it.
+        datagroup = Datagroup.create!(data_group_ch)
       end
-      if compare_strings(data_group.instrumentation,data_group_ch[:instrumentation])
-        column_description = "#{column_description}; Instrumentation: #{data_group_ch[:instrumentation]}"
-      end
-      if compare_strings(data_group.informationsource,data_group_ch[:informationsource])
-        column_description = "#{column_description}; Source: #{data_group_ch[:informationsource]}"
-      end
+      data_column_info.merge!(datagroup_id: datagroup.id)
     end
+    Datacolumn.create!(data_column_info)
+  end
 
-    data_column_information = data_column_info_for_columnheader(columnheader)
-    #data_column_information[:definition] << column_description unless column_description.blank?
-    data_column_information[:definition] = "#{data_column_information[:definition]}#{column_description}" unless column_description.blank?
-    data_column_information[:dataset_id] = @dataset.id
-    data_column_information[:tag_list] = data_column_information[:tag_list] unless data_column_information[:tag_list].blank?
-    data_column_information[:datagroup_id] = data_group.id
-    data_column_information[:datagroup_approved] = false
-    data_column_information[:datatype_approved] = false
-    data_column_information[:finished] = false
+  def parse_method_row(columnheader)
+    method_index = method_index_for_columnheader(columnheader)
 
-    data_column_information
+    column_info = {
+      columnheader: columnheader,
+      columnnr: 1 + columnheaders_raw.index(columnheader),
+      datagroup_approved: false,
+      datatype_approved: false,
+      finished: false,
+      dataset_id: @dataset.id
+    }
+    datagroup_info = {}
+
+    if method_index
+      row = data_description_sheet.row(method_index)
+      datagroup_info.merge! grab_datagroup_info(row)
+      column_info.merge! grab_column_info(row)
+    end
+    return [column_info, datagroup_info]
+  end
+
+  # Reverse lookup for column headers. Returns the index for any provided columnheader.
+  def method_index_for_columnheader(columnheader)
+    columnheaders = Array(data_description_sheet.column(0))
+    columnheaders.collect!{|col| clean_string(col)}.index(columnheader)
   end
 
   def save_all_cells_to_database(data_column_new, datatype, all_cells)
@@ -244,35 +241,8 @@ class Dataworkbook
     end
     unless ppl[:unfound_usernames].blank?
       message = "These persons could not be matched within the portal: #{ppl[:unfound_usernames].join(', ')}"
-      data_column_new.informationsource = message
+      data_column_new.update_attribute :informationsource, message
     end
-  end
-
-  # Reverse lookup for column headers. Returns the index for any provided columnheader.
-  def method_index_for_columnheader(columnheader)
-    columnheaders = Array(data_description_sheet.column(0))
-    columnheaders.collect!{|col| clean_string(col)}.index(columnheader)
-  end
-
-  # Returns a hash filled with all informations regarding a given columnheader.
-  def data_column_info_for_columnheader(columnheader)
-    method_index = method_index_for_columnheader(columnheader)
-
-    data_header_ch = {}
-    data_header_ch[:columnheader] = columnheader
-    data_header_ch[:columnnr] = 1 + columnheaders_raw.index(columnheader)
-
-    if method_index.nil? # columnheader does not appear in the method sheet
-      data_header_ch[:definition] = columnheader
-    else
-      data_header_ch[:definition] = Array(data_description_sheet.column(*WBF[:column_definition_col]))[method_index].blank? ? columnheader : clean_string(Array(data_description_sheet.column(*WBF[:column_definition_col]))[method_index])
-      data_header_ch[:unit] = clean_string(Array(data_description_sheet.column(*WBF[:column_unit_col]))[method_index])
-      data_header_ch[:tag_list] = clean_string(Array(data_description_sheet.column(*WBF[:column_keywords_col]))[method_index])
-      data_header_ch[:import_data_type] = clean_string(Array(data_description_sheet.column(*WBF[:group_methodvaluetype_col]))[method_index])
-    end
-
-    return data_header_ch
-
   end
 
   # Extracts the datatype from the spreadsheet for a given columnheader
@@ -281,37 +251,6 @@ class Dataworkbook
     Datatypehelper.find_by_name(data_type_name)
   end
   
-  # During the upload process we look several times back in the
-  # spreadsheet.  In this case, we are looking for data group
-  # information (Methodstep, MethodstepsController).  Data groups
-  # consist of several data column instances
-  # (MeasurementsMethodstep). During first upload,
-  # we use the information provided in the method sheet in columns 5
-  # to 11 to guess a similar data group from the data portal.  During
-  # the upload of each single data column from the raw data sheet
-  # (raw_data_per_header), we use this information to initialize a new
-  # data group instance which can then be altered and saved to save
-  # this new data group on the portal.
-  def methodsheet_datagroup(columnheader)
-
-    method_index = method_index_for_columnheader(columnheader)
-
-    data_group = {}
-    if method_index.nil? # no discription for this columnheader in the method sheet
-      data_group[:title] = columnheader
-    else
-      row = data_description_sheet.row(method_index)
-      data_group[:title] = row[*WBF[:group_title_col]].blank? ? columnheader : clean_string(row[*WBF[:group_title_col]])
-      data_group[:description] = clean_string(row[*WBF[:group_description_col]])
-      data_group[:instrumentation] = clean_string(row[*WBF[:group_instrumentation_col]])
-      data_group[:informationsource] = clean_string(row[*WBF[:group_informationsource_col]])
-      data_group[:methodvaluetype] = clean_string(row[*WBF[:group_methodvaluetype_col]])
-    end
-
-    return data_group
-  end
-
-
   # Return the complete column from the raw data sheet for a given columnheader,
   # including the header again.
   def data_with_head(columnheader)
@@ -424,6 +363,38 @@ class Dataworkbook
        return true
      end
     return false
+  end
+
+  def parse_date(date)
+    # When parse did not succeed, we have to guesstimate.
+    # Is the string usable as year? If yes, use it. If no, fall back to the current year.
+    Date.parse(date) rescue yield(date.to_i > 2000 ? date.to_i : Date.today.year)
+  end
+
+  def grab_datagroup_info(method_row)
+    datagroup = {
+      title: method_row[*WBF[:group_title_col]],
+      description: method_row[*WBF[:group_description_col]],
+      instrumentation: method_row[*WBF[:group_instrumentation_col]],
+      informationsource: method_row[*WBF[:group_informationsource_col]],
+      methodvaluetype: method_row[*WBF[:group_methodvaluetype_col]]
+    }
+    datagroup.each{|key, value| datagroup[key] = clean_string(value)}
+    return {} if datagroup[:title].blank?
+    return datagroup
+  end
+
+  def grab_column_info(method_row)
+    data_header_ch = {
+      definition: method_row[WBF[:column_definition_col]],
+      import_data_type: method_row[WBF[:group_methodvaluetype_col]],
+      unit: method_row[WBF[:column_unit_col]],
+      instrumentation: method_row[*WBF[:group_instrumentation_col]],
+      informationsource: method_row[*WBF[:group_informationsource_col]],
+      tag_list: method_row[WBF[:column_keywords_col]]
+    }
+    data_header_ch.each {|k,v| data_header_ch[k] = clean_string(v)}
+    return data_header_ch
   end
 
   # gives found and unfound users

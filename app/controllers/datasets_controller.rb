@@ -1,28 +1,26 @@
 class DatasetsController < ApplicationController
+  skip_before_filter :deny_access_to_all
   before_filter :load_dataset, :only => [:download, :download_page, :show, :edit, :edit_files, :update, :approve, :approve_predefined,
                                          :update_workbook, :destroy, :regenerate_download,
                                          :approval_quick, :batch_update_columns, :keywords, :download_status, :freeformats_csv]
 
-  before_filter :redirect_if_unimported, :only => [:download, :edit, :approve, :approve_predefined, :destroy,
-                                                   :approval_quick, :batch_update_columns, :keywords]
-
-  before_filter :redirect_if_without_workbook, :only => [:download_page, :download, :regenerate_download]
-
+  before_filter :redirect_if_without_workbook, :only => [:download, :download_page, :regenerate_download,
+                          :approve, :approve_predefined, :batch_update_columns, :approval_quick]
+  before_filter :redirect_unless_import_succeed, :only => [:download_page, :download, :regenerate_download,
+                          :approve, :approve_predefined, :approval_quick, :batch_update_columns]
+  before_filter :redirect_while_importing, :only => [:edit_files, :update_workbook, :destroy]
   after_filter :edit_message_datacolumns, :only => [:batch_update_columns, :approve_predefined]
 
-  skip_before_filter :deny_access_to_all
-
   access_control do
-    allow all, :to => [:show, :index, :load_context, :download_excel_template, :importing, :keywords, :download_status]
+    allow all, :to => [:show, :index, :download_excel_template, :importing, :keywords, :download_status]
 
-    actions :edit, :edit_files, :update, :approve, :approve_predefined,
+    actions :edit, :update, :edit_files, :update_workbook, :approve, :approve_predefined,
       :approval_quick, :batch_update_columns do
-      allow :admin
-      allow :data_admin
+      allow :admin, :data_admin
       allow :owner, :of => :dataset
     end
 
-    actions :update_workbook, :destroy do
+    actions :destroy do
       allow :admin
       allow :owner, :of => :dataset
     end
@@ -35,60 +33,56 @@ class DatasetsController < ApplicationController
       allow all, :if => :dataset_is_free_for_public
     end
 
-    actions :new, :create do
+    actions :new, :create, :create_with_datafile do
       allow logged_in
     end
   end
 
-
-  def create
-    # submitting neither title nor datafile
-    if !params[:dataset] && !params[:datafile]
-      flash[:error] = "No workbook given for upload"
-      redirect_to :back and return
-    end
-
-    @dataset = Dataset.new
-
-    # Upload option A - from workbook
-    if params[:datafile]
-      datafile = Datafile.new(params[:datafile])
-      @dataset.upload_spreadsheet = datafile
-      @dataset.import_status = 'new'
-      unless datafile.save
-        flash[:error] = datafile.errors.full_messages.to_sentence
-        redirect_to(:back) and return
-      end
-    end
-
-    # Upload option B - empty, only given title
-    if params[:dataset] && !params[:datafile]
-      @dataset.title = params[:dataset][:title]
-    end
-
+  def create # create dataset with only a title
+    @dataset = Dataset.new(title: params[:dataset][:title].squish)
     if @dataset.save
       current_user.has_role! :owner, @dataset
-      if datafile then
-        @dataset.dataworkbook.members_listed_as_responsible[:found_users].each do |user|
-          user.has_role!(:owner, @dataset)
-        end
-        @unfound_usernames = @dataset.dataworkbook.members_listed_as_responsible[:unfound_usernames]
-      end
     else
       flash[:error] = @dataset.errors.full_messages.to_sentence
-      flash[:error] << datafile.errors.full_messages.to_sentence if datafile
       redirect_to :back
     end
   end
 
+  def create_with_datafile
+    unless params[:datafile]
+      flash[:error] = "No data file given for upload"
+      redirect_back_or_default root_url and return
+    end
+
+    datafile = Datafile.new(params[:datafile])
+    unless datafile.save
+      flash[:error] = datafile.errors.full_messages.to_sentence
+      redirect_back_or_default root_url and return
+    end
+
+    attributes = datafile.general_metadata_hash
+    attributes.merge!(title: params[:title].squish) if params[:title]
+    @dataset = Dataset.new(attributes)
+    if @dataset.save
+      @dataset.add_datafile(datafile)
+      @dataset.load_projects_and_authors_from_current_datafile
+      current_user.has_role! :owner, @dataset
+      @unfound_usernames = datafile.authors_list[:unfound_usernames]
+      render :action => :create
+    else
+      datafile.destroy
+      flash[:error] = @dataset.errors.full_messages.to_sentence
+      redirect_back_or_default root_url
+    end
+  end
+
   def update
-    # set owners from the drop-down select box. if no one is specified, current user is used
     users_given_as_provenance = params[:people].blank? ? [current_user] : User.find(params[:people])
     @dataset.owners = users_given_as_provenance
 
     @dataset.refresh_paperproposal_authors
 
-    if @dataset.update_attributes(params[:dataset]) then
+    if @dataset.update_attributes(params[:dataset].reverse_merge("project_ids" => []))
       redirect_to dataset_path, notice: "Sucessfully Saved"
       @dataset.log_edit('Metadata updated')
     else
@@ -128,12 +122,12 @@ class DatasetsController < ApplicationController
         changes += 1
         datagroup = Datagroup.find(hash[:datagroup])
         datacolumn.approve_datagroup(datagroup)
-      end
 
-      unless hash[:import_data_type].blank?
-        changes += 1
-        datatype = hash[:import_data_type]
-        datacolumn.approve_datatype datatype, current_user
+        unless hash[:import_data_type].blank?
+          changes += 1
+          datatype = hash[:import_data_type]
+          datacolumn.approve_datatype datatype, current_user
+        end
       end
     end
     flash[:notice] = "Successfully approved #{changes} properties."
@@ -165,7 +159,17 @@ class DatasetsController < ApplicationController
 
     respond_to do |format|
       format.html
+      format.xml
       format.eml
+    end
+  end
+
+  def index
+    datasets = Dataset.select("id, title").order(:id)
+
+    respond_to do |format|
+      format.json { render :json => datasets }
+      format.xml { render :xml => datasets }
     end
   end
 
@@ -173,7 +177,7 @@ class DatasetsController < ApplicationController
     @dataset.log_download(current_user)
     respond_to do |format|
       format.html do
-        send_file @dataset.generated_spreadsheet.path, :filename => "#{@dataset.filename}"
+        send_file @dataset.generated_spreadsheet.path, :filename => "#{@dataset.filename}.xls"
       end
       format.csv do
         send_data @dataset.to_csv(params[:separate_category_columns] =~ /true/i), :type => "text/csv",
@@ -208,22 +212,19 @@ class DatasetsController < ApplicationController
       redirect_to(:action => 'show') and return
     end
     @freeformats = @dataset.freeformats :order => :file_file_name
-    @workbooks = @dataset.upload_spreadsheets
+    @datafiles = @dataset.datafiles
   end
 
 
   def update_workbook
-    if !params[:datafile] then
+    unless params[:datafile]
       flash[:error] = "No filename given"
       redirect_to :back and return
     end
-    new_datafile = @dataset.upload_spreadsheets.build(params[:datafile])
+    new_datafile = Datafile.new(params[:datafile])
     if new_datafile.save
       @dataset.delete_imported_research_data
-      @dataset.filename = new_datafile.file_file_name
-      @dataset.import_status = 'new'
-      @dataset.save
-
+      @dataset.add_datafile(new_datafile)
       @dataset.log_edit('Dataworkbook updated')
       flash[:notice] = "Research data has been replaced."
       redirect_to(:action => 'show')
@@ -244,12 +245,9 @@ class DatasetsController < ApplicationController
   end
 
   def keywords
-    # keywords of dataset
     @dataset_keywords = @dataset.tags
-    # keywords of datacolumns
-    @datacolumn_keywords = @dataset.datacolumns.includes(:tags)
-    # related datasets
-    @datasets = @dataset.find_related_datasets
+    @datacolumns = @dataset.datacolumns.includes(:tags)
+    @related_datasets = @dataset.find_related_datasets
   end
 
   private
@@ -269,24 +267,30 @@ class DatasetsController < ApplicationController
   end
 
   def trigger_import_if_nessecary
-    if @dataset.import_status == 'new'
-      @book = Dataworkbook.new(@dataset.upload_spreadsheet)
-      @dataset.import_status = 'queued'
-      @dataset.save
+    if @dataset.import_status.eql? 'new'
+      @dataset.update_attribute(:import_status, 'queued')
       @dataset.delay.import_data
-    end
-  end
-
-  def redirect_if_unimported
-    if @dataset.import_status != 'finished' && @dataset.has_research_data?
-      redirect_to :action => 'show'
     end
   end
 
   def redirect_if_without_workbook
     unless @dataset.has_research_data?
-      flash[:error] = "There is no workbok for #{@dataset.title}"
-      redirect_to @dataset
+      flash[:error] = "The operation requires the dataset to have a workbook, but it doesn't."
+      redirect_to :action => 'show' and return
+    end
+  end
+
+  def redirect_unless_import_succeed
+    unless @dataset.import_status == 'finished'
+      flash[:error] = "The dataset hasn't been successfully imported!"
+      redirect_to :action => 'show' and return
+    end
+  end
+
+  def redirect_while_importing
+    if @dataset.being_imported?
+      flash[:error] = "Please wait till the importing finishes"
+      redirect_to :action => 'show' and return
     end
   end
 

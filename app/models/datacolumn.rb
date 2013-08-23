@@ -20,14 +20,14 @@ class Datacolumn < ActiveRecord::Base
   acts_as_authorization_object :subject_class_name => 'User'
   acts_as_taggable
 
-  belongs_to :datagroup
+  belongs_to :datagroup, :counter_cache => true
   has_many :categories, :through => :datagroup
   belongs_to :dataset, :touch => true
 
   has_many :sheetcells, :dependent => :delete_all
   has_many :import_categories, :dependent => :delete_all
 
-  validates_presence_of :datagroup_id, :dataset_id, :columnheader, :columnnr, :definition
+  validates_presence_of :dataset_id, :columnheader, :columnnr, :definition
   validates_uniqueness_of :columnheader, :columnnr, :scope => :dataset_id, :case_sensitive => false
 
   pg_search_scope :search, against: {
@@ -43,9 +43,31 @@ class Datacolumn < ActiveRecord::Base
     }
   }
 
+  before_validation :fill_missing_definition
+  def fill_missing_definition
+    self.definition = self.columnheader if self.definition.blank?
+  end
+
   # Are there data values associated to the measurements of this data column instance?
   def values_stored?
     self.sheetcells.exists?(["accepted_value IS NOT NULL OR accepted_value !='' OR category_id > 0"])
+  end
+
+  def predefined?
+    # To be predefined, a column must have datatype that is not 'unknown'.
+    return false if Datatypehelper.find_by_name(import_data_type).name == 'unknown'
+
+    # To be predefined, a column must belongs to a datagroup
+    # Furthermore, the datacolumn approval process must not have already started.
+    self.datagroup_id && self.untouched?
+  end
+
+  # override the datagroup method.
+  # when datagroup is not assigned, used NullDatagroup instead.
+  alias fetch_datagroup_via_datagroup_id datagroup
+  private :fetch_datagroup_via_datagroup_id
+  def datagroup
+    fetch_datagroup_via_datagroup_id || NullDatagroup.new
   end
 
   # returns the first 'count' number unique imported values
@@ -126,7 +148,7 @@ class Datacolumn < ActiveRecord::Base
   end
 
   def has_invalid_values?
-    self.sheetcells.where(status_id: Sheetcellstatus::INVALID).count > 0
+    self.sheetcells.where(status_id: Sheetcellstatus::INVALID).exists?
   end
 
   # returns the unique invalid uploaded sheetcells
@@ -188,36 +210,23 @@ class Datacolumn < ActiveRecord::Base
   end
 
   def approval_stage
-    stage = '0'
-    stage = '1' if self.datagroup_approved
-    stage = '2' if self.datagroup_approved && self.datatype_approved
-    stage = '3' if self.datagroup_approved && self.datatype_approved && !self.has_invalid_values?
-    stage = '4' if self.datagroup_approved && self.datatype_approved && !self.has_invalid_values? && self.finished
+    stage = 0
+    stage = 1 if self.datagroup_approved
+    stage = 2 if self.datagroup_approved && self.datatype_approved
+    stage = 3 if self.datagroup_approved && self.datatype_approved && !self.has_invalid_values?
+    stage = 4 if self.datagroup_approved && self.datatype_approved && !self.has_invalid_values? && self.finished
     stage
   end
 
   def untouched?
-    approval_stage == '0' && finished == false
+    approval_stage == 0 && !finished?
   end
 
-  def split_me?(separate_category_columns = false)
+  def split_me?
     # This method returns true for a column when it requires splitting.
-
-    collect_column_sheetcells_boolean_values = []
-
-    self.sheetcells.each do |sc|
-      if self.import_data_type == 'category' || !(sc.datatype && sc.datatype.is_category? && sc.category)
-        collect_column_sheetcells_boolean_values << false
-      else
-        collect_column_sheetcells_boolean_values << true
-      end
-    end
-
-    if collect_column_sheetcells_boolean_values.include?(true)
-      return true
-    else
-      return false
-    end
+    return false unless datagroup_approved && datatype_approved
+    return false if %w{category text}.include? self.import_data_type
+    self.sheetcells.where("category_id is not null").exists?
   end
 
   # users of a datacolumn are those who are responsible for it

@@ -1,15 +1,10 @@
-- if may_administrate_paperproposals? || is_paperproposal_author? || (current_user && !@paperproposal.datasets.empty?)
+- if may_administrate_paperproposals? || is_paperproposal_author?
   = content_for :actions do
     %ul
       - if @paperproposal.lock
         %li
           = image_tag("lock-closed.png")
           Locked
-      - if current_user && !@paperproposal.datasets.empty?
-        %li
-          = link_to paperproposal_url @paperproposal, :csv do
-            = image_tag("save.png")
-            Download Datasets CSV
       - if may_administrate_paperproposals? || author_may_edit?
         %li
           = link_to edit_paperproposal_path(@paperproposal) do
@@ -53,20 +48,24 @@
     %ul
       %li
         = render :partial => "users/email_list_modal",
-                  :locals => {:list => User.email_list(@paperproposal.authors_selection(:author_and_proponents)),
-                  :css => "paperproposal_owners_prop", :caption => 'Author and proponents'}
+                  :locals => {:contacts => @paperproposal.authors_selection(:author_and_proponents),
+                              :css => "paperproposal_owners_prop",
+                              :caption => 'Author and proponents'}
       %li
         = render :partial => "users/email_list_modal",
-                  :locals => {:list => User.email_list(@paperproposal.authors_selection(:proponents_and_main)),
-                  :css => "paperproposal_owners_main", :caption => 'Author, proponents and owners of main datasets'}
+                  :locals => {:contacts => @paperproposal.authors_selection(:proponents_and_main),
+                              :css => "paperproposal_owners_main",
+                              :caption => 'Author, proponents and owners of main datasets'}
       %li
         = render :partial => "users/email_list_modal",
-                  :locals => {:list => User.email_list(@paperproposal.authors_selection(:proponents_and_all_owners)),
-                  :css => "paperproposal_owners_datasets", :caption => 'Author, proponents and all dataset owners'}
+                  :locals => {:contacts => @paperproposal.authors_selection(:proponents_and_all_owners),
+                              :css => "paperproposal_owners_datasets",
+                              :caption => 'Author, proponents and all dataset owners'}
       %li
         = render :partial => "users/email_list_modal",
-                  :locals => {:list => User.email_list(@paperproposal.authors_selection(:all_mentioned)),
-                  :css => "paperproposal_authors_also_helper", :caption => 'Author, proponents, dataset owners and data helpers'}
+                  :locals => {:contacts => @paperproposal.authors_selection(:all_mentioned),
+                              :css => "paperproposal_authors_also_helper",
+                              :caption => 'Author, proponents, dataset owners and data helpers'}
 
 %h2
   = @paperproposal.title
@@ -83,7 +82,7 @@
 - unless @paperproposal.envisaged_journal.blank?
   %p
     %strong Envisaged journal:
-    =@paperproposal.envisaged_journal
+    = sanitize @paperproposal.envisaged_journal
 
 - unless @paperproposal.envisaged_date.blank?
   %p
@@ -91,7 +90,7 @@
     =@paperproposal.envisaged_date
 
 %h3 Rationale
-%p= @paperproposal.rationale
+= simple_format @paperproposal.rationale
 
 %h3 Datasets #{"(" + @paperproposal.dataset_paperproposals.count.to_s + ")" unless @paperproposal.dataset_paperproposals.empty? }
 - if !@paperproposal.dataset_paperproposals.empty?
