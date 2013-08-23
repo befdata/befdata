@@ -118,16 +118,16 @@ class DatasetsController < ApplicationController
         redirect_to approve_dataset_url(@dataset) and return
       end
 
-      unless hash[:datagroup].blank?
-        changes += 1
+      if hash[:datagroup].present?
         datagroup = Datagroup.find(hash[:datagroup])
         datacolumn.approve_datagroup(datagroup)
+        changes += 1
+      end
 
-        unless hash[:import_data_type].blank?
-          changes += 1
-          datatype = hash[:import_data_type]
-          datacolumn.approve_datatype datatype, current_user
-        end
+      if datacolumn.datagroup_approved && hash[:import_data_type].present?
+        datatype = hash[:import_data_type]
+        datacolumn.approve_datatype datatype, current_user
+        changes += 1
       end
     end
     flash[:notice] = "Successfully approved #{changes} properties."

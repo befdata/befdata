@@ -69,10 +69,10 @@
       %dd= f.text_area :spatialextent
     %dl
       %dt= label_tag 'Research start date'
-      %dd= f.date_select :datemin, :default => @dataset.datemin
+      %dd= f.date_select :datemin, :default => @dataset.datemin, :start_year => Time.now.year - 15, :end_year => Time.now.year + 5
     %dl
       %dt= label_tag 'Research end date'
-      %dd= f.date_select :datemax, :default => @dataset.datemax
+      %dd= f.date_select :datemax, :default => @dataset.datemax, :start_year => Time.now.year - 15, :end_year => Time.now.year + 5
     %dl
       %dt= label_tag 'Temporal extent'
       %dd= f.text_area :temporalextent

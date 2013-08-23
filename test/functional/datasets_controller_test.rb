@@ -150,19 +150,22 @@ class DatasetsControllerTest < ActionController::TestCase
   test "quick approve updates datacolumn properties" do
     login_nadrowski
     dataset = Dataset.find 5
+
     datacolumn_1_id = 33
     datagroup_1_id = 5
+
     datacolumn_2_id = 35
+    datagroup_2_id = 21
     datatype_2 = 'text'
 
     post :batch_update_columns, {:id => dataset.id,
             :datacolumn => [{:id => datacolumn_1_id, :datagroup => datagroup_1_id},
-                            {:id => datacolumn_2_id, :import_data_type => datatype_2}]}
+                            {:id => datacolumn_2_id, :import_data_type => datatype_2, :datagroup => datagroup_2_id}]}
 
     assert_equal datagroup_1_id, Datacolumn.find(datacolumn_1_id).datagroup.id
     assert_equal datatype_2, Datacolumn.find(datacolumn_2_id).import_data_type.to_s
 
-    assert_match /2/, flash[:notice]
+    assert_match /3/, flash[:notice]
   end
 
   test "quick approve works only for the dataset columns" do

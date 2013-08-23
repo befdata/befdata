@@ -40,9 +40,9 @@
           %td.datatype-cell
             = select_tag "datacolumn[][import_data_type]", options_from_collection_for_select(@datatypes,"name","name",
               (c.import_data_type unless c.datatype_approved?)), {:include_blank => true}
-            %p.datagroup-description.clear-value
+            %p.datatype-description.clear-value
               clear
-            %p.datagroup-description.reset-old-datatype-value{:class => !c.datatype_approved? ? 'unapproved' : ''}
+            %p.datatype-description.reset-old-datatype-value{:class => !c.datatype_approved? ? 'unapproved' : ''}
               = c.import_data_type
 
   = submit_tag 'Approve all columns'#, {:confirm => 'Are you sure?'}
@@ -50,6 +50,6 @@
 :javascript
   jQuery(document).ready(function(){
     $(".clear-value").click(function() {
-          $(this).siblings("select").children("option").removeAttr("selected");
+          $(this).siblings("select").val('');
     });
   });
