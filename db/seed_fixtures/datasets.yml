@@ -42,9 +42,6 @@ datasets_001:
   visible_for_public: t
   created_at: '2012-03-17 20:45:07.27112'
   updated_at: '2012-08-23 13:08:29.577698'
-  free_for_members: f
-  free_for_public: f
-  free_within_projects: f
   student_file: f
   import_status: finished
   download_generated_at: '2012-08-23 13:05:23.737195'
@@ -53,3 +50,4 @@ datasets_001:
   generated_spreadsheet_content_type: application/xls
   generated_spreadsheet_file_size: '45568'
   generated_spreadsheet_updated_at: '2012-08-23 13:05:22.736622'
+  access_code: '0'

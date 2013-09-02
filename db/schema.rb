@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130809031454) do
+ActiveRecord::Schema.define(:version => 20130827011927) do
 
   create_table "author_paperproposals", :force => true do |t|
     t.integer  "paperproposal_id"
@@ -154,9 +154,6 @@ ActiveRecord::Schema.define(:version => 20130809031454) do
     t.boolean  "visible_for_public",                 :default => true
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean  "free_for_members",                   :default => false
-    t.boolean  "free_for_public",                    :default => false
-    t.boolean  "free_within_projects",               :default => false
     t.boolean  "student_file",                       :default => false
     t.string   "import_status"
     t.datetime "download_generated_at"
@@ -165,6 +162,7 @@ ActiveRecord::Schema.define(:version => 20130809031454) do
     t.string   "generated_spreadsheet_content_type"
     t.integer  "generated_spreadsheet_file_size"
     t.datetime "generated_spreadsheet_updated_at"
+    t.integer  "access_code",                        :default => 0
   end
 
   add_index "datasets", ["filename"], :name => "index_datasets_on_filename"

@@ -32,9 +32,6 @@ datasets_001:
   visible_for_public: t
   created_at: '2011-06-01 13:47:09.016'
   updated_at: '2012-06-12 15:41:20.190261'
-  free_for_members: f
-  free_for_public: f
-  free_within_projects: f
   student_file: f
   import_status: finished
   download_generated_at: '2012-06-12 15:41:21.186561'
@@ -43,6 +40,7 @@ datasets_001:
   generated_spreadsheet_content_type: application/xls
   generated_spreadsheet_file_size: '43520'
   generated_spreadsheet_updated_at: '2012-06-12 15:41:20.18643'
+  access_code: '0'
 datasets_002:
   id: '9'
   title: ! 'TITLE: use for visual testing of export'
@@ -66,9 +64,6 @@ datasets_002:
   visible_for_public: t
   created_at: '2011-12-12 13:33:55.116176'
   updated_at: '2012-06-12 15:41:21.338059'
-  free_for_members: t
-  free_for_public: t
-  free_within_projects: t
   student_file: f
   import_status: finished
   download_generated_at: '2012-06-12 15:41:22.334686'
@@ -77,6 +72,7 @@ datasets_002:
   generated_spreadsheet_content_type: application/xls
   generated_spreadsheet_file_size: '42496'
   generated_spreadsheet_updated_at: '2012-06-12 15:41:21.334556'
+  access_code: '3'
 datasets_003:
   id: '7'
   title: Unit tests
@@ -98,9 +94,6 @@ datasets_003:
   visible_for_public: t
   created_at: '2011-07-01 15:02:04.119'
   updated_at: '2012-06-12 15:41:20.602269'
-  free_for_members: f
-  free_for_public: f
-  free_within_projects: t
   student_file: f
   import_status: finished
   download_generated_at: '2012-06-12 15:41:21.598814'
@@ -109,6 +102,7 @@ datasets_003:
   generated_spreadsheet_content_type: application/xls
   generated_spreadsheet_file_size: '43520'
   generated_spreadsheet_updated_at: '2012-06-12 15:41:20.598681'
+  access_code: '1'
 datasets_004:
   id: '8'
   title: Comparative study plot information to be shared with all BEF-China scientists,
@@ -266,9 +260,6 @@ datasets_004:
   visible_for_public: t
   created_at: '2011-09-01 09:02:29.276168'
   updated_at: '2012-06-12 15:41:19.82133'
-  free_for_members: f
-  free_for_public: f
-  free_within_projects: f
   student_file: f
   import_status: finished
   download_generated_at: '2012-06-12 15:41:20.817759'
@@ -277,6 +268,7 @@ datasets_004:
   generated_spreadsheet_content_type: application/xls
   generated_spreadsheet_file_size: '60416'
   generated_spreadsheet_updated_at: '2012-06-12 15:41:19.817625'
+  access_code: '0'
 datasets_005:
   id: '6'
   title: Test species name import second version
@@ -310,9 +302,6 @@ datasets_005:
   visible_for_public: t
   created_at: '2011-06-01 15:02:04.119'
   updated_at: '2012-06-12 15:41:20.964016'
-  free_for_members: t
-  free_for_public: f
-  free_within_projects: f
   student_file: f
   import_status: finished
   download_generated_at: '2012-06-12 15:41:21.960674'
@@ -321,3 +310,4 @@ datasets_005:
   generated_spreadsheet_content_type: application/xls
   generated_spreadsheet_file_size: '43520'
   generated_spreadsheet_updated_at: '2012-06-12 15:41:20.960511'
+  access_code: '2'

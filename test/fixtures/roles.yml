@@ -118,13 +118,6 @@ roles_019:
   authorizable_id:
   created_at: 2011-12-12 13:54:40.982023
   updated_at: 2011-12-12 13:54:40.982023
-roles_020:
-  id: "26"
-  name: data_admin
-  authorizable_type:
-  authorizable_id:
-  created_at: 2011-12-12 13:55:40.982023
-  updated_at: 2011-12-12 13:55:40.982023
 roles_021:
   id: "27"
   name: owner
