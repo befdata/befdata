@@ -9,7 +9,7 @@ module DatagroupsHelper
   def dropdown_list_to_sort_datagroups
     options_for_select({
       "Title" => datagroups_path(params.merge(sort: 'title', direction: 'asc')),
-      "Recently Added" => datagroups_path(params.merge(sort: 'created_at', direction: 'desc')),
+      "Recently Added" => datagroups_path(params.merge(sort: 'id', direction: 'desc')),
       "Most used" => datagroups_path(params.merge(sort: 'datacolumns_count', direction: 'desc')),
       "Least Used" => datagroups_path(params.merge(sort: 'datacolumns_count', direction: 'asc'))
       }, selected: datagroups_path(params))

@@ -30,24 +30,36 @@
         = project.to_label
 
   %h4 Access Rights
-  %p
-    Check the box below to enable all visitors of the site (logged in members or other interested readers of the page)
-    to download the metadata, data (if applicable), and attached files of your dataset.
-  %dl
-    %dt= label_tag 'Free for Public'
-    %dd= f.check_box :free_for_public
-  %p
-    Check the box below to allow logged in members of all projects
-    to download the metadata, data (if applicable), and attached files of your dataset.
-  %dl
-    %dt= label_tag 'Free for Members'
-    %dd= f.check_box :free_for_members
-  %p
-    Check the box below to allow logged in members of your projects (those projects named as dataset owning projects)
-    to download the metadata, data (if applicable), and attached files of your dataset.
-  %dl
-    %dt= label_tag 'Free within Projects'
-    %dd= f.check_box :free_within_projects
+  %noscript Enable javascript for this slider to work
+  %div#access
+    = f.range_field :access_code, :id => 'access-code', :min => 0, :max => 3, :step => 1, :class => 'hidden'
+    %div#access-explanations
+      %p.term#access-0
+        %b Private:
+        No one can download this data and its attachments, Unless his/her paper proposal has been accepted.
+      %p.term#access-1
+        %b Free within projects:
+        Members of projects you selected above can download this data and its attachments
+      %p.term#access-2
+        %b Free for members:
+        All members of the portal can download this data and its attachments
+      %p.term#access-3
+        %b Free for public:
+        All people can download this data and its attachments
+    %div#access-code-slider
+    %div#ticks
+      %span.tick{style: 'left: 0;text-align: left;margin-left: 0px'}<
+        |
+        %br> Private
+      %span.tick{style: 'left: 33.3333334%;'}<
+        |
+        %br> Free within projects
+      %span.tick{style: 'left: 66.667%;'}<
+        |
+        %br> Free for members
+      %span.tick{style: 'right: 0;text-align: right;'}<
+        |
+        %br> Free for public
 
   %h4 General Metadata
   %dl
@@ -113,5 +125,16 @@
       width: "resolve",
       minimumInputLength: 1,
       formatInputTooShort: function(){return ""}
+    });
+    $("#access-explanations .term").filter("#access-"+ $("#access-code").val()).show();
+    $("#access-code-slider").slider({
+      animate: 300,
+      min: 0,
+      max: 3,
+      value: $("#access-code").val(),
+      slide: function(e, ui) {
+        $("#access-code").val(ui.value);
+        $("#access-explanations .term").hide().filter("#access-"+ui.value).show();
+      }
     });
   });

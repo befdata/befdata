@@ -50,31 +50,31 @@
 
   - unless @dataset.usagerights.blank?
     %h4 Usage Rights
-    %p= @dataset.usagerights
+    = simple_format @dataset.usagerights
   - unless @dataset.abstract.blank?
     %h4 Dataset Abstract
-    %p= simple_format @dataset.abstract
+    = simple_format @dataset.abstract
   - unless @dataset.design.blank?
     %h4 Dataset Design
-    %p= simple_format @dataset.design
+    = simple_format @dataset.design
   - unless @dataset.spatialextent.blank?
     %h4 Spatial Extent
-    %p= simple_format @dataset.spatialextent
+    = simple_format @dataset.spatialextent
   - unless @dataset.published.blank?
     %h4 Published
-    %p= @dataset.published
+    = simple_format @dataset.published
   - unless @dataset.temporalextent.blank?
     %h4 Temporal Extent
-    %p= @dataset.temporalextent
+    = simple_format @dataset.temporalextent
   - unless @dataset.taxonomicextent.blank?
     %h4 Taxonomic Extent
-    %p= @dataset.taxonomicextent
+    = simple_format @dataset.taxonomicextent
   - unless @dataset.circumstances.blank?
     %h4 Measurement Circumstances
-    %p= simple_format @dataset.circumstances
+    = simple_format @dataset.circumstances
   - unless @dataset.dataanalysis.blank?
     %h4 Data Analysis
-    %p= simple_format @dataset.dataanalysis
+    = simple_format @dataset.dataanalysis
 
   - unless @freeformats.blank?
     %h4 Freeformat files (#{@freeformats.length})

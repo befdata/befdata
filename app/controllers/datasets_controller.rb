@@ -14,14 +14,9 @@ class DatasetsController < ApplicationController
   access_control do
     allow all, :to => [:show, :index, :download_excel_template, :importing, :keywords, :download_status]
 
-    actions :edit, :update, :edit_files, :update_workbook, :approve, :approve_predefined,
+    actions :edit, :update, :destroy, :edit_files, :update_workbook, :approve, :approve_predefined,
       :approval_quick, :batch_update_columns do
       allow :admin, :data_admin
-      allow :owner, :of => :dataset
-    end
-
-    actions :destroy do
-      allow :admin
       allow :owner, :of => :dataset
     end
 

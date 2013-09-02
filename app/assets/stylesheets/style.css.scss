@@ -780,7 +780,7 @@ div#actions + div#info {
 
 #footer {
     background: image-url("bg-footer.png") repeat-x top left;
-	clear: both;
+    clear: both;
     display: block;
     margin-top: 20px;
     padding-top: 28px;
@@ -964,7 +964,7 @@ ul#page-associates {
 Custom JQuery Tweaking
 -------------------------------------------------------------- */
 .ui-widget, .ui-widget input {font-family: "Trebuchet MS", Helvetica, Arial, sans-serif;}
-.ui-widget-header { background: #243f12; border: 1px solid #9bc56f; }
+.ui-widget-header { border: 1px solid #9bc56f; }
 .ui-widget-content { background: #fff; }
 .ui-tabs { padding: 0; }
 .ui-tabs-nav .approved_false a { color: #f00; }

@@ -77,7 +77,7 @@ class DatasetsControllerTest < ActionController::TestCase
     login_user user.login
     ds = Dataset.find_by_title "Test species name import second version"
 
-    assert ds.free_for_members && !user.has_roles_for?(ds)
+    assert ds.free_for_members? && !user.has_roles_for?(ds)
     get :download, :id => ds.id
     assert_nil flash[:error]
   end
@@ -87,7 +87,7 @@ class DatasetsControllerTest < ActionController::TestCase
     login_user user.login
     ds = Dataset.find_by_title "Test species name import"
     #make sure the dataset is not free for members and user has no role about it.
-    assert !(ds.free_for_members  || ds.free_for_public|| user.has_roles_for?(ds))
+    assert !(ds.free_for_members?  || ds.free_for_public? || user.has_roles_for?(ds))
     get :download, :id=>ds.id
     assert_match(/Access denied/, flash[:error])
   end
@@ -97,7 +97,7 @@ class DatasetsControllerTest < ActionController::TestCase
     login_user user.login
     ds = Dataset.find_by_title "Unit tests"
     assert_not_equal user.projects, ds.projects
-    assert !(ds.free_for_members || ds.free_for_public || user.has_roles_for?(ds))
+    assert !(ds.free_for_members? || ds.free_for_public? || user.has_roles_for?(ds))
 
     get :download, :id=>ds.id
     assert_match(/Access denied/, flash[:error])

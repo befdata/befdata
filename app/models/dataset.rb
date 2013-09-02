@@ -51,6 +51,16 @@ class Dataset < ActiveRecord::Base
 
   validates :title, :presence => true, :uniqueness => { case_sensitive: false }
 
+  ACCESS_CODES = {
+    private: 0,
+    free_within_project: 1,
+    free_for_members: 2,
+    free_for_public: 3
+  }
+
+  validates_inclusion_of :access_code, :in => ACCESS_CODES.values,
+                         :message => 'is invalid! access_code should be 0-3'
+
   before_destroy :check_for_paperproposals
 
   pg_search_scope :search, against: {
@@ -94,6 +104,22 @@ class Dataset < ActiveRecord::Base
     current_datafile.present?
   end
 
+  def access_rights
+    (ACCESS_CODES.invert)[access_code].to_s.humanize
+  end
+
+  def free_for_public?
+    access_code >= ACCESS_CODES[:free_for_public]
+  end
+
+  def free_for_members?
+    access_code >= ACCESS_CODES[:free_for_members]
+  end
+
+  def free_within_projects?
+    access_code >= ACCESS_CODES[:free_within_project]
+  end
+
   def abstract_with_freeformats
     f_strings = self.freeformats.collect do |f|
       "File asset " + f.file_file_name + (f.description.blank? ? "" : (": " + f.description))
@@ -110,22 +136,8 @@ class Dataset < ActiveRecord::Base
     self.sheetcells.exists?(["accepted_value IS NOT NULL OR accepted_value !='' OR category_id > 0"])
   end
 
-  # During the import routine, we step through each of the data
-  # columns using their header.
   def headers
     self.datacolumns.pluck(:columnheader)
-  end
-
-  def finished_datacolumns
-    datacolumns.select{|dc| dc.finished == true}
-  end
-
-  def datacolumns_with_approved_datagroup
-    datacolumns.select{|dc| dc.datagroup_approved == true}
-  end
-
-  def datacolumns_with_approved_datatype
-    datacolumns.select{|dc| dc.datatype_approved == true}
   end
 
   def predefined_columns
@@ -161,8 +173,7 @@ class Dataset < ActiveRecord::Base
   end
 
   def log_download(downloading_user)
-    DatasetDownload.create(:user => downloading_user,
-                          :dataset => self)
+    DatasetDownload.create(:user => downloading_user, :dataset => self)
   end
 
   def number_of_observations
@@ -332,26 +343,11 @@ class Dataset < ActiveRecord::Base
     end
   end
 
-  def access_code
-    return 3 if free_for_public
-    return 2 if free_for_members
-    return 1 if free_within_projects
-    return 0
-  end
-
-  def access_rights
-    ["Private",
-      "Free within project",
-      "Free for members",
-      "Free for public"
-    ][access_code]
-  end
-
   def free_for?(user)
-    return true if self.free_for_public
+    return true if self.free_for_public?
     return false unless user
-    return true if self.free_for_members
-    return true if self.free_within_projects && !(user.projects & self.projects).empty?
+    return true if self.free_for_members?
+    return true if self.free_within_projects? && !(user.projects & self.projects).empty?
     false
   end
 
@@ -369,5 +365,4 @@ class Dataset < ActiveRecord::Base
     return true if user.has_role?(:owner, self) || user.has_role?(:admin) || user.has_role?(:data_admin)
     false
   end
-
 end

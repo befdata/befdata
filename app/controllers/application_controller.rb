@@ -19,17 +19,17 @@ class ::ApplicationController < ActionController::Base
   end
 
   def dataset_is_free_for_members
-    return true if @dataset.free_for_members unless @dataset.blank?
+    return true if @dataset.free_for_members? unless @dataset.blank?
     false
   end
 
   def dataset_is_free_for_public
-    return true if @dataset.free_for_public unless @dataset.blank?
+    return true if @dataset.free_for_public? unless @dataset.blank?
     false
   end
 
   def dataset_is_free_for_project_of_user (user = current_user)
-    return true if (@dataset.free_within_projects && !(user.projects & @dataset.projects).empty?) unless @dataset.blank?
+    return true if (@dataset.free_within_projects? && !(user.projects & @dataset.projects).empty?) unless @dataset.blank?
     false
   end
 

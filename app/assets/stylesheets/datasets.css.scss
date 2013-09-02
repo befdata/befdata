@@ -392,3 +392,40 @@ ul#downloaders {
   &:after {content: ''; clear: both; display: block; }
   ul>li {list-style-type: disc; list-style-position: inside; line-height: 0.7em;}
 }
+
+.dataset-create-form {
+  #access {
+    width: 70%;
+    margin-bottom: 4em;
+    #access-explanations {
+      .term { display: none; width: 100%;}
+    }
+    #access-code-slider {
+      height: 7px;
+      background: #ccc;
+      background: -webkit-linear-gradient(top, #bbb, #ddd);
+      background: -moz-linear-gradient(top, #bbb, #ddd);
+      background: linear-gradient(top, #bbb, #ddd);
+      .ui-slider-handle {
+        height: 15px;
+        width: 15px;
+        margin-left: -8px;
+        top: -5px;
+        background-color: #8DCA09;
+        border: solid 1px #18921e;
+        background-image: none;
+        cursor: move;
+      }
+    }
+    #ticks {
+      position: relative;
+      .tick {
+        position: absolute;
+        line-height: 1.1em;
+        width: 113px;
+        margin-left: -56px;
+        text-align: center;
+      }
+    }
+  }
+}
