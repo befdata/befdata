@@ -11,7 +11,7 @@ class TagsController < ApplicationController
     respond_to do |format|
       format.html
       format.json { render :json => @tags}
-      format.xml { render :xml => @tags.map(&:attributes) }
+      format.xml
     end
   end
 
