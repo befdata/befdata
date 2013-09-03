@@ -32,7 +32,6 @@ datasets_001:
   visible_for_public: t
   created_at: '2011-06-01 13:47:09.016'
   updated_at: '2012-06-12 15:41:20.190261'
-  student_file: f
   import_status: finished
   download_generated_at: '2012-06-12 15:41:21.186561'
   download_generation_status: finished
@@ -64,7 +63,6 @@ datasets_002:
   visible_for_public: t
   created_at: '2011-12-12 13:33:55.116176'
   updated_at: '2012-06-12 15:41:21.338059'
-  student_file: f
   import_status: finished
   download_generated_at: '2012-06-12 15:41:22.334686'
   download_generation_status: finished
@@ -94,7 +92,6 @@ datasets_003:
   visible_for_public: t
   created_at: '2011-07-01 15:02:04.119'
   updated_at: '2012-06-12 15:41:20.602269'
-  student_file: f
   import_status: finished
   download_generated_at: '2012-06-12 15:41:21.598814'
   download_generation_status: finished
@@ -260,7 +257,6 @@ datasets_004:
   visible_for_public: t
   created_at: '2011-09-01 09:02:29.276168'
   updated_at: '2012-06-12 15:41:19.82133'
-  student_file: f
   import_status: finished
   download_generated_at: '2012-06-12 15:41:20.817759'
   download_generation_status: finished
@@ -302,7 +298,6 @@ datasets_005:
   visible_for_public: t
   created_at: '2011-06-01 15:02:04.119'
   updated_at: '2012-06-12 15:41:20.964016'
-  student_file: f
   import_status: finished
   download_generated_at: '2012-06-12 15:41:21.960674'
   download_generation_status: finished
