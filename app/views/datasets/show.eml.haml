@@ -83,10 +83,10 @@
           = content_tag_unless_blank :para, @dataset.design
           = content_tag_unless_blank :para, @dataset.dataanalysis
     %dataTable
-      %entityName= dataset_url(@dataset)+'.txt'
+      %entityName= dataset_url(@dataset)
       %entityDescription= @dataset.title
       %physical
-        %objectName= dataset_path(@dataset)+'.txt'
+        %objectName= dataset_path(@dataset)
         / TODO<size unit="bytes">1245</size>
         %characterEncoding ASCII
         %dataFormat
