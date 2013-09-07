@@ -79,19 +79,18 @@ private
       else
         row = datacolumn.columnnr
       end
-      sheet[row,WBF[:column_header_col]] = datacolumn.columnheader if datacolumn.columnheader
-      sheet[row,WBF[:column_definition_col]] = datacolumn.definition if datacolumn.definition
-      sheet[row,WBF[:column_unit_col]] = datacolumn.unit if datacolumn.unit
+      sheet[row,WBF[:column_header_col]]            = datacolumn.columnheader
+      sheet[row,WBF[:column_definition_col]]        = datacolumn.definition
+      sheet[row,WBF[:column_methodvaluetype_col]]   = datacolumn.import_data_type
+      sheet[row,WBF[:column_unit_col]]              = datacolumn.unit
+      sheet[row,WBF[:column_instrumentation_col]]   = datacolumn.instrumentation
+      sheet[row,WBF[:column_informationsource_col]] = datacolumn.informationsource
 
       keywords = datacolumn.tag_list.join(", ")
       sheet[row,WBF[:column_keywords_col]] = keywords unless keywords.blank?
 
-      sheet[row,WBF[:group_title_col]] = datacolumn.datagroup.title if datacolumn.datagroup.title
-      sheet[row,WBF[:group_description_col]] = datacolumn.datagroup.description if datacolumn.datagroup.description
-
-      sheet[row,WBF[:group_methodvaluetype_col]] = alternate_if_blank(datacolumn.import_data_type, datacolumn.datagroup.methodvaluetype)
-      sheet[row,WBF[:group_instrumentation_col]] = alternate_if_blank(datacolumn.instrumentation, datacolumn.datagroup.instrumentation)
-      sheet[row,WBF[:group_informationsource_col]] = alternate_if_blank(datacolumn.informationsource, datacolumn.informationsource)
+      sheet[row,WBF[:group_title_col]] = datacolumn.datagroup.title if datacolumn.datagroup.present?
+      sheet[row,WBF[:group_description_col]] = datacolumn.datagroup.description if datacolumn.datagroup.present?
     end
   end
 
@@ -188,14 +187,6 @@ private
   end
 
 private
-  def alternate_if_blank(column_attr, datagroup_attr)
-    if column_attr.present?
-      column_attr
-    elsif datagroup_attr.present?
-      datagroup_attr + " (derived from datagroup)"
-    end
-  end
-
   def query_datacolumns(dataset = nil, column_selection = nil)
     if column_selection
       column_selection

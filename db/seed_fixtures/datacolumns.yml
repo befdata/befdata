@@ -15,7 +15,8 @@ datacolumns_001:
   finished: t
   datatype_approved: t
   informationsource: 
-  instrumentation: 
+  instrumentation:
+  acknowledge_unknown:
 datacolumns_002:
   id: '2'
   datagroup_id: '1'
@@ -33,7 +34,8 @@ datacolumns_002:
   finished: t
   datatype_approved: t
   informationsource: 
-  instrumentation: 
+  instrumentation:
+  acknowledge_unknown:
 datacolumns_003:
   id: '3'
   datagroup_id: '1'
@@ -52,7 +54,8 @@ datacolumns_003:
   finished: t
   datatype_approved: t
   informationsource: 
-  instrumentation: 
+  instrumentation:
+  acknowledge_unknown:
 datacolumns_004:
   id: '4'
   datagroup_id: '1'
@@ -72,4 +75,5 @@ datacolumns_004:
   finished: t
   datatype_approved: t
   informationsource: 
-  instrumentation: 
+  instrumentation:
+  acknowledge_unknown:

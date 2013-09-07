@@ -118,6 +118,7 @@
           This column need to be approved to display the sample values.
 
         - u = column.users
-        - unless u.blank?
+        - unless u.blank? && column.acknowledge_unknown.blank?
           %i Members involved with this Data Column:
-          = u.map{|person| link_to person, person}.to_sentence.html_safe
+          = u.map{|person| link_to person, person}.join(', ').html_safe
+          = column.acknowledge_unknown

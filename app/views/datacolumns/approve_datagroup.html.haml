@@ -28,19 +28,13 @@
     %p No datagroup specified while importing.
 
   %h4 Create a new data group
-  = form_tag :action => 'create_and_update_datagroup', :controller => 'datacolumns' do |form|
-    = hidden_field_tag :id, @datacolumn.id
+  = form_tag create_and_update_datagroup_datacolumn_path(@datacolumn), {class: 'new_datagroup'} do
     %dl
       %dt= label_tag 'new_datagroup[title]', 'Title'
       %dd= text_field_tag 'new_datagroup[title]', @datacolumn.datagroup.title
+    %dl
       %dt= label_tag 'new_datagroup[description]', 'Description'
       %dd= text_area_tag 'new_datagroup[description]', @datacolumn.datagroup.description
-      %dt= label_tag 'new_datagroup[instrumentation]', 'Instrumentation'
-      %dd= text_field_tag 'new_datagroup[instrumentation]', @datacolumn.datagroup.instrumentation
-      %dt= label_tag 'new_datagroup[informationsource]', 'Source of information'
-      %dd= text_field_tag 'new_datagroup[informationsource]', @datacolumn.datagroup.informationsource
-      %dt= label_tag 'new_datagroup[methodvaluetype]', 'Method value type'
-      %dd= text_field_tag'new_datagroup[methodvaluetype]', @datacolumn.datagroup.methodvaluetype
     = submit_tag "Create and assign a new data group"
 
   - unless @data_groups_available.blank?

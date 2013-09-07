@@ -44,7 +44,7 @@ self.use_transactional_fixtures = false
     assert(!importcats.nil?)
     assert(importcats.count==18, "There are not 18 import categories for this column")
     # unreckognized_user is found
-    assert_match "firstname_unknown", datacolumn.informationsource
+    assert_match "firstname_unknown", datacolumn.acknowledge_unknown
 
     importcats.each do |cat|
       # test that it still has it's decimal point
@@ -124,7 +124,7 @@ self.use_transactional_fixtures = false
     assert_equal(dataset1.datacolumns[0].definition, dataset2.datacolumns[0].definition, "The datacolumn descriptions don't contain the same text")
     assert_not_equal(dataset1.datacolumns[1].definition, dataset2.datacolumns[1].definition, "The datacolumn descriptions contain the same text")
     assert_equal(dataset1.datacolumns[2].definition, dataset2.datacolumns[2].definition, "The datacolumn descriptionss don't contain the same text")
-    assert_not_equal(dataset1.datacolumns[6].definition, dataset2.datacolumns[6].definition, "The datacolumn descriptions contain the same text")
+    assert_not_equal(dataset1.datacolumns[6].informationsource, dataset2.datacolumns[6].informationsource, "The datacolumn informationsource contain the same text")
   end
 
 end

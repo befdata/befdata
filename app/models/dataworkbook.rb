@@ -149,17 +149,11 @@ class Dataworkbook
     unless data_group_ch.blank?
       datagroup = Datagroup.where(["title iLike ?", data_group_ch[:title]]).first
       if datagroup
-        # if the datagroup exists check that the Method step description, Instrumentation and Identification source
+        # if the datagroup exists check whether the Method step description
         # fields are the same. If they aren't then append them to the column definition.
         column_description = ""
         if compare_strings(datagroup.description, data_group_ch[:description])
           column_description = "; Datagroup description: #{data_group_ch[:description]}"
-        end
-        if compare_strings(datagroup.instrumentation, data_group_ch[:instrumentation])
-          column_description = "#{column_description}; Instrumentation: #{data_group_ch[:instrumentation]}"
-        end
-        if compare_strings(datagroup.informationsource, data_group_ch[:informationsource])
-          column_description = "#{column_description}; Source: #{data_group_ch[:informationsource]}"
         end
         data_column_info[:definition] = "#{data_column_info[:definition]}#{column_description}" unless column_description.blank?
       else  # if there is no existing datagroup. create it.
@@ -240,14 +234,13 @@ class Dataworkbook
       user.has_role! :responsible, data_column_new
     end
     unless ppl[:unfound_usernames].blank?
-      message = "These persons could not be matched within the portal: #{ppl[:unfound_usernames].join(', ')}"
-      data_column_new.update_attribute :informationsource, message
+      data_column_new.update_attribute :acknowledge_unknown, ppl[:unfound_usernames].join(', ')
     end
   end
 
   # Extracts the datatype from the spreadsheet for a given columnheader
   def datatype_for_columnheader(columnheader)
-    data_type_name = clean_string(Array(data_description_sheet.column(*WBF[:group_methodvaluetype_col]))[method_index_for_columnheader(columnheader)])
+    data_type_name = clean_string(Array(data_description_sheet.column(*WBF[:column_methodvaluetype_col]))[method_index_for_columnheader(columnheader)])
     Datatypehelper.find_by_name(data_type_name)
   end
   
@@ -375,9 +368,6 @@ class Dataworkbook
     datagroup = {
       title: method_row[*WBF[:group_title_col]],
       description: method_row[*WBF[:group_description_col]],
-      instrumentation: method_row[*WBF[:group_instrumentation_col]],
-      informationsource: method_row[*WBF[:group_informationsource_col]],
-      methodvaluetype: method_row[*WBF[:group_methodvaluetype_col]]
     }
     datagroup.each{|key, value| datagroup[key] = clean_string(value)}
     return {} if datagroup[:title].blank?
@@ -387,10 +377,10 @@ class Dataworkbook
   def grab_column_info(method_row)
     data_header_ch = {
       definition: method_row[WBF[:column_definition_col]],
-      import_data_type: method_row[WBF[:group_methodvaluetype_col]],
+      import_data_type: method_row[WBF[:column_methodvaluetype_col]],
       unit: method_row[WBF[:column_unit_col]],
-      instrumentation: method_row[*WBF[:group_instrumentation_col]],
-      informationsource: method_row[*WBF[:group_informationsource_col]],
+      instrumentation: method_row[*WBF[:column_instrumentation_col]],
+      informationsource: method_row[*WBF[:column_informationsource_col]],
       tag_list: method_row[WBF[:column_keywords_col]]
     }
     data_header_ch.each {|k,v| data_header_ch[k] = clean_string(v)}

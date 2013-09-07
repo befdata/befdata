@@ -3,6 +3,10 @@
   %dl
     %dt= f.label :title
     %dd= f.text_field :title
+  %dl
     %dt= f.label :description
     %dd= f.text_area :description
+  %dl
+    %dt= f.label :comment
+    %dd= f.text_area :comment
   = f.submit "Update datagroup"

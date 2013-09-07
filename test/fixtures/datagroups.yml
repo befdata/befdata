@@ -1,11 +1,8 @@
 --- 
 datagroups_001: 
   id: "31"
-  informationsource: 
-  methodvaluetype: number
   title: Elevation
   description: "Elevation"
-  instrumentation: 
   comment: 
   created_at: 2011-09-01 09:02:33.993429
   updated_at: 2011-09-01 09:02:33.993429
@@ -13,11 +10,8 @@ datagroups_001:
   datacolumns_count: '1'
 datagroups_002: 
   id: "32"
-  informationsource: 
-  methodvaluetype: number
   title: Aspect
   description: "Aspect"
-  instrumentation: 
   comment: 
   created_at: 2011-09-01 09:02:34.303446
   updated_at: 2011-09-01 09:02:34.303446
@@ -25,11 +19,8 @@ datagroups_002:
   datacolumns_count: '1'
 datagroups_003: 
   id: "33"
-  informationsource: 
-  methodvaluetype: number
   title: Latitude
   description: "Latitude"
-  instrumentation: 
   comment: 
   created_at: 2011-09-01 09:02:35.388508
   updated_at: 2011-09-01 09:02:35.388508
@@ -37,11 +28,8 @@ datagroups_003:
   datacolumns_count: '1'
 datagroups_004: 
   id: "34"
-  informationsource: 
-  methodvaluetype: number
   title: Longitude
   description: "Longitude"
-  instrumentation: 
   comment: 
   created_at: 2011-09-01 09:02:35.679525
   updated_at: 2011-09-01 09:02:35.679525
@@ -49,11 +37,8 @@ datagroups_004:
   datacolumns_count: '1'
 datagroups_005: 
   id: "35"
-  informationsource: 
-  methodvaluetype: 
   title: test
   description: test
-  instrumentation: 
   comment: 
   created_at: 2011-09-01 09:02:36.255558
   updated_at: 2011-09-01 09:02:36.255558
@@ -61,11 +46,8 @@ datagroups_005:
   datacolumns_count: '1'
 datagroups_006: 
   id: "1"
-  informationsource: Flora of China, Helge Bruelheide
-  methodvaluetype: nominal
   title: Scientific plant species name
   description: The scientific species fullnames are based on the "Flora of China" identified by Teng Fang and verified by Helge Bruelheide (trees) and Alexandra Efmeier (herbs). Scientific species names consist of epithet and genus. For identification, the Author name and the year of the publications of the description are required.
-  instrumentation: 
   comment: 
   created_at: 2011-03-28 13:59:34.1444
   updated_at: 2011-03-28 13:59:34.1444
@@ -73,11 +55,8 @@ datagroups_006:
   datacolumns_count: '2'
 datagroups_007: 
   id: "19"
-  informationsource: 
-  methodvaluetype: number
   title: height
   description: height in m
-  instrumentation: 
   comment: 
   created_at: 2011-06-01 13:47:45.502
   updated_at: 2011-06-01 13:47:45.502
@@ -85,11 +64,8 @@ datagroups_007:
   datacolumns_count: '2'
 datagroups_008: 
   id: "7"
-  informationsource: 
-  methodvaluetype: number
   title: Carbon
   description: Carbon
-  instrumentation: 
   comment: 
   created_at: 2011-03-28 13:59:35.8384
   updated_at: 2011-03-28 13:59:35.8384
@@ -97,11 +73,8 @@ datagroups_008:
   datacolumns_count: '0'
 datagroups_010:
   id: "4"
-  informationsource:
-  methodvaluetype: nominal
   title: Metal Tag Numbers in the CSPs
   description: "The stems were marked with a metal tag with a code compound of a number of six positions. The tag was attached to each individual by attaching it with a wire sorrounding one stem, taking care to leave it long enough to allow the grow of the stem. Normally the wire was attached between 1 and 1.8m over the ground. If the individual had many stems, such as often seen in shrubs, only one of the stems was tagged. "
-  instrumentation: letters are attached if the same number was used for different tree individuals. This occurred a few times. Numbers are unique only within CSPs
   comment:
   created_at: 2011-03-28 13:59:35.4144
   updated_at: 2011-03-28 13:59:35.4144
@@ -109,11 +82,8 @@ datagroups_010:
   datacolumns_count: '0'
 datagroups_012: 
   id: "18"
-  informationsource: 
-  methodvaluetype: 
   title: "BEF members: group pictures with names 2010"
   description: Slide showing mostly European members of the BEF China project including names and projects.
-  instrumentation: 
   comment: 
   created_at: 2011-05-01 12:51:22.491656
   updated_at: 2011-05-01 12:51:22.491656
@@ -121,11 +91,8 @@ datagroups_012:
   datacolumns_count: '0'
 datagroups_013: 
   id: "2"
-  informationsource: 
-  methodvaluetype: integer
   title: Date time information
   description: Date time information, given as year or as date or as date time.
-  instrumentation: 
   comment: 
   created_at: 2011-03-28 13:59:35.0964
   updated_at: 2011-03-28 13:59:35.0964
@@ -133,11 +100,8 @@ datagroups_013:
   datacolumns_count: '0'
 datagroups_015: 
   id: "20"
-  informationsource: 
-  methodvaluetype: text
   title: Author name for species description
   description: Author name for species description
-  instrumentation: 
   comment: 
   created_at: 2011-06-01 13:47:47.767
   updated_at: 2011-06-01 13:47:47.767
@@ -145,11 +109,8 @@ datagroups_015:
   datacolumns_count: '2'
 datagroups_016: 
   id: "3"
-  informationsource: 
-  methodvaluetype: category
   title: Plant organ sampled
   description: "Leaf samples were taken with telescope pruning shears (lenght: up to 6.5m)  from the lower outer and preferentially sun exposed canopy when possible. Leaves of shrub species were sampled in upper canopy.  One year old twigs, and roots which a diameter between 1 and 3mm were taken."
-  instrumentation: 
   comment: 
   created_at: 2011-03-28 13:59:35.2564
   updated_at: 2011-03-28 13:59:35.2564
@@ -157,11 +118,8 @@ datagroups_016:
   datacolumns_count: '0'
 datagroups_017: 
   id: "5"
-  informationsource: 
-  methodvaluetype: nominal
   title: BEF research plot name
   description: "Reasearch plots of the Biodiversity - Ecosystem functioning experiment (BEF-China). There are three main sites for research plots in the BEF Experiment: Comparative Study Plots (CSP) in the  Gutianshan Nature Reserve, having a size of 30x30m^2, measured on the ground. Main Experiment plots have a size of 1 mu, which is about 25x25m^2 in horizontal projection. Pilot Study Plots have a size of 1x1 m^2."
-  instrumentation: 
   comment: 
   created_at: 2011-03-28 13:59:35.5574
   updated_at: 2011-03-28 13:59:35.5574
@@ -169,11 +127,8 @@ datagroups_017:
   datacolumns_count: '1'
 datagroups_021:
   id: "21"
-  informationsource: 
-  methodvaluetype: datetime
   title: Date time value
   description: Date time value
-  instrumentation: 
   comment: 
   created_at: 2011-06-01 13:47:47.992
   updated_at: 2011-06-01 13:47:47.992
@@ -181,11 +136,8 @@ datagroups_021:
   datacolumns_count: '3'
 datagroups_022: 
   id: "6"
-  informationsource: 
-  methodvaluetype: text
   title: Helper
   description: Helper column give further information on other columns or summarize several columns
-  instrumentation: 
   comment: 
   created_at: 2011-03-28 13:59:35.7254
   updated_at: 2011-03-28 13:59:35.7254
@@ -193,11 +145,8 @@ datagroups_022:
   datacolumns_count: '4'
 datagroups_027:
   id: "22"
-  informationsource: 
-  methodvaluetype: 
   title: Sheet category match
   description: Sheet category match
-  instrumentation: 
   comment: 
   created_at: 2011-06-29 11:46:40.633028
   updated_at: 2011-06-29 11:46:40.633028
@@ -205,11 +154,8 @@ datagroups_027:
   datacolumns_count: '0'
 datagroups_028: 
   id: "23"
-  informationsource: 
-  methodvaluetype: text
   title: datagroup one
   description: datagroup one
-  instrumentation: 
   comment: 
   created_at: 2011-07-01 11:46:40.633028
   updated_at: 2011-07-01 11:46:40.633028
@@ -217,11 +163,8 @@ datagroups_028:
   datacolumns_count: '1'
 datagroups_029: 
   id: "24"
-  informationsource: 
-  methodvaluetype: number
   title: datagroup two
   description: datagroup two
-  instrumentation: 
   comment: 
   created_at: 2011-07-01 11:46:40.633028
   updated_at: 2011-07-01 11:46:40.633028
@@ -229,11 +172,8 @@ datagroups_029:
   datacolumns_count: '3'
 datagroups_030: 
   id: "25"
-  informationsource: 
-  methodvaluetype: date(2009-07-14)
   title: datagroup three
   description: datagroup three
-  instrumentation: 
   comment: 
   created_at: 2011-07-01 11:46:40.633028
   updated_at: 2011-07-01 11:46:40.633028
@@ -241,11 +181,8 @@ datagroups_030:
   datacolumns_count: '1'
 datagroups_031: 
   id: "26"
-  informationsource: 
-  methodvaluetype: year
   title: datagroup four
   description: datagroup four
-  instrumentation: 
   comment: 
   created_at: 2011-07-01 11:46:40.633028
   updated_at: 2011-07-01 11:46:40.633028
@@ -253,11 +190,8 @@ datagroups_031:
   datacolumns_count: '1'
 datagroups_032: 
   id: "27"
-  informationsource: 
-  methodvaluetype: category
   title: datagroup five
   description: datagroup five
-  instrumentation: 
   comment: 
   created_at: 2011-07-01 11:46:40.633028
   updated_at: 2011-07-01 11:46:40.633028
@@ -265,11 +199,8 @@ datagroups_032:
   datacolumns_count: '1'
 datagroups_033: 
   id: "28"
-  informationsource: 
-  methodvaluetype: category
   title: datagroup six
   description: datagroup six
-  instrumentation: 
   comment: 
   created_at: 2011-07-01 11:46:40.633028
   updated_at: 2011-07-01 11:46:40.633028
@@ -277,11 +208,8 @@ datagroups_033:
   datacolumns_count: '1'
 datagroups_034: 
   id: "29"
-  informationsource: 
-  methodvaluetype: date(14.07.2009)
   title: datagroup seven
   description: datagroup seven
-  instrumentation: 
   comment: 
   created_at: 2011-07-01 11:46:40.633028
   updated_at: 2011-07-01 11:46:40.633028
@@ -289,11 +217,8 @@ datagroups_034:
   datacolumns_count: '1'
 datagroups_035: 
   id: "36"
-  informationsource: DG_INFORMATION_SOURCE_1
-  methodvaluetype: DG_METHODVALUETYPE_1
   title: DG_TITLE_1
   description: DG_DESCRIPTION_1
-  instrumentation: DG_INSTRUMENTATION_1
   comment: DG_COMMENT_1
   created_at: 2011-12-12 13:35:20.454189
   updated_at: 2011-12-12 13:35:20.454189
@@ -301,11 +226,8 @@ datagroups_035:
   datacolumns_count: '1'
 datagroups_036: 
   id: "37"
-  informationsource: DG_INFORMATION_SOURCE_2
-  methodvaluetype: DG_METHODVALUETYPE_2
   title: DG_TITLE_2
   description: DG_DESCRIPTION_2
-  instrumentation: DG_INSTRUMENTATION_2
   comment: DG_COMMENT_2
   created_at: 2011-12-12 13:35:20.784521
   updated_at: 2011-12-12 13:35:20.784521

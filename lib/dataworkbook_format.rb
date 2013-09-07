@@ -37,24 +37,25 @@ module DataworkbookFormat
     :meta_circumstances_pos   => [48,0],
 
     # Columns sheet
-    :column_header_col           => 0,
-    :column_definition_col       => 1,
-    :group_methodvaluetype_col   => 2,
-    :column_unit_col             => 3,
-    :group_instrumentation_col   => 4,
-    :group_informationsource_col => 5,
-    :column_keywords_col         => 6,
-    :group_title_col             => 7,
-    :group_description_col       => 8,
+    :column_header_col            => 0,
+    :column_definition_col        => 1,
+    :column_methodvaluetype_col   => 2,
+    :column_unit_col              => 3,
+    :column_instrumentation_col   => 4,
+    :column_informationsource_col => 5,
+    :column_keywords_col          => 6,
 
-    :column_comment_col          => 9, # not used, how much has this to do with keywords
+    :group_title_col              => 7,
+    :group_description_col        => 8,
+
+    #:column_comment_col          => 9, # not used, how much has this to do with keywords
 
     # People sheet
     :people_columnheader_col  => 0,
     :people_firstname_col     => 1,
     :people_lastname_col      => 2,
-    :people_projects_col      => 3,
-    :people_roles_col         => 4,
+    #:people_projects_col      => 3,
+    #:people_roles_col         => 4,
 
     # Category sheet
     :category_columnheader_col => 0,

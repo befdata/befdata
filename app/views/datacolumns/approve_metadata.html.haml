@@ -3,26 +3,39 @@
 %p
   Please confirm the metadata and acknowledgements.
 
-= form_tag :controller=> 'datacolumns', :action => 'update_metadata' do |form|
-  = hidden_field_tag :id, @datacolumn.id
+= form_tag update_metadata_datacolumn_path(@datacolumn) do
+  %dl
+    %dt= label_tag 'datacolumn[columnheader]', 'Header'
+    %dd=  text_field_tag 'datacolumn[columnheader]', @datacolumn.columnheader, :class => "metadata-text-input"
   %dl
     %dt= label_tag 'datacolumn[definition]', 'Definition'
-    %dd= text_area_tag 'datacolumn[definition]', @datacolumn.definition, {:class => "metadata-text-input"}
-
-    %dt= label_tag "datacolumn[tag_list]", 'Keywords (Comma separated)'
-    %dd= text_field_tag "datacolumn[tag_list]", @datacolumn.tag_list.join(", "), {:class => "metadata-text-input",:id =>"tag_list", "data-tags"=> all_tags_for_select2}
-  %dl
-    %dt= label_tag 'datacolumn[comment]',"Comment"
-    %dd= text_area_tag 'datacolumn[comment]', @datacolumn.comment, {:class => "metadata-text-input"}
+    %dd= text_area_tag 'datacolumn[definition]', @datacolumn.definition, :class => 'metadata-text-input'
   %dl
     %dt= label_tag 'datacolumn[unit]', 'Unit'
     %dd= text_field_tag 'datacolumn[unit]', @datacolumn.unit, {:class => "metadata-text-input"}
+  %dl
+    %dt= label_tag "datacolumn[tag_list]", 'Keywords (Comma separated)'
+    %dd= text_field_tag "datacolumn[tag_list]", @datacolumn.tag_list.join(", "), :class => "metadata-text-input",:id =>"tag_list", "data-tags"=> all_tags_for_select2
+  %br/
+  %dl
+    %dt= label_tag 'datacolumn[instrumentation]', 'Instrumentation'
+    %dd= text_area_tag 'datacolumn[instrumentation]', @datacolumn.instrumentation, :class => 'metadata-text-input'
+
+  %dl
+    %dt= label_tag 'datacolumn[informationsource]', 'References'
+    %dd= text_area_tag 'datacolumn[informationsource]', @datacolumn.informationsource, :class => 'metadata-text-input'
+
+  %dl
+    %dt= label_tag 'datacolumn[comment]',"Comment"
+    %dd= text_area_tag 'datacolumn[comment]', @datacolumn.comment, :class => "metadata-text-input"
+
   %dl#metadata-people
     %dt= label_tag 'people', 'Acknowledged people'
-    - unless @datacolumn.informationsource.blank?
-      = hidden_field_tag "datacolumn[informationsource]", @datacolumn.informationsource
+    - unless @datacolumn.acknowledge_unknown.blank?
+      = hidden_field_tag "datacolumn[acknowledge_unknown]", @datacolumn.acknowledge_unknown
       %p.datagroup-description#unmatched-persons-hint
-        = @datacolumn.informationsource
+        These people could not be matched within the portal:
+        = @datacolumn.acknowledge_unknown
         = link_to "Delete this message", "#", {:id => "unmatched-persons-delete"}
     %dd
       = select "person", "person_id", all_users_names_and_ids_for_select, {:prompt => 'Select Member'}, {:onchange => 'selectPeople(this)'}
@@ -37,7 +50,7 @@
 :javascript
   jQuery(document).ready(function(){
     $("#unmatched-persons-delete").click(function(event) {
-      $('#datacolumn_informationsource').val('')
+      $('#datacolumn_acknowledge_unknown').val('')
       $('#unmatched-persons-hint').css("text-decoration", "line-through")
       event.preventDefault();
     });
