@@ -14,10 +14,11 @@
 
 = content_for :info do
   %h3 My login credentials
-  %span#api
-    = @user.try(:single_access_token)
-  = link_to update_credentials_profile_path, remote: true, id: 'change_api', confirm: "Are you sure to update your login credentials" do
-    = image_tag "reload.png", title: "Change one"
+  %div
+    = text_field_tag :single_access_token, @user.try(:single_access_token), :id => "api",
+      :readonly => true, :onclick => 'this.select();'
+    = link_to update_credentials_profile_path, method: :post, remote: true, id: 'change_api' do
+      = image_tag "reload.gif", title: "Change one", :size => '13x13'
 
 = render :template => 'users/show'
 

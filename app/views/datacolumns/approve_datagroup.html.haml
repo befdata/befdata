@@ -52,7 +52,7 @@
         = submit_tag "Save chosen data group"
         #all-datagroups-from-portal
           - @data_groups_available.each do |datagroup|
-            .datagroup-from-portal.datagroup-selectable
+            %div{class: 'datagroup-from-portal datagroup-selectable', id: "datagroup-#{datagroup.id}"}
               = radio_button_tag 'datagroup', datagroup.id, false, {:class => 'span-1'}
               = label 'datagroup', datagroup.id, {:class => "span-6 last datagroup-radio-label"}  do
                 %strong= link_to datagroup.title, datagroup
@@ -62,7 +62,12 @@
                 - unless datagroup.datacolumns.empty?
                   %p.datagroup-description
                     %strong Already assigned datacolumns:
-                    = datagroup.datacolumns.pluck(:columnheader).join(', ')
+                    %span.columns
+                      = datagroup.datacolumns.limit(5).pluck(:columnheader).join(', ')
+                      - if datagroup.datacolumns_count > 5
+                        and
+                        = link_to "another #{pluralize(datagroup.datacolumns_count - 5, 'column')}.", datacolumns_datagroup_path(datagroup), remote: true
+
         = submit_tag 'Save chosen data group'
 
 :javascript
@@ -84,12 +89,13 @@
       filterableElementsParent = $("div#all-datagroups-from-portal");
       irrelevantString1 = "Description:"
       irrelevantString2 = "Already assigned datacolumns:"
-
+      irrelevantString3 = /and\s+another [0-9]+ columns?/
       // case insensitive contains
       $.expr[':'].icontains = function(obj, index, meta, stack){
       string = (obj.textContent || obj.innerText || jQuery(obj).text() || '');
       string = string.replace(irrelevantString1,"");
       string = string.replace(irrelevantString2,"");
+      string = string.replace(irrelevantString3, "");
       return string.toLowerCase().indexOf(meta[3].toLowerCase()) >= 0;
       };
 

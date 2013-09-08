@@ -122,6 +122,7 @@ table#invalid-values-table input{
 textarea.metadata-text-input {
     width: 500px;
     height: 120px;
+    resize: vertical;
 }
 
 input[type=text].metadata-text-input {

@@ -2,8 +2,13 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
-#api {
-	font-family: courier, monospace;
+input#api {
+  font-family: courier, monospace;
+  outline: none;
+  border: none;
+  color: black;
+  padding: 0px;
+  margin: 0px;
 }
 
 .vote-old {

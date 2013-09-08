@@ -7,20 +7,20 @@
     - unless @paperproposal.new_record?
       %p Initial title was: #{@paperproposal.initial_title}
 
+    %dt= f.label :rationale, class: 'required'
+    %dd= f.text_area :rationale
+
     %dt= f.label :envisaged_journal
     %dd= f.text_area :envisaged_journal, rows: 2, :style => 'height: auto'
+
+    %dt= f.label :state
+    %dd= f.select :state, ["in prep", "manuscript avaible", "in review", "accepted"]
 
     %dt= f.label :envisaged_date
     %dd= f.date_select :envisaged_date
 
-    %dt= f.label :rationale, class: 'required'
-    %dd= f.text_area :rationale
-
     %dt= f.label :external_data
     %dd= f.text_field :external_data
-
-    %dt= f.label :state
-    %dd= f.select :state, ["in prep", "manuscript avaible", "in review", "accepted"]
 
     %dt= f.label :comment
     %dd= f.text_area :comment

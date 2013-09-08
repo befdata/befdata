@@ -264,11 +264,6 @@ class Dataworkbook
     return data_lookup_ch
   end
 
-  # Returns the string that represents the Data Group title for any given columnheader from the Workbook.
-  def data_group_title(columnheader)
-    Array(data_description_sheet.column(*WBF[:group_title_col]))[method_index_for_columnheader(columnheader)]
-  end
-
   # Returns the category information from the Workbook for a given columnheader.
   def sheet_categories_for_columnheader(columnheader)
 

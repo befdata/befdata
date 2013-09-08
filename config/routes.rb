@@ -8,7 +8,8 @@ Befchina::Application.routes.draw do
   resources :users
   resource :profile, :only => [:show, :edit, :update] do
     member do
-      get :votes, :votes_history, :update_credentials
+      get :votes, :votes_history
+      post :update_credentials
       resources :notifications, :only => [:index, :destroy] do
         get :mark_as_read, :on => :member
       end

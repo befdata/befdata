@@ -9,7 +9,6 @@ gem 'dynamic_form'
 gem 'paperclip', '~> 3.0'
 gem 'acts-as-taggable-on', '~> 2.3.3'
 gem 'spreadsheet'
-gem 'yaml_db'
 gem 'delayed_job_active_record'
 gem 'daemons'
 gem 'whenever', :require => false

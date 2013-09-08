@@ -115,10 +115,16 @@
         - else
           %br
           = image_tag 'alert.png'
-          This column need to be approved to display the sample values.
+          - if @dataset.can_edit_by? current_user
+            This column needs to be approved to display sample values. Click
+            = link_to 'here', approval_overview_datacolumn_path(column)
+            to start approving.
+          - else
+            Sample values are not displayed because this column hasn't been approved yet.
 
         - u = column.users
         - unless u.blank? && column.acknowledge_unknown.blank?
-          %i Members involved with this Data Column:
-          = u.map{|person| link_to person, person}.join(', ').html_safe
-          = column.acknowledge_unknown
+          %div
+            %i
+              = [u.map{|person| link_to person, person}.join(', '), column.acknowledge_unknown].join(', ').html_safe
+            also contributed to this column.

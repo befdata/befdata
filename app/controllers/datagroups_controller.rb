@@ -85,7 +85,12 @@ class DatagroupsController < ApplicationController
   end
 
   def datacolumns
-    @datacolumns = @datagroup.datacolumns.includes(:dataset).paginate(:page => params[:page], :per_page => 20, :order => "columnheader")
+    respond_to do |format|
+      format.html {
+        @datacolumns = @datagroup.datacolumns.includes(:dataset).paginate(:page => params[:page], :per_page => 20, :order => "columnheader")
+      }
+      format.js { @headers = @datagroup.datacolumns.pluck(:columnheader) }
+    end
   end
 
   private
