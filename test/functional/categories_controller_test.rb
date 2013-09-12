@@ -11,6 +11,14 @@ class CategoriesControllerTest < ActionController::TestCase
     assert_success_no_error
   end
 
+  test "download categories csv" do
+    login_nadrowski
+
+    get :index, {:datagroup_id => 22, :format => :cvs}
+
+    assert_success_no_error
+  end
+
   test "show sheetcells cvs upload" do
     login_nadrowski
 

@@ -3,7 +3,7 @@
     = link_to edit_datagroup_path(@datagroup) do
       = image_tag "edit.png"
       Edit
-    - if @datagroup.datasets.empty?
+    - if @datasets.empty?
       = link_to datagroup_path(@datagroup), :method => :delete, :confirm => "Are you sure to delete this datagroup ?" do
         = image_tag "trash.png"
         Delete
@@ -12,10 +12,10 @@
         = image_tag "list-ordered.png"
         List Datacolumns
   - unless @datagroup.categories.empty?
-    = link_to datagroup_path(:id => @datagroup, :format => :csv) do
+    = link_to datagroup_categories_path(@datagroup, :format => :csv) do
       = image_tag("save.png")
       Download Categories as CSV
-    - if current_user.admin
+    - show_to :admin, :data_admin do
       = link_to upload_categories_datagroup_path do
         = image_tag("file-upload.png")
         Upload Categories as CSV
@@ -27,30 +27,39 @@
 
 - unless @datagroup.description.blank?
   %h4 Description
-  %p= @datagroup.description
+  = simple_format @datagroup.description
 
 - unless @datagroup.comment.blank?
   %h4 Comment
-  %p= @datagroup.comment
+  = simple_format @datagroup.comment
 
-- unless @datagroup.datasets.empty?
+- unless @datasets.empty?
   %h3 Datasets
   %ul
-    - @datagroup.datasets.order(:title).uniq.each do |ds|
+    - @datasets.each do |ds|
       %li
         = render :partial => ds, :locals => {:with_cart => true, :with_comment => false}
 
 - if @datagroup.categories.empty?
   %h3 Datagroup has no categories
 - else
-  %h3 Categories
+  %h3
+    Categories
+    = image_tag 'spinner.gif', :id => 'img-loader'
+  %noscript Please enable javascript to view the categories.
   #categories
-    #loader.hidden Sending request...
+    #loader.hidden Loading ...
     #categories_table
-      = render :partial => "categories/category_list"
 
   :javascript
     $(function(){
+      $.getScript("#{datagroup_categories_path(@datagroup)}")
+        .done(function(){
+          $("#img-loader").remove();
+        })
+        .fail(function(jqxhr, settings, exception) {
+        $("#categories_table").text("Error occurs. Please try refreshing the page");
+      });
       function show_indicator() {
         $("#categories_table tbody").fadeTo("fast",0.3);
         $("#loader").show();

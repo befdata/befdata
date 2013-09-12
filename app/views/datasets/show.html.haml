@@ -125,6 +125,7 @@
         - u = column.users
         - unless u.blank? && column.acknowledge_unknown.blank?
           %div
+            *
             %i
-              = [u.map{|person| link_to person, person}.join(', '), column.acknowledge_unknown].join(', ').html_safe
+              = (u.map{|p| link_to(p.short_name, p)} + [column.acknowledge_unknown]).compact.join(', ').html_safe
             also contributed to this column.

@@ -5,11 +5,28 @@ class CategoriesController < ApplicationController
   skip_before_filter :deny_access_to_all
 
   access_control do
-    actions :show do
+    actions :show, :index do
       allow logged_in
     end
     actions :upload_sheetcells, :update_sheetcells do
       allow :admin
+    end
+  end
+
+  def index
+    @datagroup = Datagroup.find(params[:datagroup_id])
+    respond_to do |format|
+      format.csv {
+        send_data render_categories_csv, :type => "text/csv", :filename=>"#{@datagroup.title}_categories.csv", :disposition => 'attachment'
+      }
+      format.js do
+        validate_sort_params(collection: ['short', 'long', 'description', 'count'], default: 'short')
+        @categories = @datagroup.categories
+          .select('id, short, long, description, (select count(sheetcells.id) from sheetcells where sheetcells.category_id = categories.id) as count')
+          .search(params[:search])
+          .order("#{params[:sort]} #{params[:direction]}")
+          .paginate(page: params[:page], per_page: 20)
+      end
     end
   end
 
@@ -56,6 +73,15 @@ private
       csv << ["ID","IMPORT VALUE","COLUMNHEADER","DATASET","NEW CATEGORY SHORT"]
       @category.sheetcells.each do |s|
         csv << [s.id, s.import_value, s.datacolumn.columnheader, s.datacolumn.dataset.title]
+      end
+    end
+  end
+
+  def render_categories_csv
+    csv_string = CSV.generate do |csv|
+      csv << ["ID","SHORT","LONG","DESCRIPTION","MERGE ID"]
+      @datagroup.categories.select([:id, :short, :long, :description]).order(:short).each do |cat|
+        csv << [cat.id, cat.short, cat.long, cat.description]
       end
     end
   end

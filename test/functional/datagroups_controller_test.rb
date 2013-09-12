@@ -27,14 +27,6 @@ class DatagroupsControllerTest < ActionController::TestCase
     assert_success_no_error
   end
 
-  test "download categories cvs" do
-    login_nadrowski
-
-    get :show, {:id => 22, :format => :cvs}
-
-    assert_success_no_error
-  end
-
   test "upload updated categories cvs" do
     login_nadrowski
     request.env["HTTP_REFERER"] = root_url
