@@ -42,8 +42,9 @@
             .description
               = highlight dg.description, params[:search]
           .comment
+            = pluralize(dg.categories_count, 'category')
+            |
             = pluralize(dg.datacolumns_count, 'datacolumn')
-            in this datagroup
             .right
               Added at #{dg.created_at}
         - if authorized_to_edit_and_delete

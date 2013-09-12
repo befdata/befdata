@@ -11,7 +11,9 @@ module DatagroupsHelper
       "Title" => datagroups_path(params.merge(sort: 'title', direction: 'asc')),
       "Recently Added" => datagroups_path(params.merge(sort: 'id', direction: 'desc')),
       "Most used" => datagroups_path(params.merge(sort: 'datacolumns_count', direction: 'desc')),
-      "Least Used" => datagroups_path(params.merge(sort: 'datacolumns_count', direction: 'asc'))
-      }, selected: datagroups_path(params))
+      "Least Used" => datagroups_path(params.merge(sort: 'datacolumns_count', direction: 'asc')),
+      "Most categories" => datagroups_path(params.merge(sort: 'categories_count', direction: 'desc')),
+      "Least categories" => datagroups_path(params.merge(sort: 'categories_count', direction: 'asc'))
+    }, selected: datagroups_path(params))
   end
 end

@@ -15,10 +15,14 @@ class DatagroupsController < ApplicationController
   end
 
   def index
-    validate_sort_params(collection: ['id', 'title', 'datacolumns_count'], default: 'title')
-    @datagroups = Datagroup.select('id, title, description, created_at, datacolumns_count')
-                  .search(params[:search])
-                  .paginate(page: params[:page], per_page: 100, order: "#{params[:sort]} #{params[:direction]}")
+    validate_sort_params(collection: ['id', 'title', 'datacolumns_count', 'categories_count'], default: 'title')
+    dgs = Datagroup.select('id, title, description, created_at, datacolumns_count,
+                            (select count(*) from categories where datagroup_id = datagroups.id) as categories_count')
+                   .order("#{params[:sort]} #{params[:direction]}").search(params[:search])
+    respond_to do |format|
+      format.html { @datagroups = dgs.paginate(page: params[:page], per_page: 100) }
+      format.xml { @datagroups = dgs}
+    end
   end
 
   def show
