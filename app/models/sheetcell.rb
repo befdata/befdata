@@ -6,7 +6,7 @@
 class Sheetcell < ActiveRecord::Base
 
   belongs_to :datacolumn
-  belongs_to :category, :dependent => :destroy
+  belongs_to :category
   after_initialize :set_default_status
 
   def set_default_status

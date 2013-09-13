@@ -71,6 +71,15 @@ class Category < ActiveRecord::Base
     update_overview
   end
 
+  def self.merge(from_category, to_category, user)
+    return unless from_category.datagroup_id == to_category.datagroup_id
+
+    comment_string = "Merged #{from_category.short} by #{user.lastname} at #{Time.now.to_s} via CSV; "
+    from_category.sheetcells.update_all(:category_id => to_category.id)
+    to_category.update_attributes(:comment => "#{to_category.comment} #{comment_string}".strip) # this triggers regeneration of datasets
+    from_category.delete
+  end
+
 private
 
   def validate_and_reduce_sheetcells_csv(csv_lines)

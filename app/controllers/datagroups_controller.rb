@@ -39,7 +39,7 @@ class DatagroupsController < ApplicationController
 
   def destroy
     unless @datagroup.datasets.empty?
-      flash[:error] = "Datagroup has associated datasets and cann't be deleted"
+      flash[:error] = "Datagroup has associated datasets thus can't be deleted"
       redirect_to :back
     end
     if @datagroup.destroy
@@ -62,15 +62,14 @@ class DatagroupsController < ApplicationController
     end
     f = params[:csvfile][:file].path
 
-    @changes = @datagroup.update_categories_with_csv(f, current_user)
+    changes = @datagroup.update_and_merge_categories_with_csv(f, current_user)
 
     unless @datagroup.errors.empty?
       flash[:error] = @datagroup.errors.full_messages.to_sentence
       redirect_to :back and return
     else
-      flash[:notice] = "Categories successfully updated"
-      flash[:updates] = @changes
-      redirect_to datagroup_path @datagroup
+      flash[:notice] = "#{changes[:u]} categories are updated and #{changes[:m]} categories are merged"
+      redirect_to datagroup_path(@datagroup)
     end
   end
 
