@@ -3,7 +3,6 @@
 ## Categories are linked to "Datagroup"s. The validation process ensures that Categories are unique within a "Datagroup".
 class Category < ActiveRecord::Base
 
-  belongs_to :user, :class_name => "User", :foreign_key => "user_id"
   belongs_to :datagroup, :class_name => "Datagroup", :foreign_key => "datagroup_id"
   has_many :sheetcells
 

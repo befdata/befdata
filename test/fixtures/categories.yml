@@ -8,8 +8,6 @@ categories_001:
   created_at: 2011-09-28 14:24:18.544173
   updated_at: 2011-09-28 14:24:18.544173
   datagroup_id: "19"
-  user_id: "1"
-  status_id: "2"
 categories_002: 
   id: "74"
   short: na
@@ -19,8 +17,6 @@ categories_002:
   created_at: 2011-09-28 14:24:18.59244
   updated_at: 2011-09-28 14:24:18.59244
   datagroup_id: "19"
-  user_id: "1"
-  status_id: "2"
 categories_003: 
   id: "59"
   short: na
@@ -30,8 +26,6 @@ categories_003:
   created_at: 2011-06-01 13:50:24.057
   updated_at: 2011-06-01 13:52:20.058
   datagroup_id: "7"
-  user_id: "1"
-  status_id: 
 categories_004: 
   id: "60"
   short: Toxicodendron sylvestre
@@ -41,8 +35,6 @@ categories_004:
   created_at: 2011-06-01 13:55:19.488
   updated_at: 2011-06-01 13:55:19.488
   datagroup_id: "1"
-  user_id: "1"
-  status_id: 
 categories_005: 
   id: "61"
   short: Mahonia bealei
@@ -52,8 +44,6 @@ categories_005:
   created_at: 2011-06-01 13:55:19.723
   updated_at: 2011-06-01 13:55:19.723
   datagroup_id: "1"
-  user_id: "1"
-  status_id: 
 categories_006: 
   id: "62"
   short: Betula luminifera
@@ -63,8 +53,6 @@ categories_006:
   created_at: 2011-06-01 13:55:19.743
   updated_at: 2011-06-01 13:55:19.743
   datagroup_id: "1"
-  user_id: "1"
-  status_id: 
 categories_007: 
   id: "63"
   short: Diospyros japonica
@@ -74,8 +62,6 @@ categories_007:
   created_at: 2011-06-01 13:55:19.798
   updated_at: 2011-06-01 13:55:19.798
   datagroup_id: "1"
-  user_id: "1"
-  status_id: 
 categories_008: 
   id: "64"
   short: <1
@@ -85,8 +71,6 @@ categories_008:
   created_at: 2011-06-01 15:03:35.858
   updated_at: 2011-06-01 15:03:52.819
   datagroup_id: "7"
-  user_id: "1"
-  status_id:
 categories_011: 
   id: "67"
   short: AAA
@@ -96,8 +80,6 @@ categories_011:
   created_at: 2011-07-01 15:06:09.205
   updated_at: 2011-07-01 15:06:09.205
   datagroup_id: "22"
-  user_id: "1"
-  status_id: "1"
 categories_012: 
   id: "68"
   short: BBB
@@ -107,8 +89,6 @@ categories_012:
   created_at: 2011-07-01 15:06:09.205
   updated_at: 2011-07-01 15:06:09.205
   datagroup_id: "22"
-  user_id: "1"
-  status_id: "1"
 categories_013: 
   id: "69"
   short: CCC
@@ -118,8 +98,6 @@ categories_013:
   created_at: 2011-07-01 15:06:09.205
   updated_at: 2011-07-01 15:06:09.205
   datagroup_id: "22"
-  user_id: "1"
-  status_id: "1"
 categories_014: 
   id: "70"
   short: DDD
@@ -129,8 +107,6 @@ categories_014:
   created_at: 2011-07-01 15:06:09.205
   updated_at: 2011-07-01 15:06:09.205
   datagroup_id: "22"
-  user_id: "1"
-  status_id: "1"
 categories_015: 
   id: "71"
   short: EEE
@@ -140,8 +116,6 @@ categories_015:
   created_at: 2011-07-01 15:06:09.205
   updated_at: 2011-07-01 15:06:09.205
   datagroup_id: "22"
-  user_id: "1"
-  status_id: "1"
 categories_016: 
   id: "72"
   short: FFF
@@ -151,8 +125,6 @@ categories_016:
   created_at: 2011-07-01 15:06:09.205
   updated_at: 2011-07-01 15:06:09.205
   datagroup_id: "22"
-  user_id: "1"
-  status_id: "1"
 categories_017: 
   id: "75"
   short: COL_1_CAT_4
@@ -162,8 +134,6 @@ categories_017:
   created_at: 2011-12-12 13:46:59.514894
   updated_at: 2011-12-12 13:46:59.514894
   datagroup_id: "36"
-  user_id: "1"
-  status_id: "1"
 categories_018: 
   id: "76"
   short: COL_1_CAT_1
@@ -173,8 +143,6 @@ categories_018:
   created_at: 2011-12-12 13:46:59.514894
   updated_at: 2011-12-12 13:46:59.514894
   datagroup_id: "36"
-  user_id: "1"
-  status_id: "1"
 categories_019: 
   id: "77"
   short: COL_1_CAT_2
@@ -184,8 +152,6 @@ categories_019:
   created_at: 2011-12-12 13:46:59.514894
   updated_at: 2011-12-12 13:46:59.514894
   datagroup_id: "36"
-  user_id: "1"
-  status_id: "1"
 categories_020: 
   id: "78"
   short: COL_1_CAT_3
@@ -195,8 +161,6 @@ categories_020:
   created_at: 2011-12-12 13:46:59.514894
   updated_at: 2011-12-12 13:46:59.514894
   datagroup_id: "36"
-  user_id: "1"
-  status_id: "1"
 categories_021: 
   id: "79"
   short: COL_1_UNKNOWN_CAT
@@ -206,8 +170,6 @@ categories_021:
   created_at: 2011-12-12 13:53:39.56293
   updated_at: 2011-12-12 13:53:39.56293
   datagroup_id: "36"
-  user_id: "1"
-  status_id: "2"
 categories_022: 
   id: "80"
   short: COL_2_UNKNOWN_CAT
@@ -217,5 +179,3 @@ categories_022:
   created_at: 2011-12-12 13:53:59.500803
   updated_at: 2011-12-12 13:53:59.500803
   datagroup_id: "37"
-  user_id: "1"
-  status_id: "2"

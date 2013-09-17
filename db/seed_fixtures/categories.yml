@@ -10,8 +10,6 @@ categories_001:
   created_at: '2012-03-17 20:45:18.11186'
   updated_at: '2012-03-17 20:45:18.11186'
   datagroup_id: '1'
-  user_id: '1'
-  status_id: '1'
 categories_002:
   id: '2'
   short: '1'
@@ -23,8 +21,6 @@ categories_002:
   created_at: '2012-03-17 20:45:18.11186'
   updated_at: '2012-03-17 20:45:18.11186'
   datagroup_id: '1'
-  user_id: '1'
-  status_id: '1'
 categories_003:
   id: '3'
   short: '3'
@@ -36,5 +32,3 @@ categories_003:
   created_at: '2012-03-17 20:45:18.11186'
   updated_at: '2012-03-17 20:45:18.11186'
   datagroup_id: '1'
-  user_id: '1'
-  status_id: '1'

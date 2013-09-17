@@ -29,7 +29,7 @@ class TransactionalDatasetTest < ActiveSupport::TestCase
     dataset.save
     book = Dataworkbook.new(dataset.current_datafile)
     book.import_data
-    dataset.approve_predefined_columns(users(:users_003))
+    dataset.approve_predefined_columns
     dataset.destroy
 
     Datagroup.delete_orphan_datagroups

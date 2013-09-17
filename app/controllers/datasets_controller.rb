@@ -130,7 +130,7 @@ class DatasetsController < ApplicationController
   end
 
   def approve_predefined
-    @dataset.approve_predefined_columns(current_user)
+    @dataset.approve_predefined_columns
 
     if @dataset.columns_with_invalid_values_after_approving_predefined.blank?
       flash[:notice] = "All available columns were successfully approved."

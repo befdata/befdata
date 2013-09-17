@@ -63,7 +63,7 @@ self.use_transactional_fixtures = false
 
     ##approve
     # approve the third column: category2
-    datacolumn.add_data_values(User.find(1))
+    datacolumn.add_data_values
     # check that there aren't duplicate categories in the datagroup
     datagroup = datacolumn.datagroup
     cats = datagroup.categories
@@ -74,7 +74,7 @@ self.use_transactional_fixtures = false
 
     # approve the first number column: number1
     datacolumn = Datacolumn.first(:conditions => ["dataset_id=? and columnheader = 'number1'",dataset.id])
-    datacolumn.add_data_values(User.find(1))
+    datacolumn.add_data_values
     #check whether there is 4 invlid values
     assert_equal datacolumn.invalid_values.count, 4, "column number1 does not have 4 invalid values"
 

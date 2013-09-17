@@ -95,7 +95,7 @@ class Datacolumn < ActiveRecord::Base
   # if there are no "Category" matches then the import value is used as the accepted value
   # NB: all of the business logic is in functions within the database
   # found in db/non_schema_sql.sql
-  def add_data_values(user)
+  def add_data_values
 
     # remove any previous accepted values so that we can keep a track of what has been updated
     sqlclean = "select clear_datacolumn_accepted_values(#{id})"
@@ -112,7 +112,7 @@ class Datacolumn < ActiveRecord::Base
       unless dataset.nil?
         comment = dataset.title
       end
-      sql = "select accept_datacolumn_values(#{datatype.id}, #{id}, #{datagroup_id}, #{user.id}, '#{comment}')"
+      sql = "select accept_datacolumn_values(#{datatype.id}, #{id}, #{datagroup_id}, '#{comment}')"
     end
 
     begin
@@ -140,7 +140,7 @@ class Datacolumn < ActiveRecord::Base
   def approve_datatype(datatype, user)
     # selecting a datatype means that the imported values can validated against the datatype.
     self.import_data_type = datatype
-    self.add_data_values(user)
+    self.add_data_values
 
     self.datatype_approved = true
     self.finished = false
@@ -162,13 +162,11 @@ class Datacolumn < ActiveRecord::Base
   end
 
   # creates a category for the invalid value and assigns the category to all matching sheetcells
-  def update_invalid_value(original_value, short, long, description, user, dataset)
+  def update_invalid_value(original_value, short, long, description, dataset)
     # firstly check that the category doesn't already exist in the datagroup
     cat = self.datagroup.categories.where(short: short).first_or_create do |c|
       c.long = long
       c.description = description
-      c.status_id = Categorystatus::MANUALLY_APPROVED
-      c.user_id = user.id
       c.datagroup = self.datagroup
       c.comment = dataset.title
     end
@@ -186,7 +184,7 @@ class Datacolumn < ActiveRecord::Base
   end
 
   def batch_approve_invalid_values(user)
-    sql = "select accept_invalid_values(#{id}, #{datagroup_id}, #{user.id}, '#{dataset.title}')"
+    sql = "select accept_invalid_values(#{id}, #{datagroup_id}, '#{dataset.title}')"
     connection = ActiveRecord::Base.connection()
     connection.execute(sql)
   end

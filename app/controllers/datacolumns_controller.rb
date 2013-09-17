@@ -160,7 +160,7 @@ class DatacolumnsController < ApplicationController
     unless invalid_values.blank?
       invalid_values.each do |h|
         next if h['short'].blank?
-        @datacolumn.update_invalid_value(h['import_value'], h['short'], h['long'], h['description'], current_user, @dataset)
+        @datacolumn.update_invalid_value(h['import_value'], h['short'], h['long'], h['description'], @dataset)
       end
       @datacolumn.touch
     end
@@ -176,7 +176,7 @@ class DatacolumnsController < ApplicationController
     begin
       CSV.foreach(f, headers: true, skip_blanks: true) do |row|
         next if row['import value'].blank? or row['category short'].blank?
-        @datacolumn.update_invalid_value(row['import value'], row['category short'], row['category long'], row['category description'], current_user, @dataset)
+        @datacolumn.update_invalid_value(row['import value'], row['category short'], row['category long'], row['category description'], @dataset)
       end
       @datacolumn.touch
       flash[:notice] = "The invalid values have been successfully approved"

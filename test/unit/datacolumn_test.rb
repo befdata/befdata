@@ -41,7 +41,7 @@ class DatacolumnTest < ActiveSupport::TestCase
 
   test "accept_text_datacolumn_values" do
     datacolumn = Datacolumn.find(41)
-    datacolumn.add_data_values(User.find(1))
+    datacolumn.add_data_values
 
     datacolumn.sheetcells.each do |cell|
       assert(cell.import_value == cell.accepted_value)
@@ -51,7 +51,7 @@ class DatacolumnTest < ActiveSupport::TestCase
 
   test "accept_number_datacolumn_values" do
     datacolumn = Datacolumn.find(42)
-    datacolumn.add_data_values(User.find(1))
+    datacolumn.add_data_values
 
     valid_numbers=0
     datacolumn.sheetcells.each do |cell|
@@ -73,7 +73,7 @@ class DatacolumnTest < ActiveSupport::TestCase
 
   test "accept_numbers_with_decimals_datacolumn_values" do
     datacolumn = Datacolumn.find(55)
-    datacolumn.add_data_values(User.find(1))
+    datacolumn.add_data_values
 
     valid_numbers=0
     datacolumn.sheetcells.each do |cell|
@@ -95,7 +95,7 @@ class DatacolumnTest < ActiveSupport::TestCase
 
   test "accept_date_1_datacolumn_values" do
     datacolumn = Datacolumn.find(43)
-    datacolumn.add_data_values(User.find(1))
+    datacolumn.add_data_values
 
     valid_dates=0
     datacolumn.sheetcells.each do |cell|
@@ -117,7 +117,7 @@ class DatacolumnTest < ActiveSupport::TestCase
 
   test "accept_year_datacolumn_values" do
     datacolumn = Datacolumn.find(44)
-    datacolumn.add_data_values(User.find(1))
+    datacolumn.add_data_values
 
     valid_years=0
     datacolumn.sheetcells.each do |cell|
@@ -139,7 +139,7 @@ class DatacolumnTest < ActiveSupport::TestCase
 
   test "accept_sheet_match_category_datacolumn_values" do
     datacolumn = Datacolumn.find(45)
-    datacolumn.add_data_values(User.find(1))
+    datacolumn.add_data_values
 
     sheet_match_count = 0
     invalid_count = 0
@@ -159,7 +159,7 @@ class DatacolumnTest < ActiveSupport::TestCase
 
   test "accept_category_datacolumn_values" do
     datacolumn = Datacolumn.find(46)
-    datacolumn.add_data_values(User.find(1))
+    datacolumn.add_data_values
 
     sheet_match_count = 0
     invalid_count = 0
@@ -185,7 +185,7 @@ class DatacolumnTest < ActiveSupport::TestCase
 
   test "not_accept_dmy_date_format_any_more" do
     datacolumn = Datacolumn.find(47)
-    datacolumn.add_data_values(User.find(1))
+    datacolumn.add_data_values
 
     invalid_count = 0
     datacolumn.sheetcells.each do |cell|
@@ -202,7 +202,7 @@ class DatacolumnTest < ActiveSupport::TestCase
 
   test "accept_number_2_datacolumn_values" do
     datacolumn = Datacolumn.find(48)
-    datacolumn.add_data_values(User.find(1))
+    datacolumn.add_data_values
 
     valid_numbers=0
     invalid_count = 0
@@ -231,7 +231,7 @@ class DatacolumnTest < ActiveSupport::TestCase
     assert(datacolumn.invalid_values.count == 1)
 
     datacolumn.invalid_values.each do |value|
-      datacolumn.update_invalid_value(value.import_value, "#{value.import_value}_short", "#{value.import_value}_long", "#{value.import_value}_description", user, datacolumn.dataset)
+      datacolumn.update_invalid_value(value.import_value, "#{value.import_value}_short", "#{value.import_value}_long", "#{value.import_value}_description", datacolumn.dataset)
       cat = Category.find_by_short("#{value.import_value}_short")
       assert(!cat.nil?)
       assert(cat.datagroup == datacolumn.datagroup)
@@ -245,7 +245,7 @@ class DatacolumnTest < ActiveSupport::TestCase
     assert(datacolumn.invalid_values.count == 1)
 
     datacolumn.invalid_values.each do |value|
-      datacolumn.update_invalid_value(value.import_value, "#{value.import_value}_short", "#{value.import_value}_long", "#{value.import_value}_description", user, datacolumn.dataset)
+      datacolumn.update_invalid_value(value.import_value, "#{value.import_value}_short", "#{value.import_value}_long", "#{value.import_value}_description", datacolumn.dataset)
       cat = Category.find_by_short("#{value.import_value}_short")
       assert(!cat.nil?)
       assert(cat.datagroup == datacolumn.datagroup)

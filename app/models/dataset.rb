@@ -144,13 +144,13 @@ class Dataset < ActiveRecord::Base
     datacolumns.select{|dc| dc.predefined? }
   end
 
-  def approve_predefined_columns(approving_user)
+  def approve_predefined_columns
     @columns_with_invalid_values = []
     predefined_columns.each do |column|
       column.datagroup_approved = true
 
       # Approve the datatype and store the values
-      column.add_data_values(approving_user)
+      column.add_data_values
       column.datatype_approved = true
 
       # Check for invalid values

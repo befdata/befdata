@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130906063829) do
+ActiveRecord::Schema.define(:version => 20130916134226) do
 
   create_table "author_paperproposals", :force => true do |t|
     t.integer  "paperproposal_id"
@@ -47,14 +47,11 @@ ActiveRecord::Schema.define(:version => 20130906063829) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "datagroup_id"
-    t.integer  "user_id"
-    t.integer  "status_id"
   end
 
   add_index "categories", ["datagroup_id"], :name => "index_categories_on_datagroup_id"
   add_index "categories", ["long"], :name => "index_categories_on_long"
   add_index "categories", ["short"], :name => "index_categoricvalues_on_short"
-  add_index "categories", ["status_id"], :name => "index_categories_on_status_id"
 
   create_table "datacolumns", :force => true do |t|
     t.integer  "datagroup_id"
