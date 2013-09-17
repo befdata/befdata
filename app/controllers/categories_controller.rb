@@ -78,7 +78,7 @@ private
   end
 
   def render_categories_csv
-    csv_string = CSV.generate do |csv|
+    CSV.generate do |csv|
       csv << ["ID","SHORT","LONG","DESCRIPTION","MERGE ID"]
       @datagroup.categories.select([:id, :short, :long, :description]).order(:short).each do |cat|
         csv << [cat.id, cat.short, cat.long, cat.description]

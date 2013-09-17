@@ -136,8 +136,8 @@ private
 
   def categories_remain_unique?(updates, merges)
     changed_categories = updates.collect {|u| u.id} | merges.collect{|m| m['ID'].to_i}
-    short_of_unchanged_categories = self.categories.where("id NOT IN (?)", changed_categories).pluck(:short)
-    all_shorts = updates.collect{|u| u.short} + short_of_unchanged_categories
+    short_of_unchanged_categories = self.categories.where("id NOT IN (?)", changed_categories).pluck('lower(short)')
+    all_shorts = updates.collect{|u| u.short.downcase} + short_of_unchanged_categories
     all_shorts.uniq!.nil? ? true : false
   end
 
