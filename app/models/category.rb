@@ -2,7 +2,6 @@
 ##
 ## Categories are linked to "Datagroup"s. The validation process ensures that Categories are unique within a "Datagroup".
 class Category < ActiveRecord::Base
-
   belongs_to :datagroup, :class_name => "Datagroup", :foreign_key => "datagroup_id"
   has_many :sheetcells
 
@@ -34,6 +33,7 @@ class Category < ActiveRecord::Base
   def check_for_sheetcells_associated
     sc = self.sheetcells(true)
     unless sc.empty? || (sc.count == 1 && sc.first.destroyed?)
+      self.errors[:base] = "#{self.short} has associated sheetcells, thus can't be deleted"
       false
     end
   end

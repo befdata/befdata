@@ -13,15 +13,18 @@
         List Datacolumns
   - unless @datagroup.categories.empty?
     = link_to datagroup_categories_path(@datagroup, :format => :csv) do
-      = image_tag("save.png")
+      = image_tag("download.png")
       Download Categories as CSV
     - show_to :admin, :data_admin do
       = link_to upload_categories_datagroup_path do
-        = image_tag("file-upload.png")
-        Upload Categories as CSV
+        = image_tag("arrow_join_accept.png")
+        Manage Categories via CSV
+  = link_to new_datagroup_category_path(@datagroup) do
+    = image_tag 'file-upload.png'
+    Add categories
   = link_to datagroups_path do
     = image_tag "back.png"
-    Back to Datagroups list
+    Back to Data Groups list
 
 %h2= "Datagroup: #{@datagroup.title}"
 

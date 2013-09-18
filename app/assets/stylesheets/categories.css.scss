@@ -1,0 +1,14 @@
+#new_category {
+  label { font-weight: bold;}
+  input[type=text] {
+    width: 100%;
+  }
+  table {
+    border: solid 1px #4AA94E;
+    padding: 10px 14px 5px;
+    td {
+      vertical-align: bottom;
+      border: none;
+    }
+  }
+}

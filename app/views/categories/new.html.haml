@@ -1,0 +1,118 @@
+- content_for :actions do
+  = link_to datagroup_path(@datagroup) do
+    = image_tag 'back.png'
+    Back to Data Group page
+
+%h2
+  Add categories to
+  = link_to @datagroup.title, datagroup_path(@datagroup)
+
+%div
+  .right
+    Add categories via:
+    %ul.switchers
+      %li
+        %span.switcher#form_switcher.selected Form
+      %li
+        %span.switcher#csv_switcher CSV
+  %span#num-cats
+    %em= pluralize(@datagroup.categories.count, 'category')
+  .clearfix
+  %hr
+  %div#import-form
+    = form_for [@datagroup, Category.new], {:remote => true, 'data-type' => 'json'} do |f|
+      %table
+        %tr
+          %td
+            = f.label :short
+            = f.text_field :short
+          %td
+            = f.label :long
+            = f.text_field :long
+          %td
+            = f.label :description
+            = f.text_field :description
+          %td
+            = f.submit '+ Add'
+
+    %div#added
+      %h3 Added categories in this session
+      %table.tablesorter{style: 'width: 100%'}
+        %thead
+          %tr
+            %th ID
+            %th Short
+            %th Long
+            %th Description
+            %th Action
+        %tbody
+  %div#import-csv
+
+
+:javascript
+  $(function(){
+    var update_counter = function(count){
+      var counter = $("#num-cats em");
+      if (parseInt(count) == 1) {
+        counter.text(count+' category');
+      } else {
+        counter.text(count+' categories');
+      }
+    };
+
+    $(".switchers .switcher").click(function(e){
+      $(this).closest('.switchers').find(".switcher:not(this)").removeClass('selected');
+      $(this).addClass('selected');
+    });
+    $("#form_switcher").click(function(){
+      $("#import-csv").hide();
+      $("#import-form").show();
+    });
+    $("#csv_switcher").click(function(){
+      $("#import-csv").show();
+      $("#import-form").hide();
+    });
+
+    $("form#new_category").on('ajax:success', function(event, data){
+      if(data.error){
+        alert(data.error);
+      }
+      else{
+        var added = $('#added table tbody');
+        var link = $("<a>").attr( { href: '/categories/'+data.id, target: '_blank' }).text(data.short);
+        var del_link = $("<a>").attr(
+          {
+           href: '/categories/'+data.id,
+           'data-method': "delete",
+           'data-type': 'json',
+           'data-remote': true
+          }).text('Delete');
+        var tr = $("<tr>").addClass('hidden').attr('id', 'category-'+data.id);
+
+        var id = $("<td/>").text(data.id);
+        var short = $("<td/>").append(link);
+        var long = $("<td/>").text(data.long);
+        var description = $("<td/>").text(data.description);
+        var action = $("<td>").append(del_link)
+
+        tr.append(id);
+        tr.append(short);
+        tr.append(long);
+        tr.append(description);
+        tr.append(action);
+        tr.prependTo(added).fadeIn();
+        update_counter(data.count);
+      }
+    });
+    $('#added table tbody').on('ajax:success', "a[data-method='delete']", function(event, data){
+      if (data.error) {
+        alert(data.error);
+      } else {
+        console.log(data.id);
+        $(this).closest('tr#category-'+data.id).fadeOut().remove();
+        update_counter(data.count);
+      }
+    });
+  })
+
+

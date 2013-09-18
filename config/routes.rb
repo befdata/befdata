@@ -73,14 +73,14 @@ Befchina::Application.routes.draw do
   match 'cart' => 'carts#show', :as => 'current_cart'
 
   resources :datagroups, :except => [:new, :create] do
-    resources :categories, :only => [:index]
+    resources :categories, :only => [:index, :create, :new]
     member do
       get :upload_categories, :datacolumns
       post :update_categories
     end
   end
 
-  resources :categories, :only => [:show] do
+  resources :categories, :only => [:show, :destroy] do
     member do
       get :upload_sheetcells
       post :update_sheetcells
