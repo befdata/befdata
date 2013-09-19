@@ -74,6 +74,23 @@ class Datagroup < ActiveRecord::Base
     return {u: updates.length, m: merges.length}
   end
 
+  def import_categories_with_csv(file)
+    begin
+      lines = CSV.read file, CsvData::OPTS
+    rescue
+      errors.add :file, "can't be read!" and return false
+    end
+    lines.headers.map {|h| h.downcase! } # so that headers can be case-insensitive
+
+    return false unless validate_categories_csv_for_import?(lines)
+
+    lines.each do |l|
+      self.categories.create(short: l['short'], long: l['long'], description: l['description'])
+    end
+
+    return true
+  end
+
   def self.search(q)
     if q
       where('title iLike :q OR description iLike :q', :q => "%#{q}%")
@@ -153,5 +170,21 @@ private
     ActiveRecord::Base.transaction do
       updates.each { |c| c.save }
     end
+  end
+
+  def validate_categories_csv_for_import?(csv_lines)
+    errors.add :file, 'is empty' and return false if csv_lines.empty?
+    unless (['short', 'long', 'description'] - csv_lines.headers).empty?
+      errors.add :csv, 'header does not match' and return false
+    end
+    errors.add :base, "category short can't be empty" and return false if csv_lines["short"].any?{|s| s.blank?}
+
+    short = csv_lines['short'].collect {|s| s.downcase}
+    existing_short = self.categories.pluck('lower(short)')
+    unless (short + existing_short).uniq!.nil?
+      errors.add :base, 'Duplicated categories found!' and return false
+    end
+
+    return true
   end
 end

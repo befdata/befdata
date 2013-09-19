@@ -196,18 +196,17 @@ ul.switchers {
   #invalid-values-csv {
     padding-top: 10px;
     position: relative;
-    .step {
-      margin-bottom: 13px;
-      span {
-        float: left;
-        margin-left: -50px;
-        color: #18921e;
-        font-weight: bold;
-      }
-    }
   }
 }
-
+.step {
+  margin-bottom: 13px;
+  span {
+    float: left;
+    margin-left: -50px;
+    color: #18921e;
+    font-weight: bold;
+  }
+}
 /*  download page  */
 
 #xls {

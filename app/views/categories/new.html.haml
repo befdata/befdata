@@ -7,6 +7,8 @@
   Add categories to
   = link_to @datagroup.title, datagroup_path(@datagroup)
 
+%noscript Please enable javascript to use this feature.
+
 %div
   .right
     Add categories via:
@@ -17,8 +19,11 @@
         %span.switcher#csv_switcher CSV
   %span#num-cats
     %em= pluralize(@datagroup.categories.count, 'category')
+  = image_tag 'spinner.gif', id: 'img-loader', class: 'hidden'
+
   .clearfix
   %hr
+
   %div#import-form
     = form_for [@datagroup, Category.new], {:remote => true, 'data-type' => 'json'} do |f|
       %table
@@ -37,7 +42,7 @@
 
     %div#added
       %h3 Added categories in this session
-      %table.tablesorter{style: 'width: 100%'}
+      %table.tablesorter
         %thead
           %tr
             %th ID
@@ -46,8 +51,19 @@
             %th Description
             %th Action
         %tbody
-  %div#import-csv
-
+  %div#import-csv.hidden
+    .prepend-1
+      .step
+        %span Step 1
+        Download
+        = link_to 'CSV template file', '/templates/template-to-import-categories.csv'
+        for importing categories
+      .step
+        %span Step 2
+        Upload CSV file of categories
+        = form_tag import_categories_datagroup_path(@datagroup), multipart: true do
+          = file_field_tag :csvfile
+          = submit_tag 'Upload'
 
 :javascript
   $(function(){
@@ -74,6 +90,7 @@
     });
 
     $("form#new_category").on('ajax:success', function(event, data){
+      $('#img-loader').hide();
       if(data.error){
         alert(data.error);
       }
@@ -102,17 +119,36 @@
         tr.append(action);
         tr.prependTo(added).fadeIn();
         update_counter(data.count);
+        $("form#new_category").get(0).reset();
+        $("table.tablesorter").trigger('update');
       }
     });
     $('#added table tbody').on('ajax:success', "a[data-method='delete']", function(event, data){
+      $('#img-loader').hide();
       if (data.error) {
         alert(data.error);
       } else {
-        console.log(data.id);
         $(this).closest('tr#category-'+data.id).fadeOut().remove();
+        $("table.tablesorter").trigger('update');
         update_counter(data.count);
       }
     });
+    $("form#new_category").submit(function(){
+      $('#img-loader').show();
+      var short_val = $(this).find('#category_short').val();
+      if ($.trim(short_val) == ''){
+        $('#img-loader').hide();
+        return(false);
+      }
+    });
+    $('#added table tbody').on('click', "a[data-method='delete']", function(){
+      $('#img-loader').show();
+    });
+    $("#import-csv form").submit(function(){
+      if (!$(this).find(':file').val()) {
+         return(false);
+      }
+    })
   })
 
 

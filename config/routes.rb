@@ -76,7 +76,7 @@ Befchina::Application.routes.draw do
     resources :categories, :only => [:index, :create, :new]
     member do
       get :upload_categories, :datacolumns
-      post :update_categories
+      post :update_categories, :import_categories
     end
   end
 

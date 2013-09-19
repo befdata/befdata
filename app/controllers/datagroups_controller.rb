@@ -6,7 +6,7 @@ class DatagroupsController < ApplicationController
 
   skip_before_filter :deny_access_to_all
   access_control do
-    actions :index, :show do
+    actions :index, :show, :import_categories do
       allow logged_in
     end
     actions :upload_categories, :update_categories, :edit, :update, :destroy, :datacolumns do
@@ -70,6 +70,20 @@ class DatagroupsController < ApplicationController
     else
       flash[:notice] = "#{changes[:u]} categories are updated and #{changes[:m]} categories are merged"
       redirect_to datagroup_path(@datagroup)
+    end
+  end
+
+  def import_categories
+    unless params[:csvfile]
+      flash[:error] = "No File given"
+      redirect_to :back and return
+    end
+
+    if @datagroup.import_categories_with_csv(params[:csvfile].path)
+      redirect_to :back, :notice => 'Categories are successfully imported'
+    else
+      flash[:error] = @datagroup.errors.full_messages.to_sentence
+      redirect_to :back
     end
   end
 
