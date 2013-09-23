@@ -374,12 +374,7 @@ button {
   overflow:visible;
   padding:4px 10px 3px 7px;   /* IE6 */
 }
-button[type] {
-  padding:12px 36px;   /* Firefox */
-  line-height:17px;    /* Safari */
-  -moz-border-radius: 5px;
-  border-radius: 5px;
-}
+
 *:first-child+html button[type] {
   padding:12px 36px;   /* IE7 */
 }
@@ -394,7 +389,8 @@ button img, a.button img {
 
 button.inline { float: right; }
 
-input[disabled], input[disabled]:hover, input[disabled]:focus {
+input[disabled], input[disabled]:hover, input[disabled]:focus,
+button[disabled], button[disabled]:hover, button[disabled]:focus {
   color: gray;
   outline-color: gray;
 }
@@ -427,6 +423,11 @@ form .required:after {
     box-shadow        : none;
     border: 1px solid #18921e;
     outline: none;
+}
+
+.select2-container-active .select2-choice,
+.select2-container-active .select2-choices {
+  border: 1px solid #18921e; //#5897fb;
 }
 
 /* --- Header ------------------------------------------------- */

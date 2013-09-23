@@ -1,0 +1,45 @@
+.tags {
+  border-top: solid 1px #eee;
+  margin-top: 10px;
+  padding: 10px 0px;
+  .tag {
+    width: 33%;
+    margin: 0px;
+    float: left;
+    white-space: nowrap;
+    overflow:hidden;
+    text-overflow: ellipsis;
+    -o-text-overflow: ellipsis;
+  }
+}
+#manage{
+  ul#selected {
+    margin: 10px auto;
+    .remove_parent {float: left; padding-right: 5px;}
+  }
+}
+#rename-table {
+  width: 100%;
+  input[type=text]{margin-bottom: 2px;}
+  span.error {color: #f00;}
+}
+.field_with_errors {
+  input[type=text] {outline-color: #f00;}
+}
+#merge-table {
+  width: 100%;
+  padding: 20px;
+  td {border-bottom: none; }
+  td#merge-from {
+    border-right:solid 1px #18921e;
+    padding: 5px 15px;
+    -moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
+    border-radius: 10px;
+    ul {text-align:right;margin-bottom: 0px;}
+  }
+  fieldset {
+    position:relative;
+    select {width: 100%; }
+  }
+}

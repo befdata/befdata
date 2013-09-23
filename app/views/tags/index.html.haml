@@ -1,3 +1,7 @@
+.right
+  = link_to manage_keywords_path, class: 'button' do
+    = image_tag 'edit.png'
+    Manage keywords
 %h2 Keywords
 - tag_cloud @tags, %w(nube1 nube2 nube3 nube4 nube5 nube6) do | tag,css_class|
   = link_to tag.name, keyword_path(tag), class:css_class, title: "see all datasets with tag '#{tag.name}'"

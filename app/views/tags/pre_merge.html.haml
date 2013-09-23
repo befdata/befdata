@@ -1,0 +1,33 @@
+- content_for :actions do
+  = link_to manage_keywords_path do
+    = image_tag 'back.png'
+    Back to Re-Select keywords
+
+%h3 Merge keywords
+
+%table#merge-table
+  = form_tag merge_keywords_path do
+    %tr
+      %td#merge-from{style: 'width: 33%;'}
+        %ul
+          - @keywords.each do |tag|
+            %li
+              = tag.name
+              = hidden_field_tag 'keywords[]', tag.id, id: nil
+      %td{style: 'width:16px;'}
+        = image_tag 'arrow_join_accept.png'
+      %td{style: 'padding-left: 0px;'}
+        %fieldset
+          = select_tag :merge_to, options_from_collection_for_select(ActsAsTaggableOn::Tag.all, :id, :name),  {:id => "tag_list", :include_blank => true}
+          %div{style: 'position:absolute;'}
+            = label_tag 'new_keyword', 'Or create new keyword'
+            %br
+            = text_field_tag 'new_keyword'
+            %br
+            = submit_tag "Merge"
+:javascript
+  $("#tag_list").select2({
+    allowClear: true,
+    width: 'resolve',
+    placeholder: 'Select a keyword'
+  });

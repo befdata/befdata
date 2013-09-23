@@ -1,0 +1,22 @@
+- content_for :actions do
+  = link_to manage_keywords_path do
+    = image_tag 'back.png'
+    Back to Re-Select keywords
+
+%h3 Rename keywords
+= form_tag rename_keywords_path do
+  %table#rename-table
+    %thead
+      %tr
+        %th From
+        %th To
+    %tbody
+      - @keywords.each do |t|
+        %tr
+          %td= t.name_changed? ? t.name_was : t.name
+          %td
+            = fields_for 'keywords[]', t do |f|
+              = f.text_field :name
+            - unless t.errors.empty?
+              %span.error= t.errors.full_messages.to_sentence
+  = submit_tag :Confirm

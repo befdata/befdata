@@ -1,0 +1,117 @@
+- content_for :actions do
+  = link_to keywords_path do
+    = image_tag 'back.png'
+    Back to keywords list
+- content_for :info do
+  %h3 Selected keywords
+  %em#empty-message No keywords selected
+  = form_tag '', id: 'manage' do
+    %ul#selected
+    %div#actions-group
+      = button_tag 'Delete', type: 'button', id: 'delete', disabled: true
+      = button_tag 'Rename', type: 'button', id: 'rename', disabled: true
+      = button_tag 'Merge', type: 'button', id: 'merge', disabled: true
+
+%h2 Manage tags
+
+%noscript Enable javascript to manage keywords
+
+.right
+  = label_tag :search do
+    %strong Filter
+  = search_field_tag :search, '', {id: 'filter'}
+%ul.switchers
+  %li
+    = link_to 'UnSelect All', '#', id: 'reset', class: 'switcher'
+.tags
+  - @all_tags.each do |t|
+    .tag{id: t.id}
+      = check_box_tag t.name, t.id
+      = label_tag t.name, t.name, title: t.name
+      %span.count= "(#{t.count})"
+
+:javascript
+  $(function(){
+    // filter keywords
+    $.expr[':'].icontains = function(obj, index, meta, stack){
+      string = (obj.textContent || obj.innerText || jQuery(obj).text() || '');
+      return string.toLowerCase().indexOf(meta[3].toLowerCase()) >= 0;
+    };
+    $("input#filter").change(function(){
+      var q = $(this).val();
+      if (q) {
+        $(".tag:hidden label:icontains("+q+")").parent().show();
+        $(".tag:visible label:not(:icontains("+q+"))").parent().hide();
+      } else {
+        $(".tag:hidden").show();
+      }
+    }).keyup(function(){$(this).change();});
+
+    // synchoronize selected area and checkboxes
+    var selected_area = $("ul#selected");
+    var tag_list_area = $(".tags")
+
+    function update_selected_area() {
+      var num_items = tag_list_area.find(':checkbox:checked').length
+      switch(num_items) {
+        case 0:
+          $('em#empty-message').show();
+          $("#actions-group button").attr('disabled', true);
+          break;
+        case 1:
+          $('em#empty-message').hide();
+          $("#actions-group").find("button#merge").attr('disabled', true).siblings("button").attr('disabled', false);
+          break;
+        default:
+          $('em#empty-message').hide();
+          $("#actions-group button").attr('disabled', false);
+      }
+    }
+    function add_to_selected(tag_id, name) {
+      var li=$("<li/>").attr({id: tag_id});
+      var hidden_input = $("<input type='hidden' />").attr({name: 'keywords[]', value: tag_id});
+      var span_name = $("<span/>").text(name);
+      var remove_link = $("<a/>").attr({class: 'remove_parent'});
+      li.append(remove_link, hidden_input, span_name).appendTo(selected_area);
+    }
+    function remove_from_selected(tag_id){selected_area.find('li#'+tag_id).remove(); }
+
+    $('#reset').click(function(){
+      selected_area.empty(); $(".tags .tag input:checked").each(function(){this.checked=false});
+      update_selected_area();
+      return(false);
+    });
+
+    $(".tags>.tag input[type=checkbox]").click(function(){
+      if (this.checked) {
+        add_to_selected(this.getAttribute('value'), this.getAttribute('name'));
+      } else {
+        remove_from_selected(this.getAttribute('value'));
+      }
+      update_selected_area();
+    });
+
+    selected_area.on('click', '.remove_parent', function(){
+      var id = $(this).parent('li').attr('id')
+      tag_list_area.find('.tag#'+id+" input:checkbox")[0].checked=false;
+      update_selected_area();
+    });
+
+    // send requests
+    var pre_rename_url = "#{pre_rename_keywords_path}";
+    var pre_merge_url = "#{pre_merge_keywords_path}";
+    var delete_url = "#{delete_keywords_path}";
+
+    $("#actions-group #delete").click(function(){
+      var resp = confirm("Are you sure to delete the selected keywords ?")
+      if (resp){
+        $("form#manage").attr({action: delete_url}).submit();
+      }
+    })
+    $("#actions-group #rename").click(function(){
+      $("form#manage").attr({action: pre_rename_url}).submit();
+    })
+    $("#actions-group #merge").click(function(){
+      $("form#manage").attr({action: pre_merge_url}).submit();
+    })
+  })

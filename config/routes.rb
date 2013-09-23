@@ -45,7 +45,12 @@ Befchina::Application.routes.draw do
     end
   end
 
-  resources :keywords, :controller => 'tags', :only => [:index, :show]
+  resources :keywords, :controller => 'tags', :only => [:index, :show] do
+    collection do
+      get :manage
+      post :delete, :pre_rename, :pre_merge, :rename, :merge
+    end
+  end
 
   resources :projects
 

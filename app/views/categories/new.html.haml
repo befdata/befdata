@@ -128,7 +128,7 @@
       if (data.error) {
         alert(data.error);
       } else {
-        $(this).closest('tr#category-'+data.id).fadeOut().remove();
+        $(this).closest('tr#category-'+data.id).fadeOut('fast', function(){$(this).remove();});
         $("table.tablesorter").trigger('update');
         update_counter(data.count);
       }
