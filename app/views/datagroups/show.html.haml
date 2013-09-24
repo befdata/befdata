@@ -1,5 +1,5 @@
 - content_for :actions do
-  - if current_user.admin
+  - if current_user.admin || current_user.data_admin
     = link_to edit_datagroup_path(@datagroup) do
       = image_tag "edit.png"
       Edit
@@ -9,8 +9,12 @@
         Delete
     - else
       = link_to datacolumns_datagroup_path(@datagroup) do
-        = image_tag "list-ordered.png"
-        List Datacolumns
+        = image_tag "edit.png"
+        Manage Datacolumns
+  - elsif @datasets.present?
+    = link_to datacolumns_datagroup_path(@datagroup) do
+      = image_tag "list-ordered.png"
+      Browse Datacolumns
   - unless @datagroup.categories.empty?
     = link_to datagroup_categories_path(@datagroup, :format => :csv) do
       = image_tag("download.png")

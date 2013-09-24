@@ -9,4 +9,8 @@
   %dl
     %dt= f.label :comment
     %dd= f.text_area :comment
-  = f.submit "Update datagroup"
+  - if @datagroup.new_record?
+    %div
+      = check_box_tag :import
+      = label_tag :import, 'Go on to add categories'
+  = f.submit

@@ -1,7 +1,9 @@
+- show_edit_link = current_user.admin || current_user.data_admin
+
 = content_for :actions do
-  = link_to datagroups_path do
-    = image_tag "list-ordered.png"
-    List Datagroups
+  = link_to datagroup_path(@datagroup) do
+    = image_tag "back.png"
+    Back to Datagroup page
 
 %h2 Datacolumns belonging to #{link_to @datagroup.title, @datagroup}
 - if @datacolumns.empty?
@@ -9,47 +11,51 @@
 - else
   - @datacolumns.each do  |datacolumn|
     = content_tag_for(:div, datacolumn) do
-      #loader.hidden Sending request...
+      - if show_edit_link
+        #loader.hidden Sending request...
       .info
-        = link_to 'Edit', "#", :class => "form_loader right"
+        - if show_edit_link
+          = link_to 'Edit', "#", :class => "form_loader right"
         .columnheader= datacolumn.columnheader
         .definition= datacolumn.definition
         %i Dataset: #{link_to datacolumn.dataset.title, datacolumn.dataset}
-      = form_for datacolumn, :html => {:class => "hidden", :remote => true, 'data-type' => :json} do |f|
-        = f.text_field :columnheader
-        = f.text_area :definition
-        = f.submit
-        = link_to "Cancel", "#", :class => "button right cancel"
+      - if show_edit_link
+        = form_for datacolumn, :html => {:class => "hidden", :remote => true, 'data-type' => :json} do |f|
+          = f.text_field :columnheader
+          = f.text_area :definition
+          = f.submit
+          = link_to "Cancel", "#", :class => "button right cancel"
   .clear= will_paginate @datacolumns
 
-  :javascript
-    $(function(){
-      $(".datacolumn .form_loader").click(function(){
-        var info = $(this).parent(".info");
-        var form = info.next("form");
-        var height = info.find(".definition").height();
-        $("input#datacolumn_columnheader", form).val($(".columnheader",info).text());
-        $("textarea#datacolumn_definition", form).val($(".definition",info).text());
-        info.toggle().next("form").toggle().find('textarea').height(height);
-        return(false);
-      });
-      $('.datacolumn .cancel').click(function(){
-        $(this).parent('form').toggle().prev(".info").toggle();
-        return(false);
+  - if show_edit_link
+    :javascript
+      $(function(){
+        $(".datacolumn .form_loader").click(function(){
+          var info = $(this).parent(".info");
+          var form = info.next("form");
+          var height = info.find(".definition").height();
+          $("input#datacolumn_columnheader", form).val($(".columnheader",info).text());
+          $("textarea#datacolumn_definition", form).val($(".definition",info).text());
+          info.toggle().next("form").toggle().find('textarea').height(height);
+          return(false);
+        });
+        $('.datacolumn .cancel').click(function(){
+          $(this).parent('form').toggle().prev(".info").toggle();
+          return(false);
+        })
+        $(".datacolumn form").submit(function(){
+          $(this).parent().find("#loader").show();
+        });
+        $(".datacolumn form").on('ajax:success', function(evernt, data){
+          var info = $(this).prev(".info");
+          if(data.error){
+            info.prev("#loader").toggle();
+            alert(data.error);
+          }
+          else{
+            $(".columnheader",info).text(data.columnheader);
+            $(".definition",info).text(data.definition);
+            $(this).toggle().prevAll(".info, #loader").toggle();
+          }
+        });
       })
-      $(".datacolumn form").submit(function(){
-        $(this).parent().find("#loader").show();
-      });
-      $(".datacolumn form").on('ajax:success', function(evernt, data){
-        var info = $(this).prev(".info");
-        if(data.error){
-          info.prev("#loader").toggle();
-          alert(data.error);
-        }
-        else{
-          $(".columnheader",info).text(data.columnheader);
-          $(".definition",info).text(data.definition);
-          $(this).toggle().prevAll(".info, #loader").toggle();
-        }
-      });
-    })

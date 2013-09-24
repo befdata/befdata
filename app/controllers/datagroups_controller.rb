@@ -1,15 +1,14 @@
 require 'csv'
 
 class DatagroupsController < ApplicationController
-
-  before_filter :load_datagroup, :except => [:index]
-
   skip_before_filter :deny_access_to_all
+  before_filter :load_datagroup, :except => [:index, :new, :create]
+
   access_control do
-    actions :index, :show, :import_categories do
+    actions :index, :show, :import_categories, :new, :create, :datacolumns do
       allow logged_in
     end
-    actions :upload_categories, :update_categories, :edit, :update, :destroy, :datacolumns do
+    actions :upload_categories, :update_categories, :edit, :update, :destroy do
       allow :admin, :data_admin
     end
   end
@@ -22,6 +21,20 @@ class DatagroupsController < ApplicationController
     respond_to do |format|
       format.html { @datagroups = dgs.paginate(page: params[:page], per_page: 100) }
       format.xml { @datagroups = dgs}
+    end
+  end
+
+  def new
+    @datagroup = Datagroup.new
+  end
+
+  def create
+    @datagroup = Datagroup.new(params[:datagroup])
+    if @datagroup.save
+      flash[:notice] = "Data group '#{@datagroup.title}' was added successfully."
+      redirect_to params[:import] ? new_datagroup_category_path(@datagroup) : @datagroup
+    else
+      render :new
     end
   end
 
