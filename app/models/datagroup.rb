@@ -17,7 +17,7 @@ class Datagroup < ActiveRecord::Base
   before_destroy :check_if_destroyable
   before_validation :fill_missing_description
   after_initialize :init
-  after_update { datasets.map(&:touch) }
+  after_update { datasets.each(&:touch) }
   # set the default value for datagroup
   def init
     if(@new_record)
@@ -181,8 +181,9 @@ private
 
     short = csv_lines['short'].collect {|s| s.downcase}
     existing_short = self.categories.pluck('lower(short)')
-    unless (short + existing_short).uniq!.nil?
-      errors.add :base, 'Duplicated categories found!' and return false
+    duplicated_shorts = (short + existing_short).group_by {|c| c}.select {|k,v| v.size > 1}.keys
+    unless duplicated_shorts.empty?
+      errors.add :base, 'Duplicated categories found: ' + "#{duplicated_shorts.join(',')}" and return false
     end
 
     return true
