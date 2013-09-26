@@ -17,6 +17,8 @@
           {:class => "#{'active' if params[:action] == 'approve_invalid_values'} #{'unvisited' if @datacolumn.approval_stage < 3}"}
         %li= link_to "Metadata", approve_metadata_datacolumn_url(@datacolumn),
           {:class => "#{'active' if params[:action] == 'approve_metadata'} #{'unvisited' if @datacolumn.approval_stage < 4}"}
+        %li= link_to "Semantic Tagging", annotate_datacolumn_url(@datacolumn),
+        {:class => "#{'hidden' unless params[:action] == 'annotate' || current_user.admin || current_user.data_admin}"}
     = yield
 
 = render :partial => 'datasets/approval_sidebar'

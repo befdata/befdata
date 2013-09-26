@@ -57,9 +57,9 @@ Befchina::Application.routes.draw do
   resources :datacolumns do
     member do
       get :approval_overview, :next_approval_step,
-          :approve_datagroup, :approve_datatype, :approve_metadata, :approve_invalid_values
+          :approve_datagroup, :approve_datatype, :approve_metadata, :approve_invalid_values, :annotate
       post :update_datagroup, :create_and_update_datagroup, :update_datatype, :update_metadata, :update_invalid_values,
-           :update_invalid_values_with_csv, :autofill_and_update_invalid_values
+           :update_invalid_values_with_csv, :autofill_and_update_invalid_values, :update_annotation
     end
   end
 

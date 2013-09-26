@@ -10,7 +10,8 @@ class DatacolumnsController < ApplicationController
   access_control do
     actions :approval_overview, :next_approval_step, :approve_datagroup, :approve_datatype, :approve_metadata,
             :approve_invalid_values, :update_datagroup, :create_and_update_datagroup, :update_datatype,
-            :update_metadata, :update_invalid_values, :update_invalid_values_with_csv, :autofill_and_update_invalid_values, :update do
+            :update_metadata, :update_invalid_values, :update_invalid_values_with_csv, :autofill_and_update_invalid_values, :update, 
+            :annotate, :update_annotation do
       allow :admin, :data_admin
       allow :owner, :of => :dataset
     end
@@ -192,6 +193,22 @@ class DatacolumnsController < ApplicationController
     @datacolumn.touch
     flash[:notice] = "The invalid values have been successfully approved"
     next_approval_step
+  end
+
+  def annotate
+  end
+
+  def update_annotation
+    if params[:new_term].present?
+      term = Vocab.where(['term iLike ?', params[:new_term] ]).first || Vocab.create(term: params[:new_term])
+    elsif params[:term_id].present?
+      term = Vocab.find(params[:term_id])
+    else
+      term = nil
+    end
+
+    @datacolumn.update_attribute(:semantic_term, term)
+    redirect_to :back, :notice => "Semantic tag was updated"
   end
 
   private

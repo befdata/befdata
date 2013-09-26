@@ -1,0 +1,16 @@
+%h3 Semantical type 
+
+= form_tag update_annotation_datacolumn_path(@datacolumn) do
+  = select_tag 'term_id', options_from_collection_for_select(Vocab.all, :id, :term, @datacolumn.term_id), {include_blank: true, style: 'width: 300px;', id: 'datacolumn_term_id'}
+  %dl{style: 'margin-top: 10px;'}
+    %dt= label_tag 'new_term', 'Or Create New Term: '
+    %dd= text_field_tag 'new_term','', {size: 40}
+  = submit_tag
+
+
+:javascript
+  $("#datacolumn_term_id").select2({
+    allowClear: true,
+    width: 'resolve',
+    placeholder: 'Select an Item'
+  });

@@ -1,0 +1,9 @@
+one:
+  term: MyString
+  created_at: 2012-09-26 11:22:52.921
+  updated_at: 2012-09-26 11:22:52.921
+
+two:
+  term: MyString2
+  created_at: 2012-09-26 11:22:52.921
+  updated_at: 2012-09-26 11:22:52.921

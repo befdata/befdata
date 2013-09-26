@@ -26,6 +26,7 @@ class Datacolumn < ActiveRecord::Base
 
   has_many :sheetcells, :dependent => :delete_all
   has_many :import_categories, :dependent => :delete_all
+  belongs_to :semantic_term, :class_name => 'Vocab', :foreign_key => :term_id
 
   validates_presence_of :dataset_id, :columnheader, :columnnr, :definition
   validates_uniqueness_of :columnheader, :columnnr, :scope => :dataset_id, :case_sensitive => false

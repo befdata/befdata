@@ -43,6 +43,7 @@ xml.dataset(:id => @dataset.id) {
               xml.keyword t.name, :id => t.id
             end
           }
+          xml.semanticTagging dc.semantic_term.try(:term)
         }
         if params[:separate_category_columns].to_s.downcase.eql?("true")  && dc.split_me?
           xml.column {
@@ -61,6 +62,7 @@ xml.dataset(:id => @dataset.id) {
                 xml.keyword t.name, :id => t.id
               end
             }
+            xml.semanticTagging dc.semantic_term.try(:term)
           }
         end
       end

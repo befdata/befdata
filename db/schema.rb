@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130916134226) do
+ActiveRecord::Schema.define(:version => 20130925133405) do
 
   create_table "author_paperproposals", :force => true do |t|
     t.integer  "paperproposal_id"
@@ -70,6 +70,7 @@ ActiveRecord::Schema.define(:version => 20130916134226) do
     t.text     "informationsource"
     t.text     "instrumentation"
     t.string   "acknowledge_unknown"
+    t.integer  "term_id"
   end
 
   add_index "datacolumns", ["datagroup_id"], :name => "index_datacolumns_on_datagroup_id"
@@ -351,6 +352,12 @@ ActiveRecord::Schema.define(:version => 20130916134226) do
     t.string   "avatar_content_type"
     t.integer  "avatar_file_size"
     t.boolean  "receive_emails",      :default => false
+  end
+
+  create_table "vocabs", :force => true do |t|
+    t.string   "term"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
 end
