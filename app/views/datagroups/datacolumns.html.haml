@@ -9,45 +9,49 @@
 - if @datacolumns.empty?
   %i No associated datacolumns for this datagroup.
 - else
-  - @datacolumns.each do  |datacolumn|
-    = content_tag_for(:div, datacolumn) do
-      - if show_edit_link
-        #loader.hidden Sending request...
-      .info
-        - if show_edit_link
-          = link_to 'Edit', "#", :class => "form_loader right"
-        .columnheader= datacolumn.columnheader
-        .definition= datacolumn.definition
-        %i Dataset: #{link_to datacolumn.dataset.title, datacolumn.dataset}
-      - if show_edit_link
-        = form_for datacolumn, :html => {:class => "hidden", :remote => true, 'data-type' => :json} do |f|
-          = f.text_field :columnheader
-          = f.text_area :definition
-          = f.submit
-          = link_to "Cancel", "#", :class => "button right cancel"
+  - @datacolumns.includes(:dataset).group_by{|dc| dc.dataset}.each do  |dt, dcs|
+    .group-heading
+      = link_to dt.title, dt
+    %ol.column-group
+      - dcs.each do |datacolumn|
+        %li.column-item
+          - if show_edit_link
+            #loader.hidden Sending request...
+          .info
+            - if show_edit_link
+              = link_to 'Edit', "#", :class => "form_loader right"
+            .columnheader= datacolumn.columnheader
+            .definition= datacolumn.definition
+          - if show_edit_link
+            .js-form-content.hidden
+              = form_for datacolumn, html: {:remote => true, 'data-type' => :json} do |f|
+                = f.text_field :columnheader
+                = f.text_area :definition, style: 'height:100px;'
+                = f.submit
+                = link_to "Cancel", "#", :class => "button right cancel"
   .clear= will_paginate @datacolumns
 
   - if show_edit_link
     :javascript
       $(function(){
-        $(".datacolumn .form_loader").click(function(){
+        $(".column-item .form_loader").click(function(){
           var info = $(this).parent(".info");
-          var form = info.next("form");
-          var height = info.find(".definition").height();
+          var form = info.next(".js-form-content");
           $("input#datacolumn_columnheader", form).val($(".columnheader",info).text());
           $("textarea#datacolumn_definition", form).val($(".definition",info).text());
-          info.toggle().next("form").toggle().find('textarea').height(height);
+          info.toggle().next(".js-form-content").toggle();
+          $('textarea', form).height($('textarea', form)[0].scrollHeight+'px');
           return(false);
         });
-        $('.datacolumn .cancel').click(function(){
-          $(this).parent('form').toggle().prev(".info").toggle();
+        $('.column-item .cancel').click(function(){
+          $(this).closest('.js-form-content').toggle().prev(".info").toggle();
           return(false);
         })
-        $(".datacolumn form").submit(function(){
-          $(this).parent().find("#loader").show();
+        $(".column-item form").submit(function(){
+          $(this).closest(".column-item").find("#loader").show();
         });
-        $(".datacolumn form").on('ajax:success', function(evernt, data){
-          var info = $(this).prev(".info");
+        $(".column-item form").on('ajax:success', function(evernt, data){
+          var info = $(this).closest(".column-item").find(".info");
           if(data.error){
             info.prev("#loader").toggle();
             alert(data.error);
@@ -55,7 +59,7 @@
           else{
             $(".columnheader",info).text(data.columnheader);
             $(".definition",info).text(data.definition);
-            $(this).toggle().prevAll(".info, #loader").toggle();
+            $(this).parent().toggle().prevAll(".info, #loader").toggle();
           }
         });
       })

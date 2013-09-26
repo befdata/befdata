@@ -103,7 +103,7 @@ class DatagroupsController < ApplicationController
   def datacolumns
     respond_to do |format|
       format.html {
-        @datacolumns = @datagroup.datacolumns.includes(:dataset).paginate(:page => params[:page], :per_page => 20, :order => "columnheader")
+        @datacolumns = @datagroup.datacolumns.paginate(:page => params[:page], :per_page => 20, :order => "dataset_id, columnheader")
       }
       format.js { @headers = @datagroup.datacolumns.pluck(:columnheader) }
     end

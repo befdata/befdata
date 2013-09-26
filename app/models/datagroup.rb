@@ -26,14 +26,12 @@ class Datagroup < ActiveRecord::Base
   end
 
   def check_if_destroyable
-    unless !self.is_system_datagroup &&
-        (self.datacolumns.empty? || (self.datacolumns_count == 1 && self.datacolumns.first.destroyed?))
-      false
-    end
+    errors.add :base, "'#{self.title}' is a system datagroup, thus can't be deleted" and return false if self.is_system_datagroup
+    errors.add :base, "'#{self.title}' has associated datacolumns, thus can't be deleted" and return false if self.datacolumns(true).present?
+    return true
   end
 
   def is_system_datagroup
-    self.reload
     (self.type_id != Datagrouptype::DEFAULT)
   end
 
