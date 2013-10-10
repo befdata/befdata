@@ -47,10 +47,13 @@
         - @projects.each do |p|
           %li= link_to p, project_path(p.id)
 
-
-  - unless @dataset.usagerights.blank?
+  - if @dataset.usagerights.present? || @dataset.include_license?
     %h4 Usage Rights
     = simple_format @dataset.usagerights
+
+    - if @dataset.include_license?
+      = render :partial => 'sample_license', :locals => {f: @dataset}
+
   - unless @dataset.abstract.blank?
     %h4 Dataset Abstract
     = simple_format @dataset.abstract

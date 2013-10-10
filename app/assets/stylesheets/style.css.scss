@@ -358,10 +358,11 @@ input[type=button], input[type=submit], button, a.button {
   line-height: 1.3em;
 }
 
-input[type=button]:hover, input[type=submit]:hover, button:hover, a.button:hover,
-input[type=button]:focus, input[type=submit]:focus, button:focus, a.button:focus {
-  outline-color: #18921e;
-  background-color: #eee;
+input[type=button], input[type=submit], button, a.button,{
+  &:hover, &:focus, &:active, &:visited {
+    outline: solid 1px #18921e;
+    background-color: #eee;
+  }
 }
 
 a.button, button {
@@ -420,7 +421,7 @@ form .required:after {
     background-image: none;
 }
 .select2-container-multi.select2-container-active .select2-choices {
-    box-shadow        : none;
+    box-shadow: none;
     border: 1px solid #18921e;
     outline: none;
 }
@@ -428,6 +429,10 @@ form .required:after {
 .select2-container-active .select2-choice,
 .select2-container-active .select2-choices {
   border: 1px solid #18921e; //#5897fb;
+}
+
+.select2-drop {
+  border-color: #18921e;
 }
 
 /* --- Header ------------------------------------------------- */
@@ -640,14 +645,9 @@ span.dataset-comment {
 }
 
 .dataset-create-form, .paperproposal-metadata-form {
-  textarea {
-    width: 70%;
-    height: 200px;
-    resize: vertical;
-  }
-  input[type=text] {width: 70%; }
-  p { width: 70%; }
-  select { max-width: 70%; }
+  textarea { height: 200px; resize: vertical; }
+  textarea,input[type=text],p {width: 100%; }
+  select { max-width: 100%; }
 }
 
 /* --- Sidebar ----------------------------------------------- */

@@ -122,7 +122,6 @@ table#invalid-values-table input{
 textarea.metadata-text-input {
     width: 500px;
     height: 120px;
-    resize: vertical;
 }
 
 input[type=text].metadata-text-input {
@@ -395,7 +394,6 @@ ul#downloaders {
 
 .dataset-create-form {
   #access {
-    width: 70%;
     margin-bottom: 4em;
     #access-explanations {
       .term { display: none; width: 100%;}

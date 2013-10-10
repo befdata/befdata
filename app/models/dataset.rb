@@ -62,6 +62,7 @@ class Dataset < ActiveRecord::Base
                          :message => 'is invalid! access_code should be 0-3'
 
   before_destroy :check_for_paperproposals
+  before_save :set_include_license
 
   pg_search_scope :search, against: {
     title: 'A',
@@ -87,6 +88,11 @@ class Dataset < ActiveRecord::Base
         "can not be deleted while linked paperproposals exist [ids: #{paperproposals.map{|pp| pp.id}.join(", ")}]")
       return false
     end
+  end
+
+  def set_include_license
+    self.include_license = false unless self.free_for_public?
+    return true
   end
 
   def load_projects_and_authors_from_current_datafile

@@ -17,6 +17,16 @@
       %span.show_all Show all #{@dataset.dataset_downloads_count}
 
 %h2 Download #{link_to @dataset.title, @dataset}
+
+- if @dataset.include_license?
+  %div.license{style: 'margin-bottom: 1em;'}
+    This data set is published under
+    = link_to 'Open Data Access License', '#', id: 'toggle-license', :onclick => '$("#license-wrapper").slideToggle();return(false);'
+    , Please read the license before you download it.
+
+    %div#license-wrapper.hidden{style: 'border: dotted 1px green;padding:5px;'}
+      = render :partial => 'sample_license', :locals => {f: @dataset}
+
 %h3 You can choose one of these formats:
 
 #tabs.overflow.hidden

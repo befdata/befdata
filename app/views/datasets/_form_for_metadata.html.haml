@@ -1,4 +1,4 @@
-= form_for @dataset, :html => {:class => 'dataset-create-form'} do |f|
+= form_for @dataset, :html => {:class => 'dataset-create-form span-8 append-1'} do |f|
   = error_messages_for @dataset
 
   %h4 Title
@@ -30,8 +30,8 @@
         = project.to_label
 
   %h4 Access Rights
-  %noscript Enable javascript for this slider to work
   %div#access
+    %noscript Enable javascript for this slider to work
     = f.range_field :access_code, :id => 'access-code', :min => 0, :max => 3, :step => 1, :class => 'hidden'
     %div#access-explanations
       %p.term#access-0
@@ -60,45 +60,56 @@
       %span.tick{style: 'right: 0;text-align: right;'}<
         |
         %br> Free for public
+  %div
+    %div#license-controller{class: @dataset.include_license? ? 'right' : 'right hidden'}
+      = f.check_box :include_license?, style: 'margin: 0px;'
+      = f.label :include_license? do
+        Include a copy of
+        = link_to 'Open Data Access License', '#', id: 'show-license', title: 'Click to read the sample license'
+    %dl
+      %dt= f.label :usagerights, 'Additional Notes on Usage rights'
+      %dd= f.text_area :usagerights
+
+  %div#sample-license.hidden
+    %h3 Open Data Access User License
+    = render :partial => 'sample_license', :locals =>  {:f => @dataset}
+    = link_to 'Close', '#', class: 'button simplemodal-close', style: 'margin-left: 1px;'
 
   %h4 General Metadata
   %dl
     %dt= f.label :tag_list, "Keywords(separated by comma)"
     %dd= f.text_field :tag_list,{:id => "tag_list", :class => "metadata-text-input", "data-tags"=> all_tags_for_select2}
 
-    %dt= label_tag 'abstract'
+    %dt= f.label :abstract, 'Abstract'
     %dd= f.text_area :abstract
 
   - if  @dataset.has_research_data? || controller.action_name =="edit"
     %dl
-      %dt= label_tag 'Usage rights'
-      %dd= f.text_area :usagerights
-    %dl
-      %dt= label_tag 'published'
+      %dt= f.label :published, 'Published'
       %dd= f.text_area :published
     %dl
-      %dt= label_tag 'Spatial extent'
+      %dt= f.label :spatialextent, 'Spatial Extent'
       %dd= f.text_area :spatialextent
     %dl
-      %dt= label_tag 'Research start date'
+      %dt= label_tag 'Research Start Date'
       %dd= f.date_select :datemin, :default => @dataset.datemin, :start_year => Time.now.year - 15, :end_year => Time.now.year + 5
     %dl
-      %dt= label_tag 'Research end date'
+      %dt= label_tag 'Research End Date'
       %dd= f.date_select :datemax, :default => @dataset.datemax, :start_year => Time.now.year - 15, :end_year => Time.now.year + 5
     %dl
-      %dt= label_tag 'Temporal extent'
+      %dt= f.label :temporalextent, 'Temporal Extent'
       %dd= f.text_area :temporalextent
     %dl
-      %dt= label_tag 'Taxonomic extent'
+      %dt= f.label :taxonomicextent, 'Taxonomic Extent'
       %dd= f.text_area :taxonomicextent
     %dl
-      %dt= label_tag 'design'
+      %dt= f.label :design, 'Design'
       %dd= f.text_area :design
     %dl
-      %dt= label_tag 'Data analysis'
+      %dt= f.label :dataanalysis, 'Data Analysis'
       %dd= f.text_area :dataanalysis
     %dl
-      %dt= label_tag 'circumstances during data acquisition'
+      %dt= f.label :circumstances, 'Circumstances During Data Acquisition'
       %dd= f.text_area :circumstances
 
   %p
@@ -106,7 +117,7 @@
     field. This special comment field can not be seen by any other members of the project. However, project board
     members, administrators and you will see the comment on listing pages such as the project or staff pages.
     %dl
-      %dt= label_tag 'comment'
+      %dt= f.label :comment, 'comment'
       %dd= f.text_area :comment
 
   - unless @dataset.has_research_data? || controller.action_name=="edit"
@@ -122,7 +133,7 @@
     $("#tag_list").select2({
       tags: $("#tag_list").data("tags"),
       tokenSeparators: [",", ";", "，"],
-      width: "resolve",
+      width: "100%",
       minimumInputLength: 1,
       formatInputTooShort: function(){return ""}
     });
@@ -135,6 +146,22 @@
       slide: function(e, ui) {
         $("#access-code").val(ui.value);
         $("#access-explanations .term").hide().filter("#access-"+ui.value).show();
+        if (parseInt(ui.value) == 3) {
+          $("#license-controller").show();
+        } else {
+          $("#license-controller").hide();
+        }
       }
+    });
+
+    $('#show-license').click(function(e) {
+      $('#sample-license').modal(
+        {
+          overlayClose:true,
+          persist:true,
+          minHeight: 300
+        }
+      );
+      e.preventDefault();
     });
   });
