@@ -22,22 +22,14 @@ class DatasetEdit < ActiveRecord::Base
   end
 
   def notify(params)
-    return "true" if params[:notify].nil?
-    dataset = self.dataset
-    proposers = []
-    downloaders = []
-    # collect
+    return unless params
 
-    if params[:notify][:downloaders]
-      downloaders = dataset.dataset_downloads.collect{|dl| dl.user}
-    end
-    if params[:notify][:proposers]
-      proposers = dataset.paperproposals.collect{|pp| pp.author}
-    end
+    # collect
+    downloaders = params[:downloaders] ? dataset.downloaders  : []
+    proposers = params[:proposers] ? dataset.proposers : []
+
     #normalize
     [downloaders, proposers].each do |a|
-      a.flatten!
-      a.uniq!
       a.reject!{|x| dataset.owners.include?(x)}
     end
     downloaders = downloaders - proposers # proposers are more important
@@ -45,8 +37,6 @@ class DatasetEdit < ActiveRecord::Base
     #send notification
     proposers.each{|u| NotificationMailer.delay.dataset_edit(u, self, :proposer)}
     downloaders.each{|u| NotificationMailer.delay.dataset_edit(u, self, :downloader)}
-
-    'p/d' + proposers.collect{|u|u.id}.to_s + downloaders.collect{|u|u.id}.to_s
   end
 
 end

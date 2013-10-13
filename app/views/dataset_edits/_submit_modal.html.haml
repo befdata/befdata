@@ -15,10 +15,12 @@
         %h3 Notify connected users
         %p
           = check_box_tag('notify[downloaders]', true)
-          = label_tag 'notify[downloaders]', 'Downloaders'
+          = label_tag 'notify[downloaders]' do
+            = "Downloaders (#{@dataset.downloaders.count})"
         %p
           = check_box_tag('notify[proposers]', true)
-          = label_tag 'notify[proposers]', 'Paperproposal authors'
+          = label_tag 'notify[proposers]' do
+            = "Paperproposal authors (#{@dataset.proposers.count})"
         = f.submit 'Submit and notify'
   %p.close_hint
     Click somewhere outside or press ESC to cancel

@@ -1,19 +1,18 @@
 .last-edits
   %h4 Last edits
   = link_to 'show all', dataset_dataset_edits_path(@dataset)
-  - count = 1
   - @dataset.dataset_edits.limit(3).each do |e|
     .dataset-edit
       .edit-metadata
         %span.updated= e.updated_at.localtime.strftime "%Y-%m-%d %H:%M"
         - unless e.submitted
           = render :partial => 'dataset_edits/submit_modal', :locals => {:dataset_edit => e}
-      .edit-description{:class => count != 1 ? 'hidden' : ''}
-        - count += 1
+      .edit-description.hidden
         = sanitize(simple_format(e.description), :tags => %w(br p))
 
 :javascript
   $(function(){
+    $(".dataset-edit .edit-description:first").removeClass('hidden');
     $('.updated').click(function() {
       $(this).parent('.edit-metadata').parent('.dataset-edit').children('.edit-description').toggle();
     });

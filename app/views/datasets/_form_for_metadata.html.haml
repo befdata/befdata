@@ -61,7 +61,7 @@
         |
         %br> Free for public
   %div
-    %div#license-controller{class: @dataset.include_license? ? 'right' : 'right hidden'}
+    %div#license-controller{class: @dataset.free_for_public? ? 'right' : 'right hidden'}
       = f.check_box :include_license?, style: 'margin: 0px;'
       = f.label :include_license? do
         Include a copy of

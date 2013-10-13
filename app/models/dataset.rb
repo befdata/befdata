@@ -42,12 +42,15 @@ class Dataset < ActiveRecord::Base
   has_many :freeformats, :as => :freeformattable, :dependent => :destroy
 
   has_many :dataset_downloads
+  has_many :downloaders, :through => :dataset_downloads, :source => :user, :uniq => true
+
   has_many :dataset_edits, :order => 'updated_at DESC', :dependent => :destroy
   has_one :unsubmitted_edit, :class_name => 'DatasetEdit', :conditions => ['submitted=?',false]
 
   has_and_belongs_to_many :projects
   has_many :dataset_paperproposals
   has_many :paperproposals, :through => :dataset_paperproposals
+  has_many :proposers, :through => :paperproposals, :source => :author, :uniq => true
 
   validates :title, :presence => true, :uniqueness => { case_sensitive: false }
 

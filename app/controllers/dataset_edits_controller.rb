@@ -20,13 +20,16 @@ class DatasetEditsController < ApplicationController
   end
 
   def submit
-    @dataset_edit.submitted = true
-    if @dataset_edit.update_attributes(params[:dataset_edit])
-      result = "Submitted to dataset edit log. "
-      result << @dataset_edit.notify(params).to_s
-      flash[:notice] = result
+    if params[:notify].blank?
+      flash[:error] = "You should choose to whom the notifications are sent !"
+      redirect_to :back and return
+    end
+
+    if @dataset_edit.update_attributes(params[:dataset_edit].merge({submitted: true}))
+      @dataset_edit.notify(params[:notify])
+      flash[:notice] = "Notifications were successfully submitted and sent, Thanks!"
     else
-      flash[:error] = @dataset_edit.errors.to_sentence
+      flash[:error] = @dataset_edit.errors.full_messages.to_sentence
     end
     redirect_to :back
   end
