@@ -1,3 +1,5 @@
+- page_title "Keywords of #{@dataset.title}"
+
 - editable = current_user && (current_user.has_role?(:owner, @dataset) || current_user.has_role?(:admin))
 
 - content_for :actions do

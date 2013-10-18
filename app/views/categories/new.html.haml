@@ -1,3 +1,5 @@
+- page_title "Add categories to #{@datagroup.title}"
+
 - content_for :actions do
   = link_to datagroup_path(@datagroup) do
     = image_tag 'back.png'
@@ -51,6 +53,8 @@
             %th Description
             %th Action
         %tbody
+      #empty-identifier
+        Categories added via the form above will be displayed here.
   %div#import-csv.hidden
     .prepend-1
       .step
@@ -121,6 +125,7 @@
         update_counter(data.count);
         $("form#new_category").get(0).reset();
         $("table.tablesorter").trigger('update');
+        $("#added #empty-identifier").hide();
       }
     });
     $('#added table tbody').on('ajax:success', "a[data-method='delete']", function(event, data){

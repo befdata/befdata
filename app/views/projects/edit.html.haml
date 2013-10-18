@@ -1,2 +1,4 @@
+- page_title "Edit Project: #{@project.name}"
+
 %h2 Edit Project #{link_to @project.name, @project}
 = render partial: "form_for_project", :locals => {:roles => @roles }

@@ -1,3 +1,5 @@
+- page_title "Staff"
+
 %h2 BEF Staff
 - if current_user && current_user.has_role?(:admin)
   .span-4#user-index{:class => cycle('noborder', 'noborder', 'last', :name => 'display_in_columns')}

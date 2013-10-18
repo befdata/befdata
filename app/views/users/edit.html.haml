@@ -1,3 +1,5 @@
+- page_title "Edit user: #{@user}"
+
 %h2 Editing profile of #{link_to @user, @user}
 
 = render :partial => 'form_for_user', :locals => { :project_roles => @project_roles }

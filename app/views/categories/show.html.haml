@@ -1,3 +1,5 @@
+- page_title "Category: #{@category.short}"
+
 - content_for :actions do
   - unless @category.sheetcells.empty?
     = link_to category_path(:id => @category, :format => :csv) do

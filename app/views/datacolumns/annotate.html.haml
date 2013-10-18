@@ -1,3 +1,5 @@
+- page_title "Semantical tagging of #{@datacolumn.columnheader}"
+
 %h3 Semantical type 
 
 = form_tag update_annotation_datacolumn_path(@datacolumn) do
@@ -6,7 +8,6 @@
     %dt= label_tag 'new_term', 'Or Create New Term: '
     %dd= text_field_tag 'new_term','', {size: 40}
   = submit_tag
-
 
 :javascript
   $("#datacolumn_term_id").select2({

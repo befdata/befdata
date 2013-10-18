@@ -1,6 +1,10 @@
 module ApplicationHelper
   include Acl9Helpers
 
+  def with_customized_layout?
+    LayoutHelper::BEF_LAYOUT != "application"
+  end
+
   def tag_cloud(tag_counts, classes)
     return if tag_counts.blank?
 
@@ -20,6 +24,10 @@ module ApplicationHelper
 
   def all_tags_for_select2
     ActsAsTaggableOn::Tag.pluck(:name).sort.to_json
+  end
+
+  def page_title(title)
+    content_for :title, title
   end
 
 end

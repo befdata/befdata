@@ -4,9 +4,17 @@
     %meta{:content => "text/html; charset=utf-8", "http-equiv" => "Content-Type"}
     = stylesheet_link_tag 'application'
     = javascript_include_tag 'application'
-    - unless LayoutHelper::BEF_LAYOUT == "application"
+    - if with_customized_layout?
       = stylesheet_link_tag 'site'
       = javascript_include_tag 'site'
+    %title
+      = SITE_CONFIG[:title]
+      - if content_for? :title
+        |
+        = yield(:title)
+      - elsif SITE_CONFIG[:subtitle]
+        |
+        = SITE_CONFIG[:subtitle]
     = csrf_meta_tags
     = render :partial => "pages/#{LayoutHelper::BEF_LAYOUT}/head"
   %body

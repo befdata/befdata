@@ -1,3 +1,5 @@
+- page_title "Approve #{@dataset.title}"
+
 %table#columns-table.tablesorter
   %thead
     %tr
@@ -28,9 +30,10 @@
   %p
     There are sufficient information to automatically and at once approve the columns marked with #{"\u2713"}.
     - if @dataset.number_of_observations > 10000
-      %b But
-      This dataset has too many rows than we can handle. The
-      %tt Auto Approve
-      process can be too slow to be tolerable. We suggest you approving the data columns one by one.
+      %p
+        %b But
+        This dataset has too many rows than we can handle. The
+        %tt Auto Approve
+        process can be too slow to be tolerable. We suggest you approving the data columns one by one.
   = form_tag :action => 'approve_predefined', :controller => 'datasets' , :id => @dataset.id do
     = submit_tag 'Auto-approve', :confirm => "Are you sure you want to automatically approve #{@predefined_columns.count} columns?"
