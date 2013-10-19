@@ -2,6 +2,13 @@ site:
   #set layout to use one different than standard befdata
   #layout: 'fundiv'
 
+  # Specify the title of your site which will appear at the browser title bar.
+  # uncomment subtitle if you need a subtitle
+  # the resulting pattern would be "title | subtitle" for the home page
+  # and "title | page_title" for the other pages.
+  title: Biodiversity
+  # subtitle:
+
   #set the id of a dataset which can be used as an example to show how datasets work
   example_dataset_id: 1
 
