@@ -44,7 +44,6 @@ protected
     LayoutHelper::BEF_LAYOUT
   end
 
-
 private
 
   def current_user_session

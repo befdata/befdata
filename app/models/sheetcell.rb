@@ -7,13 +7,6 @@ class Sheetcell < ActiveRecord::Base
 
   belongs_to :datacolumn
   belongs_to :category
-  after_initialize :set_default_status
-
-  def set_default_status
-    if @new_record
-      self.status_id = Sheetcellstatus::UNPROCESSED
-    end
-  end
 
   # Datatypes are defined in config/initializers/datatype_load.rb and the valitation procedures are 
   # stored in https://github.com/befdata/befdata/blob/master/db/non_schema_sql.sql

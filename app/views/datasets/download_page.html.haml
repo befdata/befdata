@@ -41,12 +41,12 @@
     %h3 CSV file with separate category columns
     %p Same as Regular CSV file, but the invalid values are stored in a separate column. For dataset that hasn't been approved yet, it's same with Regular CSV file.
     #download
-      = link_to "Download", download_dataset_url(@dataset, :csv, :separate_category_columns => true), class: 'button'
+      = link_to "Download", download_dataset_url(@dataset, :csv, :separate_category_columns => true), class: 'button', rel: 'nofollow'
   #csv
     %h3 Regular CSV file
     %p This correspondes to the raw data sheet of the Excel file, containing only data.
     #download
-      = link_to "Download", download_dataset_path(@dataset, :csv), class: 'button'
+      = link_to "Download", download_dataset_path(@dataset, :csv), class: 'button', rel: 'nofollow'
   #xls
     %div.overflow
       %h3.left MS-Excel2003 file
@@ -62,7 +62,7 @@
     %p
       This is the same as the workbook the owner uploaded, including all the data and metadata.
     #download
-      = link_to "Download", download_dataset_path(@dataset), class: 'button'
+      = link_to "Download", download_dataset_path(@dataset), class: 'button', rel: 'nofollow'
 
 :javascript
   $(function(){

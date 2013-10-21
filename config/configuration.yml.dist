@@ -9,9 +9,6 @@ site:
   title: Biodiversity
   # subtitle:
 
-  #set the id of a dataset which can be used as an example to show how datasets work
-  example_dataset_id: 1
-
   #Add your google analytics account here if you wish to use analytics.
   #google_analytics_account: 'UA-0000000-1'
 
