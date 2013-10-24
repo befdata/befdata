@@ -1,132 +1,124 @@
-= form_for @dataset, :html => {:class => 'dataset-create-form span-8 append-1'} do |f|
+= form_for @dataset, html: {class: 'span-9 access-setting-form', autocomplete: 'off'} do |f|
   = error_messages_for @dataset
-
   %h4 Title
-  %dl
-    %dd= f.text_field :title, :class => 'text-input'
+  .form-group
+    = f.label :title, 'Title', class: 'control-label required'
+    .control-group
+      = f.text_field :title
+  %h4 Ownership
+  .form-group
+    = label_tag 'author', 'Authors', class: 'control-label'
+    .control-group
+      = f.select :owner_ids, all_users_names_and_ids_for_select, {}, {:multiple => true, class: 'select2'}
+      - if @unfound_usernames.present?
+        %ul.unfound_authors
+          - @unfound_usernames.each do |uu|
+            %li.unfound_author= uu
+  .form-group
+    %span.control-label Belongs to projects
+    .control-group
+      = f.select :project_ids, all_projects_for_select, {}, {:multiple => true, class: 'select2'}
+  %h4 Acess rights
+  .form-group
+    %span.control-label Acess Rights
+    .control-group
+      %div.access-option
+        = f.radio_button :access_code, Dataset::ACCESS_CODES[:private], {id: 'private'}
+        = label_tag 'private', 'Private'
+        .help-block No one can download this data and its attachments, Unless his/her paper proposal has been accepted.
+      %div.access-option
+        = f.radio_button :access_code, Dataset::ACCESS_CODES[:free_within_project], {id: 'free-within-projects'}
+        = label_tag 'free-within-projects', 'Free within projects'
+        .help-block Members of projects you selected above can download this data and its attachments
+      %div.access-option
+        = f.radio_button :access_code, Dataset::ACCESS_CODES[:free_for_members], {id: 'free-for_members'}
+        = label_tag 'free-for_members', 'Free for Members'
+        .help-block  All members of the portal can download this data and its attachments
+      %div.access-option
+        = f.radio_button :access_code, Dataset::ACCESS_CODES[:free_for_public], {id: 'free-for_public'}
+        = label_tag 'free-for_public', 'Free for Public'
+        .help-block All people can download this data and its attachments
+        .license-control
+          = f.check_box :include_license, disabled: !@dataset.free_for_public?, style: 'margin: 0px;'
+          = f.label :include_license do
+            Include a copy of
+            = link_to 'Open Data Acess License', '#', id: 'show-license', title: 'Click to read the sample license'
+        %div#sample-license.hidden
+          %h3 Open Data Access User License
+          = render :partial => 'sample_license', :locals =>  {:f => @dataset}
+          = link_to 'Close', '#', class: 'button simplemodal-close', style: 'margin-left: 1px;'
+  .form-group
+    = f.label :usagerights, 'Addtional notes on usage rights', class: 'control-label'
+    .control-group
+      = f.text_area :usagerights, :rows => 5
 
-  %h4 Ownership information
-  - unless @unfound_usernames.blank?
-    %p
-      The following names could not be matched within the portal:
-      = @unfound_usernames.join(', ')
-  %dl
-    %dt= label_tag 'Owners', nil
-    %dd= select "person", "person_id", all_users_names_and_ids_for_select, {:prompt => 'Select Member'}, {:onchange => 'selectPeople(this)'}
-  %ul#people-list
-    - @dataset.owners.each do |user|
-      %li{:onclick => "this.parentNode.removeChild(this);"}
-        %input{:name => "people[]", :type => "hidden", :value => user.id}/
-        = image_tag 'cancel.png'
-        = user.to_label
-  %dl
-    %dt= label_tag 'Select projects', nil
-    %dd= select "project", "project_id", all_projects_for_select, {:prompt => 'Select Project'}, {:onchange => 'selectProjects(this)'}
-  %ul#projects-list{:style => 'list-style: none;'}
-    - @dataset.projects.each do |project|
-      %li{:onclick => "this.parentNode.removeChild(this);"}
-        %input{:name => "dataset[project_ids][]", :type => "hidden", :value => project.id}/
-        = image_tag 'cancel.png'
-        = project.to_label
+  %h4 General Meta Data
+  .form-group
+    = f.label :tag_list, "Keywords", class: 'control-label'
+    .control-group
+      = f.text_field :tag_list,{:id => "tag_list", :class => "metadata-text-input select2", "data-tags"=> all_tags_for_select2}
+      %p.help-block
+        keywords can be separated by comma or semicolon
+  .form-group
+    = f.label :abstract, 'Abstract', class: 'control-label required'
+    .control-group
+      = f.text_area :abstract, :rows => 13
 
-  %h4 Access Rights
-  %div#access
-    %noscript Enable javascript for this slider to work
-    = f.range_field :access_code, :id => 'access-code', :min => 0, :max => 3, :step => 1, :class => 'hidden'
-    %div#access-explanations
-      %p.term#access-0
-        %b Private:
-        No one can download this data and its attachments, Unless his/her paper proposal has been accepted.
-      %p.term#access-1
-        %b Free within projects:
-        Members of projects you selected above can download this data and its attachments
-      %p.term#access-2
-        %b Free for members:
-        All members of the portal can download this data and its attachments
-      %p.term#access-3
-        %b Free for public:
-        All people can download this data and its attachments
-    %div#access-code-slider
-    %div#ticks
-      %span.tick{style: 'left: 0;text-align: left;margin-left: 0px'}<
-        |
-        %br> Private
-      %span.tick{style: 'left: 33.3333334%;'}<
-        |
-        %br> Free within projects
-      %span.tick{style: 'left: 66.667%;'}<
-        |
-        %br> Free for members
-      %span.tick{style: 'right: 0;text-align: right;'}<
-        |
-        %br> Free for public
-  %div
-    %div#license-controller{class: @dataset.free_for_public? ? 'right' : 'right hidden'}
-      = f.check_box :include_license?, style: 'margin: 0px;'
-      = f.label :include_license? do
-        Include a copy of
-        = link_to 'Open Data Access License', '#', id: 'show-license', title: 'Click to read the sample license'
-    %dl
-      %dt= f.label :usagerights, 'Additional Notes on Usage rights'
-      %dd= f.text_area :usagerights
+  - hide_fields = !(@dataset.has_research_data? || controller.action_name=="edit")
+  - if hide_fields
+    = link_to "+ Show More fields", '#', onclick: '$(this).hide();$("#more-fields").show();return false;'
+  %div#more-fields{class: hide_fields ? 'hidden' : ''}
+    .form-group
+      = f.label :published, 'Published', class: 'control-label'
+      .control-group
+        = f.text_area :published, :rows => 4
+    .form-group
+      = f.label :spatialextent, 'Spatial Extent', class: 'control-label'
+      .control-group
+        = f.text_area :spatialextent, :rows => 10
+    .form-group
+      = f.label :datemin, 'Start Date', class: 'control-label'
+      .control-group
+        = f.date_select :datemin, :default => @dataset.datemin, :start_year => Time.now.year - 15, :end_year => Time.now.year + 5
+    .form-group
+      = label_tag '', 'End Date', class: 'control-label'
+      .control-group
+        = f.date_select :datemax, :default => @dataset.datemax, :start_year => Time.now.year - 15, :end_year => Time.now.year + 5
+    .form-group
+      = f.label :temporalextent, 'Temporal Extent', class: 'control-label'
+      .control-group
+        = f.text_area :temporalextent, :rows => 4
+    .form-group
+      = f.label :taxonomicextent, 'Taxonomic Extent', class: 'control-label'
+      .control-group
+        = f.text_area :taxonomicextent, :rows => 7
+    .form-group
+      = f.label :design, 'Design', class: 'control-label'
+      .control-group
+        = f.text_area :design, :rows => 7
+    .form-group
+      = f.label :dataanalysis, 'Data Analysis', class: 'control-label'
+      .control-group
+        = f.text_area :dataanalysis, :rows => 7
+    .form-group
+      = f.label :circumstances, 'Circumstances During Data Acquisition', class: 'control-label'
+      .control-group
+        = f.text_area :circumstances, :rows => 7
 
-  %div#sample-license.hidden
-    %h3 Open Data Access User License
-    = render :partial => 'sample_license', :locals =>  {:f => @dataset}
-    = link_to 'Close', '#', class: 'button simplemodal-close', style: 'margin-left: 1px;'
-
-  %h4 General Metadata
-  %dl
-    %dt= f.label :tag_list, "Keywords(separated by comma)"
-    %dd= f.text_field :tag_list,{:id => "tag_list", :class => "metadata-text-input", "data-tags"=> all_tags_for_select2}
-
-    %dt= f.label :abstract, 'Abstract'
-    %dd= f.text_area :abstract
-
-  - if  @dataset.has_research_data? || controller.action_name =="edit"
-    %dl
-      %dt= f.label :published, 'Published'
-      %dd= f.text_area :published
-    %dl
-      %dt= f.label :spatialextent, 'Spatial Extent'
-      %dd= f.text_area :spatialextent
-    %dl
-      %dt= label_tag 'Research Start Date'
-      %dd= f.date_select :datemin, :default => @dataset.datemin, :start_year => Time.now.year - 15, :end_year => Time.now.year + 5
-    %dl
-      %dt= label_tag 'Research End Date'
-      %dd= f.date_select :datemax, :default => @dataset.datemax, :start_year => Time.now.year - 15, :end_year => Time.now.year + 5
-    %dl
-      %dt= f.label :temporalextent, 'Temporal Extent'
-      %dd= f.text_area :temporalextent
-    %dl
-      %dt= f.label :taxonomicextent, 'Taxonomic Extent'
-      %dd= f.text_area :taxonomicextent
-    %dl
-      %dt= f.label :design, 'Design'
-      %dd= f.text_area :design
-    %dl
-      %dt= f.label :dataanalysis, 'Data Analysis'
-      %dd= f.text_area :dataanalysis
-    %dl
-      %dt= f.label :circumstances, 'Circumstances During Data Acquisition'
-      %dd= f.text_area :circumstances
-
+  %h4 To Project board
   %p
     If you have any comments which you only want to share with administrators and members of the project board use this
     field. This special comment field can not be seen by any other members of the project. However, project board
     members, administrators and you will see the comment on listing pages such as the project or staff pages.
-    %dl
-      %dt= f.label :comment, 'comment'
-      %dd= f.text_area :comment
-
-  - unless @dataset.has_research_data? || controller.action_name=="edit"
-    %p
-      More details about this dataset can be entered later by editing it.
-
-  %dl
-    %dt
-    %dd= submit_tag 'Save Metadata'
+  .form-group
+    = f.label :comment, 'Comment', class: 'control-label'
+    .control-group
+      = f.text_area :comment, :rows => 7
+  %hr
+  .form-group
+    %span.control-label
+    .control-group
+      = submit_tag "Save", class: 'same-line'
 
 :javascript
   $(document).ready(function(){
@@ -137,23 +129,7 @@
       minimumInputLength: 1,
       formatInputTooShort: function(){return ""}
     });
-    $("#access-explanations .term").filter("#access-"+ $("#access-code").val()).show();
-    $("#access-code-slider").slider({
-      animate: 300,
-      min: 0,
-      max: 3,
-      value: $("#access-code").val(),
-      slide: function(e, ui) {
-        $("#access-code").val(ui.value);
-        $("#access-explanations .term").hide().filter("#access-"+ui.value).show();
-        if (parseInt(ui.value) == 3) {
-          $("#license-controller").show();
-        } else {
-          $("#license-controller").hide();
-        }
-      }
-    });
-
+    $('select.select2').select2({ width: '100%' });
     $('#show-license').click(function(e) {
       $('#sample-license').modal(
         {
@@ -165,3 +141,13 @@
       e.preventDefault();
     });
   });
+
+  var public_radio_button = $("input:radio[name='dataset[access_code]']").filter("#free-for_public");
+  var license_controll = $("#dataset_include_license:checkbox");
+  $("input:radio[name='dataset[access_code]']").change(function(){
+    if (public_radio_button.is(":checked")) {
+      license_controll.attr('disabled', false);
+    } else {
+      license_controll.attr('disabled', true);
+    }
+  })

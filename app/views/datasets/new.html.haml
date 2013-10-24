@@ -11,7 +11,7 @@
         %dt= f.label :file, 'Excel workbook'
         %dd
           = f.file_field :file
-          .help-text This should be a Excel-2003(.xls) file
+          .help-block This should be a Excel-2003(.xls) file
       = f.submit "Submit", :value => 'Upload'
 
   .span-5.last
@@ -36,7 +36,7 @@
         %dt= f.label :file, 'CSV file'
         %dd
           = f.file_field :file
-          .help-text This should be a valid CSV file
+          .help-block This should be a valid CSV file
       = f.submit 'Submit', :value => 'Upload'
 
   .span-5.last

@@ -41,5 +41,6 @@ Befchina::Application.configure do
 
   # For the use of Paperclip Image Manipulation - the path to ImageMagic executables
   Paperclip.options[:command_path] = "/usr/bin/"
+  Paperclip.options[:log] = false
 end
 

@@ -12,7 +12,6 @@
  *= require jquery.ui.accordion
  *= require jquery.ui.autocomplete
  *= require jquery.ui.tabs
- *= require jquery.ui.slider
  *= require select2
  *= require_tree .
  */

@@ -27,6 +27,9 @@ require 'acl_patch'
 class Dataset < ActiveRecord::Base
   include PgSearch
   include AclPatch
+
+  attr_writer :owner_ids
+
   acts_as_authorization_object :subject_class_name => 'User'
   acts_as_taggable
 
@@ -53,19 +56,17 @@ class Dataset < ActiveRecord::Base
   has_many :proposers, :through => :paperproposals, :source => :author, :uniq => true
 
   validates :title, :presence => true, :uniqueness => { case_sensitive: false }
-
   ACCESS_CODES = {
     private: 0,
     free_within_project: 1,
     free_for_members: 2,
     free_for_public: 3
   }
-
   validates_inclusion_of :access_code, :in => ACCESS_CODES.values,
                          :message => 'is invalid! access_code should be 0-3'
 
   before_destroy :check_for_paperproposals
-  before_save :set_include_license
+  before_save :set_include_license, :check_author
 
   pg_search_scope :search, against: {
     title: 'A',
@@ -84,19 +85,6 @@ class Dataset < ActiveRecord::Base
       prefix: true
     }
   }
-
-  def check_for_paperproposals
-    if paperproposals.count > 0
-      errors.add(:dataset,
-        "can not be deleted while linked paperproposals exist [ids: #{paperproposals.map{|pp| pp.id}.join(", ")}]")
-      return false
-    end
-  end
-
-  def set_include_license
-    self.include_license = false unless self.free_for_public?
-    return true
-  end
 
   def load_projects_and_authors_from_current_datafile
     return unless current_datafile
@@ -333,6 +321,10 @@ class Dataset < ActiveRecord::Base
     get_user_with_role(:owner)
   end
 
+  def owner_ids
+    owners.map(&:id)
+  end
+
   def owners= (people)
     set_user_with_role(:owner, people)
   end
@@ -373,5 +365,32 @@ class Dataset < ActiveRecord::Base
     return false unless user
     return true if user.has_role?(:owner, self) || user.has_role?(:admin) || user.has_role?(:data_admin)
     false
+  end
+
+  private
+
+  def check_for_paperproposals
+    if paperproposals.count > 0
+      errors.add(:dataset,
+                 "can not be deleted while linked paperproposals exist [ids: #{paperproposals.map{|pp| pp.id}.join(", ")}]")
+      return false
+    end
+  end
+
+  def set_include_license
+    self.include_license = false unless self.free_for_public?
+    return true
+  end
+
+  def check_author
+    if @owner_ids
+      @owner_ids.reject!(&:blank?)
+      if @owner_ids.empty?
+        self.errors.add :base, 'The dataset should have at least one author.'
+        return false
+      else
+        self.owners = User.find(@owner_ids)
+      end
+    end
   end
 end

@@ -387,43 +387,52 @@ ul#downloaders {
   }
   input[type=text] { width: 80%;}
   input[type=file] { margin-bottom: 0px;}
-  .help-text {display: block; color: #737373; }
   &:after {content: ''; clear: both; display: block; }
   ul>li {list-style-type: disc; list-style-position: inside; line-height: 0.7em;}
 }
 
-.dataset-create-form {
-  #access {
-    margin-bottom: 4em;
-    #access-explanations {
-      .term { display: none; width: 100%;}
-    }
-    #access-code-slider {
-      height: 7px;
-      background: #ccc;
-      background: -webkit-linear-gradient(top, #bbb, #ddd);
-      background: -moz-linear-gradient(top, #bbb, #ddd);
-      background: linear-gradient(top, #bbb, #ddd);
-      .ui-slider-handle {
-        height: 15px;
-        width: 15px;
-        margin-left: -8px;
-        top: -5px;
-        background-color: #8DCA09;
-        border: solid 1px #18921e;
-        background-image: none;
-        cursor: move;
-      }
-    }
-    #ticks {
-      position: relative;
-      .tick {
-        position: absolute;
-        line-height: 1.1em;
-        width: 150px;
-        margin-left: -75px;
-        text-align: center;
-      }
-    }
+.form-group {
+  *zoom: 1;
+  margin-bottom: 0.8em;
+  &:before, &:after {
+    display: table;
+    content: ' ';
   }
+  &:after { clear: both; }
+  .control-label, .control-group {
+    float: left;
+    box-sizing: border-box;
+    -moz-box-sizing:border-box;
+    -webkit-box-sizing:border-box;
+    padding: 1px 5px;
+    padding: 1px 5px;
+  }
+  .control-label {
+    display: block;
+    width: 25%;
+  }
+  .control-group {
+    width: 75%;
+    textarea, input[type=text], input[type=password], input[type=url],
+    input[type=tel] {
+      width: 100%;
+    }
+    textarea, input {margin-bottom: 1px;}
+    input[type=submit], button, a.button {margin-top: 1em;}
+    input[type=submit].same-line, button.same-line, a.button.same-line {margin-top: 1px;}
+  }
+}
+.help-block {
+  display: block;
+  margin-top: 2px;
+  margin-bottom:5px;
+  color: #737373;
+  line-height:1.4em;
+}
+
+.access-option {
+  margin-left: 25px;
+  margin-bottom:1em;
+  .license-control {margin-top: 5px;}
+  input[type=radio] {float:left;margin-left: -25px;margin-top:5px;}
 }

@@ -68,5 +68,6 @@ Befchina::Application.configure do
   # config.active_record.auto_explain_threshold_in_seconds = 0.5
 
   Paperclip.options[:command_path] = "/usr/bin"
+  Paperclip.options[:log] = false
 
 end

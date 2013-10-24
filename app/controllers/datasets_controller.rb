@@ -1,8 +1,6 @@
 class DatasetsController < ApplicationController
   skip_before_filter :deny_access_to_all
-  before_filter :load_dataset, :only => [:download, :download_page, :show, :edit, :edit_files, :update, :approve, :approve_predefined,
-                                         :update_workbook, :destroy, :regenerate_download,
-                                         :approval_quick, :batch_update_columns, :keywords, :download_status, :freeformats_csv]
+  before_filter :load_dataset, :except => [:new, :create, :create_with_datafile, :importing, :index, :download_excel_template]
 
   before_filter :redirect_if_without_workbook, :only => [:download, :download_page, :regenerate_download,
                           :approve, :approve_predefined, :batch_update_columns, :approval_quick]
@@ -72,14 +70,11 @@ class DatasetsController < ApplicationController
   end
 
   def update
-    users_given_as_provenance = params[:people].blank? ? [current_user] : User.find(params[:people])
-    @dataset.owners = users_given_as_provenance
-
-    @dataset.refresh_paperproposal_authors
-
-    if @dataset.update_attributes(params[:dataset].reverse_merge("project_ids" => []))
-      redirect_to dataset_path, notice: "Sucessfully Saved"
+    if @dataset.update_attributes(params[:dataset])
+      @dataset.refresh_paperproposal_authors if params[:dataset][:owner_ids].present?
+      # TODO: should not refresh all authors of the pp
       @dataset.log_edit('Metadata updated')
+      redirect_to dataset_path, notice: "Sucessfully Saved"
     else
       last_request = request.env["HTTP_REFERER"]
       render :action => (last_request == edit_dataset_url(@dataset) ? :edit : :create)
