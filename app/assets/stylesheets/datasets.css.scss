@@ -413,10 +413,8 @@ ul#downloaders {
   }
   .control-group {
     width: 75%;
-    textarea, input[type=text], input[type=password], input[type=url],
-    input[type=tel] {
-      width: 100%;
-    }
+    textarea, input[type=text], input[type=password], input[type=url],input[type=tel] { width: 100%; }
+    textarea {resize: vertical;}
     textarea, input {margin-bottom: 1px;}
     input[type=submit], button, a.button {margin-top: 1em;}
     input[type=submit].same-line, button.same-line, a.button.same-line {margin-top: 1px;}

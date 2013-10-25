@@ -1,4 +1,4 @@
-= form_for @paperproposal, :html => {:class => 'paperproposal-metadata-form '} do |f|
+= form_for @paperproposal, :html => {:class => 'paperproposal-metadata-form span-8'} do |f|
   = f.error_messages
   %dl
     %dt= f.label :title, class: 'required'
@@ -8,10 +8,10 @@
       %p Initial title was: #{@paperproposal.initial_title}
 
     %dt= f.label :rationale, class: 'required'
-    %dd= f.text_area :rationale
+    %dd= f.text_area :rationale, :rows => 20
 
     %dt= f.label :envisaged_journal
-    %dd= f.text_area :envisaged_journal, rows: 2, :style => 'height: auto'
+    %dd= f.text_area :envisaged_journal, rows: 2
 
     %dt= f.label :state
     %dd= f.select :state, ["in prep", "manuscript avaible", "in review", "accepted"]
@@ -23,7 +23,7 @@
     %dd= f.text_field :external_data
 
     %dt= f.label :comment
-    %dd= f.text_area :comment
+    %dd= f.text_area :comment, :rows => 10
 
     %h3 Authorship
     - unless limited_edit_of_final?

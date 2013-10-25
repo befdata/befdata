@@ -644,8 +644,8 @@ span.dataset-comment {
     font-size: 0.8em;
 }
 
-.dataset-create-form, .paperproposal-metadata-form {
-  textarea { height: 200px; resize: vertical; }
+.paperproposal-metadata-form {
+  textarea { resize: vertical; }
   textarea,input[type=text],p {width: 100%; }
   select { max-width: 100%; }
 }

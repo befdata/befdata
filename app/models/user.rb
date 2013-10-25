@@ -38,21 +38,7 @@ class User < ActiveRecord::Base
   }
 
   before_save :change_avatar_file_name, :add_protocol_to_url
-
-  def change_avatar_file_name
-    if avatar_file_name && avatar_file_name_changed?
-      new_name = "#{id}_#{lastname}#{File.extname(avatar_file_name).downcase}"
-      if avatar_file_name != new_name
-        self.avatar.instance_write(:file_name, new_name)
-      end
-    end
-  end
-
-  def add_protocol_to_url
-    unless self.url.blank?
-      /^http/.match(self.url) ? self.url : self.url = "http://#{url}"
-    end
-  end
+  before_destroy :check_destroyable
 
   def to_s
     if salutation.blank?
@@ -81,47 +67,22 @@ class User < ActiveRecord::Base
     "#{full_name} <#{email}>"
   end
 
-  def admin
-    self.has_role? :admin
-  end
-
-  def admin=(string_boolean)
-    if string_boolean == "1"
-      self.has_role! :admin
-    else
-      self.has_no_role! :admin
+  %w{admin data_admin project_board}.each do |role|
+    define_method(role) do
+      self.has_role? role.to_sym
     end
-  end
 
-  def self.all_admins
-    Role.find_by_name('admin').users
-  end
-
-  def project_board
-    self.has_role? :project_board
-  end
-
-  def project_board=(string_boolean)
-    if string_boolean == "1"
-      self.has_role! :project_board
-    else
-      self.has_no_role! :project_board
+    define_method("#{role}=") do |value|
+      case value
+      when true, 1, '1'
+        self.has_role! role.to_sym
+      when false, 0, '0'
+        self.has_no_role! role.to_sym
+      end
     end
-  end
 
-  def self.all_project_boards
-    Role.find_by_name('project_board').users
-  end
-
-  def data_admin
-    self.has_role? :data_admin
-  end
-
-  def data_admin=(string_boolean)
-    if string_boolean == "1"
-      self.has_role! :data_admin
-    else
-      self.has_no_role! :data_admin
+    define_singleton_method("all_#{role}s") do
+      Role.find_by_name(role).users
     end
   end
 
@@ -146,14 +107,6 @@ class User < ActiveRecord::Base
     (datasets_owned.count + paperproposals.count + datasets_with_responsible_datacolumns.count).zero?
   end
 
-  before_destroy :check_destroyable
-  def check_destroyable
-    unless destroyable?
-      errors.add(:base, "#{full_name} still owns some resources, thus can not be deleted!")
-      return false
-    end
-  end
-
   def projects
     roles_for(Project).map(&:authorizable)
   end
@@ -172,5 +125,29 @@ class User < ActiveRecord::Base
 
   def open_votes_count
     self.paperproposal_votes.where("vote = 'none'").count
+  end
+
+  private
+
+  def change_avatar_file_name
+    if avatar_file_name && avatar_file_name_changed?
+      new_name = "#{id}_#{lastname}#{File.extname(avatar_file_name).downcase}"
+      if avatar_file_name != new_name
+        self.avatar.instance_write(:file_name, new_name)
+      end
+    end
+  end
+
+  def add_protocol_to_url
+    unless self.url.blank?
+      /^http/.match(self.url) ? self.url : self.url = "http://#{url}"
+    end
+  end
+
+  def check_destroyable
+    unless destroyable?
+      errors.add(:base, "#{full_name} still owns some resources, thus can not be deleted!")
+      return false
+    end
   end
 end

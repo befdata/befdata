@@ -58,7 +58,7 @@ class Dataset < ActiveRecord::Base
   validates :title, :presence => true, :uniqueness => { case_sensitive: false }
   ACCESS_CODES = {
     private: 0,
-    free_within_project: 1,
+    free_within_projects: 1,
     free_for_members: 2,
     free_for_public: 3
   }
@@ -105,16 +105,10 @@ class Dataset < ActiveRecord::Base
     (ACCESS_CODES.invert)[access_code].to_s.humanize
   end
 
-  def free_for_public?
-    access_code >= ACCESS_CODES[:free_for_public]
-  end
-
-  def free_for_members?
-    access_code >= ACCESS_CODES[:free_for_members]
-  end
-
-  def free_within_projects?
-    access_code >= ACCESS_CODES[:free_within_project]
+  %w{free_within_projects free_for_members free_for_public}.each do |right|
+    define_method("#{right}?") do
+      access_code >= ACCESS_CODES[right.to_sym]
+    end
   end
 
   def abstract_with_freeformats

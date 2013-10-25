@@ -10,6 +10,8 @@ class Project < ActiveRecord::Base
   validates_presence_of :shortname, :name
   validates_uniqueness_of :shortname, :name
 
+  before_destroy :check_destroyable
+
   def to_s
     "#{name}"
   end
@@ -38,7 +40,8 @@ class Project < ActiveRecord::Base
     (self.datasets.count + self.users.count + self.authored_paperproposals.count) == 0
   end
 
-  before_destroy :check_destroyable
+  private
+
   def check_destroyable
     unless destroyable?
       errors.add(:base, "#{shortname} still owns some resources, thus can not be deleted!")
