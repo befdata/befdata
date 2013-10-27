@@ -146,8 +146,8 @@
   var license_controll = $("#dataset_include_license:checkbox");
   $("input:radio[name='dataset[access_code]']").change(function(){
     if (public_radio_button.is(":checked")) {
-      license_controll.attr('disabled', false);
+      license_controll.attr({disabled: false, checked:'checked'});
     } else {
-      license_controll.attr('disabled', true);
+      license_controll.attr({checked: false, disabled: true});
     }
   })

@@ -6,8 +6,8 @@ gem 'haml'
 gem 'authlogic'
 gem 'acl9'
 gem 'dynamic_form'
-gem 'paperclip', '~> 3.0'
-gem 'acts-as-taggable-on', '~> 2.3.3'
+gem "paperclip", "~> 3.5.2"
+gem "acts-as-taggable-on", "~> 2.4.1"
 gem 'spreadsheet'
 gem 'delayed_job_active_record'
 gem 'daemons'
@@ -22,6 +22,8 @@ gem 'will_paginate'
   # gem 'newrelic_rpm'
   # gem 'party_foul'   
 # end
+
+# gem 'rack-mini-profiler', :group => :development
 
 group :test, :development do
   gem "test-unit"
@@ -50,4 +52,3 @@ group :tools do
   gem 'hpricot' 
   gem 'ruby_parser', '>= 3.1.2'
 end
-
