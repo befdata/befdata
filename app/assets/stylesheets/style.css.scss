@@ -848,40 +848,7 @@ ul#page-associates {
     clear: left;
 }
 
-.box {
-    width: 500px;
-    border: #999999 solid 1px;
-    background-color: #cccccc;
-    -moz-box-shadow:0 3px 7px #ADADAD;
-    box-shadow: 0 3px 7px #ADADAD;
-    -webkit-box-shadow: 0 3px 7px #ADADAD;
-    margin: 10px;
-    padding: 5px 5px;
-}
 
-.box h3 {
-    border-bottom: #999999 dashed 1px;
-    text-align: center;
-}
-
-.box label {
-    margin-left: 4px;
-    display: block;
-    width: 140px;
-    float: left;
-    cursor: text;
-}
-.box .scroll_checkboxes label {
-    display: block;
-    width: 350px;
-    float: left;
-    overflow: hidden;
-}
-
-.box textarea{
-    width: 220px;
-    height: 130px;
-}
 .arrow_box {
     margin: 5px 5px;
 }
@@ -924,10 +891,6 @@ ul#page-associates {
 
 .clear {
     display:block;
-}
-
-.box h5 {
-   margin-bottom: 3px;
 }
 
 .noBullet {

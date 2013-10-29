@@ -22,10 +22,6 @@ class User < ActiveRecord::Base
 
   belongs_to :project
 
-  # setting up avatar-image
-  validates_attachment_content_type :avatar, :content_type => /image/, :if => :avatar_file_name_changed?,
-                            :message => "is invalid. Must be a picture such as jpeg or png."
-
   has_attached_file :avatar,
     :url => "/images/user_avatars/:basename_:style.:extension",
     :default_url => "/images/user_avatars/avatar-missing_:style.png",
@@ -36,6 +32,10 @@ class User < ActiveRecord::Base
       :medium => "80x80#",
       :large => "150x150#"
   }
+
+  validates_attachment_content_type :avatar, :content_type => /image/, :if => :avatar_file_name_changed?,
+                            :message => "is invalid. Must be a picture such as jpeg or png."
+
 
   before_save :change_avatar_file_name, :add_protocol_to_url
   before_destroy :check_destroyable
