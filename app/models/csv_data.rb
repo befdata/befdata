@@ -81,9 +81,6 @@ private
         dc.definition = h
         dc.columnnr = i + 1
         dc.dataset_id = @dataset.id
-        dc.datatype_approved = false
-        dc.datagroup_approved = false
-        dc.finished = false
       end
     end
   end
@@ -96,8 +93,7 @@ private
     CSV.foreach @path, OPTS.merge(col_sep: @delimitor) do |row|
       row.to_hash.each do |k, v|
         next if v.blank?
-        sheetcells_in_queue << [ id_for_header[k], v, $INPUT_LINE_NUMBER,
-            Datatypehelper::UNKNOWN.id, Sheetcellstatus::UNPROCESSED ]
+        sheetcells_in_queue << [id_for_header[k], v, $INPUT_LINE_NUMBER, Datatypehelper::UNKNOWN.id]
         counter += 1
       end
       if counter >= 1000
@@ -119,7 +115,7 @@ private
   end
 
   def save_data_into_database(sheetcells)
-    columns = [:datacolumn_id, :import_value, :row_number, :datatype_id, :status_id]
+    columns = [:datacolumn_id, :import_value, :row_number, :datatype_id]
     Sheetcell.import columns, sheetcells, :validate => false
     @dataset.update_attribute(:import_status, "Imported #{$INPUT_LINE_NUMBER} rows")
   end

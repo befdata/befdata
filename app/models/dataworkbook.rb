@@ -170,9 +170,6 @@ class Dataworkbook
     column_info = {
       columnheader: columnheader,
       columnnr: 1 + columnheaders_raw.index(columnheader),
-      datagroup_approved: false,
-      datatype_approved: false,
-      finished: false,
       dataset_id: @dataset.id
     }
     datagroup_info = {}
@@ -194,13 +191,12 @@ class Dataworkbook
   def save_all_cells_to_database(data_column_new, datatype, all_cells)
       sheetcells_to_be_saved = []
 
-    columns = [:datacolumn_id, :row_number, :import_value, :datatype_id, :status_id]
+    columns = [:datacolumn_id, :row_number, :import_value, :datatype_id]
     all_cells.each do |row_number, cell_content|
       sheetcells_to_be_saved << [ data_column_new.id,
                                                 row_number,
                                                cell_content,
-                                               datatype.id,
-                                               Sheetcellstatus::UNPROCESSED]
+                                               datatype.id]
     end
     Sheetcell.import(columns, sheetcells_to_be_saved, :validate => false)
   end

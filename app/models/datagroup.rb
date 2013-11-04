@@ -16,14 +16,7 @@ class Datagroup < ActiveRecord::Base
 
   before_destroy :check_if_destroyable
   before_validation :fill_missing_description
-  after_initialize :init
   after_update { datasets.each(&:touch) }
-  # set the default value for datagroup
-  def init
-    if(@new_record)
-      self.type_id = Datagrouptype::DEFAULT
-    end
-  end
 
   def check_if_destroyable
     errors.add :base, "'#{self.title}' is a system datagroup, thus can't be deleted" and return false if self.is_system_datagroup

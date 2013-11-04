@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131009033915) do
+ActiveRecord::Schema.define(:version => 20131031162226) do
 
   create_table "author_paperproposals", :force => true do |t|
     t.integer  "paperproposal_id"
@@ -64,9 +64,9 @@ ActiveRecord::Schema.define(:version => 20131009033915) do
     t.string   "import_data_type"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean  "datagroup_approved"
-    t.boolean  "finished"
-    t.boolean  "datatype_approved"
+    t.boolean  "datagroup_approved",  :default => false
+    t.boolean  "finished",            :default => false
+    t.boolean  "datatype_approved",   :default => false
     t.text     "informationsource"
     t.text     "instrumentation"
     t.string   "acknowledge_unknown"
@@ -94,7 +94,7 @@ ActiveRecord::Schema.define(:version => 20131009033915) do
     t.text     "comment"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "type_id"
+    t.integer  "type_id",           :default => 1
     t.integer  "datacolumns_count", :default => 0
   end
 
@@ -292,7 +292,7 @@ ActiveRecord::Schema.define(:version => 20131009033915) do
     t.integer  "category_id"
     t.string   "accepted_value"
     t.integer  "datatype_id"
-    t.integer  "status_id"
+    t.integer  "status_id",      :default => 1
     t.integer  "row_number"
   end
 
