@@ -15,7 +15,7 @@ class Datatypehelper
   end
   
   def self.find_by_name(name)
-    DATATYPE_COLLECTION.each{ |dt| return dt if dt.name == name }
+    DATATYPE_COLLECTION.each{ |dt| return dt if dt.name == name.try(:downcase) }
     return UNKNOWN
   end
 

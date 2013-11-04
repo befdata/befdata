@@ -61,7 +61,7 @@ class DataworkbookTest < ActiveSupport::TestCase
 
   test 'row in method sheet is recognized correctly' do
     column_info, datagroup_info = @book.parse_method_row('height')
-    assert_equal 12, column_info.keys.length
+    assert_equal 9, column_info.keys.length
     assert_equal 2, datagroup_info.keys.length
 
     assert_equal 'height in m', column_info[:definition]

@@ -51,7 +51,7 @@ class Datacolumn < ActiveRecord::Base
 
   # Are there data values associated to the measurements of this data column instance?
   def values_stored?
-    self.sheetcells.exists?(["accepted_value IS NOT NULL OR accepted_value !='' OR category_id > 0"])
+    self.sheetcells.exists?(status_id: [2,3,4])
   end
 
   def predefined?
@@ -83,7 +83,8 @@ class Datacolumn < ActiveRecord::Base
   # returns the first 'count' number unique accepted values
   def accepted_values(count)
     self.sheetcells.select("case when category_id >0 then (select short from categories where id = sheetcells.category_id) else accepted_value end AS accepted_value")
-                   .where('category_id > 0 OR accepted_value IS NOT NULL').limit(count).uniq.order("accepted_value")
+                   .where(status_id: [2,3,4])
+                   .limit(count).uniq.order("accepted_value")
   end
 
   # saves the accepted values for each "Sheetcell" in the column
