@@ -8,16 +8,6 @@ class ::ApplicationController < ActionController::Base
   end
   rescue_from "Acl9::AccessDenied", :with => :access_denied
 
-  def access_denied
-    if current_user
-      flash[:error] = 'Access denied. You do not have the appropriate rights to perform this operation.'
-      redirect_back_or_default root_url
-    else
-      flash[:error] = 'Access denied. Try to log in first.'
-      redirect_back_or_default root_url
-    end
-  end
-
   def dataset_is_free_for_members
     return true if @dataset.free_for_members? unless @dataset.blank?
     false
@@ -86,5 +76,15 @@ private
     return unless options[:collection] and options[:default]
     params[:sort] = options[:default] unless options[:collection].include?(params[:sort])
     params[:direction] = 'asc' unless ["desc", "asc"].include?(params[:direction])
+  end
+
+  def access_denied
+    if current_user
+      flash[:error] = 'Access denied. You do not have the appropriate rights to perform this operation.'
+      redirect_back_or_default root_url
+    else
+      flash[:error] = 'Access denied. Try to log in first.'
+      redirect_back_or_default root_url
+    end
   end
 end

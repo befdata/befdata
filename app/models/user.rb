@@ -89,6 +89,7 @@ class User < ActiveRecord::Base
   def datasets_owned
     self.roles.includes(:authorizable).where({name: "owner", authorizable_type: "Dataset"}).map(&:authorizable).compact
   end
+
   def datasets_with_responsible_datacolumns
     columns = self.roles_for(Datacolumn).map(&:authorizable_id)
     unless columns.empty?
@@ -114,6 +115,7 @@ class User < ActiveRecord::Base
   def projectroles
     self.roles_for(Project)
   end
+
   def projectroles=(roles_config)
     # roles_config is an array of hashes like {role_name: "pi", project_id: 3}
     self.has_no_roles_for!(Project)

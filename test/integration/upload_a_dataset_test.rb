@@ -30,7 +30,7 @@ class UploadADatasetTest < ActionDispatch::IntegrationTest
     assert_equal dataset.projects.map(&:shortname), ["z2 e data"]
     # import and approve process is already tested in "import_test.rb"
     #data rights is tested in "datasets_controller_test.rb"
-    # reuploading a dataworkbook is tested in  "datasets_controller_test"
+    # reuploading a workbook is tested in  "datasets_controller_test"
     dataset.current_datafile.destroy
   end
  end

@@ -3,8 +3,8 @@ class CsvData
   validate :check_csvfile
 
   # define 'strip' converter
-  CSV::Converters[:strip] = lambda {|f| f.try(:strip) }
-  CSV::HeaderConverters[:strip] = lambda {|f| f.try(:strip) }
+  CSV::Converters[:strip] = lambda {|f| f.try(:squish) }
+  CSV::HeaderConverters[:strip] = lambda {|f| f.try(:squish) }
 
   OPTS = {
     headers: true,

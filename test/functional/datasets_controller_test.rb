@@ -203,7 +203,7 @@ class DatasetsControllerTest < ActionController::TestCase
     assert_nil flash[:error]
     assert_redirected_to dataset_path(@dataset)
     @dataset.reload
-    assert_equal Dataworkbook.new(@dataset.current_datafile).columnheaders_raw,old_workbook
+    assert_equal Workbook.new(@dataset.current_datafile).headers,old_workbook
 
 
     #upload another workbook
@@ -215,7 +215,7 @@ class DatasetsControllerTest < ActionController::TestCase
     assert_redirected_to dataset_path(@dataset)
 
     @dataset.reload
-    assert_not_equal Dataworkbook.new(@dataset.current_datafile).columnheaders_raw, old_workbook
+    assert_not_equal Workbook.new(@dataset.current_datafile).headers, old_workbook
 
     #clean and recover
     @dataset.current_datafile.destroy

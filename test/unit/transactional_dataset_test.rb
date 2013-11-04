@@ -27,7 +27,7 @@ class TransactionalDatasetTest < ActiveSupport::TestCase
     dataset = Dataset.create(:title => 'just4testing')
     dataset.current_datafile = datafile
     dataset.save
-    book = Dataworkbook.new(dataset.current_datafile)
+    book = Workbook.new(dataset.current_datafile)
     book.import_data
     dataset.approve_predefined_columns
     dataset.destroy

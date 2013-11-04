@@ -18,7 +18,7 @@ class Datafile < ActiveRecord::Base
     return nil unless file.present?
     return @spreadsheet if defined? @spreadsheet
     @spreadsheet = case File.extname(path)
-      when '.xls' then Dataworkbook.new(self)
+      when '.xls' then Workbook.new(self)
       when '.csv' then CsvData.new(self)
       else nil
     end
@@ -27,7 +27,7 @@ class Datafile < ActiveRecord::Base
 
   validate :check_spreadsheet, :if => Proc.new {file.present?}
   def check_spreadsheet
-    self.errors[:base] = 'We currently only support Excel-2003 and CSV files.' and return if spreadsheet.nil?
+    self.errors[:base] = 'We currently only support Excel-2003 and CSV files.' and return unless spreadsheet
     unless spreadsheet.valid?
       spreadsheet.errors.to_hash.each do |k, v|
         self.errors.add k, v

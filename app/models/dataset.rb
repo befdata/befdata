@@ -2,9 +2,9 @@
 # The Dataset title must be unique.
 
 # Datasets contain the general metadata of a dataset. In addition, a dataset can contain:
-# 1. Primary research data, as uploaded data values from a Dataworkbook,
+# 1. Primary research data, as uploaded data values from a Workbook,
 #    where the information on the column is stored in Datacolumn instances
-#    and the data values in Sheetcell instances. The original dataworkbook is stored as a Datafile
+#    and the data values in Sheetcell instances. The original Workbook is stored as a Datafile
 # 2. one or more asset (Freeformat) files.
 #
 # Datasets are taggable, that is, they can be linked to entries in the Tags table. This uses the is_taggable

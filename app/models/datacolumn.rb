@@ -89,7 +89,7 @@ class Datacolumn < ActiveRecord::Base
 
   # saves the accepted values for each "Sheetcell" in the column
   # first looking for a match in existing categories
-  # then looking for a match in categories from the "Dataworkbook"
+  # then looking for a match in categories from the "Workbook"
   # if there are no "Category" matches then the import value is used as the accepted value
   # NB: all of the business logic is in functions within the database
   # found in db/non_schema_sql.sql

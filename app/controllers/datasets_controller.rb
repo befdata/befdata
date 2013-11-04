@@ -215,7 +215,7 @@ class DatasetsController < ApplicationController
     if new_datafile.save
       @dataset.delete_imported_research_data
       @dataset.add_datafile(new_datafile)
-      @dataset.log_edit('Dataworkbook updated')
+      @dataset.log_edit('Workbook updated')
       flash[:notice] = "Research data has been replaced."
       redirect_to(:action => 'show')
     else
