@@ -38,8 +38,10 @@ class Workbook
 
   # every column should have a header
   def with_missing_headers?
-    # TODO
-    false
+    columnnrs = header_info_lookup.values.collect do |info|
+      info.is_a?(Array) ? info[0] : info
+    end
+    columnnrs.max + 1 > columnnrs.length
   end
 
   # The general metadata sheet contains information about the data set
@@ -152,7 +154,7 @@ private
     date_string.to_i > 2000 ? Date.new(date_string.to_i) : Date.today
   end
 
-  # This generate a hash in form of {header: columnnr}.
+  # This generate a hash in form of {header: columnnr}. columnnr is 0-based
   # When a column is saved later, its info will be stored into values.
   # then, this hash becomes {header: [columnnr, datacolumn_id, data_type_id]}
   def header_info_lookup

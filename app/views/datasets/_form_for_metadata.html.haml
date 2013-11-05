@@ -10,10 +10,10 @@
     = label_tag 'author', 'Authors', class: 'control-label'
     .control-group
       = f.select :owner_ids, all_users_names_and_ids_for_select, {}, {:multiple => true, class: 'select2'}
-      - if @unfound_usernames.present?
-        %ul.unfound_authors
-          - @unfound_usernames.each do |uu|
-            %li.unfound_author= uu
+      - if @unfound_usernames
+        .help-block
+          %b= @unfound_usernames.join(', ')
+          can't be found on the portal and won't be saved.
   .form-group
     %span.control-label Belongs to projects
     .control-group
@@ -124,7 +124,7 @@
   $(document).ready(function(){
     $("#tag_list").select2({
       tags: $("#tag_list").data("tags"),
-      tokenSeparators: [",", ";", "，"],
+      tokenSeparators: [",", ";", "，", '；'],
       width: "100%",
       minimumInputLength: 1,
       formatInputTooShort: function(){return ""}

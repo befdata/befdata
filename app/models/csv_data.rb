@@ -117,7 +117,7 @@ private
   def save_data_into_database(sheetcells)
     columns = [:datacolumn_id, :import_value, :row_number, :datatype_id]
     Sheetcell.import columns, sheetcells, :validate => false
-    @dataset.update_attribute(:import_status, "Imported #{$INPUT_LINE_NUMBER} rows")
+    @dataset.update_attribute(:import_status, "Imported #{$INPUT_LINE_NUMBER-1} rows")
   end
 
 end

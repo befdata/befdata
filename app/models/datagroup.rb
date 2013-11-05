@@ -45,6 +45,7 @@ class Datagroup < ActiveRecord::Base
     rescue
       errors.add :file, 'can not be read' and return
     end
+    lines.headers.map {|h| h.upcase! } # so that headers can be case-insensitive
     return unless validate_categories_csv?(lines)
 
     merges = collect_merges(lines)
@@ -97,8 +98,8 @@ private
     unless (['ID', 'SHORT', 'LONG', 'DESCRIPTION', 'MERGE ID'] - csv_lines.headers).empty?
       errors.add :csv, 'header does not match' and return false
     end
-    errors.add :csv, 'IDs must be unique' and return false unless csv_lines["ID"].uniq!.nil?
     errors.add :csv, 'ID must not be empty' and return false if csv_lines["ID"].any?(&:blank?)
+    errors.add :csv, 'IDs must be unique' and return false unless csv_lines["ID"].uniq!.nil?
     errors.add :csv, 'SHORT must not be empty' and return false if csv_lines["SHORT"].any?(&:blank?)
 
     dg_cats_ids = self.category_ids
