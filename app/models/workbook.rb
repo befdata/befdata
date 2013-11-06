@@ -349,9 +349,9 @@ private
       input = input.value.is_a?(Spreadsheet::Excel::Error) ? "< Error in Excel Formula >" : input.value
     end
     # Excel sometimes appends a decimal digit to integer values, here we try to trim it off.
-    input = input.to_s.sub(/\.0$/,'') if input.is_a? Numeric
+    return input.to_s.sub(/\.0$/,'') if input.is_a? Numeric
 
-    return input.squish
+    input.to_s.squish
   end
 
   # clean_string removes any leading and trailing spaces from the input
