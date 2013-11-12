@@ -237,13 +237,13 @@ class DatasetsControllerTest < ActionController::TestCase
     @request.env['HTTP_REFERER'] = new_dataset_path
     post :create_with_datafile, :datafile => {:file => uploaded_file}
     assert_redirected_to new_dataset_path
-    assert_equal 'File column headers in the raw data sheet must be unique', flash[:error]
+    assert_equal 'Column headers in the raw data sheet must be unique', flash[:error]
 
     # update workbook of a dataset with this problematic workbook
     @request.env['HTTP_REFERER'] = edit_files_dataset_path(5)
     post :update_workbook, :id => 5, :datafile => {:file => uploaded_file}
     assert_redirected_to edit_files_dataset_path(5)
-    assert_equal 'File column headers in the raw data sheet must be unique', flash[:error]
+    assert_equal 'Column headers in the raw data sheet must be unique', flash[:error]
   end
 
 end
