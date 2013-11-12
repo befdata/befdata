@@ -1,9 +1,8 @@
 class Datafile < ActiveRecord::Base
   belongs_to :dataset
 
-  has_attached_file :file, :basename => "basename",
-      :path => ":rails_root/files/:id_:filename",
-      :url => "/files/:id/download"
+  has_attached_file :file, :basename => "basename", :path => ":rails_root/files/uploaded/:id_:filename"
+
   validates_attachment_presence :file
 
   def basename

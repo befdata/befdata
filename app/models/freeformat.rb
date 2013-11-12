@@ -7,10 +7,7 @@ class Freeformat < ActiveRecord::Base
   validates_presence_of :file_file_name, :message => "You have to select a file to be uploaded."
   validates_presence_of :freeformattable, :message => "Freeformat must belong to something"
 
-  has_attached_file :file,
-  :basename => "basename",
-  :path => ":rails_root/files/freeformats/:id_:filename",
-  :url => "/files/freeformats/:id/download"
+  has_attached_file :file, :basename => "basename", :path => ":rails_root/files/freeformats/:id_:filename"
 
   def basename
     return File.basename(self.file.original_filename, File.extname(self.file.original_filename))

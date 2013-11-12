@@ -33,8 +33,7 @@ class Dataset < ActiveRecord::Base
   acts_as_authorization_object :subject_class_name => 'User'
   acts_as_taggable
 
-  has_attached_file :generated_spreadsheet,
-    :path => ":rails_root/files/:id_generated-download.xls"
+  has_attached_file :generated_spreadsheet, :path => ":rails_root/files/generated/:id_generated-download.xls"
 
   has_many :datafiles, :class_name => "Datafile", :order => 'id DESC', :dependent => :destroy
   has_one  :current_datafile,  :class_name => "Datafile", :order => 'id DESC'
