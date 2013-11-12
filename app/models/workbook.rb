@@ -41,6 +41,7 @@ class Workbook
     columnnrs = header_info_lookup.values.collect do |info|
       info.is_a?(Array) ? info[0] : info
     end
+    return true if columnnr.empty?
     columnnrs.max + 1 > columnnrs.length
   end
 

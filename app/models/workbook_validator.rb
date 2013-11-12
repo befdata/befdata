@@ -11,6 +11,11 @@ class WorkbookValidator < ActiveModel::Validator
       return
     end
 
+    if record.headers.empty?
+      record.errors.add :base, 'Sorry, we failed to find data in "raw data sheet". Please make sure the first row of it is not empty.'
+      return
+    end
+
     # check for unique column headers
     unless record.headers_unique?
       record.errors.add :base, "Column headers in the raw data sheet must be unique" and return
