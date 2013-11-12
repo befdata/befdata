@@ -37,8 +37,6 @@ Befchina::Application.routes.draw do
     end
   end
 
-  match 'download_excel_template' => 'datasets#download_excel_template'
-
   scope :path => "/files" do
     resources :freeformats, :only => [:create, :update, :destroy] do
       get :download, :on => :member

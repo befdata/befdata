@@ -185,12 +185,6 @@ class DatasetsController < ApplicationController
     render :text => "Status: <span id = #{@dataset.download_status} >" + @dataset.download_status + "</span>"
   end
 
-  def download_excel_template
-    send_file Rails.root.join('files', 'template','befdata_workbook_empty.xls'),
-        :filename=>'emtpy_excel_template.xls',
-        :disposition => 'attachment'
-  end
-
   def freeformats_csv
     filename = "dataset-#{@dataset.id.to_s}-files" + (current_user ? "-for-#{current_user.login}" : '') + '.csv'
     send_data generate_freeformats_csv(true), :type => 'text/csv',
