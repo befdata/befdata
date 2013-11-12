@@ -2,15 +2,6 @@ require 'test_helper'
 
 class DataSetTest < ActiveSupport::TestCase
   self.use_transactional_fixtures = false
-  def setup
-    FileUtils.copy("#{Rails.root}/files/4_8346952459374534species first test.xls",
-              "#{Rails.root}/files/4_8346952459374534species first test.xls.tmp")
-  end
-
-  def teardown
-    FileUtils.copy("#{Rails.root}/files/4_8346952459374534species first test.xls.tmp",
-              "#{Rails.root}/files/4_8346952459374534species first test.xls")
-  end
 
   test "any dataset can have zero to many projects linked" do
     assert projects("projects_001").datasets

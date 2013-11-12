@@ -17,6 +17,7 @@ class ActiveSupport::TestCase
 
   # make_sure_pg_functions_are_in_db this is needed for teamcity to have non_schema_sql
   %x[rake db:load_non_schema_sql]
+  %x[rake cp_datafiles]
 
   # Add more helper methods to be used by all tests here...
 

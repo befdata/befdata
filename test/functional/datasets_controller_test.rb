@@ -2,7 +2,6 @@ require 'test_helper'
 require 'fileutils'
 require 'libxml'
 
-
 class DatasetsControllerTest < ActionController::TestCase
   setup :activate_authlogic
 
@@ -61,16 +60,10 @@ class DatasetsControllerTest < ActionController::TestCase
 
     ds_public = Dataset.find_by_title("TITLE: use for visual testing of export")
 
-    FileUtils.copy("#{Rails.root}/test/fixtures/test_files_for_uploads/9_generated-download.xls",
-                   "#{Rails.root}/files/9_generated-download.xls")
-
     assert ds_public.free_for_public?
     get :download, :id => ds_public.id
     assert_nil flash[:error]
-
-    FileUtils.rm("#{Rails.root}/files/9_generated-download.xls")
   end
-
 
   test "members can download free for members datasets" do
     user = User.find_by_login "Phdstudentnutrientcycling"
@@ -185,9 +178,6 @@ class DatasetsControllerTest < ActionController::TestCase
   end
 
   test "replacing original research data with new file" do
-
-    FileUtils.copy("#{Rails.root}/files/4_8346952459374534species first test.xls",
-                     "#{Rails.root}/files/4_8346952459374534species first test.xls.tmp")
     login_nadrowski
     @dataset = Dataset.first
 
@@ -195,10 +185,11 @@ class DatasetsControllerTest < ActionController::TestCase
 
     #upload the same workbook again. This should not cause error.
     assert_nothing_raised {
-      post :update_workbook, :id => @dataset.id,
-             :datafile => {
-                 :file =>  Rack::Test::UploadedFile.new("#{Rails.root}/files/4_8346952459374534species first test.xls")
-             }
+      post :update_workbook,
+           :id => @dataset.id,
+           :datafile => {
+             :file =>  fixture_file_upload(File.join('test_data_files', 'uploaded', '4_8346952459374534species first test.xls'))
+           }
     }
     assert_nil flash[:error]
     assert_redirected_to dataset_path(@dataset)
@@ -207,9 +198,10 @@ class DatasetsControllerTest < ActionController::TestCase
 
 
     #upload another workbook
-    post :update_workbook, :id => @dataset.id,
+    post  :update_workbook,
+          :id => @dataset.id,
           :datafile => {
-              :file => test_file_for_upload("SP5_TargetSpecies_CN_final_8_target_spec_kn_-_short.xls")
+            :file => test_file_for_upload("SP5_TargetSpecies_CN_final_8_target_spec_kn_-_short.xls")
           }
 
     assert_redirected_to dataset_path(@dataset)
@@ -219,8 +211,6 @@ class DatasetsControllerTest < ActionController::TestCase
 
     #clean and recover
     @dataset.current_datafile.destroy
-    FileUtils.copy("#{Rails.root}/files/4_8346952459374534species first test.xls.tmp",
-                     "#{Rails.root}/files/4_8346952459374534species first test.xls")
   end
 
   test "should show new dataset page" do
