@@ -54,6 +54,9 @@ class Dataset < ActiveRecord::Base
   has_many :paperproposals, :through => :dataset_paperproposals
   has_many :proposers, :through => :paperproposals, :source => :author, :uniq => true
 
+  has_many :dataset_tags
+  has_many :all_tags, :through => :dataset_tags, :source => :tag, :order => 'lower(name)'
+
   validates :title, :presence => true, :uniqueness => { case_sensitive: false }
   ACCESS_CODES = {
     private: 0,
@@ -258,41 +261,16 @@ class Dataset < ActiveRecord::Base
     end
   end
 
-  def all_tags
-    Dataset.tag_usage.select("tags.*").where("dataset_id =  #{self.id}").order("tags.name")
-  end
-
-  # This method returns similar datasets which are sorted by similarity in descending order
+  # This method returns similar datasets which share keywords with current dataset.
+  # datasets are sorted by similarity in descending order
   def find_related_datasets
-    tags = self.all_tags.map(&:id)
+    tags = self.all_tags.pluck(:id)
     return [] if tags.empty?
-    datasets = Dataset.tag_usage.select("datasets.*,count(tags.*) as count").
-                    where(["tags.id in (?) and datasets.id <> ?", tags, self.id]).
-                    group("datasets.id").order("count(tags.*) desc")
+    datasets = Dataset.joins(:dataset_tags)
+                      .select("datasets.*, count(tag_id) as count")
+                      .where(["tag_id in (?) and datasets.id <> ?", tags, self.id])
+                      .group("datasets.id").order("count(tag_id) desc")
     return(datasets)
-  end
-
-  def self.tag_counts
-    Dataset.tag_usage.select("tags.*, count(datasets.id) as count").group("tags.id")
-  end
-  def self.tag_usage
-    # Return a ActiveRecord::Relation object that can be reused by other methods
-    Dataset.joins("
-      join
-      (
-      select taggable_id as dataset_id, tag_id
-      from taggings
-      where taggable_type = 'Dataset'
-      union
-      select distinct d.dataset_id, g.tag_id
-      from taggings g join datacolumns d
-      on g.taggable_id = d.id
-      where g.taggable_type = 'Datacolumn'
-      ) c
-      on datasets.id = c.dataset_id
-      join tags
-      on tags.id = c.tag_id
-    ")
   end
 
   def self.joins_datafile_and_freeformats(workbook = nil)

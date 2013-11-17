@@ -141,7 +141,7 @@ class User < ActiveRecord::Base
   end
 
   def add_protocol_to_url
-    unless self.url.blank?
+    if self.url.present? and self.url_changed?
       /^http/.match(self.url) ? self.url : self.url = "http://#{url}"
     end
   end

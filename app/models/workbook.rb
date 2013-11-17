@@ -155,7 +155,7 @@ private
     date_string.to_i > 2000 ? Date.new(date_string.to_i) : Date.today
   end
 
-  # This generate a hash in form of {header: columnnr}. columnnr is 0-based
+  # This generate a hash in form of {header: columnnr}. columnnr is 0-based.
   # When a column is saved later, its info will be stored into values.
   # then, this hash becomes {header: [columnnr, datacolumn_id, data_type_id]}
   def header_info_lookup

@@ -9,7 +9,8 @@ class TagsController < ApplicationController
   end
 
   def index
-    @tags = Dataset.tag_counts.where("name iLike ?", "%#{params[:q]}%").order("tags.name")
+    @tags = DatasetTag.tag_counts.where("name iLike ?", "%#{params[:q]}%")
+
     respond_to do |format|
       format.html
       format.json { render :json => @tags}
@@ -19,7 +20,10 @@ class TagsController < ApplicationController
 
   def show
     @tag = ActsAsTaggableOn::Tag.find(params[:id])
-    @datasets = Dataset.tag_usage.select("datasets.*").where("tags.id = ?", @tag.id).order("datasets.title")
+    @datasets = Dataset.joins(:dataset_tags)
+                       .select("datasets.id, title")
+                       .where(['dataset_tags.tag_id = ?', @tag.id])
+                       .order("lower(datasets.title)")
 
     respond_to do |format|
       format.html
@@ -30,7 +34,7 @@ class TagsController < ApplicationController
   end
 
   def manage
-    @all_tags = Dataset.tag_counts.where("name iLike ?", "%#{params[:search]}%").order("tags.name")
+    @all_tags = DatasetTag.tag_counts
   end
 
   def delete
