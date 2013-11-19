@@ -172,3 +172,20 @@ CREATE OR REPLACE FUNCTION update_date_category_datasets(category_id integer) RE
         from sheetcells sc inner join datacolumns dc on sc.datacolumn_id = dc.id
         where category_id = $1 and datasets.id = dc.dataset_id
     returning true$_$;
+
+
+
+--
+--- Define a view
+--
+CREATE OR REPLACE view dataset_tags AS
+  (
+    select taggable_id as dataset_id, tag_id
+    from taggings
+    where taggable_type = 'Dataset'
+  union
+    select distinct d.dataset_id, g.tag_id
+    from taggings g join datacolumns d
+    on g.taggable_id = d.id
+    where g.taggable_type = 'Datacolumn'
+  );

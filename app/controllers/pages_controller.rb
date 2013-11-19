@@ -43,7 +43,7 @@ class PagesController < ApplicationController
   # This provide a first look to our metadata and give a hint about our data
   def data
     validate_sort_params
-    @tags = Dataset.tag_counts.order("tags.name")
+    @tags = DatasetTag.tag_counts
     @datasets = Dataset.joins_datafile_and_freeformats(params[:workbook]).select("datasets.id, title, 
       GREATEST(datasets.updated_at, max(freeformats.updated_at)) as last_update,
       count(datafiles.id)").order("#{params[:sort]} #{params[:direction]}")
