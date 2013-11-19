@@ -7,7 +7,7 @@ class ProjectsController < ApplicationController
   end
 
   def index
-    @projects = Project.all( :order => "shortname")
+    @projects = Project.select('id, name').order("shortname")
   end
 
   def show

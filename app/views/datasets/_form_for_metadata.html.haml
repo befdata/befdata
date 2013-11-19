@@ -18,25 +18,25 @@
     %span.control-label Belongs to projects
     .control-group
       = f.select :project_ids, all_projects_for_select, {}, {:multiple => true, class: 'select2'}
-  %h4 Acess rights
+  %h4 Access rights
   .form-group
-    %span.control-label Acess Rights
+    %span.control-label Access Rights
     .control-group
       %div.access-option
         = f.radio_button :access_code, Dataset::ACCESS_CODES[:private], {id: 'private'}
         = label_tag 'private', 'Private'
         .help-block No one can download this data and its attachments, Unless his/her paper proposal has been accepted.
       %div.access-option
-        = f.radio_button :access_code, Dataset::ACCESS_CODES[:free_within_project], {id: 'free-within-projects'}
+        = f.radio_button :access_code, Dataset::ACCESS_CODES[:free_within_projects], {id: 'free-within-projects'}
         = label_tag 'free-within-projects', 'Free within projects'
         .help-block Members of projects you selected above can download this data and its attachments
       %div.access-option
-        = f.radio_button :access_code, Dataset::ACCESS_CODES[:free_for_members], {id: 'free-for_members'}
-        = label_tag 'free-for_members', 'Free for Members'
+        = f.radio_button :access_code, Dataset::ACCESS_CODES[:free_for_members], {id: 'free-for-members'}
+        = label_tag 'free-for-members', 'Free for Members'
         .help-block  All members of the portal can download this data and its attachments
       %div.access-option
-        = f.radio_button :access_code, Dataset::ACCESS_CODES[:free_for_public], {id: 'free-for_public'}
-        = label_tag 'free-for_public', 'Free for Public'
+        = f.radio_button :access_code, Dataset::ACCESS_CODES[:free_for_public], {id: 'free-for-public'}
+        = label_tag 'free-for-public', 'Free for Public'
         .help-block All people can download this data and its attachments
         .license-control
           = f.check_box :include_license, disabled: !@dataset.free_for_public?, style: 'margin: 0px;'
@@ -142,7 +142,7 @@
     });
   });
 
-  var public_radio_button = $("input:radio[name='dataset[access_code]']").filter("#free-for_public");
+  var public_radio_button = $("input:radio[name='dataset[access_code]']").filter("#free-for-public");
   var license_controll = $("#dataset_include_license:checkbox");
   $("input:radio[name='dataset[access_code]']").change(function(){
     if (public_radio_button.is(":checked")) {

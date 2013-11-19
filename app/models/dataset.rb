@@ -267,7 +267,7 @@ class Dataset < ActiveRecord::Base
     tags = self.all_tags.pluck(:id)
     return [] if tags.empty?
     datasets = Dataset.joins(:dataset_tags)
-                      .select("datasets.*, count(tag_id) as count")
+                      .select("datasets.*")
                       .where(["tag_id in (?) and datasets.id <> ?", tags, self.id])
                       .group("datasets.id").order("count(tag_id) desc")
     return(datasets)
