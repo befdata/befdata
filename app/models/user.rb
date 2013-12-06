@@ -50,7 +50,7 @@ class User < ActiveRecord::Base
   alias to_label to_s
 
   def to_param
-    "#{id}-#{full_name.parameterize}"
+    "#{id}-#{full_name}".parameterize
   end
 
   def full_name
