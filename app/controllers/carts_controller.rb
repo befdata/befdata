@@ -22,7 +22,7 @@ class CartsController < ApplicationController
     else
       flash[:error] = "#{@dataset.title} is already in cart."
     end
-    redirect_to :back
+    redirect_back_or_default current_cart_path
   end
 
   def delete_cart_context
