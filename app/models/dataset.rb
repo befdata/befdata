@@ -7,7 +7,7 @@
 #    and the data values in Sheetcell instances. The original Workbook is stored as a Datafile
 # 2. one or more asset (Freeformat) files.
 #
-# Datasets are taggable, that is, they can be linked to entries in the Tags table. This uses the is_taggable
+# Datasets are taggable, that is, they can be linked to entries in the Tags table. This uses the Acts_as_taggable
 # rails gem.
 #
 # Dataset provenance is managed using the ACL9 rails gem. Users can be given different roles in relation
@@ -100,7 +100,7 @@ class Dataset < ActiveRecord::Base
   end
 
   def has_research_data?
-    current_datafile.present?
+    datafiles_count && datafiles_count > 0
   end
 
   def access_rights
@@ -276,13 +276,12 @@ class Dataset < ActiveRecord::Base
   def self.joins_datafile_and_freeformats(workbook = nil)
     rel = self.joins("
       left join freeformats on freeformats.freeformattable_id = datasets.id AND freeformats.freeformattable_type='Dataset'
-      left join datafiles on datafiles.dataset_id = datasets.id
     ").group('datasets.id')
     case workbook
       when true, 'true'
-        rel = rel.having('count(datafiles.id) > 0')
+        rel = rel.where('datafiles_count > 0')
       when false, 'false'
-        rel = rel.having('count(datafiles.id) = 0')
+        rel = rel.where('datafiles_count = 0 or datafiles_count is null')
     end
     return(rel)
   end

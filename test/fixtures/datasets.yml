@@ -41,6 +41,8 @@ datasets_001:
   generated_spreadsheet_updated_at: '2012-06-12 15:41:20.18643'
   access_code: '0'
   include_license: f
+  datafiles_count: '1'
+  freeformats_count: '0'
 datasets_002:
   id: '9'
   title: ! 'TITLE: use for visual testing of export'
@@ -73,6 +75,8 @@ datasets_002:
   generated_spreadsheet_updated_at: '2012-06-12 15:41:21.334556'
   access_code: '3'
   include_license: f
+  datafiles_count: '1'
+  freeformats_count: '0'
 datasets_003:
   id: '7'
   title: Unit tests
@@ -103,6 +107,8 @@ datasets_003:
   generated_spreadsheet_updated_at: '2012-06-12 15:41:20.598681'
   access_code: '1'
   include_license: f
+  datafiles_count: '1'
+  freeformats_count: '1'
 datasets_004:
   id: '8'
   title: Comparative study plot information to be shared with all BEF-China scientists,
@@ -269,6 +275,8 @@ datasets_004:
   generated_spreadsheet_updated_at: '2012-06-12 15:41:19.817625'
   access_code: '0'
   include_license: f
+  datafiles_count: '1'
+  freeformats_count: '0'
 datasets_005:
   id: '6'
   title: Test species name import second version
@@ -311,3 +319,5 @@ datasets_005:
   generated_spreadsheet_updated_at: '2012-06-12 15:41:20.960511'
   access_code: '2'
   include_license: f
+  datafiles_count: '1'
+  freeformats_count: '0'

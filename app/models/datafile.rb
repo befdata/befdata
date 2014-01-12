@@ -1,5 +1,5 @@
 class Datafile < ActiveRecord::Base
-  belongs_to :dataset
+  belongs_to :dataset, :counter_cache => true
 
   has_attached_file :file, :basename => "basename", :path => ":rails_root/files/uploaded/:id_:filename"
 

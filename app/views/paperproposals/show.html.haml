@@ -110,8 +110,8 @@
     - @paperproposal.all_authors_ordered.each do |u|
       %span= link_to u, u
 
-- unless @freeformats.blank?
-  %h3 Files (#{@freeformats.length})
+- unless @paperproposal.freeformats_count.zero?
+  %h3 Files (#{@paperproposal.freeformats_count})
   - only_essential_no_links = !current_user
   = render :partial => 'freeformats/index', :locals => {:only_essential_no_links => only_essential_no_links}
 

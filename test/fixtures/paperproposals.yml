@@ -16,6 +16,7 @@ paperproposals_001:
   initial_title: Nutrient cycling paper proposal
   comment: 
   project_id: "2"
+  freeformats_count: '1'
 paperproposals_002: 
   id: "3"
   author_id: "1"
@@ -35,6 +36,7 @@ paperproposals_002:
   initial_title: ""
   comment: ""
   project_id: 
+  freeformats_count: '0'
 paperproposals_003: 
   id: "4"
   author_id: "3"
@@ -52,6 +54,7 @@ paperproposals_003:
   initial_title: ""
   comment: ""
   project_id: 
+  freeformats_count: '0'
 paperproposals_004: 
   id: "7"
   author_id: "6"
@@ -69,6 +72,7 @@ paperproposals_004:
   initial_title: Final Paperproposal
   comment: ""
   project_id: "2"
+  freeformats_count: '0'
 paperproposals_005: 
   id: "5"
   author_id: "5"
@@ -86,6 +90,7 @@ paperproposals_005:
   initial_title: ""
   comment: ""
   project_id: 
+  freeformats_count: '0'
 paperproposals_006: 
   id: "6"
   author_id: "1"
@@ -103,6 +108,7 @@ paperproposals_006:
   initial_title: ""
   comment: ""
   project_id: 
+  freeformats_count: '0'
 paperproposals_007: 
   id: "2"
   author_id: "6"
@@ -120,3 +126,4 @@ paperproposals_007:
   initial_title: Production paper proposal 1
   comment: ""
   project_id: "3"
+  freeformats_count: '1'

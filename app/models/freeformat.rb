@@ -2,7 +2,7 @@
 ## none, one or more than one Freeformat files. No validation is performed on a Freeformat file.
 class Freeformat < ActiveRecord::Base
 
-  belongs_to :freeformattable, :polymorphic => true
+  belongs_to :freeformattable, :polymorphic => true, :touch => true, :counter_cache => true
 
   validates_presence_of :file_file_name, :message => "You have to select a file to be uploaded."
   validates_presence_of :freeformattable, :message => "Freeformat must belong to something"

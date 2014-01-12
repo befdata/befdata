@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131116163151) do
+ActiveRecord::Schema.define(:version => 20131214043450) do
 
   create_table "author_paperproposals", :force => true do |t|
     t.integer  "paperproposal_id"
@@ -159,6 +159,8 @@ ActiveRecord::Schema.define(:version => 20131116163151) do
     t.datetime "generated_spreadsheet_updated_at"
     t.integer  "access_code",                        :default => 0
     t.boolean  "include_license",                    :default => false
+    t.integer  "datafiles_count",                    :default => 0
+    t.integer  "freeformats_count",                  :default => 0
   end
 
   create_table "datasets_projects", :id => false, :force => true do |t|
@@ -253,6 +255,7 @@ ActiveRecord::Schema.define(:version => 20131116163151) do
     t.string   "initial_title"
     t.text     "comment"
     t.integer  "project_id"
+    t.integer  "freeformats_count", :default => 0
   end
 
   add_index "paperproposals", ["author_id"], :name => "index_paperproposals_on_author_id"
