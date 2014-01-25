@@ -2,9 +2,9 @@ class DatasetsController < ApplicationController
   skip_before_filter :deny_access_to_all
   before_filter :load_dataset, :except => [:new, :create, :create_with_datafile, :importing, :index, :download_excel_template]
 
-  before_filter :redirect_if_without_workbook, :only => [:download, :download_page, :regenerate_download,
+  before_filter :redirect_if_without_workbook, :only => [:download, :download_page,
                           :approve, :approve_predefined, :batch_update_columns, :approval_quick]
-  before_filter :redirect_unless_import_succeed, :only => [:download_page, :download, :regenerate_download,
+  before_filter :redirect_unless_import_succeed, :only => [:download_page, :download,
                           :approve, :approve_predefined, :approval_quick, :batch_update_columns]
   before_filter :redirect_while_importing, :only => [:edit_files, :update_workbook, :destroy]
   after_filter :edit_message_datacolumns, :only => [:batch_update_columns, :approve_predefined]
@@ -18,7 +18,7 @@ class DatasetsController < ApplicationController
       allow :owner, :of => :dataset
     end
 
-    actions :download, :download_page, :regenerate_download, :freeformats_csv do
+    actions :download, :download_page, :freeformats_csv do
       allow :admin, :data_admin
       allow :owner, :proposer, :of => :dataset
       allow logged_in, :if => :dataset_is_free_for_members
@@ -163,26 +163,46 @@ class DatasetsController < ApplicationController
     end
   end
 
+  def download_page
+    @exported_excel = @dataset.exported_excel || @dataset.create_exported_excel
+    @exported_csv = @dataset.exported_csv || @dataset.create_exported_csv
+    @exported_scc_csv = @dataset.exported_scc_csv || @dataset.create_exported_scc_csv
+    @freeformats = @dataset.freeformats
+  end
+
+  def download_status
+    respond_to do |format|
+      format.json {
+        result = {}
+
+        if @dataset.has_research_data?
+          if @dataset.finished_import?
+            @dataset.exported_files.each {|ef| result[ef.format] = ef.status }
+          else
+            result[:error] = 'Importing of the dataset is not finished yet.'
+          end
+        else
+          result[:error] = 'The requested dataset has no data'
+        end
+        render :json => result
+      }
+    end
+  end
+
   def download
     @dataset.log_download(current_user)
     respond_to do |format|
       format.html do
-        send_file @dataset.generated_spreadsheet.path, :filename => "#{@dataset.filename}.xls"
+        send_file_if_exists @dataset.exported_excel, :filename => "#{@dataset.filename}.xls"
       end
       format.csv do
-        send_data @dataset.to_csv(params[:separate_category_columns] =~ /true/i), :type => "text/csv",
-          :disposition => 'attachment', :filename => "#{@dataset.filename}.csv"
+        if params[:separate_category_columns] =~ /true/i
+          send_file_if_exists @dataset.exported_scc_csv, :filename => "#{@dataset.filename}-scc.csv", :disposition => 'attachment'
+        else
+          send_file_if_exists @dataset.exported_csv, :filename => "#{@dataset.filename}.csv", :disposition => 'attachment'
+        end
       end
     end
-  end
-
-  def regenerate_download
-    @dataset.enqueue_to_generate_download(:high)
-    redirect_back_or_default dataset_path(@dataset)
-  end
-
-  def download_status
-    render :text => "Status: <span id = #{@dataset.download_status} >" + @dataset.download_status + "</span>"
   end
 
   def freeformats_csv
@@ -234,7 +254,7 @@ class DatasetsController < ApplicationController
     @related_datasets = @dataset.find_related_datasets
   end
 
-  private
+private
 
   def generate_freeformats_csv(user)
     CSV.generate do |csv|
@@ -280,5 +300,14 @@ class DatasetsController < ApplicationController
 
   def edit_message_datacolumns
     @dataset.log_edit('Datacolumns approved')
+  end
+
+  def send_file_if_exists(file, options = {})
+    if file && file.path && File.file?(file.path)
+      send_file file.path, options
+    else
+      flash[:error] = "The file is not found on the server. Maybe it's being generated, Please wait till it's finished."
+      redirect_back_or_default download_page_dataset_path(@dataset)
+    end
   end
 end

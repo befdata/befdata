@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131214043450) do
+ActiveRecord::Schema.define(:version => 20140113081508) do
 
   create_table "author_paperproposals", :force => true do |t|
     t.integer  "paperproposal_id"
@@ -143,24 +143,18 @@ ActiveRecord::Schema.define(:version => 20131214043450) do
     t.string   "filename"
     t.text     "comment"
     t.text     "dataanalysis"
-    t.integer  "dataset_downloads_count",            :default => 0
+    t.integer  "dataset_downloads_count", :default => 0
     t.datetime "datemin"
     t.datetime "datemax"
     t.text     "published"
-    t.boolean  "visible_for_public",                 :default => true
+    t.boolean  "visible_for_public",      :default => true
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "import_status"
-    t.datetime "download_generated_at"
-    t.string   "download_generation_status"
-    t.string   "generated_spreadsheet_file_name"
-    t.string   "generated_spreadsheet_content_type"
-    t.integer  "generated_spreadsheet_file_size"
-    t.datetime "generated_spreadsheet_updated_at"
-    t.integer  "access_code",                        :default => 0
-    t.boolean  "include_license",                    :default => false
-    t.integer  "datafiles_count",                    :default => 0
-    t.integer  "freeformats_count",                  :default => 0
+    t.integer  "access_code",             :default => 0
+    t.boolean  "include_license",         :default => false
+    t.integer  "datafiles_count",         :default => 0
+    t.integer  "freeformats_count",       :default => 0
   end
 
   create_table "datasets_projects", :id => false, :force => true do |t|
@@ -187,6 +181,18 @@ ActiveRecord::Schema.define(:version => 20131214043450) do
   end
 
   add_index "delayed_jobs", ["priority", "run_at"], :name => "delayed_jobs_priority"
+
+  create_table "exported_files", :force => true do |t|
+    t.integer  "dataset_id"
+    t.string   "status",         :default => "new"
+    t.datetime "generated_at"
+    t.datetime "invalidated_at", :default => '1970-01-01 00:00:00'
+    t.string   "file_file_name"
+    t.integer  "file_file_size"
+    t.string   "type"
+  end
+
+  add_index "exported_files", ["dataset_id"], :name => "index_exported_files_on_dataset_id"
 
   create_table "freeformats", :force => true do |t|
     t.string   "file_file_name"

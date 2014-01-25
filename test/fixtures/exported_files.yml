@@ -1,0 +1,46 @@
+---
+exported_files_001:
+  id: '6'
+  dataset_id: '5'
+  status: finished
+  generated_at: '2012-06-12 15:41:21.186561'
+  invalidated_at: '2012-06-12 15:41:20.190261'
+  file_file_name: stringio.txt
+  file_file_size: '43520'
+  type: ExportedExcel
+exported_files_002:
+  id: '7'
+  dataset_id: '9'
+  status: finished
+  generated_at: '2012-06-12 15:41:22.334686'
+  invalidated_at: '2012-06-12 15:41:21.338059'
+  file_file_name: stringio.txt
+  file_file_size: '42496'
+  type: ExportedExcel
+exported_files_003:
+  id: '8'
+  dataset_id: '7'
+  status: finished
+  generated_at: '2012-06-12 15:41:21.598814'
+  invalidated_at: '2012-06-12 15:41:20.602269'
+  file_file_name: stringio.txt
+  file_file_size: '43520'
+  type: ExportedExcel
+exported_files_004:
+  id: '9'
+  dataset_id: '8'
+  status: finished
+  generated_at: '2012-06-12 15:41:20.817759'
+  invalidated_at: '2012-06-12 15:41:19.82133'
+  file_file_name: stringio.txt
+  file_file_size: '60416'
+  type: ExportedExcel
+exported_files_005:
+  id: '10'
+  dataset_id: '6'
+  status: finished
+  generated_at: '2012-06-12 15:41:21.960674'
+  invalidated_at: '2012-06-12 15:41:20.964016'
+  file_file_name: stringio.txt
+  file_file_size: '43520'
+  type: ExportedExcel

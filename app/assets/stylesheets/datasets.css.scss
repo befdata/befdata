@@ -207,26 +207,15 @@ ul.switchers {
   }
 }
 /*  download page  */
-
-#xls {
+#tabs {
+  .ui-tabs-panel.ui-widget-content.ui-corner-bottom {position: relative; }
+  .status {position: absolute; top: 13px; right: 18px;}
   .overflow {
     overflow: auto;
     padding: 0px;
     margin: 0px;
-    #indicator {
-      margin-right: 4px;
-    }
   }
-  #outdated {
-    color: red;
-  }
-  #started, #queued {
-    color: rgb(255, 85, 0);
-  }
-  #finished {
-    color: green;
-  }
-  #warning {
+  .warning {
     margin: 5px 0;
     border: solid 1px rgb(205,205,205);
     padding: 5px;
@@ -235,6 +224,9 @@ ul.switchers {
       color: rgb(24, 146, 30);
     }
   }
+  .outdated {color: red; }
+  .new, .started, .queued {color: rgb(255, 85, 0); }
+  .finished {color: green; }
 }
 
 ul#downloaders {

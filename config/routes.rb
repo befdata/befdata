@@ -32,7 +32,7 @@ Befchina::Application.routes.draw do
     end
     member do
       post :update_workbook, :approve_predefined, :batch_update_columns
-      get :download, :edit_files, :importing, :regenerate_download, :approve, :approval_quick,
+      get :download, :edit_files, :importing, :approve, :approval_quick,
           :keywords, :download_page, :download_status, :freeformats_csv
     end
   end
@@ -88,6 +88,10 @@ Befchina::Application.routes.draw do
       get :upload_sheetcells
       post :update_sheetcells
     end
+  end
+
+  resources :exported_files, :only => [] do
+    get :regenerate_download, :on => :member
   end
 
 

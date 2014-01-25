@@ -2,7 +2,7 @@
 # The Dataset title must be unique.
 
 # Datasets contain the general metadata of a dataset. In addition, a dataset can contain:
-# 1. Primary research data, as uploaded data values from a Workbook,
+# 1. Primary research data, as uploaded data values from a Workbook or CSV
 #    where the information on the column is stored in Datacolumn instances
 #    and the data values in Sheetcell instances. The original Workbook is stored as a Datafile
 # 2. one or more asset (Freeformat) files.
@@ -33,10 +33,13 @@ class Dataset < ActiveRecord::Base
   acts_as_authorization_object :subject_class_name => 'User'
   acts_as_taggable
 
-  has_attached_file :generated_spreadsheet, :path => ":rails_root/files/generated/:id_generated-download.xls"
-
   has_many :datafiles, :class_name => "Datafile", :order => 'id DESC', :dependent => :destroy
   has_one  :current_datafile,  :class_name => "Datafile", :order => 'id DESC'
+
+  has_many :exported_files, :dependent => :destroy
+  has_one  :exported_excel   # exported Excel workbook
+  has_one  :exported_csv     # exported regular csv
+  has_one  :exported_scc_csv # exported csv with separate coategory columns
 
   has_many :datacolumns, :dependent => :destroy, :order => "columnnr"
   has_many :sheetcells, :through => :datacolumns
@@ -58,6 +61,7 @@ class Dataset < ActiveRecord::Base
   has_many :all_tags, :through => :dataset_tags, :source => :tag, :order => 'lower(name)'
 
   validates :title, :presence => true, :uniqueness => { case_sensitive: false }
+
   ACCESS_CODES = {
     private: 0,
     free_within_projects: 1,
@@ -120,11 +124,6 @@ class Dataset < ActiveRecord::Base
     self.abstract.to_s + (f_strings.empty? ? "" : (" - " + f_strings.join(" - ")))
   end
 
-  def download_status
-    return "outdated" if download_generation_status == 'finished' && download_generated_at < updated_at
-    return download_generation_status
-  end
-
   def cells_linked_to_values?
     self.sheetcells.exists?(["accepted_value IS NOT NULL OR accepted_value !='' OR category_id > 0"])
   end
@@ -163,6 +162,7 @@ class Dataset < ActiveRecord::Base
 
   def delete_imported_research_data
     datacolumns.destroy_all
+    self.exported_files.destroy_all
   end
 
   def log_download(downloading_user)
@@ -188,7 +188,7 @@ class Dataset < ActiveRecord::Base
       self.update_attribute(:import_status, 'started importing')
       current_datafile.import_data
       self.update_attribute(:import_status, 'finished')
-      self.enqueue_to_generate_download(:high)
+      ExportedFile.initialize_export(self)
     rescue Exception => e
       Rails.logger.error e.message
       Rails.logger.error e.backtrace.join("\n")
@@ -205,60 +205,8 @@ class Dataset < ActiveRecord::Base
     %w{new finished}.exclude?(import_status) && !import_status.start_with?('error')
   end
 
-  def enqueue_to_generate_download(priority = :low)
-    priority = 10 if priority.eql?(:low)
-    priority = 0 if priority.eql?(:high)
-    self.reload
-    return unless finished_import?
-    return if download_generation_status.eql?('queued')
-    self.update_attribute(:download_generation_status, 'queued')
-    self.delay(:priority => priority).generate_download
-  end
-
-  def generate_download
-    self.update_attribute(:download_generation_status, 'started')
-
-    self.generated_spreadsheet = ExcelExport.new(self).excel_temp_file
-    self.generated_spreadsheet_file_name = title.gsub(/[^\w]/, '-')
-    self.generated_spreadsheet_content_type = "application/xls"
-    self.download_generated_at = Time.now + 1.second
-    self.download_generation_status = 'finished'
-    puts "=== Download generated for Dataset id: #{id} at #{Time.now}"
-    save
-  end
-
   def refresh_paperproposal_authors
     self.paperproposals.each {|pp| pp.update_datasets_providers}
-  end
-
-  def to_csv (separate_category_columns = false)
-    # gather columns and values
-    all_columns = []
-    self.datacolumns.order("columnnr ASC").each do |dc|
-      column = []
-      category_column = []
-      column[0] = dc.columnheader
-      category_column[0] = "#{dc.columnheader}_Categories"
-
-      dc.sheetcells.find_each do |sc|
-        if !separate_category_columns || dc.import_data_type == 'category' || !(sc.datatype && sc.datatype.is_category? && sc.category)
-          column[sc.row_number - 1] = sc.export_value
-        else
-          category_column[sc.row_number - 1] = sc.export_value
-        end
-      end
-      all_columns << column
-      all_columns << category_column if category_column.length > 1
-    end
-
-    # bring to same length to transpose
-    max_length = all_columns.map{|c| c.length}.max
-    all_columns.each{|c|   c[max_length-1] = nil unless c.length == max_length}
-    all_columns  = all_columns.transpose
-
-    CSV.generate do |csv|
-      all_columns.each {|c| csv << c}
-    end
   end
 
   # This method returns similar datasets which share keywords with current dataset.
@@ -337,7 +285,7 @@ class Dataset < ActiveRecord::Base
     false
   end
 
-  private
+private
 
   def check_for_paperproposals
     if paperproposals.count > 0

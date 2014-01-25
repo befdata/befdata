@@ -1,0 +1,9 @@
+.status
+  = image_tag "spinner.gif", :class => ['queued', 'started'].include?(exported_file.status) ? "indicator" : 'indicator hidden'
+  Status:
+  %span{class: exported_file.status}= exported_file.status
+
+= content_tag :div, class: exported_file.status.outdated? ? 'warning outdated-notice' : 'warning hidden outdated-notice' do
+  This file is outdated. Usually, it will be regenerated within about 10 minutes. You could wait for a while, or you could also #{link_to("regenerated download", regenerate_download_exported_file_path(exported_file.id))} manually rightnow.
+= content_tag :div, class: %w{queued started}.include?(exported_file.status) ? 'warning ongoing-notice' : 'warning hidden ongoing-notice' do
+  This file is being regenerated, please wait till it is finished.

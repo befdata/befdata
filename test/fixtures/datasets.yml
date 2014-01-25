@@ -33,12 +33,6 @@ datasets_001:
   created_at: '2011-06-01 13:47:09.016'
   updated_at: '2012-06-12 15:41:20.190261'
   import_status: finished
-  download_generated_at: '2012-06-12 15:41:21.186561'
-  download_generation_status: finished
-  generated_spreadsheet_file_name: stringio.txt
-  generated_spreadsheet_content_type: application/xls
-  generated_spreadsheet_file_size: '43520'
-  generated_spreadsheet_updated_at: '2012-06-12 15:41:20.18643'
   access_code: '0'
   include_license: f
   datafiles_count: '1'
@@ -67,12 +61,6 @@ datasets_002:
   created_at: '2011-12-12 13:33:55.116176'
   updated_at: '2012-06-12 15:41:21.338059'
   import_status: finished
-  download_generated_at: '2012-06-12 15:41:22.334686'
-  download_generation_status: finished
-  generated_spreadsheet_file_name: stringio.txt
-  generated_spreadsheet_content_type: application/xls
-  generated_spreadsheet_file_size: '42496'
-  generated_spreadsheet_updated_at: '2012-06-12 15:41:21.334556'
   access_code: '3'
   include_license: f
   datafiles_count: '1'
@@ -99,12 +87,6 @@ datasets_003:
   created_at: '2011-07-01 15:02:04.119'
   updated_at: '2012-06-12 15:41:20.602269'
   import_status: finished
-  download_generated_at: '2012-06-12 15:41:21.598814'
-  download_generation_status: finished
-  generated_spreadsheet_file_name: stringio.txt
-  generated_spreadsheet_content_type: application/xls
-  generated_spreadsheet_file_size: '43520'
-  generated_spreadsheet_updated_at: '2012-06-12 15:41:20.598681'
   access_code: '1'
   include_license: f
   datafiles_count: '1'
@@ -267,12 +249,6 @@ datasets_004:
   created_at: '2011-09-01 09:02:29.276168'
   updated_at: '2012-06-12 15:41:19.82133'
   import_status: finished
-  download_generated_at: '2012-06-12 15:41:20.817759'
-  download_generation_status: finished
-  generated_spreadsheet_file_name: stringio.txt
-  generated_spreadsheet_content_type: application/xls
-  generated_spreadsheet_file_size: '60416'
-  generated_spreadsheet_updated_at: '2012-06-12 15:41:19.817625'
   access_code: '0'
   include_license: f
   datafiles_count: '1'
@@ -311,12 +287,6 @@ datasets_005:
   created_at: '2011-06-01 15:02:04.119'
   updated_at: '2012-06-12 15:41:20.964016'
   import_status: finished
-  download_generated_at: '2012-06-12 15:41:21.960674'
-  download_generation_status: finished
-  generated_spreadsheet_file_name: stringio.txt
-  generated_spreadsheet_content_type: application/xls
-  generated_spreadsheet_file_size: '43520'
-  generated_spreadsheet_updated_at: '2012-06-12 15:41:20.960511'
   access_code: '2'
   include_license: f
   datafiles_count: '1'
