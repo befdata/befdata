@@ -9,4 +9,6 @@
 %ul.projects
   - @projects.each do |project|
     %li.project
-      = link_to project.name+" ("+project.shortname+")", project_path(project)
+      = link_to project.name, project_path(project)
+      %span
+        = project.shortname
