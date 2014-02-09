@@ -69,7 +69,7 @@ class Dataset < ActiveRecord::Base
 
   before_destroy :check_for_paperproposals
   before_save :set_include_license, :check_author
-
+  scope :access, ->(codes) { where(access_code: codes.map{|code|ACCESS_CODES[code.to_sym]})}
   pg_search_scope :search, against: {
     title: 'A',
     abstract: 'B',
