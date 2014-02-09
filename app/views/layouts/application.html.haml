@@ -45,6 +45,9 @@
             - if content_for?(:actions)
               #actions
                 = yield :actions
+            - if content_for?(:filters)
+              #filters
+                = yield :filters
             - if content_for?(:info)
               #info
                 = yield :info

@@ -9,6 +9,22 @@
       = image_tag "list-ordered.png"
       List Datagroups
 
+- content_for :filters do
+  %h3 Filters:
+  %select#e9{multiple: "", name: "e9", style: "width:200px"}
+    %optgroup{label: "by access"}
+      %option{value: "private"} private
+      %option{value: "free_within_projects"} open within projects
+      %option{value: "free_for_members"} open for members
+      %option{value: "free_for_public"} open for public
+    %optgroup{label: "by workbook"}
+      %option{value: "with"} with workbook
+      %option{value: "without"} without workbook
+    %optgroup{label: "by attachment"}
+      %option{value: "with"} with attachment
+      %option{value: "without"} without attachment
+
+
 - content_for :info do
   %h3
     = link_to "Keywords", keywords_path
@@ -44,4 +60,5 @@
       var value = $(this).val();
       window.location.href = value;
     });
+    $("#e9").select2();
   })

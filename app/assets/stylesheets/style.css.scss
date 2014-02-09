@@ -655,7 +655,7 @@ div#sidebar {
     margin-left: -24px;
 }
 
-div#actions + div#info {
+div#actions ~ div#info,div#filters{
     margin-top: 10px;
     border-top: 1px solid #cdcdcd;
     padding-top: 14px;
