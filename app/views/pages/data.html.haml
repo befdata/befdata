@@ -66,5 +66,26 @@
         $(elem).select2({"width": "element" });
       }
     );
+    (function(){
+      var qs = window.location.search.split("&").map(function(s){return decodeURIComponent(s);});
+      qs = qs.slice(1,qs.length-1);
+      kv = {};
 
-  })
+      qs.forEach(function(q){
+        arr=q.split('=');
+        var k = 'select[name="'+arr[0]+'"]';
+        elem = $(k);
+        if(elem != null)
+        {
+          kv[k] ? kv[k].push(arr[1]) : (kv[k] = [arr[1]]);
+        }
+      });
+      for (var k in kv) {
+        if (kv.hasOwnProperty(k)) {
+          elem = $(k);
+          elem.select2('val',kv[k]);
+        }
+      }
+
+    })();// fill in filter selects according to params
+  });
