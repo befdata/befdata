@@ -60,7 +60,6 @@
       var value = $(this).val();
       window.location.href = value;
     });
-    $("#filter-select").select2();
     $("#filters select").each(
       function(index,elem){
         $(elem).select2({"width": "element" });
@@ -69,23 +68,21 @@
     (function(){
       var qs = window.location.search.split("&").map(function(s){return decodeURIComponent(s);});
       qs = qs.slice(1,qs.length-1);
-      kv = {};
-
+      var kv = {};
       qs.forEach(function(q){
-        arr=q.split('=');
+        var arr = q.split('=');
         var k = 'select[name="'+arr[0]+'"]';
-        elem = $(k);
+        var v = arr[1];
+        var elem = $(k);
         if(elem != null)
         {
-          kv[k] ? kv[k].push(arr[1]) : (kv[k] = [arr[1]]);
+          kv[k] ? kv[k].push(v) : (kv[k] = [v]);
         }
       });
       for (var k in kv) {
         if (kv.hasOwnProperty(k)) {
-          elem = $(k);
-          elem.select2('val',kv[k]);
+          $(k).select2('val',kv[k]);
         }
       }
-
     })();// fill in filter selects according to params
   });
