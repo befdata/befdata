@@ -273,17 +273,30 @@ class Dataset < ActiveRecord::Base
     return(datasets)
   end
 
-  def self.joins_datafile_and_freeformats(workbook = nil)
+  def self.joins_datafile_and_freeformats(workbook = nil, attachment = nil)
+
     rel = self.joins("
       left join freeformats on freeformats.freeformattable_id = datasets.id AND freeformats.freeformattable_type='Dataset'
     ").group('datasets.id')
-    case workbook
-      when true, 'true'
-        rel = rel.where('datafiles_count > 0')
-      when false, 'false'
-        rel = rel.where('datafiles_count = 0 or datafiles_count is null')
-    end
-    return(rel)
+    rel =
+      case workbook
+      when true, 'true', ['true']
+        rel.where('datafiles_count > 0')
+      when false, 'false', ['false']
+        rel.where('datafiles_count = 0 or datafiles_count is null')
+      else
+        rel
+      end
+    rel =
+      case attachment
+      when true, 'true', ['true']
+        rel.where('freeformats_count > 0')
+      when false, 'false', ['false']
+        rel.where('freeformats_count = 0 or freeformats_count is null')
+      else
+        rel
+      end
+    rel
   end
 
   # acl9 role related staff: different kinds of user
