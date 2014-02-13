@@ -10,5 +10,12 @@
   - @projects.each do |project|
     %li.project
       = link_to project.name, project_path(project)
-      %span
+      (
+      %abbr{title: "Short name for '#{project.name}'", style: 'cursor:text;'}<>
         = project.shortname
+      )
+
+:javascript
+  $("abbr").hover(function(){
+    selectElementText(this);
+  })

@@ -127,6 +127,22 @@ function clone_me() {
 }
 
 
+// stolen from http://stackoverflow.com/questions/11128130/select-text-in-javascript/11128179#11128179
+function selectElementText(element) {
+    if (document.body.createTextRange) { // ms
+        var range = document.body.createTextRange();
+        range.moveToElementText(element);
+        range.select();
+    } else if (window.getSelection) { // moz, opera, webkit
+        var selection = window.getSelection();
+        var range = document.createRange();
+        range.selectNodeContents(element);
+        selection.removeAllRanges();
+        selection.addRange(range);
+    }
+}
+
+
 $(function(){
   $("table.tablesorter").tablesorter();
   $("#content").on("click","a.remove_parent", function(){
