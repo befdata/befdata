@@ -1,6 +1,6 @@
 - page_title "Datacolumns belonging to datagroup: #{@datagroup.title}"
 
-- show_edit_link = current_user.admin || current_user.data_admin
+- show_edit_link = current_user.admin? || current_user.data_admin?
 
 = content_for :actions do
   = link_to datagroup_path(@datagroup) do

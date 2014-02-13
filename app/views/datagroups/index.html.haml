@@ -23,7 +23,7 @@
       = search_field_tag :search, params[:search]
       = submit_tag "Filter", :name => nil
 
-- authorized_to_edit_and_delete = current_user.admin || current_user.data_admin
+- authorized_to_edit_and_delete = current_user.admin? || current_user.data_admin?
 
 %table#datagroups-table
   %colgroup

@@ -31,7 +31,7 @@ class ProfilesControllerTest < ActionController::TestCase
     post :update, :user => {:city => 'testcity', :admin => "1", :project_board => "1"}
     assert_success_no_error
     u = User.find_by_login("Phdstudentnutrientcycling")
-    assert !u.admin
+    assert !u.admin?
     assert !u.project_board
   end
   test "user can update its api login credentials" do

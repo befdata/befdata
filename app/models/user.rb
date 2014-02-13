@@ -68,9 +68,10 @@ class User < ActiveRecord::Base
   end
 
   %w{admin data_admin project_board}.each do |role|
-    define_method(role) do
+    define_method(role+'?') do
       self.has_role? role.to_sym
     end
+    alias_method role, role+"?"
 
     define_method("#{role}=") do |value|
       case value

@@ -1,7 +1,7 @@
 - page_title "Datagroup: #{@datagroup.title}"
 
 - content_for :actions do
-  - if current_user.admin || current_user.data_admin
+  - if current_user.admin? || current_user.data_admin?
     = link_to edit_datagroup_path(@datagroup) do
       = image_tag "edit.png"
       Edit
