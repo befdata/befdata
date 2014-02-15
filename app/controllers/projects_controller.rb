@@ -7,7 +7,7 @@ class ProjectsController < ApplicationController
   end
 
   def index
-    @projects = Project.select('id, name, shortname').order("shortname")
+    @projects = Project.select('id, name, shortname, comment').order("shortname")
   end
 
   def show

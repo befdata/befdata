@@ -21,9 +21,14 @@
         = render :partial => "users/email_list_modal",
           :locals => {:contacts => @project.users, :css => "project_members", :caption => 'Project members'}
 
-
 %h2
   = "#{@project.name} (#{@project.shortname})"
+
+- unless @project.comment.blank?
+  - show_to :admin, :data_admin, :project_board do
+    .project-comment
+      = @project.comment
+
 %p
   = @project.description
 
