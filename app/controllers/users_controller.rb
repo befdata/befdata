@@ -13,7 +13,11 @@ class UsersController < ApplicationController
   end
 
   def index
-    @users = User.all :order => "lastname"
+    @users = User.select('id, firstname, lastname, salutation, email, avatar_file_name').order(:lastname)
+    respond_to do |format|
+      format.html
+      format.xml
+    end
   end
 
   def show
