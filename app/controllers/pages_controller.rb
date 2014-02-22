@@ -42,12 +42,11 @@ class PagesController < ApplicationController
   # This method is the dashboard method of our Portal
   # This provide a first look to our metadata and give a hint about our data
   def data
-    validate_sort_params
     @tags = DatasetTag.tag_counts
     @datasets =  params[:access_code] ? Dataset.access(params[:access_code]) : Dataset
     @datasets = @datasets.joins_datafile_and_freeformats(params[:workbook],params[:attachment]).select("datasets.id, title,
       GREATEST(datasets.updated_at, max(freeformats.updated_at)) as last_update")
-      .order("#{params[:sort]} #{params[:direction]}")
+      .order("#{CGI.unescape(params[:sort]) if params[:sort]}")
   end
 
   def search
@@ -56,12 +55,6 @@ class PagesController < ApplicationController
     else
       @datasets = Dataset.search(params[:q]) | Datacolumn.includes(:dataset).search(params[:q]).uniq_by(&:dataset_id).map(&:dataset)
     end
-  end
-
-private
-  def validate_sort_params
-    params[:sort] = 'title' unless ['title', 'id', 'last_update'].include?(params[:sort])
-    params[:direction] = 'asc' unless ["desc", "asc"].include?(params[:direction])
   end
 
 end

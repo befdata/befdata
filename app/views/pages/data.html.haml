@@ -12,17 +12,23 @@
 - content_for :filters do
   = form_tag("/data",method: "get") do
     %h3 Filter datasets:
-    %select{multiple: "", name: "access_code[]"}
-      %option{value: "private"} private
-      %option{value: "free_within_projects"} open within projects
-      %option{value: "free_for_members"} open for members
-      %option{value: "free_for_public"} open for public
-    %select{multiple: "", name: "workbook[]"}
-      %option{value: "true"} with workbook
-      %option{value: "false"} without workbook
-    %select{multiple: "", name: "attachment[]"}
-      %option{value: "true"} with attachment
-      %option{value: "false"} without attachment
+    .dataset-filter
+      %select{multiple: "", name: "access_code[]"}
+        %option{value: "private"} private
+        %option{value: "free_within_projects"} open within projects
+        %option{value: "free_for_members"} open for members
+        %option{value: "free_for_public"} open for public
+      %select{multiple: "", name: "workbook[]"}
+        %option{value: "true"} with workbook
+        %option{value: "false"} without workbook
+      %select{multiple: "", name: "attachment[]"}
+        %option{value: "true"} with attachment
+        %option{value: "false"} without attachment
+    Sort #{@datasets.length} of #{Dataset.count} datasets by
+    %select{name: "sort"}
+      %option{value: "id+desc"} Newest
+      %option{value: "title+asc"} Title
+      %option{value: "last_update+desc"} Recently Updated
     = button_to 'Apply filter', {}, {id: "filter-button"}
 
 - content_for :info do
@@ -33,19 +39,6 @@
     = "  "
 
 %h2 Data sets
-
-.dataset-filter
-  %ul.switchers
-    %li
-      = link_to "All", data_path(sort: params[:sort], direction: params[:direction]), :class => ['true','false'].include?(params[:workbook]) ? 'switcher' : 'switcher selected'
-    %li
-      = link_to "With Workbook", data_path(sort: params[:sort], direction: params[:direction], workbook: true), :class => params[:workbook] == 'true' ? 'switcher selected' : 'switcher'
-    %li
-      = link_to "Without Workbook", data_path(sort: params[:sort], direction: params[:direction], workbook: false), :class => params[:workbook] == 'false' ? 'switcher selected' : 'switcher'
-  .right
-    Sort #{@datasets.length} of #{Dataset.count} datasets by
-    = select_tag "Sort", dropdown_list_to_sort_datasets, :class => 'js-select-menu'
-
 - if @datasets.empty?
   %i No Datasets Found.
 
@@ -56,11 +49,7 @@
 
 :javascript
   $(function(){
-    $(".js-select-menu").change(function(){
-      var value = $(this).val();
-      window.location.href = value;
-    });
-    $("#filters select").each(
+    $(".dataset-filter select").each(
       function(index,elem){
         $(elem).select2({"width": "element" });
       }
@@ -74,9 +63,14 @@
         var k = 'select[name="'+arr[0]+'"]';
         var v = arr[1];
         var elem = $(k);
-        if(elem != null)
-        {
-          kv[k] ? kv[k].push(v) : (kv[k] = [v]);
+        if(arr[0] == 'sort'){
+          elem.val(v);
+        }
+        else{
+          if(elem != null)
+          {
+            kv[k] ? kv[k].push(v) : (kv[k] = [v]);
+          }
         }
       });
       for (var k in kv) {
