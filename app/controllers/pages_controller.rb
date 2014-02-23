@@ -46,7 +46,7 @@ class PagesController < ApplicationController
     @datasets =  params[:access_code] ? Dataset.access(params[:access_code]) : Dataset
     @datasets = @datasets.joins_datafile_and_freeformats(params[:workbook],params[:attachment]).select("datasets.id, title,
       GREATEST(datasets.updated_at, max(freeformats.updated_at)) as last_update")
-      .order("#{CGI.unescape(params[:sort]) if params[:sort]}")
+      .order("#{validate_sort_params}")
   end
 
   def search
@@ -57,4 +57,18 @@ class PagesController < ApplicationController
     end
   end
 
+  private
+  def validate_sort_params
+    if sort = params[:sort]
+      sort = CGI.unescape sort
+      sort =
+        if ['title asc', 'id desc', 'last_update desc'].include?(sort)
+          sort
+        else
+          ''
+        end
+    else
+      ''
+    end
+  end
 end

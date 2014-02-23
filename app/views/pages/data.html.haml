@@ -29,7 +29,7 @@
       %option{value: "id+desc"} Newest
       %option{value: "title+asc"} Title
       %option{value: "last_update+desc"} Recently Updated
-    = button_to 'Apply filter', {}, {id: "filter-button"}
+    %input#filter-button{type: "submit", value: "Apply filter"}
 
 - content_for :info do
   %h3
@@ -56,7 +56,7 @@
     );
     (function(){
       var qs = window.location.search.split("&").map(function(s){return decodeURIComponent(s);});
-      qs = qs.slice(1,qs.length-1);
+      qs = qs.slice(1,qs.length);
       var kv = {};
       qs.forEach(function(q){
         var arr = q.split('=');
