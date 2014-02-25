@@ -16,7 +16,7 @@ class Datagroup < ActiveRecord::Base
 
   before_destroy :check_if_destroyable
   before_validation :fill_missing_description
-  after_update { datasets.each(&:touch) }
+  after_update :expire_exported_files
 
   def check_if_destroyable
     errors.add :base, "'#{self.title}' is a system datagroup, thus can't be deleted" and return false if self.is_system_datagroup
@@ -154,7 +154,7 @@ private
     merge_pairs.each do |mp|
       source_cat = Category.find mp["ID"]
       target_cat = Category.find mp["MERGE ID"]
-      Category.merge(source_cat, target_cat, user)
+      source_cat.merge_to(target_cat, user)
     end
   end
 
@@ -179,5 +179,10 @@ private
     end
 
     return true
+  end
+
+  def expire_exported_files
+    connection = ActiveRecord::Base.connection()
+    connection.execute("select expire_exported_files_upon_datagroup_change(#{self.id})")
   end
 end

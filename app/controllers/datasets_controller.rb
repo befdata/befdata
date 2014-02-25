@@ -74,6 +74,10 @@ class DatasetsController < ApplicationController
       @dataset.refresh_paperproposal_authors if params[:dataset][:owner_ids].present?
       # TODO: should not refresh all authors of the pp
       @dataset.log_edit('Metadata updated')
+
+      # invalidate exported xls file
+      ExportedFile.invalidate(@dataset.id, :xls)
+
       redirect_to dataset_path, notice: "Sucessfully Saved"
     else
       last_request = request.env["HTTP_REFERER"]
@@ -120,6 +124,7 @@ class DatasetsController < ApplicationController
         changes += 1
       end
     end
+    ExportedFile.invalidate(@dataset.id, :all) if changes > 0 # invalidate all exported files
     flash[:notice] = "Successfully approved #{changes} properties."
     redirect_to approve_dataset_url(@dataset)
   end
@@ -135,6 +140,7 @@ class DatasetsController < ApplicationController
         #{still_unapproved_columns.map{|c| c.columnheader}.join(', ')}"
       flash[:non_auto_approved] = still_unapproved_columns.map{|c| c.id}
     end
+    ExportedFile.invalidate(@dataset.id, :all)
     redirect_to :back
   end
 
@@ -218,7 +224,6 @@ class DatasetsController < ApplicationController
     @freeformats = @dataset.freeformats :order => :file_file_name
     @datafiles = @dataset.datafiles
   end
-
 
   def update_workbook
     unless params[:datafile]
