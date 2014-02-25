@@ -44,9 +44,9 @@ class PagesController < ApplicationController
   def data
     validate_sort_params
     @tags = DatasetTag.tag_counts
-    @datasets = Dataset.joins_datafile_and_freeformats(params[:workbook]).select("datasets.id, title, 
-      GREATEST(datasets.updated_at, max(freeformats.updated_at)) as last_update")
-      .order("#{params[:sort]} #{params[:direction]}")
+    @datasets = Dataset.joins_datafile_and_freeformats(params[:workbook])
+                       .select("datasets.id, title, datasets.updated_at as last_update")
+                       .order("#{params[:sort]} #{params[:direction]}")
   end
 
   def search

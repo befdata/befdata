@@ -175,14 +175,6 @@ class Dataset < ActiveRecord::Base
     return datacolumns.first.sheetcells.count
   end
 
-  def last_update
-    dates = Array.new
-    dates << self.updated_at
-    dates << self.current_datafile.updated_at if self.current_datafile
-    dates += self.freeformats.pluck(:updated_at)
-    dates.max
-  end
-
   def import_data
     begin
       self.update_attribute(:import_status, 'started importing')

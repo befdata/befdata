@@ -20,7 +20,7 @@
 
     %h3
       Last update
-    %p= @dataset.last_update.localtime.strftime "%Y-%m-%d %H:%M"
+    %p= @dataset.updated_at.localtime.strftime "%Y-%m-%d %H:%M"
 
     = render :partial => 'dataset_edits/last_edits_in_sidebar' if current_user
 
