@@ -1,5 +1,5 @@
 xml.instruct!
-xml.dataset(:id => @dataset.id) {
+xml.dataset(:id => @dataset.id, :version => 1) {
   if @dataset.visible_for_public || current_user
     xml.title  @dataset.title
     xml.abstract @dataset.abstract
@@ -67,23 +67,39 @@ xml.dataset(:id => @dataset.id) {
         end
       end
     }
-    xml.urls {
-      xml.xls download_dataset_url(@dataset, user_credentials: current_user.try(:single_access_token))
-      xml.csv download_dataset_url(@dataset, format: :csv, separate_category_columns: true, user_credentials: current_user.try(:single_access_token))
-    }
+    xml.files do
+      xml.exported_file do
+        if @dataset.has_research_data?
+          xml.file do
+            xml.type 'xls'
+            xml.status @dataset.exported_excel.status
+            xml.url download_dataset_url(@dataset, user_credentials: current_user.try(:single_access_token))
+          end
+          xml.file do
+            xml.type 'csv'
+            xml.status @dataset.exported_scc_csv.status
+            xml.url download_dataset_url(@dataset, format: :csv, separate_category_columns: true, user_credentials: current_user.try(:single_access_token))
+          end
+        end
+      end
+      xml.attachments do
+        @freeformats.each do |f|
+          xml.file do
+            xml.id f.id
+            xml.type f.file_content_type
+            xml.fileName f.file_file_name
+            xml.description f.description
+            xml.url download_freeformat_url(f, user_credentials: current_user.try(:single_access_token))
+          end
+        end
+      end
+    end
+    if @dataset.has_research_data?
+      xml.importstatus @dataset.import_status
+    end
     xml.keywordSet {
       @dataset.tags.each do |t|
         xml.keyword t.name, :id => t.id
-      end
-    }
-    xml.attachments {
-      @freeformats.each do |f|
-        xml.attachment(id: f.id) {
-          xml.fileName f.file_file_name
-          xml.description f.description
-          xml.fileType f.file_content_type
-          xml.url download_freeformat_url(f, user_credentials: current_user.try(:single_access_token))
-        }
       end
     }
   else
