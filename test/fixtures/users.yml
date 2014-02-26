@@ -34,6 +34,7 @@ users_001:
   avatar_file_name: 
   avatar_content_type: 
   avatar_file_size: 
+  receive_emails: f
 users_002: 
   id: "5"
   login: Phdstudentnutrientcycling
@@ -69,6 +70,7 @@ users_002:
   avatar_file_name: 
   avatar_content_type: 
   avatar_file_size: 
+  receive_emails: f
 users_003: 
   id: "6"
   login: Phdstudentproductivity
@@ -104,6 +106,7 @@ users_003:
   avatar_file_name: 
   avatar_content_type: 
   avatar_file_size: 
+  receive_emails: f
 users_004: 
   id: "3"
   login: pinutrientcycling
@@ -139,6 +142,7 @@ users_004:
   avatar_file_name: 
   avatar_content_type: 
   avatar_file_size: 
+  receive_emails: f
 users_005: 
   id: "2"
   login: Pidata
@@ -174,6 +178,7 @@ users_005:
   avatar_file_name: 
   avatar_content_type: 
   avatar_file_size: 
+  receive_emails: f
 users_006: 
   id: "1"
   login: nadrowski
@@ -209,6 +214,7 @@ users_006:
   avatar_file_name: 
   avatar_content_type: 
   avatar_file_size: 
+  receive_emails: f
 users_007:
   id: '7'
   login: admin

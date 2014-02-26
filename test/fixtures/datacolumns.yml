@@ -17,6 +17,7 @@ datacolumns_001:
   informationsource: 
   instrumentation:
   acknowledge_unknown: 
+  term_id: 
 datacolumns_002: 
   id: "61"
   datagroup_id: "20"
@@ -35,6 +36,7 @@ datacolumns_002:
   informationsource: 
   instrumentation:
   acknowledge_unknown: 
+  term_id: 
 datacolumns_003: 
   id: "63"
   datagroup_id: "1"
@@ -53,6 +55,7 @@ datacolumns_003:
   informationsource: Flora of China, Helge Bruelheide
   instrumentation:
   acknowledge_unknown: 
+  term_id: 
 datacolumns_004: 
   id: "62"
   datagroup_id: "21"
@@ -71,6 +74,7 @@ datacolumns_004:
   informationsource: 
   instrumentation:
   acknowledge_unknown: 
+  term_id: 
 datacolumns_005: 
   id: "57"
   datagroup_id: "34"
@@ -89,6 +93,7 @@ datacolumns_005:
   informationsource: 
   instrumentation:
   acknowledge_unknown: 
+  term_id: 
 datacolumns_006: 
   id: "58"
   datagroup_id: "6"
@@ -107,6 +112,7 @@ datacolumns_006:
   informationsource: 
   instrumentation:
   acknowledge_unknown: 
+  term_id: 
 datacolumns_007: 
   id: "59"
   datagroup_id: "35"
@@ -125,6 +131,7 @@ datacolumns_007:
   informationsource: 
   instrumentation:
   acknowledge_unknown: 
+  term_id: 
 datacolumns_008: 
   id: "49"
   datagroup_id: "21"
@@ -143,6 +150,7 @@ datacolumns_008:
   informationsource: 
   instrumentation:
   acknowledge_unknown: 
+  term_id: 
 datacolumns_009: 
   id: "54"
   datagroup_id: "6"
@@ -161,6 +169,7 @@ datacolumns_009:
   informationsource: 
   instrumentation:
   acknowledge_unknown: 
+  term_id: 
 datacolumns_010: 
   id: "56"
   datagroup_id: "33"
@@ -179,6 +188,7 @@ datacolumns_010:
   informationsource: 
   instrumentation:
   acknowledge_unknown: 
+  term_id: 
 datacolumns_011: 
   id: "36"
   datagroup_id: "1"
@@ -197,6 +207,7 @@ datacolumns_011:
   informationsource: Flora of China, Helge Bruelheide
   instrumentation:
   acknowledge_unknown: 
+  term_id: 
 datacolumns_012: 
   id: "35"
   datagroup_id: "21"
@@ -215,6 +226,7 @@ datacolumns_012:
   informationsource: 
   instrumentation:
   acknowledge_unknown: 
+  term_id: 
 datacolumns_013: 
   id: "33"
   datagroup_id: "19"
@@ -233,6 +245,7 @@ datacolumns_013:
   informationsource: 
   instrumentation:
   acknowledge_unknown: 
+  term_id: 
 datacolumns_014: 
   id: "34"
   datagroup_id: "20"
@@ -251,6 +264,7 @@ datacolumns_014:
   informationsource: 
   instrumentation:
   acknowledge_unknown: 
+  term_id: 
 datacolumns_015: 
   id: "41"
   datagroup_id: "23"
@@ -269,6 +283,7 @@ datacolumns_015:
   informationsource: 
   instrumentation:
   acknowledge_unknown: 
+  term_id: 
 datacolumns_016: 
   id: "42"
   datagroup_id: "24"
@@ -287,6 +302,7 @@ datacolumns_016:
   informationsource: 
   instrumentation:
   acknowledge_unknown: 
+  term_id: 
 datacolumns_017: 
   id: "43"
   datagroup_id: "25"
@@ -305,6 +321,7 @@ datacolumns_017:
   informationsource: 
   instrumentation:
   acknowledge_unknown: 
+  term_id: 
 datacolumns_018: 
   id: "44"
   datagroup_id: "26"
@@ -323,6 +340,7 @@ datacolumns_018:
   informationsource: 
   instrumentation:
   acknowledge_unknown: 
+  term_id: 
 datacolumns_019: 
   id: "45"
   datagroup_id: "27"
@@ -341,6 +359,7 @@ datacolumns_019:
   informationsource: 
   instrumentation: 
   acknowledge_unknown: 
+  term_id: 
 datacolumns_020: 
   id: "46"
   datagroup_id: "28"
@@ -359,6 +378,7 @@ datacolumns_020:
   informationsource: 
   instrumentation: 
   acknowledge_unknown: 
+  term_id: 
 datacolumns_021: 
   id: "47"
   datagroup_id: "29"
@@ -377,6 +397,7 @@ datacolumns_021:
   informationsource: 
   instrumentation: 
   acknowledge_unknown: 
+  term_id: 
 datacolumns_022: 
   id: "48"
   datagroup_id: "24"
@@ -395,6 +416,7 @@ datacolumns_022:
   informationsource: 
   instrumentation: 
   acknowledge_unknown: 
+  term_id: 
 datacolumns_023: 
   id: "50"
   datagroup_id: "5"
@@ -413,6 +435,7 @@ datacolumns_023:
   informationsource: 
   instrumentation: 
   acknowledge_unknown: 
+  term_id: 
 datacolumns_024: 
   id: "51"
   datagroup_id: "31"
@@ -431,6 +454,7 @@ datacolumns_024:
   informationsource: 
   instrumentation: 
   acknowledge_unknown: 
+  term_id: 
 datacolumns_025: 
   id: "52"
   datagroup_id: "32"
@@ -449,6 +473,7 @@ datacolumns_025:
   informationsource: 
   instrumentation: 
   acknowledge_unknown: 
+  term_id: 
 datacolumns_026: 
   id: "65"
   datagroup_id: "36"
@@ -467,6 +492,7 @@ datacolumns_026:
   informationsource: DC_INFORMATIONSOURCE
   instrumentation: DC_INSTRUMENTATION
   acknowledge_unknown: 
+  term_id: 
 datacolumns_027: 
   id: "53"
   datagroup_id: "6"
@@ -485,6 +511,7 @@ datacolumns_027:
   informationsource: 
   instrumentation: 
   acknowledge_unknown: 
+  term_id: 
 datacolumns_028: 
   id: "55"
   datagroup_id: "6"
@@ -503,6 +530,7 @@ datacolumns_028:
   informationsource: 
   instrumentation: 
   acknowledge_unknown: 
+  term_id: 
 datacolumns_029: 
   id: "64"
   datagroup_id: "24"
@@ -521,6 +549,7 @@ datacolumns_029:
   informationsource: 
   instrumentation: 
   acknowledge_unknown: 
+  term_id: 
 datacolumns_030: 
   id: "66"
   datagroup_id: "37"
@@ -539,3 +568,4 @@ datacolumns_030:
   informationsource: DG_INFORMATION_SOURCE_2
   instrumentation: DG_INSTRUMENTATION_2
   acknowledge_unknown: 
+  term_id: 

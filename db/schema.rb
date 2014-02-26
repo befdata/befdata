@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140113081508) do
+ActiveRecord::Schema.define(:version => 20140223145745) do
 
   create_table "author_paperproposals", :force => true do |t|
     t.integer  "paperproposal_id"
@@ -184,7 +184,7 @@ ActiveRecord::Schema.define(:version => 20140113081508) do
 
   create_table "exported_files", :force => true do |t|
     t.integer  "dataset_id"
-    t.string   "status",         :default => "new"
+    t.string   "status",         :default => "new",                 :null => false
     t.datetime "generated_at"
     t.datetime "invalidated_at", :default => '1970-01-01 00:00:00'
     t.string   "file_file_name"

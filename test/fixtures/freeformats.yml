@@ -10,6 +10,8 @@ freeformats_001:
   description: 
   freeformattable_id: "7"
   freeformattable_type: Dataset
+  is_essential: f
+  uri: 
 freeformats_002: 
   id: "2"
   file_file_name: 8346952459374534ppNutrientCyclingtest.doc
@@ -21,6 +23,8 @@ freeformats_002:
   description: 
   freeformattable_id: "1"
   freeformattable_type: Paperproposal
+  is_essential: f
+  uri: 
 freeformats_003: 
   id: "3"
   file_file_name: 8346952459374534ppProduction.doc
@@ -32,3 +36,5 @@ freeformats_003:
   description: 
   freeformattable_id: "2"
   freeformattable_type: Paperproposal
+  is_essential: f
+  uri: 
