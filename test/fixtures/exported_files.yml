@@ -44,3 +44,21 @@ exported_files_005:
   file_file_name: stringio.txt
   file_file_size: '43520'
   type: ExportedExcel
+exported_files_006:
+  id: '11'
+  dataset_id: '5'
+  status: finished
+  generated_at: '2014-02-27 16:05:04.596536'
+  invalidated_at: '1970-01-01 00:00:00'
+  file_file_name: Test-species-name-import
+  file_file_size: '192'
+  type: ExportedCsv
+exported_files_007:
+  id: '12'
+  dataset_id: '5'
+  status: finished
+  generated_at: '2014-02-27 16:05:04.883138'
+  invalidated_at: '1970-01-01 00:00:00'
+  file_file_name: Test-species-name-import
+  file_file_size: '214'
+  type: ExportedSccCsv
