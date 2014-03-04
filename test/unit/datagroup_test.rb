@@ -20,5 +20,12 @@ class DatagroupText < ActiveSupport::TestCase
     end
   end
 
+  test 'update datagroup expires exported datasets' do
+    datagroup = Datagroup.find(1)
+    orig_invalidated_at = ExportedExcel.where(:dataset_id => 5).first.invalidated_at
+
+    datagroup.update_attributes(:comment => 'test triggers')
+    assert ExportedExcel.where(:dataset_id => 5).first.invalidated_at > orig_invalidated_at
+  end
 
 end

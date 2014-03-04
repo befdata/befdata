@@ -62,3 +62,39 @@ exported_files_007:
   file_file_name: Test-species-name-import
   file_file_size: '214'
   type: ExportedSccCsv
+exported_files_008:
+  id: '13'
+  dataset_id: '6'
+  status: finished
+  generated_at: '2014-03-04 16:02:22.044499'
+  invalidated_at: '1970-01-01 00:00:00'
+  file_file_name: Test-species-name-import-second-version
+  file_file_size: '207'
+  type: ExportedCsv
+exported_files_009:
+  id: '15'
+  dataset_id: '9'
+  status: finished
+  generated_at: '2014-03-04 16:02:22.480827'
+  invalidated_at: '1970-01-01 00:00:00'
+  file_file_name: TITLE--use-for-visual-testing-of-export
+  file_file_size: '124'
+  type: ExportedCsv
+exported_files_010:
+  id: '17'
+  dataset_id: '7'
+  status: finished
+  generated_at: '2014-03-04 16:02:22.722302'
+  invalidated_at: '1970-01-01 00:00:00'
+  file_file_name: Unit-tests
+  file_file_size: '531'
+  type: ExportedCsv
+exported_files_011:
+  id: '19'
+  dataset_id: '8'
+  status: finished
+  generated_at: '2014-03-04 16:02:23.058409'
+  invalidated_at: '1970-01-01 00:00:00'
+  file_file_name: Comparative-study-plot-information-to-be-shared-with-all-BEF-China-scientists--with-more-problems
+  file_file_size: '2708'
+  type: ExportedCsv
