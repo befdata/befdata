@@ -14,4 +14,17 @@ class CategoryTest < ActiveSupport::TestCase
     assert c.long && c.description
   end
 
+  test 'update category expires exported data files' do
+    category_id = 61
+    dataset = Dataset.find(5)
+    orig_invalidated_at_excel = dataset.exported_excel.invalidated_at
+    orig_invalidated_at_csv = dataset.exported_csv.invalidated_at
+
+    Category.find(category_id).update_attributes(:comment => "test triggers")
+
+    assert dataset.exported_excel(true).invalidated_at > orig_invalidated_at_excel
+    assert dataset.exported_csv(true).invalidated_at > orig_invalidated_at_csv
+
+  end
+
 end

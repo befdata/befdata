@@ -15,8 +15,8 @@
 
 set :output, 'log/whenever_cron_errors.log'
 
-every 1.minutes do
-  runner "ExcelExport.regenerate_downloads_if_needed"
+every 3.minutes do
+  runner 'ExportedFile.regenerate_downloads_for_outdated_files'
 end
 
 every 1.day, :at => '0:10 am' do

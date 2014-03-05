@@ -1,0 +1,9 @@
+Column_one,Column_two,Column_three,Column_four,Column_five,Column_six,Column_seven,Column_eight,Column_nine
+Canada,10,2001-11-11,2001,AAA,red,12.11.09,10,11
+France,11,202-11-11,2002-11-11,BBB,orange,06.11.2009,11.111112,1.03
+Spain,NA,NA,1987,CCC,yellow,01.11.09,1.2.0,NA
+England,1,1,1987,DDD,gold,05.11.09,45,<1
+Germany,<1,2001-11-12,2000,EEE,blue,04.11.09,1000.21,<2.5
+Ireland,7,2001-10-11,1987,FFF,indigo,09.11.09,0.987,9
+Wales,8,2001-11-11,1934,FFF,violet,12.11.2011,88.889,13
+Poland,6,2001-11-11,,GGG,brown,NA,not a number,110

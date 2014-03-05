@@ -8,6 +8,6 @@
   %h4 Cite the data as follows: 
   %p{style: 'font-style: italic'}
     %span.authors= f.owners.map(&:short_name).to_sentence
-    %span.year= "(#{f.last_update.year}):"
+    %span.year= "(#{f.updated_at.year}):"
     %span.title= "#{f.title}."
     = "(Accessed through URL: #{dataset_url(f)})"

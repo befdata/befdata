@@ -1,0 +1,28 @@
+date,plot,Elevation,aspect,aspect_ValueComment,Aspect_E,Aspect_N,Coordinates_N,Coordinates_E,Coordinates_ValueComment,test
+2008,1,522,277,,-0.992546152,0.121869343,29.23957,118.11587,"coordinates helpful, correct",1
+2008,2,590,230,,-0.766044443,-0.64278761,29.24926,118.13484,"coordinates helpful, correct",1
+2008,3,720,330,,-0.5,0.866025404,29.23885,118.12402,not visited,1
+2008,4,542,170,,0.173648178,-0.984807753,29.24963,118.12015,coordinates were misleading,1
+2008,csp5,507,190,,-0.173648178,-0.984807753,29.24687,118.1122,"coordinates helpful, correct",1
+2008,06,880,270,,-1,-1.84e-16,29.25497,118.14747,"coordinates helpful, correct",1
+2008,7,-9999,190,,-0.173648178,-0.984807753,29.25184,118.14373,"coordinates helpful, correct",1
+2008,8,413,50,,0.766044443,0.64278761,29.24106,118.11019,"coordinates helpful, correct",1
+2008,9,348,210,"from memory and from map: Anja FankhÃ¤nel states that 210 cannot be right, probably 0 degree (which is the opposite!)",-0.5,-0.866025404,29.24275,118.11337,"coordinates helpful, correct",2
+2008,10,670,20,,0.342020143,0.939692621,29.25188,118.15791,"coordinates helpful, correct",2
+2008-2009,11,647,270,,-1,-1.84e-16,29.27383,118.13647,"coordinates helpful, correct",2
+2008,12,620,300,,-0.866025404,0.5,29.24939,118.1219,coordinates were misleading,2
+2008,13,402,190,13402,-0.173648178,-0.984807753,29.2463,118.11621,"coordinates helpful, correct",2
+2008,14,639,185,,-0.087155743,-0.996194698,29.24944,118.13518,"coordinates helpful, correct",2
+2008,15,<300,205,,-0.422618262,-0.906307787,29.24917,118.13106,"coordinates helpful, correct",2
+2008-2009,16,309,225,,-0.707106781,-0.707106781,29.24253,118.09966,"coordinates helpful, correct",2
+2008,17,310,165,,0.258819045,-0.965925826,29.24342,118.10828,"coordinates helpful, correct",2
+2008,18,569,330,,-0.5,0.866025404,29.24516,118.12461,"coordinates helpful, correct",2
+2008,19,655,35,,0.573576436,0.819152044,29.28045,118.08389,not visited,2
+2008,20,679,200,,-0.342020143,-0.939692621,29.28139,118.08803,"coordinates helpful, correct",3
+2008,5 or  7,566,90,"measured in Winter 2008/9 by Anja FankhÃ¤nel: 55, estimated by Martin BÃ¶hnke: 90",1,6.13e-17,NA,,"coordinates helpful, correct",3
+2008,22,617,30,,0.5,0.866025404,29.27698,118.09066,"coordinates helpful, correct",3
+2008,23,419,240,,-0.866025404,-0.5,29.2145,118.13723,"coordinates helpful, correct",3
+2008,24,366,340,24366,-0.342020143,0.939692621,29.21483,118.13469,"coordinates helpful, correct",3
+2008,25,>400,40,,0.64278761,not measured,29.21713,118.13155,"coordinates helpful, correct",3
+2008,26,251,65,,0.906307787,0.422618262,29.21489,118.12155,"coordinates helpful, correct",3
+2008,27,665,270,,-1,-1.84e-16,29.24709,118.13605,not visited,3

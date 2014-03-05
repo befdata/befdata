@@ -14,6 +14,18 @@ class DatasetsControllerTest < ActionController::TestCase
     assert_success_no_error
   end
 
+  test "test update metadata expires exported Excel file" do
+    login_nadrowski
+    dataset = Dataset.find(5)
+    orig_excel_invalidated_at = dataset.exported_excel.invalidated_at
+    orig_csv_invalidated_at = dataset.exported_csv.invalidated_at
+
+    post :update, {:id => 5, :dataset => {:comment => 'test'}}
+    assert_success_no_error
+    assert_equal dataset.exported_excel.invalidated_at, orig_excel_invalidated_at
+    assert_equal dataset.exported_csv.invalidated_at, orig_csv_invalidated_at
+  end
+
   test "should show eml metadata as xml" do
     get :show, {:id => Dataset.first.id, :format => :eml}
     assert_success_no_error
@@ -125,11 +137,17 @@ class DatasetsControllerTest < ActionController::TestCase
     @request.env['HTTP_REFERER'] = approve_dataset_url(dataset)
     assert_not_empty dataset.predefined_columns
 
+    orig_exported_excel_invalidated_at = dataset.exported_excel.invalidated_at
+    orig_exported_csv_invalidated_at = dataset.exported_csv.invalidated_at
+
     post :approve_predefined, :id => dataset.id
 
     assert :success
     assert_empty Dataset.find(dataset.id).predefined_columns
     assert_equal Datacolumn.find(53).import_data_type, 'text'
+
+    assert dataset.exported_excel(true).invalidated_at > orig_exported_excel_invalidated_at
+    assert dataset.exported_csv(true).invalidated_at > orig_exported_csv_invalidated_at
   end
 
   test "quick approve is displaying all select boxes" do
@@ -143,6 +161,8 @@ class DatasetsControllerTest < ActionController::TestCase
   test "quick approve updates datacolumn properties" do
     login_nadrowski
     dataset = Dataset.find 5
+    orig_xls_invalidated_at = dataset.exported_excel.invalidated_at
+    orig_csv_invalidated_at = dataset.exported_csv.invalidated_at
 
     datacolumn_1_id = 33
     datagroup_1_id = 5
@@ -157,6 +177,9 @@ class DatasetsControllerTest < ActionController::TestCase
 
     assert_equal datagroup_1_id, Datacolumn.find(datacolumn_1_id).datagroup.id
     assert_equal datatype_2, Datacolumn.find(datacolumn_2_id).import_data_type.to_s
+
+    assert_not_equal orig_xls_invalidated_at, dataset.exported_excel(true).invalidated_at
+    assert_not_equal orig_csv_invalidated_at, dataset.exported_csv(true).invalidated_at
 
     assert_match /3/, flash[:notice]
   end

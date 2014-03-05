@@ -167,13 +167,24 @@ CREATE OR REPLACE FUNCTION accept_invalid_values(datacolumn_id integer, datagrou
 
 CREATE OR REPLACE FUNCTION update_date_category_datasets(category_id integer) RETURNS boolean
     LANGUAGE sql AS
-      $_$update datasets
-         set updated_at = now()
+      $_$update exported_files
+         set invalidated_at = now() AT TIME ZONE 'UTC'
         from sheetcells sc inner join datacolumns dc on sc.datacolumn_id = dc.id
-        where category_id = $1 and datasets.id = dc.dataset_id
+        where category_id = $1 and exported_files.dataset_id = dc.dataset_id
     returning true$_$;
+--
+--- Name: expire_exported_files_upon_datagroup_change; Type: FUNCTION; Schema: public; Owner: -
+--
 
-
+CREATE OR REPLACE FUNCTION expire_exported_files_upon_datagroup_change(datagroup_id int) RETURNS void
+AS $$
+  update exported_files
+    set invalidated_at = now() AT TIME ZONE 'UTC'
+  from datacolumns
+  where exported_files.dataset_id = datacolumns.dataset_id
+  and datacolumns.datagroup_id = $1
+  and exported_files.type = 'ExportedExcel'; --- only affect exported Excel files
+$$ language sql;
 
 --
 --- Define a view

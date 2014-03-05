@@ -22,6 +22,9 @@ class DatacolumnsController < ApplicationController
   def update
     respond_to do |format|
       if @datacolumn.update_attributes(params[:datacolumn])
+        expire_type = @datacolumn.previous_changes.keys.include?('columnheader') ? :all : :xls
+        ExportedFile.invalidate(@dataset.id, expire_type)
+
         format.html { redirect_to :back }
         format.json {render :json => @datacolumn}
       else
@@ -90,6 +93,7 @@ class DatacolumnsController < ApplicationController
 
     if @datagroup.save
       @datacolumn.approve_datagroup(@datagroup)
+      ExportedFile.invalidate(@dataset.id, :xls)
       flash[:notice] = "Data group successfully saved."
       next_approval_step
     else
@@ -107,6 +111,7 @@ class DatacolumnsController < ApplicationController
     else
       @datagroup = Datagroup.find(params[:datagroup])
       @datacolumn.approve_datagroup(@datagroup)
+      ExportedFile.invalidate(@dataset.id, :xls)
       flash[:notice] = "Data group successfully saved."
       next_approval_step
     end
@@ -124,6 +129,7 @@ class DatacolumnsController < ApplicationController
 
     begin
       @datacolumn.approve_datatype(params[:import_data_type], current_user)
+      ExportedFile.invalidate(@dataset.id, :all)
       flash[:notice] = "Successfully updated Datatype"
       next_approval_step
     rescue
@@ -140,6 +146,8 @@ class DatacolumnsController < ApplicationController
       flash[:error] = @datacolumn.errors.to_a.first.capitalize
       redirect_to :back and return
     end
+    expire_type = @datacolumn.previous_changes.keys.include?('columnheader') ? :all : :xls
+    ExportedFile.invalidate(@dataset.id, expire_type)
 
     # Retrieve the new list of people from the form params.
     new_people = params[:people].blank? ? [] : User.find(params[:people])
@@ -165,6 +173,7 @@ class DatacolumnsController < ApplicationController
       end
       @datacolumn.touch
     end
+    ExportedFile.invalidate(@dataset.id, :all)
     flash[:notice] = "The invalid values have been successfully approved"
     next_approval_step
   end
@@ -180,6 +189,7 @@ class DatacolumnsController < ApplicationController
         @datacolumn.update_invalid_value(row['import value'], row['category short'], row['category long'], row['category description'], @dataset)
       end
       @datacolumn.touch
+      ExportedFile.invalidate(@dataset.id, :all)
       flash[:notice] = "The invalid values have been successfully approved"
       next_approval_step
     rescue => e
@@ -190,6 +200,7 @@ class DatacolumnsController < ApplicationController
 
   def autofill_and_update_invalid_values
     @datacolumn.batch_approve_invalid_values(current_user)
+    ExportedFile.invalidate(@dataset.id, :all)
     @datacolumn.touch
     flash[:notice] = "The invalid values have been successfully approved"
     next_approval_step

@@ -9,7 +9,7 @@ class Category < ActiveRecord::Base
   before_validation :try_filling_missing_values
 
   before_destroy :check_for_sheetcells_associated
-  after_update :update_dataset
+  after_update :expire_related_exported_datasets
 
   def self.delete_orphan_categories
     # delete categories that has no assciated sheetcells
@@ -46,13 +46,6 @@ class Category < ActiveRecord::Base
     end
   end
 
-  # find and update the updated_at date for all datasets that share this category
-  def update_dataset
-    sql = "select update_date_category_datasets(#{id})"
-    connection = ActiveRecord::Base.connection()
-    connection.execute(sql)
-  end
-
   def update_sheetcells_with_csv(file, user)
     begin
       lines = CSV.read(file, CsvData::OPTS)
@@ -69,13 +62,25 @@ class Category < ActiveRecord::Base
     update_overview
   end
 
-  def self.merge(from_category, to_category, user)
-    return unless from_category.datagroup_id == to_category.datagroup_id
+  def merge_to(to_category, user)
+    return unless self.datagroup_id == to_category.datagroup_id
+    self.expire_related_exported_datasets
 
-    comment_string = "Merged #{from_category.short} by #{user.lastname} at #{Time.now.to_s} via CSV; "
-    from_category.sheetcells.update_all(:category_id => to_category.id)
-    to_category.update_attributes(:comment => "#{to_category.comment} #{comment_string}".strip) # this triggers regeneration of datasets
-    from_category.delete
+    comment_string = "Merged #{self.short} by #{user.lastname} at #{Time.now.utc.to_s} via CSV; "
+    self.sheetcells.update_all(:category_id => to_category.id, :updated_at => Time.now)
+    Category.where(:id => to_category.id).update_all(
+        :comment => "#{to_category.comment} #{comment_string}".strip,
+        :updated_at => Time.now
+    )
+    self.delete
+  end
+
+protected
+  # find and update the updated_at date for all datasets that share this category
+  def expire_related_exported_datasets
+    sql = "select update_date_category_datasets(#{id})"
+    connection = ActiveRecord::Base.connection()
+    connection.execute(sql)
   end
 
 private
@@ -127,5 +132,4 @@ private
     end
     updates_overview
   end
-
 end

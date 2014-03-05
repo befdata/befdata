@@ -2,13 +2,13 @@
 
 - content_for :info do
   %h3 Last update
-  %p #{time_ago_in_words(@dataset.last_update)} ago
+  %p #{time_ago_in_words(@dataset.updated_at)} ago
   %h3 Download URLs
   = render :partial => "popup_display_download_url", :locals => {:id => @dataset.id, :css => "dataset_owners", :caption => 'Display download urls'}
   %h3  Downloads history (#{@dataset.dataset_downloads_count})
   - if @dataset.dataset_downloads_count > 0
     %ul#downloaders
-      - @dataset.dataset_downloads.includes(:user).sort_by {|dl|dl.created_at}.reverse.each do |dl|
+      - @dataset.dataset_downloads.includes(:user).order("dataset_downloads.created_at desc").each do |dl|
         %li
           = dl.created_at.localtime.strftime "%Y-%m-%d %H:%M"
           - if dl.user
@@ -33,59 +33,112 @@
 
 #tabs.overflow.hidden
   %ul
-    %li= link_to "Excel file" , "#xls"
+    %li= link_to "Excel" , "#xls"
     %li= link_to "CSV" , "#csv"
     %li= link_to "CSV2" , "#csv2"
 
+  / CSV file with separate columns for its categories
   #csv2
-    %h3 CSV file with separate category columns
+    %h3 CSV file with separate columns for its categories
+    = render :partial => 'status_indicator', :locals => {exported_file: @exported_scc_csv}
+
     %p Same as Regular CSV file, but the invalid values are stored in a separate column. For dataset that hasn't been approved yet, it's same with Regular CSV file.
     #download
       = link_to "Download", download_dataset_url(@dataset, :csv, :separate_category_columns => true), class: 'button', rel: 'nofollow'
+
+  / Regular CSV file
   #csv
     %h3 Regular CSV file
+    = render :partial => 'status_indicator', :locals => {exported_file: @exported_csv}
+
     %p This correspondes to the raw data sheet of the Excel file, containing only data.
     #download
       = link_to "Download", download_dataset_path(@dataset, :csv), class: 'button', rel: 'nofollow'
+
+  / Excel file
   #xls
-    %div.overflow
-      %h3.left MS-Excel2003 file
-      %span#download_status.right
-        Status:
-        = content_tag :span, id: @dataset.download_status do
-          = @dataset.download_status
-      %span.right= image_tag "spinner.gif", :class => ['queued', 'started'].include?(@dataset.download_status) ? "" : 'hidden', :id => "indicator"
-    - if @dataset.download_status == "outdated"
-      #warning This Excel file is outdated. Usually, it will be regenerated within at most 10 minutes. You could wait for a while, or you could also #{link_to("regenerated download", regenerate_download_dataset_path(@dataset))} manually rightnow.
-    - if @dataset.download_status == "queued"
-      #warning  This Excel file is being regenerated, please wait till it is finished.
+    %h3 MS-Excel2003 file
+    = render :partial => 'status_indicator', :locals => {exported_file: @exported_excel}
+
     %p
       This is the same as the workbook the owner uploaded, including all the data and metadata.
     #download
       = link_to "Download", download_dataset_path(@dataset), class: 'button', rel: 'nofollow'
 
+- unless @freeformats.blank?
+  %h3 Attachment Files (#{pluralize @freeformats.length, 'file'})
+  = render :partial => 'freeformats/index'
+
 :javascript
+  function calc_active_tab_index() {
+    var lookup = { xls: 0, csv: 1, csv2: 2}
+    var hash = window.location.hash.slice(1);
+    return lookup[hash] || 0 // default: the first tab is active
+  }
+
+  var statusDom = {
+    xls: $("#xls .status"),
+    csv: $("#csv .status"),
+    csv2: $("#csv2 .status")
+  }
+
+  function all_finished() {
+    for(format in statusDom) {
+      if (statusDom[format].find("span").text().indexOf('finished') === -1) {
+        return false;
+      }
+    }
+    return true;
+  }
+
+  function update_status() {
+    $.getJSON("#{download_status_dataset_url(@dataset, :json)}", function(data){
+      $.each(statusDom, function(format, jQ){
+        var new_status = data[format];
+        var old_status = jQ.find('span').text();
+
+        if (old_status !== new_status) {
+            jQ.find('span').text(new_status);
+            jQ.find('span').attr('class', new_status);
+          switch(new_status){
+            case 'queued':
+            case 'started':
+              jQ.nextAll('#outdated-notice').hide();
+              jQ.nextAll('#ongoing-notice').show();
+              jQ.find('.indicator').show();
+              break;
+            case 'finished':
+              jQ.nextAll('.warning').hide();
+              jQ.find('.indicator').hide();
+              break;
+            case 'outdated':
+              jQ.nextAll('#outdated-notice').show();
+              jQ.nextAll('#ongoing-notice').hide();
+              jQ.find('.indicator').hide();
+              break;
+            default:
+              console.log('Invalid status!')
+          }
+        }
+      });
+    })
+  }
+
   $(function(){
-    $("#tabs").tabs().show(0);
-    if ($("#download_status").text().indexOf("finished") == -1){
-      var intervalId = setInterval(
-        function(){
-          $("#download_status").load("#{download_status_dataset_url(@dataset)}", function(){
-            var status = $("#download_status").text();
-            if( status.indexOf("finished") != -1 ){
-              clearInterval(intervalId);
-              $("#warning, #indicator").hide();
-            }
-            if (status.indexOf("queued") != -1){
-              $("#warning").text("This Excel file is being regenerated, please wait till it is finished.");
-            }
-          });
-        }, 5000
-      );
-    };
+    $("#tabs").tabs({active: calc_active_tab_index()}).show();
+
     $("ul#downloaders").find("li:gt(9)").hide();
     $(".show_all").click(function(){
       $("ul#downloaders").find("li:gt(9)").show();
       $(this).remove();
     })
+
+    if (!all_finished()) {
+      var statusFetcher = setInterval(function(){
+        update_status();
+        if (all_finished()) {
+          clearInterval(statusFetcher);
+        }
+      }, 5000)
+    }
   });
