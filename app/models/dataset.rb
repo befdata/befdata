@@ -99,7 +99,7 @@ class Dataset < ActiveRecord::Base
   end
 
   def add_datafile(datafile)
-    datafile.update_attribute(:dataset_id, self.id)
+    datafile.update_attributes(dataset: self)
     self.update_attributes(filename: datafile.basename, import_status: 'new')
   end
 
