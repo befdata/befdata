@@ -1,12 +1,12 @@
 source 'http://rubygems.org'
 
-gem 'rails', "3.2.17"
+gem 'rails', "3.2.19"
 gem 'pg'
 gem 'haml'
 gem 'authlogic'
 gem 'acl9'
 gem 'dynamic_form'
-gem "paperclip", "~> 3.5.2"
+gem "paperclip", "~> 3.5.4"
 gem "acts-as-taggable-on", "~> 2.4.1"
 gem 'spreadsheet'
 gem 'delayed_job_active_record'

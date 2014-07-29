@@ -14,6 +14,8 @@ test/fixtures_dump
 .rvmrc
 .config
 .project
+.ruby-version
+.ruby-gemset
 
 # ignore doc files
 doc_from_rdoc/
