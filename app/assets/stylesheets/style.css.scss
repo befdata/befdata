@@ -545,21 +545,19 @@ input#search_term {
 }
 
 /* --- Flashes ----------------------------------------------- */
-
-#notice {
-	border: 2px solid #18921e;
-    clear: both;
-    padding: 10px;
-    margin-bottom: 10px;
-    font-weight: bold;
-}
-
-#error {
-	border: 2px solid #f00;
-    clear: both;
-    padding: 10px;
-    margin-bottom: 10px;
-    font-weight: bold;
+.alert {
+  clear: both;
+  padding: 10px;
+  margin-bottom: 10px;
+  font-weight: bold;
+  border:2px solid #aaa;
+  &.alert-notice{
+    border: 2px solid #18921e;
+  }
+  &.alert-error{
+    border: 2px solid #f00;
+    .remove_parent{color:red;}
+  }
 }
 
 div#errorExplanation {

@@ -101,7 +101,6 @@ function selectDatasets(select) {
 
 function clone_element_before(element) {
     var input = element.previousSibling.previousSibling;
-    alert(input);
     var name = input.name;
     var id= input.id;
     name = name.replace(/\[([0-9])\]*/, function(variable, p1) {
@@ -140,6 +139,23 @@ function selectElementText(element) {
         selection.removeAllRanges();
         selection.addRange(range);
     }
+}
+
+function showAlert(str, type){
+  type = type || 'notice';
+  var html =  "<div class='alert alert-" + type + "'>" + str + "<a href='#' class='remove_parent'></a></div>";
+  var jqEle = $(html);
+  $("#content").prepend(jqEle);
+  return jqEle;
+}
+
+function hideAlert(){
+  if (arguments.length > 0){
+    var ele = arguments[0];
+    $(ele).remove();
+  } else {
+    $(".alert", "#content").remove();
+  }
 }
 
 
