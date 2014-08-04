@@ -59,7 +59,7 @@
         clearInterval(intervalId);
         hideAfterFinishElement.addClass('hidden');
         showAfterFinishElement.removeClass('hidden');
-        $("#notice").text('Importing is finished, please refresh the page.').slideDown();
+        showAlert('Importing is finished, please refresh the page.', 'notice')
       }
       if(data.slice(0,5) == 'error') {  //String starts with 'error'
         changeAfterErrorElement.text("Import Error");
