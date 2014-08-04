@@ -143,9 +143,9 @@ function selectElementText(element) {
 
 function showAlert(str, type){
   type = type || 'notice';
-  var html =  "<div class='alert alert-" + type + "'>" + str + "<a href='#' class='remove_parent'></a></div>";
-  var jqEle = $(html);
-  $("#content").prepend(jqEle);
+  var html =  "<div class='hidden alert alert-" + type + "'>" + str + "<a href='#' class='remove_parent'></a></div>";
+  var jqEle = $(html).prependTo("#content");
+  jqEle.slideDown();
   return jqEle;
 }
 
