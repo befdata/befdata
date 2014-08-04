@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20140223145745) do
+ActiveRecord::Schema.define(:version => 20140804160807) do
 
   create_table "author_paperproposals", :force => true do |t|
     t.integer  "paperproposal_id"
@@ -362,6 +362,7 @@ ActiveRecord::Schema.define(:version => 20140223145745) do
     t.string   "avatar_content_type"
     t.integer  "avatar_file_size"
     t.boolean  "receive_emails",      :default => false
+    t.boolean  "alumni",              :default => false
   end
 
   create_table "vocabs", :force => true do |t|
