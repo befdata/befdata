@@ -14,17 +14,40 @@
 
 = content_for :info do
   %h3 My login credentials
-  %div
-    = text_field_tag :single_access_token, @user.try(:single_access_token), :id => "api",
-      :readonly => true, :onclick => 'this.select();'
-    = link_to update_credentials_profile_path, method: :post, remote: true, id: 'change_api' do
-      = image_tag "reload.gif", title: "Change one", :size => '13x13'
+  .input-group
+    = text_field_tag :single_access_token, @user.try(:single_access_token), :id => "api", :readonly => true, :onclick => 'this.select();'
+    = content_tag :span, 'Copy', id: 'copy-btn', class: 'button input-group-addon', 'data-clipboard-target' => "api"
+  = link_to 'Refresh', update_credentials_profile_path, method: :post, remote: true, id: 'change_api', class: 'button'
+  %em used in
+  = link_to 'rBEFdata', 'http://cran.r-project.org/web/packages/rbefdata', target: '_blank', title: 'sfsdfsf', id: 'test-tooltip'
 
 = render :template => 'users/show'
 
+= javascript_include_tag 'ZeroClipboard.min'
+
 :javascript
   $(function(){
+    var clip = new ZeroClipboard($("#copy-btn"));
+
+    clip.on("ready", function() {
+      this.on("aftercopy", function(event) {
+        $("#copy-btn").tooltipster('content', 'Copied');
+      });
+    });
+
     $("#change_api").click(function(){
-      $(this).find("img").attr("src","#{asset_path('reloading.gif')}");
+      $(this).text('Refreshing...');
+    });
+
+    $("#copy-btn").tooltipster({
+      content: 'Copy to clipboard',
+      delay:0,
+      speed:0,
+      // interactive:true,
+      // autoClose:false,
+      // theme:'tooltipster-light',
+      functionAfter: function(){
+        $("#copy-btn").tooltipster('content', 'Copy to clipboard');
+      }
     });
   });

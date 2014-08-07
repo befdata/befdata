@@ -162,6 +162,12 @@ div.colborder {
 .clearfix, .container {display:block;}
 .clear {clear:both;}
 
+/* @variables
+------------------------------------- */
+$green: #4aa94e;
+$light-gray:  #ccc;
+$dark-gray: #333;
+
 /* =============================================================
                   C U S T O M   L A Y O U T
 ============================================================= */
@@ -331,7 +337,7 @@ input, textarea, select {
     background-color: #fff;
     outline: 1px solid #cdcdcd;
     border: none;
-    padding: 2px;
+    padding: 3px;
 }
 
 input:focus, textarea:focus, select:focus {
@@ -346,7 +352,7 @@ input[type=file] {
     border: 1px solid #cdcdcd;
 }
 
-input[type=button], input[type=submit], button, a.button {
+input[type=button], input[type=submit], button, a.button, span.button {
   background-color: #e8e8e8;
   outline: 1px solid #8a8a8a;
   border:  none;
@@ -358,14 +364,14 @@ input[type=button], input[type=submit], button, a.button {
   line-height: 1.3em;
 }
 
-input[type=button], input[type=submit], button, a.button,{
+input[type=button], input[type=submit], button, a.button, span.button,{
   &:hover, &:focus, &:active, &:visited {
     outline: solid 1px #18921e;
     background-color: #eee;
   }
 }
 
-a.button, button {
+a.button, span.button, button {
   text-decoration:none;
   display: inline-block;
 }
@@ -391,7 +397,8 @@ button img, a.button img {
 button.inline { float: right; }
 
 input[disabled], input[disabled]:hover, input[disabled]:focus,
-button[disabled], button[disabled]:hover, button[disabled]:focus {
+button[disabled], button[disabled]:hover, button[disabled]:focus,
+.button.disabled, .button.disabled:hover, .button.disabled:focus {
   color: gray;
   outline-color: gray;
 }
@@ -600,6 +607,7 @@ ul.datasets a:focus, ul.projects a:focus, .user a:focus, ul.paperproposals a:foc
 .user {
     display: block;
     clear: both;
+    position:relative;
 }
 
 .user:after {
@@ -962,3 +970,54 @@ noscript {
 }
 .right { float: right !important;}
 .left { float: left !important;}
+
+.panel {
+  border:1px solid $light-gray;
+  border-top:2px solid $green;
+  .panel-header {
+    border-bottom:1px solid $light-gray;
+    font-size:14px;
+    line-height:20px;
+    font-weight: bold;
+    color:$dark-gray;
+    margin:0px;
+    padding:8px;
+  }
+  .panel-body{
+    padding:8px;
+    @extend .clearfix;
+  }
+  .panel-footer{
+    clear:both;
+    border-top:1px solid $light-gray;
+    padding:8px;
+  }
+}
+
+.input-group {
+  display:table;
+  border-collapse: separate;
+  margin-bottom: 10px;
+  input[type=text], input[type=search]{
+    display:table-cell;
+    border:1px solid #ccc;
+    border-right:0;
+    outline:0;
+    margin:0px;
+    padding:0px 3px;
+    font-size:12px;
+    line-height: 24px;
+    vertical-align: middle;
+  }
+  .input-group-addon{
+    display:table-cell;
+    border:1px solid #ccc;
+    outline:0;
+    margin:0px;
+    padding:0px 4px;
+    font-size:14px;
+    line-height: 24px;
+    vertical-align: middle;
+    &:hover, &:focus {outline:0;margin:0;}
+  }
+}
