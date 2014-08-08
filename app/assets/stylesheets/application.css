@@ -13,6 +13,6 @@
  *= require jquery.ui.autocomplete
  *= require jquery.ui.tabs
  *= require select2
- *= require tooltipster
+ *= require tipsy
  *= require_tree .
  */

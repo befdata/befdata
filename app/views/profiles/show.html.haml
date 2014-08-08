@@ -27,27 +27,30 @@
 
 :javascript
   $(function(){
-    var clip = new ZeroClipboard($("#copy-btn"));
+    var _defaults = {
+      title: 'copy to clipboard',
+      copied_hint: 'copied!',
+      gravity: $.fn.tipsy.autoNS
+    };
+
+    var clip = new ZeroClipboard($("#copy-btn"), {
+      moviePath: "#{asset_path('ZeroClipboard.swf')}"
+    });
 
     clip.on("ready", function() {
-      this.on("aftercopy", function(event) {
-        $("#copy-btn").tooltipster('content', 'Copied');
+      $("#copy-btn").attr('original-title', _defaults.title).tipsy({gravity: _defaults.gravity, offset:2});
+
+      clip.on('aftercopy', function(event) {
+        $(event.target).attr('original-title', _defaults.copied_hint);
+        $(event.target).tipsy('show');
+      });
+
+      $('#copy-btn').mouseout(function(){
+        $("#copy-btn").attr('original-title', _defaults.title);
       });
     });
 
     $("#change_api").click(function(){
       $(this).text('Refreshing...');
-    });
-
-    $("#copy-btn").tooltipster({
-      content: 'Copy to clipboard',
-      delay:0,
-      speed:0,
-      // interactive:true,
-      // autoClose:false,
-      // theme:'tooltipster-light',
-      functionAfter: function(){
-        $("#copy-btn").tooltipster('content', 'Copy to clipboard');
-      }
     });
   });
