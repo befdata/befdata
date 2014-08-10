@@ -11,9 +11,9 @@
         Delete this Project
 = content_for :info do
   %ul
-    - @project.users.each do |person|
+    - @project.users.sort{|x,y| if x.alumni == y.alumni then 0 elsif x.alumni then 1 else -1 end}.each do |person|
       %li
-        = render :partial => person, :locals => {:extra => "(#{person.roles_for(@project).map{|e| t("role."+e.name)}.join(",")})"}
+        = render :partial => person, :locals => {:extra => formated_role_text(person, @project)}
   - if current_user
     %h3 Email contact
     %ul

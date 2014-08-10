@@ -1,6 +1,6 @@
-- # possible parameters for avatar: :none, :small, :medium, :large
-- # possible parameters for name: :show, :full
-- # extra text like role names can also be included
+/ possible parameters for avatar: :none, :small, :medium, :large
+/ possible parameters for name: :show, :full
+/ extra text like role names can also be include
 .user
   - avatar ||= :small
   - name ||= :show
@@ -11,5 +11,5 @@
       %span.username= user
     - if (name == :full)
       %span.username= user.full_name
-  - if defined?(extra)
+  - if defined?(extra) && !extra.blank?
     %span.userextra= extra

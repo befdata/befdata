@@ -13,7 +13,8 @@ class UsersController < ApplicationController
   end
 
   def index
-    @users = User.select('id, firstname, lastname, salutation, email, avatar_file_name').order(:lastname)
+    @users = User.select('id, firstname, lastname, salutation, email, avatar_file_name, alumni')
+                  .order('alumni, lower(lastname) asc, lower(firstname) asc')
     respond_to do |format|
       format.html
       format.xml

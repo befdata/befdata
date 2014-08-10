@@ -34,7 +34,7 @@
         Contact persons
       %ul
         - @contacts.each do |c|
-          %li= render c
+          %li= render partial: c, locals: {extra: c.alumni ? 'Alumni' : nil}
     - if current_user
       %h3 Email contact
       %ul

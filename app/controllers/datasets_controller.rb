@@ -147,7 +147,7 @@ class DatasetsController < ApplicationController
   def show
     trigger_import_if_nessecary
 
-    @contacts = @dataset.owners
+    @contacts = @dataset.owners.order('alumni')
     @projects = @dataset.projects
     @freeformats = @dataset.freeformats :order => :file_file_name
     @datacolumns = @dataset.datacolumns.includes(:datagroup, :tags)

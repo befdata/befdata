@@ -36,12 +36,12 @@
   %h3 State
   %p= @paperproposal.state
   %h3 Author
-  = render @paperproposal.author
+  = render partial: @paperproposal.author, locals: {extra: @paperproposal.author.alumni ? 'Alumni' : nil}
   - unless @paperproposal.proponents.empty?
     %h3 Main Proponents
     %ul
-      - @paperproposal.proponents.each do |u|
-        %li= render u
+      - @paperproposal.proponents.order(:alumni).each do |u|
+        %li= render partial: u, locals: {extra: u.alumni ? 'Alumni' : nil}
   - unless @paperproposal.authored_by_project.blank?
     %h3 Project
     = link_to @paperproposal.authored_by_project.name, @paperproposal.authored_by_project

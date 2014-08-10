@@ -7,6 +7,6 @@
       = link_to new_user_path do
         = image_tag "add_user.png", :id => "create_user"
         %span.username Create New User
-- for person in @users
+- @users.each do |person|
   .span-4#user-index{:class => cycle('noborder', 'noborder', 'last', :name => 'display_in_columns')}
-    = render :partial => person
+    = render :partial => person, locals: {extra: person.alumni ? 'Alumni' : nil}

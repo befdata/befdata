@@ -26,6 +26,9 @@
     .group
       = f.label :data_admin
       = f.check_box :data_admin
+    .group
+      = f.label :alumni
+      = f.check_box :alumni
     .avatar
       = f.label :avatar,"Change Avatar"
       = image_tag @user.avatar.url(:small)
