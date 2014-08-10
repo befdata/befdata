@@ -21,7 +21,7 @@
     = link_to datagroup_categories_path(@datagroup, :format => :csv) do
       = image_tag("download.png")
       Download Categories as CSV
-    - show_to :admin, :data_admin do
+    = show_to :admin, :data_admin do
       = link_to upload_categories_datagroup_path do
         = image_tag("arrow_join_accept.png")
         Manage Categories via CSV

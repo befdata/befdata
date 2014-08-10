@@ -25,7 +25,7 @@
   = "#{@project.name} (#{@project.shortname})"
 
 - unless @project.comment.blank?
-  - show_to :admin, :data_admin, :project_board do
+  = show_to :admin, :data_admin, :project_board do
     .project-comment
       = @project.comment
 

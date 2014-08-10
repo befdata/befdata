@@ -14,7 +14,7 @@
       %abbr{title: "Short name for '#{project.name}'", style: 'cursor:text;'}<>
         = project.shortname
       )
-      - show_to :admin, :data_admin, :project_board do
+      = show_to :admin, :data_admin, :project_board do
         .help-block= project.comment
 
 :javascript
