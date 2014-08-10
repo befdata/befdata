@@ -16,8 +16,9 @@
 require 'acl_patch'
 class Datacolumn < ActiveRecord::Base
   include PgSearch
+  acts_as_authorization_object :subject_class_name => 'User', join_table_name: 'roles_users'
   include AclPatch
-  acts_as_authorization_object :subject_class_name => 'User'
+
   acts_as_taggable
 
   belongs_to :datagroup, :counter_cache => true

@@ -1,10 +1,10 @@
-source 'http://rubygems.org'
+source 'https://rubygems.org'
 
 gem 'rails', "3.2.19"
 gem 'pg'
 gem 'haml'
 gem 'authlogic'
-gem 'acl9'
+gem 'acl9', '~> 0.12.1'
 gem 'dynamic_form'
 gem "paperclip", "~> 3.5.4"
 gem "acts-as-taggable-on", "~> 2.4.1"
@@ -31,7 +31,7 @@ group :test, :development do
   # gem 'ruby-prof'
   gem 'libxml-ruby'
   gem 'rb-inotify'
-  gem 'thin'    
+  gem 'thin'
   # gem 'debugger'
   gem 'better_errors'
   gem 'binding_of_caller'

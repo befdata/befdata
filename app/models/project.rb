@@ -1,7 +1,7 @@
 # A project is actually a sub-project of the whole BEF project.
 require 'acl_patch'
 class Project < ActiveRecord::Base
-  acts_as_authorization_object :subject_class_name => 'User'
+  acts_as_authorization_object :subject_class_name => 'User', join_table_name: 'roles_users'
   include AclPatch
 
   has_and_belongs_to_many :datasets

@@ -26,11 +26,10 @@
 require 'acl_patch'
 class Dataset < ActiveRecord::Base
   include PgSearch
+  acts_as_authorization_object :subject_class_name => 'User', join_table_name: 'roles_users'
   include AclPatch
 
   attr_writer :owner_ids
-
-  acts_as_authorization_object :subject_class_name => 'User'
   acts_as_taggable
 
   has_many :datafiles, :class_name => "Datafile", :order => 'id DESC', :dependent => :destroy
