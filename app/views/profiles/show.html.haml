@@ -27,28 +27,7 @@
 
 :javascript
   $(function(){
-    var _defaults = {
-      title: 'copy to clipboard',
-      copied_hint: 'copied!',
-      gravity: $.fn.tipsy.autoNS
-    };
-
-    var clip = new ZeroClipboard($("#copy-btn"), {
-      moviePath: "#{asset_path('ZeroClipboard.swf')}"
-    });
-
-    clip.on("ready", function() {
-      $("#copy-btn").attr('original-title', _defaults.title).tipsy({gravity: _defaults.gravity, offset:2});
-
-      clip.on('aftercopy', function(event) {
-        $(event.target).attr('original-title', _defaults.copied_hint);
-        $(event.target).tipsy('show');
-      });
-
-      $('#copy-btn').mouseout(function(){
-        $("#copy-btn").attr('original-title', _defaults.title);
-      });
-    });
+    $("#copy-btn").zeroClipboard();
 
     $("#change_api").click(function(){
       $(this).text('Refreshing...');
