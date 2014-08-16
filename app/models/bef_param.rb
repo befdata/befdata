@@ -44,9 +44,12 @@ class BefParam
 
   alias [] get_param
 
+  def dup
+    self.class.new(self.to_s)
+  end
+
   def set_param(args)
     self.dup.set_param!(args)
-    return self
   end
 
   def set_param!(args)
