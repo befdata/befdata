@@ -3,7 +3,8 @@ class MoveGeneratedDownloadToExportedFiles < ActiveRecord::Migration
     execute <<-SQL
       insert into exported_files(dataset_id, type, status, generated_at, invalidated_at, file_file_name, file_file_size)
       select id, 'ExportedExcel', download_generation_status, download_generated_at, updated_at, generated_spreadsheet_file_name, generated_spreadsheet_file_size
-      from datasets;
+      from datasets
+      where download_generation_status is not null;
     SQL
     remove_columns :datasets, [
                       :download_generated_at,
