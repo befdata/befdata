@@ -1,20 +1,31 @@
+$border-color: #18921e;
+$background-color: #fff;
+$shadow-color: rgba(0,0,0,0.13);
+$font-color: #222;
 .tipsy { font-size: 10px; position: absolute; padding: 5px; z-index: 100000; }
-.tipsy-inner { background-color: #fff; color: #333; max-width: 200px; padding: 5px 8px 4px 8px; text-align: center; border:1px solid #4aa94e;}
-
-/* Rounded corners */
-.tipsy-inner { border-radius: 3px; -moz-border-radius: 3px; -webkit-border-radius: 3px; box-shadow:1px 1px 3px #ccc;}
-
-/* Uncomment for shadow */
-/*.tipsy-inner { box-shadow: 0 0 5px #000000; -webkit-box-shadow: 0 0 5px #000000; -moz-box-shadow: 0 0 5px #000000; }*/
+.tipsy-inner { 
+  background-color: $background-color;
+  color: $font-color;
+  max-width: 200px;
+  padding: 5px 8px 4px 8px;
+  text-align: center;
+  border:1px solid $border-color;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  border-radius: 4px;
+  -webkit-box-shadow: 0 2px 4px $shadow-color;
+  -moz-box-shadow: 0 2px 4px $shadow-color;
+  box-shadow: 0 2px 4px $shadow-color;
+}
 
 .tipsy-arrow { position: absolute; width: 0; height: 0; line-height: 0; border: 5px dashed #fff; }
-.tipsy-arrow.tipsy-arrow-border{border:5px dashed #4aa94e;}
+.tipsy-arrow.tipsy-arrow-border{border:5px dashed $border-color;}
 
 /* Rules to colour arrows */
-.tipsy-arrow-n { border-bottom-color: #fff; }
-.tipsy-arrow-s { border-top-color: #fff; }
-.tipsy-arrow-e { border-left-color: #fff; }
-.tipsy-arrow-w { border-right-color: #fff; }
+.tipsy-arrow-n { border-bottom-color: $background-color; }
+.tipsy-arrow-s { border-top-color: $background-color; }
+.tipsy-arrow-e { border-left-color: $background-color; }
+.tipsy-arrow-w { border-right-color: $background-color; }
   
 .tipsy-n .tipsy-arrow { top: 1px; left: 50%; margin-left: -5px; border-bottom-style: solid; border-top: none; border-left-color: transparent; border-right-color: transparent; }
 .tipsy-nw .tipsy-arrow { top: 1px; left: 10px; border-bottom-style: solid; border-top: none; border-left-color: transparent; border-right-color: transparent;}

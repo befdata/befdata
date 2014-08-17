@@ -1021,3 +1021,93 @@ noscript {
     &:hover, &:focus {outline:0;margin:0;}
   }
 }
+
+$dropdown-border-color: rgba(0,0,0,0.2);
+$dropdown-background-color: white;
+$dropdown-shadow-color: rgba(0,0,0,0.13);
+$dropdown-divider-color: $light-gray;
+.dropdown {
+  position:relative;
+  display:inline-block;
+  *display:inline;
+  *zoom:1;
+  & > .dropdown-toggle {
+    display:block;
+    padding:10px 15px 10px 5px;
+    font-size:13px;
+    line-height:13px;
+    background-image: image-url('arrow2_s.png');
+    background-repeat: no-repeat;
+    background-position: right center;
+    &:hover{color:#4aa94e; cursor:pointer; }
+  }
+  &.open > .js-modal-container {display:block;}
+  .js-modal-container {
+    display:none;
+    z-index: 20;
+    position:absolute;
+    top:100%;
+    left:0;
+    .js-modal{
+      -webkit-border-radius: 4px;
+      -moz-border-radius: 4px;
+      border-radius: 4px;
+
+      border:solid 1px $dropdown-border-color;
+      box-shadow: 0 3px 12px $dropdown-shadow-color;
+      -moz-box-shadow:0 3px 12px $dropdown-shadow-color;
+      -webkit-box-shadow:0 3px 12px $dropdown-shadow-color;
+      background-color:$dropdown-background-color;
+      overflow:hidden;
+      .modal-header{
+        padding: 9px;
+        background: #f5f5f5;
+        border-bottom:1px solid $dropdown-divider-color;
+        font-size:12px;
+        line-height:16px;
+        h4 {
+          font-weight: bold;
+          margin:0;
+          padding:0;
+          text-transform: none;
+        }
+        .close {
+          @extend .right;
+          width:16px;
+          height:16px;
+          background-image: image_url('cancel.png');
+          background-repeat: no-repeat;
+        }
+      }
+      .modal-body{
+        ul.js-select{
+          margin:0;
+          padding:0;
+          min-width:200px;
+          _width:200px;
+          li {
+            float:none;
+            display:block;
+            white-space: nowrap;
+            margin:0;
+            padding:0;
+            list-style-type: none;
+            & + li {border-top:1px solid $dropdown-divider-color;}
+            a {
+              color:#222;
+              display:block;
+              padding:8px 15px 8px 20px;
+              background-position:2px center;
+              background-repeat: no-repeat;
+              text-decoration: none;
+              &:hover {text-decoration: none; color:#53a156; }
+            }
+            &.selected a {
+              background-image:image_url('checkbox.png');
+            }
+          }
+        }
+      }
+    }
+  }
+}

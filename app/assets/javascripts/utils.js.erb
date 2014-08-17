@@ -1,0 +1,57 @@
+Array.isArray = Array.isArray || function(o) {
+  return typeof o === 'object' && Object.prototype.toString.call(o).slice(8, -1) === 'Array'
+}
+// collect query string from current URL
+// returns an object
+function params(str){
+    var query_str = str || window.location.search.slice(1),
+        params = {},
+        pairs = query_str.split('&');
+
+    for (var i = 0; i < pairs.length; i++) {
+      var pos = pairs[i].indexOf('=');
+      if (pos == -1) continue;
+        var name = decodeURIComponent(pairs[i].substring(0, pos)), 
+            value = decodeURIComponent(pairs[i].substring(pos+1));
+        if (params[name]) {
+          if (Array.isArray(params[name])){
+            params[name].push(value);
+          } else {
+            params[name] = [params[name], value];
+          }
+        } else {
+          params[name] = value;
+        }
+      }
+    return params;
+}
+
+// 
+$.fn.zeroClipboard = function(){
+  var options = {
+    title: 'Copy to clipboard',
+    copied_hint: 'Copied!',
+    gravity: $.fn.tipsy.autoNS
+  };
+  options = $.extend(options, arguments[0]);
+
+  return this.each(function(){
+    var self = $(this);
+    var clip = new ZeroClipboard(self, {
+      moviePath: "#{asset_path('ZeroClipboard.swf')}"
+    });
+
+    clip.on("ready", function() {
+      self.attr('original-title', options.title).tipsy({gravity: options.gravity, offset:2, opacity: 0.8});
+
+      clip.on('aftercopy', function(event) {
+        $(event.target).attr('original-title', options.copied_hint);
+        $(event.target).tipsy('show');
+      });
+
+      self.mouseout(function(){
+        self.attr('original-title', options.title);
+      });
+    });
+  })
+};
