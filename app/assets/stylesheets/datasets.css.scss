@@ -426,3 +426,27 @@ ul#downloaders {
   .license-control {margin-top: 5px;}
   input[type=radio] {float:left;margin-left: -25px;margin-top:5px;}
 }
+
+
+#filters {
+  border:1px solid #4aa94e;
+  margin-bottom:1em;
+  padding:0px 5px;
+  ul.nav {
+    margin:0;
+    padding:0;
+    & > li {
+      float:left;
+      margin:0;
+      &:hover {
+        .js-modal-container {display:block;}
+      }
+    }
+  }
+  #sorting-select-menu {
+    float:right;
+    line-height:13px;
+    span{margin:10px 5px 10px 0px;float:left;}
+    select {margin:3px 0px;float:left;}
+  }
+}

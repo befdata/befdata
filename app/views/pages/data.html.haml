@@ -9,28 +9,6 @@
       = image_tag "list-ordered.png"
       List Datagroups
 
-- content_for :filters do
-  = form_tag("/data",method: "get") do
-    %h3 Filter datasets:
-    .dataset-filter
-      %select{multiple: "", name: "access_code[]"}
-        %option{value: "private"} private
-        %option{value: "free_within_projects"} open within projects
-        %option{value: "free_for_members"} open for members
-        %option{value: "free_for_public"} open for public
-      %select{multiple: "", name: "workbook[]"}
-        %option{value: "true"} with workbook
-        %option{value: "false"} without workbook
-      %select{multiple: "", name: "attachment[]"}
-        %option{value: "true"} with attachment
-        %option{value: "false"} without attachment
-    Sort #{@datasets.length} of #{Dataset.count} datasets by
-    %select{name: "sort"}
-      %option{value: "id+desc"} Newest
-      %option{value: "title+asc"} Title
-      %option{value: "last_update+desc"} Recently Updated
-    %input#filter-button{type: "submit", value: "Apply filter"}
-
 - content_for :info do
   %h3
     = link_to "Keywords", keywords_path
@@ -39,6 +17,39 @@
     = "  "
 
 %h2 Data sets
+
+#filters.clearfix
+  #sorting-select-menu.right
+    %span
+      Sort
+      - if params[:q].present?
+        #{@datasets.count} of
+      #{Dataset.count} datasets by
+    = select_tag :name, dropdown_list_to_sort_datasets, class: 'js-select-menu'
+  %ul.left.nav
+    %li.dropdown
+      %span.dropdown-toggle Access Right
+      .js-modal-container
+        .js-modal
+          .modal-header
+            %h4 Access Right
+          .modal-body
+            %ul.js-select
+              - Dataset::ACCESS_CODES.stringify_keys.each do |access, value|
+                = content_tag :li, class: @filter_params.has_param?(:access_code, value.to_s) ? 'selected' : nil do
+                  = link_to access.humanize, data_path(params.merge(q: @filter_params.toggle_param(:access_code, value.to_s)))
+    %li.dropdown
+      %span.dropdown-toggle Data Files
+      .js-modal-container
+        .js-modal
+          .modal-header
+            %h4 Data Files
+          .modal-body
+            %ul.js-select
+              - {'With Workbook' => 'w', 'With Attachment Files' => 'a', 'Workbook + Attachment Files' => ['w', 'a'], 'Metadata Only' => 'n'}.each do |text, code|
+                = content_tag :li, class: @filter_params.has_param?(:f, code) ? 'selected' : nil do
+                  = link_to text, data_path(params.merge(q: @filter_params.toggle_param(:f, code)))
+
 - if @datasets.empty?
   %i No Datasets Found.
 
@@ -47,36 +58,12 @@
     %li.dataset
       = render :partial => ds, :locals => {:with_cart => true, :with_comment => false}
 
+= will_paginate(@datasets)
+
 :javascript
   $(function(){
-    $(".dataset-filter select").each(
-      function(index,elem){
-        $(elem).select2({"width": "element" });
-      }
-    );
-    (function(){
-      var qs = window.location.search.split("&").map(function(s){return decodeURIComponent(s);});
-      qs = qs.slice(1,qs.length);
-      var kv = {};
-      qs.forEach(function(q){
-        var arr = q.split('=');
-        var k = 'select[name="'+arr[0]+'"]';
-        var v = arr[1];
-        var elem = $(k);
-        if(arr[0] == 'sort'){
-          elem.val(v);
-        }
-        else{
-          if(elem != null)
-          {
-            kv[k] ? kv[k].push(v) : (kv[k] = [v]);
-          }
-        }
-      });
-      for (var k in kv) {
-        if (kv.hasOwnProperty(k)) {
-          $(k).select2('val',kv[k]);
-        }
-      }
-    })();// fill in filter selects according to params
-  });
+    $(".js-select-menu").change(function(){
+      var value = $(this).val();
+      window.location.href = value;
+    });
+  })
