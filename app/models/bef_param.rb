@@ -1,41 +1,35 @@
 class BefParam
-  def initialize(bef_param_str)
+  def initialize(bef_param_str, *config)
     @params = BefParam.parse(bef_param_str)
+    @param_config = BefParam.parse_config(config.extract_options!)
   end
 
   def to_s
     arr = @params.collect do |k,v|
       next if v.blank?
-      if v.is_a? Array
-        v.collect {|x| "#{k}:#{x}"}
-      else
-        "#{k}:#{v}"
-      end
+      v_str = v.is_a?(Array) ? v.join('|') : v
+      "#{k}:#{v_str}"
     end
-
-    arr.flatten.compact.join(',')
+    arr.compact.uniq.join(',')
   end
 
-  def has_param?(arg, *options)
-    options = options.extract_options!
-
-    case arg
-      when String, Symbol
-        return @params[arg].present?
-      when Hash
-        arg.each do |k,v|
-          if options[:exact]
-            return false unless v.class == @params[k].class
-            return false unless [v].flatten.sort == [@params[k]].flatten.sort
-          else
-            return false unless ([v].flatten - [@params[k]].flatten).length == 0
-          end
-        end
+  # p.has_param?('access_code') checks existence
+  # p.has_param?('access_code', '0') checks existence and value
+  def has_param?(*args)
+    return false if args.blank?
+    k, v = args
+    if v
+      return false unless @params[k].present?
+      if @param_config[k].eql? 'radio'
+        return false unless v.class == @params[k].class
+        return false unless [v].flatten.sort == [@params[k]].flatten.sort
       else
-        return false
+        return false unless ([v].flatten - [@params[k]].flatten).length == 0
+      end
+      return true
+    else
+      return @params[k].present?
     end
-
-    return true
   end
 
   def get_param(name)
@@ -44,8 +38,12 @@ class BefParam
 
   alias [] get_param
 
+  def []=(k,v)
+    @params[k] = v
+  end
+
   def dup
-    self.class.new(self.to_s)
+    self.class.new(self.to_s, @param_config)
   end
 
   def set_param(args)
@@ -57,8 +55,17 @@ class BefParam
     return self
   end
 
-  def []=(k,v)
-    @params[k] = v
+  def toggle_param(k, v1, *options)
+    self.dup.toggle_param!(k, v1, *options)
+  end
+
+  def toggle_param!(k, v)
+    p = get_param(k)
+    if @param_config[k].eql? 'radio'
+      has_param?(k, v) ? set_param!({k => nil}) : set_param!({k => v})
+    else
+      has_param?(k, v) ? set_param!({k => ([p].flatten - [v].flatten).reject(&:blank?).uniq}) : set_param!({k => [p, v].flatten.reject(&:blank?).uniq})
+    end
   end
 
   def self.parse(bef_param_str)
@@ -68,17 +75,22 @@ class BefParam
     bef_param_str.split(',').each do |pairs|
       next unless pairs.include? ':'
       k,v = pairs.split(':')
-      if parsed_params[k]
-        if parsed_params[k].is_a? Array
-          parsed_params[k].push v
-        else
-          parsed_params[k] = [parsed_params[k], v]
+      parsed_params[k] = (v =~ /\|/ )? v.split('|') : v
+    end
+    parsed_params
+  end
+
+  def self.parse_config(config)
+    parsed_config = HashWithIndifferentAccess.new('radio')
+    config.each do |k,v|
+      if %w{radio checkbox}.include?(k.to_s)
+        [v].flatten.each do |x|
+          parsed_config[x] = k.to_s
         end
       else
-        parsed_params[k] = v
+        parsed_config[k] = v.to_s
       end
     end
-
-    parsed_params
+    parsed_config
   end
 end
