@@ -28,16 +28,16 @@
     = select_tag :name, dropdown_list_to_sort_datasets, class: 'js-select-menu'
   %ul.left.nav
     %li.dropdown
-      %span.dropdown-toggle Access Right
+      %span.dropdown-toggle Access Rights
       .js-modal-container
         .js-modal
           .modal-header
-            %h4 Access Right
+            %h4 Access Rights
           .modal-body
-            %ul.js-select
+            %ul.dropdown-menu
               - Dataset::ACCESS_CODES.stringify_keys.each do |access, value|
                 = content_tag :li, class: @filter_params.has_param?(:access_code, value.to_s) ? 'selected' : nil do
-                  = link_to access.humanize, data_path(params.merge(q: @filter_params.toggle_param(:access_code, value.to_s)))
+                  = link_to access.humanize, data_path(params.merge(q: @filter_params.toggle_param(:access_code, value.to_s))), class: access.dasherize
     %li.dropdown
       %span.dropdown-toggle Data Files
       .js-modal-container
@@ -45,10 +45,15 @@
           .modal-header
             %h4 Data Files
           .modal-body
-            %ul.js-select
-              - {'With Workbook' => 'w', 'With Attachment Files' => 'a', 'Workbook + Attachment Files' => ['w', 'a'], 'Metadata Only' => 'n'}.each do |text, code|
-                = content_tag :li, class: @filter_params.has_param?(:f, code) ? 'selected' : nil do
-                  = link_to text, data_path(params.merge(q: @filter_params.toggle_param(:f, code)))
+            %ul.dropdown-menu
+              = content_tag :li, class: @filter_params.has_param?(:f, 'w') ? 'selected' : nil do
+                = link_to 'With Workbook', data_path(params.merge(q: @filter_params.toggle_param(:f, 'w'))), class: 'files-w'
+              = content_tag :li, class: @filter_params.has_param?(:f, 'a') ? 'selected' : nil do
+                = link_to 'With Attached Files', data_path(params.merge(q: @filter_params.toggle_param(:f, 'a'))), class: 'files-a'
+              = content_tag :li, class: @filter_params.has_param?(:f, ['w', 'a']) ? 'selected' : nil do
+                = link_to 'With Workbook or Attached Files', data_path(params.merge(q: @filter_params.toggle_param(:f, ['w', 'a']))), class: 'files-aw'
+              = content_tag :li, class: @filter_params.has_param?(:f, 'n') ? 'selected' : nil do
+                = link_to 'Metadata Only', data_path(params.merge(q: @filter_params.toggle_param(:f, 'n'))), class: 'files-n'
 
 - if @datasets.empty?
   %i No Datasets Found.

@@ -449,4 +449,13 @@ ul#downloaders {
     span{margin:10px 5px 10px 0px;float:left;}
     select {margin:3px 0px;float:left;}
   }
+  .private, .free-within-projects, .free-for-members,.free-for-public, .files-w, .files-a, .files-aw, .files-n {
+    background-position:2px center;
+    background-repeat: no-repeat;
+  }
+  .private { background-image: image-url('lock-closed.png') }
+  .free-for-public {background-image: image-url('lock-open.png')}
+  .free-within-projects {background-image:image-url('manman.png');}
+  .free-for-members {background-image:image-url('user.png')}
+  .files-w{background-image: image-url('calendar.png')}
 }

@@ -12,6 +12,7 @@ class ProjectsController < ApplicationController
 
   def show
     @project_datasets = @project.datasets.order(:title).uniq
+    @members = @project.users
   end
 
   def new

@@ -16,7 +16,7 @@
       - @project_roles.each do |role|
         %li
           = link_to role.authorizable, project_path(role.authorizable)
-          ="(#{t("role."+role.name)})"
+          ="(#{@user.alumni ? 'Former ' : ''}#{t("role."+role.name)})"
 
 %h2
   .user

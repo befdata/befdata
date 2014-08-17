@@ -10,16 +10,22 @@
         = image_tag "trash.png"
         Delete this Project
 = content_for :info do
-  %ul
-    - @project.users.sort{|x,y| if x.alumni == y.alumni then 0 elsif x.alumni then 1 else -1 end}.each do |person|
+  %ul.members
+    - @members.select{|u| !u.alumni}.each do |person|
       %li
         = render :partial => person, :locals => {:extra => formated_role_text(person, @project)}
+  - if @members.any?(&:alumni)
+    %hr
+    %ul.alumni
+      - @members.select{|u| u.alumni}.each do |person|
+        %li
+          = render :partial => person, :locals => {:extra => formated_role_text(person, @project)}
   - if current_user
     %h3 Email contact
     %ul
       %li
         = render :partial => "users/email_list_modal",
-          :locals => {:contacts => @project.users, :css => "project_members", :caption => 'Project members'}
+          :locals => {:contacts => @project.users.reject(&:alumni), :css => "project_members", :caption => 'Project members'}
 
 %h2
   = "#{@project.name} (#{@project.shortname})"
