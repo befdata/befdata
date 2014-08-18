@@ -55,3 +55,27 @@ $.fn.zeroClipboard = function(){
     });
   })
 };
+
+$.fn.tabs = function(){
+  var tabs = $(this),
+      tabContent = $(this).next('.tab-content');
+
+  $("[data-toggle=tab]", this).click(function(){
+    var target = this.getAttribute('href').slice(1),
+        p = $(this).parent();
+
+    if (p.hasClass('active')) return false;
+
+    $("li", tabs).removeClass('active');
+    p.addClass('active');
+
+    $(".tab-pane", tabContent).each(function(){
+      if (this.id && this.id == target) {
+        $(this).addClass('active');
+      } else {
+        $(this).removeClass('active');
+      }
+    });
+    return false;
+  });
+};

@@ -1,12 +1,27 @@
 - page_title "Staff"
 
 %h2 BEF Staff
-- if current_user && current_user.has_role?(:admin)
-  .span-4#user-index{:class => cycle('noborder', 'noborder', 'last', :name => 'display_in_columns')}
-    .user
+
+%ul.nav-tabs#staff-tab
+  %li.active= link_to 'Members', '#members', {role: 'tab', 'data-toggle' => 'tab'}
+  %li= link_to 'Alumni', '#alumni', {role: 'tab', 'data-toggle' => 'tab'}
+  = show_to :admin do
+    %li.right.link
       = link_to new_user_path do
-        = image_tag "add_user.png", :id => "create_user"
-        %span.username Create New User
-- @users.each do |person|
-  .span-4#user-index{:class => cycle('noborder', 'noborder', 'last', :name => 'display_in_columns')}
-    = render :partial => person, locals: {extra: person.alumni ? 'Alumni' : nil}
+        = image_tag 'add.png', class: 'icon'
+        New User
+
+.tab-content
+  #members.tab-pane.active
+    - @users.where(alumni: false).each do |person|
+      .span-4#user-index{:class => cycle('noborder', 'noborder', 'last', :name => 'display_in_columns')}
+        = render :partial => person
+  #alumni.tab-pane
+    - @users.where(alumni: true).each do |person|
+      .span-4#user-index{:class => cycle('noborder', 'noborder', 'last', :name => 'display_in_columns')}
+        = render :partial => person
+
+:javascript
+  $(function(){
+    $("#staff-tab").tabs();
+  });

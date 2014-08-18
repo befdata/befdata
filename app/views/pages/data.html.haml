@@ -47,11 +47,11 @@
           .modal-body
             %ul.dropdown-menu
               = content_tag :li, class: @filter_params.has_param?(:f, 'w') ? 'selected' : nil do
-                = link_to 'With Workbook', data_path(params.merge(q: @filter_params.toggle_param(:f, 'w'))), class: 'files-w'
+                = link_to 'With Primary Data', data_path(params.merge(q: @filter_params.toggle_param(:f, 'w'))), class: 'files-w'
               = content_tag :li, class: @filter_params.has_param?(:f, 'a') ? 'selected' : nil do
                 = link_to 'With Attached Files', data_path(params.merge(q: @filter_params.toggle_param(:f, 'a'))), class: 'files-a'
               = content_tag :li, class: @filter_params.has_param?(:f, ['w', 'a']) ? 'selected' : nil do
-                = link_to 'With Workbook or Attached Files', data_path(params.merge(q: @filter_params.toggle_param(:f, ['w', 'a']))), class: 'files-aw'
+                = link_to 'With Primary Data or Attached Files', data_path(params.merge(q: @filter_params.toggle_param(:f, ['w', 'a']))), class: 'files-aw'
               = content_tag :li, class: @filter_params.has_param?(:f, 'n') ? 'selected' : nil do
                 = link_to 'Metadata Only', data_path(params.merge(q: @filter_params.toggle_param(:f, 'n'))), class: 'files-n'
 
