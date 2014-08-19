@@ -335,13 +335,22 @@ table.tablesorter .headerSortDown {
 
 input, textarea, select {
     background-color: #fff;
-    outline: 1px solid #cdcdcd;
-    border: none;
+    border: 1px solid #cdcdcd;
+    outline: none;
     padding: 3px;
+    overflow: hidden;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+    -webkit-box-shadow: 0 1px 0 rgba(255,255,255,0.6) inset;
+    -moz-box-shadow: 0 1px 0 rgba(255,255,255,0.6) inset;
+    box-shadow: 0 1px 0 rgba(255,255,255,0.6) inset;
 }
-
+input[type='search'] {
+  -webkit-appearance: none;
+}
 input:focus, textarea:focus, select:focus {
-    outline: 1px solid #18921e;
+    border: 1px solid #18921e;
 }
 
 input[type=checkbox], input[type=file], input[type=radio] {
@@ -354,19 +363,22 @@ input[type=file] {
 
 input[type=button], input[type=submit], button, a.button, span.button {
   background-color: #e8e8e8;
-  outline: 1px solid #8a8a8a;
-  border:  none;
+  border: 1px solid #8a8a8a;
+  outline:  none;
   color: #18921e;
   font-weight: bold;
-  padding: 3px;
+  padding: 4px;
   font-family:"Trebuchet MS",Helvetica,Arial,sans-serif;
   font-size: 13px;
   line-height: 1.3em;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
 }
 
 input[type=button], input[type=submit], button, a.button, span.button,{
   &:hover, &:focus, &:active, &:visited {
-    outline: solid 1px #18921e;
+    border: solid 1px #18921e;
     background-color: #eee;
   }
 }
@@ -403,11 +415,7 @@ button[disabled], button[disabled]:hover, button[disabled]:focus,
   outline-color: gray;
 }
 
-input[type='search'] {
-    -webkit-appearance: none;
-    border: none;
-    border-radius: 0;
-}
+
 
 form .required:after {
   content: ' *';
@@ -473,11 +481,6 @@ form .required:after {
 #header a:hover, #header a:focus {
     color: #000;
     background-color: #cdcdcd;
-}
-
-#header input[type=submit] {
-    padding: 2px;
-    height: 18px;
 }
 
 #header input[type=text], #header input[type=password],  #header input[type=search]{
@@ -1022,10 +1025,10 @@ noscript {
   }
 }
 
-$dropdown-border-color: rgba(0,0,0,0.2);
+$dropdown-border-color: #ddd;
 $dropdown-background-color: white;
 $dropdown-shadow-color: rgba(0,0,0,0.13);
-$dropdown-divider-color: $light-gray;
+$dropdown-divider-color: #ddd;
 .dropdown {
   position:relative;
   display:inline-block;
@@ -1055,6 +1058,7 @@ $dropdown-divider-color: $light-gray;
       padding:0;
       list-style-type: none;
       & + li {border-top:1px solid $dropdown-divider-color;}
+      background-position: right center;
       background-position: right 3px center;
       background-repeat: no-repeat;
       &.selected{ background-image:image_url('checkbox.png'); }

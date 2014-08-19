@@ -19,7 +19,7 @@
     = content_tag :span, 'Copy', id: 'copy-btn', class: 'button input-group-addon', 'data-clipboard-target' => "api"
   = link_to 'Refresh', update_credentials_profile_path, method: :post, remote: true, id: 'change_api', class: 'button'
   %em used in
-  = link_to 'rBEFdata', 'http://cran.r-project.org/web/packages/rbefdata', target: '_blank', title: 'sfsdfsf', id: 'test-tooltip'
+  = link_to 'rBEFdata', 'http://cran.r-project.org/web/packages/rbefdata', target: '_blank', "original-title" => 'An R package to communicate with BEFdata portal'
 
 = render :template => 'users/show'
 
@@ -27,6 +27,7 @@
 
 :javascript
   $(function(){
+    $("[original-title]").tipsy({opacity:0.9});
     $("#copy-btn").zeroClipboard();
 
     $("#change_api").click(function(){
