@@ -36,7 +36,7 @@
     %h4 Main Proponents
     %p (Main proponents are those authors, that contribute major aspects to the analysis.)
 
-    %p= select "not_needed", "param", all_users_names_and_ids_for_select, {:prompt => 'Select Member'}, {:onchange => 'selectPeople(this)'}
+    %div= select "not_needed", "param", all_users_names_and_ids_for_select, {:prompt => 'Select Member'}, {:onchange => 'selectPeople(this)'}
     %ul#people-list
       - proponents = defined?(@temp_proponents) ? @temp_proponents : @paperproposal.proponents
       - proponents.each do |user|

@@ -46,7 +46,7 @@ class PagesController < ApplicationController
     @tags = DatasetTag.tag_counts
 
     @datasets = Dataset.scoped
-    @filter_params = BefParam.new(params[:q], :checkbox => :access_code, :radio => :f)
+    @filter_params = BefParam.new(params[:filter], :checkbox => :access_code, :radio => :f)
 
     @datasets = @datasets.where(access_code: @filter_params[:access_code]) if @filter_params.has_param? :access_code
 

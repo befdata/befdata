@@ -1,4 +1,28 @@
-/* -------------------------------------------------------------- 
+/* @variables
+------------------------------------------------------- */
+$green: #4aa94e;
+$input-border-color:#cdcdcd;
+$input-focus-border-color:#18921e;
+$input-disable-bg:#fafafa;
+$light-gray:  #ccc;
+$dark-gray: #333;
+$button-bg-color:#e8e8e8;
+$button-border-color:#8a8a8a;
+$button-font-color:#18921e;
+/* drop down */
+$dropdown-border-color: #ddd;
+$dropdown-background-color: white;
+$dropdown-shadow-color: rgba(0,0,0,0.13);
+$dropdown-divider-color: #ddd;
+/* --- BASIC COLORS ---------------------------------------------
+     Colors to use:
+        #000    : black
+        #fff    : white
+        #8a8a8a : dark grey
+        #cdcdcd : light grey
+        #18921e : green
+------------------------------------------------------------- */
+/* --------------------------------------------------------------
 Reset -compressed-  based on html5doctor
 -------------------------------------------------------------- */
 html, body, div, span, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, abbr, address, cite, code, del, dfn, em, img, ins, kbd, q, samp, small, strong, sub, sup, var, b, i, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, figcaption, figure, footer, header, hgroup, menu, nav, section, summary, time, mark, audio, video { margin: 0; padding: 0; border: 0; outline: 0; font-size: 100%; vertical-align: baseline; background: transparent; }
@@ -15,28 +39,28 @@ abbr[title], dfn[title] { border-bottom: 1px dotted; cursor: help; }
 /* tables still need cellspacing="0" in the markup */
 table { border-collapse: collapse; border-spacing: 0; }
 hr { display: block; height: 1px; border: 0; border-top: 1px solid #ddd; margin: 1em 0; padding: 0; }
-input, select, textarea { vertical-align: middle; background-color: #ddd; }
+input, select, textarea { vertical-align: middle; background-color: #fff; }
 label, input[type=button], input[type=submit], button { cursor: pointer }
 body * {outline: none;}
-/* This helps to make newer HTML5 elements behave like DIVs in older browers */ 
+/* This helps to make newer HTML5 elements behave like DIVs in older browers */
 article, aside, dialog, figure, footer, header,
 hgroup, nav, section {
     display:block;
 }
 
 /* Tables still need 'cellspacing="0"' in the markup. */
-table { 
-	border-collapse: separate; 
-	border-spacing: 0; 
+table {
+	border-collapse: separate;
+	border-spacing: 0;
 }
 /* float:none prevents the span-x classes from breaking table-cell display */
-caption, th, td { 
-	text-align: left; 
-	font-weight: normal; 
-	float:none !important; 
+caption, th, td {
+	text-align: left;
+	font-weight: normal;
+	float:none !important;
 }
-table, th, td { 
-	vertical-align: middle; 
+table, th, td {
+	vertical-align: middle;
 }
 
 /* Remove possible quote marks (") from <q>, <blockquote>. */
@@ -49,7 +73,7 @@ a img { border: none; }
 /* Remember to define your own focus styles! */
 :focus { outline: 0; }
 
-/* -------------------------------------------------------------- 
+/* --------------------------------------------------------------
 Blueprint Grid
 -------------------------------------------------------------- */
 /* A container should group all your columns. */
@@ -60,7 +84,7 @@ Blueprint Grid
 
 /* Body margin for a sensile default look. */
 body {
-  margin:0;	
+  margin:0;
 }
 
 /* Columns
@@ -126,7 +150,7 @@ div.colborder {
   border-right: 1px solid #eee;
 }
 
-/* Use these classes on an element to push it into the 
+/* Use these classes on an element to push it into the
    next column, or to pull it into the previous column.  */
 
 .pull-1 { margin-left: -80px;}
@@ -162,24 +186,10 @@ div.colborder {
 .clearfix, .container {display:block;}
 .clear {clear:both;}
 
-/* @variables
-------------------------------------- */
-$green: #4aa94e;
-$light-gray:  #ccc;
-$dark-gray: #333;
-
 /* =============================================================
                   C U S T O M   L A Y O U T
 ============================================================= */
 
-/* --- BASIC COLORS ---------------------------------------------
-     Colors to use:
-        #000    : black
-        #8a8a8a : dark grey
-        #cdcdcd : light grey
-        #18921e : green
-        #fff    : white
-------------------------------------------------------------- */
 
 html, body {
     margin: 0;
@@ -189,27 +199,27 @@ html, body {
 
 body {
 	font-size: 13px;
-    font-family: "Trebuchet MS", Helvetica, Arial, sans-serif;
-    line-height: 1.8em;
+  font-family: "Trebuchet MS", "Helvetica Neue", Helvetica, Arial, "Microsoft Yahei", 'WenQuanYi Micro Hei', sans-serif;
+  line-height: 1.8em;
 	color: #000;
-    background: image-url("bg-stripes-grey-grey.png") repeat;
+  background: image-url("bg-stripes-grey-grey.png") repeat;
 }
 
 input, textarea, select {
-    font-family: "Trebuchet MS", Helvetica, Arial, sans-serif;
-    font-size: 100%;
+  font-family: "Trebuchet MS", "Helvetica Neue", Helvetica, Arial, "Microsoft Yahei", 'WenQuanYi Micro Hei', sans-serif;
+  font-size: 100%;
 }
 
 div.container {
-    background-color: #fff;
-    padding: 0 25px;
-    min-height: 100%;
-    position: relative;
+  background-color: #fff;
+  padding: 0 25px;
+  min-height: 100%;
+  position: relative;
 }
 
 div#content {
-    padding-bottom: 100px;
-    display: inline-block;
+  padding-bottom: 100px;
+  display: inline-block;
 }
 
 /* --- Typo ------------------------------------------------- */
@@ -332,66 +342,99 @@ table.tablesorter .headerSortDown {
 }
 
 /* --- Forms -------------------------------------------------- */
-
-input, textarea, select {
-    background-color: #fff;
-    border: 1px solid #cdcdcd;
-    outline: none;
-    padding: 3px;
-    overflow: hidden;
-    -webkit-border-radius: 3px;
-    -moz-border-radius: 3px;
-    border-radius: 3px;
-    -webkit-box-shadow: 0 1px 0 rgba(255,255,255,0.6) inset;
-    -moz-box-shadow: 0 1px 0 rgba(255,255,255,0.6) inset;
-    box-shadow: 0 1px 0 rgba(255,255,255,0.6) inset;
-}
-input[type='search'] {
-  -webkit-appearance: none;
-}
-input:focus, textarea:focus, select:focus {
-    border: 1px solid #18921e;
-}
-
-input[type=checkbox], input[type=file], input[type=radio] {
-    outline: none;
-}
-
-input[type=file] {
-    border: 1px solid #cdcdcd;
-}
-
-input[type=button], input[type=submit], button, a.button, span.button {
-  background-color: #e8e8e8;
-  border: 1px solid #8a8a8a;
-  outline:  none;
-  color: #18921e;
-  font-weight: bold;
-  padding: 4px;
-  font-family:"Trebuchet MS",Helvetica,Arial,sans-serif;
-  font-size: 13px;
-  line-height: 1.3em;
+@mixin round-border(){
   -webkit-border-radius: 3px;
   -moz-border-radius: 3px;
   border-radius: 3px;
+  -webkit-box-shadow: 0 1px 0 rgba(255,255,255,0.6) inset;
+  -moz-box-shadow: 0 1px 0 rgba(255,255,255,0.6) inset;
+  box-shadow: 0 1px 0 rgba(255,255,255,0.6) inset;
+}
+input[type=text],
+input[type=password],
+input[type=number],
+input[type=search],
+input[type=url],
+input[type=tel],
+input[type=file],
+input[type=email],
+textarea{
+  padding: 3px;
+  font-size:13px;
+  line-height:18px;
+  background-color: #fff;
+  border: 1px solid $input-border-color;
+  outline: none;
+  vertical-align: middle;
+  @include round-border();
+  &:focus{
+    border: 1px solid $input-focus-border-color;
+    outline:none;
+  }
+  &[readOnly], &[disabled]{background-color:$input-disable-bg; }
+}
+select {
+  background-color: #fff;
+  border: 1px solid $input-border-color;
+  outline: none;
+  box-sizing:content-box;
+  height:24px;
+  padding:0px 3px;
+  @include round-border();
+  &:focus {
+    border: 1px solid $input-focus-border-color;
+    outline: none;
+  }
+  &[readOnly], &[disabled]{background-color:$input-disable-bg; }
 }
 
-input[type=button], input[type=submit], button, a.button, span.button,{
-  &:hover, &:focus, &:active, &:visited {
+input[type='search'] {-webkit-appearance: none; }
+
+input[type=button],
+input[type=submit],
+input[type=reset],
+button,
+a.button, span.button {
+  font-size:13px;
+  font-weight: bold;
+  background-color: $button-bg-color;
+  border: 1px solid $button-border-color;
+  color: $button-font-color;
+  outline:  none;
+  vertical-align: middle;
+  overflow:visible;
+  cursor:pointer;
+  @include round-border();
+  &:hover, &:focus, &:active {
     border: solid 1px #18921e;
     background-color: #eee;
   }
 }
 
-a.button, span.button, button {
+input[type=button],
+input[type=submit],
+input[type=reset],
+button{
+  box-sizing:content-box;
+  height:24px;
+  padding: 0px 5px;
+}
+
+a.button, span.button {
+  padding: 3px 5px;
+  line-height:18px;
   text-decoration:none;
   display: inline-block;
 }
 
-button {
-  width:auto;
-  overflow:visible;
-  padding:4px 10px 3px 7px;   /* IE6 */
+button.inline { float: right; }
+
+input[disabled], input[disabled]:hover, input[disabled]:focus,
+button[disabled], button[disabled]:hover, button[disabled]:focus,
+.button.disabled, .button.disabled:hover, .button.disabled:focus,
+ {
+  color: gray;
+  outline-color: gray;
 }
 
 *:first-child+html button[type] {
@@ -405,17 +448,6 @@ button img, a.button img {
   height:16px;
   float:none;
 }
-
-button.inline { float: right; }
-
-input[disabled], input[disabled]:hover, input[disabled]:focus,
-button[disabled], button[disabled]:hover, button[disabled]:focus,
-.button.disabled, .button.disabled:hover, .button.disabled:focus {
-  color: gray;
-  outline-color: gray;
-}
-
-
 
 form .required:after {
   content: ' *';
@@ -974,6 +1006,8 @@ noscript {
 .right { float: right !important;}
 .left { float: left !important;}
 
+/* @components
+------------------------------------------------------------------------*/
 .panel {
   border:1px solid $light-gray;
   border-top:2px solid $green;
@@ -1001,34 +1035,39 @@ noscript {
   display:table;
   border-collapse: separate;
   margin-bottom: 10px;
-  input[type=text], input[type=search]{
+  input[type=text], input[type=search], .input-group-addon{
     display:table-cell;
     border:1px solid #ccc;
-    border-right:0;
+    border-radius: 3px;
+    -moz-border-radius:3px;
+    -webkit-border-radius:3px;
     outline:0;
     margin:0px;
-    padding:0px 3px;
-    font-size:12px;
-    line-height: 24px;
-    vertical-align: middle;
   }
-  .input-group-addon{
-    display:table-cell;
-    border:1px solid #ccc;
-    outline:0;
-    margin:0px;
-    padding:0px 4px;
-    font-size:14px;
-    line-height: 24px;
-    vertical-align: middle;
-    &:hover, &:focus {outline:0;margin:0;}
-  }
+  input[type=text]:first-child,
+  input[type=search]:first-child,
+  .input-group-addon:first-child {
+      border-right:0;
+      border-top-right-radius: 0;
+      border-bottom-right-radius: 0;
+      -webkit-border-top-right-radius: 0;
+      -webkit-border-bottom-right-radius: 0;
+      -moz-border-radius-topright: 0;
+      -moz-border-radius-bottomright: 0;
+    }
+  input[type=text]:last-child,
+  input[type=search]:last-child,
+  .input-group-addon:last-child{
+      border-top-left-radius: 0;
+      border-bottom-left-radius: 0;
+      -webkit-border-top-left-radius: 0;
+      -webkit-border-bottom-left-radius: 0;
+      -moz-border-radius-topleft: 0;
+      -moz-border-radius-bottomleft: 0;
+    }
+
 }
 
-$dropdown-border-color: #ddd;
-$dropdown-background-color: white;
-$dropdown-shadow-color: rgba(0,0,0,0.13);
-$dropdown-divider-color: #ddd;
 .dropdown {
   position:relative;
   display:inline-block;
