@@ -356,7 +356,6 @@ input[type=number],
 input[type=search],
 input[type=url],
 input[type=tel],
-input[type=file],
 input[type=email],
 textarea{
   padding: 3px;
@@ -373,12 +372,36 @@ textarea{
   }
   &[readOnly], &[disabled]{background-color:$input-disable-bg; }
 }
+input[type=file]{
+  padding: 3px;
+  font-size:13px;
+  line-height:18px;
+  background-color: #fff;
+  border: 1px solid $input-border-color;
+  outline: none;
+  vertical-align: middle;
+}
+input[type=text],
+input[type=password],
+input[type=number],
+input[type=search],
+input[type=url],
+input[type=tel],
+input[type=email]{
+  box-sizing:content-box;
+  height:18px;
+}
+
+input[type='search'] {-webkit-appearance: none; }
+
 select {
   background-color: #fff;
   border: 1px solid $input-border-color;
   outline: none;
   box-sizing:content-box;
   height:24px;
+  font-size:13px;
+  line-height:18px;
   padding:0px 3px;
   @include round-border();
   &:focus {
@@ -388,8 +411,6 @@ select {
   &[readOnly], &[disabled]{background-color:$input-disable-bg; }
 }
 
-input[type='search'] {-webkit-appearance: none; }
-
 input[type=button],
 input[type=submit],
 input[type=reset],
@@ -397,6 +418,10 @@ button,
 a.button, span.button {
   font-size:13px;
   font-weight: bold;
+  line-height:18px;
+  height:18px;
+  padding: 3px 5px;
+  box-sizing:content-box;
   background-color: $button-bg-color;
   border: 1px solid $button-border-color;
   color: $button-font-color;
@@ -416,12 +441,12 @@ input[type=submit],
 input[type=reset],
 button{
   box-sizing:content-box;
-  height:24px;
-  padding: 0px 5px;
+  height:px;
+  &::-moz-focus-inner{
+    border:0;
+  }
 }
-
 a.button, span.button {
-  padding: 3px 5px;
   line-height:18px;
   text-decoration:none;
   display: inline-block;
@@ -1065,7 +1090,11 @@ noscript {
       -moz-border-radius-topleft: 0;
       -moz-border-radius-bottomleft: 0;
     }
-
+  button:hover,button:focus,
+  a.button:hover,a.button:focus,
+  span.button:hover,span.button:focus  {
+    border:1px solid $input-border-color;
+  }
 }
 
 .dropdown {
