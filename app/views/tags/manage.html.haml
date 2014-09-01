@@ -73,7 +73,7 @@
       var li=$("<li/>").attr({id: tag_id});
       var hidden_input = $("<input type='hidden' />").attr({name: 'keywords[]', value: tag_id});
       var span_name = $("<span/>").text(name);
-      var remove_link = $("<a/>").attr({class: 'remove_parent'});
+      var remove_link = $("<a/>").addClass('remove_parent');
       li.append(remove_link, hidden_input, span_name).appendTo(selected_area);
     }
     function remove_from_selected(tag_id){selected_area.find('li#'+tag_id).remove(); }

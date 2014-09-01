@@ -1,3 +1,9 @@
+# This class is used to parse query params in specified format(eg: a:1,b:x|y):
+# 1) a list of key-value pairs separated by commas.
+# 2) Key and value are separated by a colon.
+# 3) value can be a collection of atom values  which are separated by a pipe. collection values can be either
+#    a) radio-like: different values or conbination of values are exclusive. default
+# or b) checkbox-like: different values can be added or removed independently
 class BefParam
   def initialize(bef_param_str, *config)
     @params = BefParam.parse(bef_param_str)

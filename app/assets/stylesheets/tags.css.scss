@@ -4,12 +4,13 @@
   padding: 10px 0px;
   .tag {
     width: 33%;
-    margin: 0px;
+    margin: 0px 0px 5px 0px;
     float: left;
     white-space: nowrap;
     overflow:hidden;
     text-overflow: ellipsis;
     -o-text-overflow: ellipsis;
+    input[type=checkbox]{margin-bottom:0;vertical-align: text-top;}
   }
 }
 #manage{
