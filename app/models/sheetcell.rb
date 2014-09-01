@@ -8,7 +8,7 @@ class Sheetcell < ActiveRecord::Base
   belongs_to :datacolumn
   belongs_to :category
 
-  # Datatypes are defined in config/initializers/datatype_load.rb and the valitation procedures are 
+  # Datatypes are defined in config/initializers/datatype_load.rb and the valitation procedures are
   # stored in https://github.com/befdata/befdata/blob/master/db/non_schema_sql.sql
   def datatype
     if(!self.datatype_id.nil?)
@@ -40,7 +40,7 @@ class Sheetcell < ActiveRecord::Base
     if self.datatype && self.datatype.is_category? && self.category
       value = self.category.short
     elsif self.datatype && self.datatype.name.match(/^date/) && self.accepted_value
-      value = self.accepted_value.to_date.to_s
+      value = self.accepted_value.to_datetime.to_s(:db)
     elsif self.accepted_value
       value = self.accepted_value
     else

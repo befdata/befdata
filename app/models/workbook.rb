@@ -351,6 +351,7 @@ private
     end
     # Excel sometimes appends a decimal digit to integer values, here we try to trim it off.
     return input.to_s.sub(/\.0$/,'') if input.is_a? Numeric
+    return input.to_s(:db) if input.is_a?(Date) or input.is_a?(DateTime)
 
     input.to_s.squish
   end
