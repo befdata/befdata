@@ -388,8 +388,12 @@ input[type=search],
 input[type=url],
 input[type=tel],
 input[type=email]{
-  box-sizing:content-box;
-  height:18px;
+  height:26px;
+  -moz-box-sizing: border-box;    /* firefox */
+  -ms-box-sizing: border-box;     /* ie */
+  -webkit-box-sizing: border-box; /* webkit */
+  -khtml-box-sizing: border-box;  /* konqueror */
+  box-sizing: border-box;         /* css3 */
 }
 
 input[type='search'] {-webkit-appearance: none; }
@@ -398,7 +402,10 @@ select {
   background-color: #fff;
   border: 1px solid $input-border-color;
   outline: none;
-  box-sizing:content-box;
+  -moz-box-sizing: content-box;    /* firefox */
+  -webkit-box-sizing: content-box; /* webkit */
+  -khtml-box-sizing: content-box;  /* konqueror */
+  box-sizing: content-box;         /* css3 */
   height:24px;
   font-size:13px;
   line-height:18px;
@@ -421,7 +428,10 @@ a.button, span.button {
   line-height:18px;
   height:18px;
   padding: 3px 5px;
-  box-sizing:content-box;
+  -moz-box-sizing: content-box;    /* firefox */
+  -webkit-box-sizing: content-box; /* webkit */
+  -khtml-box-sizing: content-box;  /* konqueror */
+  box-sizing: content-box;         /* css3 */
   background-color: $button-bg-color;
   border: 1px solid $button-border-color;
   color: $button-font-color;
@@ -440,8 +450,6 @@ input[type=button],
 input[type=submit],
 input[type=reset],
 button{
-  box-sizing:content-box;
-  height:px;
   &::-moz-focus-inner{
     border:0;
   }
