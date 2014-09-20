@@ -57,7 +57,7 @@ class PagesController < ApplicationController
 
     @datasets = @datasets.select("id, title, updated_at as last_update")
                          .order("#{params[:sort]} #{params[:direction]}")
-                         .paginate(page: params[:page], per_page: 50)
+                         .paginate(page: params[:page], per_page: 25)
   end
 
   def search
