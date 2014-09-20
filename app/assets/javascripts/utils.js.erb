@@ -25,19 +25,19 @@ function params(str){
     for (var i = 0; i < pairs.length; i++) {
       var pos = pairs[i].indexOf('=');
       if (pos == -1) continue;
-        var name = decodeURIComponent(pairs[i].substring(0, pos)),
-            value = decodeURIComponent(pairs[i].substring(pos+1));
-        if (params[name]) {
-          if (Array.isArray(params[name])){
-            params[name].push(value);
-          } else {
-            params[name] = [params[name], value];
-          }
+      var name = decodeURIComponent(pairs[i].substring(0, pos)),
+          value = decodeURIComponent(pairs[i].substring(pos+1));
+      if (params[name]) {
+        if (Array.isArray(params[name])){
+          params[name].push(value);
         } else {
-          params[name] = value;
+          params[name] = [params[name], value];
         }
+      } else {
+        params[name] = value;
       }
-    return params;
+    }
+  return params;
 }
 // Wrap tipsy and zeroclipboard into one jquery function.
 // example:
