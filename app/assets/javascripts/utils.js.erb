@@ -1,8 +1,22 @@
 Array.isArray = Array.isArray || function(o) {
   return typeof o === 'object' && Object.prototype.toString.call(o).slice(8, -1) === 'Array'
-}
-// collect query string from current URL
-// returns an object
+};
+
+// StackOverflow's implementation of String template: http://stackoverflow.com/a/18234317
+// example:
+//    '{target} is the one to be replaced'.formatUnicorn({target: 'replacement'})
+String.prototype.formatUnicorn = String.prototype.formatUnicorn || function() {
+  var e = this.toString();
+  if (!arguments.length) return e;
+  var t = typeof arguments[0],
+      n = "string" == t || "number" == t ? Array.prototype.slice.call(arguments) : arguments[0];
+  for (var i in n) e = e.replace(new RegExp("\\{" + i + "\\}", "gi"), n[i]);
+  return e;
+};
+
+// parse query string from current URL into an object
+// example:
+//    params() => returns an object
 function params(str){
     var query_str = str || window.location.search.slice(1),
         params = {},
@@ -25,7 +39,11 @@ function params(str){
       }
     return params;
 }
-
+// Wrap tipsy and zeroclipboard into one jquery function.
+// example:
+//    <input type="text" id="target-field" >
+//    <button data-clipboard-target => "target-field" id="trigger">Copy</button>
+//    $("#trigger").zeroClipboard();
 $.fn.zeroClipboard = function(){
   var options = {
     title: 'Copy to clipboard',
@@ -52,7 +70,7 @@ $.fn.zeroClipboard = function(){
     });
   })
 };
-
+// A simple tab widget
 $.fn.simpleTab = function(){
   var tabs = $(this),
       tabContent = $(this).next('.tab-content');

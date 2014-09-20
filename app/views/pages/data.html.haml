@@ -68,7 +68,15 @@
 :javascript
   $(function(){
     $(".js-select-menu").change(function(){
-      var value = $(this).val();
-      window.location.href = value;
+      var sort = $(this).val().split('-')[0];
+      var direction = $(this).val().split('-')[1];
+      var filterParam = params().filter || '';
+
+      var searchString = '?filter={filter}&sort={sort}&direction={direction}'.formatUnicorn({
+        sort: sort,
+        direction: direction,
+        filter: filterParam
+      });
+      window.location.search = searchString;
     });
   })
