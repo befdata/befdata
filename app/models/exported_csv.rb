@@ -17,8 +17,10 @@ class ExportedCsv < ExportedFile
       column = []
       column[0] = dc.columnheader
 
-      dc.sheetcells.find_each do |sc|
-        column[sc.row_number - 1] = sc.export_value
+      ExportedSheetcell.uncached do
+        dc.exported_sheetcells.find_each do |sc|
+          column[sc.row_number - 1] = sc.export_value
+        end
       end
       all_columns << column
     end

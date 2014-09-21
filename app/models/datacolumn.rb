@@ -26,6 +26,7 @@ class Datacolumn < ActiveRecord::Base
   belongs_to :dataset, :touch => true
 
   has_many :sheetcells, :dependent => :delete_all
+  has_many :exported_sheetcells
   has_many :import_categories, :dependent => :delete_all
   belongs_to :semantic_term, :class_name => 'Vocab', :foreign_key => :term_id
 

@@ -19,11 +19,13 @@ class ExportedSccCsv < ExportedFile
       column[0] = dc.columnheader
       category_column[0] = "#{dc.columnheader}_Categories"
 
-      dc.sheetcells.find_each do |sc|
-        if dc.import_data_type == 'category' || !(sc.datatype && sc.datatype.is_category? && sc.category)
-          column[sc.row_number - 1] = sc.export_value
-        else
-          category_column[sc.row_number - 1] = sc.export_value
+      ExportedSheetcell.uncached do
+        dc.exported_sheetcells.find_each do |sc|
+          if dc.import_data_type == 'category' || !sc.is_category
+            column[sc.row_number - 1] = sc.export_value
+          else
+            category_column[sc.row_number - 1] = sc.export_value
+          end
         end
       end
       all_columns << column

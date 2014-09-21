@@ -176,9 +176,10 @@ private
       end
 
       sheet[0,col-1] = datacolumn.columnheader if datacolumn.columnheader
-
-      datacolumn.sheetcells.find_each do |sheetcell|
-        sheet[sheetcell.row_number - 1, col - 1] = sheetcell.export_value
+      ExportedSheetcell.uncached do
+        datacolumn.exported_sheetcells.find_each do |sheetcell|
+          sheet[sheetcell.row_number - 1, col - 1] = sheetcell.export_value
+        end
       end
     end
   end
