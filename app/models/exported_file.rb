@@ -13,7 +13,7 @@ class ExportedFile < ActiveRecord::Base
   }.freeze
 
   scope :with_format, lambda { |type|
-    raise 'Unvalid format' unless TYPES.has_key? type.to_sym
+    raise 'Invalid format' unless TYPES.has_key? type.to_sym
     where(type: TYPES[type.to_sym])
   }
 
