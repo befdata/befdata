@@ -13,9 +13,9 @@
 %a{:href => '#', :class => 'download_modal_link', :id => link_id}
   = caption
 
-%div{:class => 'show_download_link_modal hidden', :id => modal_id}
-  %h3
-    = caption
+%div{:class => 'simple-modal show_download_link_modal', :id => modal_id}
+  .modal-head
+    %h3= caption
   .menu
     %a{:href => '#', :class => 'show_csv_url_without_categories'}
       CSV
@@ -27,10 +27,7 @@
       EML
   - if current_user
     %p.security-alert The link contains your user credentials, Please DO NOT share with others.
-  %textarea.download_urls{:readonly => 'readonly', :onclick => 'this.focus();this.select()'}
-    = url_csv_categories
-  %p.close_hint
-    Click somewhere outside or press ESC to close
+  = text_area_tag 'download-url', url_csv_categories, readonly: true, onclick: 'this.select();', autocomplete: 'off', class: 'download_urls'
 
 :javascript
   function alert_if_with_user_credential() {

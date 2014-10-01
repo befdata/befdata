@@ -4,7 +4,7 @@
   %h3 Last update
   %p #{time_ago_in_words(@dataset.updated_at)} ago
   %h3 Download URLs
-  = render :partial => "popup_display_download_url", :locals => {:id => @dataset.id, :css => "dataset_owners", :caption => 'Display download urls'}
+  = render :partial => "popup_display_download_url", :locals => {:id => @dataset.id, :css => "dataset_owners", :caption => 'Download urls'}
   %h3  Downloads history (#{@dataset.dataset_downloads_count})
   - if @dataset.dataset_downloads_count > 0
     %ul#downloaders

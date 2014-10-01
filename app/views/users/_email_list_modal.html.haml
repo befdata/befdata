@@ -13,36 +13,32 @@
 %a{:href => '#', :class => 'email_modal_link', :id => link_id}
   = caption
 
-%div{:class => 'email_modal hidden', :id => modal_id}
-  %h3
-    = caption
+%div{:class => 'simple-modal email_modal', :id => modal_id}
+  .modal-head
+    %h3= caption
   .menu
-    %a{:href => '#', :class => 'show_simple_email_list'}
-      Simple list
-    %a{:href => '#', :class => 'show_email_list_with_names'}
-      With names
-  %textarea.email_addresses{:readonly => 'readonly'}
-    = string_simple
-  %p.close_hint
-    Click somewhere outside or press ESC to close
-
+    = label_tag do
+      = check_box_tag 'with-user-names', 'yes', false, style: 'margin:0px;', autocomplete: 'off'
+      With User Names
+  = text_area_tag nil, string_simple, readonly: true, class: 'email_addresses', autocomplete: 'off'
 
 :javascript
-  $("##{link_id}").click(function(e) {
-    $("##{modal_id}").modal(
-      {
-        overlayClose:true,
-        persist:true
-      }
-    );
-    $("##{modal_id} .show_simple_email_list").click(function(e) {
-      $("##{modal_id} .email_addresses").val("#{string_simple}");
+  $(function(){
+    $("##{link_id}").click(function(e) {
+      $("##{modal_id}").modal({
+          overlayClose:true,
+          persist:true,
+          onShow: function(dialog){
+            $("#with-user-names", dialog.data).click(function(){
+              if (this.checked) {
+                $(".email_addresses", dialog.data).val("#{string_with_names}");
+              } else {
+                $(".email_addresses", dialog.data).val("#{string_simple}");
+              }
+            });
+            $(".email_addresses", dialog.data).click(function(){this.select();})
+          }
+      });
       e.preventDefault();
     });
-    $("##{modal_id} .show_email_list_with_names").click(function(e) {
-      $("##{modal_id} .email_addresses").val("#{string_with_names}");
-      e.preventDefault();
-    });
-    e.preventDefault();
   });
-
