@@ -18,6 +18,11 @@ gem 'jquery-rails'
 gem 'jquery-ui-rails'
 gem 'will_paginate'
 
+# elasticsearch
+gem 'elasticsearch', git: 'git@github.com:elasticsearch/elasticsearch-ruby.git'
+gem 'elasticsearch-rails', git: 'git://github.com/elasticsearch/elasticsearch-rails.git'
+gem 'elasticsearch-model', git: 'git://github.com/elasticsearch/elasticsearch-rails.git'
+
 # group :production do
   # gem 'newrelic_rpm'
   # gem 'party_foul'   
