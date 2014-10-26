@@ -15,7 +15,6 @@
 
 require 'acl_patch'
 class Datacolumn < ActiveRecord::Base
-  include PgSearch
   acts_as_authorization_object :subject_class_name => 'User', join_table_name: 'roles_users'
   include AclPatch
 
@@ -32,19 +31,6 @@ class Datacolumn < ActiveRecord::Base
 
   validates_presence_of :dataset_id, :columnheader, :columnnr, :definition
   validates_uniqueness_of :columnheader, :columnnr, :scope => :dataset_id, :case_sensitive => false
-
-  pg_search_scope :search, against: {
-    columnheader: 'A',
-    definition: 'B'
-  }, associated_against: {
-    tags: {name: 'A'},
-    datagroup: {title: 'A', description: 'B'}
-  }, using: {
-    tsearch: {
-      dictionary: "english",
-      prefix: true
-    }
-  }
 
   before_validation :fill_missing_definition
   def fill_missing_definition

@@ -59,12 +59,4 @@ class PagesController < ApplicationController
                          .order("#{params[:sort]} #{params[:direction]}")
                          .paginate(page: params[:page], per_page: 25)
   end
-
-  def search
-    if params[:q].blank?
-      flash.now[:error] = "You should specify a search term."
-    else
-      @datasets = Dataset.search(params[:q]) | Datacolumn.includes(:dataset).search(params[:q]).uniq_by(&:dataset_id).map(&:dataset)
-    end
-  end
 end

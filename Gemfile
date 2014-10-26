@@ -13,7 +13,6 @@ gem 'delayed_job_active_record'
 gem 'daemons'
 gem 'whenever', :require => false
 gem 'activerecord-import'
-gem 'pg_search'
 gem 'jquery-rails'
 gem 'jquery-ui-rails'
 gem 'will_paginate'

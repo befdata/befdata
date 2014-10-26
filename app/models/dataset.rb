@@ -25,7 +25,6 @@
 #   that it must have a Datagroup and a Datatype.
 require 'acl_patch'
 class Dataset < ActiveRecord::Base
-  include PgSearch
   acts_as_authorization_object :subject_class_name => 'User', join_table_name: 'roles_users'
   include AclPatch
 
@@ -72,23 +71,6 @@ class Dataset < ActiveRecord::Base
 
   before_destroy :check_for_paperproposals
   before_save :set_include_license, :check_author
-  pg_search_scope :search, against: {
-    title: 'A',
-    abstract: 'B',
-    design: 'C',
-    spatialextent: 'C',
-    temporalextent: 'C',
-    taxonomicextent: 'C',
-    circumstances: 'C',
-    dataanalysis: 'C',
-  }, associated_against: {
-    tags: {name: 'A'}
-  },using: {
-    tsearch: {
-      dictionary: "english",
-      prefix: true
-    }
-  }
 
   def load_projects_and_authors_from_current_datafile
     return unless current_datafile
