@@ -129,9 +129,6 @@ GEM
       cocaine (~> 0.5.3)
       mime-types
     pg (0.14.1)
-    pg_search (0.5.7)
-      activerecord (>= 3)
-      activesupport (>= 3)
     polyglot (0.3.5)
     pry (0.9.11.2)
       coderay (~> 1.0.5)
@@ -234,7 +231,6 @@ DEPENDENCIES
   libxml-ruby
   paperclip (~> 3.5.4)
   pg
-  pg_search
   rails (= 3.2.19)
   rb-inotify
   ruby_parser (>= 3.1.2)

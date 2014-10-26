@@ -19,7 +19,6 @@ Befchina::Application.routes.draw do
   match 'imprint' => 'pages#imprint', :as => :imprint
   get 'help' => redirect('https://github.com/befdata/befdata/wiki'), :as => :help
   match 'data' => 'pages#data', :as => :data
-  match 'search' => 'pages#search'
 
   # resources :datasets, :except => [:index] do
   resources :datasets do
