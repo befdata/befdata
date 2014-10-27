@@ -339,37 +339,16 @@ ul#downloaders {
 }
 
 #dataset_edit_submit_modal {
-  position: relative;
-  height:  375px;
-  .form-annotate {
-    width: 400px;
-    float: left;
-    padding-right: 10px;
-    margin-right: 10px;
-    textarea {
-      height: 300px;
-      width: 380px;
-      outline-color: #8A8A8A;
-      resize: none;
-    }
+  textarea {
+    height: 200px;
+    width: 586px;
+    resize: none;
   }
-  .form-notify {
-    position: absolute;
-    bottom: 23px;
-    left: 405px;
-    label {
-      position: relative;
-      top: -3px;
-    }
-    input[type=submit] {
-      margin-top: 15px;
-    }
+  h4{
+    text-transform: none;
+    margin:0px;
   }
-  .close_hint {
-    clear: both;
-    margin-top: 10px;
-    color: #8A8A8A;
-  }
+
 }
 .dataset-create-option {
   border-top: solid 1px #ddd;

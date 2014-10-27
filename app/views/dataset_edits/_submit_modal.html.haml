@@ -4,26 +4,24 @@
 %span.save
   %a{:href => '#', :id => 'dataset_edit_submit_link'} submit+notify
 
-.hidden{:class => 'hidden', :id => 'dataset_edit_submit_modal'}
+.hidden{:class => 'simple-modal', :id => 'dataset_edit_submit_modal'}
   .form-whole
     = form_for dataset_edit, :url => submit_dataset_dataset_edit_path(@dataset,dataset_edit), :method => :post do |f|
-      .form-annotate
-        %h3 Annotate changes
-        = f.text_area :description
+      .form-annotate.modal-head
+        %h3 Notify Users of the Changes
+      %h4 Annotate changes
+      = f.text_area :description
 
-      .form-notify
-        %h3 Notify connected users
-        %p
+      %h4 Notify connected users
+      %div
+        = label_tag 'notify[downloaders]' do
           = check_box_tag('notify[downloaders]', true)
-          = label_tag 'notify[downloaders]' do
-            = "Downloaders (#{@dataset.downloaders.count})"
-        %p
+          = "Downloaders (#{@dataset.downloaders.count})"
+        = label_tag 'notify[proposers]' do
           = check_box_tag('notify[proposers]', true)
-          = label_tag 'notify[proposers]' do
-            = "Paperproposal authors (#{@dataset.proposers.count})"
+          = "Paperproposal authors (#{@dataset.proposers.count})"
+      .modal-footer
         = f.submit 'Submit and notify'
-  %p.close_hint
-    Click somewhere outside or press ESC to cancel
 
 :javascript
   $('#dataset_edit_submit_link').click(function(e) {

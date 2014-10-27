@@ -43,10 +43,10 @@
           = f.label :include_license do
             Include a copy of
             = link_to 'Open Data Acess License', '#', id: 'show-license', title: 'Click to read the sample license'
-        %div#sample-license.hidden
-          %h3 Open Data Access User License
+        %div#sample-license.simple-modal
+          .modal-head
+            %h3 Open Data Access User License
           = render :partial => 'sample_license', :locals =>  {:f => @dataset}
-          = link_to 'Close', '#', class: 'button simplemodal-close', style: 'margin-left: 1px;'
   .form-group
     = f.label :usagerights, 'Addtional notes on usage rights', class: 'control-label'
     .control-group
@@ -135,7 +135,8 @@
         {
           overlayClose:true,
           persist:true,
-          minHeight: 300
+          minHeight: 300,
+          maxWidth: 622
         }
       );
       e.preventDefault();

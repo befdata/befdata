@@ -798,18 +798,19 @@ div#actions ~ div#info{
       right:12px;
       top:14px;
       cursor:pointer;
+      z-index:100;
     }
 }
 .simple-modal {
   display:none; 
   &.simplemodal-data{
-    font-size: 0.9em;
+    font-size:12px;
     padding:12px;
     -webkit-border-radius: 4px;
     -moz-border-radius: 4px;
     border-radius: 4px;
     .modal-head {
-      margin:-12px -12px 0px -12px;
+      margin:-12px -12px 12px -12px;
       padding:10px 12px;
       background-color:#fefefe;
       border-bottom:1px solid #ddd;
@@ -820,6 +821,12 @@ div#actions ~ div#info{
       -moz-border-top-left-radius: 4px;
       border-top-left-radius: 4px;
       h3 {color:#333; margin:0px;}
+    }
+    .modal-footer{
+      margin:12px -12px 0px -12px;
+      padding:10px 12px 0px;
+      border-top:1px solid #ddd;
+      button, input[type=submit], input[type=button] {margin:0px;}
     }
   }
 }
@@ -837,10 +844,6 @@ div#actions ~ div#info{
 .email_modal .close_hint {
     color: #8A8A8A;
     margin: 5px 0 0 0;
-}
-
-.show_download_link_modal .menu {
-    // margin: 7px;
 }
 
 .show_download_link_modal .download_urls {
