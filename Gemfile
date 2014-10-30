@@ -34,7 +34,7 @@ group :test, :development do
   gem 'foreman'
   # gem 'ruby-prof'
   gem 'libxml-ruby'
-  gem 'rb-inotify'
+  gem 'rb-inotify', require: false
   gem 'thin'
   # gem 'debugger'
   gem 'better_errors'
