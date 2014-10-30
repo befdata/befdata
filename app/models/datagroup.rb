@@ -45,7 +45,7 @@ class Datagroup < ActiveRecord::Base
     rescue
       errors.add :file, 'can not be read' and return
     end
-    lines.headers.map {|h| h.upcase! } # so that headers can be case-insensitive
+    lines.headers.each {|h| h.upcase! } # so that headers can be case-insensitive
     return unless validate_categories_csv?(lines)
 
     merges = collect_merges(lines)

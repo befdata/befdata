@@ -52,7 +52,7 @@ class Category < ActiveRecord::Base
     rescue
       errors.add :file, 'can not be read' and return false
     end
-    return false if validate_sheetcells_csv?(lines)
+    return false unless validate_sheetcells_csv?(lines)
 
     update_overview = split_sheetcells_category(lines, user)
     unless update_overview.blank?
@@ -101,6 +101,8 @@ private
     unless sheetcells_no_match.empty?
       errors.add :csv, "sheetcell #{sheetcells_no_match} not found in category" and return false
     end
+
+    return true
   end
 
   def split_sheetcells_category(csv_lines, user)
