@@ -782,6 +782,7 @@ div#actions ~ div#info{
 .simplemodal-overlay {background-color: #fff;}
 
 .simplemodal-container {
+    width:624px;
     background-color:#fff;
     border:1px solid #18921E;
     -webkit-border-radius: 4px;
@@ -831,21 +832,7 @@ div#actions ~ div#info{
   }
 }
 
-.email_modal .email_addresses {
-    font-family: courier, monospace;
-    font-size: 1.1em;
-    padding: 5px;
-    width: 586px;
-    height: 100px;
-    overflow: auto;
-    margin-bottom: 7px;
-}
-
-.email_modal .close_hint {
-    color: #8A8A8A;
-    margin: 5px 0 0 0;
-}
-
+.email_modal .email_addresses,
 .show_download_link_modal .download_urls {
     font-family: courier, monospace;
     font-size: 1.1em;
@@ -854,6 +841,12 @@ div#actions ~ div#info{
     height: 100px;
     overflow: auto;
     margin-bottom: 7px;
+    resize:none;
+}
+
+.email_modal .close_hint {
+    color: #8A8A8A;
+    margin: 5px 0 0 0;
 }
 
 .show_download_link_modal {
