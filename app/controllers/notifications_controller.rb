@@ -1,12 +1,10 @@
 class NotificationsController < ApplicationController
-
-  before_filter :load_notification, :except => [:index]
-
   skip_before_filter :deny_access_to_all
-
+  before_filter :load_notification, :except => [:index]
   access_control do
-    actions :index, :mark_as_read, :destroy do
-      allow logged_in
+    allow logged_in, to: :index
+    actions :mark_as_read, :destroy do
+      allow logged_in, :if => :notification_belongs_user?
     end
   end
 
@@ -30,8 +28,10 @@ class NotificationsController < ApplicationController
 private
 
   def load_notification
-    @notification = current_user.notifications.where(:id => params[:id]).first
-    redirect_to :back and return unless @notification
+    @notification = Notification.find params[:id]
   end
 
+  def notification_belongs_user?
+    defined?(current_user) && defined?(@notification) && current_user == @notification.user
+  end
 end

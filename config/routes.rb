@@ -10,10 +10,10 @@ Befchina::Application.routes.draw do
     member do
       get :votes, :votes_history
       post :update_credentials
-      resources :notifications, :only => [:index, :destroy] do
-        get :mark_as_read, :on => :member
-      end
     end
+  end
+  resources :notifications, :only => [:index, :destroy] do
+    get :mark_as_read, :on => :member
   end
 
   match 'imprint' => 'pages#imprint', :as => :imprint
