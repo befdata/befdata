@@ -31,10 +31,14 @@
         #login
           = render :partial => 'user_sessions/login'
       #content
-        - flash.keys.each do |type|
-          .alert{class: "alert-#{type}"}
-            = flash[type]
-            = link_to  "", "#", class: "remove_parent"
+        - if flash[:notice]
+          .alert.alert-notice
+            = flash[:notice]
+            = link_to "", "#", class: "remove_parent"
+        - if flash[:error]
+          .alert.alert-error
+            = flash[:error]
+            = link_to "", "#", class: "remove_parent"
 
         - sidebar_exists = content_for?(:actions) || content_for?(:info)
         #main{:class => sidebar_exists ? "span-8 append-1" : "span-12"}

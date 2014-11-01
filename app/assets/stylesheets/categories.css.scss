@@ -19,3 +19,11 @@
     margin-top: -5px;
   }
 }
+table#sheetcell-change-list {
+  margin-bottom:1em;
+   tfoot td {
+    border-bottom:0;
+    color:#333;
+    font-style: italic;
+  }
+}

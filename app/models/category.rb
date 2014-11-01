@@ -107,23 +107,25 @@ private
 
   def split_sheetcells_category(csv_lines, user)
     pairs = csv_lines.reject{|l| l[4].blank?}.collect {|l| [l[0].to_i, l[4]]}
-    updates_overview = Array.new
+
+    updates_overview = {total: pairs.length, not_modified: 0, reassigned: 0 ,created: 0}
     altered_cats = Array.new
+
     pairs.each do |p|
       existing_cat = Category.where(datagroup_id: self.datagroup_id, short: p[1]).first
       if existing_cat
         if existing_cat == self
-          updates_overview << [p[0], 'already', nil, nil]
+          updates_overview[:not_modified] += 1
         else
           Sheetcell.find(p[0]).update_attributes(category: existing_cat)
           altered_cats << existing_cat
-          updates_overview << [p[0], 'added', existing_cat.id, existing_cat.short]
+          updates_overview[:reassigned] += 1
         end
       else
         new_category = Category.create(short: p[1], datagroup: self.datagroup)
         Sheetcell.find(p[0]).update_attributes(category: new_category)
         altered_cats << new_category
-        updates_overview << [p[0], 'new', new_category.id, new_category.short]
+        updates_overview[:created] += 0
       end
     end
 

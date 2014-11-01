@@ -82,14 +82,14 @@ class CategoriesController < ApplicationController
     end
     f = params[:csvfile][:file].path
 
-    @changes = @category.update_sheetcells_with_csv(f, current_user)
+    changes = @category.update_sheetcells_with_csv(f, current_user)
 
     unless @category.errors.empty?
       flash[:error] = @category.errors.full_messages.to_sentence
       redirect_to :back and return
     else
-      flash[:notice] = "Sheetcells successfully updated"
-      flash[:updates] = @changes
+      flash[:notice] = "Sheetcells successfully updated. See change list below."
+      flash[:updates] = changes
       redirect_to category_path @category
     end
   end

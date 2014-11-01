@@ -1,15 +1,15 @@
 - page_title "Update sheetcells of #{@category.short}"
 
 - content_for :actions do
-  = link_to datagroups_path do
-    = image_tag "list-ordered.png"
-    List Datagroups
+  = link_to category_path(@category) do
+    = image_tag "back.png"
+    Back to category page
 
 %h2
   Update sheetcells of
   = link_to @category.short, @category
 
-%h3 Upload CSV with altered sheetcells categoy
+%h3 Batch re-assign sheetcells to other categories via CSV file
 
 = form_for :csvfile, :url => {:controller => :categories, :action => :update_sheetcells, :id => @category.id},
 :html => {:multipart => true} do |f|
