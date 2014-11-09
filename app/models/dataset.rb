@@ -24,9 +24,11 @@
 #   without reviewing each column individually. The Datacolumn must be correctly described, in
 #   that it must have a Datagroup and a Datatype.
 require 'acl_patch'
+require 'elasticsearch/model'
 class Dataset < ActiveRecord::Base
   acts_as_authorization_object :subject_class_name => 'User', join_table_name: 'roles_users'
   include AclPatch
+  include Elasticsearch::Model
 
   attr_writer :owner_ids
   acts_as_taggable
@@ -71,6 +73,65 @@ class Dataset < ActiveRecord::Base
 
   before_destroy :check_for_paperproposals
   before_save :set_include_license, :check_author
+
+  index_name [Rails.application.class.parent_name.underscore, File.basename(Rails.root), Rails.env].join('_')
+
+  settings number_of_shards: 1 do
+    mapping dynamic: false do
+      indexes :title,              type: :string, analyzer: 'english', boost: 10
+      indexes :abstract,           type: :string, analyzer: 'english'
+      indexes :design,             type: :string, analyzer: 'english'
+      indexes :spatialextent,      type: :string, analyzer: 'english'
+      indexes :temporalextent,     type: :string, analyzer: 'english'
+      indexes :taxonomicextent,    type: :string, analyzer: 'english'
+      indexes :circumstances,      type: :string, analyzer: 'english'
+      indexes :dataanalysis,       type: :string, analyzer: 'english'
+
+      indexes :access_code,        type: :integer, include_in_all: false
+
+      indexes :datacolumns do
+        indexes :column_header,    type: :string, analyzer: 'english', boost: 4
+        indexes :definition,       type: :string, analyzer: 'english'
+        indexes :informationsource,       type: :string, analyzer: 'english'
+        indexes :instrumentation,       type: :string, analyzer: 'english'
+        indexes :datagroup do
+          indexes :title,          type: :string, analyzer: 'english'
+          indexes :description,    type: :string, analyzer: 'english'
+        end
+      end
+
+      indexes :has_freeformats,    type: :boolean, include_in_all: false
+      indexes :has_datafiles,      type: :boolean, include_in_all: false
+
+      indexes :tags,               type: :string, analyzer: 'keyword', boost: 2
+    end
+  end
+
+  def self.index(*args) # elasticsearch's import method collides with activerecord-import'
+    self.__elasticsearch__.import(*args)
+  end
+
+  def as_indexed_json(options={})
+    hash = self.as_json(
+      only: [:title, :abstract, :design, :spatialextent, :temporalextent, :taxonomicextent, :circumstances, :dataanalysis, :access_code],
+      include: {
+        datacolumns: {
+          only: [:columnheader, :definition, :informationsource, :instrumentation],
+          include: {
+            datagroup: {
+              only: [:title, :description]
+            }
+          }
+        }
+      }
+    )
+
+    hash['tags'] = self.all_tags.pluck(:name)
+    hash['has_freeformats'] = self.freeformats_count > 0
+    hash['has_datafiles'] = self.datafiles_count > 0
+    hash
+  end
+
 
   def load_projects_and_authors_from_current_datafile
     return unless current_datafile

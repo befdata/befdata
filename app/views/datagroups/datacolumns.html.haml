@@ -52,7 +52,7 @@
         $(".column-item form").submit(function(){
           $(this).closest(".column-item").find("#loader").show();
         });
-        $(".column-item form").on('ajax:success', function(evernt, data){
+        $(".column-item form").on('ajax:success', function(event, data){
           var info = $(this).closest(".column-item").find(".info");
           if(data.error){
             info.prev("#loader").toggle();
