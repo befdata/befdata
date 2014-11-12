@@ -5,12 +5,12 @@
 %p
   - unless @datacolumn.datagroup_approved?
     The datagroup
-    %strong= @datacolumn.datagroup.title
+    %strong= @datacolumn.datagroup_title
     has not been approved. Please approve the uploaded data group or select one from the available data groups and click on
     %i Save.
   - else
     The datagroup has already been approved as
-    %strong #{@datacolumn.datagroup.title}.
+    %strong #{@datacolumn.datagroup_title}.
     You can change the data group by selecting one from the list or by creating a new one.
 
 #accordion
@@ -33,10 +33,10 @@
   = form_tag create_and_update_datagroup_datacolumn_path(@datacolumn), {class: 'new_datagroup'} do
     %dl
       %dt= label_tag 'new_datagroup[title]', 'Title'
-      %dd= text_field_tag 'new_datagroup[title]', @datacolumn.datagroup.title
+      %dd= text_field_tag 'new_datagroup[title]', @datacolumn.datagroup_title
     %dl
       %dt= label_tag 'new_datagroup[description]', 'Description'
-      %dd= text_area_tag 'new_datagroup[description]', @datacolumn.datagroup.description
+      %dd= text_area_tag 'new_datagroup[description]', @datacolumn.datagroup_description
     = submit_tag "Create and assign a new data group"
 
   - unless @data_groups_available.blank?

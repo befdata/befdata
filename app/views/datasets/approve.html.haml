@@ -18,7 +18,7 @@
           = c.approval_stage.to_s
         %td= link_to c.columnheader, approval_overview_datacolumn_url(c)
         %td{:class => !c.datagroup_approved? ? 'unapproved' : ''}
-          = c.datagroup.title
+          = c.datagroup_title
         %td{:class => !c.datatype_approved? ? 'unapproved' : ''}
           = c.import_data_type
         - if !@predefined_columns.blank? || flash[:non_auto_approved]

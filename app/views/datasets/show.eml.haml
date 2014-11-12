@@ -102,9 +102,9 @@
       %attributeList
         - @datacolumns.each do |column|
           %attribute{:id => column.columnheader}
-            %attributeName= "#{column.datagroup.title} (#{column.columnheader}), #{column.unit ||= 'dimensionless'}"
+            %attributeName= "#{column.datagroup_title} (#{column.columnheader}), #{column.unit ||= 'dimensionless'}"
             %attributeLabel= column.columnheader
-            %attributeDefinition= "#{column.datagroup.description} (#{column.columnheader}: #{column.definition})"
+            %attributeDefinition= "#{column.datagroup_description} (#{column.columnheader}: #{column.definition})"
             %measurementScale
               - case column.import_data_type
               - when 'number'
@@ -120,29 +120,29 @@
                 %nominal
                   %nonNumericDomain
                     %textDomain
-                      %definition= column.datagroup.description
+                      %definition= column.datagroup_description
             %methods
               %methodStep
                 %description
-                  = content_tag_unless_blank :para, column.datagroup.title
-                  = content_tag_unless_blank :para, column.datagroup.description
+                  = content_tag_unless_blank :para, column.datagroup_title
+                  = content_tag_unless_blank :para, column.datagroup_description
                   = content_tag_unless_blank :para, column.definition
                 = content_tag_unless_blank :instrumentation, column.instrumentation
           - if params[:separate_category_columns].to_s.downcase.eql?("true")  && column.split_me?
             %attribute{:id => "#{column.columnheader}_Categories"}
-              %attributeName= "#{column.datagroup.title} (#{column.columnheader}_Categories)"
+              %attributeName= "#{column.datagroup_title} (#{column.columnheader}_Categories)"
               %attributeLabel= "#{column.columnheader}_Categories"
-              %attributeDefinition= "#{column.datagroup.description} (#{column.columnheader}_Categories: #{column.definition})"
+              %attributeDefinition= "#{column.datagroup_description} (#{column.columnheader}_Categories: #{column.definition})"
               %measurementScale
                 %nominal
                   %nonNumericDomain
                     %textDomain
-                      %definition= column.datagroup.description
+                      %definition= column.datagroup_description
               %methods
                 %methodStep
                   %description
-                    = content_tag_unless_blank :para, column.datagroup.title
-                    = content_tag_unless_blank :para, column.datagroup.description
+                    = content_tag_unless_blank :para, column.datagroup_title
+                    = content_tag_unless_blank :para, column.datagroup_description
                     = content_tag_unless_blank :para, column.definition
                   = content_tag_unless_blank :instrumentation, column.instrumentation
       %caseSensitive yes

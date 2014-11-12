@@ -35,7 +35,7 @@
             %p.datagroup-description.clear-value
               clear
             %p.datagroup-description.reset-old-datagroup-value{:class => !c.datagroup_approved? ? 'unapproved' : ''}
-              = c.datagroup.title
+              = c.datagroup_title
 
           %td.datatype-cell
             = select_tag "datacolumn[][import_data_type]", options_from_collection_for_select(@datatypes,"name","name",

@@ -35,8 +35,8 @@ xml.dataset(:id => @dataset.id, :version => 1) {
           xml.instrumentation dc.instrumentation
           xml.reference dc.informationsource
           xml.datagroup(id: dc.datagroup_id) {
-            xml.title dc.datagroup.title
-            xml.description dc.datagroup.description
+            xml.title dc.datagroup_title
+            xml.description dc.datagroup_description
           }
           xml.keywordSet {
             dc.tags.each do |t|
@@ -54,8 +54,8 @@ xml.dataset(:id => @dataset.id, :version => 1) {
             xml.instrumentation dc.instrumentation
             xml.reference dc.informationsource
             xml.datagroup(id: dc.datagroup_id) {
-              xml.title dc.datagroup.title
-              xml.description dc.datagroup.description
+              xml.title dc.datagroup_title
+              xml.description dc.datagroup_description
             }
             xml.keywordSet {
               dc.tags.each do |t|

@@ -37,6 +37,8 @@ class Datacolumn < ActiveRecord::Base
     self.definition = self.columnheader if self.definition.blank?
   end
 
+  delegate :title, :description, to: :datagroup, prefix: true, allow_nil: true
+
   # Are there data values associated to the measurements of this data column instance?
   def values_stored?
     self.sheetcells.exists?(status_id: [2,3,4])
@@ -49,14 +51,6 @@ class Datacolumn < ActiveRecord::Base
     # To be predefined, a column must belongs to a datagroup
     # Furthermore, the datacolumn approval process must not have already started.
     self.datagroup_id && self.untouched?
-  end
-
-  # override the datagroup method.
-  # when datagroup is not assigned, used NullDatagroup instead.
-  alias fetch_datagroup_via_datagroup_id datagroup
-  private :fetch_datagroup_via_datagroup_id
-  def datagroup
-    fetch_datagroup_via_datagroup_id || NullDatagroup.new
   end
 
   # returns the first 'count' number unique imported values
