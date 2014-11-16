@@ -90,9 +90,10 @@ class Dataset < ActiveRecord::Base
 
   settings index: IndexSettings do
     mapping dynamic: false do
+      indexes :id,                   type: :integer, include_in_all: false
       indexes :title,                type: 'multi_field' do
         indexes :title,              analyzer: 'snowball', boost: 10
-        indexes :simple,             analyzer: 'simple'
+        indexes :raw,             index: 'not_analyzed' # for sorting
       end
 
       # metadata
