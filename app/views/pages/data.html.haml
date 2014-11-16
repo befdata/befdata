@@ -44,13 +44,7 @@
 :javascript
   $(function(){
     $(".js-select-menu").change(function(){
-      var p = {
-        sort: $(this).val().split('-')[0],
-        direction: $(this).val().split('-')[1]
-      }
-      var filterParam = params().filter;
-      if (filterParam) p.filter = filterParam;
-
+      var p = $.extend(params(), {sort: $(this).val()})
       window.location.search = $.param(p);
     });
   })

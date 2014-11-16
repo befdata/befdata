@@ -42,8 +42,28 @@ class PagesController < ApplicationController
   # This method is the dashboard method of our Portal
   # This provide a first look to our metadata and give a hint about our data
   def data
-    validate_sort_params(collection: ['title', 'updated_at', 'id'], default: 'title')
     @tags = DatasetTag.tag_counts
-    @datasets = Dataset.search(params[:q]).paginate(page: params[:page], per_page: 25).records
+    @datasets = Dataset.search(params[:q], search_option_params).paginate(page: params[:page], per_page: 25).records
+  end
+  
+private
+  def search_option_params
+    options = {}
+
+    # sorting
+    if params[:sort]
+      sort = params[:sort].split('-')
+      case sort[0]
+        when 'relevance'
+          # when executing full text search, relevance is the default sorting method,
+          # so it's not neccessary to spefify it.
+          ;
+        when 'title'
+          options[:sort] = {"title.raw" => sort[1]}
+        else
+          options[:sort] = {sort[0] => sort[1]}
+      end
+    end
+    options
   end
 end

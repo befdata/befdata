@@ -144,7 +144,7 @@ class Dataset < ActiveRecord::Base
 
   def as_indexed_json(options={})
     hash = self.as_json(
-      only: [:title, :abstract, :design, :spatialextent, :temporalextent, :taxonomicextent, :circumstances, :dataanalysis, :access_code, :updated_at],
+      only: [:id, :title, :abstract, :design, :spatialextent, :temporalextent, :taxonomicextent, :circumstances, :dataanalysis, :access_code, :updated_at],
       include: {
         datacolumns: {
           only: [:columnheader, :definition, :informationsource, :instrumentation],
@@ -168,13 +168,15 @@ class Dataset < ActiveRecord::Base
       query: {}
     }
 
-    if q.blank?
-      search_definition[:query] = {match_all: {}}
+    if q.present?
+      search_definition[:query] = { query_string: { query: q.strip, default_operator: 'AND', analyzer: 'snowball' } }
     else
-      search_definition[:query] = {
-        query_string: {query: q.strip, default_operator: 'AND', analyzer: 'snowball'}
-      }
+      search_definition[:query] = {match_all: {}}
+      search_definition[:sort] = {"title.raw" => "asc"}
     end
+
+    # sorting
+    search_definition[:sort] = options[:sort] if options[:sort].present?
 
     self.__elasticsearch__.search search_definition
   end

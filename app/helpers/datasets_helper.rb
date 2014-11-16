@@ -26,10 +26,12 @@ module DatasetsHelper
   end
 
   def dropdown_list_to_sort_datasets
-    options_for_select(
-      { "Title" => 'title-asc',
-        "Newest" => 'id-desc',
-        "Recently Updated" => 'updated_at-desc'
-      }, selected: "#{params[:sort]}-#{params[:direction]}")
+    all_options =  [["Title", "title-asc"], ["Newest", "id-desc"], ["Recently Updated", "updated_at-desc"]]
+
+    if params[:q].present?
+      all_options.unshift ['Relevance', 'relevance']
+    end
+
+    options_for_select(all_options, selected: params[:sort])
   end
 end
