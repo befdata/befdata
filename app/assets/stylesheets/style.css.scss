@@ -342,10 +342,10 @@ table.tablesorter .headerSortDown {
 }
 
 /* --- Forms -------------------------------------------------- */
-@mixin round-border(){
-  -webkit-border-radius: 3px;
-  -moz-border-radius: 3px;
-  border-radius: 3px;
+@mixin round-border($radius){
+  -webkit-border-radius: $radius;
+  -moz-border-radius: $radius;
+  border-radius: $radius;
   -webkit-box-shadow: 0 1px 0 rgba(255,255,255,0.6) inset;
   -moz-box-shadow: 0 1px 0 rgba(255,255,255,0.6) inset;
   box-shadow: 0 1px 0 rgba(255,255,255,0.6) inset;
@@ -365,7 +365,7 @@ textarea{
   border: 1px solid $input-border-color;
   outline: none;
   vertical-align: middle;
-  @include round-border();
+  @include round-border(3px);
   &:focus{
     border: 1px solid $input-focus-border-color;
     outline:none;
@@ -410,7 +410,7 @@ select {
   font-size:13px;
   line-height:18px;
   padding:0px 3px;
-  @include round-border();
+  @include round-border(3px);
   &:focus {
     border: 1px solid $input-focus-border-color;
     outline: none;
@@ -439,7 +439,7 @@ a.button, span.button {
   vertical-align: middle;
   overflow:visible;
   cursor:pointer;
-  @include round-border();
+  @include round-border(3px);
   &:hover, &:focus, &:active {
     border: solid 1px #18921e;
     background-color: #eee;

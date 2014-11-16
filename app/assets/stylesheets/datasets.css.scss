@@ -407,35 +407,45 @@ ul#downloaders {
   input[type=radio] {float:left;margin-left: -25px;margin-top:5px;}
 }
 
-
-#filters {
-  border:1px solid #4aa94e;
-  margin-bottom:1em;
-  padding:0px 5px;
-  ul.nav {
-    margin:0;
-    padding:0;
-    & > li {
-      float:left;
-      margin:0;
-      &:hover {
-        .js-modal-container {display:block;}
-      }
+#search-form {
+  .search-input-group{
+    position:relative;
+    input.search-input{
+      width:100%;
+      margin:0px;
+      padding:8px;
+      padding-right:40px;
+      font-size:15px;
+      line-height: 20px;
+      height:38px;
+      color: #333;
+      -webkit-border-radius: 8px;
+      -moz-border-radius: 8px;
+      border-radius: 8px;
+    }
+    .submit-img {
+      position:absolute;
+      right:8px;
+      top:50%;
+      margin-top:-13px;
+      height:26px;
+      width:26px;
     }
   }
-  #sorting-select-menu {
-    float:right;
-    line-height:13px;
-    span{margin:10px 5px 10px 0px;float:left;}
-    select {margin:3px 0px;float:left;}
+}
+
+#applied-filters {
+  border:5px solid #eee;
+  padding:5px;
+  margin:10px 0px;
+  -webkit-border-radius: 2px;
+  -moz-border-radius: 2px;
+  border-radius: 2px;
+  #sorting {
+    vertical-align: middle;
+    .js-select-menu {
+      margin:0;
+      vertical-align: baseline;
+    }
   }
-  .private, .free-within-projects, .free-for-members,.free-for-public, .files-w, .files-a, .files-aw, .files-n {
-    background-position:2px center;
-    background-repeat: no-repeat;
-  }
-  .private { background-image: image-url('lock-closed.png') }
-  .free-for-public {background-image: image-url('lock-open.png')}
-  .free-within-projects {background-image:image-url('manman.png');}
-  .free-for-members {background-image:image-url('user.png')}
-  .files-w{background-image: image-url('calendar.png')}
 }

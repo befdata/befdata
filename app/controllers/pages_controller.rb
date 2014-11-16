@@ -42,21 +42,8 @@ class PagesController < ApplicationController
   # This method is the dashboard method of our Portal
   # This provide a first look to our metadata and give a hint about our data
   def data
-    validate_sort_params(collection: ['title', 'last_update', 'id'], default: 'title')
+    validate_sort_params(collection: ['title', 'updated_at', 'id'], default: 'title')
     @tags = DatasetTag.tag_counts
-
-    @datasets = Dataset.scoped
-    @filter_params = BefParam.new(params[:filter], :checkbox => :access_code, :radio => :f)
-
-    @datasets = @datasets.where(access_code: @filter_params[:access_code]) if @filter_params.has_param? :access_code
-
-    @datasets = @datasets.where(['datafiles_count > 0']) if @filter_params.has_param?(:f, 'w')
-    @datasets = @datasets.where(['freeformats_count > 0']) if @filter_params.has_param?(:f, 'a')
-    @datasets = @datasets.where(['freeformats_count = 0 and datafiles_count = 0']) if @filter_params.has_param?(:f, 'n')
-    @datasets = @datasets.where(['datafiles_count > 0 or freeformats_count > 0']) if @filter_params.has_param?(:f, %w{a w})
-
-    @datasets = @datasets.select("id, title, updated_at as last_update")
-                         .order("#{params[:sort]} #{params[:direction]}")
-                         .paginate(page: params[:page], per_page: 25)
+    @datasets = Dataset.search(params[:q]).paginate(page: params[:page], per_page: 25).records
   end
 end

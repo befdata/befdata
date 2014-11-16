@@ -29,7 +29,7 @@ module DatasetsHelper
     options_for_select(
       { "Title" => 'title-asc',
         "Newest" => 'id-desc',
-        "Recently Updated" => 'last_update-desc'
+        "Recently Updated" => 'updated_at-desc'
       }, selected: "#{params[:sort]}-#{params[:direction]}")
   end
 end

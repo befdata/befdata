@@ -76,34 +76,64 @@ class Dataset < ActiveRecord::Base
 
   index_name [Rails.application.class.parent_name.underscore, File.basename(Rails.root), Rails.env].join('_')
 
-  settings number_of_shards: 1 do
+
+  IndexSettings = {
+    number_of_shards: 1,
+    analysis: {
+      analyzer: {
+        default: {
+          type: 'snowball'
+        }
+      }
+    }
+  }
+
+  settings index: IndexSettings do
     mapping dynamic: false do
-      indexes :title,              type: :string, analyzer: 'english', boost: 10
-      indexes :abstract,           type: :string, analyzer: 'english'
-      indexes :design,             type: :string, analyzer: 'english'
-      indexes :spatialextent,      type: :string, analyzer: 'english'
-      indexes :temporalextent,     type: :string, analyzer: 'english'
-      indexes :taxonomicextent,    type: :string, analyzer: 'english'
-      indexes :circumstances,      type: :string, analyzer: 'english'
-      indexes :dataanalysis,       type: :string, analyzer: 'english'
-
-      indexes :access_code,        type: :integer, include_in_all: false
-
-      indexes :datacolumns do
-        indexes :column_header,    type: :string, analyzer: 'english', boost: 4
-        indexes :definition,       type: :string, analyzer: 'english'
-        indexes :informationsource,       type: :string, analyzer: 'english'
-        indexes :instrumentation,       type: :string, analyzer: 'english'
-        indexes :datagroup do
-          indexes :title,          type: :string, analyzer: 'english'
-          indexes :description,    type: :string, analyzer: 'english'
-        end
+      indexes :title,                type: 'multi_field' do
+        indexes :title,              analyzer: 'snowball', boost: 10
+        indexes :simple,             analyzer: 'simple'
       end
 
-      indexes :has_freeformats,    type: :boolean, include_in_all: false
-      indexes :has_datafiles,      type: :boolean, include_in_all: false
+      # metadata
+      indexes :abstract,             type: :string
+      indexes :design,               type: :string
+      indexes :spatialextent,        type: :string
+      indexes :temporalextent,       type: :string
+      indexes :taxonomicextent,      type: :string
+      indexes :circumstances,        type: :string
+      indexes :dataanalysis,         type: :string
 
-      indexes :tags,               type: :string, analyzer: 'keyword', boost: 2
+      # datacolumn meta
+      indexes :datacolumns, type: 'nested' do
+        indexes :columnheader,       type: :string, boost: 5
+        indexes :definition,         type: :string
+        indexes :informationsource,  type: :string
+        indexes :instrumentation,    type: :string
+        indexes :datagroup_title,    type: :string, boost: 2
+        indexes :datagroup_description, type: :string
+      end
+
+      indexes :owners, type: 'multi_field' do
+        indexes :owners,             analyzer: 'keyword',  boost: 2
+        indexes :tokenized,          analyzer: 'snowball', boost: 2
+      end
+
+      indexes :tags,                 type: 'multi_field' do
+        indexes :tags,               analyzer: 'keyword',  boost: 3
+        indexes :tokenized,          analyzer: 'snowball',  boost: 3
+      end
+
+      indexes :datagroups,           type: :string, analyzer: 'keyword', include_in_all: false
+
+      indexes :projects,             type: :string, analyzer: 'keyword', include_in_all: false
+
+      indexes :access_code,          type: :integer, include_in_all: false
+
+      indexes :has_freeformats,      type: :boolean
+      indexes :has_datafiles,        type: :boolean
+
+      indexes :updated_at,           type: :date, include_in_all: false
     end
   end
 
@@ -113,23 +143,39 @@ class Dataset < ActiveRecord::Base
 
   def as_indexed_json(options={})
     hash = self.as_json(
-      only: [:title, :abstract, :design, :spatialextent, :temporalextent, :taxonomicextent, :circumstances, :dataanalysis, :access_code],
+      only: [:title, :abstract, :design, :spatialextent, :temporalextent, :taxonomicextent, :circumstances, :dataanalysis, :access_code, :updated_at],
       include: {
         datacolumns: {
           only: [:columnheader, :definition, :informationsource, :instrumentation],
-          include: {
-            datagroup: {
-              only: [:title, :description]
-            }
-          }
+          methods: [:datagroup_title, :datagroup_description]
         }
       }
     )
 
+    hash['owners'] = self.owners.map(&:full_name)
     hash['tags'] = self.all_tags.pluck(:name)
+
+    hash['datagroups']      = self.datagroups.pluck(:title)
+    hash['projects']        = self.projects.pluck(:shortname)
     hash['has_freeformats'] = self.freeformats_count > 0
-    hash['has_datafiles'] = self.datafiles_count > 0
+    hash['has_datafiles']   = self.datafiles_count > 0
     hash
+  end
+
+  def self.search(q, options = {})
+    search_definition = {
+      query: {}
+    }
+
+    if q.blank?
+      search_definition[:query] = {match_all: {}}
+    else
+      search_definition[:query] = {
+        query_string: {query: q.strip, default_operator: 'AND', analyzer: 'snowball'}
+      }
+    end
+
+    self.__elasticsearch__.search search_definition
   end
 
 

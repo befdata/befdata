@@ -18,42 +18,18 @@
 
 %h2 Data sets
 
-#filters.clearfix
-  #sorting-select-menu.right
-    %span
-      Sort
-      - if params[:filter].present?
-        #{@datasets.count} of
-      #{Dataset.count} datasets by
-    = select_tag :name, dropdown_list_to_sort_datasets, class: 'js-select-menu'
-  %ul.left.nav
-    %li.dropdown
-      %span.dropdown-toggle Access Rights
-      .js-modal-container
-        .js-modal
-          .modal-header
-            %h4 Access Rights
-          .modal-body
-            %ul.dropdown-menu
-              - Dataset::ACCESS_CODES.stringify_keys.each do |access, value|
-                = content_tag :li, class: @filter_params.has_param?(:access_code, value.to_s) ? 'selected' : nil do
-                  = link_to access.humanize, data_path(params.merge(page: nil, filter: @filter_params.toggle_param(:access_code, value.to_s))), class: access.dasherize
-    %li.dropdown
-      %span.dropdown-toggle Data Files
-      .js-modal-container
-        .js-modal
-          .modal-header
-            %h4 Data Files
-          .modal-body
-            %ul.dropdown-menu
-              = content_tag :li, class: @filter_params.has_param?(:f, 'w') ? 'selected' : nil do
-                = link_to 'With Primary Data', data_path(params.merge(page: nil, filter: @filter_params.toggle_param(:f, 'w'))), class: 'files-w'
-              = content_tag :li, class: @filter_params.has_param?(:f, 'a') ? 'selected' : nil do
-                = link_to 'With Attached Files', data_path(params.merge(page: nil, filter: @filter_params.toggle_param(:f, 'a'))), class: 'files-a'
-              = content_tag :li, class: @filter_params.has_param?(:f, ['w', 'a']) ? 'selected' : nil do
-                = link_to 'With Primary Data or Attached Files', data_path(params.merge(page: nil, filter: @filter_params.toggle_param(:f, ['w', 'a']))), class: 'files-aw'
-              = content_tag :li, class: @filter_params.has_param?(:f, 'n') ? 'selected' : nil do
-                = link_to 'Metadata Only', data_path(params.merge(page: nil, filter: @filter_params.toggle_param(:f, 'n'))), class: 'files-n'
+= form_tag data_path, method: :get, id: 'search-form' do
+  .search-input-group
+    = search_field_tag :q, params[:q], class: 'search-input', placeholder: 'Search', autocomplete: 'off'
+    = image_submit_tag 'search.png', alt: 'Search', title: 'search', class: 'submit-img'
+
+#applied-filters
+  #active-filters
+  #sorting.clearfix
+    .right
+      Sort by
+      = select_tag :name, dropdown_list_to_sort_datasets, class: 'js-select-menu'
+    = page_entries_info @datasets
 
 - if @datasets.empty?
   %i No Datasets Found.
