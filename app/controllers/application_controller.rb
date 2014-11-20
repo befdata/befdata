@@ -88,7 +88,6 @@ private
       redirect_back_or_default root_url
     else
       flash[:error] = 'Access denied. Try to log in first.'
-      session[:return_to] = request.url if request.get?
       redirect_back_or_default root_url
     end
   end
