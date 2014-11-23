@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'rails', "3.2.19"
+gem 'rails', "3.2.21"
 gem 'pg'
 gem 'haml'
 gem 'authlogic'
@@ -24,7 +24,7 @@ gem 'elasticsearch-model'
 
 # group :production do
   # gem 'newrelic_rpm'
-  # gem 'party_foul'   
+  # gem 'party_foul'
 # end
 
 # gem 'rack-mini-profiler', :group => :development
@@ -53,6 +53,6 @@ end
 group :tools do
   gem 'guard'
   gem 'guard-test'
-  gem 'hpricot' 
+  gem 'hpricot'
   gem 'ruby_parser', '>= 3.1.2'
 end
