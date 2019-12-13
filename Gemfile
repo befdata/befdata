@@ -6,7 +6,7 @@ gem 'haml'
 gem 'authlogic'
 gem 'acl9', '~> 0.12.1'
 gem 'dynamic_form'
-gem "paperclip", "~> 3.5.4"
+gem "paperclip", "~> 4.3.7"
 gem "acts-as-taggable-on", "~> 2.4.1"
 gem 'spreadsheet'
 gem 'delayed_job_active_record'
