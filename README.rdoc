@@ -1,4 +1,4 @@
-The portal is now maintained [here](https://github.com/cpfaff/befdata)
+The portal is now maintained here: https://github.com/cpfaff/befdata
 
 == Welcome to BEFdata, Datasharing for Biodiversity - ecological functioning research units.
 
